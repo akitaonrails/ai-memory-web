@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
@@ -179,6 +180,8 @@ const next = withText([
       </div>
     </div>
   </Section>
+
+  <Faq items={faq} />
 
   <NextPages links={next} />
   <CtaBand title={t('ctaBand.title')} text={t('ctaBand.text')} />

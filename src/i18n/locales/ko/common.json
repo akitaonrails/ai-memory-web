@@ -37,29 +37,71 @@
     "github": "GitHub",
     "product": {
       "label": "제품",
-      "how": { "label": "동작 방식", "note": "캡처, 통합, 회상, 인수인계" },
-      "architecture": { "label": "아키텍처", "note": "단일 바이너리, markdown 파일, 파생 인덱스" },
-      "security": { "label": "보안", "note": "무엇을 저장하고, 무엇이 밖으로 나가고, 어떻게 잠그는지" },
-      "research": { "label": "리서치와 설계 근거", "note": "Karpathy의 위키, OKF, 벤치마크" }
+      "how": {
+        "label": "동작 방식",
+        "note": "캡처, 통합, 회상, 인수인계"
+      },
+      "architecture": {
+        "label": "아키텍처",
+        "note": "단일 바이너리, markdown 파일, 파생 인덱스"
+      },
+      "security": {
+        "label": "보안",
+        "note": "무엇을 저장하고, 무엇이 밖으로 나가고, 어떻게 잠그는지"
+      },
+      "research": {
+        "label": "리서치와 설계 근거",
+        "note": "Karpathy의 위키, OKF, 벤치마크"
+      }
     },
     "solutions": {
       "label": "솔루션",
-      "individuals": { "label": "개인 개발자", "note": "에이전트와 컴퓨터를 바꿔도 맥락은 그대로" },
-      "teams": { "label": "팀", "note": "하나의 공유 기억, 더 빠른 온보딩" },
-      "compare": { "label": "다른 도구에서 옮겨 오기", "note": "Mem0, Zep, cognee, OpenViking 등" }
+      "individuals": {
+        "label": "개인 개발자",
+        "note": "에이전트와 컴퓨터를 바꿔도 맥락은 그대로"
+      },
+      "teams": {
+        "label": "팀",
+        "note": "하나의 공유 기억, 더 빠른 온보딩"
+      },
+      "compare": {
+        "label": "다른 도구에서 옮겨 오기",
+        "note": "Mem0, Zep, cognee, OpenViking 등"
+      }
     },
     "integrations": {
       "label": "연동",
-      "agents": { "label": "에이전트와 에디터", "note": "Claude Code, Codex, Cursor, Gemini CLI 외 20종" },
-      "platforms": { "label": "운영체제", "note": "Linux, macOS, Windows" },
-      "providers": { "label": "LLM 및 임베딩 제공자", "note": "선택 사항. 없어도 모든 기능이 동작합니다" }
+      "agents": {
+        "label": "에이전트와 에디터",
+        "note": "Claude Code, Codex, Cursor, Gemini CLI 외 20종"
+      },
+      "platforms": {
+        "label": "운영체제",
+        "note": "Linux, macOS, Windows"
+      },
+      "providers": {
+        "label": "LLM 및 임베딩 제공자",
+        "note": "선택 사항. 없어도 모든 기능이 동작합니다"
+      }
     },
     "developers": {
       "label": "개발자",
-      "install": { "label": "빠른 설치", "note": "혼자라면 명령어 세 줄, 팀이라면 10분" },
-      "advanced": { "label": "고급 설정", "note": "홈랩, TLS, SSO, 에어갭(망분리), 백업" },
-      "contribute": { "label": "기여하기", "note": "이슈, PR, 새 하네스를 어디에 올리는지" },
-      "download": { "label": "다운로드와 변경 이력", "note": "모든 플랫폼용 최신 릴리스" }
+      "install": {
+        "label": "빠른 설치",
+        "note": "혼자라면 명령어 세 줄, 팀이라면 10분"
+      },
+      "advanced": {
+        "label": "고급 설정",
+        "note": "홈랩, TLS, SSO, 에어갭(망분리), 백업"
+      },
+      "contribute": {
+        "label": "기여하기",
+        "note": "이슈, PR, 새 하네스를 어디에 올리는지"
+      },
+      "download": {
+        "label": "다운로드와 변경 이력",
+        "note": "모든 플랫폼용 최신 릴리스"
+      }
     }
   },
   "footer": {
@@ -98,5 +140,8 @@
     "decline": "거부",
     "accept": "동의"
   },
-  "englishOnly": "이 부분은 프로젝트에서 그대로 가져온 내용이라 영어로 표시됩니다."
+  "englishOnly": "이 부분은 프로젝트에서 그대로 가져온 내용이라 영어로 표시됩니다.",
+  "faq": {
+    "title": "자주 묻는 질문"
+  }
 }

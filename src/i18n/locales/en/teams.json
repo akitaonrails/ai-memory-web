@@ -14,9 +14,18 @@
     "lede": "A single binary with a single SQLite file and a folder of markdown. There is no sidecar, no vector database and nothing to keep in sync.",
     "figureAlt": "Diagram: four developer workstations running Claude Code, Codex, Cursor and Gemini CLI all connect to one ai-memory server, which holds one project wiki.",
     "items": [
-      { "title": "What one session learns, every agent can retrieve", "text": "A page written in a project is readable by everyone on the server. One person’s Codex session finds the gotcha a teammate’s Claude Code session hit last week." },
-      { "title": "Visible at the next query", "text": "A teammate’s note shows up in anyone’s next search or next session brief. A session that is already running is not interrupted." },
-      { "title": "Any mix of agents", "text": "Each person keeps the agent they like. Every memory call resolves its project from the session’s directory, so parallel sessions do not cross." }
+      {
+        "title": "What one session learns, every agent can retrieve",
+        "text": "A page written in a project is readable by everyone on the server. One person’s Codex session finds the gotcha a teammate’s Claude Code session hit last week."
+      },
+      {
+        "title": "Visible at the next query",
+        "text": "A teammate’s note shows up in anyone’s next search or next session brief. A session that is already running is not interrupted."
+      },
+      {
+        "title": "Any mix of agents",
+        "text": "Each person keeps the agent they like. Every memory call resolves its project from the session’s directory, so parallel sessions do not cross."
+      }
     ]
   },
   "onboarding": {
@@ -24,9 +33,18 @@
     "lede": "They get a key, point their agent at the server, and ask the project what has been going on.",
     "figureAlt": "Timeline of a new developer’s first day: get an API key, point the agent at the server, ask it to catch me up, then search the wiki.",
     "items": [
-      { "title": "They ask the project", "text": "\"Catch me up\" returns a digest of recent work. \"Have we discussed the retry logic?\" returns the decision page and the sessions behind it." },
-      { "title": "The wiki is a living knowledge base", "text": "Concepts, decisions and gotchas are written as the work happens, in markdown, with git history. Nobody has to remember to update it." },
-      { "title": "It complements your written docs", "text": "Pages are compiled from sessions and shaped for agents to retrieve. Keep your hand-written README and architecture docs, and let the wiki hold the why and the dead ends." }
+      {
+        "title": "They ask the project",
+        "text": "\"Catch me up\" returns a digest of recent work. \"Have we discussed the retry logic?\" returns the decision page and the sessions behind it."
+      },
+      {
+        "title": "The wiki is a living knowledge base",
+        "text": "Concepts, decisions and gotchas are written as the work happens, in markdown, with git history. Nobody has to remember to update it."
+      },
+      {
+        "title": "It complements your written docs",
+        "text": "Pages are compiled from sessions and shaped for agents to retrieve. Keep your hand-written README and architecture docs, and let the wiki hold the why and the dead ends."
+      }
     ],
     "digest": "The digest is prose when the server has an LLM provider and structured data when it has none. With <code>--enable-web</code>, the same wiki is browsable in a read-only web UI."
   },
@@ -56,10 +74,22 @@
     "title": "Accounts, keys and audit, with no paid tier",
     "lede": "The team features are in the same MIT binary as everything else.",
     "items": [
-      { "title": "A named account per person", "text": "Add people with one command. Disable someone and their access stops, while their pages stay." },
-      { "title": "API keys per machine", "text": "Each person can hold several labelled keys, one per laptop or agent. Rotating a key rejects the old one immediately." },
-      { "title": "Attribution on every write", "text": "Each page records its author, and the web UI shows who edited it. Authorship never filters who can read." },
-      { "title": "An audit log of every mutation", "text": "Writes are recorded with the author’s id. Admission webhooks can see the actor and reject an operation." }
+      {
+        "title": "A named account per person",
+        "text": "Add people with one command. Disable someone and their access stops, while their pages stay."
+      },
+      {
+        "title": "API keys per machine",
+        "text": "Each person can hold several labelled keys, one per laptop or agent. Rotating a key rejects the old one immediately."
+      },
+      {
+        "title": "Attribution on every write",
+        "text": "Each page records its author, and the web UI shows who edited it. Authorship never filters who can read."
+      },
+      {
+        "title": "An audit log of every mutation",
+        "text": "Writes are recorded with the author’s id. Admission webhooks can see the actor and reject an operation."
+      }
     ],
     "audit": "No screen or command for browsing the audit log is documented yet, so plan on querying the <code>audit_log</code> table in the SQLite file. The <a class=\"underline font-semibold text-text\" href=\"{href}\">users guide on GitHub</a> covers roles, password login and key rotation.",
     "limits": {
@@ -74,45 +104,41 @@
       "more": "The <a href=\"{security}\">security page</a> has the full model, and <a href=\"{advanced}\">advanced setup</a> has the TLS and proxy recipes."
     }
   },
-  "capacity": {
-    "title": "Measured capacity",
-    "lede": "All writes go through one queue to one writer. The project publishes what that writer can take.",
-    "caption": "Writer throughput by number of concurrent writers",
-    "columns": { "writers": "Concurrent writers", "throughput": "Throughput", "latency": "Mean latency" },
-    "perSecond": "{n}/s",
-    "milliseconds": "{n} ms",
-    "points": [
-      "The ceiling is about 700 writes per second, reached at around 32 writers. The project reads that as several hundred concurrently active agents.",
-      "The queue is bounded at 1024. A burst slows the producers down, and nothing is dropped.",
-      "The numbers were taken on a fast local disk. A network filesystem will be materially lower.",
-      "They measure the store and leave out the HTTP front door.",
-      "Reproduce them with <code>{command}</code>."
-    ]
-  },
   "setup": {
-    "title": "The 10-minute setup, in short",
-    "steps": [
-      { "title": "Start one server", "text": "A homelab box or any LAN host. Anything that listens beyond loopback needs the bearer token.", "codeTitle": "on the server" },
-      { "title": "Add each person and issue a key", "text": "The temporary password and the <code>aim_</code> key are each shown once.", "codeTitle": "as root" },
-      { "title": "Each person points their agents at it", "text": "Swap the client and agent name for whatever they use.", "codeTitle": "on every machine" }
-    ],
-    "tokenComment": "32 bytes / 64 hex chars",
+    "title": "Set it up in 10 minutes",
+    "text": "The install page walks through it: start one server, give each person a key, and point their agents at it.",
     "primary": "See the full team setup",
     "secondary": "TLS, SSO and backups"
   },
   "faq": [
-    { "q": "Can several developers share one ai-memory server?", "a": "Yes. One server holds the wiki and everyone points their agents at it. Pages are shared by everyone on the server. Handoffs stay with the person who created them unless they publish one with shared: true." },
-    { "q": "Does team use need a paid tier?", "a": "No. Per-person accounts, API keys, attribution and the audit log are part of the open source binary." },
-    { "q": "Can I restrict a project or a page to some users?", "a": "No. Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on that server. Run one server per team." },
-    { "q": "How many developers can one server handle?", "a": "The measured write ceiling is about 700 writes per second on a fast local disk, which the project reads as several hundred concurrently active agents. The number measures the store, and network disks will be slower." }
+    {
+      "q": "Can several developers share one ai-memory server?",
+      "a": "Yes. One server holds the wiki and everyone points their agents at it. Pages are shared by everyone on the server. Handoffs stay with the person who created them unless they publish one with shared: true."
+    },
+    {
+      "q": "Does team use need a paid tier?",
+      "a": "No. Per-person accounts, API keys, attribution and the audit log are part of the open source binary."
+    },
+    {
+      "q": "Can I restrict a project or a page to some users?",
+      "a": "No. Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on that server. Run one server per team."
+    },
+    {
+      "q": "How many developers can one server handle?",
+      "a": "The measured write ceiling is about 700 writes per second on a fast local disk, which the project reads as several hundred concurrently active agents. The number measures the store, and network disks will be slower."
+    }
   ],
   "next": {
-    "install": { "title": "Team quick setup", "text": "The server, the accounts and the client wiring, step by step." },
+    "install": {
+      "title": "Team quick setup",
+      "text": "The server, the accounts and the client wiring, step by step."
+    },
     "security": "What is stored, what leaves the machine, and how to lock the server down.",
     "advanced": "Homelab deploys, TLS through a proxy, SSO through a gateway, backups."
   },
   "cta": {
     "title": "Give your team’s agents one memory.",
     "text": "Free and open source. Accounts, keys and the audit log are included."
-  }
+  },
+  "capacityNote": "One server takes about 700 writes per second, which covers several hundred active agents. <a class=\"link\" href=\"{href}\">See how that was measured</a>."
 }

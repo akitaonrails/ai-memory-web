@@ -55,11 +55,26 @@
       "colGist": "No gist",
       "colHere": "No ai-memory",
       "rows": [
-        { "was": "Você entrega ao LLM uma fonte de cada vez", "now": "Os hooks de ciclo de vida capturam todas as sessões sozinhos" },
-        { "was": "O agente lê o index.md primeiro", "now": "Um índice fundido: full-text, entidades, links e vetores" },
-        { "was": "Um LLM faz toda a manutenção", "now": "Resumos baseados em regras por padrão. LLM é opt-in" },
-        { "was": "Uma pessoa, uma wiki", "now": "Handoffs entre agentes, vários usuários, escopo por projeto" },
-        { "was": "As páginas vivem para sempre", "now": "Camadas de memória, decaimento, substituição e TTLs tiram as páginas velhas do caminho" }
+        {
+          "was": "Você entrega ao LLM uma fonte de cada vez",
+          "now": "Os hooks de ciclo de vida capturam todas as sessões sozinhos"
+        },
+        {
+          "was": "O agente lê o index.md primeiro",
+          "now": "Um índice fundido: full-text, entidades, links e vetores"
+        },
+        {
+          "was": "Um LLM faz toda a manutenção",
+          "now": "Resumos baseados em regras por padrão. LLM é opt-in"
+        },
+        {
+          "was": "Uma pessoa, uma wiki",
+          "now": "Handoffs entre agentes, vários usuários, escopo por projeto"
+        },
+        {
+          "was": "As páginas vivem para sempre",
+          "now": "Camadas de memória, decaimento, substituição e TTLs tiram as páginas velhas do caminho"
+        }
       ]
     },
     "origin": "Camadas de memória, decaimento e substituição não estão no gist do Karpathy. Vêm do agentmemory e dos textos sobre a “LLM Wiki v2” em volta dele. <a class=\"underline\" href=\"{href}\">As notas de leitura completas estão no repositório.</a>"
@@ -92,14 +107,38 @@
     "lede": "A maioria delas vem de uma issue específica de alguma ferramenta de memória anterior.",
     "weChose": "Escolhemos",
     "items": [
-      { "chose": "Markdown em git como a verdade", "because": "<strong>porque</strong> fazer backup ou mudar de lugar é um git clone ou um rsync. O banco pode ser reconstruído a partir dos arquivos, então corrupção tem conserto, e qualquer ferramenta que lê markdown consegue ler a sua memória." },
-      { "chose": "Um arquivo SQLite só", "because": "<strong>porque</strong> full-text, vetores compactados e tabelas de links ficam num único arquivo embutido. Os issue trackers de outros projetos mostraram quanto custa, em bugs de corretude, sincronizar três stores." },
-      { "chose": "Zero chamadas a LLM por padrão", "because": "<strong>porque</strong> os resumos de sessão são baseados em regras, então uma instalação nova não gasta nada. A lição veio de features com LLM ligadas por padrão em outras ferramentas, que surpreenderam os usuários com a conta de tokens." },
-      { "chose": "Um binário só", "because": "<strong>porque</strong> o SQLite vai embutido, o libgit2 vai vendorizado e o embedder é Rust puro. Um motor sidecar separado era a maior concentração de dor de usuário no projeto que este aqui sucede." },
-      { "chose": "Nada de banco de grafos", "because": "<strong>porque</strong> o grafo são tabelas SQL: uma tabela de links e consultas recursivas. Isso cobre expansão de um salto e arestas tipadas sem um motor de grafo embutido para manter vivo." },
-      { "chose": "Vetores são opcionais", "because": "<strong>porque</strong> os embeddings locais vêm ligados desde a 2.0 e continuam nunca sendo obrigatórios. A busca é cosseno por força bruta dentro do SQLite; uma extensão vetorial espera até a quantidade de páginas ou a latência pedirem." },
-      { "chose": "Handoff como protocolo tipado, assumido uma vez só", "because": "<strong>porque</strong> toda rodada de pesquisa apontou a transferência entre agentes como o ponto fraco das ferramentas anteriores. Um handoff é um registro tipado, casado por diretório, e só uma sessão consegue assumi-lo." },
-      { "chose": "Páginas em vez de linhas de fatos", "because": "<strong>porque</strong> uma página sobre uma decisão pode ser lida, editada e explicada em prosa. Uma tabela de fatos extraídos não abre no Obsidian nem passa por revisão num diff." }
+      {
+        "chose": "Markdown em git como a verdade",
+        "because": "<strong>porque</strong> fazer backup ou mudar de lugar é um git clone ou um rsync. O banco pode ser reconstruído a partir dos arquivos, então corrupção tem conserto, e qualquer ferramenta que lê markdown consegue ler a sua memória."
+      },
+      {
+        "chose": "Um arquivo SQLite só",
+        "because": "<strong>porque</strong> full-text, vetores compactados e tabelas de links ficam num único arquivo embutido. Os issue trackers de outros projetos mostraram quanto custa, em bugs de corretude, sincronizar três stores."
+      },
+      {
+        "chose": "Zero chamadas a LLM por padrão",
+        "because": "<strong>porque</strong> os resumos de sessão são baseados em regras, então uma instalação nova não gasta nada. A lição veio de features com LLM ligadas por padrão em outras ferramentas, que surpreenderam os usuários com a conta de tokens."
+      },
+      {
+        "chose": "Um binário só",
+        "because": "<strong>porque</strong> o SQLite vai embutido, o libgit2 vai vendorizado e o embedder é Rust puro. Um motor sidecar separado era a maior concentração de dor de usuário no projeto que este aqui sucede."
+      },
+      {
+        "chose": "Nada de banco de grafos",
+        "because": "<strong>porque</strong> o grafo são tabelas SQL: uma tabela de links e consultas recursivas. Isso cobre expansão de um salto e arestas tipadas sem um motor de grafo embutido para manter vivo."
+      },
+      {
+        "chose": "Vetores são opcionais",
+        "because": "<strong>porque</strong> os embeddings locais vêm ligados desde a 2.0 e continuam nunca sendo obrigatórios. A busca é cosseno por força bruta dentro do SQLite; uma extensão vetorial espera até a quantidade de páginas ou a latência pedirem."
+      },
+      {
+        "chose": "Handoff como protocolo tipado, assumido uma vez só",
+        "because": "<strong>porque</strong> toda rodada de pesquisa apontou a transferência entre agentes como o ponto fraco das ferramentas anteriores. Um handoff é um registro tipado, casado por diretório, e só uma sessão consegue assumi-lo."
+      },
+      {
+        "chose": "Páginas em vez de linhas de fatos",
+        "because": "<strong>porque</strong> uma página sobre uma decisão pode ser lida, editada e explicada em prosa. Uma tabela de fatos extraídos não abre no Obsidian nem passa por revisão num diff."
+      }
     ],
     "all": "Leia todas as decisões de design"
   },
@@ -156,16 +195,7 @@
       "codeTitle": "reproduzir o benchmark",
       "full": "Resultados completos, por tipo de pergunta"
     },
-    "throughput": {
-      "title": "Throughput de escrita",
-      "text": "Todas as escritas passam por uma fila até uma thread. O teto fica em torno de 700 escritas por segundo, estável depois de 32 writers, medido num disco local rápido. Volumes de rede vão dar menos.",
-      "colWriters": "Writers concorrentes",
-      "colThroughput": "Throughput",
-      "colLatency": "Latência média",
-      "perSecond": "{n}/s",
-      "ms": "{n} ms",
-      "codeTitle": "reproduzir o teste de throughput"
-    }
+    "throughputNote": "A vazão de escrita também foi medida. <a class=\"link\" href=\"{href}\">Os números estão na página de arquitetura</a>."
   },
   "next": {
     "title": "O que vem a seguir, e onde ele está atrás",
@@ -173,38 +203,64 @@
     "recommended": {
       "title": "Próximos passos recomendados",
       "items": [
-        { "title": "Um segundo harness de avaliação", "text": "Dados de sessões de código, avaliados em acurácia, latência e tokens de contexto juntos. Os itens abaixo dependem dele." },
-        { "title": "Um reranker local", "text": "Um cross-encoder que roda dentro do processo, sem LLM. Ele espera o harness acima para provar que vale a pena." },
-        { "title": "Ranking que usa o que já está gravado", "text": "Contagens de evidência e arestas tipadas já são registradas hoje e ainda não mexem no ranking." },
-        { "title": "Um comando de sync limitado", "text": "Ou uma descrição mais clara do modelo de um servidor só, ou um ai-memory sync construído em cima da wiki em git." },
-        { "title": "Um começo mais fácil para quem usa Claude Code", "text": "Um importador para quem vem da memória embutida do Claude." }
+        {
+          "title": "Um segundo harness de avaliação",
+          "text": "Dados de sessões de código, avaliados em acurácia, latência e tokens de contexto juntos. Os itens abaixo dependem dele."
+        },
+        {
+          "title": "Um reranker local",
+          "text": "Um cross-encoder que roda dentro do processo, sem LLM. Ele espera o harness acima para provar que vale a pena."
+        },
+        {
+          "title": "Ranking que usa o que já está gravado",
+          "text": "Contagens de evidência e arestas tipadas já são registradas hoje e ainda não mexem no ranking."
+        },
+        {
+          "title": "Um comando de sync limitado",
+          "text": "Ou uma descrição mais clara do modelo de um servidor só, ou um ai-memory sync construído em cima da wiki em git."
+        },
+        {
+          "title": "Um começo mais fácil para quem usa Claude Code",
+          "text": "Um importador para quem vem da memória embutida do Claude."
+        }
       ],
       "notPlanned": "Fora dos planos: um banco de grafos, um sistema operacional de memória que se edita sozinho, conectores de nuvem, ou aumentar a quantidade de ferramentas só por aumentar."
     },
     "behind": {
       "title": "Onde ele está atrás hoje",
-      "reranked": "O score bruto de recuperação fica abaixo do das ferramentas que fazem rerank. O agentmemory reporta {score} no mesmo dataset (número deles, não reproduzido aqui).",
-      "items": [
-        "Não existe um reranker local que funcione sem LLM.",
-        "Arestas tipadas e contagens de evidência são gravadas e aparecem na saída do explain, sem peso nenhum no ranking.",
-        "A viagem no tempo com as_of sabe quando o ai-memory aprendeu um fato. Ela não sabe quando o fato passou a ser verdade.",
-        "Um servidor só, que várias máquinas acessam. Não tem replicação automática, plano hospedado nem console corporativo.",
-        "A memória embutida do Claude Code não precisa de nenhuma configuração. Para uma pessoa, numa máquina, com um agente só, é difícil ganhar disso."
-      ]
+      "text": "A pontuação bruta de recuperação fica abaixo das ferramentas que fazem rerank, e alguns recursos são registrados sem ainda influenciar o ranking. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
     }
   },
   "nextPages": [
-    { "title": "Arquitetura", "text": "Como o binário, a wiki e o índice se encaixam." },
-    { "title": "Comparar e migrar", "text": "Ferramenta por ferramenta, incluindo onde as outras ganham." },
-    { "title": "Contribua", "text": "O harness de avaliação é o trabalho mais aguardado." }
+    {
+      "title": "Arquitetura",
+      "text": "Como o binário, a wiki e o índice se encaixam."
+    },
+    {
+      "title": "Comparar e migrar",
+      "text": "Ferramenta por ferramenta, incluindo onde as outras ganham."
+    },
+    {
+      "title": "Contribua",
+      "text": "O harness de avaliação é o trabalho mais aguardado."
+    }
   ],
   "cta": {
     "title": "Leia o raciocínio. Depois teste.",
     "text": "Gratuito e open source. A instalação padrão não faz chamadas a LLM e escuta só na sua máquina."
   },
   "faq": [
-    { "q": "O que é a ideia da LLM Wiki do Karpathy por trás do ai-memory?", "a": "O gist de abril de 2026 do Andrej Karpathy descreve um LLM que constrói e mantém uma wiki persistente de arquivos markdown entre você e as suas fontes brutas, de modo que o conhecimento é compilado uma vez e mantido atualizado. O ai-memory aplica isso a agentes de código, com captura automática pelos hooks de ciclo de vida e um caminho padrão que não faz chamadas a LLM." },
-    { "q": "O ai-memory é compatível com o Open Knowledge Format?", "a": "Desde a 2.0 todo projeto da wiki é nativamente um bundle OKF v0.2. Cada página tem frontmatter YAML com um type, cada projeto tem um index.md gerado, e o ai-memory export-okf empacota um projeto num tarball validado." },
-    { "q": "O que o benchmark LongMemEval-S mede no ai-memory?", "a": "Só recuperação: se uma sessão que contém a evidência aparece entre os primeiros resultados, em 470 perguntas. O hit@5 é {hybrid} com os embeddings locais padrão e {fts} só com full-text. Ele não mede a acurácia das respostas." }
+    {
+      "q": "O que é a ideia da LLM Wiki do Karpathy por trás do ai-memory?",
+      "a": "O gist de abril de 2026 do Andrej Karpathy descreve um LLM que constrói e mantém uma wiki persistente de arquivos markdown entre você e as suas fontes brutas, de modo que o conhecimento é compilado uma vez e mantido atualizado. O ai-memory aplica isso a agentes de código, com captura automática pelos hooks de ciclo de vida e um caminho padrão que não faz chamadas a LLM."
+    },
+    {
+      "q": "O ai-memory é compatível com o Open Knowledge Format?",
+      "a": "Desde a 2.0 todo projeto da wiki é nativamente um bundle OKF v0.2. Cada página tem frontmatter YAML com um type, cada projeto tem um index.md gerado, e o ai-memory export-okf empacota um projeto num tarball validado."
+    },
+    {
+      "q": "O que o benchmark LongMemEval-S mede no ai-memory?",
+      "a": "Só recuperação: se uma sessão que contém a evidência aparece entre os primeiros resultados, em 470 perguntas. O hit@5 é {hybrid} com os embeddings locais padrão e {fts} só com full-text. Ele não mede a acurácia das respostas."
+    }
   ]
 }

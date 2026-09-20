@@ -28,14 +28,40 @@
       "alt": "Quatro topologias de deploy lado a lado: só o laptop, com o servidor dentro dele; uma máquina de homelab à qual dois laptops se conectam; um servidor na LAN com um escudo de TLS na frente; e um servidor acessado por um túnel de saída até a borda de uma nuvem.",
       "caption": "Andar para a direita aumenta o alcance, e cada passo para a direita acrescenta uma exigência. Em nenhuma delas existe replicação entre servidores: várias máquinas acessam um servidor só."
     },
-    "columns": { "topology": "Topologia", "bind": "Bind", "auth": "Autenticação", "tls": "TLS", "runs": "Roda como" },
+    "columns": {
+      "topology": "Topologia",
+      "bind": "Bind",
+      "auth": "Autenticação",
+      "tls": "TLS",
+      "runs": "Roda como"
+    },
     "bindProxy": "<code>{addr}</code> atrás de um proxy",
     "bindNone": "Nenhuma porta no host",
     "items": [
-      { "name": "Só o laptop", "auth": "Não precisa", "tls": "Não", "runs": "unit de usuário do systemd, agente do launchd ou um container" },
-      { "name": "Máquina de homelab", "auth": "Bearer token e allowlist de hosts, os dois obrigatórios", "tls": "Recomendado", "runs": "Docker com healthcheck, ou o serviço de sistema do AUR" },
-      { "name": "LAN com TLS", "auth": "Token root, mais um usuário e uma chave de API por pessoa", "tls": "Sim. O Caddy com a CA interna funciona sem domínio", "runs": "Docker Compose com um sidecar do Caddy" },
-      { "name": "Túnel", "auth": "Igual ao servidor na LAN", "tls": "Sim, na borda da Cloudflare", "runs": "Docker Compose com um sidecar do cloudflared" }
+      {
+        "name": "Só o laptop",
+        "auth": "Não precisa",
+        "tls": "Não",
+        "runs": "unit de usuário do systemd, agente do launchd ou um container"
+      },
+      {
+        "name": "Máquina de homelab",
+        "auth": "Bearer token e allowlist de hosts, os dois obrigatórios",
+        "tls": "Recomendado",
+        "runs": "Docker com healthcheck, ou o serviço de sistema do AUR"
+      },
+      {
+        "name": "LAN com TLS",
+        "auth": "Token root, mais um usuário e uma chave de API por pessoa",
+        "tls": "Sim. O Caddy com a CA interna funciona sem domínio",
+        "runs": "Docker Compose com um sidecar do Caddy"
+      },
+      {
+        "name": "Túnel",
+        "auth": "Igual ao servidor na LAN",
+        "tls": "Sim, na borda da Cloudflare",
+        "runs": "Docker Compose com um sidecar do cloudflared"
+      }
     ],
     "stdio": "Um laptop pode dispensar o HTTP por completo com <code>ai-memory serve --transport stdio</code>. Para homelab, o repositório traz um script <code>bin/deploy</code> com templates de compose e de env. <a class=\"link\" href=\"{href}\">Siga o passo a passo de deploy em homelab</a>.",
     "internet": {
@@ -67,7 +93,12 @@
       "alt": "Dois laptops se conectam por HTTPS a um proxy reverso. O proxy repassa HTTP puro para o ai-memory. O proxy e o ai-memory ficam no mesmo host.",
       "caption": "O certificado fica com o proxy. O ai-memory continua em HTTP puro atrás dele, acessível só pela rede do Docker ou por loopback."
     },
-    "tabs": ["Caddy", "Caddy na LAN", "nginx", "Cloudflare Tunnel"],
+    "tabs": [
+      "Caddy",
+      "Caddy na LAN",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
     "caddy": "Para um domínio público com as portas 80 e 443 acessíveis. O Caddy emite e renova sozinho o certificado da Let’s Encrypt. O arquivo compose completo está no repositório como <code>docker/compose.tls.caddy.yml</code>.",
     "caddyLan": {
       "text": "Sem domínio e sem nada exposto. A CA interna do Caddy assina o certificado, e você instala o certificado raiz dela uma vez em cada máquina cliente. Se pular esse passo, os clientes recusam a conexão ou se acostumam a ignorar os avisos.",
@@ -92,7 +123,12 @@
   "services": {
     "title": "Mantenha o servidor no ar",
     "lede": "O ai-memory não se reinicia sozinho. Quem faz isso é o gerenciador de serviços de cada sistema operacional.",
-    "tabs": ["unit de usuário do systemd", "unit de sistema do systemd", "launchd no macOS", "WinSW no Windows"],
+    "tabs": [
+      "unit de usuário do systemd",
+      "unit de sistema do systemd",
+      "launchd no macOS",
+      "WinSW no Windows"
+    ],
     "user": {
       "text": "Para uma workstation de um usuário só. Os pacotes do AUR instalam a unit. Não precisa de sudo e guarda o estado em <code>~/.local/share/ai-memory</code>. Uma unit de usuário para no logout, a menos que você habilite o lingering.",
       "lingerComment": "continua rodando depois do logout"
@@ -109,17 +145,38 @@
   "data": {
     "title": "O diretório de dados e os backups",
     "lede": "A wiki é a verdade. É markdown puro num repositório git, e o índice de busca é construído a partir dela.",
-    "figure": {
-      "alt": "O diretório de dados dividido em dois. Do lado da fonte da verdade: wiki, uma pilha de páginas markdown versionadas em git, e raw. Do lado derivado: db, models e logs. Uma seta com o rótulo reindex vai de wiki para db.",
-      "caption": "O reindex reconstrói páginas, links e busca full-text a partir da wiki. Ele não traz de volta sessões, observações, handoffs, usuários, chaves, linhas de auditoria nem embeddings, então o banco continua tendo que entrar no seu backup."
+    "columns": {
+      "dir": "Diretório",
+      "holds": "O que guarda",
+      "kind": "Tipo",
+      "backup": "Faz backup?"
     },
-    "columns": { "dir": "Diretório", "holds": "O que guarda", "kind": "Tipo", "backup": "Faz backup?" },
     "dirs": {
-      "wiki": { "holds": "Todas as páginas em markdown, num repositório git só", "kind": "Verdade", "backup": "Sim. Ele entra no tarball de backup, e você também pode usar rsync ou git push" },
-      "raw": { "holds": "Segmentos de transcrição imutáveis e sanitizados das execuções gerenciadas", "kind": "Verdade", "backup": "Sim, se você usa ai-memory run. Copie à parte" },
-      "db": { "holds": "memory.sqlite: índice full-text, entidades, embeddings, sessões, usuários, linhas de auditoria", "kind": "Quase todo derivado", "backup": "Sim. Páginas, links e busca se reconstroem a partir da wiki. Sessões, handoffs, usuários e chaves só existem aqui" },
-      "models": { "holds": "O modelo local de embeddings, cerca de 87 MB", "kind": "Reconstruível", "backup": "Não. Ele é baixado de novo, ou você mesmo coloca os arquivos" },
-      "logs": { "holds": "Saída de trace com rotação", "kind": "Descartável", "backup": "Não" }
+      "wiki": {
+        "holds": "Todas as páginas em markdown, num repositório git só",
+        "kind": "Verdade",
+        "backup": "Sim. Ele entra no tarball de backup, e você também pode usar rsync ou git push"
+      },
+      "raw": {
+        "holds": "Segmentos de transcrição imutáveis e sanitizados das execuções gerenciadas",
+        "kind": "Verdade",
+        "backup": "Sim, se você usa ai-memory run. Copie à parte"
+      },
+      "db": {
+        "holds": "memory.sqlite: índice full-text, entidades, embeddings, sessões, usuários, linhas de auditoria",
+        "kind": "Quase todo derivado",
+        "backup": "Sim. Páginas, links e busca se reconstroem a partir da wiki. Sessões, handoffs, usuários e chaves só existem aqui"
+      },
+      "models": {
+        "holds": "O modelo local de embeddings, cerca de 87 MB",
+        "kind": "Reconstruível",
+        "backup": "Não. Ele é baixado de novo, ou você mesmo coloca os arquivos"
+      },
+      "logs": {
+        "holds": "Saída de trace com rotação",
+        "kind": "Descartável",
+        "backup": "Não"
+      }
     },
     "defaults": "Padrões: <code>~/.local/share/ai-memory</code> no Linux, <code>~/Library/Application Support/ai-memory</code> no macOS, <code>%LOCALAPPDATA%\\ai-memory</code> no Windows, <code>/data</code> no container. Para mudar, use <code>AI_MEMORY_DATA_DIR</code>.",
     "backup": {
@@ -149,7 +206,8 @@
       "title": "Reconstruindo o índice",
       "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code> exige o servidor parado e um banco limpo. Faça um backup, tire do caminho o <code>db/memory.sqlite</code> e os arquivos WAL e SHM dele, rode o comando e, depois de reiniciar, rode <code>ai-memory embed</code> para reconstruir os embeddings."
     },
-    "lifecycle": "Leia sobre as operações de ciclo de vida: purge, renomear, mover, restaurar uma página, reset"
+    "lifecycle": "Leia sobre as operações de ciclo de vida: purge, renomear, mover, restaurar uma página, reset",
+    "reindexNote": "O reindex reconstrói páginas, links e busca full-text a partir da wiki. Ele não traz de volta sessões, observações, handoffs, usuários, chaves, linhas de auditoria nem embeddings, então o banco continua tendo que entrar no seu backup."
   },
   "routing": {
     "title": "Roteamento e identidade",
@@ -158,16 +216,28 @@
       "title": "O arquivo marcador",
       "text": "Por padrão, o projeto é o nome do diretório atual, num workspace chamado <code>default</code>. Para mudar isso, coloque um <code>.ai-memory.toml</code> em qualquer diretório ancestral. Os hooks sobem a partir do diretório de trabalho e usam o primeiro marcador que encontram.",
       "items": [
-        { "title": "Trabalho e pessoal", "text": "Um marcador por diretório pai. Todo repositório abaixo dele cai nesse workspace, com o nome do diretório como projeto." },
-        { "title": "Mono-repo", "text": "Um marcador com project fixa todos os subdiretórios nesse único projeto. O marcador mais próximo vence." },
-        { "title": "Git worktrees", "text": "Worktrees vinculados e subdiretórios resolvem para o repositório principal, mesmo quando o worktree fica fora dele." }
+        {
+          "title": "Trabalho e pessoal",
+          "text": "Um marcador por diretório pai. Todo repositório abaixo dele cai nesse workspace, com o nome do diretório como projeto."
+        },
+        {
+          "title": "Mono-repo",
+          "text": "Um marcador com project fixa todos os subdiretórios nesse único projeto. O marcador mais próximo vence."
+        },
+        {
+          "title": "Git worktrees",
+          "text": "Worktrees vinculados e subdiretórios resolvem para o repositório principal, mesmo quando o worktree fica fora dele."
+        }
       ],
       "capture": "O mesmo arquivo guarda as regras de <code>[capture]</code> com <code>ignore_paths</code>, e <code>ai-memory install-hooks --apply --capture-mode allowlist</code> transforma o marcador em opt-in: um repositório sem ele não emite evento nenhum. Os hooks nativos aplicam as duas coisas. Os hooks de shell do wrapper Docker não. <a class=\"link\" href=\"{href}\">Leia a referência do arquivo marcador</a>."
     },
     "autoScope": {
       "title": "Modos de auto-scope",
       "text": "Uma chamada MCP sem projeto explícito é resolvida por um ponteiro de “projeto atual”. O modo decide quem compartilha esse ponteiro. O servidor loga o modo em uso na inicialização.",
-      "columns": { "mode": "Modo", "when": "Quando usar" },
+      "columns": {
+        "mode": "Modo",
+        "when": "Quando usar"
+      },
       "modes": {
         "per_actor": "O padrão. Isola harnesses em paralelo e pessoas diferentes no mesmo servidor.",
         "per_session": "Para clientes session-aware, que repassam o session id do hook em toda requisição MCP.",
@@ -210,7 +280,11 @@
     "capacity": {
       "title": "Capacidade",
       "text": "Toda escrita passa por um writer só. O projeto mediu onde isso bate no teto, com <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.",
-      "columns": { "writers": "Writers concorrentes", "throughput": "Throughput", "latency": "Latência média" },
+      "columns": {
+        "writers": "Writers concorrentes",
+        "throughput": "Throughput",
+        "latency": "Latência média"
+      },
       "perSecond": "{n}/s",
       "ms": "{n} ms",
       "notes": [

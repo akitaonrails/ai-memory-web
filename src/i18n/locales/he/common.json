@@ -37,29 +37,71 @@
     "github": "GitHub",
     "product": {
       "label": "המוצר",
-      "how": { "label": "איך זה עובד", "note": "לכידה, איחוד, שליפה, העברת מקל" },
-      "architecture": { "label": "ארכיטקטורה", "note": "קובץ בינארי אחד, קובצי markdown, אינדקס נגזר" },
-      "security": { "label": "אבטחה", "note": "מה נשמר, מה יוצא החוצה, ואיך נועלים" },
-      "research": { "label": "מחקר ונימוקים", "note": "הוויקי של Karpathy, OKF והבנצ'מרקים" }
+      "how": {
+        "label": "איך זה עובד",
+        "note": "לכידה, איחוד, שליפה, העברת מקל"
+      },
+      "architecture": {
+        "label": "ארכיטקטורה",
+        "note": "קובץ בינארי אחד, קובצי markdown, אינדקס נגזר"
+      },
+      "security": {
+        "label": "אבטחה",
+        "note": "מה נשמר, מה יוצא החוצה, ואיך נועלים"
+      },
+      "research": {
+        "label": "מחקר ונימוקים",
+        "note": "הוויקי של Karpathy, OKF והבנצ'מרקים"
+      }
     },
     "solutions": {
       "label": "פתרונות",
-      "individuals": { "label": "ליחידים", "note": "מחליפים סוכן ומחשב, ההקשר נשאר" },
-      "teams": { "label": "לצוותים", "note": "זיכרון משותף אחד, קליטה מהירה יותר" },
-      "compare": { "label": "מעבר מכלי אחר", "note": "Mem0, Zep, cognee, OpenViking ואחרים" }
+      "individuals": {
+        "label": "ליחידים",
+        "note": "מחליפים סוכן ומחשב, ההקשר נשאר"
+      },
+      "teams": {
+        "label": "לצוותים",
+        "note": "זיכרון משותף אחד, קליטה מהירה יותר"
+      },
+      "compare": {
+        "label": "מעבר מכלי אחר",
+        "note": "Mem0, Zep, cognee, OpenViking ואחרים"
+      }
     },
     "integrations": {
       "label": "אינטגרציות",
-      "agents": { "label": "סוכנים ועורכים", "note": "Claude Code, Codex, Cursor, Gemini CLI ועוד 20" },
-      "platforms": { "label": "מערכות הפעלה", "note": "Linux, macOS, Windows" },
-      "providers": { "label": "ספקי LLM ו-embeddings", "note": "אופציונלי. הכול עובד גם בלי ספק" }
+      "agents": {
+        "label": "סוכנים ועורכים",
+        "note": "Claude Code, Codex, Cursor, Gemini CLI ועוד 20"
+      },
+      "platforms": {
+        "label": "מערכות הפעלה",
+        "note": "Linux, macOS, Windows"
+      },
+      "providers": {
+        "label": "ספקי LLM ו-embeddings",
+        "note": "אופציונלי. הכול עובד גם בלי ספק"
+      }
     },
     "developers": {
       "label": "מפתחים",
-      "install": { "label": "התקנה מהירה", "note": "לבד בשלוש פקודות, צוות בעשר דקות" },
-      "advanced": { "label": "התקנה מתקדמת", "note": "homelab, TLS, SSO, סביבה מנותקת מהרשת, גיבויים" },
-      "contribute": { "label": "תרומה לפרויקט", "note": "לאן מגיעים issues, PRs ותמיכה ב-harness חדש" },
-      "download": { "label": "הורדות ויומן שינויים", "note": "הגרסה האחרונה לכל פלטפורמה" }
+      "install": {
+        "label": "התקנה מהירה",
+        "note": "לבד בשלוש פקודות, צוות בעשר דקות"
+      },
+      "advanced": {
+        "label": "התקנה מתקדמת",
+        "note": "homelab, TLS, SSO, סביבה מנותקת מהרשת, גיבויים"
+      },
+      "contribute": {
+        "label": "תרומה לפרויקט",
+        "note": "לאן מגיעים issues, PRs ותמיכה ב-harness חדש"
+      },
+      "download": {
+        "label": "הורדות ויומן שינויים",
+        "note": "הגרסה האחרונה לכל פלטפורמה"
+      }
     }
   },
   "footer": {
@@ -98,5 +140,8 @@
     "decline": "דחייה",
     "accept": "אישור"
   },
-  "englishOnly": "החלק הזה באנגלית כי הוא מגיע ישירות מהפרויקט."
+  "englishOnly": "החלק הזה באנגלית כי הוא מגיע ישירות מהפרויקט.",
+  "faq": {
+    "title": "שאלות ותשובות"
+  }
 }

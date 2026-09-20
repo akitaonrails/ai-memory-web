@@ -5,10 +5,6 @@
     "Restore": "リストア",
     "Server stopped": "サーバー停止"
   },
-  "advanced-data-dir": {
-    "Source of truth": "正本",
-    "Derived": "派生"
-  },
   "advanced-tls-proxy": {
     "Reverse proxy": "リバースプロキシ",
     "Same host": "同一ホスト"

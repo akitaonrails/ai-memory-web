@@ -64,6 +64,7 @@ Rules:
 | `Figure` | A generated diagram. Props: `name` (file name in `src/assets/img/gen/`; the translated copy is used when one exists), or `src` for a screenshot, `alt` (describe what the diagram says), `caption`, `zoom`. |
 | `BarChart` | Horizontal bars in plain HTML. Props: `bars[{label,note,value (0 to 1),display,detail,tone}]`, `label`, `axis`. `tone` is `strong`, `soft` or `other` (someone else's number, hatched). |
 | `SceneCard` | One window of the homepage scroll scene: terminal lines, people, chips or a file tree. |
+| `Faq` | The page's questions as an accordion, fed by the same list as its `faqPage()` structured data. Props: `items`, `title`, `hue`. |
 | `Callout` | Limits and caveats. Props: `title`, `hue`. |
 | `GithubStats` | The four live numbers. |
 | `NextPages` | Two or three onward links at the bottom of a detail page. |
@@ -105,6 +106,7 @@ The reader is a developer deciding whether to install something. Tell them what 
 - Claims come from the ai-memory repository. Numbers keep their caveats. Competitor numbers are labelled as the vendor's own.
 - Say where the project is behind. The repository's own comparison does, and it is the most persuasive thing on the site.
 - No em dashes or en dashes. No "not X, but Y" constructions. No three-item lists for rhythm. No closing one-liners that restate the section. No "seamless", "robust", "powerful", "unlock", "effortless", "key", "crucial", "landscape". No arrows or emoji in text.
+- Say a thing fully in one place and link to it from the others. Canonical homes: throughput numbers on Architecture (and the operator table on Advanced), the "where it is behind" list on Compare, team setup commands on Install, the benchmark method on Research. Short limits that people must see before acting (team limits, open-internet warning) may repeat.
 - Do not claim: multi-tenant or enterprise readiness, automatic cross-machine sync (it is one server that many machines reach), forensic deletion, endorsement by Google, Anthropic or anyone else.
 
 ## Languages

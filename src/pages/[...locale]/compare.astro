@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import BarChart from '@/components/BarChart.astro';
 import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
@@ -205,16 +206,7 @@ const next = withText(nextMeta, raw<Titled[]>('next'));
     <p class="mt-10 text-muted max-w-[40em]" set:html={t('move.after', { companions: `${site.docs}/companion-crates.md`, cookbook: `${site.docs}/cookbook.md` })} />
   </Section>
 
-  <Section id="faq" title={t('faq.title')} hue="amber" narrow tint>
-    <dl class="faq">
-      {faq.map((f) => (
-        <div>
-          <dt class="text-xl">{f.q}</dt>
-          <dd class="mt-2 text-muted">{f.a}</dd>
-        </div>
-      ))}
-    </dl>
-  </Section>
+  <Faq items={faq} title={t('faq.title')} hue="amber" />
 
   <NextPages links={next} />
   <CtaBand title={t('cta.title')} text={t('cta.text')} />
@@ -265,6 +257,4 @@ const next = withText(nextMeta, raw<Titled[]>('next'));
   .verdict span { font-weight: 500; margin-inline-end: .6rem; }
 
 
-  .faq { display: grid; gap: 2.25rem; }
-  .faq dt { font-family: var(--font-display); font-weight: 640; }
 </style>

@@ -14,9 +14,18 @@
     "lede": "Un solo binario con un único archivo SQLite y una carpeta de markdown. No hay sidecar, ni base de datos vectorial, ni nada que mantener sincronizado.",
     "figureAlt": "Diagrama: cuatro puestos de trabajo de desarrolladores con Claude Code, Codex, Cursor y Gemini CLI se conectan a un único servidor de ai-memory, que guarda la wiki de un proyecto.",
     "items": [
-      { "title": "Lo que aprende una sesión lo recupera cualquier agente", "text": "Una página escrita en un proyecto la puede leer todo el que esté en el servidor. La sesión de Codex de una persona encuentra el gotcha con el que tropezó la semana pasada la sesión de Claude Code de un compañero de equipo." },
-      { "title": "Visible en la siguiente consulta", "text": "La nota de un compañero aparece en la próxima búsqueda o en el próximo resumen de sesión de cualquiera. Una sesión que ya está en marcha no se interrumpe." },
-      { "title": "Cualquier combinación de agentes", "text": "Cada persona se queda con el agente que le gusta. Cada llamada a la memoria resuelve su proyecto a partir del directorio de la sesión, así que las sesiones en paralelo no se cruzan." }
+      {
+        "title": "Lo que aprende una sesión lo recupera cualquier agente",
+        "text": "Una página escrita en un proyecto la puede leer todo el que esté en el servidor. La sesión de Codex de una persona encuentra el gotcha con el que tropezó la semana pasada la sesión de Claude Code de un compañero de equipo."
+      },
+      {
+        "title": "Visible en la siguiente consulta",
+        "text": "La nota de un compañero aparece en la próxima búsqueda o en el próximo resumen de sesión de cualquiera. Una sesión que ya está en marcha no se interrumpe."
+      },
+      {
+        "title": "Cualquier combinación de agentes",
+        "text": "Cada persona se queda con el agente que le gusta. Cada llamada a la memoria resuelve su proyecto a partir del directorio de la sesión, así que las sesiones en paralelo no se cruzan."
+      }
     ]
   },
   "onboarding": {
@@ -24,9 +33,18 @@
     "lede": "Recibe una clave, apunta su agente al servidor y le pregunta al proyecto qué ha estado pasando.",
     "figureAlt": "Línea de tiempo del primer día de un desarrollador nuevo: recibir una clave de API, apuntar el agente al servidor, pedirle que lo ponga al día y luego buscar en la wiki.",
     "items": [
-      { "title": "Le pregunta al proyecto", "text": "“Ponme al día” devuelve un resumen del trabajo reciente. “¿Ya hablamos de la lógica de reintentos?” devuelve la página de la decisión y las sesiones que hay detrás." },
-      { "title": "La wiki es una base de conocimiento viva", "text": "Los conceptos, las decisiones y los gotchas se escriben mientras se hace el trabajo, en markdown y con historial en git. Nadie tiene que acordarse de actualizarla." },
-      { "title": "Complementa tu documentación escrita", "text": "Las páginas se compilan a partir de las sesiones y están pensadas para que las recuperen los agentes. Conserva tu README y tu documentación de arquitectura escritos a mano, y deja que la wiki guarde los porqués y los callejones sin salida." }
+      {
+        "title": "Le pregunta al proyecto",
+        "text": "“Ponme al día” devuelve un resumen del trabajo reciente. “¿Ya hablamos de la lógica de reintentos?” devuelve la página de la decisión y las sesiones que hay detrás."
+      },
+      {
+        "title": "La wiki es una base de conocimiento viva",
+        "text": "Los conceptos, las decisiones y los gotchas se escriben mientras se hace el trabajo, en markdown y con historial en git. Nadie tiene que acordarse de actualizarla."
+      },
+      {
+        "title": "Complementa tu documentación escrita",
+        "text": "Las páginas se compilan a partir de las sesiones y están pensadas para que las recuperen los agentes. Conserva tu README y tu documentación de arquitectura escritos a mano, y deja que la wiki guarde los porqués y los callejones sin salida."
+      }
     ],
     "digest": "El resumen es prosa cuando el servidor tiene un proveedor de LLM y datos estructurados cuando no lo tiene. Con <code>--enable-web</code>, la misma wiki se puede navegar en una interfaz web de solo lectura."
   },
@@ -56,10 +74,22 @@
     "title": "Cuentas, claves y auditoría, sin plan de pago",
     "lede": "Las funciones de equipo están en el mismo binario MIT que todo lo demás.",
     "items": [
-      { "title": "Una cuenta con nombre por persona", "text": "Añade personas con un comando. Desactiva a alguien y su acceso se corta, mientras que sus páginas se quedan." },
-      { "title": "Claves de API por máquina", "text": "Cada persona puede tener varias claves etiquetadas, una por portátil o por agente. Rotar una clave rechaza la anterior de inmediato." },
-      { "title": "Autoría en cada escritura", "text": "Cada página registra su autor, y la interfaz web muestra quién la editó. La autoría nunca filtra quién puede leer." },
-      { "title": "Un registro de auditoría de cada mutación", "text": "Las escrituras se registran con el id del autor. Los webhooks de admisión pueden ver al actor y rechazar una operación." }
+      {
+        "title": "Una cuenta con nombre por persona",
+        "text": "Añade personas con un comando. Desactiva a alguien y su acceso se corta, mientras que sus páginas se quedan."
+      },
+      {
+        "title": "Claves de API por máquina",
+        "text": "Cada persona puede tener varias claves etiquetadas, una por portátil o por agente. Rotar una clave rechaza la anterior de inmediato."
+      },
+      {
+        "title": "Autoría en cada escritura",
+        "text": "Cada página registra su autor, y la interfaz web muestra quién la editó. La autoría nunca filtra quién puede leer."
+      },
+      {
+        "title": "Un registro de auditoría de cada mutación",
+        "text": "Las escrituras se registran con el id del autor. Los webhooks de admisión pueden ver al actor y rechazar una operación."
+      }
     ],
     "audit": "Todavía no hay documentada ninguna pantalla ni comando para consultar el registro de auditoría, así que cuenta con hacer consultas a la tabla <code>audit_log</code> del archivo SQLite. La <a class=\"underline font-semibold text-text\" href=\"{href}\">guía de usuarios en GitHub</a> cubre los roles, el inicio de sesión con contraseña y la rotación de claves.",
     "limits": {
@@ -74,45 +104,41 @@
       "more": "La <a href=\"{security}\">página de seguridad</a> tiene el modelo completo, y la <a href=\"{advanced}\">instalación avanzada</a> tiene las recetas de TLS y proxy."
     }
   },
-  "capacity": {
-    "title": "Capacidad medida",
-    "lede": "Todas las escrituras pasan por una sola cola hacia un escritor único. El proyecto publica cuánto aguanta ese escritor.",
-    "caption": "Rendimiento del escritor según el número de escritores concurrentes",
-    "columns": { "writers": "Escritores concurrentes", "throughput": "Rendimiento", "latency": "Latencia media" },
-    "perSecond": "{n}/s",
-    "milliseconds": "{n} ms",
-    "points": [
-      "El techo está en unas 700 escrituras por segundo y se alcanza con unos 32 escritores. El proyecto lo interpreta como varios cientos de agentes activos a la vez.",
-      "La cola está limitada a 1024. Una ráfaga frena a los productores, y no se descarta nada.",
-      "Las cifras se tomaron en un disco local rápido. Un sistema de archivos en red dará bastante menos.",
-      "Miden el almacén y dejan fuera la entrada HTTP.",
-      "Reprodúcelas con <code>{command}</code>."
-    ]
-  },
   "setup": {
-    "title": "La instalación de 10 minutos, en resumen",
-    "steps": [
-      { "title": "Arranca un servidor", "text": "Un equipo del homelab o cualquier host de la LAN. Todo lo que escuche más allá de loopback necesita el bearer token.", "codeTitle": "en el servidor" },
-      { "title": "Añade a cada persona y emite una clave", "text": "La contraseña temporal y la clave <code>aim_</code> se muestran una sola vez cada una.", "codeTitle": "como root" },
-      { "title": "Cada persona apunta sus agentes al servidor", "text": "Cambia el cliente y el nombre del agente por los que use cada uno.", "codeTitle": "en cada máquina" }
-    ],
-    "tokenComment": "32 bytes / 64 caracteres hex",
+    "title": "Instalación en 10 minutos",
+    "text": "La página de instalación lo explica paso a paso: levantar un servidor, dar una clave a cada persona y apuntar sus agentes a él.",
     "primary": "Mira la instalación completa para equipos",
     "secondary": "TLS, SSO y copias de seguridad"
   },
   "faq": [
-    { "q": "¿Pueden varios desarrolladores compartir un servidor de ai-memory?", "a": "Sí. Un servidor guarda la wiki y todos apuntan sus agentes a él. Las páginas las comparten todos los que están en el servidor. Los traspasos se quedan con la persona que los creó, salvo que publique uno con shared: true." },
-    { "q": "¿El uso en equipo requiere un plan de pago?", "a": "No. Las cuentas por persona, las claves de API, la autoría y el registro de auditoría forman parte del binario de código abierto." },
-    { "q": "¿Puedo restringir un proyecto o una página a algunos usuarios?", "a": "No. Las cuentas no son una barrera de aislamiento. Todo usuario autenticado ve todas las páginas de todos los proyectos de ese servidor. Ejecuta un servidor por equipo." },
-    { "q": "¿Cuántos desarrolladores aguanta un servidor?", "a": "El techo de escritura medido es de unas 700 escrituras por segundo en un disco local rápido, lo que el proyecto interpreta como varios cientos de agentes activos a la vez. La cifra mide el almacén, y los discos en red serán más lentos." }
+    {
+      "q": "¿Pueden varios desarrolladores compartir un servidor de ai-memory?",
+      "a": "Sí. Un servidor guarda la wiki y todos apuntan sus agentes a él. Las páginas las comparten todos los que están en el servidor. Los traspasos se quedan con la persona que los creó, salvo que publique uno con shared: true."
+    },
+    {
+      "q": "¿El uso en equipo requiere un plan de pago?",
+      "a": "No. Las cuentas por persona, las claves de API, la autoría y el registro de auditoría forman parte del binario de código abierto."
+    },
+    {
+      "q": "¿Puedo restringir un proyecto o una página a algunos usuarios?",
+      "a": "No. Las cuentas no son una barrera de aislamiento. Todo usuario autenticado ve todas las páginas de todos los proyectos de ese servidor. Ejecuta un servidor por equipo."
+    },
+    {
+      "q": "¿Cuántos desarrolladores aguanta un servidor?",
+      "a": "El techo de escritura medido es de unas 700 escrituras por segundo en un disco local rápido, lo que el proyecto interpreta como varios cientos de agentes activos a la vez. La cifra mide el almacén, y los discos en red serán más lentos."
+    }
   ],
   "next": {
-    "install": { "title": "Instalación rápida para equipos", "text": "El servidor, las cuentas y la conexión de los clientes, paso a paso." },
+    "install": {
+      "title": "Instalación rápida para equipos",
+      "text": "El servidor, las cuentas y la conexión de los clientes, paso a paso."
+    },
     "security": "Qué se guarda, qué sale de la máquina y cómo cerrar el servidor.",
     "advanced": "Despliegues en homelab, TLS a través de un proxy, SSO a través de un gateway, copias de seguridad."
   },
   "cta": {
     "title": "Dale una sola memoria a los agentes de tu equipo.",
     "text": "Gratis y de código abierto. Las cuentas, las claves y el registro de auditoría van incluidos."
-  }
+  },
+  "capacityNote": "Un servidor soporta unas 700 escrituras por segundo, suficiente para varios cientos de agentes activos. <a class=\"link\" href=\"{href}\">Mira cómo se midió</a>."
 }

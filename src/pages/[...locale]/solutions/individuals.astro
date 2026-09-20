@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
@@ -161,6 +162,8 @@ const schema = [faqPage(faq)];
     </Callout>
     <p class="mt-10"><a href={href('/install/')} class="btn btn-primary">{t('need.cta')}</a></p>
   </Section>
+
+  <Faq items={faq} />
 
   <NextPages links={[
     { href: '/install/', title: t('crumbs.install'), text: t('next.install'), hue: 'amber' },

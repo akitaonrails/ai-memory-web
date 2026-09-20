@@ -5,10 +5,6 @@
     "Restore": "שחזור",
     "Server stopped": "שרת עצור"
   },
-  "advanced-data-dir": {
-    "Source of truth": "מקור האמת",
-    "Derived": "נגזר"
-  },
   "advanced-tls-proxy": {
     "Reverse proxy": "Reverse proxy",
     "Same host": "אותו מחשב"

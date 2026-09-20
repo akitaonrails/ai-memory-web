@@ -28,14 +28,40 @@
       "alt": "Cuatro topologías de despliegue una al lado de la otra: solo portátil, con el servidor dentro del portátil; un equipo de homelab al que se conectan dos portátiles; un servidor en la LAN con un escudo TLS delante; y un servidor al que se llega por un túnel saliente hacia un edge en la nube.",
       "caption": "Cada paso a la derecha da más alcance y añade un requisito. En ninguna hay replicación entre servidores: muchas máquinas llegan a un solo servidor."
     },
-    "columns": { "topology": "Topología", "bind": "Escucha", "auth": "Autenticación", "tls": "TLS", "runs": "Se ejecuta como" },
+    "columns": {
+      "topology": "Topología",
+      "bind": "Escucha",
+      "auth": "Autenticación",
+      "tls": "TLS",
+      "runs": "Se ejecuta como"
+    },
     "bindProxy": "<code>{addr}</code> detrás de un proxy",
     "bindNone": "Ningún puerto en el host",
     "items": [
-      { "name": "Solo portátil", "auth": "No hace falta", "tls": "No", "runs": "unidad de usuario de systemd, agente de launchd o un contenedor" },
-      { "name": "Equipo de homelab", "auth": "Bearer token y lista de hosts permitidos, ambos obligatorios", "tls": "Recomendado", "runs": "Docker con healthcheck, o el servicio de sistema del AUR" },
-      { "name": "LAN con TLS", "auth": "Token root, más un usuario y una clave de API por persona", "tls": "Sí. Caddy con su CA interna funciona sin dominio", "runs": "Docker Compose con Caddy como sidecar" },
-      { "name": "Túnel", "auth": "Igual que el servidor en la LAN", "tls": "Sí, en el edge de Cloudflare", "runs": "Docker Compose con cloudflared como sidecar" }
+      {
+        "name": "Solo portátil",
+        "auth": "No hace falta",
+        "tls": "No",
+        "runs": "unidad de usuario de systemd, agente de launchd o un contenedor"
+      },
+      {
+        "name": "Equipo de homelab",
+        "auth": "Bearer token y lista de hosts permitidos, ambos obligatorios",
+        "tls": "Recomendado",
+        "runs": "Docker con healthcheck, o el servicio de sistema del AUR"
+      },
+      {
+        "name": "LAN con TLS",
+        "auth": "Token root, más un usuario y una clave de API por persona",
+        "tls": "Sí. Caddy con su CA interna funciona sin dominio",
+        "runs": "Docker Compose con Caddy como sidecar"
+      },
+      {
+        "name": "Túnel",
+        "auth": "Igual que el servidor en la LAN",
+        "tls": "Sí, en el edge de Cloudflare",
+        "runs": "Docker Compose con cloudflared como sidecar"
+      }
     ],
     "stdio": "Un portátil puede prescindir de HTTP con <code>ai-memory serve --transport stdio</code>. Para un homelab, el repositorio trae un script <code>bin/deploy</code> con plantillas de compose y de env. <a class=\"link\" href=\"{href}\">Sigue el paso a paso de despliegue en homelab</a>.",
     "internet": {
@@ -67,7 +93,12 @@
       "alt": "Dos portátiles se conectan por HTTPS a un proxy inverso. El proxy reenvía HTTP plano a ai-memory. El proxy y ai-memory están en el mismo host.",
       "caption": "El certificado es cosa del proxy. ai-memory se queda en HTTP plano detrás de él, accesible solo por la red de Docker o por loopback."
     },
-    "tabs": ["Caddy", "Caddy en una LAN", "nginx", "Cloudflare Tunnel"],
+    "tabs": [
+      "Caddy",
+      "Caddy en una LAN",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
     "caddy": "Para un dominio público con los puertos 80 y 443 accesibles. Caddy emite y renueva solo el certificado de Let’s Encrypt. El repositorio tiene el archivo compose completo en <code>docker/compose.tls.caddy.yml</code>.",
     "caddyLan": {
       "text": "Sin dominio y sin exponer nada. La CA interna de Caddy firma el certificado, y tú instalas su certificado raíz una vez en cada máquina cliente. Si te saltas ese paso, los clientes rechazan la conexión o se acostumbran a ignorar las advertencias.",
@@ -92,7 +123,12 @@
   "services": {
     "title": "Mantén el servidor en marcha",
     "lede": "ai-memory no se reinicia solo. De eso se encarga el gestor de servicios de cada sistema operativo.",
-    "tabs": ["unidad de usuario de systemd", "unidad de sistema de systemd", "launchd en macOS", "WinSW en Windows"],
+    "tabs": [
+      "unidad de usuario de systemd",
+      "unidad de sistema de systemd",
+      "launchd en macOS",
+      "WinSW en Windows"
+    ],
     "user": {
       "text": "Para una estación de trabajo de un solo usuario. Los paquetes del AUR instalan la unidad. No necesita sudo y guarda el estado en <code>~/.local/share/ai-memory</code>. Una unidad de usuario se detiene al cerrar sesión, salvo que actives lingering.",
       "lingerComment": "que siga corriendo después de cerrar sesión"
@@ -109,17 +145,38 @@
   "data": {
     "title": "El directorio de datos y las copias de seguridad",
     "lede": "La wiki es la verdad. Es markdown plano en un repositorio git, y el índice de búsqueda se construye a partir de ella.",
-    "figure": {
-      "alt": "El directorio de datos dividido en dos. En el lado de la fuente de verdad: wiki, una pila de páginas markdown versionadas con git, y raw. En el lado derivado: db, models y logs. Una flecha con la etiqueta reindex va de wiki a db.",
-      "caption": "Reindex reconstruye las páginas, los enlaces y la búsqueda de texto completo a partir de la wiki. No recupera sesiones, observaciones, traspasos, usuarios, claves, filas de auditoría ni embeddings, así que la base de datos también va en tu copia de seguridad."
+    "columns": {
+      "dir": "Directorio",
+      "holds": "Contiene",
+      "kind": "Tipo",
+      "backup": "¿Hay que copiarlo?"
     },
-    "columns": { "dir": "Directorio", "holds": "Contiene", "kind": "Tipo", "backup": "¿Hay que copiarlo?" },
     "dirs": {
-      "wiki": { "holds": "Todas las páginas en markdown, en un solo repositorio git", "kind": "Verdad", "backup": "Sí. Va en el tarball de la copia de seguridad, y también puedes hacerle rsync o git push" },
-      "raw": { "holds": "Segmentos de transcripción inmutables y saneados de los lanzamientos gestionados", "kind": "Verdad", "backup": "Sí, si usas ai-memory run. Cópialo aparte" },
-      "db": { "holds": "memory.sqlite: índice de texto completo, entidades, embeddings, sesiones, usuarios, filas de auditoría", "kind": "Derivado en su mayoría", "backup": "Sí. Las páginas, los enlaces y la búsqueda se reconstruyen desde la wiki. Las sesiones, los traspasos, los usuarios y las claves solo viven aquí" },
-      "models": { "holds": "El modelo local de embeddings, unos 87 MB", "kind": "Reconstruible", "backup": "No. Se vuelve a descargar, o colocas los archivos tú mismo" },
-      "logs": { "holds": "Salida de trazas con rotación", "kind": "Desechable", "backup": "No" }
+      "wiki": {
+        "holds": "Todas las páginas en markdown, en un solo repositorio git",
+        "kind": "Verdad",
+        "backup": "Sí. Va en el tarball de la copia de seguridad, y también puedes hacerle rsync o git push"
+      },
+      "raw": {
+        "holds": "Segmentos de transcripción inmutables y saneados de los lanzamientos gestionados",
+        "kind": "Verdad",
+        "backup": "Sí, si usas ai-memory run. Cópialo aparte"
+      },
+      "db": {
+        "holds": "memory.sqlite: índice de texto completo, entidades, embeddings, sesiones, usuarios, filas de auditoría",
+        "kind": "Derivado en su mayoría",
+        "backup": "Sí. Las páginas, los enlaces y la búsqueda se reconstruyen desde la wiki. Las sesiones, los traspasos, los usuarios y las claves solo viven aquí"
+      },
+      "models": {
+        "holds": "El modelo local de embeddings, unos 87 MB",
+        "kind": "Reconstruible",
+        "backup": "No. Se vuelve a descargar, o colocas los archivos tú mismo"
+      },
+      "logs": {
+        "holds": "Salida de trazas con rotación",
+        "kind": "Desechable",
+        "backup": "No"
+      }
     },
     "defaults": "Por defecto: <code>~/.local/share/ai-memory</code> en Linux, <code>~/Library/Application Support/ai-memory</code> en macOS, <code>%LOCALAPPDATA%\\ai-memory</code> en Windows y <code>/data</code> en el contenedor. Cámbialo con <code>AI_MEMORY_DATA_DIR</code>.",
     "backup": {
@@ -149,7 +206,8 @@
       "title": "Reconstruir el índice",
       "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code> necesita el servidor detenido y una base de datos limpia. Haz una copia de seguridad, aparta <code>db/memory.sqlite</code> y sus archivos WAL y SHM, ejecútalo y, tras reiniciar, ejecuta <code>ai-memory embed</code> para reconstruir los embeddings."
     },
-    "lifecycle": "Lee las operaciones de ciclo de vida: purgar, renombrar, mover, restaurar una página, resetear"
+    "lifecycle": "Lee las operaciones de ciclo de vida: purgar, renombrar, mover, restaurar una página, resetear",
+    "reindexNote": "Reindex reconstruye las páginas, los enlaces y la búsqueda de texto completo a partir de la wiki. No recupera sesiones, observaciones, traspasos, usuarios, claves, filas de auditoría ni embeddings, así que la base de datos también va en tu copia de seguridad."
   },
   "routing": {
     "title": "Enrutamiento e identidad",
@@ -158,16 +216,28 @@
       "title": "El archivo marcador",
       "text": "Por defecto, el proyecto es el nombre del directorio actual, en un workspace llamado <code>default</code>. Deja un <code>.ai-memory.toml</code> en cualquier directorio superior para cambiarlo. Los hooks suben desde el directorio de trabajo y usan el primer marcador que encuentran.",
       "items": [
-        { "title": "Trabajo y personal", "text": "Un marcador por directorio padre. Todos los repositorios que cuelgan de él caen en ese workspace, con el nombre del directorio como proyecto." },
-        { "title": "Monorepo", "text": "Un marcador con un proyecto fija todos los subdirectorios a ese proyecto. Gana el marcador más cercano." },
-        { "title": "Worktrees de git", "text": "Los worktrees enlazados y los subdirectorios se resuelven al repositorio principal, aunque el worktree viva fuera de él." }
+        {
+          "title": "Trabajo y personal",
+          "text": "Un marcador por directorio padre. Todos los repositorios que cuelgan de él caen en ese workspace, con el nombre del directorio como proyecto."
+        },
+        {
+          "title": "Monorepo",
+          "text": "Un marcador con un proyecto fija todos los subdirectorios a ese proyecto. Gana el marcador más cercano."
+        },
+        {
+          "title": "Worktrees de git",
+          "text": "Los worktrees enlazados y los subdirectorios se resuelven al repositorio principal, aunque el worktree viva fuera de él."
+        }
       ],
       "capture": "El mismo archivo contiene las reglas de <code>[capture]</code> con <code>ignore_paths</code>, y <code>ai-memory install-hooks --apply --capture-mode allowlist</code> convierte el marcador en un opt-in: un repositorio sin marcador no emite eventos. Los hooks nativos aplican ambas cosas. Los hooks de shell del wrapper de Docker no. <a class=\"link\" href=\"{href}\">Lee la referencia del archivo marcador</a>."
     },
     "autoScope": {
       "title": "Modos de auto-scope",
       "text": "Una llamada MCP sin proyecto explícito se resuelve con un puntero de “proyecto actual”. El modo decide quién comparte ese puntero. El servidor registra el modo activo al arrancar.",
-      "columns": { "mode": "Modo", "when": "Cuándo usarlo" },
+      "columns": {
+        "mode": "Modo",
+        "when": "Cuándo usarlo"
+      },
       "modes": {
         "per_actor": "El modo por defecto. Aísla harness en paralelo y personas distintas en un mismo servidor.",
         "per_session": "Para clientes con sesión que reenvían el id de sesión del hook en cada petición MCP.",
@@ -210,7 +280,11 @@
     "capacity": {
       "title": "Capacidad",
       "text": "Todas las escrituras pasan por un solo escritor. El proyecto midió dónde está su tope, con <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.",
-      "columns": { "writers": "Escritores concurrentes", "throughput": "Throughput", "latency": "Latencia media" },
+      "columns": {
+        "writers": "Escritores concurrentes",
+        "throughput": "Throughput",
+        "latency": "Latencia media"
+      },
       "perSecond": "{n}/s",
       "ms": "{n} ms",
       "notes": [

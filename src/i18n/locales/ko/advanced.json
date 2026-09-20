@@ -28,14 +28,40 @@
       "alt": "배포 토폴로지 네 가지를 나란히 보여 줍니다. 서버가 노트북 안에 있는 노트북 단독 구성, 노트북 두 대가 접속하는 홈랩 서버, 앞단에 TLS 방패를 둔 LAN 서버, 클라우드 엣지로 나가는 아웃바운드 터널을 통해 접근하는 서버입니다.",
       "caption": "오른쪽으로 갈수록 접근 범위가 넓어지고, 한 단계마다 요구 사항이 하나씩 늘어납니다. 어느 구성에도 서버 간 복제는 없습니다. 여러 컴퓨터가 서버 하나에 접속합니다."
     },
-    "columns": { "topology": "토폴로지", "bind": "바인드", "auth": "인증", "tls": "TLS", "runs": "실행 방식" },
+    "columns": {
+      "topology": "토폴로지",
+      "bind": "바인드",
+      "auth": "인증",
+      "tls": "TLS",
+      "runs": "실행 방식"
+    },
     "bindProxy": "프록시 뒤의 <code>{addr}</code>",
     "bindNone": "호스트 포트 없음",
     "items": [
-      { "name": "노트북만", "auth": "필요 없음", "tls": "아니요", "runs": "systemd 사용자 유닛, launchd 에이전트 또는 컨테이너" },
-      { "name": "홈랩 서버", "auth": "Bearer 토큰과 호스트 허용 목록, 둘 다 필수", "tls": "권장", "runs": "healthcheck를 갖춘 Docker 또는 AUR 시스템 서비스" },
-      { "name": "TLS 적용 LAN", "auth": "루트 토큰, 그리고 사람마다 사용자 계정과 API 키", "tls": "예. Caddy의 내부 CA는 도메인 없이도 동작합니다", "runs": "Caddy 사이드카를 둔 Docker Compose" },
-      { "name": "터널", "auth": "LAN 서버와 동일", "tls": "예, Cloudflare 엣지에서 처리", "runs": "cloudflared 사이드카를 둔 Docker Compose" }
+      {
+        "name": "노트북만",
+        "auth": "필요 없음",
+        "tls": "아니요",
+        "runs": "systemd 사용자 유닛, launchd 에이전트 또는 컨테이너"
+      },
+      {
+        "name": "홈랩 서버",
+        "auth": "Bearer 토큰과 호스트 허용 목록, 둘 다 필수",
+        "tls": "권장",
+        "runs": "healthcheck를 갖춘 Docker 또는 AUR 시스템 서비스"
+      },
+      {
+        "name": "TLS 적용 LAN",
+        "auth": "루트 토큰, 그리고 사람마다 사용자 계정과 API 키",
+        "tls": "예. Caddy의 내부 CA는 도메인 없이도 동작합니다",
+        "runs": "Caddy 사이드카를 둔 Docker Compose"
+      },
+      {
+        "name": "터널",
+        "auth": "LAN 서버와 동일",
+        "tls": "예, Cloudflare 엣지에서 처리",
+        "runs": "cloudflared 사이드카를 둔 Docker Compose"
+      }
     ],
     "stdio": "노트북에서는 <code>ai-memory serve --transport stdio</code>로 HTTP를 아예 건너뛸 수 있습니다. 홈랩용으로는 저장소에 compose와 env 템플릿이 포함된 <code>bin/deploy</code> 스크립트가 있습니다. <a class=\"link\" href=\"{href}\">홈랩 배포 안내서 따라 하기</a>.",
     "internet": {
@@ -67,7 +93,12 @@
       "alt": "노트북 두 대가 HTTPS로 리버스 프록시에 접속합니다. 프록시는 일반 HTTP로 ai-memory에 전달합니다. 프록시와 ai-memory는 같은 호스트에 있습니다.",
       "caption": "인증서는 프록시가 관리합니다. ai-memory는 그 뒤에서 일반 HTTP로 동작하며 Docker 네트워크나 루프백으로만 접근할 수 있습니다."
     },
-    "tabs": ["Caddy", "LAN에서 Caddy", "nginx", "Cloudflare Tunnel"],
+    "tabs": [
+      "Caddy",
+      "LAN에서 Caddy",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
     "caddy": "80과 443 포트에 접근할 수 있는 공개 도메인용입니다. Caddy가 Let's Encrypt 인증서를 알아서 발급하고 갱신합니다. 전체 compose 파일은 저장소의 <code>docker/compose.tls.caddy.yml</code>입니다.",
     "caddyLan": {
       "text": "도메인도 없고 외부 노출도 없는 구성입니다. Caddy의 내부 CA가 인증서에 서명하며, 그 루트 인증서를 모든 클라이언트 컴퓨터에 한 번씩 설치합니다. 이 단계를 건너뛰면 클라이언트가 연결을 거부하거나, 사람들이 경고를 무시하고 넘기는 습관을 들이게 됩니다.",
@@ -92,7 +123,12 @@
   "services": {
     "title": "서버를 계속 실행하기",
     "lede": "ai-memory는 스스로 재시작하지 않습니다. 그 일은 각 운영체제의 서비스 관리자가 맡습니다.",
-    "tabs": ["systemd 사용자 유닛", "systemd 시스템 유닛", "macOS의 launchd", "Windows의 WinSW"],
+    "tabs": [
+      "systemd 사용자 유닛",
+      "systemd 시스템 유닛",
+      "macOS의 launchd",
+      "Windows의 WinSW"
+    ],
     "user": {
       "text": "1인용 워크스테이션에 맞습니다. AUR 패키지가 유닛을 설치합니다. sudo가 필요 없고 상태는 <code>~/.local/share/ai-memory</code>에 둡니다. lingering을 켜지 않으면 사용자 유닛은 로그아웃할 때 멈춥니다.",
       "lingerComment": "로그아웃한 뒤에도 계속 실행"
@@ -109,17 +145,38 @@
   "data": {
     "title": "데이터 디렉터리와 백업",
     "lede": "위키가 원본입니다. git 저장소에 담긴 일반 markdown이고, 검색 인덱스는 거기서 만들어집니다.",
-    "figure": {
-      "alt": "데이터 디렉터리를 둘로 나눈 그림입니다. 원본 쪽에는 git으로 버전 관리되는 markdown 페이지 묶음인 wiki와 raw가 있습니다. 파생 쪽에는 db, models, logs가 있습니다. 재인덱싱이라고 적힌 화살표가 wiki에서 db로 향합니다.",
-      "caption": "reindex는 위키에서 페이지, 링크, 전문 검색을 다시 만듭니다. 세션, 관찰 기록, 인수인계, 사용자, 키, 감사 행, 임베딩은 되살리지 못하므로 데이터베이스도 백업에 포함해야 합니다."
+    "columns": {
+      "dir": "디렉터리",
+      "holds": "내용",
+      "kind": "성격",
+      "backup": "백업 여부"
     },
-    "columns": { "dir": "디렉터리", "holds": "내용", "kind": "성격", "backup": "백업 여부" },
     "dirs": {
-      "wiki": { "holds": "모든 페이지가 markdown으로, 하나의 git 저장소에", "kind": "원본", "backup": "예. 백업 tarball에 들어 있고, rsync하거나 git push해도 됩니다" },
-      "raw": { "holds": "관리형 실행에서 나온, 변경 불가능하고 정제된 트랜스크립트 세그먼트", "kind": "원본", "backup": "ai-memory run을 쓴다면 예. 별도로 복사하세요" },
-      "db": { "holds": "memory.sqlite: 전문 검색 인덱스, 엔티티, 임베딩, 세션, 사용자, 감사 행", "kind": "대부분 파생", "backup": "예. 페이지, 링크, 검색은 위키에서 다시 만들 수 있습니다. 세션, 인수인계, 사용자, 키는 여기에만 있습니다" },
-      "models": { "holds": "로컬 임베딩 모델, 약 87 MB", "kind": "재생성 가능", "backup": "아니요. 다시 다운로드되며, 파일을 직접 넣어도 됩니다" },
-      "logs": { "holds": "롤링되는 trace 출력", "kind": "버려도 됨", "backup": "아니요" }
+      "wiki": {
+        "holds": "모든 페이지가 markdown으로, 하나의 git 저장소에",
+        "kind": "원본",
+        "backup": "예. 백업 tarball에 들어 있고, rsync하거나 git push해도 됩니다"
+      },
+      "raw": {
+        "holds": "관리형 실행에서 나온, 변경 불가능하고 정제된 트랜스크립트 세그먼트",
+        "kind": "원본",
+        "backup": "ai-memory run을 쓴다면 예. 별도로 복사하세요"
+      },
+      "db": {
+        "holds": "memory.sqlite: 전문 검색 인덱스, 엔티티, 임베딩, 세션, 사용자, 감사 행",
+        "kind": "대부분 파생",
+        "backup": "예. 페이지, 링크, 검색은 위키에서 다시 만들 수 있습니다. 세션, 인수인계, 사용자, 키는 여기에만 있습니다"
+      },
+      "models": {
+        "holds": "로컬 임베딩 모델, 약 87 MB",
+        "kind": "재생성 가능",
+        "backup": "아니요. 다시 다운로드되며, 파일을 직접 넣어도 됩니다"
+      },
+      "logs": {
+        "holds": "롤링되는 trace 출력",
+        "kind": "버려도 됨",
+        "backup": "아니요"
+      }
     },
     "defaults": "기본값: Linux는 <code>~/.local/share/ai-memory</code>, macOS는 <code>~/Library/Application Support/ai-memory</code>, Windows는 <code>%LOCALAPPDATA%\\ai-memory</code>, 컨테이너는 <code>/data</code>입니다. <code>AI_MEMORY_DATA_DIR</code>로 바꿀 수 있습니다.",
     "backup": {
@@ -149,7 +206,8 @@
       "title": "인덱스 다시 만들기",
       "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code>는 서버가 중지되어 있고 데이터베이스가 비어 있어야 합니다. 백업을 받고, <code>db/memory.sqlite</code>와 WAL, SHM 파일을 다른 곳으로 옮긴 뒤 실행하세요. 재시작한 다음 <code>ai-memory embed</code>를 실행해 임베딩을 다시 만듭니다."
     },
-    "lifecycle": "라이프사이클 작업 읽기: 퍼지, 이름 변경, 이동, 페이지 복원, 초기화"
+    "lifecycle": "라이프사이클 작업 읽기: 퍼지, 이름 변경, 이동, 페이지 복원, 초기화",
+    "reindexNote": "reindex는 위키에서 페이지, 링크, 전문 검색을 다시 만듭니다. 세션, 관찰 기록, 인수인계, 사용자, 키, 감사 행, 임베딩은 되살리지 못하므로 데이터베이스도 백업에 포함해야 합니다."
   },
   "routing": {
     "title": "라우팅과 신원",
@@ -158,16 +216,28 @@
       "title": "마커 파일",
       "text": "기본적으로 프로젝트는 현재 디렉터리 이름이고, <code>default</code>라는 워크스페이스에 들어갑니다. 이를 바꾸려면 상위 디렉터리 어디에든 <code>.ai-memory.toml</code>을 두세요. 훅은 작업 디렉터리에서 위로 올라가며 처음 만나는 마커를 사용합니다.",
       "items": [
-        { "title": "업무용과 개인용", "text": "상위 디렉터리마다 마커를 하나씩 둡니다. 그 아래 모든 저장소가 해당 워크스페이스에 들어가고, 디렉터리 이름이 프로젝트가 됩니다." },
-        { "title": "모노레포", "text": "project를 지정한 마커는 모든 하위 디렉터리를 그 프로젝트 하나로 고정합니다. 가장 가까운 마커가 우선합니다." },
-        { "title": "Git worktree", "text": "연결된 worktree와 하위 디렉터리는 메인 저장소로 해석됩니다. worktree가 저장소 밖에 있어도 마찬가지입니다." }
+        {
+          "title": "업무용과 개인용",
+          "text": "상위 디렉터리마다 마커를 하나씩 둡니다. 그 아래 모든 저장소가 해당 워크스페이스에 들어가고, 디렉터리 이름이 프로젝트가 됩니다."
+        },
+        {
+          "title": "모노레포",
+          "text": "project를 지정한 마커는 모든 하위 디렉터리를 그 프로젝트 하나로 고정합니다. 가장 가까운 마커가 우선합니다."
+        },
+        {
+          "title": "Git worktree",
+          "text": "연결된 worktree와 하위 디렉터리는 메인 저장소로 해석됩니다. worktree가 저장소 밖에 있어도 마찬가지입니다."
+        }
       ],
       "capture": "같은 파일에 <code>ignore_paths</code>를 담은 <code>[capture]</code> 규칙도 들어갑니다. <code>ai-memory install-hooks --apply --capture-mode allowlist</code>를 쓰면 마커가 옵트인 역할을 해서, 마커 없는 저장소는 이벤트를 전혀 내보내지 않습니다. 네이티브 훅은 두 가지를 모두 강제합니다. Docker 래퍼의 셸 훅은 강제하지 않습니다. <a class=\"link\" href=\"{href}\">마커 파일 레퍼런스 읽기</a>."
     },
     "autoScope": {
       "title": "auto-scope 모드",
       "text": "프로젝트를 명시하지 않은 MCP 호출은 \"현재 프로젝트\" 포인터로 해석됩니다. 그 포인터를 누구와 공유할지는 모드가 정합니다. 서버는 시작할 때 현재 모드를 로그에 남깁니다.",
-      "columns": { "mode": "모드", "when": "쓰는 경우" },
+      "columns": {
+        "mode": "모드",
+        "when": "쓰는 경우"
+      },
       "modes": {
         "per_actor": "기본값입니다. 한 서버에서 병렬로 도는 하네스와 서로 다른 사람을 격리합니다.",
         "per_session": "모든 MCP 요청에 훅 세션 id를 전달하는 세션 인식 클라이언트용입니다.",
@@ -210,7 +280,11 @@
     "capacity": {
       "title": "용량",
       "text": "모든 쓰기는 라이터 하나를 거칩니다. 프로젝트는 그 한계를 <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>로 측정했습니다.",
-      "columns": { "writers": "동시 라이터 수", "throughput": "처리량", "latency": "평균 지연 시간" },
+      "columns": {
+        "writers": "동시 라이터 수",
+        "throughput": "처리량",
+        "latency": "평균 지연 시간"
+      },
       "perSecond": "{n}/s",
       "ms": "{n} ms",
       "notes": [

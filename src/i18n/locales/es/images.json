@@ -5,10 +5,6 @@
     "Restore": "Restaurar",
     "Server stopped": "Servidor parado"
   },
-  "advanced-data-dir": {
-    "Source of truth": "Fuente de verdad",
-    "Derived": "Derivado"
-  },
   "advanced-tls-proxy": {
     "Reverse proxy": "Proxy inverso",
     "Same host": "Mismo host"

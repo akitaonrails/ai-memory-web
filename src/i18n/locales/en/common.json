@@ -37,29 +37,71 @@
     "github": "GitHub",
     "product": {
       "label": "Product",
-      "how": { "label": "How it works", "note": "Capture, consolidate, recall, hand off" },
-      "architecture": { "label": "Architecture", "note": "One binary, markdown files, a derived index" },
-      "security": { "label": "Security", "note": "What is stored, what leaves, how to lock it down" },
-      "research": { "label": "Research and rationale", "note": "Karpathy’s wiki, OKF, and the benchmarks" }
+      "how": {
+        "label": "How it works",
+        "note": "Capture, consolidate, recall, hand off"
+      },
+      "architecture": {
+        "label": "Architecture",
+        "note": "One binary, markdown files, a derived index"
+      },
+      "security": {
+        "label": "Security",
+        "note": "What is stored, what leaves, how to lock it down"
+      },
+      "research": {
+        "label": "Research and rationale",
+        "note": "Karpathy’s wiki, OKF, and the benchmarks"
+      }
     },
     "solutions": {
       "label": "Solutions",
-      "individuals": { "label": "For individuals", "note": "Switch agents and machines, keep the context" },
-      "teams": { "label": "For teams", "note": "One shared memory, faster onboarding" },
-      "compare": { "label": "Migrating from another tool", "note": "Mem0, Zep, cognee, OpenViking and others" }
+      "individuals": {
+        "label": "For individuals",
+        "note": "Switch agents and machines, keep the context"
+      },
+      "teams": {
+        "label": "For teams",
+        "note": "One shared memory, faster onboarding"
+      },
+      "compare": {
+        "label": "Migrating from another tool",
+        "note": "Mem0, Zep, cognee, OpenViking and others"
+      }
     },
     "integrations": {
       "label": "Integrations",
-      "agents": { "label": "Agents and editors", "note": "Claude Code, Codex, Cursor, Gemini CLI and 20 more" },
-      "platforms": { "label": "Operating systems", "note": "Linux, macOS, Windows" },
-      "providers": { "label": "LLM and embedding providers", "note": "Optional. Everything works without one" }
+      "agents": {
+        "label": "Agents and editors",
+        "note": "Claude Code, Codex, Cursor, Gemini CLI and 20 more"
+      },
+      "platforms": {
+        "label": "Operating systems",
+        "note": "Linux, macOS, Windows"
+      },
+      "providers": {
+        "label": "LLM and embedding providers",
+        "note": "Optional. Everything works without one"
+      }
     },
     "developers": {
       "label": "Developers",
-      "install": { "label": "Quick setup", "note": "Solo in three commands, a team in ten minutes" },
-      "advanced": { "label": "Advanced setup", "note": "Homelab, TLS, SSO, air-gapped, backups" },
-      "contribute": { "label": "Contribute", "note": "Where issues, PRs and new harnesses go" },
-      "download": { "label": "Downloads and changelog", "note": "Latest release for every platform" }
+      "install": {
+        "label": "Quick setup",
+        "note": "Solo in three commands, a team in ten minutes"
+      },
+      "advanced": {
+        "label": "Advanced setup",
+        "note": "Homelab, TLS, SSO, air-gapped, backups"
+      },
+      "contribute": {
+        "label": "Contribute",
+        "note": "Where issues, PRs and new harnesses go"
+      },
+      "download": {
+        "label": "Downloads and changelog",
+        "note": "Latest release for every platform"
+      }
     }
   },
   "footer": {
@@ -98,5 +140,8 @@
     "decline": "Decline",
     "accept": "Accept"
   },
-  "englishOnly": "This part is in English because it comes straight from the project."
+  "englishOnly": "This part is in English because it comes straight from the project.",
+  "faq": {
+    "title": "Questions and answers"
+  }
 }

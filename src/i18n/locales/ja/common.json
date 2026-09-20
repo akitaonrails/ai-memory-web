@@ -37,29 +37,71 @@
     "github": "GitHub",
     "product": {
       "label": "プロダクト",
-      "how": { "label": "仕組み", "note": "キャプチャ、統合、想起、引き継ぎ" },
-      "architecture": { "label": "アーキテクチャ", "note": "単一バイナリ、markdownファイル、派生インデックス" },
-      "security": { "label": "セキュリティ", "note": "何を保存し、何が外に出て、どう制限するか" },
-      "research": { "label": "リサーチと設計根拠", "note": "Karpathyのwiki、OKF、ベンチマーク" }
+      "how": {
+        "label": "仕組み",
+        "note": "キャプチャ、統合、想起、引き継ぎ"
+      },
+      "architecture": {
+        "label": "アーキテクチャ",
+        "note": "単一バイナリ、markdownファイル、派生インデックス"
+      },
+      "security": {
+        "label": "セキュリティ",
+        "note": "何を保存し、何が外に出て、どう制限するか"
+      },
+      "research": {
+        "label": "リサーチと設計根拠",
+        "note": "Karpathyのwiki、OKF、ベンチマーク"
+      }
     },
     "solutions": {
       "label": "ソリューション",
-      "individuals": { "label": "個人向け", "note": "エージェントやマシンを替えてもコンテキストはそのまま" },
-      "teams": { "label": "チーム向け", "note": "1つの共有記憶でオンボーディングを短縮" },
-      "compare": { "label": "他のツールからの移行", "note": "Mem0、Zep、cognee、OpenVikingなど" }
+      "individuals": {
+        "label": "個人向け",
+        "note": "エージェントやマシンを替えてもコンテキストはそのまま"
+      },
+      "teams": {
+        "label": "チーム向け",
+        "note": "1つの共有記憶でオンボーディングを短縮"
+      },
+      "compare": {
+        "label": "他のツールからの移行",
+        "note": "Mem0、Zep、cognee、OpenVikingなど"
+      }
     },
     "integrations": {
       "label": "連携",
-      "agents": { "label": "エージェントとエディタ", "note": "Claude Code、Codex、Cursor、Gemini CLIほか20種以上" },
-      "platforms": { "label": "OS", "note": "Linux、macOS、Windows" },
-      "providers": { "label": "LLMと埋め込みのプロバイダー", "note": "任意です。なくてもすべて動きます" }
+      "agents": {
+        "label": "エージェントとエディタ",
+        "note": "Claude Code、Codex、Cursor、Gemini CLIほか20種以上"
+      },
+      "platforms": {
+        "label": "OS",
+        "note": "Linux、macOS、Windows"
+      },
+      "providers": {
+        "label": "LLMと埋め込みのプロバイダー",
+        "note": "任意です。なくてもすべて動きます"
+      }
     },
     "developers": {
       "label": "開発者",
-      "install": { "label": "クイックセットアップ", "note": "個人ならコマンド3つ、チームなら10分" },
-      "advanced": { "label": "詳細セットアップ", "note": "ホームラボ、TLS、SSO、エアギャップ、バックアップ" },
-      "contribute": { "label": "コントリビュート", "note": "Issue、PR、新しいハーネスの受付先" },
-      "download": { "label": "ダウンロードと変更履歴", "note": "全プラットフォームの最新リリース" }
+      "install": {
+        "label": "クイックセットアップ",
+        "note": "個人ならコマンド3つ、チームなら10分"
+      },
+      "advanced": {
+        "label": "詳細セットアップ",
+        "note": "ホームラボ、TLS、SSO、エアギャップ、バックアップ"
+      },
+      "contribute": {
+        "label": "コントリビュート",
+        "note": "Issue、PR、新しいハーネスの受付先"
+      },
+      "download": {
+        "label": "ダウンロードと変更履歴",
+        "note": "全プラットフォームの最新リリース"
+      }
     }
   },
   "footer": {
@@ -98,5 +140,8 @@
     "decline": "同意しない",
     "accept": "同意する"
   },
-  "englishOnly": "この部分はプロジェクトからそのまま取り込んでいるため、英語のままです。"
+  "englishOnly": "この部分はプロジェクトからそのまま取り込んでいるため、英語のままです。",
+  "faq": {
+    "title": "よくある質問"
+  }
 }

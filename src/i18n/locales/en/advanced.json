@@ -28,14 +28,40 @@
       "alt": "Four deployment topologies side by side: laptop only with the server inside the laptop, a homelab box that two laptops connect to, a LAN server with a TLS shield in front of it, and a server reached through an outbound tunnel to a cloud edge.",
       "caption": "Moving right adds reach, and every step to the right adds a requirement. There is no replication between servers in any of them: many machines reach one server."
     },
-    "columns": { "topology": "Topology", "bind": "Bind", "auth": "Auth", "tls": "TLS", "runs": "Runs as" },
+    "columns": {
+      "topology": "Topology",
+      "bind": "Bind",
+      "auth": "Auth",
+      "tls": "TLS",
+      "runs": "Runs as"
+    },
     "bindProxy": "<code>{addr}</code> behind a proxy",
     "bindNone": "No host port at all",
     "items": [
-      { "name": "Laptop only", "auth": "None needed", "tls": "No", "runs": "systemd user unit, launchd agent, or a container" },
-      { "name": "Homelab box", "auth": "Bearer token and host allowlist, both required", "tls": "Recommended", "runs": "Docker with a healthcheck, or the AUR system service" },
-      { "name": "LAN with TLS", "auth": "Root token, plus a user and an API key per person", "tls": "Yes. Caddy with its internal CA works without a domain", "runs": "Docker Compose with a Caddy sidecar" },
-      { "name": "Tunnel", "auth": "Same as the LAN server", "tls": "Yes, at Cloudflare’s edge", "runs": "Docker Compose with a cloudflared sidecar" }
+      {
+        "name": "Laptop only",
+        "auth": "None needed",
+        "tls": "No",
+        "runs": "systemd user unit, launchd agent, or a container"
+      },
+      {
+        "name": "Homelab box",
+        "auth": "Bearer token and host allowlist, both required",
+        "tls": "Recommended",
+        "runs": "Docker with a healthcheck, or the AUR system service"
+      },
+      {
+        "name": "LAN with TLS",
+        "auth": "Root token, plus a user and an API key per person",
+        "tls": "Yes. Caddy with its internal CA works without a domain",
+        "runs": "Docker Compose with a Caddy sidecar"
+      },
+      {
+        "name": "Tunnel",
+        "auth": "Same as the LAN server",
+        "tls": "Yes, at Cloudflare’s edge",
+        "runs": "Docker Compose with a cloudflared sidecar"
+      }
     ],
     "stdio": "A laptop can skip HTTP entirely with <code>ai-memory serve --transport stdio</code>. For a homelab, the repository ships a <code>bin/deploy</code> script with compose and env templates. <a class=\"link\" href=\"{href}\">Follow the homelab deploy walkthrough</a>.",
     "internet": {
@@ -67,7 +93,12 @@
       "alt": "Two laptops connect over HTTPS to a reverse proxy. The proxy forwards plain HTTP to ai-memory. The proxy and ai-memory sit on the same host.",
       "caption": "The proxy owns the certificate. ai-memory stays on plain HTTP behind it, reachable only over the Docker network or loopback."
     },
-    "tabs": ["Caddy", "Caddy on a LAN", "nginx", "Cloudflare Tunnel"],
+    "tabs": [
+      "Caddy",
+      "Caddy on a LAN",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
     "caddy": "For a public domain with ports 80 and 443 reachable. Caddy issues and renews the Let’s Encrypt certificate on its own. The repository has the full compose file as <code>docker/compose.tls.caddy.yml</code>.",
     "caddyLan": {
       "text": "No domain and nothing exposed. Caddy’s internal CA signs the certificate, and you install its root certificate once on every client machine. Skip that step and clients either refuse the connection or learn to click through warnings.",
@@ -92,7 +123,12 @@
   "services": {
     "title": "Keep the server running",
     "lede": "ai-memory does not restart itself. The service manager on each operating system does that.",
-    "tabs": ["systemd user unit", "systemd system unit", "launchd on macOS", "WinSW on Windows"],
+    "tabs": [
+      "systemd user unit",
+      "systemd system unit",
+      "launchd on macOS",
+      "WinSW on Windows"
+    ],
     "user": {
       "text": "For a single-user workstation. The AUR packages install the unit. It needs no sudo and keeps state in <code>~/.local/share/ai-memory</code>. A user unit stops at logout unless you enable lingering.",
       "lingerComment": "keep it running after you log out"
@@ -109,17 +145,38 @@
   "data": {
     "title": "The data directory and backups",
     "lede": "The wiki is the truth. It is plain markdown in a git repository, and the search index is built from it.",
-    "figure": {
-      "alt": "The data directory split in two. On the source of truth side: wiki, a git-versioned stack of markdown pages, and raw. On the derived side: db, models and logs. An arrow labelled reindex goes from wiki to db.",
-      "caption": "Reindex rebuilds pages, links and full-text search from the wiki. It does not bring back sessions, observations, handoffs, users, keys, audit rows or embeddings, so the database still belongs in your backup."
+    "columns": {
+      "dir": "Directory",
+      "holds": "Holds",
+      "kind": "Kind",
+      "backup": "Back it up?"
     },
-    "columns": { "dir": "Directory", "holds": "Holds", "kind": "Kind", "backup": "Back it up?" },
     "dirs": {
-      "wiki": { "holds": "Every page as markdown, in one git repository", "kind": "Truth", "backup": "Yes. It is in the backup tarball, and you can also rsync it or git push it" },
-      "raw": { "holds": "Immutable, sanitized transcript segments from managed launches", "kind": "Truth", "backup": "Yes, if you use ai-memory run. Copy it separately" },
-      "db": { "holds": "memory.sqlite: full-text index, entities, embeddings, sessions, users, audit rows", "kind": "Mostly derived", "backup": "Yes. Pages, links and search rebuild from the wiki. Sessions, handoffs, users and keys live only here" },
-      "models": { "holds": "The local embedding model, about 87 MB", "kind": "Rebuildable", "backup": "No. It downloads again, or you place the files yourself" },
-      "logs": { "holds": "Rolling trace output", "kind": "Disposable", "backup": "No" }
+      "wiki": {
+        "holds": "Every page as markdown, in one git repository",
+        "kind": "Truth",
+        "backup": "Yes. It is in the backup tarball, and you can also rsync it or git push it"
+      },
+      "raw": {
+        "holds": "Immutable, sanitized transcript segments from managed launches",
+        "kind": "Truth",
+        "backup": "Yes, if you use ai-memory run. Copy it separately"
+      },
+      "db": {
+        "holds": "memory.sqlite: full-text index, entities, embeddings, sessions, users, audit rows",
+        "kind": "Mostly derived",
+        "backup": "Yes. Pages, links and search rebuild from the wiki. Sessions, handoffs, users and keys live only here"
+      },
+      "models": {
+        "holds": "The local embedding model, about 87 MB",
+        "kind": "Rebuildable",
+        "backup": "No. It downloads again, or you place the files yourself"
+      },
+      "logs": {
+        "holds": "Rolling trace output",
+        "kind": "Disposable",
+        "backup": "No"
+      }
     },
     "defaults": "Defaults: <code>~/.local/share/ai-memory</code> on Linux, <code>~/Library/Application Support/ai-memory</code> on macOS, <code>%LOCALAPPDATA%\\ai-memory</code> on Windows, <code>/data</code> in the container. Override with <code>AI_MEMORY_DATA_DIR</code>.",
     "backup": {
@@ -149,7 +206,8 @@
       "title": "Rebuilding the index",
       "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code> needs the server stopped and a clean database. Take a backup, move <code>db/memory.sqlite</code> and its WAL and SHM files aside, run it, then run <code>ai-memory embed</code> after the restart to rebuild embeddings."
     },
-    "lifecycle": "Read lifecycle operations: purge, rename, move, restore a page, reset"
+    "lifecycle": "Read lifecycle operations: purge, rename, move, restore a page, reset",
+    "reindexNote": "Reindex rebuilds pages, links and full-text search from the wiki. It does not bring back sessions, observations, handoffs, users, keys, audit rows or embeddings, so the database still belongs in your backup."
   },
   "routing": {
     "title": "Routing and identity",
@@ -158,16 +216,28 @@
       "title": "The marker file",
       "text": "By default the project is the name of the current directory, in a workspace called <code>default</code>. Drop a <code>.ai-memory.toml</code> in any ancestor directory to change that. Hooks walk up from the working directory and use the first marker they find.",
       "items": [
-        { "title": "Work and personal", "text": "One marker per parent directory. Every repository below it lands in that workspace, with the directory name as the project." },
-        { "title": "Mono-repo", "text": "A marker with a project pins every subdirectory to that one project. The closest marker wins." },
-        { "title": "Git worktrees", "text": "Linked worktrees and subdirectories resolve to the main repository, even when the worktree lives outside it." }
+        {
+          "title": "Work and personal",
+          "text": "One marker per parent directory. Every repository below it lands in that workspace, with the directory name as the project."
+        },
+        {
+          "title": "Mono-repo",
+          "text": "A marker with a project pins every subdirectory to that one project. The closest marker wins."
+        },
+        {
+          "title": "Git worktrees",
+          "text": "Linked worktrees and subdirectories resolve to the main repository, even when the worktree lives outside it."
+        }
       ],
       "capture": "The same file holds <code>[capture]</code> rules with <code>ignore_paths</code>, and <code>ai-memory install-hooks --apply --capture-mode allowlist</code> turns the marker into an opt-in: a repository without one emits no events. Native hooks enforce both. The Docker wrapper’s shell hooks do not. <a class=\"link\" href=\"{href}\">Read the marker file reference</a>."
     },
     "autoScope": {
       "title": "Auto-scope modes",
       "text": "An MCP call without an explicit project resolves through a “current project” pointer. The mode decides who shares that pointer. The server logs the live mode at startup.",
-      "columns": { "mode": "Mode", "when": "When to use it" },
+      "columns": {
+        "mode": "Mode",
+        "when": "When to use it"
+      },
       "modes": {
         "per_actor": "The default. Isolates parallel harnesses and separate people on one server.",
         "per_session": "For session-aware clients that forward the hook session id on every MCP request.",
@@ -210,7 +280,11 @@
     "capacity": {
       "title": "Capacity",
       "text": "Every write goes through one writer. The project measured where that stops, with <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.",
-      "columns": { "writers": "Concurrent writers", "throughput": "Throughput", "latency": "Mean latency" },
+      "columns": {
+        "writers": "Concurrent writers",
+        "throughput": "Throughput",
+        "latency": "Mean latency"
+      },
       "perSecond": "{n}/s",
       "ms": "{n} ms",
       "notes": [

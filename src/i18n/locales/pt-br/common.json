@@ -37,29 +37,71 @@
     "github": "GitHub",
     "product": {
       "label": "Produto",
-      "how": { "label": "Como funciona", "note": "Captura, consolidação, recuperação, handoff" },
-      "architecture": { "label": "Arquitetura", "note": "Um binário só, arquivos markdown, um índice derivado" },
-      "security": { "label": "Segurança", "note": "O que fica guardado, o que sai, como travar tudo" },
-      "research": { "label": "Pesquisa e fundamentos", "note": "A wiki do Karpathy, OKF e os benchmarks" }
+      "how": {
+        "label": "Como funciona",
+        "note": "Captura, consolidação, recuperação, handoff"
+      },
+      "architecture": {
+        "label": "Arquitetura",
+        "note": "Um binário só, arquivos markdown, um índice derivado"
+      },
+      "security": {
+        "label": "Segurança",
+        "note": "O que fica guardado, o que sai, como travar tudo"
+      },
+      "research": {
+        "label": "Pesquisa e fundamentos",
+        "note": "A wiki do Karpathy, OKF e os benchmarks"
+      }
     },
     "solutions": {
       "label": "Soluções",
-      "individuals": { "label": "Para uso individual", "note": "Troque de agente e de máquina, mantenha o contexto" },
-      "teams": { "label": "Para times", "note": "Uma memória compartilhada, onboarding mais rápido" },
-      "compare": { "label": "Migrando de outra ferramenta", "note": "Mem0, Zep, cognee, OpenViking e outras" }
+      "individuals": {
+        "label": "Para uso individual",
+        "note": "Troque de agente e de máquina, mantenha o contexto"
+      },
+      "teams": {
+        "label": "Para times",
+        "note": "Uma memória compartilhada, onboarding mais rápido"
+      },
+      "compare": {
+        "label": "Migrando de outra ferramenta",
+        "note": "Mem0, Zep, cognee, OpenViking e outras"
+      }
     },
     "integrations": {
       "label": "Integrações",
-      "agents": { "label": "Agentes e editores", "note": "Claude Code, Codex, Cursor, Gemini CLI e mais 20" },
-      "platforms": { "label": "Sistemas operacionais", "note": "Linux, macOS, Windows" },
-      "providers": { "label": "Provedores de LLM e embeddings", "note": "Opcionais. Tudo funciona sem nenhum" }
+      "agents": {
+        "label": "Agentes e editores",
+        "note": "Claude Code, Codex, Cursor, Gemini CLI e mais 20"
+      },
+      "platforms": {
+        "label": "Sistemas operacionais",
+        "note": "Linux, macOS, Windows"
+      },
+      "providers": {
+        "label": "Provedores de LLM e embeddings",
+        "note": "Opcionais. Tudo funciona sem nenhum"
+      }
     },
     "developers": {
       "label": "Desenvolvedores",
-      "install": { "label": "Instalação rápida", "note": "Sozinho em três comandos, um time em dez minutos" },
-      "advanced": { "label": "Configuração avançada", "note": "Homelab, TLS, SSO, air-gapped, backups" },
-      "contribute": { "label": "Contribua", "note": "Para onde vão issues, PRs e novos harnesses" },
-      "download": { "label": "Downloads e changelog", "note": "A última release para cada plataforma" }
+      "install": {
+        "label": "Instalação rápida",
+        "note": "Sozinho em três comandos, um time em dez minutos"
+      },
+      "advanced": {
+        "label": "Configuração avançada",
+        "note": "Homelab, TLS, SSO, air-gapped, backups"
+      },
+      "contribute": {
+        "label": "Contribua",
+        "note": "Para onde vão issues, PRs e novos harnesses"
+      },
+      "download": {
+        "label": "Downloads e changelog",
+        "note": "A última release para cada plataforma"
+      }
     }
   },
   "footer": {
@@ -98,5 +140,8 @@
     "decline": "Recusar",
     "accept": "Aceitar"
   },
-  "englishOnly": "Este trecho está em inglês porque vem direto do projeto."
+  "englishOnly": "Este trecho está em inglês porque vem direto do projeto.",
+  "faq": {
+    "title": "Perguntas e respostas"
+  }
 }

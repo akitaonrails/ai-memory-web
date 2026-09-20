@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import { faqPage, type Faq } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
@@ -144,7 +145,8 @@ max_entries = 4096        # ${t('routing.autoScope.comments.max')}`;
 // Concurrent writers, writes per second, mean latency in ms.
 const capacity = [[1, 42, 23.9], [8, 295, 3.4], [32, 698, 1.43], [128, 700, 1.43]];
 
-const faq = faqPage(raw<Faq[]>('faq'));
+const faqItems = raw<Faq[]>('faq');
+const faq = faqPage(faqItems);
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={[faq]}>
   <PageHero hue="azure" kicker={t('nav.developers.label')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -254,7 +256,7 @@ const faq = faqPage(raw<Faq[]>('faq'));
   </Section>
 
   <Section id="data" hue="green" tint title={t('data.title')} lede={t('data.lede')}>
-    <Figure name="advanced-data-dir" alt={t('data.figure.alt')} caption={t('data.figure.caption')} />
+    <p class="mt-8 text-muted max-w-[44em]">{t('data.reindexNote')}</p>
     <div class="table-wrap">
       <table class="table-site">
         <thead><tr><th>{t('data.columns.dir')}</th><th>{t('data.columns.holds')}</th><th>{t('data.columns.kind')}</th><th>{t('data.columns.backup')}</th></tr></thead>
@@ -382,6 +384,8 @@ const faq = faqPage(raw<Faq[]>('faq'));
       <p class="mt-6"><a class="link" href={doc('MIGRATION-2.0.md')}>{t('ops.upgrading.link')}</a></p>
     </div>
   </Section>
+
+  <Faq items={faqItems} />
 
   <NextPages links={[
     { href: '/install/', title: t('crumbs.install'), text: t('nextPages.install'), hue: 'amber' },

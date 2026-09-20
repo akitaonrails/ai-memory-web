@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
@@ -187,6 +188,8 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
       <div class="min-w-0"><CodeBlock title={t('notListed.codeTitle')} code={`# ${t('notListed.codeComment')}\nhttp://127.0.0.1:49374/mcp`} /></div>
     </div>
   </Section>
+
+  <Faq items={faq} />
 
   <NextPages links={next} />
   <CtaBand />

@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import BarChart from '@/components/BarChart.astro';
 import { faqPage, type Faq } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
@@ -62,20 +63,12 @@ const metrics: [string, number, number, number][] = [
 ];
 const hit5 = metrics[1].slice(1) as number[];
 const bench = raw<string[]>('measured.chart.bars').map((label, i) => ({ label, v: hit5[i] }));
-const writers = [
-  { n: 1, perSecond: 42, ms: 23.9 },
-  { n: 8, perSecond: 295, ms: 3.4 },
-  { n: 32, perSecond: 698, ms: 1.43 },
-  { n: 128, perSecond: 700, ms: 1.43 },
-];
 
 const reproduce = `cargo build --release -p ai-memory-cli
 cargo run --release -p ai-memory-eval -- retrieval --fetch`;
-const throughput = `cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture`;
 const exportOkf = `ai-memory export-okf --project myproject -o myproject-bundle.tar.gz`;
 
 const recommended = raw<{ title: string; text: string }[]>('next.recommended.items');
-const behind = [t('next.behind.reranked', { score: score(0.952) }), ...raw<string[]>('next.behind.items')];
 
 const nextMeta: { href: string; hue: Hue }[] = [
   { href: '/architecture/', hue: 'azure' },
@@ -85,7 +78,8 @@ const nextMeta: { href: string; hue: Hue }[] = [
 const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i) => ({ ...n, ...nextMeta[i] }));
 
 const faqParams = { hybrid: score(hit5[2]), fts: score(hit5[1]) };
-const faq = faqPage(raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) })));
+const faqItems = raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) }));
+const faq = faqPage(faqItems);
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={[faq]}>
   <PageHero hue="violet" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -238,25 +232,7 @@ const faq = faqPage(raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\
         <p class="mt-2 text-muted max-w-[40em]" set:html={t('measured.reproduce.text', { date: date('2026-09-01') })} />
         <div class="mt-4"><CodeBlock title={t('measured.reproduce.codeTitle')} code={reproduce} /></div>
         <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/README.md`}>{t('measured.reproduce.full')}</a></p>
-      </div>
-      <div class="min-w-0">
-        <h3 class="text-xl">{t('measured.throughput.title')}</h3>
-        <p class="mt-2 text-muted max-w-[40em]">{t('measured.throughput.text')}</p>
-        <div class="table-wrap mt-4">
-          <table class="table-site">
-            <thead><tr><th>{t('measured.throughput.colWriters')}</th><th>{t('measured.throughput.colThroughput')}</th><th>{t('measured.throughput.colLatency')}</th></tr></thead>
-            <tbody>
-              {writers.map((w) => (
-                <tr>
-                  <td class="tabular-nums">{number(w.n)}</td>
-                  <td class="tabular-nums">{t('measured.throughput.perSecond', { n: number(w.perSecond) })}</td>
-                  <td class="tabular-nums">{t('measured.throughput.ms', { n: number(w.ms) })}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div class="mt-4"><CodeBlock title={t('measured.throughput.codeTitle')} code={throughput} /></div>
+        <p class="mt-6 text-muted max-w-[40em]" set:html={t('measured.throughputNote', { href: href('/architecture/#concurrency') })} />
       </div>
     </div>
   </Section>
@@ -278,9 +254,7 @@ const faq = faqPage(raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\
       </div>
       <div>
         <h3 class="text-xl">{t('next.behind.title')}</h3>
-        <ul class="mt-5 space-y-3 text-muted behind">
-          {behind.map((b) => <li>{b}</li>)}
-        </ul>
+        <p class="mt-5 text-muted max-w-[40em]" set:html={t('next.behind.text', { href: href('/compare/#behind') })} />
       </div>
     </div>
 
@@ -289,6 +263,8 @@ const faq = faqPage(raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\
       <footer set:html={t('quotes.noAsterisk.by', { href: post })} />
     </blockquote>
   </Section>
+
+  <Faq items={faqItems} />
 
   <NextPages links={nextPages} />
   <CtaBand title={t('cta.title')} text={t('cta.text')} />
@@ -300,8 +276,6 @@ const faq = faqPage(raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\
   .pull footer { margin-top: 1rem; color: var(--muted); font-size: .95rem; }
   .pull footer :global(a) { text-decoration: underline; color: var(--hue); }
 
-  .behind li { position: relative; padding-inline-start: 1.5rem; max-width: 40em; }
-  .behind li::before { content: ''; position: absolute; inset-inline-start: .1rem; top: .5em; width: .55rem; height: .55rem; border-radius: 50%; border: 2px solid var(--muted); }
 
   .decision { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
   .decision .we { color: var(--hue); font-weight: 600; font-size: .9rem; }

@@ -1,0 +1,33 @@
+---
+// The page's questions, shown as an accordion at the bottom. The same list feeds the FAQPage structured data
+// (faqPage() in src/lib/schema.ts), so what search engines read is what visitors can read.
+import type { Hue } from '@/data/site';
+import type { Faq } from '@/lib/schema';
+import { useI18n } from '@/i18n';
+interface Props { items: readonly Faq[]; title?: string; hue?: Hue }
+const { t } = useI18n(Astro);
+const { items, title = t('faq.title'), hue } = Astro.props;
+---
+<section id="faq" class="band" data-hue={hue}>
+  <div class="wrap-narrow">
+    <h2 class="text-3xl">{title}</h2>
+    <div class="list mt-10">
+      {items.map((f) => (
+        <details>
+          <summary><h3 class="text-xl">{f.q}</h3></summary>
+          <p class="answer" set:html={f.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .list { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary { display: flex; align-items: center; gap: 1.5rem; padding: 1.2rem 0; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary h3 { flex: 1; }
+  summary::after { content: ''; flex: none; width: .6rem; height: .6rem; margin-inline-end: .3rem; border-right: 2px solid var(--hue, var(--muted)); border-bottom: 2px solid var(--hue, var(--muted)); rotate: 45deg; transition: rotate .3s var(--ease-out-quint); }
+  details[open] summary::after { rotate: -135deg; }
+  .answer { padding-bottom: 1.5rem; color: var(--muted); max-width: 42em; }
+</style>

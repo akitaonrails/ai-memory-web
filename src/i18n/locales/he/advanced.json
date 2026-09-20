@@ -28,14 +28,40 @@
       "alt": "ארבע טופולוגיות פריסה זו לצד זו: לפטופ בלבד שהשרת רץ בתוכו, מכונת homelab ששני לפטופים מתחברים אליה, שרת LAN שמגן TLS עומד לפניו, ושרת שמגיעים אליו דרך tunnel יוצא לקצה של ענן.",
       "caption": "כל צעד ימינה מרחיב את הגישה ומוסיף דרישה. באף אחת מהן אין רפליקציה בין שרתים: הרבה מכונות מגיעות לשרת אחד."
     },
-    "columns": { "topology": "טופולוגיה", "bind": "Bind", "auth": "אימות", "tls": "TLS", "runs": "רץ בתור" },
+    "columns": {
+      "topology": "טופולוגיה",
+      "bind": "Bind",
+      "auth": "אימות",
+      "tls": "TLS",
+      "runs": "רץ בתור"
+    },
     "bindProxy": "<code>{addr}</code> מאחורי proxy",
     "bindNone": "בלי פורט על המארח בכלל",
     "items": [
-      { "name": "לפטופ בלבד", "auth": "לא נדרש", "tls": "לא", "runs": "יחידת משתמש של systemd, סוכן launchd או קונטיינר" },
-      { "name": "מכונת homelab", "auth": "bearer token ו-allowlist של מארחים, שניהם חובה", "tls": "מומלץ", "runs": "Docker עם healthcheck, או שירות המערכת מ-AUR" },
-      { "name": "LAN עם TLS", "auth": "טוקן root, ובנוסף משתמש ומפתח API לכל אדם", "tls": "כן. Caddy עם ה-CA הפנימי שלו עובד גם בלי דומיין", "runs": "Docker Compose עם sidecar של Caddy" },
-      { "name": "Tunnel", "auth": "כמו בשרת ה-LAN", "tls": "כן, בקצה של Cloudflare", "runs": "Docker Compose עם sidecar של cloudflared" }
+      {
+        "name": "לפטופ בלבד",
+        "auth": "לא נדרש",
+        "tls": "לא",
+        "runs": "יחידת משתמש של systemd, סוכן launchd או קונטיינר"
+      },
+      {
+        "name": "מכונת homelab",
+        "auth": "bearer token ו-allowlist של מארחים, שניהם חובה",
+        "tls": "מומלץ",
+        "runs": "Docker עם healthcheck, או שירות המערכת מ-AUR"
+      },
+      {
+        "name": "LAN עם TLS",
+        "auth": "טוקן root, ובנוסף משתמש ומפתח API לכל אדם",
+        "tls": "כן. Caddy עם ה-CA הפנימי שלו עובד גם בלי דומיין",
+        "runs": "Docker Compose עם sidecar של Caddy"
+      },
+      {
+        "name": "Tunnel",
+        "auth": "כמו בשרת ה-LAN",
+        "tls": "כן, בקצה של Cloudflare",
+        "runs": "Docker Compose עם sidecar של cloudflared"
+      }
     ],
     "stdio": "בלפטופ אפשר לוותר לגמרי על HTTP עם <code>ai-memory serve --transport stdio</code>. ל-homelab, ה-repository כולל סקריפט <code>bin/deploy</code> עם תבניות compose ו-env. <a class=\"link\" href=\"{href}\">למדריך הפריסה ל-homelab, צעד אחר צעד</a>.",
     "internet": {
@@ -67,7 +93,12 @@
       "alt": "שני לפטופים מתחברים ב-HTTPS ל-reverse proxy. ה-proxy מעביר HTTP רגיל ל-ai-memory. ה-proxy ו-ai-memory יושבים על אותו מארח.",
       "caption": "התעודה שייכת ל-proxy. ai-memory נשאר מאחוריו על HTTP רגיל, ואפשר להגיע אליו רק דרך רשת ה-Docker או loopback."
     },
-    "tabs": ["Caddy", "Caddy ב-LAN", "nginx", "Cloudflare Tunnel"],
+    "tabs": [
+      "Caddy",
+      "Caddy ב-LAN",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
     "caddy": "לדומיין ציבורי שהפורטים 80 ו-443 שלו נגישים. Caddy מנפיק ומחדש את תעודת Let’s Encrypt בעצמו. קובץ ה-compose המלא נמצא ב-repository בשם <code>docker/compose.tls.caddy.yml</code>.",
     "caddyLan": {
       "text": "בלי דומיין ובלי לחשוף שום דבר. ה-CA הפנימי של Caddy חותם על התעודה, ואת תעודת ה-root שלו מתקינים פעם אחת בכל מכונת לקוח. בלי הצעד הזה הלקוחות מסרבים להתחבר, או שאנשים מתרגלים ללחוץ \"המשך\" על אזהרות.",
@@ -92,7 +123,12 @@
   "services": {
     "title": "לשמור על השרת רץ",
     "lede": "ai-memory לא מפעיל את עצמו מחדש. את זה עושה מנהל השירותים של כל מערכת הפעלה.",
-    "tabs": ["יחידת משתמש של systemd", "יחידת מערכת של systemd", "launchd ב-macOS", "WinSW ב-Windows"],
+    "tabs": [
+      "יחידת משתמש של systemd",
+      "יחידת מערכת של systemd",
+      "launchd ב-macOS",
+      "WinSW ב-Windows"
+    ],
     "user": {
       "text": "לתחנת עבודה של משתמש אחד. חבילות ה-AUR מתקינות את היחידה. היא לא דורשת sudo ושומרת את המצב ב-<code>~/.local/share/ai-memory</code>. יחידת משתמש נעצרת ב-logout, אלא אם מפעילים lingering.",
       "lingerComment": "ממשיך לרוץ גם אחרי logout"
@@ -109,17 +145,38 @@
   "data": {
     "title": "תיקיית הנתונים וגיבויים",
     "lede": "הוויקי הוא האמת. הוא markdown פשוט בתוך repository של git, ואינדקס החיפוש נבנה ממנו.",
-    "figure": {
-      "alt": "תיקיית הנתונים מחולקת לשניים. בצד של מקור האמת: wiki, ערימת דפי markdown בניהול גרסאות של git, ו-raw. בצד הנגזר: db, models ו-logs. חץ עם התווית reindex יוצא מ-wiki אל db.",
-      "caption": "reindex בונה מחדש מהוויקי את הדפים, הקישורים וחיפוש הטקסט המלא. הוא לא מחזיר סשנים, תצפיות, העברות, משתמשים, מפתחות, שורות ביקורת או embeddings, ולכן גם מסד הנתונים צריך להיות בגיבוי."
+    "columns": {
+      "dir": "תיקייה",
+      "holds": "מה יש בה",
+      "kind": "סוג",
+      "backup": "לגבות?"
     },
-    "columns": { "dir": "תיקייה", "holds": "מה יש בה", "kind": "סוג", "backup": "לגבות?" },
     "dirs": {
-      "wiki": { "holds": "כל דף כקובץ markdown, ב-repository אחד של git", "kind": "אמת", "backup": "כן. היא נכללת ב-tarball של הגיבוי, ואפשר גם להעתיק אותה ב-rsync או לעשות לה git push" },
-      "raw": { "holds": "מקטעי תמלול שעברו ניקוי ואינם משתנים, מהרצות מנוהלות", "kind": "אמת", "backup": "כן, אם משתמשים ב-ai-memory run. מעתיקים אותה בנפרד" },
-      "db": { "holds": "memory.sqlite: אינדקס טקסט מלא, ישויות, embeddings, סשנים, משתמשים, שורות ביקורת", "kind": "ברובה נגזרת", "backup": "כן. דפים, קישורים וחיפוש נבנים מחדש מהוויקי. סשנים, העברות, משתמשים ומפתחות קיימים רק כאן" },
-      "models": { "holds": "מודל ה-embeddings המקומי, בערך 87 MB", "kind": "ניתנת לבנייה מחדש", "backup": "לא. המודל יורד שוב, או שמניחים את הקבצים ידנית" },
-      "logs": { "holds": "פלט trace מתגלגל", "kind": "אפשר לזרוק", "backup": "לא" }
+      "wiki": {
+        "holds": "כל דף כקובץ markdown, ב-repository אחד של git",
+        "kind": "אמת",
+        "backup": "כן. היא נכללת ב-tarball של הגיבוי, ואפשר גם להעתיק אותה ב-rsync או לעשות לה git push"
+      },
+      "raw": {
+        "holds": "מקטעי תמלול שעברו ניקוי ואינם משתנים, מהרצות מנוהלות",
+        "kind": "אמת",
+        "backup": "כן, אם משתמשים ב-ai-memory run. מעתיקים אותה בנפרד"
+      },
+      "db": {
+        "holds": "memory.sqlite: אינדקס טקסט מלא, ישויות, embeddings, סשנים, משתמשים, שורות ביקורת",
+        "kind": "ברובה נגזרת",
+        "backup": "כן. דפים, קישורים וחיפוש נבנים מחדש מהוויקי. סשנים, העברות, משתמשים ומפתחות קיימים רק כאן"
+      },
+      "models": {
+        "holds": "מודל ה-embeddings המקומי, בערך 87 MB",
+        "kind": "ניתנת לבנייה מחדש",
+        "backup": "לא. המודל יורד שוב, או שמניחים את הקבצים ידנית"
+      },
+      "logs": {
+        "holds": "פלט trace מתגלגל",
+        "kind": "אפשר לזרוק",
+        "backup": "לא"
+      }
     },
     "defaults": "ברירות המחדל: <code>~/.local/share/ai-memory</code> ב-Linux, <code>~/Library/Application Support/ai-memory</code> ב-macOS, <code>%LOCALAPPDATA%\\ai-memory</code> ב-Windows, <code>/data</code> בקונטיינר. אפשר לשנות עם <code>AI_MEMORY_DATA_DIR</code>.",
     "backup": {
@@ -149,7 +206,8 @@
       "title": "בנייה מחדש של האינדקס",
       "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code> דורש שרת עצור ומסד נתונים נקי. מגבים, מזיזים הצידה את <code>db/memory.sqlite</code> ואת קובצי ה-WAL וה-SHM שלו, מריצים את הפקודה, ואחרי ההפעלה מחדש מריצים <code>ai-memory embed</code> כדי לבנות מחדש את ה-embeddings."
     },
-    "lifecycle": "לקריאה על פעולות מחזור החיים: purge, שינוי שם, העברה, שחזור דף, reset"
+    "lifecycle": "לקריאה על פעולות מחזור החיים: purge, שינוי שם, העברה, שחזור דף, reset",
+    "reindexNote": "reindex בונה מחדש מהוויקי את הדפים, הקישורים וחיפוש הטקסט המלא. הוא לא מחזיר סשנים, תצפיות, העברות, משתמשים, מפתחות, שורות ביקורת או embeddings, ולכן גם מסד הנתונים צריך להיות בגיבוי."
   },
   "routing": {
     "title": "ניתוב וזהות",
@@ -158,16 +216,28 @@
       "title": "קובץ הסימון",
       "text": "כברירת מחדל הפרויקט הוא שם התיקייה הנוכחית, בתוך workspace בשם <code>default</code>. כדי לשנות את זה מניחים <code>.ai-memory.toml</code> באחת מתיקיות האב. ה-hooks עולים מתיקיית העבודה כלפי מעלה ומשתמשים בקובץ הסימון הראשון שהם מוצאים.",
       "items": [
-        { "title": "עבודה ואישי", "text": "קובץ סימון אחד לכל תיקיית אב. כל repository שמתחתיה נכנס ל-workspace הזה, ושם התיקייה הוא שם הפרויקט." },
-        { "title": "Mono-repo", "text": "קובץ סימון שמגדיר project מצמיד את כל תתי-התיקיות לפרויקט האחד הזה. קובץ הסימון הקרוב ביותר קובע." },
-        { "title": "Git worktrees", "text": "worktrees מקושרים ותתי-תיקיות מתמפים ל-repository הראשי, גם כשה-worktree נמצא מחוץ לו." }
+        {
+          "title": "עבודה ואישי",
+          "text": "קובץ סימון אחד לכל תיקיית אב. כל repository שמתחתיה נכנס ל-workspace הזה, ושם התיקייה הוא שם הפרויקט."
+        },
+        {
+          "title": "Mono-repo",
+          "text": "קובץ סימון שמגדיר project מצמיד את כל תתי-התיקיות לפרויקט האחד הזה. קובץ הסימון הקרוב ביותר קובע."
+        },
+        {
+          "title": "Git worktrees",
+          "text": "worktrees מקושרים ותתי-תיקיות מתמפים ל-repository הראשי, גם כשה-worktree נמצא מחוץ לו."
+        }
       ],
       "capture": "באותו קובץ יש גם כללי <code>[capture]</code> עם <code>ignore_paths</code>, והפקודה <code>ai-memory install-hooks --apply --capture-mode allowlist</code> הופכת את קובץ הסימון ל-opt-in: repository בלי קובץ כזה לא שולח אירועים. ה-hooks הנייטיב אוכפים את שניהם. ה-shell hooks של ה-wrapper של Docker לא אוכפים. <a class=\"link\" href=\"{href}\">לתיעוד המלא של קובץ הסימון</a>."
     },
     "autoScope": {
       "title": "מצבי auto-scope",
       "text": "קריאת MCP בלי פרויקט מפורש נפתרת דרך מצביע של \"הפרויקט הנוכחי\". המצב קובע מי חולק את המצביע הזה. השרת רושם בלוג את המצב הפעיל בזמן העלייה.",
-      "columns": { "mode": "מצב", "when": "מתי להשתמש בו" },
+      "columns": {
+        "mode": "מצב",
+        "when": "מתי להשתמש בו"
+      },
       "modes": {
         "per_actor": "ברירת המחדל. מבודד harnesses שרצים במקביל ואנשים שונים על שרת אחד.",
         "per_session": "ללקוחות מודעי סשן, שמעבירים את מזהה הסשן של ה-hook בכל בקשת MCP.",
@@ -210,7 +280,11 @@
     "capacity": {
       "title": "קיבולת",
       "text": "כל כתיבה עוברת דרך כותב אחד. הפרויקט מדד איפה זה נעצר, בעזרת <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.",
-      "columns": { "writers": "כותבים במקביל", "throughput": "תפוקה", "latency": "השהיה ממוצעת" },
+      "columns": {
+        "writers": "כותבים במקביל",
+        "throughput": "תפוקה",
+        "latency": "השהיה ממוצעת"
+      },
       "perSecond": "{n} לשנייה",
       "ms": "{n} ms",
       "notes": [

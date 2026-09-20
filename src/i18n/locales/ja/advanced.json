@@ -28,14 +28,40 @@
       "alt": "4つのデプロイ構成を横に並べた図。サーバーをノートPCの中で動かす構成、2台のノートPCが接続するホームラボのマシン、手前にTLSの盾を置いたLANサーバー、クラウドエッジへのアウトバウンドトンネル経由で到達するサーバー。",
       "caption": "右へ進むほど届く範囲が広がり、1段進むごとに要件が1つ増えます。どの構成でもサーバー間のレプリケーションはありません。複数のマシンが1台のサーバーに接続します。"
     },
-    "columns": { "topology": "構成", "bind": "バインド", "auth": "認証", "tls": "TLS", "runs": "実行形態" },
+    "columns": {
+      "topology": "構成",
+      "bind": "バインド",
+      "auth": "認証",
+      "tls": "TLS",
+      "runs": "実行形態"
+    },
     "bindProxy": "プロキシの背後で<code>{addr}</code>",
     "bindNone": "ホスト側のポートは公開しない",
     "items": [
-      { "name": "ノートPCのみ", "auth": "不要", "tls": "不要", "runs": "systemdユーザーユニット、launchdエージェント、またはコンテナ" },
-      { "name": "ホームラボのマシン", "auth": "ベアラートークンとホスト許可リスト。どちらも必須", "tls": "推奨", "runs": "ヘルスチェック付きのDocker、またはAURのシステムサービス" },
-      { "name": "TLS付きのLAN", "auth": "rootトークンに加え、1人ずつユーザーとAPIキーを発行", "tls": "必要。Caddyの内部CAならドメインなしで使えます", "runs": "CaddyサイドカーつきのDocker Compose" },
-      { "name": "トンネル", "auth": "LANサーバーと同じ", "tls": "必要。Cloudflareのエッジで終端します", "runs": "cloudflaredサイドカーつきのDocker Compose" }
+      {
+        "name": "ノートPCのみ",
+        "auth": "不要",
+        "tls": "不要",
+        "runs": "systemdユーザーユニット、launchdエージェント、またはコンテナ"
+      },
+      {
+        "name": "ホームラボのマシン",
+        "auth": "ベアラートークンとホスト許可リスト。どちらも必須",
+        "tls": "推奨",
+        "runs": "ヘルスチェック付きのDocker、またはAURのシステムサービス"
+      },
+      {
+        "name": "TLS付きのLAN",
+        "auth": "rootトークンに加え、1人ずつユーザーとAPIキーを発行",
+        "tls": "必要。Caddyの内部CAならドメインなしで使えます",
+        "runs": "CaddyサイドカーつきのDocker Compose"
+      },
+      {
+        "name": "トンネル",
+        "auth": "LANサーバーと同じ",
+        "tls": "必要。Cloudflareのエッジで終端します",
+        "runs": "cloudflaredサイドカーつきのDocker Compose"
+      }
     ],
     "stdio": "ノートPCなら<code>ai-memory serve --transport stdio</code>でHTTPを使わずに済みます。ホームラボ向けには、composeとenvのテンプレートを備えた<code>bin/deploy</code>スクリプトがリポジトリに入っています。<a class=\"link\" href=\"{href}\">ホームラボへのデプロイ手順を見る</a>。",
     "internet": {
@@ -67,7 +93,12 @@
       "alt": "2台のノートPCがHTTPSでリバースプロキシに接続している図。プロキシは平文のHTTPでai-memoryに転送する。プロキシとai-memoryは同じホスト上にある。",
       "caption": "証明書を持つのはプロキシです。ai-memoryはその背後で平文のHTTPのまま動き、Dockerネットワークかループバックからしか到達できません。"
     },
-    "tabs": ["Caddy", "LAN内のCaddy", "nginx", "Cloudflare Tunnel"],
+    "tabs": [
+      "Caddy",
+      "LAN内のCaddy",
+      "nginx",
+      "Cloudflare Tunnel"
+    ],
     "caddy": "公開ドメインがあり、ポート80と443に外から到達できる場合の構成です。Let’s Encryptの証明書はCaddyが自動で発行、更新します。完全なcomposeファイルはリポジトリの<code>docker/compose.tls.caddy.yml</code>にあります。",
     "caddyLan": {
       "text": "ドメインなし、外部公開なしの構成です。Caddyの内部CAが証明書に署名するので、そのルート証明書をすべてのクライアントマシンに一度だけインストールします。この手順を省くと、クライアントは接続を拒否するか、利用者が警告を無視してクリックする癖をつけることになります。",
@@ -92,7 +123,12 @@
   "services": {
     "title": "サーバーを動かし続ける",
     "lede": "ai-memoryは自分では再起動しません。再起動は各OSのサービスマネージャーに任せます。",
-    "tabs": ["systemdユーザーユニット", "systemdシステムユニット", "macOSのlaunchd", "WindowsのWinSW"],
+    "tabs": [
+      "systemdユーザーユニット",
+      "systemdシステムユニット",
+      "macOSのlaunchd",
+      "WindowsのWinSW"
+    ],
     "user": {
       "text": "1人で使うワークステーション向けです。ユニットはAURパッケージがインストールします。sudoは不要で、状態は<code>~/.local/share/ai-memory</code>に保存されます。lingeringを有効にしない限り、ユーザーユニットはログアウト時に止まります。",
       "lingerComment": "ログアウト後も動かし続ける"
@@ -109,17 +145,38 @@
   "data": {
     "title": "データディレクトリとバックアップ",
     "lede": "正はwikiです。中身はgitリポジトリに入ったプレーンなmarkdownで、検索インデックスはそこから生成されます。",
-    "figure": {
-      "alt": "データディレクトリを2つに分けた図。正本の側には、gitでバージョン管理されたmarkdownページの束であるwikiと、rawがある。派生の側にはdb、models、logsがある。reindexと書かれた矢印がwikiからdbへ伸びている。",
-      "caption": "reindexは、ページ、リンク、全文検索をwikiから再構築します。セッション、オブザベーション、引き継ぎ、ユーザー、キー、監査の行、埋め込みは復元されないため、データベースもバックアップに含める必要があります。"
+    "columns": {
+      "dir": "ディレクトリ",
+      "holds": "中身",
+      "kind": "種類",
+      "backup": "バックアップする？"
     },
-    "columns": { "dir": "ディレクトリ", "holds": "中身", "kind": "種類", "backup": "バックアップする？" },
     "dirs": {
-      "wiki": { "holds": "markdownで書かれたすべてのページ。1つのgitリポジトリに入っています", "kind": "正", "backup": "はい。バックアップのtarballに含まれます。rsyncやgit pushでも退避できます" },
-      "raw": { "holds": "マネージド起動で記録した、サニタイズ済みで変更不可のトランスクリプト断片", "kind": "正", "backup": "ai-memory runを使っているなら、はい。別途コピーしてください" },
-      "db": { "holds": "memory.sqlite: 全文検索インデックス、エンティティ、埋め込み、セッション、ユーザー、監査の行", "kind": "大部分が派生", "backup": "はい。ページ、リンク、検索はwikiから再構築できます。セッション、引き継ぎ、ユーザー、キーはここにしかありません" },
-      "models": { "holds": "ローカルの埋め込みモデル。約87 MB", "kind": "再取得可能", "backup": "いいえ。再ダウンロードされます。自分でファイルを置くこともできます" },
-      "logs": { "holds": "ローテーションされるトレース出力", "kind": "破棄可能", "backup": "いいえ" }
+      "wiki": {
+        "holds": "markdownで書かれたすべてのページ。1つのgitリポジトリに入っています",
+        "kind": "正",
+        "backup": "はい。バックアップのtarballに含まれます。rsyncやgit pushでも退避できます"
+      },
+      "raw": {
+        "holds": "マネージド起動で記録した、サニタイズ済みで変更不可のトランスクリプト断片",
+        "kind": "正",
+        "backup": "ai-memory runを使っているなら、はい。別途コピーしてください"
+      },
+      "db": {
+        "holds": "memory.sqlite: 全文検索インデックス、エンティティ、埋め込み、セッション、ユーザー、監査の行",
+        "kind": "大部分が派生",
+        "backup": "はい。ページ、リンク、検索はwikiから再構築できます。セッション、引き継ぎ、ユーザー、キーはここにしかありません"
+      },
+      "models": {
+        "holds": "ローカルの埋め込みモデル。約87 MB",
+        "kind": "再取得可能",
+        "backup": "いいえ。再ダウンロードされます。自分でファイルを置くこともできます"
+      },
+      "logs": {
+        "holds": "ローテーションされるトレース出力",
+        "kind": "破棄可能",
+        "backup": "いいえ"
+      }
     },
     "defaults": "デフォルトの場所: Linuxでは<code>~/.local/share/ai-memory</code>、macOSでは<code>~/Library/Application Support/ai-memory</code>、Windowsでは<code>%LOCALAPPDATA%\\ai-memory</code>、コンテナ内では<code>/data</code>です。<code>AI_MEMORY_DATA_DIR</code>で変更できます。",
     "backup": {
@@ -149,7 +206,8 @@
       "title": "インデックスの再構築",
       "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code>は、サーバーを停止し、データベースを空にした状態で実行します。バックアップを取り、<code>db/memory.sqlite</code>とそのWAL、SHMファイルを別の場所へ移してから実行してください。再起動後に<code>ai-memory embed</code>を実行すると、埋め込みが再構築されます。"
     },
-    "lifecycle": "ライフサイクル操作を読む: パージ、リネーム、移動、ページの復元、リセット"
+    "lifecycle": "ライフサイクル操作を読む: パージ、リネーム、移動、ページの復元、リセット",
+    "reindexNote": "reindexは、ページ、リンク、全文検索をwikiから再構築します。セッション、オブザベーション、引き継ぎ、ユーザー、キー、監査の行、埋め込みは復元されないため、データベースもバックアップに含める必要があります。"
   },
   "routing": {
     "title": "ルーティングとアイデンティティ",
@@ -158,16 +216,28 @@
       "title": "マーカーファイル",
       "text": "デフォルトでは、現在のディレクトリ名がプロジェクトになり、<code>default</code>というワークスペースに入ります。変更するには、上位のいずれかのディレクトリに<code>.ai-memory.toml</code>を置きます。フックは作業ディレクトリから上へたどり、最初に見つけたマーカーを使います。",
       "items": [
-        { "title": "仕事用と個人用", "text": "親ディレクトリごとにマーカーを1つ置きます。その下のリポジトリはすべてそのワークスペースに入り、ディレクトリ名がプロジェクトになります。" },
-        { "title": "モノレポ", "text": "projectを指定したマーカーは、すべてのサブディレクトリをその1つのプロジェクトに固定します。最も近いマーカーが優先されます。" },
-        { "title": "gitのワークツリー", "text": "リンクされたワークツリーとサブディレクトリは、メインのリポジトリに解決されます。ワークツリーがリポジトリの外にあっても同じです。" }
+        {
+          "title": "仕事用と個人用",
+          "text": "親ディレクトリごとにマーカーを1つ置きます。その下のリポジトリはすべてそのワークスペースに入り、ディレクトリ名がプロジェクトになります。"
+        },
+        {
+          "title": "モノレポ",
+          "text": "projectを指定したマーカーは、すべてのサブディレクトリをその1つのプロジェクトに固定します。最も近いマーカーが優先されます。"
+        },
+        {
+          "title": "gitのワークツリー",
+          "text": "リンクされたワークツリーとサブディレクトリは、メインのリポジトリに解決されます。ワークツリーがリポジトリの外にあっても同じです。"
+        }
       ],
       "capture": "同じファイルに、<code>ignore_paths</code>を使う<code>[capture]</code>ルールも書けます。<code>ai-memory install-hooks --apply --capture-mode allowlist</code>を実行するとマーカーがオプトインの印になり、マーカーのないリポジトリはイベントを一切送りません。ネイティブフックはどちらも強制します。Dockerラッパーのシェルフックは強制しません。<a class=\"link\" href=\"{href}\">マーカーファイルのリファレンスを読む</a>。"
     },
     "autoScope": {
       "title": "自動スコープのモード",
       "text": "プロジェクトを明示しないMCP呼び出しは、「現在のプロジェクト」ポインターを通して解決されます。そのポインターを誰が共有するかを決めるのがモードです。サーバーは起動時に、有効なモードをログに出力します。",
-      "columns": { "mode": "モード", "when": "使いどころ" },
+      "columns": {
+        "mode": "モード",
+        "when": "使いどころ"
+      },
       "modes": {
         "per_actor": "デフォルトです。1台のサーバー上で、並行して動くハーネスや別々の利用者を分離します。",
         "per_session": "MCPリクエストのたびにフックのセッションIDを転送する、セッション対応クライアント向けです。",
@@ -210,7 +280,11 @@
     "capacity": {
       "title": "キャパシティ",
       "text": "すべての書き込みは1つのライターを通ります。その限界を、プロジェクトは<code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>で計測しました。",
-      "columns": { "writers": "同時ライター数", "throughput": "スループット", "latency": "平均レイテンシ" },
+      "columns": {
+        "writers": "同時ライター数",
+        "throughput": "スループット",
+        "latency": "平均レイテンシ"
+      },
       "perSecond": "{n}/秒",
       "ms": "{n} ms",
       "notes": [

@@ -1,12 +1,12 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
-import Steps from '@/components/Steps.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
 import Figure from '@/components/Figure.astro';
 import Callout from '@/components/Callout.astro';
@@ -29,33 +29,6 @@ ${t('ownership.code.sayPersonal')}
 
 # ${t('ownership.code.commentShared', { call: 'memory_handoff_begin with shared: true' })}
 ${t('ownership.code.sayShared')}`;
-
-// Writers, writes per second, mean latency in milliseconds.
-const capacity = [
-  [1, 42, 23.9],
-  [8, 295, 3.4],
-  [32, 698, 1.43],
-  [128, 700, 1.43],
-];
-const throughputTest = 'cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture';
-
-const setupCode = [
-  `TOKEN=$(ai-memory generate-auth-token)      # ${t('setup.tokenComment')}
-docker run -d --name ai-memory \\
-    --restart unless-stopped \\
-    -p 0.0.0.0:49374:49374 \\
-    -v ai-memory-data:/data \\
-    -e AI_MEMORY_AUTH_TOKEN="$TOKEN" \\
-    -e AI_MEMORY_ALLOWED_HOSTS="<server-ip>,localhost,127.0.0.1" \\
-    akitaonrails/ai-memory:latest`,
-  `ai-memory user add-human --username alice --email alice@home --name "Alice Smith"
-ai-memory api-key add --username alice --label codex-laptop`,
-  `export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
-export AI_MEMORY_AUTH_TOKEN="aim_..."
-ai-memory install-mcp   --client claude-code --apply
-ai-memory install-hooks --agent  claude-code --apply`,
-];
-const setup = raw<{ title: string; text: string; codeTitle: string }[]>('setup.steps').map((s, i) => ({ ...s, code: setupCode[i] }));
 
 const faq = raw<{ q: string; a: string }[]>('faq');
 const schema = [faqPage(faq)];
@@ -104,38 +77,17 @@ const schema = [faqPage(faq)];
         <p set:html={t('included.limits.more', { security: href('/security/'), advanced: href('/advanced/') })} />
       </Callout>
     </div>
+    <p class="mt-10 text-muted max-w-[44em]" set:html={t('capacityNote', { href: href('/architecture/#concurrency') })} />
   </Section>
 
-  <Section title={t('capacity.title')} lede={t('capacity.lede')} hue="azure">
-    <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-x-12 gap-y-10 items-start">
-      <div class="table-wrap">
-        <table class="table-site">
-          <caption class="sr-only">{t('capacity.caption')}</caption>
-          <thead><tr><th scope="col">{t('capacity.columns.writers')}</th><th scope="col">{t('capacity.columns.throughput')}</th><th scope="col">{t('capacity.columns.latency')}</th></tr></thead>
-          <tbody>
-            {capacity.map(([writers, perSecond, ms]) => (
-              <tr>
-                <td>{number(writers)}</td>
-                <td class="tabular-nums">{t('capacity.perSecond', { n: number(perSecond) })}</td>
-                <td class="tabular-nums">{t('capacity.milliseconds', { n: number(ms) })}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <ul class="space-y-4 text-muted ticks max-w-[40em]">
-        {raw<string[]>('capacity.points').map((_, i) => <li set:html={t(`capacity.points.${i}`, { command: throughputTest })} />)}
-      </ul>
-    </div>
-  </Section>
-
-  <Section title={t('setup.title')} hue="amber" tint>
-    <Steps steps={setup} />
+  <Section title={t('setup.title')} lede={t('setup.text')} hue="amber" tint>
     <p class="mt-12 flex flex-wrap gap-3">
       <a href={href('/install/#team')} class="btn btn-primary">{t('setup.primary')}</a>
       <a href={href('/advanced/')} class="btn btn-ghost">{t('setup.secondary')}</a>
     </p>
   </Section>
+
+  <Faq items={faq} />
 
   <NextPages links={[
     { href: '/install/#team', title: t('next.install.title'), text: t('next.install.text'), hue: 'amber' },

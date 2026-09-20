@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import Faq from '@/components/Faq.astro';
 import BarChart from '@/components/BarChart.astro';
 import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
@@ -209,6 +210,8 @@ const next = withText([
       <a href={`${site.docs}/design-decisions.md`} class="btn btn-ghost">{t('codebase.decisions')}</a>
     </p>
   </Section>
+
+  <Faq items={faq} />
 
   <NextPages links={next} />
   <CtaBand title={t('ctaBand.title')} text={t('ctaBand.text')} />

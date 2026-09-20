@@ -55,11 +55,26 @@
       "colGist": "In the gist",
       "colHere": "In ai-memory",
       "rows": [
-        { "was": "You hand the LLM one source at a time", "now": "Lifecycle hooks capture every session on their own" },
-        { "was": "The agent reads index.md first", "now": "One fused index: full text, entities, links and vectors" },
-        { "was": "An LLM does all the maintenance", "now": "Rule-based summaries by default. An LLM is opt-in" },
-        { "was": "One person, one wiki", "now": "Handoffs between agents, several users, per-project scoping" },
-        { "was": "Pages live forever", "now": "Tiers, decay, supersession and TTLs keep stale pages out" }
+        {
+          "was": "You hand the LLM one source at a time",
+          "now": "Lifecycle hooks capture every session on their own"
+        },
+        {
+          "was": "The agent reads index.md first",
+          "now": "One fused index: full text, entities, links and vectors"
+        },
+        {
+          "was": "An LLM does all the maintenance",
+          "now": "Rule-based summaries by default. An LLM is opt-in"
+        },
+        {
+          "was": "One person, one wiki",
+          "now": "Handoffs between agents, several users, per-project scoping"
+        },
+        {
+          "was": "Pages live forever",
+          "now": "Tiers, decay, supersession and TTLs keep stale pages out"
+        }
       ]
     },
     "origin": "Tiers, decay and supersession are not in Karpathy’s gist. They come from agentmemory and the “LLM Wiki v2” writing around it. <a class=\"underline\" href=\"{href}\">The full reading notes are in the repository.</a>"
@@ -92,14 +107,38 @@
     "lede": "Most of these trace back to a specific issue in an earlier memory tool.",
     "weChose": "We chose",
     "items": [
-      { "chose": "Markdown in git as the truth", "because": "<strong>because</strong> backing up or moving is a git clone or an rsync. The database can be rebuilt from the files, so corruption is recoverable, and any tool that reads markdown can read your memory." },
-      { "chose": "One SQLite file", "because": "<strong>because</strong> full text, packed vectors and link tables live in a single embedded file. Other projects’ issue trackers showed what syncing three stores costs in correctness bugs." },
-      { "chose": "Zero LLM calls by default", "because": "<strong>because</strong> session summaries are rule-based, so a fresh install spends nothing. The lesson came from default-on LLM features elsewhere that surprised users with token bills." },
-      { "chose": "One binary", "because": "<strong>because</strong> SQLite is bundled, libgit2 is vendored and the embedder is pure Rust. A separate sidecar engine was the largest cluster of user pain in the project this one succeeds." },
-      { "chose": "No graph database", "because": "<strong>because</strong> the graph is SQL tables: a links table and recursive queries. That covers one-hop expansion and typed edges without an embedded graph engine to keep alive." },
-      { "chose": "Vectors are optional", "because": "<strong>because</strong> local embeddings are on since 2.0 and still never required. Search is brute-force cosine inside SQLite; a vector extension waits until page counts or latency call for it." },
-      { "chose": "Handoffs as a typed, claim-once protocol", "because": "<strong>because</strong> every research pass flagged cross-agent transfer as the weak spot of earlier tools. A handoff is a typed record matched by directory, and exactly one session can accept it." },
-      { "chose": "Pages over fact rows", "because": "<strong>because</strong> a page about a decision can be read, edited and explained in prose. A table of extracted facts cannot be opened in Obsidian or reviewed in a diff." }
+      {
+        "chose": "Markdown in git as the truth",
+        "because": "<strong>because</strong> backing up or moving is a git clone or an rsync. The database can be rebuilt from the files, so corruption is recoverable, and any tool that reads markdown can read your memory."
+      },
+      {
+        "chose": "One SQLite file",
+        "because": "<strong>because</strong> full text, packed vectors and link tables live in a single embedded file. Other projects’ issue trackers showed what syncing three stores costs in correctness bugs."
+      },
+      {
+        "chose": "Zero LLM calls by default",
+        "because": "<strong>because</strong> session summaries are rule-based, so a fresh install spends nothing. The lesson came from default-on LLM features elsewhere that surprised users with token bills."
+      },
+      {
+        "chose": "One binary",
+        "because": "<strong>because</strong> SQLite is bundled, libgit2 is vendored and the embedder is pure Rust. A separate sidecar engine was the largest cluster of user pain in the project this one succeeds."
+      },
+      {
+        "chose": "No graph database",
+        "because": "<strong>because</strong> the graph is SQL tables: a links table and recursive queries. That covers one-hop expansion and typed edges without an embedded graph engine to keep alive."
+      },
+      {
+        "chose": "Vectors are optional",
+        "because": "<strong>because</strong> local embeddings are on since 2.0 and still never required. Search is brute-force cosine inside SQLite; a vector extension waits until page counts or latency call for it."
+      },
+      {
+        "chose": "Handoffs as a typed, claim-once protocol",
+        "because": "<strong>because</strong> every research pass flagged cross-agent transfer as the weak spot of earlier tools. A handoff is a typed record matched by directory, and exactly one session can accept it."
+      },
+      {
+        "chose": "Pages over fact rows",
+        "because": "<strong>because</strong> a page about a decision can be read, edited and explained in prose. A table of extracted facts cannot be opened in Obsidian or reviewed in a diff."
+      }
     ],
     "all": "Read all of the design decisions"
   },
@@ -156,16 +195,7 @@
       "codeTitle": "reproduce the benchmark",
       "full": "Full results, per question type"
     },
-    "throughput": {
-      "title": "Write throughput",
-      "text": "All writes go through one queue to one thread. The ceiling is about 700 writes per second, flat past 32 writers, measured on a fast local disk. Network volumes will be lower.",
-      "colWriters": "Concurrent writers",
-      "colThroughput": "Throughput",
-      "colLatency": "Mean latency",
-      "perSecond": "{n}/s",
-      "ms": "{n} ms",
-      "codeTitle": "reproduce the throughput test"
-    }
+    "throughputNote": "Write throughput was measured too. <a class=\"link\" href=\"{href}\">The numbers are on the architecture page</a>."
   },
   "next": {
     "title": "What is next, and where it is behind",
@@ -173,38 +203,64 @@
     "recommended": {
       "title": "Recommended next",
       "items": [
-        { "title": "A second evaluation harness", "text": "Coding-session data, scored on accuracy, latency and context tokens together. The items below depend on it." },
-        { "title": "A local reranker", "text": "A cross-encoder that runs in process with no LLM. It waits on the harness above to prove its worth." },
-        { "title": "Ranking that uses what is already stored", "text": "Evidence counts and typed edges are recorded today and do not move ranking yet." },
-        { "title": "A bounded sync command", "text": "Either a plainer description of the one-server model or an ai-memory sync built on the git wiki." },
-        { "title": "An easier start for Claude Code users", "text": "An importer for people coming from Claude’s built-in memory." }
+        {
+          "title": "A second evaluation harness",
+          "text": "Coding-session data, scored on accuracy, latency and context tokens together. The items below depend on it."
+        },
+        {
+          "title": "A local reranker",
+          "text": "A cross-encoder that runs in process with no LLM. It waits on the harness above to prove its worth."
+        },
+        {
+          "title": "Ranking that uses what is already stored",
+          "text": "Evidence counts and typed edges are recorded today and do not move ranking yet."
+        },
+        {
+          "title": "A bounded sync command",
+          "text": "Either a plainer description of the one-server model or an ai-memory sync built on the git wiki."
+        },
+        {
+          "title": "An easier start for Claude Code users",
+          "text": "An importer for people coming from Claude’s built-in memory."
+        }
       ],
       "notPlanned": "Not planned: a graph database, a self-editing memory OS, cloud connectors, or growing the tool count for its own sake."
     },
     "behind": {
       "title": "Behind today",
-      "reranked": "Raw retrieval score is below the tools that rerank. agentmemory reports {score} on the same dataset (their number, not reproduced here).",
-      "items": [
-        "There is no local reranker that works without an LLM.",
-        "Typed edges and evidence counts are stored and shown in explain output, with no weight in ranking.",
-        "Time travel with as_of knows when ai-memory learned a fact. It does not know when the fact became true.",
-        "One server that many machines reach. There is no automatic replication, no hosted tier and no enterprise console.",
-        "Claude Code’s built-in memory needs no setup at all. For one person on one machine in one agent, that is hard to beat."
-      ]
+      "text": "Raw retrieval scores sit below the tools that rerank, and a few features are recorded without affecting ranking yet. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
     }
   },
   "nextPages": [
-    { "title": "Architecture", "text": "How the binary, the wiki and the index fit together." },
-    { "title": "Compare and migrate", "text": "Tool by tool, including where the others win." },
-    { "title": "Contribute", "text": "The evaluation harness is the most wanted piece of work." }
+    {
+      "title": "Architecture",
+      "text": "How the binary, the wiki and the index fit together."
+    },
+    {
+      "title": "Compare and migrate",
+      "text": "Tool by tool, including where the others win."
+    },
+    {
+      "title": "Contribute",
+      "text": "The evaluation harness is the most wanted piece of work."
+    }
   ],
   "cta": {
     "title": "Read the reasoning. Then try it.",
     "text": "Free and open source. The default install makes no LLM calls and listens on your machine only."
   },
   "faq": [
-    { "q": "What is the Karpathy LLM Wiki idea behind ai-memory?", "a": "Andrej Karpathy’s April 2026 gist describes an LLM that builds and maintains a persistent wiki of markdown files between you and your raw sources, so knowledge is compiled once and kept current. ai-memory applies that to coding agents, with automatic capture from lifecycle hooks and a default path that makes no LLM calls." },
-    { "q": "Is ai-memory compatible with the Open Knowledge Format?", "a": "Since 2.0 every project in the wiki is natively an OKF v0.2 bundle. Each page has YAML frontmatter with a type, each project has a generated index.md, and ai-memory export-okf packages a project into a validated tarball." },
-    { "q": "What does the LongMemEval-S benchmark measure for ai-memory?", "a": "Retrieval only: whether a session holding the evidence appears in the top results, over 470 questions. hit@5 is {hybrid} with the default local embeddings and {fts} with full text only. It does not measure answer accuracy." }
+    {
+      "q": "What is the Karpathy LLM Wiki idea behind ai-memory?",
+      "a": "Andrej Karpathy’s April 2026 gist describes an LLM that builds and maintains a persistent wiki of markdown files between you and your raw sources, so knowledge is compiled once and kept current. ai-memory applies that to coding agents, with automatic capture from lifecycle hooks and a default path that makes no LLM calls."
+    },
+    {
+      "q": "Is ai-memory compatible with the Open Knowledge Format?",
+      "a": "Since 2.0 every project in the wiki is natively an OKF v0.2 bundle. Each page has YAML frontmatter with a type, each project has a generated index.md, and ai-memory export-okf packages a project into a validated tarball."
+    },
+    {
+      "q": "What does the LongMemEval-S benchmark measure for ai-memory?",
+      "a": "Retrieval only: whether a session holding the evidence appears in the top results, over 470 questions. hit@5 is {hybrid} with the default local embeddings and {fts} with full text only. It does not measure answer accuracy."
+    }
   ]
 }
