@@ -97,7 +97,7 @@ const next = withText([
   </Section>
 
   <Section hue="rose" id="hardening" title={t('hardening.title')} lede={t('hardening.lede')}>
-    <ol class="ladder">
+    <ol class="ladder" data-focus-list>
       {ladder.map((r, i) => (
         <li style={`--i:${i}`}>
           <span class="n" aria-hidden="true">{i + 1}</span>
@@ -195,6 +195,14 @@ const next = withText([
   .ladder li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1.1rem; padding: 1.4rem 1.5rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-inline-start: 4px solid color-mix(in oklch, var(--hue-vivid) calc(30% + var(--i) * 17%), var(--line)); }
   .ladder .n { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--hue-soft); color: var(--hue); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
   .ladder .badge { white-space: normal; }
+  /* Climbing the ladder: the rung at the reading line lights up, rungs already passed stay marked. */
+  .ladder li { transition: opacity .5s, border-color .5s, box-shadow .6s, scale .6s var(--ease-out-quint); }
+  .ladder .n { transition: background-color .5s, color .5s, box-shadow .5s; }
+  .ladder[data-focus-ready] li[data-state='ahead'] { opacity: .5; }
+  .ladder[data-focus-ready] li[data-state='past'] { opacity: .8; }
+  .ladder li[data-state='active'] { border-color: var(--hue-vivid); box-shadow: var(--shadow), 0 0 0 1px var(--hue-vivid), 0 18px 60px -28px var(--hue-vivid); scale: 1.015; }
+  .ladder li:is([data-state='active'], [data-state='past']) .n { background: var(--hue-vivid); color: var(--ink); }
+  .ladder li[data-state='active'] .n { box-shadow: 0 0 0 6px var(--hue-soft); }
   @media (min-width: 64rem) {
     .ladder li { margin-inline-start: calc(var(--i) * 7%); max-width: 46rem; }
   }

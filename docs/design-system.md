@@ -94,6 +94,7 @@ All scroll motion comes from `src/scripts/motion.ts` and is declared in markup:
 | `data-reveal` / `data-reveal="children"` | Settles in once. Use on grids, not on every section. |
 | `data-count="459"` | Counts up once. |
 | `data-draw` | On an inline SVG, strokes draw themselves with the scroll. |
+| `data-focus-list` | Children get `data-state="ahead"`, `"active"` or `"past"` as they cross the reading line. Style the states in the page (the security ladder does). Use it for a sequence the reader moves through, one per page. |
 
 Motion is scrubbed to the scroll position where possible, so it reads as the page responding to the reader and never plays on its own schedule. Everything is off under `prefers-reduced-motion`, and the content is complete without JavaScript. The pinned scene on the homepage (`Continuity.astro`) is the one big moment; do not add a second pin to the same page.
 
