@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.netlify/
+.env
+.env.*
+research-assets/
+*.log
+.DS_Store

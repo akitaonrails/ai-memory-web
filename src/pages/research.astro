@@ -1,0 +1,376 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import threeLayers from '@/assets/img/gen/research-three-layers.webp';
+import okfBundle from '@/assets/img/gen/research-okf-bundle.webp';
+import lineage from '@/assets/img/gen/research-lineage.webp';
+import { site } from '@/data/site';
+import type { Hue } from '@/data/site';
+
+const gist = 'https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f';
+const post = 'https://akitaonrails.com/en/2026/09/02/ai-memory-2-0-best-memory-system-for-agents-and-teams/';
+const okfSpec = 'https://github.com/GoogleCloudPlatform/knowledge-catalog';
+
+const took = [
+  'Markdown files in a git repository as the thing a person can open, diff and read.',
+  'Compiling knowledge when it arrives, with one session fanning out into several pages.',
+  'Wikilinks between pages as the graph.',
+  'Lint for contradictions, stale pages, orphans and duplicate titles.',
+  'A schema block installed into CLAUDE.md or AGENTS.md so the agent knows how to use the wiki.',
+];
+const changed = [
+  { was: 'You hand the LLM one source at a time', now: 'Lifecycle hooks capture every session on their own' },
+  { was: 'The agent reads index.md first', now: 'One fused index: full text, entities, links and vectors' },
+  { was: 'An LLM does all the maintenance', now: 'Rule-based summaries by default. An LLM is opt-in' },
+  { was: 'One person, one wiki', now: 'Handoffs between agents, several users, per-project scoping' },
+  { was: 'Pages live forever', now: 'Tiers, decay, supersession and TTLs keep stale pages out' },
+];
+
+const okfTypes = [
+  ['sessions/', 'Session Summary'],
+  ['decisions/', 'Decision'],
+  ['gotchas/', 'Gotcha'],
+  ['procedures/', 'Procedure'],
+  ['concepts/', 'Concept'],
+  ['_rules/', 'Rule'],
+  ['notes/', 'Note'],
+  ['runbooks/', 'Runbook'],
+  ['_slots/', 'Invariant or State'],
+];
+
+const decisions: { chose: string; because: string; hue: Hue }[] = [
+  { chose: 'Markdown in git as the truth', because: 'backing up or moving is a git clone or an rsync. The database can be rebuilt from the files, so corruption is recoverable, and any tool that reads markdown can read your memory.', hue: 'green' },
+  { chose: 'One SQLite file', because: 'full text, packed vectors and link tables live in a single embedded file. Other projects’ issue trackers showed what syncing three stores costs in correctness bugs.', hue: 'azure' },
+  { chose: 'Zero LLM calls by default', because: 'session summaries are rule-based, so a fresh install spends nothing. The lesson came from default-on LLM features elsewhere that surprised users with token bills.', hue: 'violet' },
+  { chose: 'One binary', because: 'SQLite is bundled, libgit2 is vendored and the embedder is pure Rust. A separate sidecar engine was the largest cluster of user pain in the project this one succeeds.', hue: 'azure' },
+  { chose: 'No graph database', because: 'the graph is SQL tables: a links table and recursive queries. That covers one-hop expansion and typed edges without an embedded graph engine to keep alive.', hue: 'teal' },
+  { chose: 'Vectors are optional', because: 'local embeddings are on since 2.0 and still never required. Search is brute-force cosine inside SQLite; a vector extension waits until page counts or latency call for it.', hue: 'violet' },
+  { chose: 'Handoffs as a typed, claim-once protocol', because: 'every research pass flagged cross-agent transfer as the weak spot of earlier tools. A handoff is a typed record matched by directory, and exactly one session can accept it.', hue: 'amber' },
+  { chose: 'Pages over fact rows', because: 'a page about a decision can be read, edited and explained in prose. A table of extracted facts cannot be opened in Obsidian or reviewed in a diff.', hue: 'green' },
+];
+
+const shoulders = [
+  { name: 'Karpathy LLM Wiki', href: gist, gave: 'Compile, don’t retrieve. The wiki on disk is the artifact.' },
+  { name: 'agentmemory', href: 'https://github.com/rohitg00/agentmemory', gave: 'Automatic hook capture, memory tiers, supersession, decay as a formula and fused ranking. ai-memory is its Rust successor: the ideas stayed, the substrate changed.' },
+  { name: 'basic-memory', href: 'https://github.com/basicmachines-co/basic-memory', gave: 'Files as the source of truth with a derived index, and forward links to pages that do not exist yet.' },
+  { name: 'cognee', href: 'https://github.com/topoteretes/cognee', gave: 'The task-pipeline shape, provenance stamps on every page and feedback that adjusts ranking.' },
+  { name: 'Hermes Agent', href: 'https://github.com/NousResearch/hermes-agent', gave: 'The design of the self-improvement loop that reviews finished sessions in the background.' },
+  { name: 'A-MEM', href: 'https://arxiv.org/abs/2502.12110', gave: 'Zettelkasten-style atomic notes that link to each other automatically.' },
+  { name: 'Hindsight', href: 'https://arxiv.org/abs/2512.12818', gave: 'Typed redaction labels, per-page evidence counts and a briefing that leads with settled rules.' },
+];
+
+const bench = [
+  { label: 'Full text only, before 2.0', v: 0.617 },
+  { label: 'Stopword-filtered full text', v: 0.668 },
+  { label: 'Plus local embeddings (the 2.0 default)', v: 0.823 },
+];
+const metrics = [
+  ['hit@1', '0.449', '0.534', '0.536'],
+  ['hit@5', '0.617', '0.668', '0.823'],
+  ['recall@5', '0.472', '0.538', '0.680'],
+];
+const writers = [
+  ['1', '42/s', '23.9 ms'],
+  ['8', '295/s', '3.4 ms'],
+  ['32', '698/s', '1.43 ms'],
+  ['128', '700/s', '1.43 ms'],
+];
+
+const reproduce = `cargo build --release -p ai-memory-cli
+cargo run --release -p ai-memory-eval -- retrieval --fetch`;
+const throughput = `cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture`;
+const exportOkf = `ai-memory export-okf --project myproject -o myproject-bundle.tar.gz`;
+
+const next = [
+  { title: 'A second evaluation harness', text: 'Coding-session data, scored on accuracy, latency and context tokens together. The project calls it the blocker for everything below.' },
+  { title: 'A local reranker', text: 'A cross-encoder that runs in process with no LLM. It waits on the harness above to prove its worth.' },
+  { title: 'Ranking that uses what is already stored', text: 'Evidence counts and typed edges are recorded today and do not move ranking yet.' },
+  { title: 'A bounded sync command', text: 'Either a plainer description of the one-server model or an ai-memory sync built on the git wiki.' },
+  { title: 'An easier start for Claude Code users', text: 'An importer for people coming from Claude’s built-in memory.' },
+];
+const behind = [
+  'Raw retrieval score is below the tools that rerank. agentmemory reports 0.952 on the same dataset (their number, not reproduced here).',
+  'There is no local reranker that works without an LLM.',
+  'Typed edges and evidence counts are stored and shown in explain output, with no weight in ranking.',
+  'Time travel with as_of knows when ai-memory learned a fact. It does not know when the fact became true.',
+  'One server that many machines reach. There is no automatic replication, no hosted tier and no enterprise console.',
+  'Claude Code’s built-in memory needs no setup at all. For one person on one machine in one agent, that is hard to beat.',
+];
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { q: 'What is the Karpathy LLM Wiki idea behind ai-memory?', a: 'Andrej Karpathy’s April 2026 gist describes an LLM that builds and maintains a persistent wiki of markdown files between you and your raw sources, so knowledge is compiled once and kept current. ai-memory applies that to coding agents, with automatic capture from lifecycle hooks and a default path that makes no LLM calls.' },
+    { q: 'Is ai-memory compatible with the Open Knowledge Format?', a: 'Since 2.0 every project in the wiki is natively an OKF v0.2 bundle. Each page has YAML frontmatter with a type, each project has a generated index.md, and ai-memory export-okf packages a project into a validated tarball.' },
+    { q: 'What does the LongMemEval-S benchmark measure for ai-memory?', a: 'Retrieval only: whether a session holding the evidence appears in the top results, over 470 questions. hit@5 is 0.823 with the default local embeddings and 0.668 with full text only. It does not measure answer accuracy.' },
+  ].map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base
+  title="Research: Karpathy’s LLM wiki, OKF and benchmarks"
+  description="Why ai-memory is a compiled markdown wiki in git: the Karpathy LLM Wiki idea, Google’s Open Knowledge Format, each design decision, and the measured results."
+  schema={[faq]}
+>
+  <PageHero
+    hue="violet"
+    kicker="Product"
+    title="Research and rationale"
+    lede="Every part of ai-memory has a reason you can check: an idea it came from, a bug in an earlier tool it avoids, or a number it was measured against. This page walks through them in six short chapters."
+  >
+    <a href="#measured" class="btn btn-primary">See the benchmark</a>
+    <a href={`${site.docs}/design-decisions.md`} class="btn btn-ghost">Read the design decisions</a>
+  </PageHero>
+
+  <!-- (a) Karpathy -->
+  <Section id="compile" hue="green" title="Compile, don’t retrieve" lede="In April 2026 Andrej Karpathy published a short “idea file” about what he called an LLM wiki. ai-memory is that idea, adapted for coding agents that never stop producing material.">
+    <blockquote class="pull">
+      <p>“The knowledge is compiled once and then kept current, not re-derived on every query.”</p>
+      <footer>Andrej Karpathy, <a href={gist}>the LLM Wiki gist</a></footer>
+    </blockquote>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-[64rem]">
+      <div>
+        <h3 class="text-xl">Three layers</h3>
+        <p class="mt-2 text-muted">Raw sources that never change, a wiki of markdown pages that the LLM maintains, and a schema file that tells the agent how the wiki works.</p>
+      </div>
+      <div>
+        <h3 class="text-xl">Three operations</h3>
+        <p class="mt-2 text-muted">Ingest a source and update the pages it touches. Query the wiki. Lint it for contradictions and orphans.</p>
+      </div>
+    </div>
+
+    <Figure src={threeLayers} alt="Diagram: Karpathy’s three layers on the left, raw sources, wiki and schema, each mapped to its ai-memory counterpart on the right: hook observations, markdown in git, and a block installed into AGENTS.md." caption="Karpathy’s three layers, and where each one lives in an ai-memory install." />
+
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-12">
+      <div>
+        <h3 class="text-xl">What ai-memory kept</h3>
+        <ul class="mt-4 space-y-3 text-muted ticks">
+          {took.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl">What it changed</h3>
+        <p class="mt-2 text-muted max-w-[40em]">Karpathy’s pattern is curated by a person, one source at a time. A coding agent produces material continuously and nobody is watching.</p>
+        <div class="table-wrap mt-5">
+          <table class="table-site">
+            <thead><tr><th>In the gist</th><th>In ai-memory</th></tr></thead>
+            <tbody>{changed.map((c) => <tr><td>{c.was}</td><td>{c.now}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="mt-8 text-muted max-w-[40em]">Tiers, decay and supersession are not in Karpathy’s gist. They come from agentmemory and the “LLM Wiki v2” writing around it. <a class="underline" href={`${site.docs}/research-karpathy-llm-wiki.md`}>The full reading notes are in the repository.</a></p>
+  </Section>
+
+  <!-- (b) OKF -->
+  <Section id="okf" hue="teal" tint title="Your memory is already in an open format" lede="Open Knowledge Format is a specification Google Cloud published in June 2026. It describes knowledge as a plain directory of markdown files with YAML frontmatter, one concept per file, and a single required field: type. There is no SDK and no runtime.">
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 items-start">
+      <div class="min-w-0">
+        <ul class="space-y-3 text-muted ticks max-w-[40em]">
+          <li>Since 2.0 the wiki is natively an OKF v0.2 bundle. The files ai-memory works on are the OKF files, so no export step can drift from the truth.</li>
+          <li>One project is one bundle, with a generated <code>index.md</code> at its root.</li>
+          <li>Every page has YAML frontmatter with a <code>type</code>, derived from the folder it lives in.</li>
+          <li>Upgrading from 1.x rewrites frontmatter in place after a verified backup. If the backup fails, the migration stops.</li>
+        </ul>
+        <div class="mt-8"><CodeBlock title="package one project as a validated bundle" code={exportOkf} /></div>
+        <p class="mt-5 text-muted max-w-[40em]">There is no import command. Unpack a bundle into a project’s wiki directory and the file watcher indexes it. <a class="underline" href={`${site.docs}/okf.md`}>The OKF mapping is documented field by field</a>, and the specification lives in <a class="underline" href={okfSpec}>Google Cloud’s knowledge-catalog repository</a>.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table-site">
+          <thead><tr><th>Folder</th><th>OKF type</th></tr></thead>
+          <tbody>{okfTypes.map(([p, t]) => <tr><td><code>{p}</code></td><td>{t}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <Figure src={okfBundle} alt="Diagram: a project folder containing index.md and typed pages, a decision, a gotcha and a procedure, moving unchanged to Obsidian, to grep, and to another OKF tool." caption="A bundle is a folder. Anything that reads markdown can read it, with or without ai-memory." />
+
+    <blockquote class="pull">
+      <p>“The model and the harness are rented, the project’s memory is yours.”</p>
+      <footer>Fabio Akita, <a href={post}>announcing ai-memory 2.0</a></footer>
+    </blockquote>
+
+    <div class="mt-10">
+      <Callout title="What OKF conformance does not mean" hue="amber">
+        <p>ai-memory follows a public specification. Google has not reviewed, certified or endorsed the project.</p>
+      </Callout>
+    </div>
+  </Section>
+
+  <!-- (c) Decisions -->
+  <Section id="decisions" hue="violet" title="Eight decisions, and the reason for each" lede="Most of these trace back to a specific issue in an earlier memory tool. The design document cites them one by one.">
+    <ul class="grid md:grid-cols-2 gap-x-12 gap-y-10" data-reveal="children">
+      {decisions.map((d) => (
+        <li class="decision" data-hue={d.hue}>
+          <p class="we">We chose</p>
+          <h3 class="text-xl mt-1">{d.chose}</h3>
+          <p class="mt-3 text-muted"><span class="because">because</span> {d.because}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-12"><a class="btn btn-ghost" href={`${site.docs}/design-decisions.md`}>Read all of the design decisions</a></p>
+  </Section>
+
+  <!-- (d) Shoulders -->
+  <Section id="prior-art" hue="azure" tint title="Standing on shoulders" lede="The project read the code and the issue trackers of the tools that came first, kept the ideas that held up and left out the parts that kept breaking.">
+    <Figure src={lineage} alt="Diagram: seven prior projects, Karpathy’s wiki, agentmemory, basic-memory, cognee, Hermes Agent, A-MEM and Hindsight, each feeding one line into ai-memory." />
+    <dl class="lineage">
+      {shoulders.map((s) => (
+        <div>
+          <dt><a href={s.href}>{s.name}</a></dt>
+          <dd>{s.gave}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-10 text-muted max-w-[40em]">None of these projects endorse ai-memory. For where each of them is ahead, <a class="underline" href="/compare/">see the comparison</a>.</p>
+  </Section>
+
+  <!-- (e) Measured -->
+  <Section id="measured" hue="violet" title="Measured, not guessed" lede="The retrieval stack is scored on LongMemEval-S: 470 questions about long chat histories, run through the real hook path and the real search. The harness is in the repository.">
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 items-start">
+      <figure class="chart" aria-labelledby="chart-title">
+        <figcaption id="chart-title">
+          <strong>hit@5 on LongMemEval-S</strong>
+          <span>Share of 470 questions with an evidence session in the top five. Higher is better.</span>
+        </figcaption>
+        <ol class="bars">
+          {bench.map((b, i) => (
+            <li class:list={[{ last: i === bench.length - 1 }]}>
+              <span class="lab">{b.label}</span>
+              <span class="track"><span class="bar" style={`width:${b.v * 100}%`}></span></span>
+              <span class="val">{b.v.toFixed(3)}</span>
+            </li>
+          ))}
+        </ol>
+        <p class="axis"><span>0</span><span>0.5</span><span>1.0</span></p>
+      </figure>
+      <div>
+        <h3 class="text-xl">What each step was</h3>
+        <ul class="mt-4 space-y-3 text-muted ticks">
+          <li>Dropping stopwords from full-text queries added 5.1 points of hit@5 and 8.5 of hit@1.</li>
+          <li>The in-process embedding model added the rest. Getting masked-mean pooling right was worth about 6.6 points on its own.</li>
+          <li>No API key and no LLM are involved in any row.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-wrap mt-12">
+      <table class="table-site">
+        <thead><tr><th>Metric</th><th>Before 2.0</th><th>Filtered full text</th><th>Local embeddings</th></tr></thead>
+        <tbody>{metrics.map((m) => <tr>{m.map((c) => <td class="tabular-nums">{c}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      <Callout title="Retrieval, not answers" hue="amber">
+        <p>hit@5 asks whether the right session was found. No model writes or grades an answer, so this number cannot be compared with the accuracy figures other tools publish. The dataset is chat history, and a coding-session benchmark does not exist yet.</p>
+      </Callout>
+      <Callout title="The privacy cap costs points on purpose" hue="rose">
+        <p>Tool excerpts are cut at 2 KB before storage. Evidence deep inside one long turn never reaches the index. The benchmark scores the system as shipped, cap included.</p>
+      </Callout>
+    </div>
+
+    <div class="mt-12 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-10 items-start">
+      <div class="min-w-0">
+        <h3 class="text-xl">Run it yourself</h3>
+        <p class="mt-2 text-muted max-w-[40em]">Add <code>--embeddings local</code> to the second command for the hybrid row. The published run is dated 2026-09-01 on a Ryzen 9 7950X3D and has not been repeated for later releases.</p>
+        <div class="mt-4"><CodeBlock title="reproduce the benchmark" code={reproduce} /></div>
+        <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/README.md`}>Full results, per question type</a></p>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">Write throughput</h3>
+        <p class="mt-2 text-muted max-w-[40em]">All writes go through one queue to one thread. The ceiling is about 700 writes per second, flat past 32 writers, measured on a fast local disk. Network volumes will be lower.</p>
+        <div class="table-wrap mt-4">
+          <table class="table-site">
+            <thead><tr><th>Concurrent writers</th><th>Throughput</th><th>Mean latency</th></tr></thead>
+            <tbody>{writers.map((w) => <tr>{w.map((c) => <td class="tabular-nums">{c}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+        <div class="mt-4"><CodeBlock title="reproduce the throughput test" code={throughput} /></div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- (f) Next -->
+  <Section id="next" hue="amber" tint title="What is next, and where it is behind" lede="These are documented recommendations in the repository. None of them has a date.">
+    <div class="grid lg:grid-cols-2 gap-x-16 gap-y-12">
+      <div>
+        <h3 class="text-xl">Recommended next</h3>
+        <ul class="mt-5 space-y-5">
+          {next.map((n) => (
+            <li class="plan">
+              <p class="font-semibold">{n.title}</p>
+              <p class="text-muted mt-1">{n.text}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-muted max-w-[40em]">Not planned: a graph database, a self-editing memory OS, cloud connectors, or growing the tool count for its own sake.</p>
+      </div>
+      <div>
+        <h3 class="text-xl">Behind today</h3>
+        <ul class="mt-5 space-y-3 text-muted behind">
+          {behind.map((b) => <li>{b}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <blockquote class="pull mt-16">
+      <p>“1.x proved the idea worked. 2.0 is the version I’d recommend without an asterisk for someone else to put on a team.”</p>
+      <footer>Fabio Akita, <a href={post}>announcing ai-memory 2.0</a></footer>
+    </blockquote>
+  </Section>
+
+  <NextPages links={[
+    { href: '/architecture/', title: 'Architecture', text: 'How the binary, the wiki and the index fit together.', hue: 'azure' },
+    { href: '/compare/', title: 'Compare and migrate', text: 'Tool by tool, including where the others win.', hue: 'amber' },
+    { href: '/contribute/', title: 'Contribute', text: 'The evaluation harness is the most wanted piece of work.', hue: 'teal' },
+  ]} />
+  <CtaBand title="Read the reasoning. Then try it." text="Free and open source. The default install makes no LLM calls and listens on your machine only." />
+</Base>
+
+<style>
+  .pull { max-width: 46rem; border-left: 4px solid var(--hue-vivid); padding: .25rem 0 .25rem clamp(1.1rem, 3vw, 2rem); }
+  .pull p { font-family: var(--font-display); font-weight: 600; font-size: var(--text-2xl); line-height: 1.18; letter-spacing: -.01em; }
+  .pull footer { margin-top: 1rem; color: var(--muted); font-size: .95rem; }
+  .pull footer a { text-decoration: underline; color: var(--hue); }
+
+  .ticks li, .behind li { position: relative; padding-left: 1.5rem; max-width: 40em; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: .62em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .behind li::before { content: ''; position: absolute; left: .1rem; top: .5em; width: .55rem; height: .55rem; border-radius: 50%; border: 2px solid var(--muted); }
+  :global(.band) :is(td, p, li) > :global(code) { background: var(--tint); border-radius: .35em; padding: .1em .35em; font-size: .92em; }
+  :global(.bg-tint) :is(td, p, li) > :global(code) { background: var(--surface); }
+
+  .decision { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
+  .decision .we { color: var(--hue); font-weight: 600; font-size: .9rem; }
+  .decision .because { color: var(--text); font-weight: 600; }
+
+  .lineage { display: grid; border-top: 1px solid var(--line); }
+  .lineage > div { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: .25rem 2rem; padding-block: 1.1rem; border-bottom: 1px solid var(--line); }
+  .lineage dt { font-family: var(--font-display); font-weight: 640; font-size: var(--text-lg); }
+  .lineage dt a { text-decoration: underline; text-decoration-color: var(--hue-vivid); text-underline-offset: .2em; }
+  .lineage dt a:hover { color: var(--hue); }
+  .lineage dd { color: var(--muted); max-width: 44em; }
+  @media (max-width: 40rem) { .lineage > div { grid-template-columns: minmax(0, 1fr); } }
+
+  .chart figcaption { display: grid; gap: .25rem; }
+  .chart figcaption strong { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 640; }
+  .chart figcaption span { color: var(--muted); font-size: .95rem; }
+  .bars { margin-top: 1.75rem; display: grid; gap: 1.4rem; }
+  .bars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .45rem 1rem; align-items: center; }
+  .bars .lab { grid-column: 1 / -1; color: var(--muted); font-size: .95rem; }
+  .bars .last .lab { color: var(--text); font-weight: 600; }
+  .bars .track { display: block; height: 1.1rem; border-left: 1px solid var(--line); background: linear-gradient(var(--line), var(--line)) 50% 0 / 1px 100% no-repeat; border-right: 1px solid var(--line); }
+  .bars .bar { display: block; height: 100%; border-radius: 0 4px 4px 0; background: color-mix(in oklch, var(--hue-vivid) 45%, var(--tint)); }
+  .bars .last .bar { background: var(--hue-vivid); }
+  .bars .val { font-variant-numeric: tabular-nums; font-weight: 640; font-family: var(--font-display); font-size: var(--text-lg); min-width: 3.2rem; text-align: right; }
+  .axis { display: flex; justify-content: space-between; margin-top: .5rem; margin-right: 4.2rem; color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+
+  .plan { border-left: 3px solid var(--hue-vivid); padding-left: 1rem; max-width: 40em; }
+</style>

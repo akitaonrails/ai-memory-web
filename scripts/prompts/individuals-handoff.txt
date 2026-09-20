@@ -1,0 +1,4 @@
+A wide horizontal diagram with three parts, reading left to right.
+Left: one terminal window labelled "Claude Code", violet, with a small closed/power-off icon to show the session has ended.
+Centre: a copper microchip memory core labelled "ai-memory". An amber-gold relay baton travels along an amber arrow from the left terminal, through the chip, to the right terminal. The baton is labelled "Handoff". Under the baton, three tiny document icons in a row labelled "Summary", "Next steps", "Open questions".
+Right: a different terminal window labelled "Codex", azure, glowing as if just started. Below it, a second, dimmed terminal reaching for the baton with a small padlock between it and the baton, labelled "Claimed once".

@@ -1,0 +1,75 @@
+name: Build and deploy
+
+# Works with either way of hosting on Netlify (see docs/deploy.md):
+#   A. Netlify's GitHub integration builds and deploys. This workflow is then CI only
+#      (build + contrast check), plus a daily nudge to Netlify's build hook if NETLIFY_BUILD_HOOK is set.
+#   B. This workflow deploys with netlify-cli. That turns on when NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID are set.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Daily, so stars, contributors, releases and the changelog stay current.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Provided by GitHub to every run. Lifts the API rate limit for the build-time stats.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+      - run: npm run check:colors
+      - run: npm run build
+
+      # Mode A: ask Netlify to rebuild on the daily schedule (and on manual runs).
+      - name: Trigger Netlify build hook
+        if: env.NETLIFY_BUILD_HOOK != '' && env.NETLIFY_AUTH_TOKEN == '' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        run: curl -fsS -X POST -d '{}' "$NETLIFY_BUILD_HOOK?trigger_title=daily+refresh"
+
+      # Mode B: deploy the build from here.
+      - name: Deploy to production
+        if: env.NETLIFY_AUTH_TOKEN != '' && github.event_name != 'pull_request'
+        run: npx --yes netlify-cli@latest deploy --dir=dist --prod --no-build --message "${{ github.event_name }} ${{ github.sha }}"
+
+      - name: Deploy preview
+        id: preview
+        # Secrets are not available to pull requests from forks, so previews only run for branches of this repo.
+        if: env.NETLIFY_AUTH_TOKEN != '' && github.event_name == 'pull_request'
+        run: |
+          npx --yes netlify-cli@latest deploy --dir=dist --no-build --alias "pr-${{ github.event.number }}" --json > deploy.json
+          echo "url=$(node -p "require('./deploy.json').deploy_url")" >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview URL
+        if: steps.preview.outputs.url
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const body = `Preview: ${{ steps.preview.outputs.url }}`;
+            const { data: comments } = await github.rest.issues.listComments({ ...context.repo, issue_number: context.issue.number });
+            const mine = comments.find((c) => c.user.type === 'Bot' && c.body.startsWith('Preview: '));
+            if (mine) await github.rest.issues.updateComment({ ...context.repo, comment_id: mine.id, body });
+            else await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });

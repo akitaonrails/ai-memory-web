@@ -1,0 +1,7 @@
+A wide diagram with two columns of three stacked horizontal slabs each, connected left to right by three amber-gold arrows, one per row.
+Left column is a simple stack of three flat outlined slabs, top to bottom labelled "Raw sources", "Wiki", "Schema". Drawn in green to teal thin linework, like a sketch of an idea.
+Right column is the same three rows drawn as solid, more detailed objects in azure to violet:
+Top row: a stream of small glowing dots leaving a terminal window, labelled "Hook observations".
+Middle row: a neat stack of document pages with markdown-like lines and a small branch icon, labelled "Markdown in git".
+Bottom row: a single document page with a highlighted block inside it, labelled "AGENTS.md block".
+Each amber arrow goes from the left slab to the right object on the same row. Nothing else.

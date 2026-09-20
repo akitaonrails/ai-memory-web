@@ -1,0 +1,10 @@
+A very wide horizontal pipeline diagram, one single row of seven stages connected by amber-gold arrows, reading left to right.
+Stage 1: a terminal window emitting small glowing dots. Labelled "Hook". Green.
+Stage 2: a narrow gate the dots pass through. Labelled "Sanitize". Green to teal.
+Stage 3: many dots merging into one single lane toward one copper microchip. Labelled "Single writer". Teal.
+Stage 4: a cylinder database. Labelled "Observations". Azure.
+Stage 5: one document page with markdown-like lines. Labelled "Session page". Azure.
+Stage 6: drawn with a DASHED outline to show it is optional: a small spark shape fanning one page out into four pages. Labelled "Optional LLM". Violet.
+Stage 7: a stack of pages with a branch-and-commit graph beside it. Labelled "Git wiki". Violet to rose.
+After stage 7 a final arrow curves down and back toward the left along the bottom edge, returning to the terminal of stage 1. This return arrow is labelled "Briefing".
+Document and page icons contain only plain horizontal lines, never letters, words or symbols. The only text in the image is the eight labels given above.

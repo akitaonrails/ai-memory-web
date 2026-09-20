@@ -1,0 +1,2 @@
+A hub and spoke diagram. In the centre, one large amber-gold microchip core holding a small stack of document pages, labelled "One memory".
+Around it in a wide ellipse, six small terminal or editor windows, evenly spaced, each joined to the centre by one thin glowing line with small dots travelling along it. The six windows are labelled "Claude Code", "Codex", "Cursor", "Gemini CLI", "OpenCode" and "Zed". The windows on the left are green and teal, the ones at top and bottom are azure, the ones on the right are violet and rose.

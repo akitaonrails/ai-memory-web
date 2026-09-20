@@ -1,0 +1,5 @@
+A wide horizontal diagram reading left to right.
+On the left, two laptops. From them, two lines travel right inside a glowing tube with a padlock on it, labelled "HTTPS".
+In the middle, a tall shield-shaped gateway block labelled "Reverse proxy".
+From the gateway, one plain thin line labelled "HTTP" continues right to a server block with a copper microchip on top, labelled "ai-memory". A dashed rounded rectangle encloses only the gateway and the server, labelled "Same host".
+Azure tones dominate, the padlock and the microchip are amber-gold.

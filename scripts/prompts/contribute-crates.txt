@@ -1,0 +1,5 @@
+A layered architecture diagram made of flat rounded blocks stacked tightly like courses of bricks in a wall seen straight from the front, four tiers with small even gaps. There are NO arrows and NO connecting lines anywhere; the blocks simply rest on the tier below.
+Top tier: one wide amber-gold block with a copper microchip motif, labelled "cli".
+Second tier: five equal blocks side by side in azure to violet, labelled "hooks", "mcp", "web", "consolidate", "workstream".
+Third tier: three equal blocks side by side in teal, together as wide as the tier above, labelled "store", "wiki", "llm".
+Bottom tier: one wide green block spanning the full width, the foundation, labelled "core".

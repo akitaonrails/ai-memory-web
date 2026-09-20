@@ -1,0 +1,4 @@
+A wide diagram split into two halves by a thin vertical dashed line.
+Left half, headed "Source of truth": a large stack of document pages with markdown-like lines, labelled "wiki/", with a small git branch symbol attached. Beside it a smaller stack of sealed blocks labelled "raw/". Green and teal.
+Right half, headed "Derived": a database cylinder labelled "db/", a small neural-net cube labelled "models/", and a scroll of lines labelled "logs/". Azure and violet.
+One large amber-gold curved arrow goes from the "wiki/" stack to the "db/" cylinder, labelled "reindex".

@@ -1,0 +1,207 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Steps from '@/components/Steps.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import topologyImg from '@/assets/img/gen/teams-topology.webp';
+import firstDayImg from '@/assets/img/gen/teams-first-day.webp';
+import sharedOwnedImg from '@/assets/img/gen/teams-shared-owned.webp';
+import { site } from '@/data/site';
+
+const shared = [
+  { hue: 'teal', title: 'What one session learns, every agent can retrieve', text: 'A page written in a project is readable by everyone on the server. One person’s Codex session finds the gotcha a teammate’s Claude Code session hit last week.' },
+  { hue: 'green', title: 'Visible at the next query', text: 'A teammate’s note shows up in anyone’s next search or next session brief. A session that is already running is not interrupted.' },
+  { hue: 'violet', title: 'Any mix of agents', text: 'Each person keeps the agent they like. Every memory call resolves its project from the session’s directory, so parallel sessions do not cross.' },
+];
+
+const onboarding = [
+  { hue: 'azure', title: 'They ask the project', text: '"Catch me up" returns a digest of recent work. "Have we discussed the retry logic?" returns the decision page and the sessions behind it.' },
+  { hue: 'green', title: 'The wiki is a living knowledge base', text: 'Concepts, decisions and gotchas are written as the work happens, in markdown, with git history. Nobody has to remember to update it.' },
+  { hue: 'amber', title: 'It complements your written docs', text: 'Pages are compiled from sessions and shaped for agents to retrieve. Keep your hand-written README and architecture docs, and let the wiki hold the why and the dead ends.' },
+];
+
+const batonCode = `# Personal by default: only your next session receives it
+"Save context for the next session."
+
+# Publish one on purpose: memory_handoff_begin with shared: true
+"Save a shared handoff so whoever picks this up tomorrow gets it."`;
+
+const included = [
+  { hue: 'teal', title: 'A named account per person', text: 'Add people with one command. Disable someone and their access stops, while their pages stay.' },
+  { hue: 'azure', title: 'API keys per machine', text: 'Each person can hold several labelled keys, one per laptop or agent. Rotating a key rejects the old one immediately.' },
+  { hue: 'green', title: 'Attribution on every write', text: 'Each page records its author, and the web UI shows who edited it. Authorship never filters who can read.' },
+  { hue: 'rose', title: 'An audit log of every mutation', text: 'Writes are recorded with the author’s id. Admission webhooks can see the actor and reject an operation.' },
+];
+
+const capacity = [
+  ['1', '42/s', '23.9 ms'],
+  ['8', '295/s', '3.4 ms'],
+  ['32', '698/s', '1.43 ms'],
+  ['128', '700/s', '1.43 ms'],
+];
+
+const setup = [
+  {
+    title: 'Start one server',
+    text: 'A homelab box or any LAN host. Anything that listens beyond loopback needs the bearer token.',
+    codeTitle: 'on the server',
+    code: `TOKEN=$(ai-memory generate-auth-token)      # 32 bytes / 64 hex chars
+docker run -d --name ai-memory \\
+    --restart unless-stopped \\
+    -p 0.0.0.0:49374:49374 \\
+    -v ai-memory-data:/data \\
+    -e AI_MEMORY_AUTH_TOKEN="$TOKEN" \\
+    -e AI_MEMORY_ALLOWED_HOSTS="<server-ip>,localhost,127.0.0.1" \\
+    akitaonrails/ai-memory:latest`,
+  },
+  {
+    title: 'Add each person and issue a key',
+    text: 'The temporary password and the <code>aim_</code> key are each shown once.',
+    codeTitle: 'as root',
+    code: `ai-memory user add-human --username alice --email alice@home --name "Alice Smith"
+ai-memory api-key add --username alice --label codex-laptop`,
+  },
+  {
+    title: 'Each person points their agents at it',
+    text: 'Swap the client and agent name for whatever they use.',
+    codeTitle: 'on every machine',
+    code: `export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
+export AI_MEMORY_AUTH_TOKEN="aim_..."
+ai-memory install-mcp   --client claude-code --apply
+ai-memory install-hooks --agent  claude-code --apply`,
+  },
+];
+
+const faq = [
+  { q: 'Can several developers share one ai-memory server?', a: 'Yes. One server holds the wiki and everyone points their agents at it. Pages are shared by everyone on the server. Handoffs stay with the person who created them unless they publish one with shared: true.' },
+  { q: 'Does team use need a paid tier?', a: 'No. Per-person accounts, API keys, attribution and the audit log are part of the open source binary. There is no paid tier.' },
+  { q: 'Can I restrict a project or a page to some users?', a: 'No. Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on that server. Run one server per team.' },
+  { q: 'How many developers can one server handle?', a: 'The measured write ceiling is about 700 writes per second on a fast local disk, which the project reads as several hundred concurrently active agents. The number measures the store, and network disks will be slower.' },
+];
+const schema = [{
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}];
+---
+<Base
+  title="Shared memory for a team’s coding agents"
+  description="One shared memory server for your team’s coding agents. Faster onboarding, per-person accounts, attribution and an audit log, all open source."
+  schema={schema}
+>
+  <PageHero
+    hue="teal"
+    kicker="Solutions"
+    title="One memory for everyone’s agents"
+    lede="Run one server on a homelab box or any LAN host. Every developer points their agents at it, and what one session figures out is there for the next person who asks."
+  >
+    <a href="/install/#team" class="btn btn-primary">Set up a team in 10 minutes</a>
+    <a href="/security/" class="btn btn-ghost">Read the security model</a>
+  </PageHero>
+
+  <Section title="One server that everyone points at" lede="A single binary with a single SQLite file and a folder of markdown. There is no sidecar, no vector database and nothing to keep in sync." hue="teal" fill>
+    <Figure
+      src={topologyImg}
+      alt="Diagram: four developer workstations running Claude Code, Codex, Cursor and Gemini CLI all connect to one ai-memory server, which holds one project wiki."
+    />
+    <FeatureGrid items={shared} />
+  </Section>
+
+  <Section title="A new developer’s first day" lede="They get a key, point their agent at the server, and ask the project what has been going on." hue="azure" tint>
+    <Figure
+      src={firstDayImg}
+      alt="Timeline of a new developer’s first day: get an API key, point the agent at the server, ask it to catch me up, then search the wiki."
+    />
+    <FeatureGrid items={onboarding} />
+    <p class="mt-10 text-muted max-w-[40em]">The digest is prose when the server has an LLM provider and structured data when it has none. With <code>--enable-web</code>, the same wiki is browsable in a read-only web UI.</p>
+  </Section>
+
+  <Section title="Knowledge is shared, batons are owned" lede="Pages belong to the project. A handoff belongs to the person who left it." hue="violet">
+    <Figure
+      src={sharedOwnedImg}
+      alt="Two-panel diagram. Left, knowledge is shared: several agent sessions read and write the same stack of wiki pages. Right, batons are owned: a handoff baton passes between two sessions of the same person while a teammate’s session is locked out."
+    />
+    <div class="grid lg:grid-cols-2 gap-x-12 gap-y-10 items-start">
+      <ul class="space-y-4 text-muted ticks max-w-[40em]">
+        <li>Your pending handoff goes to your next session. A teammate starting an agent in the same repository never receives or consumes it.</li>
+        <li>Pass <code>shared: true</code> when you want to publish a baton for whoever picks the work up.</li>
+        <li>Two people editing the same page produce a version chain. The later write becomes latest and the earlier one stays reachable. There is no merge and nothing is destroyed.</li>
+        <li>Optional per-person slots hold "what I am working on now" and stay out of the team brief. They are off by default.</li>
+      </ul>
+      <div class="min-w-0">
+        <CodeBlock title="what you tell the agent" code={batonCode} />
+      </div>
+    </div>
+
+    <h3 class="text-xl mt-16">Agents can message each other across projects</h3>
+    <p class="mt-3 text-muted max-w-[40em]">
+      The agent in the frontend repository needs an endpoint from the API repository. It sends a self-contained request to that project’s inbox, and the next session there pops it. A message is claimed once, the recipient project must already exist, and an inbox holds at most 256 pending messages. The <a class="underline font-semibold text-text" href={site.docs + '/agent-messaging.md'}>agent messaging guide on GitHub</a> has the tools.
+    </p>
+  </Section>
+
+  <Section title="Accounts, keys and audit, with no paid tier" lede="The team features are in the same MIT binary as everything else." hue="teal" tint>
+    <FeatureGrid items={included} cols={4} />
+    <p class="mt-10 text-muted max-w-[40em]">The docs do not describe a screen or a command for browsing the audit log yet, so plan on querying the <code>audit_log</code> table in the SQLite file. The <a class="underline font-semibold text-text" href={site.docs + '/users.md'}>users guide on GitHub</a> covers roles, password login and key rotation.</p>
+
+    <div class="mt-12">
+      <Callout title="Know the limits before you roll it out" hue="rose">
+        <ul class="ticks space-y-2">
+          <li>Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on the server.</li>
+          <li>One team per server. If a second team needs memory, run a second server with its own data directory.</li>
+          <li>There are no per-page or per-project permissions. Anyone who is authenticated can write, and history records who did.</li>
+          <li>It is a single-tenant homelab service and is not designed to face the open internet directly.</li>
+          <li>A bearer token does not encrypt traffic. Put TLS in front, with Caddy, nginx or a Cloudflare Tunnel, for anything beyond the LAN.</li>
+        </ul>
+        <p>The <a href="/security/">security page</a> has the full model, and <a href="/advanced/">advanced setup</a> has the TLS and proxy recipes.</p>
+      </Callout>
+    </div>
+  </Section>
+
+  <Section title="Measured capacity" lede="All writes go through one queue to one writer. The project publishes what that writer can take." hue="azure">
+    <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-x-12 gap-y-10 items-start">
+      <div class="table-wrap">
+        <table class="table-site">
+          <caption class="sr-only">Writer throughput by number of concurrent writers</caption>
+          <thead><tr><th scope="col">Concurrent writers</th><th scope="col">Throughput</th><th scope="col">Mean latency</th></tr></thead>
+          <tbody>
+            {capacity.map((r) => <tr><td>{r[0]}</td><td class="tabular-nums">{r[1]}</td><td class="tabular-nums">{r[2]}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <ul class="space-y-4 text-muted ticks max-w-[40em]">
+        <li>The ceiling is about 700 writes per second, reached at around 32 writers. The docs read that as several hundred concurrently active agents.</li>
+        <li>The queue is bounded at 1024. A burst slows the producers down, and nothing is dropped.</li>
+        <li>The numbers were taken on a fast local disk. A network filesystem will be materially lower.</li>
+        <li>They measure the store and leave out the HTTP front door.</li>
+        <li>Reproduce them with <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <Section title="The 10-minute setup, in short" hue="amber" tint>
+    <Steps steps={setup} />
+    <p class="mt-12 flex flex-wrap gap-3">
+      <a href="/install/#team" class="btn btn-primary">See the full team setup</a>
+      <a href="/advanced/" class="btn btn-ghost">TLS, SSO and backups</a>
+    </p>
+  </Section>
+
+  <NextPages links={[
+    { href: '/install/#team', title: 'Team quick setup', text: 'The server, the accounts and the client wiring, step by step.', hue: 'amber' },
+    { href: '/security/', title: 'Security', text: 'What is stored, what leaves the machine, and how to lock the server down.', hue: 'rose' },
+    { href: '/advanced/', title: 'Advanced setup', text: 'Homelab deploys, TLS through a proxy, SSO through a gateway, backups.', hue: 'azure' },
+  ]} />
+  <CtaBand title="Give your team’s agents one memory." text="Free and open source. Accounts, keys and the audit log are included." />
+</Base>
+
+<style>
+  .ticks li { position: relative; padding-left: 1.5rem; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: .7em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .ticks :global(code), p :global(code) { background: var(--surface); border: 1px solid var(--line); border-radius: .35em; padding: .1em .4em; font-size: .88em; overflow-wrap: anywhere; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>

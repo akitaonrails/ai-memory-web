@@ -1,0 +1,5 @@
+A wide topology diagram.
+Centre: one small server box with a copper microchip on it and a stack of document pages beside it, labelled "One ai-memory server".
+Left: a desktop tower computer with a monitor, labelled "PC", azure, connected to the server by a solid amber arrow.
+Right: an open notebook computer labelled "Notebook", violet. Its connection to the server is a dashed line interrupted by a small crossed-out wifi icon, labelled "Offline". Next to the notebook, a small tray holding a queue of glowing dots, labelled "Local spool". A second amber arrow curves from the tray to the server, labelled "Drains later".
+No second server anywhere in the picture. No cloud icon.

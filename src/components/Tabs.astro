@@ -1,0 +1,43 @@
+---
+// Accessible tabs. Panels are passed as slots named "0", "1", ... matching `labels`.
+interface Props { labels: string[]; id: string }
+const { labels, id } = Astro.props;
+---
+<div data-tabs>
+  <div role="tablist" class="tablist" aria-label="Choose one">
+    {labels.map((label, i) => (
+      <button type="button" role="tab" id={`${id}-t${i}`} aria-controls={`${id}-p${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{label}</button>
+    ))}
+  </div>
+  {labels.map((_, i) => (
+    <div role="tabpanel" id={`${id}-p${i}`} aria-labelledby={`${id}-t${i}`} hidden={i !== 0} tabindex="0" class="mt-5"><slot name={String(i)} /></div>
+  ))}
+</div>
+<style>
+  .tablist { display: inline-flex; flex-wrap: wrap; gap: .25rem; padding: .3rem; border-radius: 999px; background: var(--tint); border: 1px solid var(--line); max-width: 100%; }
+  @media (max-width: 48rem) { .tablist { border-radius: 1rem; } }
+  [role='tab'] { padding: .55rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: .95rem; color: var(--muted); transition: background-color .2s, color .2s; }
+  [role='tab'][aria-selected='true'] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px oklch(0 0 0 / .15); }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLElement>(':scope > [role=tablist] > [role=tab]')];
+    const select = (tab: HTMLElement) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+      });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(t));
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        const next = tabs[(i + d + tabs.length) % tabs.length];
+        select(next); next.focus();
+      });
+    });
+  });
+</script>

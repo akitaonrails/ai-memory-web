@@ -1,0 +1,98 @@
+// Source: ai-memory docs/comparison.md and docs/competitive-parity.md (September 2026).
+// Every "they win" line is from the project's own audit. Vendor numbers are labelled as vendor numbers.
+export interface Competitor {
+  id: string; name: string; kind: string; needs: string[];
+  same: string; gain: string[]; theyWin: string; verdict: string; featured?: boolean;
+}
+
+export const competitors: Competitor[] = [
+  {
+    id: 'claude-memory', name: 'Claude Code built-in memory', kind: 'Per-laptop MEMORY.md', featured: true,
+    needs: ['Claude Code', 'One machine'],
+    same: 'The "remember my project" convenience, in markdown.',
+    gain: ['The same memory in Codex, Cursor, Gemini CLI and 20 more', 'Synced across your machines', 'Shared with your team', 'Real search, and capture of what the tools actually did'],
+    theyWin: 'Zero setup. It is already on, and there is no server to run. For one developer on one machine who only uses Claude Code, it may be all you need.',
+    verdict: 'Move when you add a second agent, a second machine or a second person.',
+  },
+  {
+    id: 'mem0', name: 'Mem0 and LangMem', kind: 'Fact extractors', featured: true,
+    needs: ['An LLM on every turn', 'A vector store'],
+    same: 'Automatic capture, no “remember this” ceremony.',
+    gain: ['Readable pages you can open and edit, in place of opaque fact rows', 'Search that fuses full text, entities, links and vectors', 'No API spend to capture or search'],
+    theyWin: 'A large SDK ecosystem and a managed cloud built for personalizing apps for end users.',
+    verdict: 'Different buyer. Mem0 remembers your app’s users. ai-memory remembers your repository.',
+  },
+  {
+    id: 'zep', name: 'Zep and Graphiti', kind: 'Temporal knowledge graph', featured: true,
+    needs: ['Neo4j, FalkorDB or Neptune', 'An LLM'],
+    same: 'Facts are superseded, never deleted. You can ask what was true at a point in time.',
+    gain: ['Point-in-time queries and typed links on one binary with SQLite', 'No graph database to run', 'Native to coding agents, with hooks for 20+ of them'],
+    theyWin: 'True bi-temporal modelling, Cypher graph queries and custom entity types. ai-memory tracks ingestion time only, by design.',
+    verdict: 'Move if you self-host for coding. Stay if you need enterprise graph queries.',
+  },
+  {
+    id: 'cognee', name: 'cognee', kind: 'Graph, vector and relational pipeline', featured: true,
+    needs: ['Three stores in sync', 'An LLM call per chunk', 'Python'],
+    same: 'Provenance, feedback-weighted ranking and a Claude Code plugin.',
+    gain: ['One store to back up: a folder of markdown', 'No LLM bill for ingestion', 'A single binary that runs on a homelab box'],
+    theyWin: 'Breadth: 14+ retrieval modes, ontology grounding, and ingestion of PDFs, CSVs and web pages.',
+    verdict: 'Move if you want memory for coding sessions. Stay if you ingest documents.',
+  },
+  {
+    id: 'openviking', name: 'OpenViking and Hindsight', kind: 'Living document memory, LLM required', featured: true,
+    needs: ['An LLM or VLM', 'Embeddings', 'Postgres or a hosted service'],
+    same: 'Memory compiled into living pages by a background consolidation loop.',
+    gain: ['Capture, search and handoffs with zero LLM calls', 'Files you own, MIT licensed, no AGPL or SaaS weight', 'Team sharing per project in place of strict per-bank isolation'],
+    theyWin: 'Higher reported accuracy with an LLM in the loop: Hindsight reports 91.4% on LongMemEval, OpenViking reports large token savings. Both are vendor numbers.',
+    verdict: 'Move for self-hosted, offline or team use. Stay if you need their accuracy and accept the LLM requirement.',
+  },
+  {
+    id: 'basic-memory', name: 'basic-memory', kind: 'Markdown knowledge base over MCP',
+    needs: ['You, writing notes by hand'],
+    same: 'Markdown on disk is the source of truth, with a derived index.',
+    gain: ['Automatic capture from lifecycle hooks', 'Decay and supersession, so stale notes stop ranking', 'Cross-agent handoffs and multi-user sharing'],
+    theyWin: 'A local cross-encoder reranker, real-time collaborative editing and a hosted mobile app.',
+    verdict: 'Move for multi-agent coding continuity. Stay for a personal Obsidian-style knowledge base.',
+  },
+  {
+    id: 'mcp-memory-service', name: 'mcp-memory-service', kind: 'The closest sibling',
+    needs: ['Mostly Claude Code'],
+    same: 'SQLite, local embeddings, hook capture, typed links and honest numbers.',
+    gain: ['Pages you can read in place of fact rows', 'Claim-once handoffs between agents', 'Cross-project messaging and point-in-time search'],
+    theyWin: 'Clustering-based consolidation, multi-backend replication and a graph visualizer. Its session-level score of 0.860 is above ai-memory’s 0.823.',
+    verdict: 'Move if you liked hook capture and want it across every agent.',
+  },
+  {
+    id: 'agentmemory', name: 'agentmemory', kind: 'The ancestor of this project',
+    needs: ['A Node sidecar', '50+ MCP tools'],
+    same: 'Nearly every concept: tiers, supersession, decay, fused ranking, hooks.',
+    gain: ['One self-contained binary with no sidecar', 'Real SQL indexes committed in one transaction', 'Files as the source of truth, Windows parity, fuller auth'],
+    theyWin: 'About 13 points of raw retrieval: it reports 0.952 on LongMemEval-S against 0.823, because it reranks. It also has peer-to-peer sync.',
+    verdict: 'Move for operability and data ownership.',
+  },
+  {
+    id: 'letta', name: 'Letta and MemGPT', kind: 'Memory operating system',
+    needs: ['Adopting their agent runtime'],
+    same: 'Memory tiers and consolidation off the hot path.',
+    gain: ['Memory that sits under the agent you already use', 'No runtime to adopt, no tokens spent on self-editing'],
+    theyWin: 'A full agent framework and development environment, with strong long-horizon coherence.',
+    verdict: 'Stay if you build on Letta. Move if you only want your coding agent to remember.',
+  },
+  {
+    id: 'supermemory', name: 'Supermemory', kind: 'Hosted memory API',
+    needs: ['A cloud account', 'API spend'],
+    same: 'A second brain with automatic ingestion and supersession.',
+    gain: ['Git-versioned markdown you own', 'Works offline', 'Scoped to your repository, where Supermemory is a general vault'],
+    theyWin: 'Managed connectors for Drive, Gmail, Notion and S3, multimodal ingestion and user profiles.',
+    verdict: 'Different buyer.',
+  },
+];
+
+export const moat = [
+  { title: 'Zero LLM calls by default', text: 'Capture, search and handoffs work with no API key.' },
+  { title: 'Files are the source of truth', text: 'A git-backed folder of markdown. The database is a rebuildable index.' },
+  { title: 'One self-contained binary', text: 'It runs without a graph database, a Python runtime or a sidecar process.' },
+  { title: 'Every agent, automatically', text: 'Lifecycle hooks for 20+ coding agents.' },
+  { title: 'Typed, claim-once handoffs', text: 'A protocol: each handoff has a type and an owner, and only one session can claim it.' },
+  { title: 'Teams without a paid tier', text: 'Accounts, attribution and an audit log are in the box.' },
+];

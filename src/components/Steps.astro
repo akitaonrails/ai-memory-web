@@ -1,0 +1,28 @@
+---
+// A real sequence: numbered, each step with an optional terminal block.
+import CodeBlock from './CodeBlock.astro';
+interface Step { title: string; text?: string; code?: string; codeTitle?: string }
+interface Props { steps: Step[] }
+const { steps } = Astro.props;
+---
+<ol class="steps">
+  {steps.map((s, i) => (
+    <li>
+      <span class="n" aria-hidden="true">{i + 1}</span>
+      <div class="min-w-0">
+        <h3 class="text-xl">{s.title}</h3>
+        {s.text && <p class="mt-2 text-muted max-w-[40em]" set:html={s.text} />}
+        {s.code && <div class="mt-4"><CodeBlock code={s.code} title={s.codeTitle} /></div>}
+      </div>
+    </li>
+  ))}
+</ol>
+<style>
+  .steps { display: grid; gap: 2.75rem; counter-reset: step; }
+  .steps li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1.1rem; position: relative; }
+  .steps li:not(:last-child)::before { content: ''; position: absolute; left: 1.35rem; top: 3.2rem; bottom: -2.2rem; width: 2px; background: var(--line); }
+  .n { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--hue-soft, var(--amber-soft)); color: var(--hue, var(--amber-ink)); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+  @media (max-width: 40rem) { .steps li { grid-template-columns: minmax(0, 1fr); } .steps li::before { display: none; } }
+  .steps :global(p a) { color: var(--hue, var(--azure)); text-decoration: underline; text-decoration-thickness: 1.5px; font-weight: 600; }
+  .steps :global(code):not(:global(pre code)) { background: var(--tint); border-radius: .35em; padding: .12em .4em; }
+</style>

@@ -1,0 +1,4 @@
+A wide hub diagram. In the center, one large server block with a copper microchip on top, labelled "One shared server". A small amber padlock with a key shape sits on the server, labelled "Token".
+On the left, three laptops stacked vertically, each with a small person silhouette icon (no face) and a small key icon beside it. The top laptop is labelled "alice", the middle one "bob", the bottom one "carol". Each laptop connects to the server with one amber-gold line. The group of three small keys is labelled "One API key each".
+On the right of the server, one stack of document pages labelled "One wiki for the team". Teal and azure tones dominate.
+The background must be one flat solid dark indigo-navy color in every corner: no color gradient, no pink or green haze in the corners.

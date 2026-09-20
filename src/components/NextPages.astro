@@ -1,0 +1,24 @@
+---
+// Two or three places to go next, at the bottom of every detail page.
+import type { Hue } from '@/data/site';
+interface Props { links: { href: string; title: string; text: string; hue: Hue }[] }
+const { links } = Astro.props;
+---
+<section class="band !pb-0">
+  <div class="wrap">
+    <h2 class="text-2xl">Keep reading</h2>
+    <div class:list={['mt-8 grid gap-4', links.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3']}>
+      {links.map((l) => (
+        <a href={l.href} data-hue={l.hue} class="next">
+          <h3 class="text-xl">{l.title}</h3>
+          <p class="mt-2 text-muted">{l.text}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .next { display: block; padding: 1.6rem 1.75rem; border-radius: 1.25rem; background: var(--hue-soft); transition: transform .4s var(--ease-out-quint); }
+  .next:hover { transform: translateY(-3px); }
+  .next h3 { color: var(--hue); }
+</style>

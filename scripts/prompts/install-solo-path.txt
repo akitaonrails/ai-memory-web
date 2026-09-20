@@ -1,0 +1,5 @@
+A wide horizontal diagram of three large stages on one laptop, connected by two amber-gold arrows, reading left to right.
+Stage 1, labelled "Install": a single small binary file icon dropping into a terminal window. Green.
+Stage 2, labelled "Start the server": a small server block with a copper microchip on top, sitting inside the outline of a laptop, with a closed loop arrow around it showing it stays on this machine. Azure. A small tag under it reads "127.0.0.1:49374".
+Stage 3, labelled "Run your agent": a terminal window with a blinking cursor, connected back to the server block by two thin lines, one labelled "hooks" and one labelled "MCP". Violet.
+Nothing leaves the laptop outline: no clouds, no internet symbols.

@@ -1,0 +1,7 @@
+A wide horizontal process diagram with six stages connected by amber-gold arrows, reading left to right.
+Stage 1, labelled "Issue": a speech bubble with a small dot inside. Green.
+Stage 2, labelled "Branch": a git branch line splitting off a main line. Teal.
+Stage 3, labelled "Local gates": four small check marks in a column next to a terminal window. Teal to azure.
+Stage 4, labelled "Pull request": two branch lines joining with a document page beside them. Azure.
+Stage 5, labelled "Review": a magnifying lens over a document page. Violet.
+Stage 6, labelled "Next release": a small package box with a tag on it. Rose.

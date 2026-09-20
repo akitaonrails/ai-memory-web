@@ -1,0 +1,24 @@
+---
+import { site } from '@/data/site';
+interface Props { title?: string; text?: string }
+const { title = 'Give your agents a memory today.', text = 'Free and open source under the MIT license. You need no account and no API key.' } = Astro.props;
+---
+<section class="band">
+  <div class="wrap">
+    <div class="cta">
+      <div class="aura" aria-hidden="true"></div>
+      <h2 class="relative text-3xl max-w-[16ch]">{title}</h2>
+      <p class="relative lede mt-5 !text-[oklch(0.82_0.03_285)]">{text}</p>
+      <div class="relative mt-9 flex flex-wrap gap-3">
+        <a href="/install/" class="btn btn-primary">Set it up in 5 minutes</a>
+        <a href={site.repo} class="btn cta-ghost">Star it on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .cta { position: relative; overflow: hidden; border-radius: 2rem; padding: clamp(2.5rem, 7vw, 6rem); background: var(--ink); color: oklch(0.955 0.012 285); border: 1px solid oklch(0.33 0.045 282); }
+  .aura { position: absolute; inset: auto -20% -70% -20%; height: 120%; background: conic-gradient(from 200deg at 50% 50% in oklch, var(--v-green), var(--v-teal), var(--v-azure), var(--v-violet), var(--v-rose), var(--v-green)); filter: blur(90px); opacity: .45; }
+  .cta-ghost { border: 1.5px solid oklch(0.5 0.04 285); color: inherit; }
+  .cta-ghost:hover { border-color: currentColor; }
+</style>

@@ -1,0 +1,4 @@
+A wide diagram reading left to right.
+On the left, a large open folder drawn in green to teal, labelled "One project". Inside the folder, one page on top labelled "index.md" and three smaller document pages fanned out beneath it, each with a small tag on its corner, labelled "Decision", "Gotcha" and "Procedure".
+In the middle, a single amber-gold arrow carries a small plain copy of the folder to the right. The small copy is a simple folder icon with blank pages and no text on it at all.
+On the right, three simple destinations stacked vertically in azure to violet to rose, each with the same small blank folder icon beside it (no text on the small folders): a notebook app window labelled "Obsidian", a terminal window labelled "grep", and a plain rounded box labelled "Another OKF tool".

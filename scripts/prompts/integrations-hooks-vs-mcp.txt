@@ -1,0 +1,4 @@
+A wide diagram with two horizontal lanes stacked vertically, separated by a thin line. Each lane has a terminal window on the left and a stack of document pages on the right.
+Top lane, titled "Hooks": the terminal window emits a steady stream of small glowing dots that travel on their own, one way, left to right, into the page stack. Under the stream the label "Automatic capture". Green to teal.
+Bottom lane, titled "MCP": the terminal window sends one amber-gold arrow to the page stack and a second arrow returns from the page stack to the terminal, forming a request and answer loop. Under the loop the label "Tools the agent calls". Azure to violet.
+The terminal windows in both lanes are labelled "Your agent" and the page stacks are labelled "Memory".

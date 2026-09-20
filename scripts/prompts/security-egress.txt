@@ -1,0 +1,4 @@
+A wide diagram with two zones. The left zone takes about two thirds of the width and is a large rounded enclosure with a solid outline, labelled "Your machine". The right zone is open space labelled "Third parties".
+Inside the left enclosure, connected by solid lines, left to right: a terminal window labelled "Hooks", then a stack of document pages labelled "Wiki and index", then a small chip labelled "Local embedder". All solid lines stay inside the enclosure. Green to azure.
+In the right zone, three small cloud shapes stacked vertically, labelled "Cloud embeddings", "Cloud LLM" and "LLM rerank". Violet to rose.
+Three thin DASHED lines cross the enclosure wall from the document stack to the three clouds. Each dashed line passes through a small open switch drawn in amber-gold at the wall, showing the path is switched off. One shared label near the switches: "Opt-in, off by default".

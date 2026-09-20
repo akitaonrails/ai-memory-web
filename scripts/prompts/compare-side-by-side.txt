@@ -1,0 +1,3 @@
+A wide diagram with a clear left to right reading order.
+On the far left, two small source objects stacked vertically: a branching commit graph labelled "Git history" and a small stack of pages labelled "README and docs". Both feed through one amber-gold arrow labelled "bootstrap" into a folder of document pages in the lower centre labelled "ai-memory".
+In the centre top, one terminal window labelled "Your agent". Two lines leave the terminal window downwards: one to the "ai-memory" folder, and one to a separate rounded box on the right labelled "Current memory tool". The two destinations sit side by side at the same height and are not connected to each other, showing that both run at the same time.

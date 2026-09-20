@@ -1,0 +1,31 @@
+{
+  "name": "aimemory-io",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing site for ai-memory — https://aimemory.io",
+  "author": "Fabio Akita",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check:colors": "node scripts/check-contrast.mjs",
+    "snapshot:github": "node scripts/snapshot-github.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource/commit-mono": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.3",
+    "gsap": "^3.15.0",
+    "marked": "^18.0.13",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "culori": "^4.0.2"
+  }
+}

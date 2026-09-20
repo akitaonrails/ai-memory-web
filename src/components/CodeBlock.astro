@@ -1,0 +1,26 @@
+---
+// A terminal-style block. Pass the code as the default slot or `code` prop. Lines starting with "# " render as comments.
+interface Props { title?: string; code: string; hue?: string }
+const { title = 'Terminal', code, hue } = Astro.props;
+const lines = code.trim().split('\n');
+---
+<figure class="code" data-code data-hue={hue}>
+  <figcaption>
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="title">{title}</span>
+    <button type="button" data-copy class="copy"><span data-copy-label>Copy</span></button>
+  </figcaption>
+  <pre tabindex="0"><code>{lines.map((l) => <span class:list={['line', { c: l.trimStart().startsWith('#') }]}>{l + '\n'}</span>)}</code></pre>
+</figure>
+<style>
+  /* Terminals stay dark in both themes, like the real thing. */
+  .code { background: var(--ink); color: oklch(0.93 0.015 285); border-radius: 1rem; border: 1px solid oklch(0.33 0.045 282); overflow: hidden; box-shadow: var(--shadow); }
+  figcaption { display: flex; align-items: center; gap: .75rem; padding: .6rem .6rem .6rem 1rem; border-bottom: 1px solid oklch(0.28 0.04 282); font-size: .82rem; color: oklch(0.74 0.03 285); }
+  .dots { display: flex; gap: .35rem; }
+  .dots i { width: .6rem; height: .6rem; border-radius: 50%; background: oklch(0.36 0.045 282); }
+  .title { flex: 1; font-family: var(--font-mono); }
+  .copy { padding: .3rem .7rem; border-radius: 999px; border: 1px solid oklch(0.36 0.045 282); color: inherit; font-weight: 600; transition: color .2s, border-color .2s; }
+  .copy:hover { color: var(--amber); border-color: var(--amber); }
+  pre { margin: 0; padding: 1.1rem 1.2rem 1.25rem; overflow-x: auto; font-size: .875rem; line-height: 1.7; }
+  .line.c { color: oklch(0.68 0.04 285); }
+</style>

@@ -1,0 +1,4 @@
+A wide horizontal diagram in two rows, reading left to right.
+Top row, headed "Backup": a running server block with a copper microchip and a small green play symbol, an amber-gold arrow to the right, then a single archive box with a zipper labelled "tar.gz".
+Bottom row, headed "Restore": the same archive box on the left, an amber-gold arrow to the right, then a server block with a small pause symbol labelled "Server stopped", then an arrow to a server block with a green play symbol.
+Green to azure tones.

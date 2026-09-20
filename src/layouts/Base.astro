@@ -1,0 +1,106 @@
+---
+import '@/styles/global.css';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import { site } from '@/data/site';
+import ogImage from '@/assets/img/og.png';
+
+import { getGithub } from '@/data/github';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Extra schema.org objects for this page (FAQPage, TechArticle, ...). */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const {
+  title,
+  description = `${site.tagline}. Switch agents, machines and teammates without re-explaining your project. Open source, one binary, plain markdown.`,
+  schema = [],
+  noindex = false,
+} = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name}: ${site.tagline.toLowerCase()}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const home = new URL('/', Astro.site).href;
+const gh = await getGithub();
+const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+
+// Breadcrumbs from the URL: /solutions/teams/ -> Home > Solutions > Teams
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+const words = (s: string) => s.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+const breadcrumbs = segments.length && {
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ name: 'Home', path: '/' }, ...segments.map((s, i) => ({ name: i === segments.length - 1 && title ? title : words(s), path: `/${segments.slice(0, i + 1).join('/')}/` }))]
+    .map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.path, Astro.site).href })),
+};
+
+const graph = [
+  { '@type': 'WebSite', '@id': `${home}#site`, url: home, name: site.name, description: site.tagline, inLanguage: 'en', publisher: { '@id': `${home}#author` } },
+  { '@type': 'Person', '@id': `${home}#author`, name: site.author, url: site.authorUrl },
+  {
+    '@type': 'SoftwareApplication', '@id': `${home}#software`, name: site.name, description, url: home,
+    applicationCategory: 'DeveloperApplication', operatingSystem: 'Linux, macOS, Windows',
+    softwareVersion: latest?.tag.replace(/^v/, ''), license: 'https://opensource.org/license/mit',
+    codeRepository: site.repo, downloadUrl: `${site.repo}/releases/latest`, author: { '@id': `${home}#author` },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+  { '@type': 'WebPage', '@id': `${canonical.href}#page`, url: canonical.href, name: fullTitle, description, isPartOf: { '@id': `${home}#site` }, about: { '@id': `${home}#software` } },
+  ...(breadcrumbs ? [breadcrumbs] : []),
+  ...schema,
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex' : 'index, follow, max-image-preview:large'} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Site summary for language models" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9fd" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0c1f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The ai-memory logo: a brain that is half neural network, half circuit board, with an arrow passing through a chip" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
+    <meta name="author" content={site.author} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
+    <!-- Resolve the theme before first paint: saved choice, else the system setting. -->
+    <script is:inline>
+      (() => {
+        let saved = null;
+        try { saved = localStorage.getItem('theme'); } catch {}
+        const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved === 'light' || saved === 'dark' ? saved : system;
+      })();
+    </script>
+    <noscript><style>[data-reveal],[data-fill]{opacity:1!important;transform:none!important}</style></noscript>
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-[100] focus:top-3 focus:left-3 btn btn-primary">Skip to content</a>
+    <Nav />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>
+      import '@/scripts/theme';
+      import '@/scripts/motion';
+      import '@/scripts/github-live';
+      import '@/scripts/copy';
+    </script>
+  </body>
+</html>

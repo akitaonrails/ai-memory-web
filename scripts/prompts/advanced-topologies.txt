@@ -1,0 +1,6 @@
+Four separate panels side by side in one row, equal width, each a small scene, reading left to right.
+Panel 1, labelled "Laptop only": one laptop containing a small server block with a copper microchip, a closed loop arrow staying inside the laptop. Green.
+Panel 2, labelled "Homelab box": a small tower server on a shelf, with two laptops connected to it by amber-gold lines. Teal.
+Panel 3, labelled "LAN with TLS": a shield with a padlock standing in front of a server block, three laptops connecting through the shield. Azure.
+Panel 4, labelled "Tunnel": a server block at the bottom with a tube going up to a cloud shape at the top, and one laptop on the far side whose only connection line goes to the cloud, never directly to the server. Violet.
+Every object sits fully inside its own panel with clear empty margin on all sides; nothing is cropped by a panel edge or the image edge. The background is one flat solid dark indigo-navy in every panel and every corner, with no color haze.

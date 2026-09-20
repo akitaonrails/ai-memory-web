@@ -1,0 +1,3 @@
+A wide diagram of seven thin streams flowing from the left edge and merging into one object on the right, like tributaries joining a river.
+On the left, seven small rounded nodes stacked vertically, evenly spaced, coloured along the spectrum from green at the top to rose at the bottom, labelled in this order: "Karpathy wiki", "agentmemory", "basic-memory", "cognee", "Hermes Agent", "A-MEM", "Hindsight".
+Each node sends one thin glowing line to the right. The seven lines curve and converge into a single amber-gold copper microchip on the right, with a stack of document pages sitting on top of the chip. The chip is labelled "ai-memory".

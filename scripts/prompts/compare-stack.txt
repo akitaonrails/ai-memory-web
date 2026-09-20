@@ -1,0 +1,3 @@
+A wide side-by-side comparison diagram split into two halves by a thin vertical divider.
+Left half, titled "Typical memory stack": four separate service boxes arranged in a loose cluster and wired to each other with many thin crossing lines, each box with a small icon. The boxes are labelled "LLM API" (a cloud with a spark), "Vector store" (a grid of dots), "Graph database" (connected nodes) and "Python service" (a gear in a window). The cluster looks busy and interdependent. Green, teal, azure and violet.
+Right half, titled "ai-memory": only two objects with lots of empty space around them. One compact amber-gold microchip block labelled "One binary", connected by a single short amber line to one open folder holding a few document pages, labelled "Markdown folder".

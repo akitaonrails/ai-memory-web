@@ -1,0 +1,17 @@
+---
+// A generated diagram or illustration. Art is drawn on the dark ink ground, so it is framed the same in both themes.
+import { Image } from 'astro:assets';
+interface Props { src: ImageMetadata; alt: string; caption?: string; zoom?: boolean; wide?: boolean }
+const { src, alt, caption, zoom = true, wide = false } = Astro.props;
+---
+<figure class:list={['fig', { wide }]}>
+  <div class="frame" data-zoom={zoom ? '' : undefined}>
+    <Image src={src} alt={alt} widths={[640, 960, 1280, 1920]} sizes="(min-width: 1280px) 1216px, 94vw" quality={82} class="w-full h-auto block" />
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+<style>
+  .fig { margin-block: clamp(2.5rem, 6vw, 5rem); }
+  .frame { border-radius: 1.25rem; overflow: hidden; background: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); will-change: transform; }
+  figcaption { margin-top: 1rem; color: var(--muted); font-size: .95rem; max-width: 46em; }
+</style>

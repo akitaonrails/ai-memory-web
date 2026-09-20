@@ -1,0 +1,192 @@
+---
+// The signature scroll scene. It has the same shape as the logo: something goes in on the left,
+// passes through the memory, and comes out on the right. Four times over, only the two sides change.
+// Desktop: pinned, scrubbed by scroll. Below lg: the same four scenes as a plain stacked list.
+import { Image } from 'astro:assets';
+import logo from '@/assets/img/logo.png';
+
+const scenes = [
+  {
+    id: 'agents', hue: 'violet', href: '/solutions/individuals/', link: 'How handoffs work',
+    title: 'Switch agents mid-task.',
+    text: 'Quit Claude Code, open Codex in the same directory. It starts with a handoff: what got done, what failed and what is still open.',
+    in: { kind: 'term', label: 'claude', lines: ['> move refresh into middleware', '● Edit auth/middleware.rs', '● cargo test: 2 failed', '> /exit'] },
+    out: { kind: 'term', label: 'codex', lines: ['Handoff from Claude Code', '✓ Refresh moved to middleware', '✗ Cookie-only broke mobile', '? Rate limit on /refresh', '> fix the two failing tests'] },
+  },
+  {
+    id: 'machines', hue: 'azure', href: '/solutions/individuals/#machines', link: 'One server, many machines',
+    title: 'Switch machines.',
+    text: 'Memory lives in a small server you run: on your laptop, a homelab box, wherever. The project you left on the desktop is the project you resume on the notebook.',
+    in: { kind: 'term', label: 'desktop, office', lines: ['~/app $ ai-memory run claude', '● 41 observations captured', '● session saved to the wiki'] },
+    out: { kind: 'term', label: 'notebook, on the train', lines: ['~/app $ ai-memory run claude', '> where did we leave off?', 'You were rate limiting /refresh.', 'Two tests in auth_spec still fail.'] },
+  },
+  {
+    id: 'team', hue: 'teal', href: '/solutions/teams/', link: 'ai-memory for teams',
+    title: 'Share it with your team.',
+    text: 'Point everyone at one server. What one person’s sessions learn, everyone’s agents can find. New hires ask the project instead of interrupting you.',
+    in: { kind: 'people', label: 'this week', lines: ['Ana|fixed the flaky CI cache', 'Ravi|chose advisory locks over a queue', 'Mei|wrote the deploy runbook'] },
+    out: { kind: 'term', label: 'Lia, first day', lines: ['> catch me up on this project', '3 decisions, 1 runbook and 2 open', 'questions from the last two weeks.', 'Start with decisions/advisory-locks.'] },
+  },
+  {
+    id: 'wiki', hue: 'green', href: '/architecture/', link: 'See what is stored',
+    title: 'It writes its own wiki.',
+    text: 'Hooks capture the work silently. Sessions become plain markdown pages, filed and cross-linked in a git-backed wiki. Grep it, open it in Obsidian, edit it by hand.',
+    in: { kind: 'chips', label: 'captured', lines: ['prompt', 'Edit auth.rs', 'cargo test failed', 'git rebase main', 'Read schema.sql', 'prompt', 'Bash: curl /refresh', 'session end'] },
+    out: { kind: 'tree', label: 'wiki/', lines: ['decisions/|session-tokens.md', 'gotchas/|mobile-cookie-jar.md', 'procedures/|deploy.md', 'sessions/|2026-09-18-auth.md', '|index.md'] },
+  },
+] as const;
+type Side = (typeof scenes)[number]['in'] | (typeof scenes)[number]['out'];
+
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** One card renderer, used by both the pinned and the stacked layout. */
+function card(side: Side): string {
+  const body = (() => {
+    switch (side.kind) {
+      case 'term':
+        return side.lines.map((l) => `<span class="ln ${l.startsWith('>') || l.includes('$') ? 'p' : l.startsWith('●') ? 'd' : ''}">${esc(l)}</span>`).join('');
+      case 'people':
+        return side.lines.map((l) => { const [who, what] = l.split('|'); return `<div class="person"><b>${who[0]}</b><div><strong>${who}</strong> <span>${esc(what)}</span></div></div>`; }).join('');
+      case 'chips':
+        return side.lines.map((l) => `<span class="chip">${esc(l)}</span>`).join('');
+      case 'tree':
+        return side.lines.map((l, i, a) => { const [dir, file] = l.split('|'); return `<span class="ln">${i === a.length - 1 ? '└─' : '├─'} <span class="dir">${dir}</span>${file}</span>`; }).join('');
+    }
+  })();
+  return `<div class="sc ${side.kind}"><header>${esc(side.label)}</header><div class="body">${body}</div></div>`;
+}
+---
+
+<section class="continuity" data-continuity aria-label="What stays when everything else changes">
+  <!-- Desktop: pinned -->
+  <div class="pin hidden lg:block">
+    <div class="wrap h-full grid grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 items-center">
+      <div>
+        <h2 class="text-3xl max-w-[11ch] xl:max-w-[16ch]">Change everything. Keep what you know.</h2>
+        <ol class="mt-10 space-y-1">
+          {scenes.map((s, i) => (
+            <li class="step" data-step={i} data-hue={s.hue}>
+              <span class="bar" aria-hidden="true"><i></i></span>
+              <h3 class="text-xl">{s.title}</h3>
+              <div class="more"><div>
+                <p class="text-muted mt-2 max-w-[30em]">{s.text}</p>
+                <a href={s.href} class="more-link">{s.link}</a>
+              </div></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="stage">
+        <div class="flow" aria-hidden="true"></div>
+        {scenes.map((s, i) => (
+          <div class="art" data-art={i} data-hue={s.hue}>
+            <div class="side in"><Fragment set:html={card(s.in)} /></div>
+            <div class="side out"><Fragment set:html={card(s.out)} /></div>
+          </div>
+        ))}
+        <div class="hub"><Image src={logo} alt="" width={260} height={260} loading="lazy" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile and tablet: stacked -->
+  <div class="lg:hidden wrap band">
+    <h2 class="text-3xl max-w-[12ch]">Change everything. Keep what you know.</h2>
+    <div class="mt-12 space-y-16">
+      {scenes.map((s) => (
+        <article data-hue={s.hue}>
+          <h3 class="text-2xl">{s.title}</h3>
+          <p class="text-muted mt-3">{s.text}</p>
+          <div class="stack mt-6">
+            <Fragment set:html={card(s.in)} />
+            <div class="down" aria-hidden="true"><Image src={logo} alt="" width={72} height={72} loading="lazy" /></div>
+            <Fragment set:html={card(s.out)} />
+          </div>
+          <a href={s.href} class="more-link">{s.link}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger, mm } from '@/scripts/motion';
+
+  const root = document.querySelector<HTMLElement>('[data-continuity]');
+  if (root) {
+    const steps = [...root.querySelectorAll<HTMLElement>('[data-step]')];
+    const arts = [...root.querySelectorAll<HTMLElement>('[data-art]')];
+    const activate = (i: number) => {
+      steps.forEach((s, n) => s.toggleAttribute('data-active', n === i));
+      arts.forEach((a, n) => a.toggleAttribute('data-active', n === i));
+    };
+    activate(0);
+
+    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const n = steps.length;
+      const st = ScrollTrigger.create({
+        trigger: root, start: 'top top', end: () => `+=${innerHeight * n * 0.9}`, pin: root.querySelector('.pin'), scrub: true,
+        onUpdate: (self) => {
+          const p = Math.min(self.progress * n, n - 0.0001);
+          const i = Math.floor(p);
+          activate(i);
+          steps.forEach((s, k) => s.style.setProperty('--p', String(k < i ? 1 : k === i ? p - i : 0)));
+        },
+      });
+      gsap.to(root.querySelector('.hub img'), { rotate: 8, scale: 1.06, ease: 'none', scrollTrigger: { trigger: root, start: 'top top', end: () => st.end, scrub: true } });
+      return () => st.kill();
+    });
+
+    // Without the pin (reduced motion), the step titles still switch the scene.
+    steps.forEach((s, i) => s.addEventListener('click', () => {
+      const st = ScrollTrigger.getAll().find((t) => t.trigger === root && t.pin);
+      if (st) scrollTo({ top: st.start + ((st.end - st.start) * (i + 0.5)) / steps.length, behavior: 'smooth' });
+      else activate(i);
+    }));
+  }
+</script>
+
+<style is:global>
+  .continuity .pin { height: 100vh; min-height: 40rem; }
+  .continuity .step { position: relative; padding: .9rem 0 .9rem 1.5rem; cursor: pointer; opacity: .42; transition: opacity .4s; }
+  .continuity .step[data-active] { opacity: 1; }
+  .continuity .step .bar { position: absolute; left: 0; top: .9rem; bottom: .9rem; width: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .continuity .step .bar i { position: absolute; inset: 0; background: var(--hue-vivid); transform-origin: top; transform: scaleY(var(--p, 0)); }
+  .continuity .step .more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease-out-quint); }
+  .continuity .step .more > div { overflow: hidden; }
+  .continuity .step[data-active] .more { grid-template-rows: 1fr; }
+  .continuity .more-link { display: inline-block; margin-top: .9rem; font-weight: 600; color: var(--hue); text-decoration: underline; text-decoration-thickness: 1.5px; }
+
+  .continuity .stage { position: relative; height: min(34rem, 70vh); }
+  .continuity .flow { position: absolute; left: 4%; right: 4%; top: 50%; height: 6px; translate: 0 -50%; background: radial-gradient(circle, var(--amber) 2.5px, transparent 3px) 0 50% / 18px 6px repeat-x; animation: flow .9s linear infinite; }
+  @keyframes flow { to { background-position-x: 18px; } }
+  .continuity .hub { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: clamp(8rem, 13vw, 12rem); filter: drop-shadow(0 0 40px color-mix(in oklch, var(--v-violet) 45%, transparent)); }
+  .continuity .art { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1fr) clamp(11rem, 19vw, 17rem) minmax(0, 1fr); align-items: center; pointer-events: none; }
+  .continuity .art .side { transition: opacity .5s, transform .7s var(--ease-out-quint), filter .5s; opacity: 0; filter: blur(6px); }
+  .continuity .art .in { grid-column: 1; transform: translateX(-2.5rem) scale(.96); }
+  .continuity .art .out { grid-column: 3; transform: translateX(2.5rem) scale(.96); }
+  .continuity .art[data-active] .side { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+  .continuity .art[data-active] .out { transition-delay: .18s; }
+
+  .continuity .stack { display: grid; gap: .25rem; }
+  .continuity .down { display: grid; place-items: center; position: relative; height: 5.5rem; }
+  .continuity .down::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 3px dotted var(--amber); translate: -50% 0; }
+  .continuity .down img { position: relative; width: 4.5rem; }
+
+  /* cards */
+  .sc { border-radius: 1rem; overflow: hidden; border: 1px solid oklch(0.33 0.045 282); background: var(--ink); color: oklch(0.93 0.015 285); box-shadow: var(--shadow), 0 0 0 1px color-mix(in oklch, var(--hue-vivid) 40%, transparent), 0 0 50px -18px var(--hue-vivid); font-family: var(--font-mono); font-size: .74rem; line-height: 1.75; }
+  .sc header { display: flex; align-items: center; gap: .5rem; padding: .5rem .85rem; border-bottom: 1px solid oklch(0.28 0.04 282); color: oklch(0.74 0.03 285); font-size: .75rem; }
+  .sc header::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--hue-vivid); }
+  .sc .body { padding: .8rem .95rem 1rem; }
+  .sc .ln { display: block; white-space: pre-wrap; }
+  .sc .ln.p { color: oklch(0.87 0.15 85); }
+  .sc .ln.d { color: oklch(0.72 0.03 285); }
+  .sc.people .body, .sc.chips .body { font-family: var(--font-sans); font-size: .9rem; line-height: 1.35; }
+  .sc .person { display: flex; gap: .7rem; align-items: center; padding: .4rem 0; }
+  .sc .person b { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; border-radius: 50%; background: color-mix(in oklch, var(--hue-vivid) 30%, transparent); font-size: .8rem; }
+  .sc .person span { color: oklch(0.8 0.02 285); }
+  .sc.chips .body { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .sc .chip { padding: .3rem .6rem; border-radius: .5rem; background: oklch(0.24 0.045 282); font-family: var(--font-mono); font-size: .74rem; }
+  .sc .dir { color: var(--v-green); }
+</style>

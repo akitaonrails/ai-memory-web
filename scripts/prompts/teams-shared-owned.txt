@@ -1,0 +1,3 @@
+A wide diagram split into two halves by a thin vertical divider.
+Left half, titled "Knowledge is shared": one stack of document pages in the centre, green and teal, with three simple terminal windows around it, each connected to the stack by a thin two-way line. All three reach the same pages.
+Right half, titled "Batons are owned": one amber-gold relay baton passing along an amber arrow from one terminal window to one other terminal window of the same violet colour. A third terminal window in a different colour (rose) sits to the side, separated from the baton by a small padlock.

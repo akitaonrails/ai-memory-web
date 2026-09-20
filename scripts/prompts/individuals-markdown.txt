@@ -1,0 +1,4 @@
+A wide hub diagram.
+Centre: an open folder containing a neat stack of document pages with markdown-like lines, green, labelled "wiki/ plain markdown".
+Four thin spokes leave the folder to four simple icons arranged around it, each with one label: a magnifying lens labelled "grep", a faceted crystal gem labelled "Obsidian", a pencil labelled "Edit", and two folders joined by a curved amber arrow labelled "rsync".
+Below the folder, a small branching commit graph of connected dots labelled "git history".

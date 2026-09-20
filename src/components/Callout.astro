@@ -1,0 +1,13 @@
+---
+// For limits and caveats. The site says where the project stops; this is where it says it.
+interface Props { title: string; hue?: string }
+const { title, hue = 'amber' } = Astro.props;
+---
+<aside class="callout" data-hue={hue}>
+  <h3 class="text-lg">{title}</h3>
+  <div class="mt-2 text-muted prose-site"><slot /></div>
+</aside>
+<style>
+  .callout { border-left: 4px solid var(--hue-vivid); background: var(--hue-soft); border-radius: 0 1rem 1rem 0; padding: 1.4rem 1.6rem; max-width: 48rem; }
+  .callout h3 { color: var(--hue); }
+</style>

@@ -1,0 +1,377 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque/standard.css';
+@import '@fontsource-variable/instrument-sans/wdth.css';
+@import '@fontsource/commit-mono/400.css';
+@import '@fontsource/commit-mono/700.css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ------------------------------------------------------------------
+   Color tokens. Full rationale and measured contrast: docs/color-study.md
+   Everything is authored in OKLCH so equal steps look equal.
+   The neutrals are not grey: they carry the indigo (h≈282) of the logo's
+   outline, so the spectrum sits on a related ground instead of on black.
+   ------------------------------------------------------------------ */
+:root {
+  /* ground */
+  --bg: oklch(0.985 0.006 285);
+  --surface: oklch(1 0 0);
+  --tint: oklch(0.958 0.014 285);
+  --line: oklch(0.885 0.02 285);
+  --text: oklch(0.21 0.045 282);
+  --muted: oklch(0.45 0.035 282);
+
+  /* spectrum as text/line accents — one lightness, one chroma, five hues */
+  --green: oklch(0.47 0.13 155);
+  --teal: oklch(0.47 0.09 205);
+  --azure: oklch(0.47 0.15 252);
+  --violet: oklch(0.47 0.19 300);
+  --rose: oklch(0.47 0.17 355);
+  --amber-ink: oklch(0.47 0.11 62);
+
+  /* soft fills behind each hue */
+  --green-soft: oklch(0.95 0.04 155);
+  --teal-soft: oklch(0.95 0.03 205);
+  --azure-soft: oklch(0.95 0.03 252);
+  --violet-soft: oklch(0.95 0.035 300);
+  --rose-soft: oklch(0.95 0.03 355);
+  --amber-soft: oklch(0.95 0.05 80);
+
+  --shadow: 0 1px 2px oklch(0.21 0.045 282 / 0.06), 0 12px 32px -12px oklch(0.21 0.045 282 / 0.18);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: oklch(0.155 0.035 282);
+  --surface: oklch(0.2 0.04 282);
+  --tint: oklch(0.245 0.045 282);
+  --line: oklch(0.33 0.045 282);
+  --text: oklch(0.955 0.012 285);
+  --muted: oklch(0.74 0.03 285);
+
+  --green: oklch(0.83 0.16 155);
+  --teal: oklch(0.83 0.11 205);
+  --azure: oklch(0.83 0.09 252);
+  --violet: oklch(0.83 0.1 300);
+  --rose: oklch(0.83 0.1 355);
+  --amber-ink: oklch(0.83 0.15 80);
+
+  --green-soft: oklch(0.27 0.06 155);
+  --teal-soft: oklch(0.27 0.05 205);
+  --azure-soft: oklch(0.27 0.07 252);
+  --violet-soft: oklch(0.27 0.08 300);
+  --rose-soft: oklch(0.27 0.07 355);
+  --amber-soft: oklch(0.27 0.05 80);
+
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 16px 40px -16px oklch(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+:root {
+  /* theme-independent: the vivid spectrum (decoration only, never text)
+     and the amber action color lifted from the logo's arrows + chip */
+  --v-green: oklch(0.8 0.19 150);
+  --v-teal: oklch(0.78 0.13 195);
+  --v-azure: oklch(0.66 0.17 252);
+  --v-violet: oklch(0.6 0.22 300);
+  --v-rose: oklch(0.7 0.18 355);
+  --amber: oklch(0.81 0.16 75);
+  --amber-hi: oklch(0.87 0.15 85);
+  --on-amber: oklch(0.2 0.05 60);
+  --ink: oklch(0.155 0.035 282);
+  --spectrum: linear-gradient(
+    90deg in oklch,
+    var(--v-green),
+    var(--v-teal),
+    var(--v-azure),
+    var(--v-violet),
+    var(--v-rose)
+  );
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-tint: var(--tint);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-green: var(--green);
+  --color-teal: var(--teal);
+  --color-azure: var(--azure);
+  --color-violet: var(--violet);
+  --color-rose: var(--rose);
+  --color-amber-ink: var(--amber-ink);
+  --color-green-soft: var(--green-soft);
+  --color-teal-soft: var(--teal-soft);
+  --color-azure-soft: var(--azure-soft);
+  --color-violet-soft: var(--violet-soft);
+  --color-rose-soft: var(--rose-soft);
+  --color-amber-soft: var(--amber-soft);
+  --color-amber: var(--amber);
+  --color-amber-hi: var(--amber-hi);
+  --color-on-amber: var(--on-amber);
+  --color-ink: var(--ink);
+
+  --font-display: 'Bricolage Grotesque Variable', 'Instrument Sans Variable', system-ui, sans-serif;
+  --font-sans: 'Instrument Sans Variable', system-ui, sans-serif;
+  --font-mono: 'Commit Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale: a 4:5 major third from a 17px base, rounded to the pixel.
+     Display sizes are fluid between a 360px and a 1280px viewport. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 1.625rem;
+  --text-2xl: clamp(1.75rem, 1.45rem + 1.3vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.7rem + 2.4vw, 3.625rem);
+  --text-4xl: clamp(2.75rem, 1.6rem + 5vw, 5.625rem);
+
+  --radius-card: 1.25rem;
+  --radius-chip: 0.5rem;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    font-size: var(--text-base);
+    line-height: 1.55;
+    font-variation-settings: 'wdth' 96;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 640;
+    line-height: 1.04;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+    font-variation-settings: 'opsz' 96, 'wdth' 94;
+  }
+  h3,
+  h4 {
+    line-height: 1.15;
+    letter-spacing: -0.008em;
+    font-variation-settings: 'opsz' 36, 'wdth' 96;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  code,
+  kbd,
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--amber);
+    color: var(--on-amber);
+  }
+  a {
+    text-underline-offset: 0.2em;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: min(100% - 2.5rem, 76rem);
+    margin-inline: auto;
+  }
+  .wrap-narrow {
+    width: min(100% - 2.5rem, 52rem);
+    margin-inline: auto;
+  }
+  .band {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+  .lede {
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 38em;
+  }
+
+  /* text filled with the logo spectrum — used for whole headlines, never a single word */
+  .spectrum-text {
+    background: var(--spectrum);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  [data-theme='light'] .spectrum-text,
+  :root:not([data-theme]) .spectrum-text {
+    background-image: linear-gradient(
+      90deg in oklch,
+      oklch(0.5 0.15 155),
+      oklch(0.5 0.11 205),
+      oklch(0.48 0.17 252),
+      oklch(0.46 0.21 300),
+      oklch(0.5 0.19 355)
+    );
+  }
+  .spectrum-rule {
+    height: 3px;
+    border-radius: 3px;
+    background: var(--spectrum);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.8em 1.35em;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    transition:
+      transform 0.25s var(--ease-out-quint),
+      background-color 0.2s,
+      border-color 0.2s;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    background: var(--amber);
+    color: var(--on-amber);
+  }
+  .btn-primary:hover {
+    background: var(--amber-hi);
+  }
+  .btn-ghost {
+    border: 1.5px solid var(--line);
+    color: var(--text);
+    background: color-mix(in oklch, var(--surface) 70%, transparent);
+  }
+  .btn-ghost:hover {
+    border-color: var(--text);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+  }
+
+  /* per-topic hue. Set data-hue on any container; children read --hue / --hue-soft. */
+  [data-hue='green'] { --hue: var(--green); --hue-soft: var(--green-soft); --hue-vivid: var(--v-green); }
+  [data-hue='teal'] { --hue: var(--teal); --hue-soft: var(--teal-soft); --hue-vivid: var(--v-teal); }
+  [data-hue='azure'] { --hue: var(--azure); --hue-soft: var(--azure-soft); --hue-vivid: var(--v-azure); }
+  [data-hue='violet'] { --hue: var(--violet); --hue-soft: var(--violet-soft); --hue-vivid: var(--v-violet); }
+  [data-hue='rose'] { --hue: var(--rose); --hue-soft: var(--rose-soft); --hue-vivid: var(--v-rose); }
+  [data-hue='amber'] { --hue: var(--amber-ink); --hue-soft: var(--amber-soft); --hue-vivid: var(--amber); }
+
+  .prose-site :where(p, ul, ol) {
+    max-width: 40em;
+  }
+  .prose-site :where(p + p, p + ul, ul + p) {
+    margin-top: 1em;
+  }
+  .prose-site :where(ul) {
+    list-style: disc;
+    padding-left: 1.2em;
+  }
+  .prose-site :where(ol) {
+    list-style: decimal;
+    padding-left: 1.4em;
+  }
+  .prose-site :where(li + li) {
+    margin-top: 0.4em;
+  }
+  .prose-site a {
+    color: var(--hue, var(--azure));
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
+  .prose-site :where(code):not(pre code) {
+    background: var(--tint);
+    border-radius: 0.35em;
+    padding: 0.12em 0.4em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tables: wrap in <div class="table-wrap"><table class="table-site">. Scrolls sideways on small screens. */
+@layer components {
+  .table-wrap {
+    position: relative;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+  }
+  .table-site {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.97rem;
+  }
+  .table-site th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.875rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+    background: var(--tint);
+  }
+  .table-site td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .table-site tr:last-child td {
+    border-bottom: 0;
+  }
+  .table-site td:first-child {
+    font-weight: 600;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: var(--hue-soft);
+    color: var(--hue);
+    font-weight: 600;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .badge::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--hue-vivid);
+  }
+}

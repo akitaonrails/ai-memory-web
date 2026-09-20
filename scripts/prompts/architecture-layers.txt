@@ -1,0 +1,6 @@
+A diagram of two stacked horizontal layers with arrows between them.
+Top layer: a wide shelf of document pages with markdown-like lines and a small branch-and-commit graph at its end. Labelled "Markdown in git" with a small badge next to it reading "Source of truth". Green to teal.
+Bottom layer: a wide cylinder database with small index cards inside. Labelled "SQLite index" with a small badge next to it reading "Derived". Azure to violet.
+Between the layers, on the left: a thick solid amber-gold arrow splitting in two, one branch going up into the top layer and one going down into the bottom layer, coming from a copper microchip labelled "Writer".
+Between the layers, in the middle: a thin dashed arrow pointing down from the top layer to the bottom layer with a small eye icon, labelled "File watcher".
+Between the layers, on the right: a solid arrow pointing down from the top layer to the bottom layer with a circular rebuild icon, labelled "Reindex".

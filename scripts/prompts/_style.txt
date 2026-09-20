@@ -1,0 +1,7 @@
+ART DIRECTION (follow strictly, and match the attached logo's look):
+- Clean vector-style infographic illustration, slightly isometric where objects are shown, flat shapes with a soft neon glow. No photorealism, no 3D render look, no people's faces, no stock-art clichés.
+- Background: one solid, very dark indigo-navy (#0B0C1F) edge to edge, with at most a faint dot grid. No border, no frame, no vignette, no watermark, no signature.
+- Linework and shapes use an iridescent spectrum that travels left to right: emerald green (#3FD68C) → teal (#2FC7C0) → azure blue (#4C8DF0) → violet (#9A5BEA) → magenta-rose (#E667A9).
+- Anything that represents movement, a handoff or the "memory core" is amber-gold (#F5A93B) with a copper microchip motif, like the chip and arrows in the logo.
+- Labels: short, crisp, correctly spelled, in a clean geometric sans-serif, off-white (#F1F0F7), horizontal, never overlapping shapes. Use ONLY the label texts given in quotes above, spelled exactly; add no other words, numbers or fake UI text.
+- Generous negative space, clear left-to-right reading order, large shapes that stay legible when the image is shown small on a phone.

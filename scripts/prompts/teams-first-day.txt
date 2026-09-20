@@ -1,0 +1,7 @@
+A wide horizontal timeline with four stops joined by one amber-gold line with small arrowheads, reading left to right. Each stop has an icon above the line and exactly one label below it. The stops are not numbered.
+First stop, green: a small key icon. Label: "Get an API key".
+Second stop, teal: a terminal window with a plug cable connecting to a small server box. Label: "Point at the server".
+Third stop, azure: a terminal window with a speech bubble. Label: "Catch me up".
+Fourth stop, violet: a magnifying lens over a stack of document pages. Label: "Search the wiki".
+In the top left corner, one small caption: "Day one".
+The only words in the image are these five labels. Do not write "Milestone", "Step", "Stop" or any numbers.

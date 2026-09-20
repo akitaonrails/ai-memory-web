@@ -1,0 +1,4 @@
+A wide hub-and-spoke topology diagram.
+Centre: one server box with a copper microchip on it, labelled "One ai-memory server". Directly beneath it, an open book made of document pages, green, labelled "Project wiki".
+Around the server, four developer workstations drawn as simple desks with a laptop, no faces, each connected to the central server by a line with small amber dots moving along it. Each workstation has one small terminal window floating above it. The four terminal windows are labelled "Claude Code", "Codex", "Cursor", "Gemini CLI". The workstations are coloured teal, azure, violet and rose going left to right.
+Only one server in the picture. No cloud icon.

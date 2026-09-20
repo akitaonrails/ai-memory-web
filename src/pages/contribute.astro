@@ -1,0 +1,253 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Steps from '@/components/Steps.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import GithubStats from '@/components/GithubStats.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import flow from '@/assets/img/gen/contribute-flow.webp';
+import crateMap from '@/assets/img/gen/contribute-crates.webp';
+import { site } from '@/data/site';
+import type { Hue } from '@/data/site';
+import { getGithub, compact } from '@/data/github';
+
+const gh = await getGithub();
+const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const blob = `${site.repo}/blob/main`;
+
+const badges = [
+  { k: 'release', v: latest.tag, href: latest.url, hue: 'green' },
+  { k: 'license', v: gh.license, href: `${blob}/LICENSE`, hue: 'azure' },
+  { k: 'stars', v: compact(gh.stars), href: `${site.repo}/stargazers`, hue: 'amber', live: 'stars' },
+  { k: 'forks', v: compact(gh.forks), href: `${site.repo}/forks`, hue: 'violet' },
+  { k: 'open issues', v: String(gh.openIssues), href: `${site.repo}/issues`, hue: 'teal' },
+];
+
+const ways: { title: string; text: string; href: string; link: string; hue: Hue }[] = [
+  { title: 'Report a bug', text: 'The template asks for your version, OS, agent, transport and the relevant server log lines.', href: `${site.repo}/issues/new?template=bug.md`, link: 'Open a bug report', hue: 'rose' },
+  { title: 'Propose a feature', text: 'Proposals are issues; the repository has no discussions board. The template asks what problem it solves and whether it would break existing installs.', href: `${site.repo}/issues/new?template=feature.md`, link: 'Open a feature request', hue: 'violet' },
+  { title: 'Find a first issue', text: 'The good first issue label marks work that suits a newcomer. Help wanted marks the rest.', href: `${site.repo}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22`, link: 'Browse good first issues', hue: 'green' },
+  { title: 'Add or fix a harness', text: 'Managed harness support has a written protocol: prove the native session contract, read stores read-only, deliver context before acknowledging it, and ship the required tests.', href: `${site.docs}/managed-harness-contributions.md`, link: 'Read the harness protocol', hue: 'azure' },
+  { title: 'Improve the docs', text: 'Guides live in docs/ as markdown. A doc fix is a normal pull request and skips the changelog when nothing user-facing changes.', href: `${site.repo}/tree/main/docs`, link: 'Browse docs/', hue: 'teal' },
+  { title: 'Build around it', text: 'Importers, richer UIs and chat front ends belong in companion projects that use the public HTTP and MCP surfaces.', href: `${site.docs}/companion-crates.md`, link: 'Read the companion rules', hue: 'amber' },
+];
+
+const build = [
+  { title: 'Clone and build', text: 'Rust 1.95 is required and pinned in <code>rust-toolchain.toml</code>, with rustfmt and clippy, so rustup installs the right toolchain on first build. SQLite is bundled and libgit2 is vendored. You need a standard C toolchain and nothing else.', code: `git clone https://github.com/akitaonrails/ai-memory
+cd ai-memory
+cargo build --workspace
+cargo test --workspace --all-targets`, codeTitle: 'dev setup' },
+  { title: 'Use the everyday loop', text: '<code>cargo t</code> needs nextest: <code>cargo install cargo-nextest --locked</code>. It skips modules named <code>slow</code> or <code>stress</code>, which the pre-push hook and CI still run.', code: `cargo t                        # all but the slow tier, ~20s warm
+cargo t -p ai-memory-store     # one crate: builds only its test binaries
+cargo t -E 'test(/purge/)'     # one topic (builds everything, runs a subset)`, codeTitle: 'while you work' },
+  { title: 'Install the pre-push hook', text: 'Once per clone. It only touches its own block in <code>.git/hooks/pre-push</code>. On a work-in-progress branch, <code>git push --no-verify</code> skips it.', code: `scripts/install-git-hooks.sh`, codeTitle: 'once per clone' },
+  { title: 'Pass the gates before you push', text: 'CI enforces all five. Without nextest, <code>cargo test --workspace --all-targets</code> is the equivalent of <code>cargo tf</code>. If the last one is missing: <code>cargo install cargo-deny cargo-audit</code>.', code: `cargo fmt --all -- --check
+git diff --check
+cargo clippy --workspace --all-targets -- -D warnings
+cargo tf                            # every test (alias: cargo nextest run -P full)
+cargo deny check                    # dependency policy`, codeTitle: 'required gates' },
+  { title: 'Check who your commits say you are', text: 'Use an email verified on your GitHub account or its noreply address. History on main is never rewritten to fix attribution.', code: `git log --format='%h %an <%ae>' "$(git merge-base HEAD origin/main)"..HEAD`, codeTitle: 'commit attribution' },
+];
+
+const rules = [
+  { title: 'The changelog is a merge gate', text: 'Every user-facing change adds an entry under [Unreleased] in the same pull request. Reviewers treat a missing entry as blocking. Refactors and test-only changes are exempt.' },
+  { title: 'Tests before “done”', text: 'Parsers, ID derivation and the retention math especially.' },
+  { title: 'No dead code, no half-built features', text: 'Stubs are documented in the module comment with the milestone that will finish them.' },
+  { title: 'Stay inside the change', text: 'Do not refactor code the current milestone does not need.' },
+  { title: 'Comments explain why', text: 'A comment that restates the line above it gets removed.' },
+];
+const invariants = [
+  'All SQLite writes go through the single writer actor, <code>WriterHandle</code>.',
+  'Config is read once at startup. No <code>std::env::var</code> outside <code>Config::load</code>.',
+  'File writes are atomic: tmp, rename, fsync. Never in place.',
+  'Every wiki page is namespaced by <code>(workspace_id, project_id)</code>.',
+  'The CLI is a thin HTTP client. It never opens the SQLite file or the wiki directory.',
+];
+
+const crates = [
+  ['ai-memory-core', 'Domain types, errors and ids. No IO.'],
+  ['ai-memory-store', 'SQLite, the writer actor, the reader pool and the decay math.'],
+  ['ai-memory-wiki', 'Atomic markdown writes, the file watcher and git.'],
+  ['ai-memory-mcp', 'The MCP transport, the tool router and the admin routes.'],
+  ['ai-memory-hooks', 'Hook payload schemas, the sanitizer and the /hook endpoint.'],
+  ['ai-memory-llm', 'The provider auth boundary and the LLM and embedder traits.'],
+  ['ai-memory-consolidate', 'Ingest, lint, sweep and the auto-improve pipeline.'],
+  ['ai-memory-web', 'The read-only /web browser and the /api/v1 JSON routes.'],
+  ['ai-memory-workstream', 'Read-only native transcript readers and the launch adapters behind ai-memory run.'],
+  ['ai-memory-cli', 'The ai-memory binary and its thin HTTP subcommands.'],
+];
+const dirs = [
+  ['companions/', 'ai-memory-importer, a standalone package outside the root workspace. Build it with --manifest-path.'],
+  ['hooks/', 'Lifecycle hook bundles, one folder per agent, shell and native.'],
+  ['evals/', 'The benchmark harness. A workspace member that is never shipped.'],
+  ['docs/', 'Architecture, design decisions, install, deploy and usage guides.'],
+  ['tests/', 'End-to-end smoke tests, hook shell tests and fixtures.'],
+];
+
+const review = [
+  { title: 'The template is the checklist', text: 'What changed, why, a test plan with the gates ticked, commit attribution, release impact and the changelog entry.' },
+  { title: 'Say what kind of release it is', text: 'Tick patch, minor or major. A fix filed under “Added” can bump the wrong version, so put the changelog entry under the right heading.' },
+  { title: 'Breaking changes wait for a major', text: 'Call them out in the description. They get the breaking-change label and are scheduled, so they do not hold up patch and minor releases.' },
+  { title: 'CI is fast per merge', text: 'A merge gates on the fast Linux jobs. The macOS and Windows legs run on a label, nightly or by hand, and always before a release.' },
+  { title: 'Fixes ship first', text: 'A bug fix goes out in the next patch release and is not held for feature work. A new harness or provider ships in the next minor.' },
+];
+---
+<Base
+  title="Contribute: issues, pull requests and new agents"
+  description="Build ai-memory from source, pass the five required gates, find the right crate and open a pull request that merges on the first review. Rust, MIT licensed."
+>
+  <PageHero
+    hue="teal"
+    kicker="Developers"
+    title="Contribute to ai-memory"
+    lede={`${gh.contributors} people have landed code so far. This page gets you from an idea to the right issue, the right crate and a pull request that passes review the first time.`}
+  >
+    <a href="#ways" class="btn btn-primary">Pick your way in</a>
+    <a href={`${blob}/CONTRIBUTING.md`} class="btn btn-ghost">Read CONTRIBUTING.md</a>
+  </PageHero>
+
+  <!-- (a) + (g) numbers, badges, people -->
+  <Section id="numbers" hue="teal" title="An active project, in numbers" lede="Counts come from the GitHub API when this site is built.">
+    <ul class="badges" aria-label="Repository facts">
+      {badges.map((b) => (
+        <li><a href={b.href} class="gbadge" data-hue={b.hue}><span class="k">{b.k}</span><span class="v" data-gh={b.live}>{b.v}</span></a></li>
+      ))}
+    </ul>
+    <div class="mt-12"><GithubStats /></div>
+
+    <h3 class="text-xl mt-16">Top contributors</h3>
+    <ul class="wall mt-6" data-reveal="children">
+      {gh.people.map((p) => (
+        <li>
+          <a href={p.url} title={`${p.login}, ${p.contributions} commits`}>
+            <img src={`${p.avatar}&s=96`} alt={`${p.login} on GitHub`} width="48" height="48" loading="lazy" />
+            <span>{p.login}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-6"><a class="underline font-semibold" href={`${site.repo}/graphs/contributors`}>See all {gh.contributors} contributors on GitHub</a></p>
+  </Section>
+
+  <!-- (b) ways in -->
+  <Section id="ways" hue="teal" tint title="Pick your way in" lede="Each of these goes to the exact page on GitHub.">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal="children">
+      {ways.map((w) => (
+        <a href={w.href} class="way" data-hue={w.hue}>
+          <h3 class="text-xl">{w.title}</h3>
+          <p class="mt-2.5 text-muted">{w.text}</p>
+          <span class="go">{w.link}</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-10">
+      <Callout title="Security reports never go in a public issue" hue="rose">
+        <p>Open a <a href={`${site.repo}/security/advisories/new`}>private security advisory</a> instead. <a href={`${blob}/SECURITY.md`}>SECURITY.md</a> explains what to include and what to do if you cannot use GitHub’s advisory flow.</p>
+      </Callout>
+    </div>
+    <Figure src={flow} alt="Diagram: a contribution moves through six stages, from an issue, to a branch, to the local gates, to a pull request, to review, and ships in the next release." caption="From idea to release. Fixes ship in the next patch, additive features in the next minor." />
+  </Section>
+
+  <!-- (c) build -->
+  <Section id="build" hue="amber" title="Get it building" lede="The build is self-contained. None of these commands needs an environment variable.">
+    <Steps steps={build} />
+  </Section>
+
+  <!-- (d) rules -->
+  <Section id="rules" hue="violet" tint title="Ground rules and the acceptance bar" lede="AGENTS.md is the canonical rules file for people and for coding agents. CONTRIBUTING.md condenses it to this.">
+    <div class="grid lg:grid-cols-2 gap-x-16 gap-y-12">
+      <div>
+        <h3 class="text-xl">How work is expected to land</h3>
+        <ul class="mt-5 space-y-5">
+          {rules.map((r) => (
+            <li class="rule">
+              <p class="font-semibold">{r.title}</p>
+              <p class="text-muted mt-1">{r.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl">Invariants a pull request cannot break</h3>
+        <ul class="mt-5 space-y-3 text-muted ticks">
+          {invariants.map((i) => <li set:html={i} />)}
+        </ul>
+        <p class="mt-6"><a class="underline font-semibold" href={`${blob}/AGENTS.md`}>The full list, with the bug each one prevents, is in AGENTS.md</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- (e) map -->
+  <Section id="map" hue="azure" title="A map of the codebase" lede="Ten crates ship in the binary. Each has one responsibility and a typed API, and there are no circular dependencies.">
+    <Figure src={crateMap} alt="Diagram: the crates in four tiers. The cli crate is on top. Below it are hooks, mcp, web, consolidate and workstream. Below those are store, wiki and llm. The core crate is the foundation under everything." caption="Crate names without the ai-memory- prefix. Everything depends on core, and only the cli crate depends on everything." />
+    <div class="table-wrap">
+      <table class="table-site">
+        <thead><tr><th>Crate</th><th>What lives there</th></tr></thead>
+        <tbody>{crates.map(([c, t]) => <tr><td><code>{c}</code></td><td>{t}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <h3 class="text-xl mt-14">Outside crates/</h3>
+    <div class="table-wrap mt-5">
+      <table class="table-site">
+        <thead><tr><th>Directory</th><th>What lives there</th></tr></thead>
+        <tbody>{dirs.map(([c, t]) => <tr><td><code>{c}</code></td><td>{t}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-muted max-w-[40em]">Integration tests live in <code>tests/suite/</code> inside each crate. Helpers shared between crates go in <code>crates/ai-memory-test-support</code>, which is never shipped.</p>
+  </Section>
+
+  <!-- (f) review -->
+  <Section id="review" hue="green" tint title="How pull requests get reviewed" lede="Reviews follow the pull request template, so filling it in honestly is most of the work.">
+    <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10" data-reveal="children">
+      {review.map((r) => (
+        <li class="feat">
+          <h3 class="text-xl">{r.title}</h3>
+          <p class="mt-2.5 text-muted">{r.text}</p>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-12 min-w-0 max-w-[48rem]">
+      <p class="text-muted">A harness pull request runs this shorter gate, records the CLI version it was tested against, and includes a manual pass against the real harness.</p>
+      <div class="mt-4"><CodeBlock title="from managed-harness-contributions.md" code={`cargo fmt --check
+git diff --check
+cargo test --workspace
+cargo clippy --workspace --all-targets -- -D warnings`} /></div>
+    </div>
+  </Section>
+
+  <NextPages links={[
+    { href: '/architecture/', title: 'Architecture', text: 'The writer actor, the wiki and the index, before you change them.', hue: 'azure' },
+    { href: '/research/', title: 'Research and rationale', text: 'Why each design decision was made, and what is wanted next.', hue: 'violet' },
+    { href: '/integrations/', title: 'Agents and editors', text: 'Which harnesses are supported today and at what level.', hue: 'violet' },
+  ]} />
+  <CtaBand title="Try it before you change it." text="Run it on your own projects for a day. The bug you find is your first issue." />
+</Base>
+
+<style>
+  .badges { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .gbadge { display: inline-flex; align-items: stretch; border-radius: .5rem; overflow: hidden; border: 1px solid var(--line); font-size: .9rem; font-weight: 600; line-height: 1; transition: border-color .2s; }
+  .gbadge:hover { border-color: var(--hue-vivid); }
+  .gbadge .k { padding: .5rem .7rem; background: var(--tint); color: var(--muted); }
+  .gbadge .v { padding: .5rem .7rem; background: var(--hue-soft); color: var(--hue); font-variant-numeric: tabular-nums; }
+
+  .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .5rem .75rem; }
+  .wall a { display: flex; align-items: center; gap: .7rem; padding: .4rem; border-radius: 999px; min-width: 0; transition: background-color .2s; }
+  .wall a:hover { background: var(--tint); }
+  .wall img { width: 3rem; height: 3rem; border-radius: 50%; flex: none; background: var(--tint); }
+  .wall span { font-weight: 600; font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .way { display: flex; flex-direction: column; padding: 1.6rem 1.75rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--hue-vivid); transition: transform .4s var(--ease-out-quint); }
+  .way:hover { transform: translateY(-3px); }
+  .way .go { margin-top: auto; padding-top: 1.25rem; font-weight: 600; color: var(--hue); text-decoration: underline; }
+
+  .rule { border-left: 3px solid var(--hue-vivid); padding-left: 1rem; max-width: 40em; }
+  .ticks li { position: relative; padding-left: 1.5rem; max-width: 40em; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: .62em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .feat { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
+  :global(.band) :is(td, p, li) > :global(code) { background: var(--tint); border-radius: .35em; padding: .1em .35em; font-size: .92em; }
+  :global(.bg-tint) :is(td, p, li) > :global(code) { background: var(--surface); }
+</style>

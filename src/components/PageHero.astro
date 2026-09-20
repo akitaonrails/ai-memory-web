@@ -1,0 +1,22 @@
+---
+// Header for every detail page. `hue` ties the page to its subject color (see src/data/site.ts).
+import type { Hue } from '@/data/site';
+interface Props { hue: Hue; kicker: string; title: string; lede: string }
+const { hue, kicker, title, lede } = Astro.props;
+---
+<header class="page-hero" data-hue={hue}>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap relative pt-36 pb-14 md:pt-44 md:pb-20">
+    <p class="kicker">{kicker}</p>
+    <h1 class="mt-4 text-4xl max-w-[14ch] md:max-w-[16ch]">{title}</h1>
+    <p class="lede mt-7">{lede}</p>
+    <div class="mt-9 flex flex-wrap gap-3"><slot /></div>
+  </div>
+</header>
+<style>
+  .page-hero { position: relative; overflow: clip; }
+  .glow { position: absolute; inset: -30% -10% auto auto; width: 70vw; height: 70vw; max-width: 60rem; max-height: 60rem; background: radial-gradient(closest-side, color-mix(in oklch, var(--hue-vivid) 34%, transparent), transparent); filter: blur(20px); opacity: .55; pointer-events: none; }
+  :global([data-theme='light']) .glow { opacity: .4; }
+  .kicker { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; color: var(--hue); }
+  .kicker::before { content: ''; width: 1.75rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+</style>

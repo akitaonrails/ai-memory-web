@@ -1,0 +1,6 @@
+A wide horizontal process diagram with four stages connected by amber-gold arrows, reading left to right.
+Stage 1, labelled "Capture": three small terminal windows stacked, each emitting small glowing dots (observations) into the flow. Green.
+Stage 2, labelled "Consolidate": the dots funnel into a neat stack of document pages with markdown-like lines. Teal to azure.
+Stage 3, labelled "Recall": a magnifying lens over the page stack with four thin streams merging into one ranked list. Azure to violet.
+Stage 4, labelled "Hand off": an amber baton passing from one terminal window to a different terminal window. Violet to rose.
+Beneath the four stages, a single thin horizontal bar spanning the full width labelled "A git-backed wiki of plain markdown files".

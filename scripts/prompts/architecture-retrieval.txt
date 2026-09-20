@@ -1,0 +1,6 @@
+A wide funnel diagram reading left to right.
+Far left: a single search box with a magnifying lens. Labelled "Query".
+It fans out into four parallel horizontal lanes, stacked vertically, each a thin glowing stream with a small icon: lane 1 lines of text, labelled "FTS5" (green); lane 2 a tag icon, labelled "Entities" (teal); lane 3 three linked nodes, labelled "Graph" (azure); lane 4 a cluster of dots, drawn with a dashed line because it is optional, labelled "Vectors" (violet).
+The four lanes converge into one amber-gold copper microchip node labelled "RRF k=60".
+After it, one single stream passes through a small balance-scale icon labelled "Authority".
+Far right: a short ranked list of three document cards, the top one brightest. Labelled "Results". Rose.

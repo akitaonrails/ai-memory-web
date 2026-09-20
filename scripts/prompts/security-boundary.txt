@@ -1,0 +1,7 @@
+A wide horizontal diagram reading left to right, showing a checkpoint that data must pass through.
+Left: a messy, oversized sheet of paper coming out of a small terminal window, with a few small key and padlock icons mixed into its lines. Labelled "Hook payload". Green to teal.
+Center: a tall narrow gate or checkpoint wall spanning the full height with one single opening in the middle, drawn in amber-gold with a copper microchip motif. It is the only way through. Labelled "sanitize()".
+Below the gate: a small tray where the key and padlock icons fall out and fade away. Labelled "Secrets dropped".
+Right of the gate: a small, neat, trimmed card with a few tidy lines and no key icons, moving toward a cylinder database. The card is labelled "Observation" and the cylinder is labelled "Stored". Violet to rose.
+Above the small card, a short ruler or scissors mark showing it was trimmed, labelled "Size capped".
+There are exactly five text labels in the whole image: "Hook payload", "sanitize()", "Secrets dropped", "Observation", "Stored", plus "Size capped". No other caption anywhere, nothing above the sheet of paper.

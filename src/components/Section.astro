@@ -1,0 +1,13 @@
+---
+// Standard page band: a heading, an optional lede, then whatever you slot in.
+import type { Hue } from '@/data/site';
+interface Props { title: string; lede?: string; hue?: Hue; id?: string; tint?: boolean; narrow?: boolean; fill?: boolean }
+const { title, lede, hue, id, tint = false, narrow = false, fill = false } = Astro.props;
+---
+<section id={id} data-hue={hue} class:list={['band', { 'bg-tint': tint }]}>
+  <div class={narrow ? 'wrap-narrow' : 'wrap'}>
+    <h2 class="text-3xl max-w-[20ch]">{title}</h2>
+    {lede && <p class="lede mt-5" data-fill={fill ? '' : undefined}>{lede}</p>}
+    <div class="mt-10 md:mt-14"><slot /></div>
+  </div>
+</section>

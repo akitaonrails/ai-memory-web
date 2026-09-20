@@ -1,0 +1,25 @@
+---
+import { getGithub } from '@/data/github';
+import { site } from '@/data/site';
+const gh = await getGithub();
+const stats = [
+  { n: gh.stars, label: 'GitHub stars', hue: 'amber', live: 'stars', href: `${site.repo}/stargazers` },
+  { n: gh.contributors, label: 'contributors', hue: 'teal', href: `${site.repo}/graphs/contributors` },
+  { n: gh.mergedPRs, label: 'merged pull requests', hue: 'violet', href: `${site.repo}/pulls?q=is%3Apr+is%3Amerged` },
+  { n: gh.closedIssues, label: 'issues closed', hue: 'green', href: `${site.repo}/issues?q=is%3Aissue+is%3Aclosed` },
+];
+---
+<dl class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+  {stats.map((s) => (
+    <a href={s.href} class="stat" data-hue={s.hue}>
+      <dd class="num" data-count={s.n}>{s.n.toLocaleString('en-US')}</dd>
+      <dt>{s.label}</dt>
+    </a>
+  ))}
+</dl>
+<style>
+  .stat { display: flex; flex-direction: column; border-top: 3px solid var(--hue-vivid); padding-top: 1rem; }
+  .num { font-family: var(--font-display); font-weight: 680; font-size: var(--text-3xl); line-height: 1; letter-spacing: -.015em; font-variant-numeric: tabular-nums; font-variation-settings: 'opsz' 96, 'wdth' 92; }
+  dt { margin-top: .5rem; color: var(--muted); }
+  .stat:hover dt { color: var(--hue); }
+</style>
