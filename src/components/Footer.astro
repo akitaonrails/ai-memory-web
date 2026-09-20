@@ -2,8 +2,12 @@
 import { Image } from 'astro:assets';
 import logo from '@/assets/img/logo.png';
 import { nav, site } from '@/data/site';
-import { useI18n } from '@/i18n';
-const { t, href } = useI18n(Astro);
+import { useI18n, localizePath, stripLocale } from '@/i18n';
+import { localeCodes, locales } from '@/i18n/config';
+const { t, href, locale } = useI18n(Astro);
+// The same page in every language. The click handler in Nav.astro stores the choice (data-set-lang).
+const bare = stripLocale(Astro.url.pathname);
+const languages = localeCodes.map((l) => ({ code: l, ...locales[l], url: localizePath(l, bare) }));
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-line mt-8">
@@ -30,6 +34,13 @@ const year = new Date().getFullYear();
       </nav>
     ))}
   </div>
+  <nav class="wrap pb-8" aria-label={t('a11y.language')}>
+    <ul class="langs">
+      {languages.map((l) => (
+        <li><a href={l.url} hreflang={l.htmlLang} lang={l.htmlLang} dir={l.dir} data-set-lang={l.code} aria-current={l.code === locale ? 'true' : undefined}>{l.label}</a></li>
+      ))}
+    </ul>
+  </nav>
   <div class="wrap pb-10 flex flex-wrap gap-x-8 gap-y-2 justify-between text-sm text-muted">
     <p set:html={t('footer.rights', { year, author: site.author, authorUrl: site.authorUrl })} />
     <p class="flex gap-5">
@@ -41,6 +52,10 @@ const year = new Date().getFullYear();
   </div>
 </footer>
 <style>
+  .langs { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: .95rem; }
+  .langs a { color: var(--muted); }
+  .langs a:hover { color: var(--text); text-decoration: underline; }
+  .langs a[aria-current] { color: var(--text); font-weight: 600; }
   .theme-opt { padding: .35rem .85rem; border-radius: 999px; color: var(--muted); transition: background-color .2s, color .2s; }
   .theme-opt[aria-pressed='true'] { background: var(--tint); color: var(--text); font-weight: 600; }
 </style>
