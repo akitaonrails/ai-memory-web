@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Cómo envejece la memoria: decaimiento y pasada de sueño",
-    "description": "Cómo trata ai-memory 2.4 la memoria vieja: puntuación de retención, compactación y dedup sin LLM, y una pasada de sueño opt-in que fusiona páginas frías."
+    "description": "Cómo trata ai-memory la memoria vieja: puntuación de retención, compactación y dedup sin LLM, y una pasada de sueño opt-in que fusiona páginas frías mientras no estás."
   },
   "hero": {
     "title": "Cómo envejece la memoria",
-    "lede": "Un proyecto acumula páginas de sesión durante meses, y la mayoría deja de ser útil. ai-memory puntúa cada una, conserva las que sigues leyendo y puede reducir o fusionar el resto. La ruta por defecto no llama a ningún LLM, y todo lo que la 2.4 añade para reescribir páginas viene desactivado hasta que lo actives.",
+    "lede": "Un proyecto acumula páginas de sesión durante meses, y la mayoría deja de ser útil. ai-memory puntúa cada una, conserva las que sigues leyendo y puede reducir o fusionar el resto. La ruta por defecto no llama a ningún LLM, y toda función que reescribe una página viene desactivada hasta que la actives.",
     "primary": "La ruta sin LLM",
     "secondary": "La pasada de sueño"
   },
@@ -51,7 +51,7 @@
     "steps": [
       {
         "title": "Leer mantiene viva una página",
-        "text": "Los resultados de búsqueda ya contaban. En la 2.4 también cuentan abrir una página, llegar a ella por un enlace y <code>memory_explore</code>. Las lecturas solo pueden subir la puntuación."
+        "text": "Los resultados de búsqueda, abrir una página, llegar a ella por un enlace y <code>memory_explore</code> cuentan como lecturas. Las lecturas solo pueden subir la puntuación."
       },
       {
         "title": "Una vida media por nivel",
@@ -79,7 +79,7 @@
       }
     ],
     "codeTitle": "configuración del servidor",
-    "codeComment": "Las tres son opcionales. Sin ellas, la 2.4 se comporta como la 2.3."
+    "codeComment": "Las tres son opcionales. Sin ellas, las páginas frías se desalojan con una sola curva compartida."
   },
   "dream": {
     "title": "La pasada de sueño",
@@ -125,7 +125,7 @@
       },
       {
         "title": "Actualizar no cambia nada",
-        "text": "Todo comportamiento nuevo viene desactivado o idéntico por defecto. Actualizar a la 2.4 no cambia ninguna puntuación ni desaloja nada, y el servidor archiva el directorio de datos antes de migrar."
+        "text": "La compactación, el dedup y la pasada de sueño vienen desactivados por defecto. Una actualización no cambia ninguna puntuación ni desaloja nada, y el servidor archiva el directorio de datos antes de migrar."
       },
       {
         "title": "Fija lo que debe quedarse",
@@ -137,13 +137,13 @@
       "items": [
         "Una página con una fecha <code>expires_at</code> ya pasada se borra, aunque esté fijada.",
         "Con la compactación desactivada, una página episódica fría pierde su archivo markdown. Su registro se elimina definitivamente 180 días después.",
-        "Las dos reglas son anteriores a la 2.4. Activa la compactación si prefieres que las páginas frías se reduzcan."
+        "Activa la compactación si prefieres que las páginas frías se reduzcan."
       ]
     }
   },
   "also": {
-    "title": "También en la 2.4",
-    "lede": "Todo esto son argumentos de herramientas que ya existían. El número de herramientas sigue en 23.",
+    "title": "Más formas de consultar",
+    "lede": "Cada una es un argumento opcional de una herramienta existente.",
     "items": [
       {
         "title": "Respuestas con citas",
@@ -175,7 +175,7 @@
   "faq": [
     {
       "q": "¿ai-memory borra los recuerdos antiguos?",
-      "a": "Solo envejecen las páginas episódicas de sesión. Por defecto, una página fría se desaloja y se elimina definitivamente a los 180 días, igual que en versiones anteriores. Desde la 2.4 puedes hacer que las páginas frías se compacten o se fusionen, y ambas cosas se pueden restaurar. Las páginas fijadas, semánticas y procedimentales se conservan."
+      "a": "Solo envejecen las páginas episódicas de sesión. Por defecto, una página fría se desaloja y se elimina definitivamente a los 180 días. Puedes hacer que las páginas frías se compacten o se fusionen en su lugar, y ambas cosas se pueden restaurar. Las páginas fijadas, semánticas y procedimentales se conservan."
     },
     {
       "q": "¿El envejecimiento de la memoria necesita un LLM?",
@@ -186,8 +186,8 @@
       "a": "Un trabajo en segundo plano, opt-in. Tras cinco minutos de inactividad toma clusters de páginas frías casi duplicadas y hace que tu LLM reescriba cada cluster en una sola página. Las fuentes quedan reemplazadas, y la ejecución se detiene cuando vuelves."
     },
     {
-      "q": "¿Actualizar a la 2.4 cambia mi memoria existente?",
-      "a": "No. Todo comportamiento nuevo de envejecimiento viene desactivado o idéntico por defecto, así que las puntuaciones no cambian y no se desaloja nada. El servidor archiva el directorio de datos antes de migrar."
+      "q": "¿Una actualización cambia mi memoria existente?",
+      "a": "No. La compactación, el dedup y la pasada de sueño vienen desactivados por defecto, así que una actualización no cambia ninguna puntuación ni desaloja nada. El servidor archiva el directorio de datos antes de migrar."
     },
     {
       "q": "¿Estas funciones mejoran las puntuaciones de recuperación?",

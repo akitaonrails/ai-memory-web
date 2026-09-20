@@ -74,7 +74,7 @@
         "Embeddings",
         "Postgres o un servicio alojado"
       ],
-      "same": "Memoria compilada en páginas vivas por un bucle de consolidación en segundo plano. Desde la 2.4, ai-memory también tiene una pasada de sueño opt-in y una puntuación de confianza por página.",
+      "same": "Memoria compilada en páginas vivas por un bucle de consolidación en segundo plano. ai-memory tiene una pasada de sueño opt-in y una puntuación de confianza por página.",
       "gain": [
         "Captura, búsqueda y traspasos sin ninguna llamada a un LLM",
         "Archivos que son tuyos, con licencia MIT, sin el peso de la AGPL ni de un SaaS",
@@ -104,7 +104,7 @@
       "needs": [
         "Sobre todo Claude Code"
       ],
-      "same": "SQLite, embeddings locales, captura por hooks, enlaces tipados y cifras honestas. Desde la 2.4, también su envejecimiento de la memoria: decaimiento por nivel, compactación, dedup por clusters y avisos de contradicción.",
+      "same": "SQLite, embeddings locales, captura por hooks, enlaces tipados y cifras honestas. El envejecimiento de la memoria también coincide: decaimiento por nivel, compactación, dedup por clusters y avisos de contradicción.",
       "gain": [
         "Páginas que puedes leer, en lugar de filas de hechos",
         "Un envejecimiento desactivado por defecto, y toda reescritura se puede restaurar",
@@ -166,7 +166,7 @@
         "Un LLM",
         "Postgres, Redis y un worker"
       ],
-      "same": "Desde la 2.4: respuestas con citas desde memory_query, niveles de razonamiento y una pasada de sueño que se ejecuta cuando estás inactivo y procesa primero el material más novedoso.",
+      "same": "Respuestas con citas desde memory_query, niveles de razonamiento y una pasada de sueño que se ejecuta cuando estás inactivo y procesa primero el material más novedoso.",
       "gain": [
         "Esas comodidades sin exigir un LLM para capturar ni para buscar",
         "Un solo binario y una carpeta en lugar de tres servicios",

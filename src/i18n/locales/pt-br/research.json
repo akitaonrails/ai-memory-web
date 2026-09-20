@@ -206,7 +206,7 @@
       "items": [
         {
           "title": "A rodada completa de avaliação",
-          "text": "O segundo harness existe desde a 2.4 e avalia as respostas, além da recuperação. A rodada com o dataset inteiro ainda está por vir, e os itens abaixo esperam por ela."
+          "text": "Um segundo harness avalia as respostas, além da recuperação. A rodada dele com o dataset inteiro ainda está por vir, e os itens abaixo esperam por ela."
         },
         {
           "title": "Um reranker local",
@@ -229,7 +229,7 @@
     },
     "behind": {
       "title": "Onde ele está atrás hoje",
-      "text": "A pontuação bruta de recuperação fica abaixo das ferramentas que fazem rerank, e o envelhecimento da memória que entrou na 2.4 ainda não tem resultado medido. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
+      "text": "A pontuação bruta de recuperação fica abaixo das ferramentas que fazem rerank, e o envelhecimento da memória ainda não tem resultado medido. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
     }
   },
   "nextPages": [

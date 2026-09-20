@@ -138,7 +138,7 @@
       "points": [
         "Frontmatter <code>relations:</code> accepts a closed set: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. A typo cannot mint a new kind.",
         "<code>contradicts</code> feeds lint with no LLM and is reported until someone reconciles it.",
-        "In search they are explain only: they join the graph as ordinary links and do not move ranking, because the benchmark showed no basis for a weight. Since 2.4, <code>memory_read_page</code> can walk them to list related pages."
+        "In search they are explain only: they join the graph as ordinary links and do not move ranking, because the benchmark showed no basis for a weight. <code>memory_read_page</code> can walk them to list related pages."
       ],
       "link": "Typed edges in the docs"
     }

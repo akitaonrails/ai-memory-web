@@ -206,7 +206,7 @@
       "items": [
         {
           "title": "The full evaluation run",
-          "text": "The second harness exists since 2.4 and scores answers as well as retrieval. The full-dataset run is still to come, and the items below wait on it."
+          "text": "A second harness scores answers as well as retrieval. Its full-dataset run is still to come, and the items below wait on it."
         },
         {
           "title": "A local reranker",
@@ -229,7 +229,7 @@
     },
     "behind": {
       "title": "Behind today",
-      "text": "Raw retrieval scores sit below the tools that rerank, and the memory aging added in 2.4 has no measured result yet. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
+      "text": "Raw retrieval scores sit below the tools that rerank, and memory aging has no measured result yet. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
     }
   },
   "nextPages": [

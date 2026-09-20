@@ -90,7 +90,7 @@
       "points": [
         "El campo <code>relations:</code> del frontmatter acepta un conjunto cerrado: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. Una errata no puede crear un tipo nuevo.",
         "<code>contradicts</code> alimenta el lint sin LLM y se reporta hasta que alguien lo reconcilia.",
-        "En la búsqueda solo sirven para explain: entran en el grafo como enlaces normales y no mueven el ranking, porque el benchmark no dio base para asignarles un peso. Desde la 2.4, <code>memory_read_page</code> puede recorrerlas para listar páginas relacionadas."
+        "En la búsqueda solo sirven para explain: entran en el grafo como enlaces normales y no mueven el ranking, porque el benchmark no dio base para asignarles un peso. <code>memory_read_page</code> puede recorrerlas para listar páginas relacionadas."
       ],
       "link": "Aristas tipadas en la documentación"
     }

@@ -121,15 +121,15 @@
     "items": [
       {
         "title": "Sem reranker local",
-        "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. O único reranker é um LLM, desligado por padrão. As respostas com citações que chegaram na 2.4 também precisam de um LLM, e a acurácia delas não foi avaliada."
+        "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. O único reranker é um LLM, e ele vem desligado por padrão. As respostas com citações também precisam de um LLM, e a acurácia delas não foi avaliada."
       },
       {
         "title": "Tipos de link não mexem no ranking",
-        "text": "Desde a 2.4 dá para ir de uma página às páginas relacionadas a ela. Na busca, o tipo do link continua só explicando um resultado e não tem peso nenhum."
+        "text": "Dá para ir de uma página às páginas relacionadas a ela. Na busca, o tipo do link continua só explicando um resultado e não tem peso nenhum."
       },
       {
         "title": "O envelhecimento não tem comprovação",
-        "text": "A pontuação de confiança, a compactação, o dedup e a passada de sonho saem na 2.4, desligados por padrão. Nenhuma avaliação de recuperação foi rodada sobre eles, então o projeto afirma o mecanismo e nenhum ganho medido."
+        "text": "A pontuação de confiança, a compactação, o dedup e a passada de sonho vêm desligados por padrão. Nenhuma avaliação de recuperação foi rodada sobre eles, então o projeto afirma o mecanismo e nenhum ganho medido."
       },
       {
         "title": "Uma linha do tempo só",

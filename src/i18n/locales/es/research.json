@@ -206,7 +206,7 @@
       "items": [
         {
           "title": "La ejecución completa de la evaluación",
-          "text": "El segundo harness existe desde la 2.4 y evalúa las respuestas además de la recuperación. Falta la ejecución sobre el dataset completo, y los puntos de abajo dependen de ella."
+          "text": "Un segundo harness evalúa las respuestas además de la recuperación. Falta su ejecución sobre el dataset completo, y los puntos de abajo dependen de ella."
         },
         {
           "title": "Un reranker local",
@@ -229,7 +229,7 @@
     },
     "behind": {
       "title": "Dónde va por detrás hoy",
-      "text": "La puntuación bruta de recuperación queda por debajo de las herramientas que hacen rerank, y el envejecimiento de la memoria añadido en la 2.4 todavía no tiene ningún resultado medido. <a class=\"link\" href=\"{href}\">La lista completa está en la página de comparación</a>."
+      "text": "La puntuación bruta de recuperación queda por debajo de las herramientas que hacen rerank, y el envejecimiento de la memoria todavía no tiene ningún resultado medido. <a class=\"link\" href=\"{href}\">La lista completa está en la página de comparación</a>."
     }
   },
   "nextPages": [

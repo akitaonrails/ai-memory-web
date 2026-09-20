@@ -31,7 +31,7 @@
     "figureCaption": "ה-sanitizer הוא הנתיב היחיד מ-payload של hook אל ה-store.",
     "items": [
       { "title": "כניסה אחת", "text": "את הטיפוס שנשמר אפשר לבנות רק דרך sanitize(). קוד שמדלג על הסרת המידע הפרטי לא מתקמפל." },
-      { "title": "סודות מוחלפים", "text": "התאמות הופכות לסמנים מטופסים, כמו [REDACTED:github_token] או [REDACTED:jwt]. מאז 2.4 זה מכסה גם סודות בתוך JSON ונתיבי credentials של Windows, ורצפי escape של הטרמינל מוסרים. ההסרה היא best effort." },
+      { "title": "סודות מוחלפים", "text": "התאמות הופכות לסמנים מטופסים, כמו [REDACTED:github_token] או [REDACTED:jwt]. זה מכסה גם סודות בתוך JSON ונתיבי credentials של Windows, ורצפי escape של הטרמינל מוסרים. ההסרה היא best effort." },
       { "title": "הגדלים מוגבלים", "text": "קטעים מפלט של כלים נעצרים ב-2 KB ופרומפטים ב-16 KiB. תקרת גיבוי של 16 KiB חלה על כל גוף שנשמר, אחרי המיסוך." },
       { "title": "קלט של כלים לא נשמר", "text": "אירועי PreToolUse אף פעם לא שומרים פקודות, ארגומנטים, נתיבים או גוף של קלט. התצפיות הן audit trail, ואף פעם לא תמלול מלא." }
     ],

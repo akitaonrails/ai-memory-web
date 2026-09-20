@@ -1,8 +1,0 @@
----
-// Marks content that arrived with a release: "New in 2.4".
-import { useI18n } from '@/i18n';
-interface Props { version: string; hue?: string }
-const { version, hue = 'amber' } = Astro.props;
-const { t } = useI18n(Astro);
----
-<span class="badge" data-hue={hue}>{t('release.new', { version })}</span>

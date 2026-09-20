@@ -138,7 +138,7 @@
       "points": [
         "O <code>relations:</code> do frontmatter aceita um conjunto fechado: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. Um erro de digitação não consegue criar um tipo novo.",
         "<code>contradicts</code> alimenta o lint sem LLM e continua sendo reportado até alguém resolver a contradição.",
-        "Na busca elas só aparecem no explain: entram no grafo como links comuns e não mexem no ranking, porque o benchmark não deu base para um peso. Desde a 2.4, o <code>memory_read_page</code> consegue percorrê-las para listar páginas relacionadas."
+        "Na busca elas só aparecem no explain: entram no grafo como links comuns e não mexem no ranking, porque o benchmark não deu base para um peso. O <code>memory_read_page</code> consegue percorrê-las para listar páginas relacionadas."
       ],
       "link": "Arestas tipadas na documentação"
     }

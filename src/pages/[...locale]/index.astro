@@ -9,7 +9,6 @@ import Tabs from '@/components/Tabs.astro';
 import GithubStats from '@/components/GithubStats.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Figure from '@/components/Figure.astro';
-import ReleaseBadge from '@/components/ReleaseBadge.astro';
 import logo from '@/assets/img/logo.png';
 import { site } from '@/data/site';
 import { harnesses } from '@/data/support';
@@ -139,11 +138,10 @@ ai-memory run claude`;
     </div>
   </section>
 
-  <!-- Memory aging, new in 2.4 -->
+  <!-- Memory aging -->
   <section class="band !pt-0" data-hue="teal">
     <div class="wrap">
-      <ReleaseBadge version="2.4" />
-      <h2 class="text-3xl max-w-[18ch] mt-5">{t('aging.title')}</h2>
+      <h2 class="text-3xl max-w-[18ch]">{t('aging.title')}</h2>
       <p class="lede mt-5">{t('aging.text')}</p>
       <Figure name="aging-decay-path" alt={t('aging.figureAlt')} />
       <p><a href={href('/aging/')} class="btn btn-ghost">{t('aging.cta')}</a></p>

@@ -31,7 +31,7 @@
     "figureCaption": "El sanitizer es el único camino de un payload de hook hacia el store.",
     "items": [
       { "title": "Una sola entrada", "text": "El tipo que se guarda solo lo puede construir sanitize(). El código que se salte la limpieza de privacidad no compila." },
-      { "title": "Los secretos se reemplazan", "text": "Las coincidencias se convierten en marcadores tipados como [REDACTED:github_token] o [REDACTED:jwt]. Desde la 2.4 eso cubre secretos dentro de JSON y rutas de credenciales de Windows, y se eliminan las secuencias de escape de terminal. La limpieza es best effort." },
+      { "title": "Los secretos se reemplazan", "text": "Las coincidencias se convierten en marcadores tipados como [REDACTED:github_token] o [REDACTED:jwt]. Eso cubre secretos dentro de JSON y rutas de credenciales de Windows, y se eliminan las secuencias de escape de terminal. La limpieza es best effort." },
       { "title": "Los tamaños tienen tope", "text": "Los extractos de herramientas se cortan a 2 KB y los prompts a 16 KiB. Un tope final de 16 KiB se aplica a todo cuerpo guardado, después de la redacción." },
       { "title": "Las entradas de herramientas no se conservan", "text": "Los eventos PreToolUse nunca retienen comandos, argumentos, rutas ni cuerpos de entrada. Las observaciones son un rastro de auditoría, nunca una transcripción completa." }
     ],

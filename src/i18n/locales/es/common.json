@@ -148,8 +148,5 @@
   "englishOnly": "Esta parte está en inglés porque viene directamente del proyecto.",
   "faq": {
     "title": "Preguntas y respuestas"
-  },
-  "release": {
-    "new": "Nuevo en la {version}"
   }
 }

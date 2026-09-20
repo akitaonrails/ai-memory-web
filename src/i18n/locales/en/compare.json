@@ -121,15 +121,15 @@
     "items": [
       {
         "title": "No local reranker",
-        "text": "Retrieval scores sit below the systems that rerank. The only reranker is an LLM, and it is off by default. The cited answers added in 2.4 need an LLM too, and their accuracy has not been evaluated."
+        "text": "Retrieval scores sit below the systems that rerank. The only reranker is an LLM, and it is off by default. Cited answers need an LLM too, and their accuracy has not been evaluated."
       },
       {
         "title": "Link types do not move ranking",
-        "text": "Since 2.4 you can walk from a page to its related pages. In search, the kind of link still only explains a result and carries no weight."
+        "text": "You can walk from a page to its related pages. In search, the kind of link still only explains a result and carries no weight."
       },
       {
         "title": "Aging features are unproven",
-        "text": "The confidence score, compaction, dedup and the dream pass ship in 2.4, off by default. No recall evaluation has been run on them, so the project claims the mechanism and no measured gain."
+        "text": "The confidence score, compaction, dedup and the dream pass are off by default. No recall evaluation has been run on them, so the project claims the mechanism and no measured gain."
       },
       {
         "title": "One timeline",

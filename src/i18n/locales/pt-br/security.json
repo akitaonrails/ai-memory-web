@@ -48,7 +48,7 @@
       },
       {
         "title": "Segredos são substituídos",
-        "text": "O que casa vira um marcador tipado, como [REDACTED:github_token] ou [REDACTED:jwt]. Desde a 2.4 isso cobre segredos dentro de JSON e caminhos de credenciais do Windows, e sequências de escape de terminal são removidas. A remoção é best effort."
+        "text": "O que casa vira um marcador tipado, como [REDACTED:github_token] ou [REDACTED:jwt]. Isso cobre segredos dentro de JSON e caminhos de credenciais do Windows, e sequências de escape de terminal são removidas. A remoção é best effort."
       },
       {
         "title": "Tamanhos têm teto",

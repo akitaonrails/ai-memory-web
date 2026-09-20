@@ -8,7 +8,6 @@ import FeatureGrid from '@/components/FeatureGrid.astro';
 import Figure from '@/components/Figure.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
 import Callout from '@/components/Callout.astro';
-import ReleaseBadge from '@/components/ReleaseBadge.astro';
 import Faq from '@/components/Faq.astro';
 import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
@@ -52,7 +51,6 @@ const next = withText([
   <PageHero hue="green" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
     <a href="#decay" class="btn btn-primary">{t('hero.primary')}</a>
     <a href="#dream" class="btn btn-ghost">{t('hero.secondary')}</a>
-    <span class="self-center"><ReleaseBadge version="2.4" /></span>
   </PageHero>
 
   <Section title={t('tiers.title')} lede={t('tiers.lede')} hue="green">

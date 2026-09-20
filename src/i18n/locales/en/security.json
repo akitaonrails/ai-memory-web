@@ -48,7 +48,7 @@
       },
       {
         "title": "Secrets are replaced",
-        "text": "Matches become typed markers such as [REDACTED:github_token] or [REDACTED:jwt]. Since 2.4 that covers secrets inside JSON and Windows credential paths, and terminal escape sequences are stripped. The strip is best effort."
+        "text": "Matches become typed markers such as [REDACTED:github_token] or [REDACTED:jwt]. That covers secrets inside JSON and Windows credential paths, and terminal escape sequences are stripped. The strip is best effort."
       },
       {
         "title": "Sizes are capped",

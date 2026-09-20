@@ -74,7 +74,7 @@
         "Embeddings",
         "Postgres or a hosted service"
       ],
-      "same": "Memory compiled into living pages by a background consolidation loop. Since 2.4, ai-memory has an opt-in dream pass and a confidence score per page as well.",
+      "same": "Memory compiled into living pages by a background consolidation loop. ai-memory has an opt-in dream pass and a confidence score per page.",
       "gain": [
         "Capture, search and handoffs with zero LLM calls",
         "Files you own, MIT licensed, no AGPL or SaaS weight",
@@ -104,7 +104,7 @@
       "needs": [
         "Mostly Claude Code"
       ],
-      "same": "SQLite, local embeddings, hook capture, typed links and honest numbers. Since 2.4, also its memory aging: per-tier decay, compaction, cluster dedup and contradiction flags.",
+      "same": "SQLite, local embeddings, hook capture, typed links and honest numbers. The memory aging matches too: per-tier decay, compaction, cluster dedup and contradiction flags.",
       "gain": [
         "Pages you can read in place of fact rows",
         "Aging that is off by default, and every rewrite can be restored",
@@ -166,7 +166,7 @@
         "An LLM",
         "Postgres, Redis and a worker"
       ],
-      "same": "Since 2.4: answers with citations from memory_query, reasoning levels, and a dream pass that runs when you are idle and handles the most novel material first.",
+      "same": "Answers with citations from memory_query, reasoning levels, and a dream pass that runs when you are idle and handles the most novel material first.",
       "gain": [
         "The conveniences with no LLM required for capture or search",
         "One binary and a folder in place of three services",

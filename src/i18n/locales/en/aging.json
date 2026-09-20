@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "How memory ages: decay, compaction and the dream pass",
-    "description": "How ai-memory treats old memory in 2.4: a retention score, compaction and dedup with no LLM, and an opt-in dream pass that merges cold pages while you are away."
+    "description": "How ai-memory treats old memory: a retention score, compaction and dedup with no LLM, and an opt-in dream pass that merges cold pages while you are away."
   },
   "hero": {
     "title": "How memory ages",
-    "lede": "A project collects session pages for months, and most of them stop being useful. ai-memory scores each one, keeps what you still read, and can shrink or merge the rest. The default path calls no LLM, and every 2.4 addition that rewrites a page is off until you turn it on.",
+    "lede": "A project collects session pages for months, and most of them stop being useful. ai-memory scores each one, keeps what you still read, and can shrink or merge the rest. The default path calls no LLM, and every feature that rewrites a page is off until you turn it on.",
     "primary": "The path with no LLM",
     "secondary": "The dream pass"
   },
@@ -51,7 +51,7 @@
     "steps": [
       {
         "title": "Reading keeps a page alive",
-        "text": "Search hits already counted. In 2.4, opening a page, reaching it through a link and <code>memory_explore</code> count as well. Reads only ever raise the score."
+        "text": "Search hits, opening a page, reaching it through a link and <code>memory_explore</code> all count as reads. Reads only ever raise the score."
       },
       {
         "title": "A half-life per tier",
@@ -79,7 +79,7 @@
       }
     ],
     "codeTitle": "server config",
-    "codeComment": "All three are optional. Without them, 2.4 behaves like 2.3."
+    "codeComment": "All three are optional. Without them, cold pages are evicted on one shared curve."
   },
   "dream": {
     "title": "The dream pass",
@@ -125,7 +125,7 @@
       },
       {
         "title": "An upgrade changes nothing",
-        "text": "Every new behavior is off or identical by default. Upgrading to 2.4 changes no score and evicts nothing, and the server archives the data directory before it migrates."
+        "text": "Compaction, dedup and the dream pass are off by default. An upgrade changes no score and evicts nothing, and the server archives the data directory before it migrates."
       },
       {
         "title": "Pin what must stay",
@@ -137,13 +137,13 @@
       "items": [
         "A page with an <code>expires_at</code> date in the past is deleted, even when it is pinned.",
         "With compaction off, a cold episodic page loses its markdown file. Its record is removed for good 180 days later.",
-        "Both rules predate 2.4. Turn compaction on if you would prefer cold pages to shrink."
+        "Turn compaction on if you would prefer cold pages to shrink."
       ]
     }
   },
   "also": {
-    "title": "Also in 2.4",
-    "lede": "All of these are arguments on tools that already exist. The tool count stays at 23.",
+    "title": "More ways to query",
+    "lede": "Each one is an optional argument on an existing tool.",
     "items": [
       {
         "title": "Answers with citations",
@@ -175,7 +175,7 @@
   "faq": [
     {
       "q": "Does ai-memory delete old memories?",
-      "a": "Only episodic session pages age. By default a cold one is evicted and removed for good after 180 days, as in earlier versions. Since 2.4 you can have cold pages compacted or merged, and both can be restored. Pinned, semantic and procedural pages are kept."
+      "a": "Only episodic session pages age. By default a cold one is evicted and removed for good after 180 days. You can have cold pages compacted or merged instead, and both can be restored. Pinned, semantic and procedural pages are kept."
     },
     {
       "q": "Does memory aging need an LLM?",
@@ -186,8 +186,8 @@
       "a": "An opt-in background job. After five idle minutes it takes clusters of cold, near-duplicate pages and has your LLM rewrite each cluster into one page. The sources are superseded, and the run stops when you come back."
     },
     {
-      "q": "Will upgrading to 2.4 change my existing memory?",
-      "a": "No. Every new aging behavior is off or identical by default, so scores stay the same and nothing is evicted. The server archives the data directory before it migrates."
+      "q": "Will an upgrade change my existing memory?",
+      "a": "No. Compaction, dedup and the dream pass are off by default, so an upgrade changes no score and evicts nothing. The server archives the data directory before it migrates."
     },
     {
       "q": "Do these features improve retrieval scores?",
