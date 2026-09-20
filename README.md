@@ -36,8 +36,10 @@ GITHUB_TOKEN=$(gh auth token) npm run build
 ## Where things are
 
 ```
-src/pages/          one file per page
-src/components/     Nav, Footer, PageHero, Figure, CodeBlock, Tabs, Continuity (the pinned scroll scene)
+src/pages/[...locale]/   one file per page, rendered once per language
+src/components/     Nav, Footer, PageHero, Section, Figure, CodeBlock, Tabs, Steps, BarChart, Continuity (the pinned scroll scene)
+src/i18n/           languages.json, the message catalogs per language, and the lookup helpers
+src/lib/            schema.org helpers
 src/data/           site map, support matrix, competitors, GitHub data
 src/scripts/        motion (GSAP ScrollTrigger), theme, copy buttons, live GitHub numbers
 src/styles/         global.css: color tokens, type scale, shared classes

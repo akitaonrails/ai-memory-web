@@ -14,4 +14,10 @@ export function getGithub(): Promise<Github> {
   return cached;
 }
 
+/** The newest stable release, or the newest of any kind if every release is a prerelease. */
+export async function getLatestRelease() {
+  const gh = await getGithub();
+  return gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+}
+
 export { compact } from './format';

@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import { faqPage, type Faq } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -143,10 +144,7 @@ max_entries = 4096        # ${t('routing.autoScope.comments.max')}`;
 // Concurrent writers, writes per second, mean latency in ms.
 const capacity = [[1, 42, 23.9], [8, 295, 3.4], [32, 698, 1.43], [128, 700, 1.43]];
 
-const faq = {
-  '@type': 'FAQPage',
-  mainEntity: raw<{ q: string; a: string }[]>('faq').map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-};
+const faq = faqPage(raw<Faq[]>('faq'));
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={[faq]}>
   <PageHero hue="azure" kicker={t('nav.developers.label')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -182,13 +180,13 @@ const faq = {
     <div class="grid gap-10 md:grid-cols-2">
       <div>
         <h3 class="text-xl">{t('tls.skip.title')}</h3>
-        <ul class="ticks mt-4">
+        <ul class="dotlist mt-4">
           {raw<string[]>('tls.skip.items').map((item) => <li set:html={item} />)}
         </ul>
       </div>
       <div>
         <h3 class="text-xl">{t('tls.need.title')}</h3>
-        <ul class="ticks mt-4">
+        <ul class="dotlist mt-4">
           {raw<string[]>('tls.need.items').map((item) => <li set:html={item} />)}
         </ul>
       </div>
@@ -356,7 +354,7 @@ const faq = {
             <tbody>{capacity.map(([writers, perSec, ms]) => <tr><th scope="row">{number(writers)}</th><td>{t('ops.capacity.perSecond', { n: number(perSec) })}</td><td>{t('ops.capacity.ms', { n: number(ms) })}</td></tr>)}</tbody>
           </table>
         </div>
-        <ul class="ticks">
+        <ul class="dotlist">
           {raw<string[]>('ops.capacity.notes').map((item) => <li set:html={item} />)}
         </ul>
       </div>
@@ -373,7 +371,7 @@ const faq = {
       <div class="mt-6 grid gap-8 lg:grid-cols-2">
         <div class="min-w-0">
           <CodeBlock code="ai-memory upgrade" />
-          <ul class="ticks mt-6">
+          <ul class="dotlist mt-6">
             {raw<string[]>('ops.upgrading.notes').map((item) => <li set:html={item} />)}
           </ul>
         </div>
@@ -398,13 +396,8 @@ const faq = {
   .jump { display: flex; flex-wrap: wrap; gap: .5rem; padding-bottom: 1rem; }
   .jump a { padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: .92rem; transition: color .2s, border-color .2s; }
   .jump a:hover { color: var(--text); border-color: var(--hue-vivid); }
-  .link, p :global(a.link) { color: var(--hue, var(--text)); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
   .stack { display: grid; gap: 1.25rem; }
   .stack > :global(*) { min-width: 0; }
-  .ticks { display: grid; gap: .7rem; color: var(--muted); max-width: 40em; }
-  .ticks li { position: relative; padding-inline-start: 1.4rem; }
-  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
+  .dotlist { display: grid; gap: .7rem; color: var(--muted); }
   .anchor, :global(section[id]) { scroll-margin-top: 5rem; }
-  p code, li code, td code, th code, p :global(code), li :global(code), td :global(code) { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .92em; }
-  :global(.bg-tint) p code, :global(.bg-tint) li code, :global(.bg-tint) td code, :global(.bg-tint) th code, :global(.bg-tint) p :global(code), :global(.bg-tint) li :global(code), :global(.bg-tint) td :global(code) { background: var(--surface); }
 </style>

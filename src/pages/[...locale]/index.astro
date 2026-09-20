@@ -13,11 +13,11 @@ import logo from '@/assets/img/logo.png';
 import { site } from '@/data/site';
 import { harnesses } from '@/data/support';
 import { competitors, type CompetitorText } from '@/data/competitors';
-import { getGithub, compact } from '@/data/github';
+import { getGithub, getLatestRelease, compact } from '@/data/github';
 
 const { t, raw, href } = useI18n(Astro, 'home', 'competitors');
 const gh = await getGithub();
-const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const latest = await getLatestRelease();
 const featured = competitors.filter((c) => c.featured).map((c) => ({ id: c.id, ...raw<CompetitorText>(`items.${c.id}`) }));
 
 // Structure here, words in src/i18n/locales/<locale>/home.json.
@@ -146,7 +146,7 @@ ai-memory run claude`;
         <p class="mt-5 text-muted max-w-[28em]">{t('compare.text')}</p>
         <a href={href('/compare/')} class="btn btn-ghost mt-8">{t('compare.cta')}</a>
       </div>
-      <div data-compare>
+      <div data-tabs>
         <div class="flex flex-wrap gap-2" role="tablist" aria-label={t('compare.pick')}>
           {featured.map((c, i) => (
             <button type="button" role="tab" class="pick" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`cmp-${c.id}`} id={`cmpt-${c.id}`}>{c.name}</button>
@@ -213,16 +213,6 @@ ai-memory run claude`;
   <CtaBand />
 </Base>
 
-<script>
-  // Compare picker: plain tabs.
-  document.querySelectorAll<HTMLElement>('[data-compare]').forEach((root) => {
-    const tabs = [...root.querySelectorAll<HTMLElement>('[role=tab]')];
-    tabs.forEach((t) => t.addEventListener('click', () => tabs.forEach((x) => {
-      x.setAttribute('aria-selected', String(x === t));
-      document.getElementById(x.getAttribute('aria-controls')!)!.hidden = x !== t;
-    })));
-  });
-</script>
 
 <style>
   .hero { position: relative; overflow: clip; }
@@ -254,9 +244,4 @@ ai-memory run claude`;
 
   .how-step .n { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--hue-soft); color: var(--hue); font-family: var(--font-display); font-weight: 700; }
 
-  .pick { padding: .55rem 1rem; border-radius: 999px; border: 1.5px solid var(--line); font-weight: 600; font-size: .95rem; background: var(--surface); transition: border-color .2s, background-color .2s, color .2s; }
-  .pick:hover { border-color: var(--text); }
-  .pick[aria-selected='true'] { background: var(--text); border-color: var(--text); color: var(--bg); }
-  .gain { position: relative; padding-inline-start: 1.5rem; }
-  .gain::before { content: ''; position: absolute; inset-inline-start: 0; top: .6em; width: .8rem; height: 3px; border-radius: 3px; background: var(--amber); }
 </style>

@@ -1,6 +1,8 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import BarChart from '@/components/BarChart.astro';
+import { faqPage, type Faq } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -12,14 +14,14 @@ import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
 import type { Hue } from '@/data/site';
 
-const { t, raw, href, date, number, htmlLang } = useI18n(Astro, 'research');
+const { t, raw, href, date, number } = useI18n(Astro, 'research');
 
 const gist = 'https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f';
 const post = 'https://akitaonrails.com/en/2026/09/02/ai-memory-2-0-best-memory-system-for-agents-and-teams/';
 const okfSpec = 'https://github.com/GoogleCloudPlatform/knowledge-catalog';
 
 // Scores keep three decimals in every language; only the decimal separator changes.
-const score = (n: number) => n.toLocaleString(htmlLang, { minimumFractionDigits: 3 });
+const score = (n: number) => number(n, { minimumFractionDigits: 3 });
 
 // Structure here, words in src/i18n/locales/<locale>/research.json.
 const kept = raw<string[]>('compile.kept.items');
@@ -83,15 +85,7 @@ const nextMeta: { href: string; hue: Hue }[] = [
 const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i) => ({ ...n, ...nextMeta[i] }));
 
 const faqParams = { hybrid: score(hit5[2]), fts: score(hit5[1]) };
-const faq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: raw<{ q: string; a: string }[]>('faq').map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) },
-  })),
-};
+const faq = faqPage(raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) })));
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={[faq]}>
   <PageHero hue="violet" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -208,16 +202,9 @@ const faq = {
           <strong>{t('measured.chart.title')}</strong>
           <span>{t('measured.chart.subtitle')}</span>
         </figcaption>
-        <ol class="bars">
-          {bench.map((b, i) => (
-            <li class:list={[{ last: i === bench.length - 1 }]}>
-              <span class="lab">{b.label}</span>
-              <span class="track"><span class="bar" style={`width:${b.v * 100}%`}></span></span>
-              <span class="val">{score(b.v)}</span>
-            </li>
-          ))}
-        </ol>
-        <p class="axis"><span>{number(0)}</span><span>{number(0.5)}</span><span>{(1).toLocaleString(htmlLang, { minimumFractionDigits: 1 })}</span></p>
+        <div class="mt-7">
+          <BarChart label={t('measured.chart.title')} bars={bench.map((b, i) => ({ label: b.label, value: b.v, display: score(b.v), tone: i === bench.length - 1 ? 'strong' : 'soft' }))} />
+        </div>
       </figure>
       <div>
         <h3 class="text-xl">{t('measured.steps.title')}</h3>
@@ -313,11 +300,8 @@ const faq = {
   .pull footer { margin-top: 1rem; color: var(--muted); font-size: .95rem; }
   .pull footer :global(a) { text-decoration: underline; color: var(--hue); }
 
-  .ticks li, .behind li { position: relative; padding-inline-start: 1.5rem; max-width: 40em; }
-  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .behind li { position: relative; padding-inline-start: 1.5rem; max-width: 40em; }
   .behind li::before { content: ''; position: absolute; inset-inline-start: .1rem; top: .5em; width: .55rem; height: .55rem; border-radius: 50%; border: 2px solid var(--muted); }
-  :global(.band) :is(td, p, li) > :global(code) { background: var(--tint); border-radius: .35em; padding: .1em .35em; font-size: .92em; }
-  :global(.bg-tint) :is(td, p, li) > :global(code) { background: var(--surface); }
 
   .decision { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
   .decision .we { color: var(--hue); font-weight: 600; font-size: .9rem; }
@@ -334,15 +318,6 @@ const faq = {
   .chart figcaption { display: grid; gap: .25rem; }
   .chart figcaption strong { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 640; }
   .chart figcaption span { color: var(--muted); font-size: .95rem; }
-  .bars { margin-top: 1.75rem; display: grid; gap: 1.4rem; }
-  .bars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .45rem 1rem; align-items: center; }
-  .bars .lab { grid-column: 1 / -1; color: var(--muted); font-size: .95rem; }
-  .bars .last .lab { color: var(--text); font-weight: 600; }
-  .bars .track { display: block; height: 1.1rem; border-inline-start: 1px solid var(--line); background: linear-gradient(var(--line), var(--line)) 50% 0 / 1px 100% no-repeat; border-inline-end: 1px solid var(--line); }
-  .bars .bar { display: block; height: 100%; border-start-end-radius: 4px; border-end-end-radius: 4px; background: color-mix(in oklch, var(--hue-vivid) 45%, var(--tint)); }
-  .bars .last .bar { background: var(--hue-vivid); }
-  .bars .val { font-variant-numeric: tabular-nums; font-weight: 640; font-family: var(--font-display); font-size: var(--text-lg); min-width: 3.2rem; text-align: end; }
-  .axis { display: flex; justify-content: space-between; margin-top: .5rem; margin-inline-end: 4.2rem; color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
 
   .plan { border-inline-start: 3px solid var(--hue-vivid); padding-inline-start: 1rem; max-width: 40em; }
 </style>

@@ -4,7 +4,6 @@
 // Desktop: pinned, scrubbed by scroll. Below lg: the same four scenes as a plain stacked list.
 import { Image } from 'astro:assets';
 import logo from '@/assets/img/logo.png';
-
 import { useI18n } from '@/i18n';
 const { t, raw, href } = useI18n(Astro, 'home');
 
@@ -15,34 +14,15 @@ const sceneMeta = [
   { id: 'team', hue: 'teal', href: '/solutions/teams/', inKind: 'people', outKind: 'term' },
   { id: 'wiki', hue: 'green', href: '/architecture/', inKind: 'chips', outKind: 'tree' },
 ] as const;
+import SceneCard, { type SceneSide } from './SceneCard.astro';
+
 interface SceneText { title: string; text: string; link: string; inLabel: string; in: string[]; outLabel: string; out: string[] }
-type Kind = 'term' | 'people' | 'chips' | 'tree';
-interface Side { kind: Kind; label: string; lines: string[] }
 const scenes = sceneMeta.map((m) => {
   const x = raw<SceneText>(`continuity.scenes.${m.id}`);
   return { ...m, href: href(m.href), title: x.title, text: x.text, link: x.link,
-    in: { kind: m.inKind, label: x.inLabel, lines: x.in } as Side,
-    out: { kind: m.outKind, label: x.outLabel, lines: x.out } as Side };
+    in: { kind: m.inKind, label: x.inLabel, lines: x.in } as SceneSide,
+    out: { kind: m.outKind, label: x.outLabel, lines: x.out } as SceneSide };
 });
-
-const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/** One card renderer, used by both the pinned and the stacked layout. */
-function card(side: Side): string {
-  const body = (() => {
-    switch (side.kind) {
-      case 'term':
-        return side.lines.map((l) => `<span dir="auto" class="ln ${l.startsWith('>') || l.includes('$') ? 'p' : l.startsWith('●') ? 'd' : ''}">${esc(l)}</span>`).join('');
-      case 'people':
-        return side.lines.map((l) => { const [who, what] = l.split('|'); return `<div class="person" dir="auto"><b>${who[0]}</b><div><strong>${who}</strong> <span>${esc(what)}</span></div></div>`; }).join('');
-      case 'chips':
-        return side.lines.map((l) => `<span class="chip" dir="auto">${esc(l)}</span>`).join('');
-      case 'tree':
-        return side.lines.map((l, i, a) => { const [dir, file] = l.split('|'); return `<span class="ln" dir="ltr">${i === a.length - 1 ? '└─' : '├─'} <span class="dir">${dir}</span>${file}</span>`; }).join('');
-    }
-  })();
-  return `<div class="sc ${side.kind}"><header dir="auto">${esc(side.label)}</header><div class="body" dir="auto">${body}</div></div>`;
-}
 ---
 
 <section class="continuity" data-continuity aria-label={t('continuity.label')}>
@@ -69,8 +49,8 @@ function card(side: Side): string {
         <div class="flow" aria-hidden="true"></div>
         {scenes.map((s, i) => (
           <div class="art" data-art={i} data-hue={s.hue}>
-            <div class="side in"><Fragment set:html={card(s.in)} /></div>
-            <div class="side out"><Fragment set:html={card(s.out)} /></div>
+            <div class="side in"><SceneCard side={s.in} /></div>
+            <div class="side out"><SceneCard side={s.out} /></div>
           </div>
         ))}
         <div class="hub"><Image src={logo} alt="" width={260} height={260} loading="lazy" /></div>
@@ -87,9 +67,9 @@ function card(side: Side): string {
           <h3 class="text-2xl">{s.title}</h3>
           <p class="text-muted mt-3">{s.text}</p>
           <div class="stack mt-6" dir="ltr">
-            <Fragment set:html={card(s.in)} />
+            <SceneCard side={s.in} />
             <div class="down" aria-hidden="true"><Image src={logo} alt="" width={72} height={72} loading="lazy" /></div>
-            <Fragment set:html={card(s.out)} />
+            <SceneCard side={s.out} />
           </div>
           <a href={s.href} class="more-link">{s.link}</a>
         </article>
@@ -161,20 +141,4 @@ function card(side: Side): string {
   .continuity .down { display: grid; place-items: center; position: relative; height: 5.5rem; }
   .continuity .down::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 3px dotted var(--amber); translate: -50% 0; }
   .continuity .down img { position: relative; width: 4.5rem; }
-
-  /* cards */
-  .sc { border-radius: 1rem; overflow: hidden; border: 1px solid oklch(0.33 0.045 282); background: var(--ink); color: oklch(0.93 0.015 285); box-shadow: var(--shadow), 0 0 0 1px color-mix(in oklch, var(--hue-vivid) 40%, transparent), 0 0 50px -18px var(--hue-vivid); font-family: var(--font-mono); font-size: .74rem; line-height: 1.75; }
-  .sc header { display: flex; align-items: center; gap: .5rem; padding: .5rem .85rem; border-bottom: 1px solid oklch(0.28 0.04 282); color: oklch(0.74 0.03 285); font-size: .75rem; }
-  .sc header::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--hue-vivid); }
-  .sc .body { padding: .8rem .95rem 1rem; }
-  .sc .ln { display: block; white-space: pre-wrap; }
-  .sc .ln.p { color: oklch(0.87 0.15 85); }
-  .sc .ln.d { color: oklch(0.72 0.03 285); }
-  .sc.people .body, .sc.chips .body { font-family: var(--font-sans); font-size: .9rem; line-height: 1.35; }
-  .sc .person { display: flex; gap: .7rem; align-items: center; padding: .4rem 0; }
-  .sc .person b { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; border-radius: 50%; background: color-mix(in oklch, var(--hue-vivid) 30%, transparent); font-size: .8rem; }
-  .sc .person span { color: oklch(0.8 0.02 285); }
-  .sc.chips .body { display: flex; flex-wrap: wrap; gap: .4rem; }
-  .sc .chip { padding: .3rem .6rem; border-radius: .5rem; background: oklch(0.24 0.045 282); font-family: var(--font-mono); font-size: .74rem; }
-  .sc .dir { color: var(--v-green); }
 </style>

@@ -323,11 +323,6 @@
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
   }
-  .prose-site :where(code):not(pre code) {
-    background: var(--tint);
-    border-radius: 0.35em;
-    padding: 0.12em 0.4em;
-  }
 }
 
 /* Scripts without Latin proportions: no negative tracking, more leading, and widths measured in em, because
@@ -386,6 +381,95 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Shared content patterns. Pages must not redefine these in their own <style>. */
+@layer components {
+  /* Inline code anywhere in running text, including text injected from the catalogs with set:html. */
+  main :where(p, li, td, th, dd, dt, h3, h4, figcaption, summary) code:not(pre code) {
+    background: var(--tint);
+    border-radius: 0.35em;
+    padding: 0.12em 0.4em;
+    font-size: 0.9em;
+    overflow-wrap: anywhere;
+  }
+  main .bg-tint :where(p, li, td, th, dd, dt, h3, h4, figcaption, summary) code:not(pre code) {
+    background: var(--surface);
+  }
+  /* Links inside catalog messages: <a class="link" href="{href}">. */
+  main a.link {
+    color: var(--hue, var(--text));
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
+  /* Lists marked with a short bar (.ticks) or a dot (.dotlist), in the section's hue. */
+  .ticks > li,
+  .dotlist > li {
+    position: relative;
+    padding-inline-start: 1.5rem;
+    max-width: 40em;
+  }
+  .ticks > li::before,
+  .dotlist > li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.68em;
+    width: 0.8rem;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--hue-vivid, var(--amber));
+  }
+  .dotlist > li::before {
+    top: 0.62em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+  }
+  /* "What you gain" items: amber, because amber is what moves forward. */
+  .gain {
+    position: relative;
+    padding-inline-start: 1.5rem;
+  }
+  .gain::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.6em;
+    width: 0.8rem;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--amber);
+  }
+  /* Pill toggle: tabs (aria-selected) and filters (aria-pressed). */
+  .pick {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  }
+  .pick:hover {
+    border-color: var(--text);
+  }
+  .pick:is([aria-selected='true'], [aria-pressed='true']) {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+  }
+  .pick[data-hue]::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--hue-vivid);
   }
 }
 

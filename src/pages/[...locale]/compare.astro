@@ -1,6 +1,8 @@
 ---
-import { useI18n, localePaths } from '@/i18n';
+import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import BarChart from '@/components/BarChart.astro';
+import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -14,7 +16,7 @@ import CtaBand from '@/components/CtaBand.astro';
 import { site, type Hue } from '@/data/site';
 import { competitors, type CompetitorText, type MoatText } from '@/data/competitors';
 
-const { t, raw, href, date, htmlLang } = useI18n(Astro, 'compare', 'competitors');
+const { t, raw, href, date, number } = useI18n(Astro, 'compare', 'competitors');
 type Titled = { title: string; text: string };
 
 // Structure here, words in src/i18n/locales/<locale>/compare.json and competitors.json.
@@ -44,7 +46,7 @@ const requires: Record<string, number[]> = {
 
 // (e) LongMemEval-S hit@5. Source: docs/benchmarks in the repo, dated 2026-09-01.
 const benchmarkDate = '2026-09-01';
-const score = (n: number) => n.toLocaleString(htmlLang, { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+const score = (n: number) => number(n, { minimumFractionDigits: 3, maximumFractionDigits: 3 });
 const oursValues = [0.617, 0.668, 0.823];
 const theirsMeta = [{ label: 'mcp-memory-service', value: 0.86 }, { label: 'agentmemory', value: 0.952 }];
 const bars = [
@@ -73,17 +75,14 @@ cargo run --release -p ai-memory-eval -- retrieval --fetch
 cargo run -p ai-memory-eval -- retrieval --sample 10`;
 
 const faq = raw<{ q: string; a: string }[]>('faq.items');
-const faqSchema = {
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-};
+const faqSchema = faqPage(faq);
 
 const nextMeta = [
   { href: '/install/', hue: 'amber' as const },
   { href: '/research/', hue: 'violet' as const },
   { href: '/integrations/', hue: 'violet' as const },
 ];
-const next = raw<Titled[]>('next').map((n, i) => ({ ...n, ...nextMeta[i] }));
+const next = withText(nextMeta, raw<Titled[]>('next'));
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={[faqSchema]}>
   <PageHero hue="amber" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -183,17 +182,11 @@ const next = raw<Titled[]>('next').map((n, i) => ({ ...n, ...nextMeta[i] }));
   </Section>
 
   <Section id="benchmark" title={t('benchmark.title')} lede={t('benchmark.lede')} hue="amber">
-    <div class="chart" role="img" aria-label={chartLabel}>
-      {bars.map((b) => (
-        <div class:list={['row', { mine: b.mine }]}>
-          <div class="lab"><span class="font-semibold">{b.label}</span><span class="text-muted text-sm">{b.note}</span></div>
-          <div class="track"><div class="bar" style={`width:${b.value * 100}%`}></div></div>
-          <div class="val tabular-nums">{score(b.value)}</div>
-        </div>
-      ))}
-      <p class="axis text-sm text-muted">{t('benchmark.axis')}</p>
-    </div>
-    <ul class="caveats mt-10 grid md:grid-cols-2 gap-x-10 gap-y-5">
+    <BarChart label={chartLabel} axis={t('benchmark.axis')} bars={bars.map((b, i) => ({
+      label: b.label, note: b.note, value: b.value, display: score(b.value),
+      tone: !b.mine ? 'other' : i === oursValues.length - 1 ? 'strong' : 'soft',
+    }))} />
+    <ul class="dotlist text-muted mt-10 grid md:grid-cols-2 gap-x-10 gap-y-5">
       {raw<string[]>('benchmark.caveats').map((c) => <li>{c.replace('{date}', date(benchmarkDate))}</li>)}
     </ul>
     <div class="mt-10 max-w-[44rem]">
@@ -240,7 +233,6 @@ const next = raw<Titled[]>('next').map((n, i) => ({ ...n, ...nextMeta[i] }));
 
 <style>
   .table-wrap { position: relative; }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
   .parts th.part, .parts td.part { text-align: center; }
   .parts th.part { min-width: 6.5rem; white-space: normal; }
@@ -271,25 +263,7 @@ const next = raw<Titled[]>('next').map((n, i) => ({ ...n, ...nextMeta[i] }));
   .tool .body { padding: .5rem 1.4rem 1.6rem; }
   .verdict { margin-top: 1.75rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-weight: 600; }
   .verdict span { font-weight: 500; margin-inline-end: .6rem; }
-  .gain { position: relative; padding-inline-start: 1.5rem; }
-  .gain::before { content: ''; position: absolute; inset-inline-start: 0; top: .6em; width: .8rem; height: 3px; border-radius: 3px; background: var(--amber); }
 
-  .chart { display: grid; gap: .9rem; max-width: 56rem; }
-  .row { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) 3.5rem; align-items: center; gap: 1rem; }
-  .lab { display: flex; flex-direction: column; line-height: 1.3; }
-  .track { height: 1.75rem; border-radius: .5rem; background: var(--tint); overflow: hidden; }
-  .bar { height: 100%; border-radius: .5rem; background: repeating-linear-gradient(135deg, var(--muted) 0 3px, transparent 3px 8px); opacity: .7; }
-  .row.mine .bar { background: var(--hue-vivid); opacity: 1; }
-  .row.mine:nth-child(1) .bar { opacity: .45; }
-  .row.mine:nth-child(2) .bar { opacity: .7; }
-  .val { font-weight: 700; text-align: end; }
-  .axis { margin-top: .5rem; max-width: 44em; }
-  @media (max-width: 40rem) {
-    .row { grid-template-columns: minmax(0, 1fr) 3.5rem; gap: .35rem 1rem; }
-    .lab { grid-column: 1 / -1; }
-  }
-  .caveats li { position: relative; padding-inline-start: 1.4rem; color: var(--muted); }
-  .caveats li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
 
   .faq { display: grid; gap: 2.25rem; }
   .faq dt { font-family: var(--font-display); font-weight: 640; }

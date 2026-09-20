@@ -2,12 +2,10 @@
 import { Image } from 'astro:assets';
 import logo from '@/assets/img/logo.png';
 import { nav, site } from '@/data/site';
-import { useI18n, localizePath, stripLocale } from '@/i18n';
-import { localeCodes, locales } from '@/i18n/config';
+import { useI18n, languageLinks } from '@/i18n';
 const { t, href, locale } = useI18n(Astro);
 // The same page in every language. The click handler in Nav.astro stores the choice (data-set-lang).
-const bare = stripLocale(Astro.url.pathname);
-const languages = localeCodes.map((l) => ({ code: l, ...locales[l], url: localizePath(l, bare) }));
+const languages = languageLinks(Astro.url.pathname);
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-line mt-8">

@@ -13,11 +13,11 @@ import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
 import type { Hue } from '@/data/site';
-import { getGithub, compact } from '@/data/github';
+import { getGithub, getLatestRelease, compact } from '@/data/github';
 
 const { t, raw, number } = useI18n(Astro, 'contribute');
 const gh = await getGithub();
-const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const latest = await getLatestRelease();
 const blob = `${site.repo}/blob/main`;
 
 // Structure here, words in src/i18n/locales/<locale>/contribute.json.
@@ -211,9 +211,5 @@ cargo clippy --workspace --all-targets -- -D warnings`} /></div>
   .way .go { margin-top: auto; padding-top: 1.25rem; font-weight: 600; color: var(--hue); text-decoration: underline; }
 
   .rule { border-inline-start: 3px solid var(--hue-vivid); padding-inline-start: 1rem; max-width: 40em; }
-  .ticks li { position: relative; padding-inline-start: 1.5rem; max-width: 40em; }
-  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
   .feat { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
-  :global(.band) :is(td, p, li) > :global(code) { background: var(--tint); border-radius: .35em; padding: .1em .35em; font-size: .92em; }
-  :global(.bg-tint) :is(td, p, li) > :global(code) { background: var(--surface); }
 </style>

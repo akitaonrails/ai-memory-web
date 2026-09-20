@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Marketing site for ai-memory — https://aimemory.io",
+  "description": "Marketing site for ai-memory \u2014 https://aimemory.io",
   "author": "Fabio Akita",
   "license": "UNLICENSED",
   "scripts": {
@@ -12,7 +12,8 @@
     "preview": "astro preview",
     "check:colors": "node scripts/check-contrast.mjs",
     "snapshot:github": "node scripts/snapshot-github.mjs",
-    "check:i18n": "node scripts/check-i18n.mjs"
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "i18n:stamp": "node scripts/check-i18n.mjs --stamp"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

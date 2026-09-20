@@ -8,7 +8,8 @@ import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
 import { site } from '@/data/site';
 import ogImage from '@/assets/img/og.png';
-import { getGithub } from '@/data/github';
+import { getLatestRelease } from '@/data/github';
+import { siteGraph } from '@/lib/schema';
 import { useI18n, localizePath, stripLocale } from '@/i18n';
 import { defaultLocale, localeCodes, locales } from '@/i18n/config';
 
@@ -25,8 +26,7 @@ const tagline = t('site.tagline');
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name}: ${tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const home = new URL(href('/'), Astro.site).href;
-const gh = await getGithub();
-const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const latest = await getLatestRelease();
 
 // The same page in every language, for <link rel="alternate" hreflang> and the language switcher.
 const barePath = stripLocale(Astro.url.pathname);
@@ -34,27 +34,16 @@ const alternates = localeCodes.map((l) => ({ hreflang: locales[l].htmlLang, url:
 const localeFonts = { he: fontsHe, ja: fontsJa, ko: fontsKo }[locale as string];
 
 // Breadcrumbs from the URL: /pt-br/solutions/teams/ -> Início > Soluções > (page title)
-const segments = barePath.split('/').filter(Boolean);
-const breadcrumbs = segments.length && !noindex && {
-  '@type': 'BreadcrumbList',
-  itemListElement: [{ name: t('crumbs.home'), path: '/' }, ...segments.map((s, i) => ({ name: i === segments.length - 1 && title ? title : t(`crumbs.${s}`), path: `/${segments.slice(0, i + 1).join('/')}/` }))]
-    .map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(href(c.path), Astro.site).href })),
-};
+const segments = noindex ? [] : barePath.split('/').filter(Boolean);
+const crumbs = [{ name: t('crumbs.home'), path: '/' }, ...segments.map((seg, i) => ({
+  name: i === segments.length - 1 && title ? title : t(`crumbs.${seg}`),
+  path: `/${segments.slice(0, i + 1).join('/')}/`,
+}))].map((c) => ({ name: c.name, url: new URL(href(c.path), Astro.site).href }));
 
-const graph = [
-  { '@type': 'WebSite', '@id': `${home}#site`, url: home, name: site.name, description: tagline, inLanguage: htmlLang, publisher: { '@id': `${home}#author` } },
-  { '@type': 'Person', '@id': `${home}#author`, name: site.author, url: site.authorUrl },
-  {
-    '@type': 'SoftwareApplication', '@id': `${home}#software`, name: site.name, description, url: home,
-    applicationCategory: 'DeveloperApplication', operatingSystem: 'Linux, macOS, Windows',
-    softwareVersion: latest?.tag.replace(/^v/, ''), license: 'https://opensource.org/license/mit',
-    codeRepository: site.repo, downloadUrl: `${site.repo}/releases/latest`, author: { '@id': `${home}#author` },
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  },
-  { '@type': 'WebPage', '@id': `${canonical.href}#page`, url: canonical.href, name: fullTitle, description, inLanguage: htmlLang, isPartOf: { '@id': `${home}#site` }, about: { '@id': `${home}#software` } },
-  ...(breadcrumbs ? [breadcrumbs] : []),
-  ...schema,
-];
+const structuredData = siteGraph({
+  home, canonical: canonical.href, htmlLang, tagline, description, fullTitle,
+  version: latest?.tag.replace(/^v/, ''), crumbs, extra: schema,
+});
 
 // First-visit language detection for hosts without Netlify's edge redirect (and for `npm run preview`).
 // Only English pages run it. The first language in the browser's list that the site supports wins;
@@ -96,7 +85,7 @@ const detect = locale === defaultLocale && !noindex
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
     <meta name="author" content={site.author} />
-    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     {detect && (
       <script is:inline define:vars={{ detect, defaultLocale }}>
         if (!/(?:^|; )nf_lang=/.test(document.cookie)) {

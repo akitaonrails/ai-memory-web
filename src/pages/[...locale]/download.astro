@@ -1,5 +1,5 @@
 ---
-import { useI18n, localePaths } from '@/i18n';
+import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
 import { marked } from 'marked';
 import Base from '@/layouts/Base.astro';
@@ -9,13 +9,14 @@ import CodeBlock from '@/components/CodeBlock.astro';
 import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
-import { getGithub } from '@/data/github';
+import { getGithub, getLatestRelease } from '@/data/github';
 
-const { t, raw, href, date, htmlLang, locale } = useI18n(Astro, 'download');
+type NextText = { title: string; text: string };
+const { t, raw, href, date, number, locale } = useI18n(Astro, 'download');
 const gh = await getGithub();
-const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const latest = await getLatestRelease();
 const day = date;
-const mb = (n: number) => `${(n / 1048576).toLocaleString(htmlLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} MB`;
+const mb = (n: number) => `${number(n / 1048576, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} MB`;
 const asset = (name: string) => latest.assets.find((a) => a.name === name);
 const dl = (name: string) => `${site.repo}/releases/latest/download/${name}`;
 
@@ -109,11 +110,11 @@ const entries = gh.changelog.map((e) => ({
     </p>
   </Section>
 
-  <NextPages links={[
+  <NextPages links={withText([
     { href: '/install/', hue: 'amber' as const },
     { href: '/integrations/', hue: 'violet' as const },
     { href: '/advanced/', hue: 'azure' as const },
-  ].map((l, i) => ({ ...l, ...raw<{ title: string; text: string }[]>('next')[i] }))} />
+  ], raw<NextText[]>('next'))} />
   <CtaBand />
 </Base>
 

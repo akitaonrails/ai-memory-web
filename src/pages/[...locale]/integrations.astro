@@ -1,6 +1,7 @@
 ---
-import { useI18n, localePaths } from '@/i18n';
+import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -15,8 +16,6 @@ import { platforms, harnesses, statusHue, slug, type Status } from '@/data/suppo
 const { t, raw, href } = useI18n(Astro, 'integrations', 'support');
 
 // Structure here, words in src/i18n/locales/<locale>/integrations.json and support.json.
-// Installer ids come from docs/install.md and docs/mcp-install.md. Add an entry here only if a support.ts id ever differs from the CLI value.
-const cliId: Record<string, string> = {};
 // Launcher names documented for `ai-memory run` in docs/managed-workstreams.md and docs/support-matrix.md.
 const launcher: Record<string, string> = {
   'claude-code': 'claude', codex: 'codex', opencode: 'opencode', opencode2: 'opencode2', grok: 'grok',
@@ -25,7 +24,7 @@ const launcher: Record<string, string> = {
 
 // Commands never change with the language. Only the comments do.
 const commandsFor = (h: (typeof harnesses)[number]) => {
-  const id = cliId[h.id!] ?? h.id!;
+  const id = h.id!;
   const lines: string[] = [];
   if (h.status === 'Supported' || h.status === 'MCP-only') lines.push(`# ${t('agents.commands.mcp')}`, `ai-memory install-mcp --client ${id} --apply`);
   if (h.status === 'Supported') lines.push(`# ${t('agents.commands.hooks')}`, `ai-memory install-hooks --agent ${id} --apply`);
@@ -45,17 +44,14 @@ const faq = raw<{ q: string; a: string }[]>('faq').map((f) => ({
   q: f.q,
   a: f.a.replace('{n}', String(harnesses.length)).replace('{names}', harnesses.slice(0, 5).map((h) => h.name).join(', ')).replace('{supported}', String(count('Supported'))),
 }));
-const faqSchema = {
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-};
+const faqSchema = faqPage(faq);
 
 const nextMeta = [
   { href: '/install/', hue: 'amber' as const },
   { href: '/architecture/', hue: 'azure' as const },
   { href: '/contribute/', hue: 'teal' as const },
 ];
-const next = raw<{ title: string; text: string }[]>('next').map((n, i) => ({ ...n, ...nextMeta[i] }));
+const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={[faqSchema]}>
   <PageHero hue="violet" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede', { n: harnesses.length })}>
@@ -227,20 +223,15 @@ const next = raw<{ title: string; text: string }[]>('next').map((n, i) => ({ ...
 
 <style>
   .table-wrap { position: relative; }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
   .filters { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .pick { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .95rem; border-radius: 999px; border: 1.5px solid var(--line); font-weight: 600; font-size: .95rem; background: var(--surface); transition: border-color .2s, background-color .2s, color .2s; }
   .pick .n { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
-  .pick:hover { border-color: var(--text); }
-  .pick[aria-pressed='true'] { background: var(--text); border-color: var(--text); color: var(--bg); }
   .pick[aria-pressed='true'] .n { color: inherit; opacity: .7; }
-  .pick[data-hue]::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
 
   .agents-grid { display: grid; gap: 2rem; align-items: start; }
   .cmd { min-width: 0; }
   .cmd-head { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; font-family: var(--font-display); font-size: var(--text-xl); }
-  .legend :global(code), .lede-code { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
+  .lede-code { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
   @media (min-width: 64rem) {
     .agents-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
     .cmd { order: 2; position: sticky; top: 6rem; }

@@ -1,6 +1,7 @@
 ---
-import { useI18n, localePaths } from '@/i18n';
+import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -49,15 +50,12 @@ ignore_paths = ["private/**", "~/personal-notes/**"]
 ai-memory install-hooks --apply --capture-mode allowlist`;
 
 const faq = raw<{ q: string; a: string }[]>('faq');
-const schema = [{
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-}];
-const next = [
+const schema = [faqPage(faq)];
+const next = withText([
   { href: '/architecture/', hue: 'azure' as const },
   { href: '/advanced/', hue: 'azure' as const },
   { href: '/solutions/teams/', hue: 'teal' as const },
-].map((l, i) => ({ ...l, ...raw<Item[]>('next')[i] }));
+], raw<Item[]>('next'));
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
   <PageHero hue="rose" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -128,7 +126,7 @@ const next = [
             <tr>
               <td class="min-w-[11rem]">{r.path}</td>
               <td class="min-w-[18rem] text-muted">{r.sent}</td>
-              <td class="min-w-[15rem] codey" set:html={r.on} />
+              <td class="min-w-[15rem]" set:html={r.on} />
               <td><span class="badge" data-hue="green">{t('egress.off')}</span></td>
             </tr>
           ))}
@@ -162,7 +160,7 @@ const next = [
         </tbody>
       </table>
     </div>
-    <p class="mt-6 text-muted max-w-[40em] codey" set:html={t('audit.forensic', { href: `${site.docs}/lifecycle-ops.md` })} />
+    <p class="mt-6 text-muted max-w-[40em]" set:html={t('audit.forensic', { href: `${site.docs}/lifecycle-ops.md` })} />
   </Section>
 
   <Section hue="rose" id="limits" tint title={t('limits.title')}>
@@ -187,11 +185,7 @@ const next = [
 </Base>
 
 <style>
-  .dotlist li { position: relative; padding-inline-start: 1.4rem; }
-  .dotlist li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
   /* Messages rendered with set:html carry no scope attribute, hence :global. */
-  .dotlist :global(code), .codey :global(code) { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
-  .codey :global(code) { overflow-wrap: anywhere; }
   .limits { list-style: disc; padding-inline-start: 1.2rem; display: grid; gap: .6rem; }
 
   .ladder { display: grid; gap: 1rem; }

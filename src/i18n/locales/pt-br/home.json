@@ -13,7 +13,7 @@
     ],
     "marquee": "Funciona com {n} agentes de código, incluindo {names}"
   },
-  "statement": "Seu agente de código já faz anotações. Elas ficam em uma máquina só, pertencem a um agente só e somem na hora em que você troca de ferramenta ou de colega de time. O ai-memory é o que existe do outro lado desses muros.",
+  "statement": "Seu agente de código já faz anotações. Elas ficam em uma máquina só e pertencem a um agente só. Troque de ferramenta e elas somem, e o resto do time nunca chega a ver nada disso. O ai-memory é o que existe do outro lado desses muros.",
   "continuity": {
     "label": "O que fica quando todo o resto muda",
     "title": "Mude tudo. Mantenha o que você sabe.",

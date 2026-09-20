@@ -1,0 +1,8 @@
+{
+  "en": { "label": "English", "english": "English", "htmlLang": "en", "dir": "ltr", "og": "en_US", "match": ["en"] },
+  "pt-br": { "label": "Português (Brasil)", "english": "Brazilian Portuguese", "htmlLang": "pt-BR", "dir": "ltr", "og": "pt_BR", "match": ["pt"] },
+  "es": { "label": "Español", "english": "Spanish", "htmlLang": "es", "dir": "ltr", "og": "es_ES", "match": ["es"] },
+  "he": { "label": "עברית", "english": "Hebrew", "htmlLang": "he", "dir": "rtl", "og": "he_IL", "match": ["he", "iw"] },
+  "ja": { "label": "日本語", "english": "Japanese", "htmlLang": "ja", "dir": "ltr", "og": "ja_JP", "match": ["ja"] },
+  "ko": { "label": "한국어", "english": "Korean", "htmlLang": "ko", "dir": "ltr", "og": "ko_KR", "match": ["ko"] }
+}

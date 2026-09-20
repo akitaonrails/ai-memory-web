@@ -13,7 +13,7 @@
     ],
     "marquee": "Funciona con {n} agentes de programación, entre ellos {names}"
   },
-  "statement": "Tu agente de programación ya toma notas. Viven en una sola máquina, pertenecen a un solo agente y desaparecen en cuanto cambias de herramienta o de compañero. ai-memory es lo que hay al otro lado de esos muros.",
+  "statement": "Tu agente de programación ya toma notas. Viven en una sola máquina y pertenecen a un solo agente. Cambia de herramienta y desaparecen, y tu equipo nunca llega a verlas. ai-memory es lo que hay al otro lado de esos muros.",
   "continuity": {
     "label": "Lo que queda cuando todo lo demás cambia",
     "title": "Cámbialo todo. Conserva lo que sabes.",

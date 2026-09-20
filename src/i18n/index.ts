@@ -82,9 +82,22 @@ export function useI18n(astro: Pick<AstroGlobal, 'currentLocale' | 'params'>, ..
     /** Dates and numbers in the reader's conventions. */
     date: (iso: string | null, opts: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }) =>
       iso ? new Date(iso).toLocaleDateString(meta.htmlLang, { timeZone: 'UTC', ...opts }) : '',
-    number: (n: number) => n.toLocaleString(meta.htmlLang),
+    number: (n: number, opts?: Intl.NumberFormatOptions) => n.toLocaleString(meta.htmlLang, opts),
   };
 }
+
+/** The current page in every language, for the header menu and the footer row. */
+export const languageLinks = (pathname: string) => {
+  const bare = stripLocale(pathname);
+  return localeCodes.map((code) => ({ code, ...locales[code], url: localizePath(code, bare) }));
+};
+
+/**
+ * Pages keep structure (hue, href, id) in code and words in the catalog. This joins the two by position:
+ *   withText([{ href: '/install/', hue: 'amber' }], raw('next'))  ->  [{ href, hue, title, text }]
+ */
+export const withText = <M extends object, T extends object>(meta: readonly M[], text: readonly T[]): (M & T)[] =>
+  meta.map((m, i) => ({ ...m, ...text[i] }));
 
 /** Every page lives under src/pages/[...locale]/ and exports this as getStaticPaths. English has no prefix. */
 export const localePaths = () => localeCodes.map((l) => ({ params: { locale: l === defaultLocale ? undefined : l } }));

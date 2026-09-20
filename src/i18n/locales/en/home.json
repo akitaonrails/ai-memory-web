@@ -13,7 +13,7 @@
     ],
     "marquee": "Works with {n} coding agents, including {names}"
   },
-  "statement": "Your coding agent already takes notes. They live on one machine, belong to one agent, and disappear the moment you switch tools or teammates. ai-memory is what is on the other side of those walls.",
+  "statement": "Your coding agent already takes notes. They live on one machine and belong to one agent. Switch tools and they are gone, and your teammates never see them at all. ai-memory is what is on the other side of those walls.",
   "continuity": {
     "label": "What stays when everything else changes",
     "title": "Change everything. Keep what you know.",

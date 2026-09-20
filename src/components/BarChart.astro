@@ -1,0 +1,37 @@
+---
+// A horizontal bar chart in plain HTML. Values are fractions from 0 to 1; the caller formats the number shown.
+// tone: 'strong' (the result to look at), 'soft' (our other results), 'other' (someone else's number, hatched).
+// Screen readers get the chart as an ordered list of "label: value"; pass `label` to name it.
+export interface Bar { label: string; note?: string; value: number; display: string; detail?: string; tone?: 'strong' | 'soft' | 'other' }
+interface Props { bars: Bar[]; label: string; axis?: string }
+const { bars, label, axis } = Astro.props;
+---
+<figure class="barchart">
+  <ol aria-label={label}>
+    {bars.map((b) => (
+      <li data-tone={b.tone ?? 'strong'}>
+        <span class="lab"><strong>{b.label}</strong>{b.note && <span>{b.note}</span>}</span>
+        <span class="track" aria-hidden="true"><span class="bar" style={`width:${Math.max(2, b.value * 100)}%`}></span></span>
+        <span class="val">{b.display}{b.detail && <small>{b.detail}</small>}</span>
+      </li>
+    ))}
+  </ol>
+  {axis && <figcaption>{axis}</figcaption>}
+</figure>
+
+<style>
+  .barchart { max-width: 56rem; }
+  ol { display: grid; gap: 1.15rem; }
+  li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .4rem 1rem; align-items: center; }
+  .lab { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .1rem .6rem; align-items: baseline; font-size: .95rem; }
+  .lab strong { font-weight: 600; }
+  .lab span { color: var(--muted); font-size: .875rem; }
+  .track { display: block; height: 1rem; border-radius: 999px; background: var(--tint); overflow: hidden; }
+  :global(.bg-tint) .track { background: var(--surface); }
+  .bar { display: block; height: 100%; border-radius: 999px; background: var(--hue-vivid); }
+  [data-tone='soft'] .bar { opacity: .5; }
+  [data-tone='other'] .bar { background: repeating-linear-gradient(135deg, var(--muted) 0 3px, transparent 3px 8px); opacity: .75; }
+  .val { font-weight: 600; font-variant-numeric: tabular-nums; min-width: 3.5rem; text-align: end; }
+  .val small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+  figcaption { margin-top: 1rem; color: var(--muted); font-size: .875rem; }
+</style>

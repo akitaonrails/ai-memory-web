@@ -14,7 +14,7 @@ const all = args.includes('--all');
 const [first, second] = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--model');
 const locale = all ? first : second;
 const root = new URL('..', import.meta.url).pathname;
-const languageName = { 'pt-br': 'Brazilian Portuguese', es: 'Spanish', he: 'Hebrew', ja: 'Japanese', ko: 'Korean' }[locale] ?? locale;
+const languageName = JSON.parse(readFileSync(`${root}src/i18n/languages.json`, 'utf8'))[locale]?.english ?? locale;
 
 const en = JSON.parse(readFileSync(`${root}src/i18n/locales/en/images.json`, 'utf8'));
 const tr = JSON.parse(readFileSync(`${root}src/i18n/locales/${locale}/images.json`, 'utf8'));

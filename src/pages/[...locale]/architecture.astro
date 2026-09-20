@@ -1,6 +1,8 @@
 ---
-import { useI18n, localePaths } from '@/i18n';
+import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import BarChart from '@/components/BarChart.astro';
+import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -58,15 +60,12 @@ const tools = [
 const toolCount = tools.reduce((n, g) => n + g.names.length, 0);
 
 const faq = raw<{ q: string; a: string }[]>('faq');
-const schema = [{
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-}];
-const next = [
+const schema = [faqPage(faq)];
+const next = withText([
   { href: '/security/', hue: 'rose' as const },
   { href: '/research/', hue: 'violet' as const },
   { href: '/contribute/', hue: 'teal' as const },
-].map((l, i) => ({ ...l, ...raw<Item[]>('next')[i] }));
+], raw<Item[]>('next'));
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
   <PageHero hue="azure" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -85,7 +84,7 @@ const next = [
         </div>
       ))}
     </div>
-    <p class="mt-8 text-muted max-w-[40em] codey" set:html={t('layout.backup')} />
+    <p class="mt-8 text-muted max-w-[40em]" set:html={t('layout.backup')} />
   </Section>
 
   <Section hue="azure" id="pipeline" tint fill title={t('pipeline.title')} lede={t('pipeline.lede')}>
@@ -129,7 +128,7 @@ const next = [
 
     <div class="mt-16 grid md:grid-cols-2 gap-x-14 gap-y-12">
       <div data-hue="azure" class="rule-top">
-        <h3 class="text-xl codey" set:html={t('retrieval.asOf.title')} />
+        <h3 class="text-xl" set:html={t('retrieval.asOf.title')} />
         <ul class="mt-3 space-y-2.5 text-muted dotlist">
           {raw<string[]>('retrieval.asOf.points').map((p) => <li set:html={p} />)}
         </ul>
@@ -168,14 +167,8 @@ const next = [
       <div class="min-w-0" data-hue="azure">
         <h3 class="text-xl">{t('concurrency.writer.title')}</h3>
         <p class="mt-3 text-muted max-w-[36em]">{t('concurrency.writer.text')}</p>
-        <div class="bars mt-6" role="img" aria-label={chartLabel}>
-          {throughput.map((r) => (
-            <div class="bar-row">
-              <span class="lab">{r.label}</span>
-              <span class="track"><span class="fillbar" style={`width:${Math.max(4, (r.rate / 700) * 100)}%`}></span></span>
-              <span class="val tabular-nums">{r.rateText} <small>{r.latencyText}</small></span>
-            </div>
-          ))}
+        <div class="mt-6 max-w-[34rem]">
+          <BarChart label={chartLabel} bars={throughput.map((r) => ({ label: r.label, value: r.rate / 700, display: r.rateText, detail: r.latencyText }))} />
         </div>
         <ul class="mt-6 space-y-2.5 text-muted dotlist">
           {raw<string[]>('concurrency.writer.points').map((p) => <li set:html={p} />)}
@@ -223,10 +216,6 @@ const next = [
 
 <style>
   /* Messages rendered with set:html carry no scope attribute, hence :global. */
-  .codey :global(code), .dotlist :global(code) { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; overflow-wrap: anywhere; }
-  :global(.bg-tint) .codey :global(code), :global(.bg-tint) .dotlist :global(code) { background: var(--surface); }
-  .dotlist li { position: relative; padding-inline-start: 1.4rem; }
-  .dotlist li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
   .rule-top { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
 
   /* Directory tree. It is dir="ltr" in every language, so the physical left/right below are intended. */
@@ -257,14 +246,6 @@ const next = [
   .edge i { position: absolute; left: 0; right: .35rem; bottom: 0; height: 2px; background: var(--amber); }
   .edge i::after { content: ''; position: absolute; right: -.35rem; top: -4px; border: 5px solid transparent; border-left-color: var(--amber); border-right: 0; }
 
-  /* Throughput bars */
-  .bars { display: grid; gap: .7rem; max-width: 34rem; }
-  .bar-row { display: grid; grid-template-columns: 5.8rem minmax(0, 1fr) 7.2rem; align-items: center; gap: .75rem; font-size: .92rem; }
-  .bar-row .lab { color: var(--muted); }
-  .bar-row .track { height: .8rem; border-radius: 999px; background: var(--tint); overflow: hidden; }
-  .bar-row .fillbar { display: block; height: 100%; border-radius: 999px; background: var(--hue-vivid); }
-  .bar-row .val { font-weight: 600; }
-  .bar-row small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
 
   .tool { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: .5rem; padding: .15rem .5rem; font-size: .8rem; }
 </style>

@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import { faqPage } from '@/lib/schema';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -60,10 +61,7 @@ docker cp ai-memory:/data/wiki ./my-ai-memory-wiki
 git -C /data/wiki log --oneline`;
 
 const faq = raw<{ q: string; a: string }[]>('faq');
-const schema = [{
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-}];
+const schema = [faqPage(faq)];
 ---
 <Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
   <PageHero hue="violet" kicker={t('crumbs.solutions')} title={t('hero.title')} lede={t('hero.lede')}>
@@ -178,7 +176,4 @@ const schema = [{
   .says dt { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--hue); }
   .says dd { color: var(--muted); }
   @media (min-width: 48rem) { .says .row { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); align-items: baseline; } }
-  .ticks li { position: relative; padding-inline-start: 1.5rem; }
-  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .7em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
-  .ticks :global(code), p :global(code) { background: var(--surface); border: 1px solid var(--line); border-radius: .35em; padding: .1em .4em; font-size: .88em; overflow-wrap: anywhere; }
 </style>

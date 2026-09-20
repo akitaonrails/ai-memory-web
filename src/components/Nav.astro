@@ -3,13 +3,12 @@ import { Image } from 'astro:assets';
 import logo from '@/assets/img/logo.png';
 import { nav, site } from '@/data/site';
 import { getGithub, compact } from '@/data/github';
-import { useI18n, localizePath, stripLocale } from '@/i18n';
-import { localeCodes, locales } from '@/i18n/config';
+import { useI18n, languageLinks } from '@/i18n';
+import { locales } from '@/i18n/config';
 const gh = await getGithub();
 const { t, href, locale } = useI18n(Astro);
 const path = Astro.url.pathname;
-const bare = stripLocale(path);
-const languages = localeCodes.map((l) => ({ code: l, ...locales[l], url: localizePath(l, bare) }));
+const languages = languageLinks(Astro.url.pathname);
 ---
 <header class="site-nav fixed inset-x-0 top-0 z-50" data-nav>
   <div class="wrap flex h-16 items-center gap-6">
