@@ -1,0 +1,78 @@
+---
+// Google Analytics 4 with Consent Mode v2. Renders nothing unless PUBLIC_GA_ID is set at build time,
+// so local dev and builds without the variable never load Google's script.
+// Consent starts as denied. Until the visitor accepts, GA receives cookieless pings only and sets no cookies.
+// Global Privacy Control and Do Not Track count as "declined" without showing the notice.
+import { useI18n } from '@/i18n';
+const { t } = useI18n(Astro);
+const id = import.meta.env.PUBLIC_GA_ID as string | undefined;
+---
+{id && (
+  <Fragment>
+    <script is:inline define:vars={{ id }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      var choice = null;
+      try { choice = localStorage.getItem('analytics-consent'); } catch (e) {}
+      gtag('consent', 'default', {
+        ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+        analytics_storage: choice === 'granted' ? 'granted' : 'denied',
+      });
+      gtag('js', new Date());
+      gtag('config', id);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+    </script>
+
+    <div class="consent" data-consent hidden role="region" aria-label={t('consent.label')}>
+      <p>{t('consent.text')}</p>
+      <div class="flex gap-2 shrink-0">
+        <button type="button" class="btn btn-ghost" data-consent-set="denied">{t('consent.decline')}</button>
+        <button type="button" class="btn btn-primary" data-consent-set="granted">{t('consent.accept')}</button>
+      </div>
+    </div>
+  </Fragment>
+)}
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-consent]');
+  const gtag = (window as any).gtag as ((...a: unknown[]) => void) | undefined;
+
+  if (box && gtag) {
+    const saved = () => { try { return localStorage.getItem('analytics-consent'); } catch { return null; } };
+    const optedOut = (navigator as any).globalPrivacyControl === true || navigator.doNotTrack === '1';
+    if (!saved() && !optedOut) box.hidden = false;
+
+    document.addEventListener('click', (e) => {
+      const el = e.target as HTMLElement;
+      const set = el.closest<HTMLElement>('[data-consent-set]')?.dataset.consentSet;
+      if (set) {
+        try { localStorage.setItem('analytics-consent', set); } catch {}
+        gtag('consent', 'update', { analytics_storage: set });
+        box.hidden = true;
+        return;
+      }
+      if (el.closest('[data-consent-open]')) { e.preventDefault(); box.hidden = false; return; }
+
+      // The three actions that matter on this site. Downloads and scroll depth come from GA's enhanced measurement.
+      const link = el.closest<HTMLAnchorElement>('a[href]');
+      if (link?.href.startsWith('https://github.com/akitaonrails/ai-memory')) {
+        gtag('event', 'github_click', { link_url: link.href, link_text: link.textContent?.trim().slice(0, 60) });
+      } else if (el.closest('[data-copy]')) {
+        gtag('event', 'copy_command', { page_path: location.pathname, block: el.closest('[data-code]')?.querySelector('.title')?.textContent });
+      }
+    });
+  }
+  // Without GA configured, the footer's "Cookie settings" link has nothing to open.
+  if (!box) document.querySelectorAll<HTMLElement>('[data-consent-open]').forEach((a) => (a.hidden = true));
+</script>
+
+<style>
+  .consent { position: fixed; z-index: 60; left: 1rem; right: 1rem; bottom: 1rem; margin-inline: auto; max-width: 44rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; padding: 1rem 1.25rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); font-size: .95rem; }
+  .consent[hidden] { display: none; }
+  .consent p { flex: 1 1 18rem; color: var(--muted); }
+  .consent .btn { padding: .6em 1.1em; font-size: .92rem; }
+</style>
