@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "title": "고급 설정: TLS, 서비스 등록, 백업, SSO",
+    "description": "ai-memory 본격 운영 가이드. 배포 토폴로지, Caddy, nginx, Cloudflare Tunnel을 통한 TLS, 시스템 서비스, 백업, 라우팅, OIDC, 측정된 한계."
+  },
+  "hero": {
+    "title": "고급 설정과 인프라",
+    "lede": "서버가 노트북을 벗어날 때 필요한 내용입니다. 주제마다 다이어그램이나 표, 가장 짧은 올바른 설정, GitHub의 전체 문서 링크를 담았습니다.",
+    "primary": "빠른 설치부터 시작",
+    "secondary": "배포 가이드 읽기"
+  },
+  "jump": {
+    "label": "이 페이지의 내용",
+    "topologies": "토폴로지",
+    "tls": "TLS",
+    "services": "서비스",
+    "data": "데이터와 백업",
+    "routing": "라우팅",
+    "sso": "SSO",
+    "airgapped": "에어갭",
+    "capacity": "용량",
+    "upgrading": "업그레이드"
+  },
+  "topologies": {
+    "title": "실행할 수 있는 네 가지 위치",
+    "lede": "바이너리는 네 경우 모두 같습니다. 달라지는 것은 바인드 주소이고, 그에 따라 갖춰야 할 인증과 암호화 수준이 정해집니다.",
+    "figure": {
+      "alt": "배포 토폴로지 네 가지를 나란히 보여 줍니다. 서버가 노트북 안에 있는 노트북 단독 구성, 노트북 두 대가 접속하는 홈랩 서버, 앞단에 TLS 방패를 둔 LAN 서버, 클라우드 엣지로 나가는 아웃바운드 터널을 통해 접근하는 서버입니다.",
+      "caption": "오른쪽으로 갈수록 접근 범위가 넓어지고, 한 단계마다 요구 사항이 하나씩 늘어납니다. 어느 구성에도 서버 간 복제는 없습니다. 여러 컴퓨터가 서버 하나에 접속합니다."
+    },
+    "columns": { "topology": "토폴로지", "bind": "바인드", "auth": "인증", "tls": "TLS", "runs": "실행 방식" },
+    "bindProxy": "프록시 뒤의 <code>{addr}</code>",
+    "bindNone": "호스트 포트 없음",
+    "items": [
+      { "name": "노트북만", "auth": "필요 없음", "tls": "아니요", "runs": "systemd 사용자 유닛, launchd 에이전트 또는 컨테이너" },
+      { "name": "홈랩 서버", "auth": "Bearer 토큰과 호스트 허용 목록, 둘 다 필수", "tls": "권장", "runs": "healthcheck를 갖춘 Docker 또는 AUR 시스템 서비스" },
+      { "name": "TLS 적용 LAN", "auth": "루트 토큰, 그리고 사람마다 사용자 계정과 API 키", "tls": "예. Caddy의 내부 CA는 도메인 없이도 동작합니다", "runs": "Caddy 사이드카를 둔 Docker Compose" },
+      { "name": "터널", "auth": "LAN 서버와 동일", "tls": "예, Cloudflare 엣지에서 처리", "runs": "cloudflared 사이드카를 둔 Docker Compose" }
+    ],
+    "stdio": "노트북에서는 <code>ai-memory serve --transport stdio</code>로 HTTP를 아예 건너뛸 수 있습니다. 홈랩용으로는 저장소에 compose와 env 템플릿이 포함된 <code>bin/deploy</code> 스크립트가 있습니다. <a class=\"link\" href=\"{href}\">홈랩 배포 안내서 따라 하기</a>.",
+    "internet": {
+      "title": "공개 인터넷용이 아닙니다",
+      "text": "ai-memory는 워크스테이션과 홈랩을 위한 싱글 테넌트 서비스입니다. 신뢰할 수 없는 인터넷에 직접 노출하도록 설계되지 않았고, 악의적인 트래픽에 의한 서비스 거부는 대응 범위 밖입니다. 자체 접근 제어를 갖춘 터널이나 프록시를 앞에 두세요."
+    }
+  },
+  "tls": {
+    "title": "리버스 프록시를 통한 TLS",
+    "lede": "ai-memory는 의도적으로 TLS를 직접 종단하지 않습니다. Bearer 토큰은 요청을 인증할 뿐 암호화하지는 않습니다.",
+    "skip": {
+      "title": "TLS를 생략해도 되는 경우",
+      "items": [
+        "에이전트가 stdio로 통신할 때",
+        "서버가 루프백 전용이고 사용자가 한 명이며, 다른 컴퓨터에서 <code>/web</code>을 열지 않을 때",
+        "로컬 개발이거나 일회성 실험일 때"
+      ]
+    },
+    "need": {
+      "title": "TLS가 필요한 경우",
+      "items": [
+        "계정이 있을 때. <code>aim_</code> 키가 네트워크를 지나가기 때문입니다",
+        "서버를 루프백 밖으로 바인드했을 때",
+        "다른 컴퓨터에서 <code>/web</code>을 열 때",
+        "LAN 밖에서 서버에 접근할 수 있을 때"
+      ]
+    },
+    "figure": {
+      "alt": "노트북 두 대가 HTTPS로 리버스 프록시에 접속합니다. 프록시는 일반 HTTP로 ai-memory에 전달합니다. 프록시와 ai-memory는 같은 호스트에 있습니다.",
+      "caption": "인증서는 프록시가 관리합니다. ai-memory는 그 뒤에서 일반 HTTP로 동작하며 Docker 네트워크나 루프백으로만 접근할 수 있습니다."
+    },
+    "tabs": ["Caddy", "LAN에서 Caddy", "nginx", "Cloudflare Tunnel"],
+    "caddy": "80과 443 포트에 접근할 수 있는 공개 도메인용입니다. Caddy가 Let's Encrypt 인증서를 알아서 발급하고 갱신합니다. 전체 compose 파일은 저장소의 <code>docker/compose.tls.caddy.yml</code>입니다.",
+    "caddyLan": {
+      "text": "도메인도 없고 외부 노출도 없는 구성입니다. Caddy의 내부 CA가 인증서에 서명하며, 그 루트 인증서를 모든 클라이언트 컴퓨터에 한 번씩 설치합니다. 이 단계를 건너뛰면 클라이언트가 연결을 거부하거나, 사람들이 경고를 무시하고 넘기는 습관을 들이게 됩니다.",
+      "comment": "LE 대신 내부 CA를 쓰도록 Caddy에 지시",
+      "extractTitle": "루트 인증서 추출"
+    },
+    "nginx": "이미 nginx를 운영 중이고 인증서 파일이 있을 때 씁니다. MCP의 streamable HTTP 전송에는 HTTP/1.1과 빈 <code>Connection</code> 헤더가 필요합니다.",
+    "cloudflared": {
+      "text": "아웃바운드 전용 터널이라 라우터 포트를 열 필요가 없습니다. Cloudflare에 등록된 도메인이 필요하며 무료 플랜으로 충분합니다. 대시보드에서 공개 호스트 이름이 <code>http://ai-memory:49374</code>를 가리키게 하세요. 전체 compose 파일은 <code>docker/compose.tls.cloudflared.yml</code>입니다.",
+      "codeTitle": "compose 서비스"
+    },
+    "server": {
+      "title": "다음으로 서버에 알립니다",
+      "text": "허용 목록에 공개 호스트 이름이 들어 있어야 합니다. 없으면 DNS 리바인딩 방어가 프록시의 요청을 거부합니다. 루프백 밖의 리스너로 사람들이 로그인한다면 secure 쿠키 설정도 필수입니다."
+    },
+    "clients": {
+      "title": "그리고 클라이언트 주소를 바꿉니다",
+      "text": "MCP URL은 <code>/mcp</code>로 끝납니다. 훅 URL은 경로 없는 origin입니다."
+    },
+    "guide": "서브패스와 긴 bootstrap 실행을 위한 프록시 타임아웃까지 다루는 전체 HTTPS 가이드 읽기"
+  },
+  "services": {
+    "title": "서버를 계속 실행하기",
+    "lede": "ai-memory는 스스로 재시작하지 않습니다. 그 일은 각 운영체제의 서비스 관리자가 맡습니다.",
+    "tabs": ["systemd 사용자 유닛", "systemd 시스템 유닛", "macOS의 launchd", "Windows의 WinSW"],
+    "user": {
+      "text": "1인용 워크스테이션에 맞습니다. AUR 패키지가 유닛을 설치합니다. sudo가 필요 없고 상태는 <code>~/.local/share/ai-memory</code>에 둡니다. lingering을 켜지 않으면 사용자 유닛은 로그아웃할 때 멈춥니다.",
+      "lingerComment": "로그아웃한 뒤에도 계속 실행"
+    },
+    "system": "공용 워크스테이션이나 LAN 서버에 맞습니다. 데이터는 <code>/var/lib/ai-memory</code>, 설정은 <code>/etc/ai-memory/config.toml</code>, 시크릿은 <code>/etc/ai-memory/env</code>에 둡니다. 두 유닛을 같은 바인드 주소로 동시에 실행하지 마세요.",
+    "launchd": "macOS tarball에는 플레이스홀더 두 개가 들어 있는 LaunchAgent plist가 포함됩니다. 압축을 푼 tarball 안에서 아래 명령을 실행하세요. LaunchAgent는 로그아웃할 때 멈추고, macOS에는 lingering에 해당하는 기능이 없습니다. 로그 파일 두 개는 아무도 로테이션하지 않습니다.",
+    "winsw": "ai-memory에는 Windows 서비스 디스패처가 없습니다. 그래서 exe를 가리키는 <code>sc create</code>는 동작하지 않고, <code>Start-Process</code>를 쓰는 예약 작업은 다음 재부팅 때 죽습니다. WinSW로 감싸면 됩니다. 절대 경로를 쓰세요. 서비스는 LocalSystem으로 실행되므로 <code>%LOCALAPPDATA%</code>가 엉뚱한 프로필로 확장됩니다.",
+    "links": {
+      "systemd": "설치 가이드의 systemd 유닛",
+      "launchd": "macOS 가이드의 launchd",
+      "winsw": "Windows 가이드의 WinSW"
+    }
+  },
+  "data": {
+    "title": "데이터 디렉터리와 백업",
+    "lede": "위키가 원본입니다. git 저장소에 담긴 일반 markdown이고, 검색 인덱스는 거기서 만들어집니다.",
+    "figure": {
+      "alt": "데이터 디렉터리를 둘로 나눈 그림입니다. 원본 쪽에는 git으로 버전 관리되는 markdown 페이지 묶음인 wiki와 raw가 있습니다. 파생 쪽에는 db, models, logs가 있습니다. 재인덱싱이라고 적힌 화살표가 wiki에서 db로 향합니다.",
+      "caption": "reindex는 위키에서 페이지, 링크, 전문 검색을 다시 만듭니다. 세션, 관찰 기록, 인수인계, 사용자, 키, 감사 행, 임베딩은 되살리지 못하므로 데이터베이스도 백업에 포함해야 합니다."
+    },
+    "columns": { "dir": "디렉터리", "holds": "내용", "kind": "성격", "backup": "백업 여부" },
+    "dirs": {
+      "wiki": { "holds": "모든 페이지가 markdown으로, 하나의 git 저장소에", "kind": "원본", "backup": "예. 백업 tarball에 들어 있고, rsync하거나 git push해도 됩니다" },
+      "raw": { "holds": "관리형 실행에서 나온, 변경 불가능하고 정제된 트랜스크립트 세그먼트", "kind": "원본", "backup": "ai-memory run을 쓴다면 예. 별도로 복사하세요" },
+      "db": { "holds": "memory.sqlite: 전문 검색 인덱스, 엔티티, 임베딩, 세션, 사용자, 감사 행", "kind": "대부분 파생", "backup": "예. 페이지, 링크, 검색은 위키에서 다시 만들 수 있습니다. 세션, 인수인계, 사용자, 키는 여기에만 있습니다" },
+      "models": { "holds": "로컬 임베딩 모델, 약 87 MB", "kind": "재생성 가능", "backup": "아니요. 다시 다운로드되며, 파일을 직접 넣어도 됩니다" },
+      "logs": { "holds": "롤링되는 trace 출력", "kind": "버려도 됨", "backup": "아니요" }
+    },
+    "defaults": "기본값: Linux는 <code>~/.local/share/ai-memory</code>, macOS는 <code>~/Library/Application Support/ai-memory</code>, Windows는 <code>%LOCALAPPDATA%\\ai-memory</code>, 컨테이너는 <code>/data</code>입니다. <code>AI_MEMORY_DATA_DIR</code>로 바꿀 수 있습니다.",
+    "backup": {
+      "title": "백업과 복원",
+      "figure": {
+        "alt": "백업은 실행 중인 서버에서 tar.gz 아카이브를 만듭니다. 복원은 아카이브를 중지된 서버에 풀고, 그다음 서버를 다시 시작합니다.",
+        "caption": "백업은 실행 중인 서버를 대상으로 합니다. 복원은 디스크에 직접 작업하며, ai-memory 프로세스가 하나라도 살아 있으면 거부합니다."
+      },
+      "save": {
+        "title": "백업",
+        "text": "SQLite의 온라인 백업 API를 쓰므로 스냅숏 도중에 쓰기가 들어와도 일관성이 유지됩니다. tarball에는 위키 트리, 데이터베이스 스냅숏, <code>config.toml</code>이 들어갑니다.",
+        "comment": "서버 실행 중에도 안전"
+      },
+      "restore": {
+        "title": "복원",
+        "text": "<code>--data-dir</code>은 볼륨의 호스트 쪽 경로입니다. 여기 적힌 경로는 배포 가이드의 예시입니다. 본인 환경의 경로로 바꾸세요.",
+        "stopComment": "먼저 서버를 중지합니다.",
+        "restoreComment": "복원합니다(컨테이너가 아직 실행 중이면 sysinfo가 거부합니다).",
+        "startComment": "다시 시작합니다."
+      }
+    },
+    "oneServer": {
+      "title": "데이터 디렉터리 하나에 서버 하나",
+      "text": "한 디렉터리에 서버 두 대가 붙으면(동기화 폴더, NFS 마운트, 볼륨 하나를 쓰는 컨테이너 두 개) 각자 자기 라이터와 git 핸들을 돌립니다. SQLite는 버티지만 위키는 버티지 못합니다. 2.0부터 <code>serve</code>는 <code>.serve.lock</code>에 배타적 잠금을 걸고, 두 번째 서버는 잠금을 쥔 프로세스를 알려 주며 시작을 거부합니다. 프로세스가 종료되면 OS가 잠금을 풉니다."
+    },
+    "reindex": {
+      "title": "인덱스 다시 만들기",
+      "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code>는 서버가 중지되어 있고 데이터베이스가 비어 있어야 합니다. 백업을 받고, <code>db/memory.sqlite</code>와 WAL, SHM 파일을 다른 곳으로 옮긴 뒤 실행하세요. 재시작한 다음 <code>ai-memory embed</code>를 실행해 임베딩을 다시 만듭니다."
+    },
+    "lifecycle": "라이프사이클 작업 읽기: 퍼지, 이름 변경, 이동, 페이지 복원, 초기화"
+  },
+  "routing": {
+    "title": "라우팅과 신원",
+    "lede": "공유 서버는 두 가지 질문에 답해야 합니다. 이 세션은 어느 프로젝트에 속하는가, 그리고 요청하는 사람은 누구인가.",
+    "marker": {
+      "title": "마커 파일",
+      "text": "기본적으로 프로젝트는 현재 디렉터리 이름이고, <code>default</code>라는 워크스페이스에 들어갑니다. 이를 바꾸려면 상위 디렉터리 어디에든 <code>.ai-memory.toml</code>을 두세요. 훅은 작업 디렉터리에서 위로 올라가며 처음 만나는 마커를 사용합니다.",
+      "items": [
+        { "title": "업무용과 개인용", "text": "상위 디렉터리마다 마커를 하나씩 둡니다. 그 아래 모든 저장소가 해당 워크스페이스에 들어가고, 디렉터리 이름이 프로젝트가 됩니다." },
+        { "title": "모노레포", "text": "project를 지정한 마커는 모든 하위 디렉터리를 그 프로젝트 하나로 고정합니다. 가장 가까운 마커가 우선합니다." },
+        { "title": "Git worktree", "text": "연결된 worktree와 하위 디렉터리는 메인 저장소로 해석됩니다. worktree가 저장소 밖에 있어도 마찬가지입니다." }
+      ],
+      "capture": "같은 파일에 <code>ignore_paths</code>를 담은 <code>[capture]</code> 규칙도 들어갑니다. <code>ai-memory install-hooks --apply --capture-mode allowlist</code>를 쓰면 마커가 옵트인 역할을 해서, 마커 없는 저장소는 이벤트를 전혀 내보내지 않습니다. 네이티브 훅은 두 가지를 모두 강제합니다. Docker 래퍼의 셸 훅은 강제하지 않습니다. <a class=\"link\" href=\"{href}\">마커 파일 레퍼런스 읽기</a>."
+    },
+    "autoScope": {
+      "title": "auto-scope 모드",
+      "text": "프로젝트를 명시하지 않은 MCP 호출은 \"현재 프로젝트\" 포인터로 해석됩니다. 그 포인터를 누구와 공유할지는 모드가 정합니다. 서버는 시작할 때 현재 모드를 로그에 남깁니다.",
+      "columns": { "mode": "모드", "when": "쓰는 경우" },
+      "modes": {
+        "per_actor": "기본값입니다. 한 서버에서 병렬로 도는 하네스와 서로 다른 사람을 격리합니다.",
+        "per_session": "모든 MCP 요청에 훅 세션 id를 전달하는 세션 인식 클라이언트용입니다.",
+        "single": "v1.39 이전의 동작입니다. 프로세스 전체에 슬롯이 하나이고 마지막 쓰기가 이깁니다. 공유 서버에서는 안전하지 않습니다."
+      },
+      "comments": {
+        "mode": "\"per_actor\"(v1.39부터 기본값) | \"per_session\" | \"single\"",
+        "ttl": "키별 항목의 TTL(기본 1시간)",
+        "max": "하드 상한. 가장 먼저 들어온 항목부터 제거"
+      },
+      "link": "auto-scope 격리의 동작 방식 읽기"
+    },
+    "sso": {
+      "title": "SSO와 OIDC",
+      "text": "개발자마다 Keycloak, Okta, Entra ID 같은 표준 준수 issuer에 OIDC 디바이스 플로로 한 번 로그인합니다. 정적 Bearer 토큰이 설정되어 있지 않으면 이 토큰이 네이티브 라이프사이클 훅과 CLI 명령을 인증합니다.",
+      "calloutTitle": "서버는 OIDC 토큰을 검증하지 않습니다",
+      "calloutText": "서버의 로그인 게이트 역할을 하지는 않습니다. ai-memory는 API 접근에 대해 OIDC 토큰을 IdP에 확인하지 않습니다. 서버를 IdP 뒤에 두려면 OIDC를 이해하는 게이트웨이나 리버스 프록시를 앞에 두고, 승인된 신원을 정적 Bearer 토큰이나 사용자별 API 키로 변환해야 합니다. OIDC 훅 인증에는 네이티브 훅 경로도 필요합니다. Docker 래퍼의 셸 훅은 이를 사용하지 않습니다.",
+      "link": "SSO와 엔터프라이즈 신원 페이지 읽기"
+    }
+  },
+  "ops": {
+    "title": "오프라인, 한계, 업그레이드",
+    "lede": "보안 검토, 용량 계획, 점검 시간에 각각 알아야 할 내용입니다.",
+    "airgapped": {
+      "title": "에어갭(망분리) 설치",
+      "binaries": {
+        "title": "바이너리",
+        "text": "모든 릴리스 에셋에 <code>.sha256</code> 파일이 있습니다. 네트워크에 연결된 컴퓨터에서 받아 검증한 뒤 들고 들어가세요. 릴리스는 체크섬만 제공하며 SLSA provenance나 아티팩트 attestation은 없습니다."
+      },
+      "source": {
+        "title": "소스 빌드",
+        "text": "SQLite는 번들되어 있고 libgit2는 vendoring되어 있으므로, 빌드에는 C 툴체인과 crates 미러가 필요합니다. <code>cargo vendor</code>가 동작합니다."
+      },
+      "model": {
+        "title": "임베딩 모델",
+        "text": "기본 설치는 첫 시작 때 Hugging Face에서 모델을 받습니다. 아웃바운드 요청을 아예 없애려면 <code>model.safetensors</code>, <code>tokenizer.json</code>, <code>config.json</code>을 미리 <code>&lt;data_dir&gt;/models/all-MiniLM-L6-v2/</code>에 넣어 두세요. 체크섬은 소스에 고정되어 있습니다."
+      },
+      "telemetry": "바이너리에는 텔레메트리가 없습니다. Docker 래퍼는 많아야 24시간에 한 번 Docker Hub에서 새 이미지를 확인하며, <code>AI_MEMORY_NO_VERSION_CHECK=1</code>로 끌 수 있습니다. 에어갭 환경에서는 업데이트도 설치와 같은 방식으로 수동입니다. <a class=\"link\" href=\"{href}\">오프라인 설치 페이지 읽기</a>."
+    },
+    "capacity": {
+      "title": "용량",
+      "text": "모든 쓰기는 라이터 하나를 거칩니다. 프로젝트는 그 한계를 <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>로 측정했습니다.",
+      "columns": { "writers": "동시 라이터 수", "throughput": "처리량", "latency": "평균 지연 시간" },
+      "perSecond": "{n}/s",
+      "ms": "{n} ms",
+      "notes": [
+        "상한은 초당 약 700건의 쓰기이며 라이터 32개 부근에서 도달합니다.",
+        "쓰기 큐는 1024로 제한됩니다. 이를 넘으면 생산자가 느려질 뿐 모든 쓰기는 그대로 반영됩니다.",
+        "셸 훅은 200 ms가 지나면 서버를 기다리지 않고 이벤트를 로컬에 스풀하므로, 서버가 느려도 에이전트가 멈추지 않습니다.",
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code>와 <code>AI_MEMORY_HOOK_RATE_BURST</code>로 액터와 세션 단위의 속도 제한을 추가할 수 있습니다. 기본값은 꺼짐입니다."
+      ],
+      "caveats": {
+        "title": "수치는 단서와 함께 읽으세요",
+        "text": "빠른 로컬 디스크에서 측정한 값이고 비용의 대부분은 <code>fsync</code>이므로, 네트워크 파일 시스템이나 느린 볼륨에서는 눈에 띄게 낮아집니다. 측정 대상은 스토어이며 HTTP 진입점은 포함하지 않습니다. 공개된 유일한 훅 지연 수치인 네이티브 훅 호출당 약 145 ms는 macOS 호스트 한 대에서 잰 값이며 벤치마크로 볼 수 없습니다."
+      },
+      "link": "배포 가이드의 용량 섹션 읽기"
+    },
+    "upgrading": {
+      "title": "업그레이드",
+      "notes": [
+        "Docker 래퍼를 쓰면 이 명령이 래퍼를 검증하고 교체한 뒤 이미지를 pull하고 훅 스크립트를 다시 배치합니다. 다른 호스트의 서버는 따로 업그레이드합니다.",
+        "스키마와 위키 마이그레이션은 시작할 때 실행됩니다. 전진만 가능합니다. 이전 버전 바이너리는 마이그레이션된 디렉터리를 열지 않으므로, 롤백할 가능성이 있다면 먼저 <code>ai-memory backup</code>을 실행하세요."
+      ],
+      "from1x": {
+        "title": "1.x에서 올라올 때",
+        "text": "2.0을 처음 시작하면 위키를 Open Knowledge Format v0.2로 다시 씁니다. 무엇이든 건드리기 전에 데이터 디렉터리 전체를 <code>~/ai-memory-backup-okf-v0.2-&lt;date&gt;.tar.gz</code>(컨테이너에서는 <code>/data/backups/</code>)로 아카이브하고 검증합니다. 백업을 쓰거나 검증하지 못하면 마이그레이션이 중단되고 서버는 시작을 거부하며, 데이터는 그대로 남습니다."
+      },
+      "link": "되돌리는 방법까지 포함한 2.0 마이그레이션 가이드 읽기"
+    }
+  },
+  "faq": [
+    {
+      "q": "ai-memory에 TLS가 필요한가요?",
+      "a": "127.0.0.1에 바인드한 1인용 노트북이나 stdio 환경에서는 필요 없습니다. 계정이 있거나, 서버를 루프백 밖으로 바인드했거나, 다른 컴퓨터에서 웹 UI를 열거나, LAN 밖에서 접근할 수 있다면 TLS 프록시를 추가하세요. ai-memory는 TLS를 직접 종단하지 않습니다."
+    },
+    {
+      "q": "무엇을 백업해야 하나요?",
+      "a": "ai-memory backup을 실행하세요. 서버가 실행 중이어도 안전합니다. tarball에는 위키 트리, 일관된 SQLite 스냅숏, config.toml이 들어갑니다. 위키가 단일 진실 공급원입니다. 페이지, 링크, 검색은 ai-memory reindex로 위키에서 다시 만들 수 있지만 세션, 인수인계, 사용자, 키는 데이터베이스에만 있습니다."
+    },
+    {
+      "q": "ai-memory는 SSO를 지원하나요?",
+      "a": "표준 준수 issuer라면 어디든 라이프사이클 훅과 CLI 명령에 OIDC 디바이스 인증을 쓸 수 있습니다. 서버가 OIDC 토큰을 직접 검증하지는 않으므로, 서버 API를 IdP 뒤에 두려면 OIDC를 이해하는 게이트웨이를 앞에 둬야 합니다."
+    },
+    {
+      "q": "서버 두 대가 데이터 디렉터리 하나를 공유할 수 있나요?",
+      "a": "아니요. 데이터 디렉터리 하나에 서버 하나만 실행하세요. 2.0부터 서버는 .serve.lock에 배타적 잠금을 걸고, 두 번째 서버는 시작을 거부합니다."
+    }
+  ],
+  "nextPages": {
+    "install": "짧은 경로: 컴퓨터 한 대는 세 단계, 팀은 다섯 단계.",
+    "security": "단계별 보안 강화, 프라이버시 경계, 삭제의 실제 의미.",
+    "architecture": "단일 바이너리, markdown 파일, 파생 인덱스."
+  },
+  "help": {
+    "title": "특이한 환경에서 실행하시나요?",
+    "text": "이슈를 열고 구성을 설명해 주세요. 소스, 문서, 이슈 트래커 모두 공개되어 있습니다."
+  }
+}

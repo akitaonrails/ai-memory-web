@@ -1,0 +1,143 @@
+{
+  "status": {
+    "supported": {
+      "label": "지원",
+      "means": "라이프사이클 훅으로 자동 캡처하고, MCP로 메모리 도구를 제공합니다."
+    },
+    "mcp-only": {
+      "label": "MCP 전용",
+      "means": "에이전트가 기억을 검색하고 쓸 수 있습니다. 라이프사이클 훅을 제공하지 않아 자동으로 캡처되는 것은 없습니다."
+    },
+    "hooks-only": {
+      "label": "훅 전용",
+      "means": "세션이 자동으로 캡처됩니다. 에이전트에 기억을 조회할 MCP 클라이언트가 없습니다."
+    },
+    "managed-only": {
+      "label": "관리형 실행 전용",
+      "means": "`ai-memory run`으로 실행할 때 동작합니다. 별도의 훅 설치 프로그램은 없습니다."
+    },
+    "community": {
+      "label": "커뮤니티",
+      "means": "커뮤니티가 유지하는 플러그인이며, ai-memory가 직접 설치하지 않습니다."
+    },
+    "experimental": {
+      "label": "실험적",
+      "means": "릴리스에 포함되어 있고 동작하지만, 거친 부분이 있다는 점은 감안해야 합니다."
+    }
+  },
+  "platforms": {
+    "linux": {
+      "name": "Linux",
+      "note": "x86_64와 ARM64. 네이티브 바이너리, Docker 또는 Podman, systemd 유닛이 포함된 AUR 패키지."
+    },
+    "macos": {
+      "name": "macOS",
+      "note": "Apple Silicon과 Intel. launchd 에이전트가 포함된 네이티브 바이너리 또는 Docker."
+    },
+    "windows-via-wsl2": {
+      "name": "WSL2를 통한 Windows",
+      "note": "WSL2 안에서 Linux 설치 방법을 따르고, 에이전트도 거기서 실행하세요."
+    },
+    "native-windows": {
+      "name": "네이티브 Windows",
+      "note": "ai-memory.exe가 들어 있는 릴리스 zip, Docker Desktop 래퍼, 또는 소스 빌드."
+    }
+  },
+  "harnesses": {
+    "claude-code": {
+      "note": "훅과 MCP. 세션 인식 라우팅은 선택 사항."
+    },
+    "codex": {
+      "note": "훅과 MCP. 세션 종료는 Codex CLI 0.145.0부터 연결됩니다."
+    },
+    "cursor": {
+      "note": "MCP 설정과 라이프사이클 훅."
+    },
+    "gemini-cli": {
+      "note": "MCP 설정과 라이프사이클 훅."
+    },
+    "opencode": {
+      "note": "원격 MCP와 자동 생성되는 TypeScript 플러그인."
+    },
+    "opencode2": {
+      "note": "베타 API용 플러그인. 업스트림이 자주 바뀔 수 있습니다."
+    },
+    "grok": {
+      "note": "캡처가 동작합니다. 인수인계는 MCP로 받습니다."
+    },
+    "devin": {
+      "note": "훅과 MCP. 컴팩션 이후 캡처도 포함합니다."
+    },
+    "kimi-code": {
+      "note": "훅 이벤트 10종. 인수인계는 첫 프롬프트에 주입됩니다."
+    },
+    "kiro-cli": {
+      "note": "v2와 v3 엔진 모두 지원."
+    },
+    "command-code": {
+      "note": "MCP와 훅 이벤트 4종, 네이티브 resume 지원."
+    },
+    "antigravity-cli": {
+      "note": "세션은 finalize-session으로 닫힙니다."
+    },
+    "pi": {
+      "note": "자동 생성되는 확장이 캡처와 MCP 브리지를 제공합니다."
+    },
+    "omp": {
+      "note": "네이티브 MCP와 TypeScript 확장."
+    },
+    "openclaw": {
+      "note": "MCP 설정과 네이티브 플러그인 훅."
+    },
+    "zero": {
+      "note": "서브에이전트 이벤트까지 캡처합니다."
+    },
+    "zcode": {
+      "note": "트리거 6종. 인수인계 주입이 동작합니다."
+    },
+    "crush": {
+      "note": "ai-memory run crush로 실행하세요."
+    },
+    "pool": {
+      "note": "생성된 훅 스니펫을 설정에 붙여 넣으세요."
+    },
+    "claude-desktop": {
+      "note": "mcp-remote를 통해 연결합니다."
+    },
+    "vscode-copilot": {
+      "note": "Copilot은 아직 라이프사이클 훅을 제공하지 않습니다."
+    },
+    "zed": {
+      "note": "컨텍스트 서버로 등록됩니다."
+    },
+    "swival": {
+      "note": "프로젝트 단위 MCP 설정."
+    },
+    "muse": {
+      "note": "사용자 단위 MCP 설정."
+    },
+    "hermes": {
+      "note": "MrLuciano가 만든 커뮤니티 플러그인."
+    }
+  },
+  "llmProviders": [
+    "Anthropic",
+    "OpenAI",
+    "OpenAI OAuth / Codex CLI 로그인",
+    "GitHub Copilot",
+    "Google Gemini",
+    "OpenCode Go와 Zen",
+    "Ollama",
+    "LM Studio",
+    "vLLM",
+    "OpenAI 호환 엔드포인트 전부"
+  ],
+  "embeddingProviders": [
+    "로컬, 인프로세스 (기본값)",
+    "OpenAI",
+    "Voyage",
+    "Google Gemini",
+    "GitHub Copilot",
+    "Ollama, LM Studio, vLLM"
+  ]
+}

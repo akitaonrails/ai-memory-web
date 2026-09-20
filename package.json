@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Marketing site for ai-memory \u2014 https://aimemory.io",
+  "description": "Marketing site for ai-memory — https://aimemory.io",
   "author": "Fabio Akita",
   "license": "UNLICENSED",
   "scripts": {
@@ -20,6 +20,7 @@
     "@fontsource-variable/heebo": "^5.3.0",
     "@fontsource-variable/instrument-sans": "^5.3.0",
     "@fontsource-variable/noto-sans-jp": "^5.3.0",
+    "@fontsource-variable/noto-sans-kr": "^5.3.0",
     "@fontsource-variable/rubik": "^5.3.0",
     "@fontsource/commit-mono": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",

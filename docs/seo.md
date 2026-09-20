@@ -40,4 +40,4 @@
 
 - One page per agent ("ai-memory for Cursor", "ai-memory for Codex") with that agent's two commands and caveats. The data is already in `src/data/support.ts`.
 - One page per alternative ("ai-memory vs Mem0"). The data is in `src/data/competitors.ts`, and `/compare/` already has an anchor per tool.
-- A Portuguese version. Your audience there is large. Astro has built-in i18n routing.
+- The site is already in six languages (see [i18n.md](i18n.md)). Submit the sitemap once; it lists every language with `hreflang`.

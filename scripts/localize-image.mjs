@@ -14,7 +14,7 @@ const all = args.includes('--all');
 const [first, second] = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--model');
 const locale = all ? first : second;
 const root = new URL('..', import.meta.url).pathname;
-const languageName = { 'pt-br': 'Brazilian Portuguese', es: 'Spanish', he: 'Hebrew', ja: 'Japanese' }[locale] ?? locale;
+const languageName = { 'pt-br': 'Brazilian Portuguese', es: 'Spanish', he: 'Hebrew', ja: 'Japanese', ko: 'Korean' }[locale] ?? locale;
 
 const en = JSON.parse(readFileSync(`${root}src/i18n/locales/en/images.json`, 'utf8'));
 const tr = JSON.parse(readFileSync(`${root}src/i18n/locales/${locale}/images.json`, 'utf8'));
@@ -34,7 +34,7 @@ Rules:
 - Each new label sits where the old one was, in the same color, weight and approximate size, in a clean sans-serif that supports ${languageName}. Shrink the text slightly if the translation is longer, so it never overlaps a shape or gets cut off.
 - Copy the translated text exactly, character by character, including accents and punctuation. Do not add, drop or change any character.
 - Leave every label that is not in the list exactly as it is (product names, file names, commands, numbers).
-${locale === 'he' ? '- Hebrew is written right to left. Render each Hebrew label as correct right-to-left text. The diagram itself keeps its left-to-right flow.\n' : ''}${locale === 'ja' ? '- Use natural horizontal Japanese typesetting with a Japanese gothic (sans-serif) face.\n' : ''}- No watermark, no border, no extra text.`;
+${locale === 'he' ? '- Hebrew is written right to left. Render each Hebrew label as correct right-to-left text. The diagram itself keeps its left-to-right flow.\n' : ''}${locale === 'ja' ? '- Use natural horizontal Japanese typesetting with a Japanese gothic (sans-serif) face.\n' : ''}${locale === 'ko' ? '- Use horizontal Korean typesetting in a clean Korean gothic (sans-serif) face, with correctly composed Hangul syllable blocks.\n' : ''}- No watermark, no border, no extra text.`;
 
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: 'POST',

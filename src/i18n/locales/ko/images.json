@@ -1,0 +1,165 @@
+{
+  "advanced-backup-flow": {
+    "Backup": "백업",
+    "Running server": "실행 중인 서버",
+    "Restore": "복원",
+    "Server stopped": "서버 중지"
+  },
+  "advanced-data-dir": {
+    "Source of truth": "원본",
+    "Derived": "파생"
+  },
+  "advanced-tls-proxy": {
+    "Reverse proxy": "리버스 프록시",
+    "Same host": "같은 호스트"
+  },
+  "advanced-topologies": {
+    "Laptop only": "노트북만",
+    "Homelab box": "홈랩 서버",
+    "LAN with TLS": "TLS 적용 LAN",
+    "Tunnel": "터널"
+  },
+  "architecture-layers": {
+    "Markdown in git": "git 안의 markdown",
+    "Source of truth": "원본",
+    "SQLite index": "SQLite 인덱스",
+    "Derived": "파생",
+    "Writer": "Writer",
+    "File watcher": "파일 감시",
+    "Reindex": "재인덱싱"
+  },
+  "architecture-pipeline": {
+    "Hook": "훅",
+    "Sanitize": "민감 정보 제거",
+    "Single writer": "단일 writer",
+    "Observations": "관찰 기록",
+    "Session page": "세션 페이지",
+    "Optional LLM": "LLM (선택)",
+    "Git wiki": "Git 위키",
+    "Briefing": "브리핑"
+  },
+  "architecture-retrieval": {
+    "Query": "쿼리",
+    "Entities": "엔티티",
+    "Graph": "그래프",
+    "Vectors": "벡터",
+    "Authority": "권위도",
+    "Results": "결과"
+  },
+  "compare-side-by-side": {
+    "Git history": "Git 히스토리",
+    "README and docs": "README와 문서",
+    "Your agent": "내 에이전트",
+    "Current memory tool": "지금 쓰는 메모리 도구"
+  },
+  "compare-stack": {
+    "Typical memory stack": "흔한 메모리 스택",
+    "Vector store": "벡터 스토어",
+    "Graph database": "그래프 DB",
+    "Python service": "Python 서비스",
+    "One binary": "단일 바이너리",
+    "Markdown folder": "markdown 폴더"
+  },
+  "contribute-flow": {
+    "Issue": "이슈",
+    "Branch": "브랜치",
+    "Local gates": "로컬 검사",
+    "Pull request": "풀 리퀘스트",
+    "Review": "리뷰",
+    "Next release": "다음 릴리스"
+  },
+  "how-it-works": {
+    "Capture": "캡처",
+    "Consolidate": "통합",
+    "Recall": "회상",
+    "Hand off": "인수인계",
+    "A git-backed wiki of plain markdown files": "일반 markdown 파일로 된 git 기반 위키"
+  },
+  "individuals-handoff": {
+    "Handoff": "인수인계",
+    "Summary": "요약",
+    "Next steps": "다음 단계",
+    "Open questions": "미해결 질문",
+    "Claimed once": "수령은 한 번만"
+  },
+  "individuals-machines": {
+    "One ai-memory server": "ai-memory 서버 한 대",
+    "Notebook": "노트북",
+    "Offline": "오프라인",
+    "Local spool": "로컬 스풀",
+    "Drains later": "나중에 전송"
+  },
+  "individuals-markdown": {
+    "wiki/ plain markdown": "wiki/ 일반 markdown",
+    "Edit": "편집",
+    "git history": "git 히스토리"
+  },
+  "install-solo-path": {
+    "Install": "설치",
+    "Start the server": "서버 시작",
+    "Run your agent": "에이전트 실행"
+  },
+  "install-team-topology": {
+    "One shared server": "공유 서버 한 대",
+    "Token": "토큰",
+    "One API key each": "1인당 API 키 하나",
+    "One wiki for the team": "팀 전체가 쓰는 위키 하나"
+  },
+  "integrations-hooks-vs-mcp": {
+    "Hooks": "훅",
+    "Automatic capture": "자동 캡처",
+    "Tools the agent calls": "에이전트가 호출하는 도구",
+    "Your agent": "내 에이전트",
+    "Memory": "기억"
+  },
+  "integrations-hub": {
+    "One memory": "하나의 기억"
+  },
+  "research-okf-bundle": {
+    "One project": "프로젝트 하나",
+    "Decision": "결정",
+    "Gotcha": "주의점",
+    "Procedure": "절차",
+    "Another OKF tool": "다른 OKF 도구"
+  },
+  "research-three-layers": {
+    "Raw sources": "원본 소스",
+    "Wiki": "위키",
+    "Schema": "스키마",
+    "Hook observations": "훅 관찰 기록",
+    "Markdown in git": "git 안의 markdown",
+    "AGENTS.md block": "AGENTS.md 블록"
+  },
+  "security-boundary": {
+    "Hook payload": "훅 페이로드",
+    "Secrets dropped": "시크릿 제거",
+    "Stored": "저장",
+    "Size capped": "크기 제한"
+  },
+  "security-egress": {
+    "Your machine": "내 컴퓨터",
+    "Third parties": "서드파티",
+    "Hooks": "훅",
+    "Wiki and index": "위키와 인덱스",
+    "Local embedder": "로컬 임베더",
+    "Cloud embeddings": "클라우드 임베딩",
+    "Cloud LLM": "클라우드 LLM",
+    "LLM rerank": "LLM 리랭크",
+    "Opt-in, off by default": "옵트인, 기본은 꺼짐"
+  },
+  "teams-first-day": {
+    "Get an API key": "API 키 받기",
+    "Point at the server": "서버 지정",
+    "Catch me up": "현황 알려 줘",
+    "Search the wiki": "위키 검색",
+    "Day one": "첫날"
+  },
+  "teams-shared-owned": {
+    "Knowledge is shared": "지식은 공유",
+    "Batons are owned": "바통은 한 사람 것"
+  },
+  "teams-topology": {
+    "One ai-memory server": "ai-memory 서버 한 대",
+    "Project wiki": "프로젝트 위키"
+  }
+}

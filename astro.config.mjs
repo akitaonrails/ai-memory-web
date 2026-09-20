@@ -6,8 +6,8 @@ import sitemap from '@astrojs/sitemap';
 
 // Keep in step with src/i18n/config.ts.
 const defaultLocale = 'en';
-const languages = { en: ['en'], 'pt-br': ['pt'], es: ['es'], he: ['he', 'iw'], ja: ['ja'] };
-const htmlLang = { en: 'en', 'pt-br': 'pt-BR', es: 'es', he: 'he', ja: 'ja' };
+const languages = { en: ['en'], 'pt-br': ['pt'], es: ['es'], he: ['he', 'iw'], ja: ['ja'], ko: ['ko'] };
+const htmlLang = { en: 'en', 'pt-br': 'pt-BR', es: 'es', he: 'he', ja: 'ja', ko: 'ko' };
 
 /**
  * Writes Netlify's _redirects so a first visit lands on the visitor's language at the edge, with no flash:

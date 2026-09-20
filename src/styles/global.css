@@ -104,6 +104,11 @@
   --ff-sans: 'Instrument Sans Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
 }
 
+:root:lang(ko) {
+  --ff-display: 'Bricolage Grotesque Variable', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --ff-sans: 'Instrument Sans Variable', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -328,6 +333,7 @@
 /* Scripts without Latin proportions: no negative tracking, more leading, and widths measured in em, because
    a heading capped at "16ch" holds about half as many full-width Japanese characters as Latin ones. */
 :lang(ja) :is(h1, h2, h3, h4),
+:lang(ko) :is(h1, h2, h3, h4),
 :lang(he) :is(h1, h2, h3, h4) {
   letter-spacing: 0;
   line-height: 1.22;
@@ -348,6 +354,17 @@
 }
 :lang(he) body {
   font-variation-settings: normal;
+}
+/* Korean separates words with spaces, so lines break between words and never inside one. */
+:lang(ko) :is(h1, h2, h3, h4) {
+  font-weight: 800;
+  max-width: 24em !important;
+}
+:lang(ko) body {
+  line-height: 1.75;
+  font-variation-settings: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 /* Code, commands, file paths and version numbers stay left to right inside right-to-left text. */
 [dir='rtl'] :is(code, kbd, pre, samp, .font-mono) {

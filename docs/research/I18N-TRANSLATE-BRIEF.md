@@ -69,3 +69,41 @@ You translate the English message catalogs in `/mnt/data/Projects/ai-memory-web/
 
 ## Working alongside other translators
 Several translators work on the same language at once, on different files. Before you start, read `docs/i18n/glossary-<locale>.md` if it exists and any catalogs already present in your locale folder (especially `common.json`, `home.json`, `competitors.json`, `support.json`) and reuse their terms and tone, so the site reads as one voice. Page kickers, nav labels and button labels that also appear in `common.json` must match it exactly. Add your own term decisions to the glossary file (append; never rewrite another translator's rows). Work file by file: write a file, run the check, fix, move on. Large files are fine to write in one go, but never leave a file half translated with English values; omit nothing.
+
+## Korean (ko), added later
+Voice: 합니다/습니다체 for body text, the register of good Korean developer documentation (Toss, Kakao and NAVER tech blogs, official Korean docs of major frameworks). Concise. Headlines and buttons may end in nouns or 해요-free short forms ("5분 만에 설치하기", "에이전트를 바꿔도 맥락은 그대로"). Put a space between Hangul and Latin words only where normal Korean spacing rules ask for one (조사 attach directly: "Codex를", "ai-memory는"). Do not transliterate product names into Hangul. Use standard loanwords developers use (서버, 세션, 토큰, 위키, 벤치마크), and keep English where Korean developers do (MCP, LLM, API, hooks may be written 훅). Punctuation: Western (. , ? !), quotes as plain " or '. SEO: titles under 35 Hangul characters, descriptions 80 to 110 characters.
+
+| English | ko |
+|---|---|
+| long-term memory | 장기 기억 |
+| AI coding agent | AI 코딩 에이전트 (short: 에이전트) |
+| harness | 하네스 |
+| handoff | 인수인계(핸드오프) first time, then 인수인계 |
+| baton | 바통 |
+| hooks / lifecycle hooks | 훅 / 라이프사이클 훅 |
+| capture | 캡처 |
+| consolidate | 통합 |
+| recall | 회상 / 불러오기 |
+| briefing | 브리핑 |
+| session | 세션 |
+| observation | 관찰 기록 |
+| wiki / page | 위키 / 페이지 |
+| source of truth | 단일 진실 공급원 (short: 원본) |
+| derived index | 파생 인덱스 |
+| one binary | 단일 바이너리 |
+| self-hosted | 셀프 호스팅 |
+| team / teammate | 팀 / 팀원 |
+| onboarding | 온보딩 |
+| API key / token | API 키 / 토큰 |
+| embeddings | 임베딩 |
+| vector search / full-text search | 벡터 검색 / 전문 검색 |
+| knowledge graph | 지식 그래프 |
+| open source | 오픈 소스 |
+| pull request / issue | 풀 리퀘스트 / 이슈 |
+| changelog / release | 변경 이력 / 릴리스 |
+| quick setup | 빠른 설치 |
+| audit log | 감사 로그 |
+| air-gapped | 에어갭(망분리) |
+| homelab | 홈랩 |
+
+For `home.json` `continuity.scenes`: translate the natural-language lines, including the prompts the developer types after `>` and the `●` status lines (for example "> where did we leave off?" becomes what a Korean developer would type). Lines that are commands or paths stay as they are (`~/app $ ai-memory run claude`, `> /exit`, `● Edit auth/middleware.rs`, the wiki tree). Each line must stay under about 34 half-width columns (a Hangul character counts as 2), because it sits in a narrow terminal card.

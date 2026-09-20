@@ -8,6 +8,7 @@ export const locales = {
   es: { label: 'Español', htmlLang: 'es', dir: 'ltr', og: 'es_ES', match: ['es'] },
   he: { label: 'עברית', htmlLang: 'he', dir: 'rtl', og: 'he_IL', match: ['he', 'iw'] },
   ja: { label: '日本語', htmlLang: 'ja', dir: 'ltr', og: 'ja_JP', match: ['ja'] },
+  ko: { label: '한국어', htmlLang: 'ko', dir: 'ltr', og: 'ko_KR', match: ['ko'] },
 } as const;
 
 export type Locale = keyof typeof locales;

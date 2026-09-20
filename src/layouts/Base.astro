@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import fontsHe from '@/styles/fonts-he.css?url';
 import fontsJa from '@/styles/fonts-ja.css?url';
+import fontsKo from '@/styles/fonts-ko.css?url';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
@@ -30,7 +31,7 @@ const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
 // The same page in every language, for <link rel="alternate" hreflang> and the language switcher.
 const barePath = stripLocale(Astro.url.pathname);
 const alternates = localeCodes.map((l) => ({ hreflang: locales[l].htmlLang, url: new URL(localizePath(l, barePath), Astro.site).href }));
-const localeFonts = { he: fontsHe, ja: fontsJa }[locale as string];
+const localeFonts = { he: fontsHe, ja: fontsJa, ko: fontsKo }[locale as string];
 
 // Breadcrumbs from the URL: /pt-br/solutions/teams/ -> Início > Soluções > (page title)
 const segments = barePath.split('/').filter(Boolean);

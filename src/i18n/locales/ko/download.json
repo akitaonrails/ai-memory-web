@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "ai-memory 다운로드 및 변경 이력",
+    "description": "Linux, macOS, Windows용 ai-memory {tag}를 다운로드하거나 mise, AUR, Docker로 설치하세요. 체크섬, 릴리스 기록, 전체 변경 이력을 확인할 수 있습니다."
+  },
+  "hero": {
+    "kicker": "개발자",
+    "title": "ai-memory {tag} 다운로드",
+    "lede": "{date} 릴리스. 플랫폼마다 의존성 없는 바이너리 하나를 제공하며, 각 파일 옆에 SHA-256 체크섬이 있습니다. MIT 라이선스입니다.",
+    "primary": "플랫폼 선택하기",
+    "secondary": "변경 사항"
+  },
+  "builds": {
+    "title": "바이너리",
+    "yours": "사용 중인 시스템으로 보입니다",
+    "checksum": "SHA-256 체크섬",
+    "verifyTitle": "다운로드 검증",
+    "after": "압축을 푼 뒤 <a class=\"underline font-semibold text-text\" href=\"{href}\">빠른 설치</a>를 따라 하세요. 명령어 세 줄이면 됩니다.",
+    "linux": { "note": "압축을 풀고 ./ai-memory init을 실행한 다음 serve를 실행합니다." },
+    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "launchd 에이전트가 포함되어 있습니다. 브라우저로 받았다면 먼저 quarantine 플래그를 제거하세요." },
+    "win": { "note": "실험적 지원입니다. 공식 지원 경로는 WSL2에서 Linux 빌드를 쓰는 것입니다." }
+  },
+  "channels": {
+    "title": "패키지 매니저와 컨테이너",
+    "mise": { "title": "mise", "note": "Linux와 macOS. 체크섬을 대신 검증해 줍니다. 새 릴리스가 올라오기까지 하루 정도 걸릴 수 있습니다." },
+    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "사전 빌드", "source": "소스 빌드", "note": "사용자 서비스 또는 시스템 서비스용 systemd 유닛을 설치합니다." },
+    "docker": { "title": "Docker 또는 Podman", "note": "멀티 아키텍처: linux/amd64와 linux/arm64를 제공하므로 Apple Silicon에서도 에뮬레이션이 필요 없습니다." },
+    "src": { "title": "소스에서 빌드", "note": "rust-toolchain.toml에 고정된 Rust 툴체인이 필요합니다." },
+    "clients": "원격 서버로 훅만 보내는 클라이언트 컴퓨터에는 전체 바이너리가 필요 없습니다. 릴리스에는 <code>ai-memory-install-hooks</code>와 Linux, macOS, Windows용 Docker 래퍼 스크립트도 들어 있습니다. 목록은 <a class=\"underline font-semibold text-text\" href=\"{href}\">릴리스 페이지</a>에 있습니다."
+  },
+  "changelog": {
+    "title": "변경 이력",
+    "lede": "최근 릴리스 {n}개. 이 프로젝트는 2.0부터 시맨틱 버저닝을 따릅니다.",
+    "kinds": { "Added": "추가 {n}건", "Changed": "변경 {n}건", "Fixed": "수정 {n}건", "Security": "보안 {n}건", "Removed": "제거 {n}건", "Deprecated": "지원 중단 예정 {n}건" },
+    "full": "GitHub에서 전체 변경 이력 보기",
+    "releases": "모든 릴리스",
+    "upgrading": "1.x에서 업그레이드하기"
+  },
+  "next": [
+    { "title": "빠른 설치", "text": "명령어 세 줄로 바이너리에서 동작하는 기억까지." },
+    { "title": "연동", "text": "사용하는 에이전트와 운영체제를 확인하세요." },
+    { "title": "고급 설정", "text": "서비스 등록, TLS, 백업, 업그레이드." }
+  ]
+}
