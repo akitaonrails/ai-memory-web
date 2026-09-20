@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "title": "How memory ages: decay, compaction and the dream pass",
+    "description": "How ai-memory treats old memory in 2.4: a retention score, compaction and dedup with no LLM, and an opt-in dream pass that merges cold pages while you are away."
+  },
+  "hero": {
+    "title": "How memory ages",
+    "lede": "A project collects session pages for months, and most of them stop being useful. ai-memory scores each one, keeps what you still read, and can shrink or merge the rest. The default path calls no LLM, and every 2.4 addition that rewrites a page is off until you turn it on.",
+    "primary": "The path with no LLM",
+    "secondary": "The dream pass"
+  },
+  "tiers": {
+    "title": "What ages and what stays",
+    "lede": "Only one of the four memory tiers decays. Pinned pages are exempt in all of them.",
+    "items": [
+      {
+        "title": "Working",
+        "text": "Notes for the session in progress. They end with it."
+      },
+      {
+        "title": "Episodic",
+        "text": "One page per session. This is the tier that ages: a page nobody reads goes cold within months."
+      },
+      {
+        "title": "Semantic",
+        "text": "Decisions, concepts and gotchas. They do not decay."
+      },
+      {
+        "title": "Procedural",
+        "text": "Rules, procedures and runbooks. They do not decay."
+      }
+    ]
+  },
+  "decay": {
+    "title": "The path with no LLM",
+    "lede": "A scheduled sweep scores every unpinned episodic page. The score falls with age and rises each time the page is read.",
+    "figureAlt": "Diagram: reading a page reinforces its retention score. The forget-sweep checks whether a page is cold. A cold page is evicted by default, or, when enabled, compacted or merged with its near-duplicates into one survivor. Compacted and merged pages can be restored from git history.",
+    "figureCaption": "Solid line: what happens by default. Dashed lines: what you can turn on. A page that was compacted or merged comes back with restore-page. An evicted page does not.",
+    "score": {
+      "title": "The retention score",
+      "points": [
+        "With the defaults, a page loses half its score about every 35 days. Below 0.20 it counts as cold.",
+        "Every read adds to the score, and the effect of old reads fades too.",
+        "<code>Stale</code> or <code>Wrong</code> feedback drops a page to the lowest salience.",
+        "The score decides what the sweep does. It never changes search ranking."
+      ]
+    },
+    "stateOn": "Always on",
+    "stateOff": "Off by default",
+    "stateLint": "Runs with memory_lint",
+    "steps": [
+      {
+        "title": "Reading keeps a page alive",
+        "text": "Search hits already counted. In 2.4, opening a page, reaching it through a link and <code>memory_explore</code> count as well. Reads only ever raise the score."
+      },
+      {
+        "title": "A half-life per tier",
+        "text": "<code>[decay.half_life_days]</code> sets how fast each tier fades, such as a short life for scratch notes and a long one for session history. Leave it out and scores stay exactly as they were."
+      },
+      {
+        "title": "Compact a cold page",
+        "text": "With <code>compact_cold_episodic</code>, a cold page keeps its abstract, its first-paragraph summary and the tokens worth keeping (file paths, URLs, code spans, error codes and identifiers) and drops the prose. Without it, the page is evicted."
+      },
+      {
+        "title": "Merge near-duplicates",
+        "text": "With <code>dedup_cold_clusters</code>, cold pages that say almost the same thing are clustered by their embeddings. The one with the highest score survives and absorbs the others’ keep-tokens. The others are superseded and point to it."
+      },
+      {
+        "title": "Skip empty sessions",
+        "text": "An entropy filter keeps near-empty or highly repetitive session pages out of the experience pass, before any LLM prompt is built."
+      },
+      {
+        "title": "Flag likely contradictions",
+        "text": "<code>memory_lint</code> reports pairs of knowledge pages that cover the same topic without being duplicates, and says which one is newer. The report is advisory and edits no page."
+      },
+      {
+        "title": "A confidence score per page",
+        "text": "Each page gets a confidence between 0 and 0.95, from how many separate sessions support it, how recent the last one is, and how many pages contradict it. You see it in <code>explain</code> output. It affects ranking only if you raise <code>belief_authority_weight</code> above 0."
+      }
+    ],
+    "codeTitle": "server config",
+    "codeComment": "All three are optional. Without them, 2.4 behaves like 2.3."
+  },
+  "dream": {
+    "title": "The dream pass",
+    "lede": "Dedup keeps the facts of a cluster. The dream pass hands the same cluster to your LLM, which rewrites it as one coherent page. It runs while you are away and stops when you come back.",
+    "figureAlt": "Diagram: once switched on, the dream pass waits for five idle minutes, takes clusters of cold pages with the most novel cluster first, and has the LLM rewrite each cluster into one merged page. The source pages are superseded, any activity cancels the run, and everything stays in git history.",
+    "figureCaption": "The scheduler considers a run once an hour and needs five quiet minutes to start. It handles at most eight clusters per run.",
+    "points": [
+      {
+        "title": "It needs three things",
+        "text": "<code>[dream] enabled = true</code>, an LLM provider and an embedder. Without a provider, the zero-LLM dedup keeps working as before."
+      },
+      {
+        "title": "It waits for you to leave",
+        "text": "A run starts after 300 seconds with no client activity. When you return, it cancels at the next cluster."
+      },
+      {
+        "title": "The most novel cluster goes first",
+        "text": "Clusters farthest from anything the wiki already says are handled first. The ordering and the idle trigger follow Honcho’s Dreamer."
+      },
+      {
+        "title": "Sources are superseded",
+        "text": "The highest-scoring page is rewritten. Each merged page becomes a stub that points to it, and the original text stays in the version chain and in git."
+      },
+      {
+        "title": "Every merge names its sources",
+        "text": "Evidence rows record which pages fed each merge, so an invented detail can be traced. Output is schema-checked JSON, and each run leaves a report."
+      }
+    ],
+    "codeTitle": "server config",
+    "codeComment": "Also needs an LLM provider and an embedder.",
+    "unproven": {
+      "title": "Shipped, opt-in, unproven",
+      "text": "No recall evaluation has been run on compaction, dedup, the confidence score or the dream pass. The mechanism matches what Hindsight and mcp-memory-service do. The project claims no measured improvement, and none of these becomes a default until the evaluation shows one."
+    }
+  },
+  "safety": {
+    "title": "What can be undone, and what cannot",
+    "lede": "Compaction, dedup and the dream pass rewrite through the wiki, so each change is a new version and a git commit.",
+    "items": [
+      {
+        "title": "Rewrites are reversible",
+        "text": "<code>ai-memory restore-page</code> brings back the full page from the wiki’s git history."
+      },
+      {
+        "title": "An upgrade changes nothing",
+        "text": "Every new behavior is off or identical by default. Upgrading to 2.4 changes no score and evicts nothing, and the server archives the data directory before it migrates."
+      },
+      {
+        "title": "Pin what must stay",
+        "text": "A pinned page is never swept. Semantic and procedural pages do not decay."
+      }
+    ],
+    "deleted": {
+      "title": "What is still deleted",
+      "items": [
+        "A page with an <code>expires_at</code> date in the past is deleted, even when it is pinned.",
+        "With compaction off, a cold episodic page loses its markdown file. Its record is removed for good 180 days later.",
+        "Both rules predate 2.4. Turn compaction on if you would prefer cold pages to shrink."
+      ]
+    }
+  },
+  "also": {
+    "title": "Also in 2.4",
+    "lede": "All of these are arguments on tools that already exist. The tool count stays at 23.",
+    "items": [
+      {
+        "title": "Answers with citations",
+        "text": "<code>memory_query</code> with <code>answer: true</code> returns a short answer and the page paths it came from. It needs an LLM provider and follows Honcho’s dialectic endpoint. Its quality has not been evaluated yet, so open the cited pages."
+      },
+      {
+        "title": "Reasoning levels",
+        "text": "A <code>reasoning</code> argument, from <code>minimal</code> to <code>max</code>, sets the token budget for answers and for <code>memory_explore</code>."
+      },
+      {
+        "title": "Pinned pages first",
+        "text": "<code>pin_first</code> puts up to ten pinned pages ahead of the search results, and the session briefing now lists them."
+      },
+      {
+        "title": "Related pages",
+        "text": "<code>memory_read_page</code> with <code>include_related</code> walks links and backlinks up to three steps out."
+      },
+      {
+        "title": "Older versions on request",
+        "text": "<code>include_superseded</code> adds replaced versions to a search, each one labelled."
+      },
+      {
+        "title": "Which project answered",
+        "text": "<code>memory_status</code> reports the workspace and project it resolved, and how it got there."
+      }
+    ],
+    "link": "Read the full changelog"
+  },
+  "faq": [
+    {
+      "q": "Does ai-memory delete old memories?",
+      "a": "Only episodic session pages age. By default a cold one is evicted and removed for good after 180 days, as in earlier versions. Since 2.4 you can have cold pages compacted or merged, and both can be restored. Pinned, semantic and procedural pages are kept."
+    },
+    {
+      "q": "Does memory aging need an LLM?",
+      "a": "No. Scoring, per-tier half-lives, compaction, dedup, contradiction flags and the confidence score use no LLM. Dedup and contradiction flags read embeddings, which the default local embedder produces. Only the dream pass calls an LLM, and it is off by default."
+    },
+    {
+      "q": "What is the dream pass?",
+      "a": "An opt-in background job. After five idle minutes it takes clusters of cold, near-duplicate pages and has your LLM rewrite each cluster into one page. The sources are superseded, and the run stops when you come back."
+    },
+    {
+      "q": "Will upgrading to 2.4 change my existing memory?",
+      "a": "No. Every new aging behavior is off or identical by default, so scores stay the same and nothing is evicted. The server archives the data directory before it migrates."
+    },
+    {
+      "q": "Do these features improve retrieval scores?",
+      "a": "Nobody has measured that yet. The project treats them as shipped, opt-in and unproven until its evaluation harness shows a gain."
+    }
+  ],
+  "next": [
+    {
+      "title": "Architecture",
+      "text": "Where pages, versions and the index live."
+    },
+    {
+      "title": "Compare",
+      "text": "Which tools age memory, and how."
+    },
+    {
+      "title": "Research",
+      "text": "The reasoning, and what was measured."
+    }
+  ]
+}

@@ -14,10 +14,22 @@
     "title": "Cada ferramenta otimiza uma coisa",
     "lede": "O ai-memory otimiza uma wiki de páginas markdown versionada em git, com um índice de busca derivado, e por padrão faz zero chamadas a LLM. As outras fizeram apostas diferentes, para públicos diferentes.",
     "items": [
-      { "title": "Extratores de fatos", "text": "Mem0 e LangMem pedem a um LLM para extrair fatos atômicos de cada turno, para personalizar um app para os usuários finais dele." },
-      { "title": "Grafos temporais", "text": "Zep, Graphiti e cognee modelam o conhecimento como um grafo ao longo do tempo. Atendem consultas de grafo e rodam em cima de um banco de grafos." },
-      { "title": "Sistemas operacionais de memória", "text": "Letta e MemGPT deixam o agente editar a própria memória em camadas. Servem para quem adota o runtime de agentes deles." },
-      { "title": "APIs hospedadas", "text": "Supermemory e as nuvens gerenciadas guardam sua memória atrás de uma conta, em troca de conectores e zero operação." }
+      {
+        "title": "Extratores de fatos",
+        "text": "Mem0 e LangMem pedem a um LLM para extrair fatos atômicos de cada turno, para personalizar um app para os usuários finais dele."
+      },
+      {
+        "title": "Grafos temporais",
+        "text": "Zep, Graphiti e cognee modelam o conhecimento como um grafo ao longo do tempo. Atendem consultas de grafo e rodam em cima de um banco de grafos."
+      },
+      {
+        "title": "Sistemas operacionais de memória",
+        "text": "Letta e MemGPT deixam o agente editar a própria memória em camadas. Servem para quem adota o runtime de agentes deles."
+      },
+      {
+        "title": "APIs hospedadas",
+        "text": "Supermemory e as nuvens gerenciadas guardam sua memória atrás de uma conta, em troca de conectores e zero operação."
+      }
     ]
   },
   "unique": {
@@ -33,7 +45,13 @@
     "figureCaption": "Uma stack típica ao lado do ai-memory. Nem toda ferramenta precisa das quatro peças; a tabela abaixo diz qual precisa do quê.",
     "caption": "Peças móveis que cada ferramenta de memória exige",
     "tool": "Ferramenta",
-    "parts": ["Um LLM", "Um serviço vetorial ou de embeddings", "Um banco de grafos", "Outro runtime ou banco de dados", "Uma conta em nuvem"],
+    "parts": [
+      "Um LLM",
+      "Um serviço vetorial ou de embeddings",
+      "Um banco de grafos",
+      "Outro runtime ou banco de dados",
+      "Uma conta em nuvem"
+    ],
     "needs": "O que ela exige",
     "ours": "Um binário só e uma pasta de markdown",
     "marks": {
@@ -59,13 +77,26 @@
     "chartLabel": "Gráfico de barras do hit at 5 no LongMemEval-S. {bars}",
     "chartBar": "{label}: {value}.",
     "ours": [
-      { "label": "ai-memory antes da 2.0", "note": "Só full-text" },
-      { "label": "ai-memory, só full-text", "note": "Filtro de stopwords adicionado" },
-      { "label": "ai-memory 2.0 padrão", "note": "Embeddings locais, sem chave de API" }
+      {
+        "label": "ai-memory antes da 2.0",
+        "note": "Só full-text"
+      },
+      {
+        "label": "ai-memory, só full-text",
+        "note": "Filtro de stopwords adicionado"
+      },
+      {
+        "label": "ai-memory 2.0 padrão",
+        "note": "Embeddings locais, sem chave de API"
+      }
     ],
     "theirs": [
-      { "note": "Reportado pelo fornecedor, por sessão" },
-      { "note": "Reportado pelo fornecedor, com reranking" }
+      {
+        "note": "Reportado pelo fornecedor, por sessão"
+      },
+      {
+        "note": "Reportado pelo fornecedor, com reranking"
+      }
     ],
     "axis": "hit@5, de 0 a 1. As barras sólidas foram medidas por este projeto. As hachuradas são números dos próprios fornecedores e não foram reproduzidas aqui.",
     "caveats": [
@@ -88,12 +119,34 @@
     "title": "Onde o ai-memory está atrás",
     "lede": "Esta lista vem da auditoria do próprio repositório. Se um destes itens é o que você precisa, fique onde está.",
     "items": [
-      { "title": "Sem reranker local", "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. Existe um reranker com LLM, desligado por padrão. Um local, de custo zero, ainda não existe." },
-      { "title": "Links tipados não mexem no ranking", "text": "Os links entre páginas explicam um resultado. Hoje eles não têm peso no ranking, e a força da evidência é registrada sem afetar a ordem." },
-      { "title": "Uma linha do tempo só", "text": "A busca point-in-time usa o momento em que o fato foi registrado. O Zep modela tanto quando algo aconteceu quanto quando foi aprendido." },
-      { "title": "Só texto de sessões de código", "text": "Não ingere PDFs, CSVs nem imagens, não tem modelo de visão e não é um banco de grafos que você consulta com Cypher." },
-      { "title": "Um servidor, sem versão hospedada", "text": "Várias máquinas acessam um servidor que você mesmo roda. Não há replicação automática, nem SaaS, nem console enterprise." },
-      { "title": "Mais setup do que a memória nativa", "text": "A memória do próprio Claude Code já vem ligada. O ai-memory pede que um desenvolvedor solo suba um servidor primeiro." }
+      {
+        "title": "Sem reranker local",
+        "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. O único reranker é um LLM, desligado por padrão. As respostas com citações que chegaram na 2.4 também precisam de um LLM, e a acurácia delas não foi avaliada."
+      },
+      {
+        "title": "Tipos de link não mexem no ranking",
+        "text": "Desde a 2.4 dá para ir de uma página às páginas relacionadas a ela. Na busca, o tipo do link continua só explicando um resultado e não tem peso nenhum."
+      },
+      {
+        "title": "O envelhecimento não tem comprovação",
+        "text": "A pontuação de confiança, a compactação, o dedup e a passada de sonho saem na 2.4, desligados por padrão. Nenhuma avaliação de recuperação foi rodada sobre eles, então o projeto afirma o mecanismo e nenhum ganho medido."
+      },
+      {
+        "title": "Uma linha do tempo só",
+        "text": "A busca point-in-time usa o momento em que o fato foi registrado. O Zep modela tanto quando algo aconteceu quanto quando foi aprendido."
+      },
+      {
+        "title": "Só texto de sessões de código",
+        "text": "Não ingere PDFs, CSVs nem imagens, não tem modelo de visão e não é um banco de grafos que você consulta com Cypher."
+      },
+      {
+        "title": "Um servidor, sem versão hospedada",
+        "text": "Várias máquinas acessam um servidor que você mesmo roda. Não há replicação automática, nem SaaS, nem console enterprise."
+      },
+      {
+        "title": "Mais setup do que a memória nativa",
+        "text": "A memória do próprio Claude Code já vem ligada. O ai-memory pede que um desenvolvedor solo suba um servidor primeiro."
+      }
     ]
   },
   "move": {
@@ -125,18 +178,45 @@
   "faq": {
     "title": "Perguntas que aparecem antes de migrar",
     "items": [
-      { "q": "Preciso de uma chave de API de LLM?", "a": "Não. Captura, busca e handoffs funcionam sem chave e sem LLM. Adicionar um provedor liga a consolidação com LLM, o bootstrap, um linting mais rico, o auto-improve e o reranking opcional. Logins de assinatura, como Codex ou GitHub Copilot, também funcionam como provedores." },
-      { "q": "Existe uma versão hospedada?", "a": "Não. O ai-memory é um único servidor que você roda em um laptop, em uma máquina do homelab ou em um host da LAN. Não há plano SaaS nem console enterprise." },
-      { "q": "Consigo importar meus dados do Mem0, Zep ou cognee?", "a": "Direto, não. O importador companion lê wikis markdown do oh-my-claudecode e um formato JSON genérico de conversas. Adaptadores para produtos específicos ficam fora do repositório. Para uma base de código existente, o ai-memory bootstrap popula a wiki a partir do histórico do git e da documentação." },
-      { "q": "Posso rodar o ai-memory ao lado da minha ferramenta de memória atual?", "a": "Sim. Ele se instala como sua própria entrada de servidor MCP e seus próprios hooks de ciclo de vida, e não mexe na configuração das outras ferramentas. Dá para comparar as duas no mesmo projeto antes de remover qualquer uma." },
-      { "q": "Como fica a pontuação de recuperação dele na comparação?", "a": "No LongMemEval-S ele marca 0,823 de hit@5 com os embeddings locais padrão e 0,668 só com full-text. Esse número mede recuperação e não diz nada sobre a acurácia das respostas. Sistemas que fazem reranking pontuam mais: o agentmemory reporta 0,952 e o mcp-memory-service reporta 0,860 por sessão." },
-      { "q": "Ele sincroniza a memória entre máquinas?", "a": "Ele usa um servidor que todas as suas máquinas acessam pela rede. Não há replicação automática entre servidores." }
+      {
+        "q": "Preciso de uma chave de API de LLM?",
+        "a": "Não. Captura, busca e handoffs funcionam sem chave e sem LLM. Adicionar um provedor liga a consolidação com LLM, o bootstrap, um linting mais rico, o auto-improve e o reranking opcional. Logins de assinatura, como Codex ou GitHub Copilot, também funcionam como provedores."
+      },
+      {
+        "q": "Existe uma versão hospedada?",
+        "a": "Não. O ai-memory é um único servidor que você roda em um laptop, em uma máquina do homelab ou em um host da LAN. Não há plano SaaS nem console enterprise."
+      },
+      {
+        "q": "Consigo importar meus dados do Mem0, Zep ou cognee?",
+        "a": "Direto, não. O importador companion lê wikis markdown do oh-my-claudecode e um formato JSON genérico de conversas. Adaptadores para produtos específicos ficam fora do repositório. Para uma base de código existente, o ai-memory bootstrap popula a wiki a partir do histórico do git e da documentação."
+      },
+      {
+        "q": "Posso rodar o ai-memory ao lado da minha ferramenta de memória atual?",
+        "a": "Sim. Ele se instala como sua própria entrada de servidor MCP e seus próprios hooks de ciclo de vida, e não mexe na configuração das outras ferramentas. Dá para comparar as duas no mesmo projeto antes de remover qualquer uma."
+      },
+      {
+        "q": "Como fica a pontuação de recuperação dele na comparação?",
+        "a": "No LongMemEval-S ele marca 0,823 de hit@5 com os embeddings locais padrão e 0,668 só com full-text. Esse número mede recuperação e não diz nada sobre a acurácia das respostas. Sistemas que fazem reranking pontuam mais: o agentmemory reporta 0,952 e o mcp-memory-service reporta 0,860 por sessão."
+      },
+      {
+        "q": "Ele sincroniza a memória entre máquinas?",
+        "a": "Ele usa um servidor que todas as suas máquinas acessam pela rede. Não há replicação automática entre servidores."
+      }
     ]
   },
   "next": [
-    { "title": "Instalação rápida", "text": "Três comandos para uma máquina, dez minutos para um time." },
-    { "title": "Pesquisa e fundamentos", "text": "Por que páginas ganham de linhas de fatos, e o benchmark completo." },
-    { "title": "Confira seu agente", "text": "Todos os agentes, sistemas operacionais e provedores suportados." }
+    {
+      "title": "Instalação rápida",
+      "text": "Três comandos para uma máquina, dez minutos para um time."
+    },
+    {
+      "title": "Pesquisa e fundamentos",
+      "text": "Por que páginas ganham de linhas de fatos, e o benchmark completo."
+    },
+    {
+      "title": "Confira seu agente",
+      "text": "Todos os agentes, sistemas operacionais e provedores suportados."
+    }
   ],
   "cta": {
     "title": "Experimente ao lado da ferramenta que você já usa.",

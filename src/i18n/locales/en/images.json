@@ -157,5 +157,27 @@
   "teams-topology": {
     "One ai-memory server": "One ai-memory server",
     "Project wiki": "Project wiki"
+  },
+  "aging-decay-path": {
+    "Page read": "Page read",
+    "reinforces": "reinforces",
+    "Retention score": "Retention score",
+    "Forget-sweep": "Forget-sweep",
+    "Cold?": "Cold?",
+    "Evict": "Evict",
+    "Compact": "Compact",
+    "One survivor": "One survivor",
+    "git history": "git history"
+  },
+  "aging-dream-pass": {
+    "Opt-in": "Opt-in",
+    "Idle 5 min": "Idle 5 min",
+    "Cold clusters": "Cold clusters",
+    "Most novel first": "Most novel first",
+    "LLM rewrite": "LLM rewrite",
+    "One merged page": "One merged page",
+    "Sources superseded": "Sources superseded",
+    "Activity cancels": "Activity cancels",
+    "git history": "git history"
   }
 }

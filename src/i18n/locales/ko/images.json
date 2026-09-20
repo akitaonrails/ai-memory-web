@@ -157,5 +157,27 @@
   "teams-topology": {
     "One ai-memory server": "ai-memory 서버 한 대",
     "Project wiki": "프로젝트 위키"
+  },
+  "aging-decay-path": {
+    "Page read": "페이지 읽기",
+    "reinforces": "강화",
+    "Retention score": "보존 점수",
+    "Forget-sweep": "망각 스윕",
+    "Cold?": "콜드?",
+    "Evict": "퇴출",
+    "Compact": "압축",
+    "One survivor": "생존 페이지 1개",
+    "git history": "git 히스토리"
+  },
+  "aging-dream-pass": {
+    "Opt-in": "옵트인",
+    "Idle 5 min": "유휴 5분",
+    "Cold clusters": "콜드 클러스터",
+    "Most novel first": "새로운 것부터",
+    "LLM rewrite": "LLM 재작성",
+    "One merged page": "병합 페이지 1개",
+    "Sources superseded": "원본 대체됨",
+    "Activity cancels": "활동 시 취소",
+    "git history": "git 히스토리"
   }
 }

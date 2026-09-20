@@ -98,3 +98,29 @@ Terms decided while translating, in addition to the glossary in `docs/research/I
 | evidence (benchmark, counts) | 根拠 (benchmark) / エビデンス数 |
 | single-tenant / multi-tenant | シングルテナント / マルチテナント |
 | default | デフォルト (diagram label only: 既定) |
+| memory aging / "How memory ages" | 記憶のエイジング / 記憶はどう古くなるか |
+| retention score | 保持スコア |
+| half-life | 半減期 |
+| forget-sweep | 忘却スイープ (short: スイープ) |
+| cold page / cold cluster | コールドページ / コールドクラスタ |
+| evict | 追い出す / 追い出し (distinct from 削除, the permanent delete) |
+| compact / compaction | コンパクションする / コンパクション (agentmemory's "compression": 圧縮) |
+| near-duplicates | ほぼ重複するページ |
+| dedup / merge | 重複排除 / マージ |
+| survivor | 残るページ (diagram label: 残る1ページ) |
+| superseded (state) | 置き換え済み |
+| dream pass | 夢見パス (Supermemory's own feature stays 「dreaming」パス) |
+| experience pass | 経験抽出パス |
+| idle | アイドル |
+| confidence score | 信頼度スコア |
+| belief strength (Hindsight) | 信念の強さ |
+| contradiction / contradiction flags | 矛盾 / 矛盾の検出 |
+| pinned page | ピン留めページ |
+| off by default (prose / state label) | デフォルトではオフ / デフォルトはオフ |
+| unproven | 効果は未検証 |
+| most novel first | 新規性の高い順 |
+| keep-tokens | 保持トークン |
+| salience | 重要度 |
+| embedder | 埋め込みモデル |
+| answers with citations / reasoning levels | 引用付きの回答 / 推論レベル |
+| tiers: working / episodic / semantic / procedural | 作業記憶 / エピソード記憶 / 意味記憶 / 手続き記憶 |

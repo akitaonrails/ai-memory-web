@@ -88,8 +88,9 @@
     "title": "Dónde ai-memory va por detrás",
     "lede": "Esta lista sale de la auditoría del propio repositorio. Si lo que necesitas es alguna de estas cosas, quédate donde estás.",
     "items": [
-      { "title": "Sin reranker local", "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. Existe un reranker con LLM y viene desactivado por defecto. Uno local de coste cero todavía no existe." },
-      { "title": "Los enlaces tipados no mueven el ranking", "text": "Los enlaces entre páginas explican un resultado. Hoy no tienen peso en el ranking, y la fuerza de la evidencia se registra sin afectar al orden." },
+      { "title": "Sin reranker local", "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas añadidas en la 2.4 también necesitan un LLM, y su precisión no se ha evaluado." },
+      { "title": "Los tipos de enlace no mueven el ranking", "text": "Desde la 2.4 puedes ir de una página a sus páginas relacionadas. En la búsqueda, el tipo de enlace sigue sirviendo solo para explicar un resultado y no tiene ningún peso." },
+      { "title": "El envejecimiento está sin demostrar", "text": "La puntuación de confianza, la compactación, el dedup y la pasada de sueño llegan en la 2.4, desactivados por defecto. No se ha hecho ninguna evaluación de recuperación sobre ellos, así que el proyecto afirma el mecanismo y ninguna mejora medida." },
       { "title": "Una sola línea de tiempo", "text": "La búsqueda a un punto en el tiempo usa el momento en que se registró un hecho. Zep modela tanto cuándo pasó algo como cuándo se supo." },
       { "title": "Solo texto de sesiones de programación", "text": "No ingiere PDF, CSV ni imágenes, no tiene modelo de visión y no es una base de datos de grafos que puedas consultar con Cypher." },
       { "title": "Un servidor, sin plan alojado", "text": "Muchas máquinas llegan a un servidor que ejecutas tú. No hay replicación automática, ni SaaS, ni consola empresarial." },

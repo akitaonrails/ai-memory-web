@@ -153,7 +153,8 @@
       "cognee": "The task-pipeline shape, provenance stamps on every page and feedback that adjusts ranking.",
       "hermes": "The design of the self-improvement loop that reviews finished sessions in the background.",
       "amem": "Zettelkasten-style atomic notes that link to each other automatically.",
-      "hindsight": "Typed redaction labels, per-page evidence counts and a briefing that leads with settled rules."
+      "hindsight": "Typed redaction labels, per-page evidence counts and a briefing that leads with settled rules.",
+      "honcho": "Answers with citations, reasoning levels, and the scheduling of the dream pass: idle trigger, cancel on activity, most novel first."
     },
     "noEndorsement": "None of these projects endorse ai-memory. For where each of them is ahead, <a class=\"underline\" href=\"{href}\">see the comparison</a>."
   },
@@ -204,16 +205,16 @@
       "title": "Recommended next",
       "items": [
         {
-          "title": "A second evaluation harness",
-          "text": "Coding-session data, scored on accuracy, latency and context tokens together. The items below depend on it."
+          "title": "The full evaluation run",
+          "text": "The second harness exists since 2.4 and scores answers as well as retrieval. The full-dataset run is still to come, and the items below wait on it."
         },
         {
           "title": "A local reranker",
           "text": "A cross-encoder that runs in process with no LLM. It waits on the harness above to prove its worth."
         },
         {
-          "title": "Ranking that uses what is already stored",
-          "text": "Evidence counts and typed edges are recorded today and do not move ranking yet."
+          "title": "Defaults backed by numbers",
+          "text": "The confidence score and the aging features ship switched off. Each one becomes a default only after the harness shows it helps. Link types still carry no ranking weight."
         },
         {
           "title": "A bounded sync command",
@@ -228,7 +229,7 @@
     },
     "behind": {
       "title": "Behind today",
-      "text": "Raw retrieval scores sit below the tools that rerank, and a few features are recorded without affecting ranking yet. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
+      "text": "Raw retrieval scores sit below the tools that rerank, and the memory aging added in 2.4 has no measured result yet. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
     }
   },
   "nextPages": [

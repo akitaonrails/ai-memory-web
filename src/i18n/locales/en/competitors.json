@@ -74,13 +74,13 @@
         "Embeddings",
         "Postgres or a hosted service"
       ],
-      "same": "Memory compiled into living pages by a background consolidation loop.",
+      "same": "Memory compiled into living pages by a background consolidation loop. Since 2.4, ai-memory has an opt-in dream pass and a confidence score per page as well.",
       "gain": [
         "Capture, search and handoffs with zero LLM calls",
         "Files you own, MIT licensed, no AGPL or SaaS weight",
         "Team sharing per project in place of strict per-bank isolation"
       ],
-      "theyWin": "Higher reported accuracy with an LLM in the loop: Hindsight reports 91.4% on LongMemEval, OpenViking reports large token savings. Both are vendor numbers.",
+      "theyWin": "Higher reported accuracy with an LLM in the loop: Hindsight reports 91.4% on LongMemEval, OpenViking reports large token savings. Both are vendor numbers. Hindsight’s belief strength moves ranking by default. ai-memory’s is off until an evaluation supports it.",
       "verdict": "Move for self-hosted, offline or team use. Stay if you need their accuracy and accept the LLM requirement."
     },
     "basic-memory": {
@@ -92,7 +92,7 @@
       "same": "Markdown on disk is the source of truth, with a derived index.",
       "gain": [
         "Automatic capture from lifecycle hooks",
-        "Decay and supersession, so stale notes stop ranking",
+        "Old versions drop out of search, and cold session pages age out or compact",
         "Cross-agent handoffs and multi-user sharing"
       ],
       "theyWin": "A local cross-encoder reranker, real-time collaborative editing and a hosted mobile app.",
@@ -104,13 +104,13 @@
       "needs": [
         "Mostly Claude Code"
       ],
-      "same": "SQLite, local embeddings, hook capture, typed links and honest numbers.",
+      "same": "SQLite, local embeddings, hook capture, typed links and honest numbers. Since 2.4, also its memory aging: per-tier decay, compaction, cluster dedup and contradiction flags.",
       "gain": [
         "Pages you can read in place of fact rows",
-        "Claim-once handoffs between agents",
-        "Cross-project messaging and point-in-time search"
+        "Aging that is off by default, and every rewrite can be restored",
+        "Claim-once handoffs between agents, and cross-project messaging"
       ],
-      "theyWin": "Clustering-based consolidation, multi-backend replication and a graph visualizer. Its session-level score of 0.860 is above ai-memory’s 0.823.",
+      "theyWin": "Its aging runs on its own with no setup. It also has multi-backend replication and a graph visualizer, and its session-level score of 0.860 is above ai-memory’s 0.823.",
       "verdict": "Move if you liked hook capture and want it across every agent."
     },
     "agentmemory": {
@@ -120,7 +120,7 @@
         "A Node sidecar",
         "50+ MCP tools"
       ],
-      "same": "Nearly every concept: tiers, supersession, decay, fused ranking, hooks.",
+      "same": "Nearly every concept: tiers, supersession, decay, fused ranking, hooks, and compression that needs no LLM.",
       "gain": [
         "One self-contained binary with no sidecar",
         "Real SQL indexes committed in one transaction",
@@ -150,7 +150,7 @@
         "A cloud account",
         "API spend"
       ],
-      "same": "A second brain with automatic ingestion and supersession.",
+      "same": "A second brain with automatic ingestion and supersession. Its “dreaming” pass is one of the sources for ai-memory’s.",
       "gain": [
         "Git-versioned markdown you own",
         "Works offline",
@@ -158,6 +158,22 @@
       ],
       "theyWin": "Managed connectors for Drive, Gmail, Notion and S3, multimodal ingestion and user profiles.",
       "verdict": "Different buyer."
+    },
+    "honcho": {
+      "name": "Honcho",
+      "kind": "User modelling for agents",
+      "needs": [
+        "An LLM",
+        "Postgres, Redis and a worker"
+      ],
+      "same": "Since 2.4: answers with citations from memory_query, reasoning levels, and a dream pass that runs when you are idle and handles the most novel material first.",
+      "gain": [
+        "The conveniences with no LLM required for capture or search",
+        "One binary and a folder in place of three services",
+        "Memory scoped to a repository and shared with a team"
+      ],
+      "theyWin": "A reasoning engine that models what each person knows and believes. It reports 90.4% on LongMemEval-S for recalling facts about a user, a vendor number on a different task.",
+      "verdict": "A different problem: Honcho remembers the user, and ai-memory remembers the project."
     }
   },
   "moat": [

@@ -21,6 +21,7 @@ export const nav: NavGroup[] = [
     id: 'product',
     links: [
       { id: 'how', href: '/#how', hue: 'green' },
+      { id: 'aging', href: '/aging/', hue: 'teal' },
       { id: 'architecture', href: '/architecture/', hue: 'azure' },
       { id: 'security', href: '/security/', hue: 'rose' },
       { id: 'research', href: '/research/', hue: 'violet' },

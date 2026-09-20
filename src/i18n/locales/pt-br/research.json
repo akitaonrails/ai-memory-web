@@ -153,7 +153,8 @@
       "cognee": "O formato de pipeline de tarefas, carimbos de proveniência em toda página e feedback que ajusta o ranking.",
       "hermes": "O desenho do loop de autoaperfeiçoamento que revisa em background as sessões encerradas.",
       "amem": "Notas atômicas no estilo Zettelkasten, que se ligam umas às outras automaticamente.",
-      "hindsight": "Rótulos tipados de redação, contagem de evidências por página e um briefing que começa pelas regras já estabelecidas."
+      "hindsight": "Rótulos tipados de redação, contagem de evidências por página e um briefing que começa pelas regras já estabelecidas.",
+      "honcho": "Respostas com citações, níveis de raciocínio e o agendamento da passada de sonho: gatilho por ociosidade, cancelamento quando há atividade, o mais inédito primeiro."
     },
     "noEndorsement": "Nenhum desses projetos endossa o ai-memory. Para saber onde cada um deles está na frente, <a class=\"underline\" href=\"{href}\">veja a comparação</a>."
   },
@@ -204,16 +205,16 @@
       "title": "Próximos passos recomendados",
       "items": [
         {
-          "title": "Um segundo harness de avaliação",
-          "text": "Dados de sessões de código, avaliados em acurácia, latência e tokens de contexto juntos. Os itens abaixo dependem dele."
+          "title": "A rodada completa de avaliação",
+          "text": "O segundo harness existe desde a 2.4 e avalia as respostas, além da recuperação. A rodada com o dataset inteiro ainda está por vir, e os itens abaixo esperam por ela."
         },
         {
           "title": "Um reranker local",
           "text": "Um cross-encoder que roda dentro do processo, sem LLM. Ele espera o harness acima para provar que vale a pena."
         },
         {
-          "title": "Ranking que usa o que já está gravado",
-          "text": "Contagens de evidência e arestas tipadas já são registradas hoje e ainda não mexem no ranking."
+          "title": "Padrões sustentados por números",
+          "text": "A pontuação de confiança e os recursos de envelhecimento saem desligados. Cada um só vira padrão depois que o harness mostrar que ajuda. Os tipos de link continuam sem peso no ranking."
         },
         {
           "title": "Um comando de sync limitado",
@@ -228,7 +229,7 @@
     },
     "behind": {
       "title": "Onde ele está atrás hoje",
-      "text": "A pontuação bruta de recuperação fica abaixo das ferramentas que fazem rerank, e alguns recursos são registrados sem ainda influenciar o ranking. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
+      "text": "A pontuação bruta de recuperação fica abaixo das ferramentas que fazem rerank, e o envelhecimento da memória que entrou na 2.4 ainda não tem resultado medido. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
     }
   },
   "nextPages": [

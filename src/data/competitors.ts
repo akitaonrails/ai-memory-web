@@ -16,4 +16,5 @@ export const competitors = [
   { id: 'agentmemory', featured: false },
   { id: 'letta', featured: false },
   { id: 'supermemory', featured: false },
+  { id: 'honcho', featured: false },
 ] as const;

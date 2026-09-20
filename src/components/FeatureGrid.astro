@@ -1,5 +1,6 @@
 ---
 // Short points side by side. Each gets a hue rule on top; no boxes. Keep text to two sentences.
+// `text` comes from the catalogs and may hold inline markup such as <code>.
 import type { Hue } from '@/data/site';
 interface Item { title: string; text: string; hue?: Hue; href?: string; link?: string }
 interface Props { items: Item[]; cols?: 2 | 3 | 4 }
@@ -10,7 +11,7 @@ const grid = { 2: 'md:grid-cols-2', 3: 'md:grid-cols-2 lg:grid-cols-3', 4: 'sm:g
   {items.map((it) => (
     <li data-hue={it.hue} class="feat">
       <h3 class="text-xl">{it.title}</h3>
-      <p class="mt-2.5 text-muted">{it.text}</p>
+      <p class="mt-2.5 text-muted" set:html={it.text} />
       {it.href && <a href={it.href} class="mt-3 inline-block font-semibold underline" style="color:var(--hue)">{it.link ?? 'Read more'}</a>}
     </li>
   ))}

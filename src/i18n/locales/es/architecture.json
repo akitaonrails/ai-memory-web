@@ -90,7 +90,7 @@
       "points": [
         "El campo <code>relations:</code> del frontmatter acepta un conjunto cerrado: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. Una errata no puede crear un tipo nuevo.",
         "<code>contradicts</code> alimenta el lint sin LLM y se reporta hasta que alguien lo reconcilia.",
-        "Solo sirven para explain. Entran en el grafo como enlaces normales y todavía no mueven el ranking, porque el benchmark no dio base para asignarles un peso."
+        "En la búsqueda solo sirven para explain: entran en el grafo como enlaces normales y no mueven el ranking, porque el benchmark no dio base para asignarles un peso. Desde la 2.4, <code>memory_read_page</code> puede recorrerlas para listar páginas relacionadas."
       ],
       "link": "Aristas tipadas en la documentación"
     }
@@ -124,7 +124,8 @@
         "El test ataca el store directamente y se salta la entrada HTTP.",
         "Reprodúcelo con <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>."
       ]
-    }
+    },
+    "aging": "Las páginas de sesión viejas se puntúan, y las frías se desalojan, se compactan o se fusionan. <a class=\"link\" href=\"{href}\">Cómo envejece la memoria</a>."
   },
   "codebase": {
     "title": "El código, crate por crate.",

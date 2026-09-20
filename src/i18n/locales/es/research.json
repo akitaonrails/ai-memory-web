@@ -153,7 +153,8 @@
       "cognee": "La forma del pipeline de tareas, los sellos de procedencia en cada página y el feedback que ajusta el ranking.",
       "hermes": "El diseño del bucle de automejora que revisa en segundo plano las sesiones terminadas.",
       "amem": "Notas atómicas al estilo Zettelkasten que se enlazan entre sí automáticamente.",
-      "hindsight": "Etiquetas de redacción tipadas, recuentos de evidencia por página y un resumen que abre con las reglas ya asentadas."
+      "hindsight": "Etiquetas de redacción tipadas, recuentos de evidencia por página y un resumen que abre con las reglas ya asentadas.",
+      "honcho": "Las respuestas con citas, los niveles de razonamiento y la planificación de la pasada de sueño: disparo por inactividad, cancelación ante actividad, lo más novedoso primero."
     },
     "noEndorsement": "Ninguno de estos proyectos avala ai-memory. Para saber dónde va por delante cada uno, <a class=\"underline\" href=\"{href}\">mira la comparación</a>."
   },
@@ -204,16 +205,16 @@
       "title": "Lo siguiente recomendado",
       "items": [
         {
-          "title": "Un segundo harness de evaluación",
-          "text": "Datos de sesiones de programación, evaluados a la vez en precisión, latencia y tokens de contexto. Los puntos de abajo dependen de él."
+          "title": "La ejecución completa de la evaluación",
+          "text": "El segundo harness existe desde la 2.4 y evalúa las respuestas además de la recuperación. Falta la ejecución sobre el dataset completo, y los puntos de abajo dependen de ella."
         },
         {
           "title": "Un reranker local",
           "text": "Un cross-encoder que corre dentro del proceso, sin LLM. Espera a que el harness de arriba demuestre que vale la pena."
         },
         {
-          "title": "Un ranking que use lo que ya se guarda",
-          "text": "Los recuentos de evidencia y las aristas tipadas se registran hoy y todavía no mueven el ranking."
+          "title": "Valores por defecto respaldados por cifras",
+          "text": "La puntuación de confianza y las funciones de envejecimiento se publican desactivadas. Cada una pasa a ser valor por defecto solo después de que el harness muestre que ayuda. Los tipos de enlace siguen sin peso en el ranking."
         },
         {
           "title": "Un comando de sync acotado",
@@ -228,7 +229,7 @@
     },
     "behind": {
       "title": "Dónde va por detrás hoy",
-      "text": "La puntuación bruta de recuperación queda por debajo de las herramientas que hacen rerank, y algunas funciones se registran sin influir todavía en el ranking. <a class=\"link\" href=\"{href}\">La lista completa está en la página de comparación</a>."
+      "text": "La puntuación bruta de recuperación queda por debajo de las herramientas que hacen rerank, y el envejecimiento de la memoria añadido en la 2.4 todavía no tiene ningún resultado medido. <a class=\"link\" href=\"{href}\">La lista completa está en la página de comparación</a>."
     }
   },
   "nextPages": [

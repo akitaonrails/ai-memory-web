@@ -30,7 +30,8 @@
     "architecture": "アーキテクチャ",
     "research": "リサーチ",
     "contribute": "コントリビュート",
-    "download": "ダウンロード"
+    "download": "ダウンロード",
+    "aging": "記憶のエイジング"
   },
   "nav": {
     "getStarted": "はじめる",
@@ -40,6 +41,10 @@
       "how": {
         "label": "仕組み",
         "note": "キャプチャ、統合、想起、引き継ぎ"
+      },
+      "aging": {
+        "label": "記憶はどう古くなるか",
+        "note": "減衰、コンパクション、夢見パス"
       },
       "architecture": {
         "label": "アーキテクチャ",
@@ -143,5 +148,8 @@
   "englishOnly": "この部分はプロジェクトからそのまま取り込んでいるため、英語のままです。",
   "faq": {
     "title": "よくある質問"
+  },
+  "release": {
+    "new": "{version}の新機能"
   }
 }

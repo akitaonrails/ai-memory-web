@@ -95,3 +95,31 @@ Terms decided while translating, beyond the table in `docs/research/I18N-TRANSLA
 | processor (GDPR) | מעבד המידע |
 | vulnerability / security advisory | פגיעות / security advisory |
 | threat model | מודל האיומים |
+| memory aging / how memory ages | התיישנות הזיכרון / איך זיכרון מתיישן |
+| retention score | ציון שימור |
+| half-life | זמן מחצית חיים |
+| forget-sweep (2.4 pages) | סבב השכחה (same as above, without the English gloss in diagrams) |
+| cold page / goes cold | דף קר / מתקרר |
+| evict | לפנות / פינוי (דף מפונה) |
+| compact / compaction | לצמצם / צמצום (not דחיסה, which is compression) |
+| compression | דחיסה |
+| near-duplicates | דפים כמעט זהים |
+| dedup / merge | dedup (keep in English) / מיזוג, למזג (not איחוד, which is consolidate) |
+| cluster | אשכול |
+| survivor | שורד (הדף ששורד) |
+| superseded (page) | מוחלף / מסומן כמוחלף |
+| dream pass | סבב החלום |
+| idle | בלי פעילות / חוסר פעילות (diagram: מנוחה) |
+| most novel first | החדשני ביותר קודם (never מחדש, which reads as "again") |
+| confidence score | ציון ביטחון |
+| belief strength | עוצמת האמונה (belief strength) |
+| contradiction / contradiction flags | סתירה / סימון סתירות |
+| pinned page | דף מוצמד |
+| opt-in / off by default | opt-in (diagram label: הפעלה יזומה) / כבוי כברירת מחדל |
+| tiers: working, episodic, semantic, procedural | זיכרון עבודה, זיכרון אפיזודי, זיכרון סמנטי, זיכרון פרוצדורלי (adjective: דף אפיזודי) |
+| salience | בולטות |
+| abstract (of a page) | תקציר |
+| keep-tokens | טוקנים לשימור |
+| answers with citations | תשובות עם ציטוטים |
+| reasoning levels | רמות reasoning |
+| experience pass, stub, embedder, worker, dialectic endpoint | keep in English |

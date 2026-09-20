@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "title": "Como a memória envelhece: decaimento, compactação e sonho",
+    "description": "Como o ai-memory 2.4 trata memória antiga: pontuação de retenção, compactação e dedup sem LLM, e uma passada de sonho opt-in que mescla páginas frias."
+  },
+  "hero": {
+    "title": "Como a memória envelhece",
+    "lede": "Um projeto acumula páginas de sessão por meses, e a maioria delas deixa de ser útil. O ai-memory dá uma pontuação a cada uma, mantém as que você ainda lê e pode encolher ou mesclar o resto. O caminho padrão não chama nenhum LLM, e toda novidade da 2.4 que reescreve página fica desligada até você ligar.",
+    "primary": "O caminho sem LLM",
+    "secondary": "A passada de sonho"
+  },
+  "tiers": {
+    "title": "O que envelhece e o que fica",
+    "lede": "Só uma das quatro camadas de memória decai. Páginas fixadas ficam de fora em todas elas.",
+    "items": [
+      {
+        "title": "De trabalho",
+        "text": "Anotações da sessão em andamento. Acabam junto com ela."
+      },
+      {
+        "title": "Episódica",
+        "text": "Uma página por sessão. É esta a camada que envelhece: uma página que ninguém lê esfria em poucos meses."
+      },
+      {
+        "title": "Semântica",
+        "text": "Decisões, conceitos e gotchas. Não decaem."
+      },
+      {
+        "title": "Procedural",
+        "text": "Regras, procedimentos e runbooks. Não decaem."
+      }
+    ]
+  },
+  "decay": {
+    "title": "O caminho sem LLM",
+    "lede": "Uma varredura agendada pontua toda página episódica que não está fixada. A pontuação cai com a idade e sobe cada vez que a página é lida.",
+    "figureAlt": "Diagrama: ler uma página reforça a pontuação de retenção dela. O forget sweep verifica se a página está fria. Uma página fria é descartada por padrão ou, quando habilitado, compactada ou mesclada com suas quase duplicatas em uma única sobrevivente. Páginas compactadas e mescladas podem ser restauradas a partir do histórico git.",
+    "figureCaption": "Linha contínua: o que acontece por padrão. Linhas tracejadas: o que você pode ligar. Uma página compactada ou mesclada volta com restore-page. Uma página descartada não volta.",
+    "score": {
+      "title": "A pontuação de retenção",
+      "points": [
+        "Com os valores padrão, uma página perde metade da pontuação a cada 35 dias, mais ou menos. Abaixo de 0,20 ela conta como fria.",
+        "Cada leitura soma na pontuação, e o efeito das leituras antigas também vai sumindo.",
+        "Um feedback <code>Stale</code> ou <code>Wrong</code> derruba a página para a saliência mais baixa.",
+        "A pontuação decide o que a varredura faz. Ela nunca muda o ranking da busca."
+      ]
+    },
+    "stateOn": "Sempre ligado",
+    "stateOff": "Desligado por padrão",
+    "stateLint": "Roda com memory_lint",
+    "steps": [
+      {
+        "title": "Ler mantém a página viva",
+        "text": "Resultados de busca já contavam. Na 2.4, abrir uma página, chegar nela por um link e o <code>memory_explore</code> também contam. Leituras só aumentam a pontuação."
+      },
+      {
+        "title": "Uma meia-vida por camada",
+        "text": "<code>[decay.half_life_days]</code> define a velocidade com que cada camada esfria, por exemplo uma vida curta para rascunhos e uma longa para o histórico de sessões. Sem ele, as pontuações ficam exatamente como eram."
+      },
+      {
+        "title": "Compactar uma página fria",
+        "text": "Com <code>compact_cold_episodic</code>, uma página fria mantém o abstract, o resumo do primeiro parágrafo e os tokens que vale a pena guardar (caminhos de arquivo, URLs, trechos de código, códigos de erro e identificadores) e perde a prosa. Sem ele, a página é descartada."
+      },
+      {
+        "title": "Mesclar quase duplicatas",
+        "text": "Com <code>dedup_cold_clusters</code>, páginas frias que dizem quase a mesma coisa são agrupadas em clusters pelos embeddings. A de maior pontuação sobrevive e absorve os tokens preservados das outras. As outras são substituídas e apontam para ela."
+      },
+      {
+        "title": "Pular sessões vazias",
+        "text": "Um filtro de entropia tira da passada de experiência as páginas de sessão quase vazias ou muito repetitivas, antes de qualquer prompt de LLM ser montado."
+      },
+      {
+        "title": "Sinalizar prováveis contradições",
+        "text": "O <code>memory_lint</code> reporta pares de páginas de conhecimento que cobrem o mesmo assunto sem serem duplicatas, e diz qual é a mais nova. O relatório é só um aviso e não edita página nenhuma."
+      },
+      {
+        "title": "Uma pontuação de confiança por página",
+        "text": "Cada página recebe uma confiança entre 0 e 0,95, calculada a partir de quantas sessões distintas a sustentam, de quão recente é a última e de quantas páginas a contradizem. Ela aparece na saída do <code>explain</code>. Só afeta o ranking se você subir o <code>belief_authority_weight</code> acima de 0."
+      }
+    ],
+    "codeTitle": "config do servidor",
+    "codeComment": "As três são opcionais. Sem elas, a 2.4 se comporta como a 2.3."
+  },
+  "dream": {
+    "title": "A passada de sonho",
+    "lede": "O dedup preserva os fatos de um cluster. A passada de sonho entrega o mesmo cluster ao seu LLM, que o reescreve como uma página só, coerente. Ela roda enquanto você está fora e para quando você volta.",
+    "figureAlt": "Diagrama: depois de ligada, a passada de sonho espera cinco minutos de ociosidade, pega os clusters de páginas frias começando pelo mais inédito e faz o LLM reescrever cada cluster em uma única página mesclada. As páginas de origem são substituídas, qualquer atividade cancela a execução e tudo fica no histórico git.",
+    "figureCaption": "O agendador avalia uma execução a cada hora e precisa de cinco minutos de silêncio para começar. Cada execução trata no máximo oito clusters.",
+    "points": [
+      {
+        "title": "Ela precisa de três coisas",
+        "text": "<code>[dream] enabled = true</code>, um provedor de LLM e um embedder. Sem provedor, o dedup sem LLM continua funcionando como antes."
+      },
+      {
+        "title": "Ela espera você sair",
+        "text": "Uma execução começa depois de 300 segundos sem atividade de nenhum cliente. Quando você volta, ela cancela no próximo cluster."
+      },
+      {
+        "title": "O cluster mais inédito vai primeiro",
+        "text": "Os clusters mais distantes de tudo o que a wiki já diz são tratados primeiro. A ordenação e o gatilho por ociosidade seguem o Dreamer do Honcho."
+      },
+      {
+        "title": "As fontes são substituídas",
+        "text": "A página de maior pontuação é reescrita. Cada página mesclada vira um stub que aponta para ela, e o texto original fica na cadeia de versões e no git."
+      },
+      {
+        "title": "Toda mesclagem cita suas fontes",
+        "text": "Linhas de evidência registram quais páginas alimentaram cada mesclagem, então dá para rastrear um detalhe inventado. A saída é JSON validado contra um schema, e cada execução deixa um relatório."
+      }
+    ],
+    "codeTitle": "config do servidor",
+    "codeComment": "Também precisa de um provedor de LLM e de um embedder.",
+    "unproven": {
+      "title": "Entregue, opt-in, sem comprovação",
+      "text": "Nenhuma avaliação de recuperação foi rodada sobre a compactação, o dedup, a pontuação de confiança ou a passada de sonho. O mecanismo é o mesmo que o Hindsight e o mcp-memory-service usam. O projeto não alega nenhuma melhora medida, e nada disso vira padrão enquanto a avaliação não mostrar uma."
+    }
+  },
+  "safety": {
+    "title": "O que dá para desfazer, e o que não dá",
+    "lede": "A compactação, o dedup e a passada de sonho reescrevem através da wiki, então cada mudança é uma versão nova e um commit no git.",
+    "items": [
+      {
+        "title": "Reescritas são reversíveis",
+        "text": "<code>ai-memory restore-page</code> traz de volta a página inteira a partir do histórico git da wiki."
+      },
+      {
+        "title": "Atualizar não muda nada",
+        "text": "Todo comportamento novo vem desligado ou idêntico por padrão. Atualizar para a 2.4 não muda nenhuma pontuação nem descarta nada, e o servidor arquiva o diretório de dados antes de migrar."
+      },
+      {
+        "title": "Fixe o que tem que ficar",
+        "text": "Uma página fixada nunca entra na varredura. Páginas semânticas e procedurais não decaem."
+      }
+    ],
+    "deleted": {
+      "title": "O que continua sendo apagado",
+      "items": [
+        "Uma página com data <code>expires_at</code> no passado é apagada, mesmo fixada.",
+        "Com a compactação desligada, uma página episódica fria perde o arquivo markdown. O registro dela é removido de vez 180 dias depois.",
+        "As duas regras são anteriores à 2.4. Ligue a compactação se preferir que as páginas frias encolham."
+      ]
+    }
+  },
+  "also": {
+    "title": "Também na 2.4",
+    "lede": "Tudo isto são argumentos em ferramentas que já existiam. O total continua em 23 ferramentas.",
+    "items": [
+      {
+        "title": "Respostas com citações",
+        "text": "<code>memory_query</code> com <code>answer: true</code> devolve uma resposta curta e os caminhos das páginas de onde ela saiu. Precisa de um provedor de LLM e segue o endpoint dialético do Honcho. A qualidade ainda não foi avaliada, então abra as páginas citadas."
+      },
+      {
+        "title": "Níveis de raciocínio",
+        "text": "Um argumento <code>reasoning</code>, de <code>minimal</code> a <code>max</code>, define o orçamento de tokens das respostas e do <code>memory_explore</code>."
+      },
+      {
+        "title": "Páginas fixadas primeiro",
+        "text": "<code>pin_first</code> coloca até dez páginas fixadas na frente dos resultados da busca, e o briefing da sessão agora lista essas páginas."
+      },
+      {
+        "title": "Páginas relacionadas",
+        "text": "<code>memory_read_page</code> com <code>include_related</code> percorre links e backlinks até três saltos de distância."
+      },
+      {
+        "title": "Versões antigas sob demanda",
+        "text": "<code>include_superseded</code> inclui na busca as versões substituídas, cada uma com seu rótulo."
+      },
+      {
+        "title": "Qual projeto respondeu",
+        "text": "<code>memory_status</code> informa o workspace e o projeto que resolveu, e como chegou neles."
+      }
+    ],
+    "link": "Leia o changelog completo"
+  },
+  "faq": [
+    {
+      "q": "O ai-memory apaga memórias antigas?",
+      "a": "Só as páginas episódicas de sessão envelhecem. Por padrão, uma página fria é descartada e removida de vez depois de 180 dias, como nas versões anteriores. Desde a 2.4 você pode mandar compactar ou mesclar as páginas frias, e as duas operações podem ser restauradas. Páginas fixadas, semânticas e procedurais são mantidas."
+    },
+    {
+      "q": "O envelhecimento da memória precisa de um LLM?",
+      "a": "Não. A pontuação, as meias-vidas por camada, a compactação, o dedup, os avisos de contradição e a pontuação de confiança não usam LLM. O dedup e os avisos de contradição leem embeddings, que o embedder local padrão já gera. Só a passada de sonho chama um LLM, e ela vem desligada por padrão."
+    },
+    {
+      "q": "O que é a passada de sonho?",
+      "a": "Um job opt-in que roda em background. Depois de cinco minutos de ociosidade, ele pega clusters de páginas frias quase duplicadas e faz o seu LLM reescrever cada cluster em uma página só. As fontes são substituídas, e a execução para quando você volta."
+    },
+    {
+      "q": "Atualizar para a 2.4 vai mudar a memória que eu já tenho?",
+      "a": "Não. Todo comportamento novo de envelhecimento vem desligado ou idêntico por padrão, então as pontuações continuam iguais e nada é descartado. O servidor arquiva o diretório de dados antes de migrar."
+    },
+    {
+      "q": "Esses recursos melhoram as pontuações de recuperação?",
+      "a": "Ninguém mediu isso ainda. O projeto trata esses recursos como entregues, opt-in e sem comprovação até o harness de avaliação mostrar um ganho."
+    }
+  ],
+  "next": [
+    {
+      "title": "Arquitetura",
+      "text": "Onde ficam as páginas, as versões e o índice."
+    },
+    {
+      "title": "Comparação",
+      "text": "Quais ferramentas envelhecem a memória, e como."
+    },
+    {
+      "title": "Pesquisa",
+      "text": "O raciocínio, e o que foi medido."
+    }
+  ]
+}

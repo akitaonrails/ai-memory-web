@@ -106,3 +106,30 @@ Términos decididos durante la traducción que el glosario de `docs/research/I18
 | endorse | avalar |
 | upgrade / upgrading | actualizar / actualización |
 | vendored | vendorizado |
+| memory aging / how memory ages | envejecimiento de la memoria / cómo envejece la memoria |
+| retention score | puntuación de retención |
+| half-life | vida media |
+| forget-sweep (2.4) | barrido de olvido (corto: el barrido) |
+| cold page / goes cold | página fría / se enfría |
+| evict | desalojar |
+| compact / compaction | compactar / compactación |
+| near-duplicates | casi duplicados |
+| dedup / merge | dedup / fusionar (fusión) |
+| cluster | cluster |
+| survivor | superviviente |
+| superseded (page, version) | reemplazada |
+| dream pass | pasada de sueño |
+| experience pass | pasada de experiencia |
+| idle | inactividad / inactivo |
+| confidence score | puntuación de confianza |
+| contradiction / contradiction flags | contradicción / avisos de contradicción |
+| pinned / unpinned page | página fijada / sin fijar |
+| off by default | desactivado por defecto |
+| tiers: working / episodic / semantic / procedural | de trabajo / episódica / semántica / procedimental |
+| salience | prominencia |
+| keep-tokens | tokens conservados |
+| stub | stub |
+| cited answers | respuestas con citas |
+| reasoning levels | niveles de razonamiento |
+| link types | tipos de enlace |
+| New in {version} | Nuevo en la {version} |

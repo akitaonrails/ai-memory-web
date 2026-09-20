@@ -190,5 +190,11 @@
   "community": {
     "title": "Built in the open, by a lot of people.",
     "text": "New here? <a href=\"{href}\" class=\"underline font-semibold text-text\">The contributing page</a> shows where bug reports, pull requests and new agent integrations go."
+  },
+  "aging": {
+    "title": "Old memory shrinks, and what you use stays.",
+    "text": "Session pages pile up for months. ai-memory scores them, keeps the ones you still read, and can compact or merge the rest with no LLM. An optional dream pass has your LLM merge cold pages while you are away, and every rewrite can be restored.",
+    "cta": "How memory ages",
+    "figureAlt": "Diagram: reading a page reinforces its retention score. The forget-sweep finds cold pages, which are evicted by default or, when enabled, compacted or merged into one survivor. Compacted and merged pages can be restored from git history."
   }
 }

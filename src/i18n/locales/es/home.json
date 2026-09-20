@@ -190,5 +190,11 @@
   "community": {
     "title": "Hecho en abierto, entre mucha gente.",
     "text": "¿Acabas de llegar? <a href=\"{href}\" class=\"underline font-semibold text-text\">La página de contribución</a> muestra adónde van los reportes de bugs, los pull requests y las integraciones con agentes nuevos."
+  },
+  "aging": {
+    "title": "La memoria vieja se reduce, y lo que usas se queda.",
+    "text": "Las páginas de sesión se acumulan durante meses. ai-memory las puntúa, conserva las que sigues leyendo y puede compactar o fusionar el resto sin LLM. Una pasada de sueño opcional hace que tu LLM fusione las páginas frías mientras no estás, y toda reescritura se puede restaurar.",
+    "cta": "Cómo envejece la memoria",
+    "figureAlt": "Diagrama: leer una página refuerza su puntuación de retención. El barrido de olvido encuentra las páginas frías, que se desalojan por defecto o, si lo activas, se compactan o se fusionan en una sola superviviente. Las páginas compactadas y fusionadas se pueden restaurar desde el historial de git."
   }
 }

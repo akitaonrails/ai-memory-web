@@ -90,7 +90,7 @@
       "points": [
         "フロントマターの<code>relations:</code>が受け付けるのは、<code>causes</code>、<code>fixes</code>、<code>contradicts</code>という閉じた集合です。タイプミスで新しい種類が生まれることはありません。",
         "<code>contradicts</code>はLLMなしでlintの入力になり、誰かが矛盾を解消するまで報告され続けます。",
-        "現時点ではexplain専用です。通常のリンクとしてグラフに加わりますが、ランキングにはまだ影響しません。ベンチマークから重みの根拠が得られなかったためです。"
+        "検索ではexplain専用です。通常のリンクとしてグラフに加わりますが、ランキングには影響しません。ベンチマークから重みの根拠が得られなかったためです。2.4からは、<code>memory_read_page</code>がこのエッジをたどって関連ページを一覧できます。"
       ],
       "link": "ドキュメントの型付きエッジの項"
     }
@@ -124,7 +124,8 @@
         "テストはストアを直接駆動し、HTTPの入口を通りません。",
         "<code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>で再現できます。"
       ]
-    }
+    },
+    "aging": "古いセッションページにはスコアが付き、コールドなものは追い出し、コンパクション、マージのいずれかの対象になります。<a class=\"link\" href=\"{href}\">記憶はどう古くなるか</a>。"
   },
   "codebase": {
     "title": "クレートごとに見るコード。",

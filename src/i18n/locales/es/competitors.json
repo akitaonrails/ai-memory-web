@@ -74,13 +74,13 @@
         "Embeddings",
         "Postgres o un servicio alojado"
       ],
-      "same": "Memoria compilada en páginas vivas por un bucle de consolidación en segundo plano.",
+      "same": "Memoria compilada en páginas vivas por un bucle de consolidación en segundo plano. Desde la 2.4, ai-memory también tiene una pasada de sueño opt-in y una puntuación de confianza por página.",
       "gain": [
         "Captura, búsqueda y traspasos sin ninguna llamada a un LLM",
         "Archivos que son tuyos, con licencia MIT, sin el peso de la AGPL ni de un SaaS",
         "Compartir por proyecto en equipo, en lugar de un aislamiento estricto por banco"
       ],
-      "theyWin": "Mayor precisión reportada con un LLM en el circuito: Hindsight reporta 91,4% en LongMemEval y OpenViking reporta grandes ahorros de tokens. Ambas son cifras del proveedor.",
+      "theyWin": "Mayor precisión reportada con un LLM en el circuito: Hindsight reporta 91,4% en LongMemEval y OpenViking reporta grandes ahorros de tokens. Ambas son cifras del proveedor. En Hindsight, la fuerza de las creencias mueve el ranking por defecto. En ai-memory viene desactivada hasta que una evaluación la respalde.",
       "verdict": "Cámbiate para uso autoalojado (self-hosted), sin conexión o en equipo. Quédate si necesitas su precisión y aceptas que el LLM sea obligatorio."
     },
     "basic-memory": {
@@ -92,7 +92,7 @@
       "same": "El markdown en disco es la fuente de verdad, con un índice derivado.",
       "gain": [
         "Captura automática desde los hooks de ciclo de vida",
-        "Decaimiento y reemplazo, para que las notas viejas dejen de aparecer arriba",
+        "Las versiones viejas salen de la búsqueda, y las páginas de sesión frías caducan o se compactan",
         "Traspasos entre agentes y uso compartido entre varios usuarios"
       ],
       "theyWin": "Un reranker cross-encoder local, edición colaborativa en tiempo real y una app móvil alojada.",
@@ -104,13 +104,13 @@
       "needs": [
         "Sobre todo Claude Code"
       ],
-      "same": "SQLite, embeddings locales, captura por hooks, enlaces tipados y cifras honestas.",
+      "same": "SQLite, embeddings locales, captura por hooks, enlaces tipados y cifras honestas. Desde la 2.4, también su envejecimiento de la memoria: decaimiento por nivel, compactación, dedup por clusters y avisos de contradicción.",
       "gain": [
         "Páginas que puedes leer, en lugar de filas de hechos",
-        "Traspasos entre agentes que se reclaman una sola vez",
-        "Mensajería entre proyectos y búsqueda a un punto en el tiempo"
+        "Un envejecimiento desactivado por defecto, y toda reescritura se puede restaurar",
+        "Traspasos entre agentes que se reclaman una sola vez, y mensajería entre proyectos"
       ],
-      "theyWin": "Consolidación basada en clustering, replicación multibackend y un visualizador de grafos. Su puntuación de 0,860 a nivel de sesión supera el 0,823 de ai-memory.",
+      "theyWin": "Su envejecimiento funciona solo, sin configurar nada. También tiene replicación multibackend y un visualizador de grafos, y su puntuación de 0,860 a nivel de sesión supera el 0,823 de ai-memory.",
       "verdict": "Cámbiate si te gustó la captura por hooks y la quieres en todos los agentes."
     },
     "agentmemory": {
@@ -120,7 +120,7 @@
         "Un sidecar en Node",
         "Más de 50 herramientas MCP"
       ],
-      "same": "Casi todos los conceptos: niveles, reemplazo, decaimiento, ranking fusionado, hooks.",
+      "same": "Casi todos los conceptos: niveles, reemplazo, decaimiento, ranking fusionado, hooks y una compresión que no necesita LLM.",
       "gain": [
         "Un binario autocontenido, sin sidecar",
         "Índices SQL reales, confirmados en una sola transacción",
@@ -150,7 +150,7 @@
         "Una cuenta en la nube",
         "Gasto de API"
       ],
-      "same": "Un segundo cerebro con ingesta automática y reemplazo.",
+      "same": "Un segundo cerebro con ingesta automática y reemplazo. Su pasada de “dreaming” es una de las fuentes de la de ai-memory.",
       "gain": [
         "Markdown versionado en git que es tuyo",
         "Funciona sin conexión",
@@ -158,6 +158,22 @@
       ],
       "theyWin": "Conectores gestionados para Drive, Gmail, Notion y S3, ingesta multimodal y perfiles de usuario.",
       "verdict": "Otro tipo de cliente."
+    },
+    "honcho": {
+      "name": "Honcho",
+      "kind": "Modelado de usuarios para agentes",
+      "needs": [
+        "Un LLM",
+        "Postgres, Redis y un worker"
+      ],
+      "same": "Desde la 2.4: respuestas con citas desde memory_query, niveles de razonamiento y una pasada de sueño que se ejecuta cuando estás inactivo y procesa primero el material más novedoso.",
+      "gain": [
+        "Esas comodidades sin exigir un LLM para capturar ni para buscar",
+        "Un solo binario y una carpeta en lugar de tres servicios",
+        "Memoria acotada a un repositorio y compartida con un equipo"
+      ],
+      "theyWin": "Un motor de razonamiento que modela lo que cada persona sabe y cree. Reporta 90,4% en LongMemEval-S recordando hechos sobre un usuario, una cifra del proveedor en una tarea distinta.",
+      "verdict": "Un problema distinto: Honcho recuerda al usuario, y ai-memory recuerda el proyecto."
     }
   },
   "moat": [

@@ -1,0 +1,10 @@
+A wide horizontal flow diagram, reading left to right, about how old memory pages age with no AI model involved.
+1. Far left: a small terminal window with a document page next to it, labelled "Page read". A curved amber arrow labelled "reinforces" rises from it and points into the next element.
+2. Next: a glowing round gauge or dial with a needle, labelled "Retention score".
+3. Next: a broom-like sweeping arc or a rotating sweep icon labelled "Forget-sweep" pointing to a diamond-shaped decision node labelled "Cold?".
+4. To the right of the diamond the flow fans into three lanes stacked vertically:
+   - top lane, drawn with a SOLID line: a faded document turning into dust particles, labelled "Evict".
+   - middle lane, drawn with a DASHED line: a tall document being squeezed into a short compact document, labelled "Compact".
+   - bottom lane, drawn with a DASHED line: several near-identical documents merging into a single document, labelled "One survivor".
+5. Along the bottom, a long horizontal bar spanning most of the width labelled "git history", with a curved amber arrow labelled "restore-page" rising from the bar back up to the "Compact" and "One survivor" lanes only (NOT to the "Evict" lane).
+Colours follow the spectrum left to right: the read and gauge in green and teal, the sweep and diamond in azure, the three lanes in violet to rose.

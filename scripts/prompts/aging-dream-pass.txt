@@ -1,0 +1,9 @@
+A wide horizontal flow diagram, reading left to right, about a background "dream" pass in which a language model tidies old memory while the developer is away.
+1. Far left: a toggle switch in the ON position, labelled "Opt-in".
+2. Next: a crescent moon above an idle laptop with a dark screen, labelled "Idle 5 min".
+3. Next: three small clusters of faded document pages, each cluster grouped inside a dotted circle, labelled "Cold clusters". One cluster sits apart from the others and glows brighter; a small label next to it reads "Most novel first".
+4. Next: the copper microchip from the logo with a soft dreamy cloud-shaped glow around it, labelled "LLM rewrite".
+5. Far right: one bright, crisp document page labelled "One merged page". Below it, smaller dimmed pages with a small link icon pointing up to the merged page, labelled "Sources superseded".
+6. Along the top, a thin red-rose curved arrow going backwards from the chip to the idle laptop, labelled "Activity cancels".
+7. Along the bottom, a long horizontal bar spanning most of the width labelled "git history".
+Colours follow the spectrum left to right: toggle in green, moon and laptop in teal, clusters in azure, chip in amber, merged page in violet, superseded pages in rose.

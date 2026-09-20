@@ -90,7 +90,7 @@
       "points": [
         "프런트매터의 <code>relations:</code>는 닫힌 집합만 받습니다: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. 오타로 새 종류가 생길 수 없습니다.",
         "<code>contradicts</code>는 LLM 없이 린트에 반영되고, 누군가 정리할 때까지 계속 보고됩니다.",
-        "지금은 explain 전용입니다. 일반 링크로 그래프에 들어갈 뿐 아직 순위를 움직이지 않습니다. 벤치마크에서 가중치를 줄 근거가 나오지 않았기 때문입니다."
+        "검색에서는 explain 전용입니다. 일반 링크로 그래프에 들어갈 뿐 순위를 움직이지 않습니다. 벤치마크에서 가중치를 줄 근거가 나오지 않았기 때문입니다. 2.4부터는 <code>memory_read_page</code>가 이 엣지를 따라가 관련 페이지를 나열할 수 있습니다."
       ],
       "link": "문서의 타입 엣지 항목"
     }
@@ -124,7 +124,8 @@
         "테스트는 스토어를 직접 구동하며 HTTP 진입점은 거치지 않습니다.",
         "<code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>로 재현할 수 있습니다."
       ]
-    }
+    },
+    "aging": "오래된 세션 페이지에는 점수가 매겨지고, 콜드 페이지는 퇴출, 압축 또는 병합됩니다. <a class=\"link\" href=\"{href}\">기억이 나이 드는 방식</a>."
   },
   "codebase": {
     "title": "crate별로 본 코드.",

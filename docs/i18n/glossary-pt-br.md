@@ -93,3 +93,28 @@
 | research and rationale | pesquisa e fundamentos (igual ao nav) |
 | behind (project gaps) | atrás ("onde ele está atrás") |
 | Akita quotes (research.json) | texto original do post em português, não retraduzir |
+| memory aging / how memory ages | envelhecimento da memória / "Como a memória envelhece" |
+| retention score / confidence score | pontuação de retenção / pontuação de confiança (score = pontuação, como em "pontuação de recuperação") |
+| half-life | meia-vida (plural: meias-vidas) |
+| forget-sweep | forget sweep (mantido, sem hífen); "a scheduled sweep" = varredura agendada |
+| cold page / goes cold | página fria / esfria |
+| evict | descartar |
+| compact / compaction | compactar / compactação |
+| near-duplicates | quase duplicatas |
+| dedup | dedup (o dedup) |
+| merge (pages) / merged page / a merge | mesclar / página mesclada / mesclagem |
+| survivor | sobrevivente (feminino, concorda com página) |
+| sources (of a merge) | fontes / páginas de origem |
+| keep-tokens | tokens preservados ("tokens que vale a pena guardar") |
+| dream pass | passada de sonho (a) |
+| experience pass | passada de experiência |
+| idle / idle trigger | ocioso, ociosidade / gatilho por ociosidade |
+| most novel | mais inédito |
+| contradiction flags | avisos de contradição |
+| pinned page | página fixada |
+| off by default / opt-in | desligado por padrão / opt-in |
+| shipped, unproven | entregue, sem comprovação |
+| tiers: working / episodic / semantic / procedural | De trabalho / Episódica / Semântica / Procedural |
+| belief strength (Hindsight) | força da crença |
+| reasoning levels | níveis de raciocínio |
+| evaluation run | rodada de avaliação |

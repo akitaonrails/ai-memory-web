@@ -13,10 +13,22 @@
     "title": "The default is local.",
     "lede": "Install it, run it, and the only thing that can talk to it is your own machine.",
     "items": [
-      { "title": "Loopback only", "text": "The server binds 127.0.0.1:49374. No process outside the machine can reach it, which is why the default needs no password." },
-      { "title": "No telemetry", "text": "The binary has no analytics, crash reporting or usage tracking. Capture and search make zero network calls." },
-      { "title": "One directory you own", "text": "Wiki pages and the SQLite file live under one data directory. New directories are created 0700 and new files 0600 on Unix." },
-      { "title": "No encryption at rest", "text": "Version 1 relies on filesystem permissions. Existing installs are not chmodded for you. Use disk encryption if the laptop needs it." }
+      {
+        "title": "Loopback only",
+        "text": "The server binds 127.0.0.1:49374. No process outside the machine can reach it, which is why the default needs no password."
+      },
+      {
+        "title": "No telemetry",
+        "text": "The binary has no analytics, crash reporting or usage tracking. Capture and search make zero network calls."
+      },
+      {
+        "title": "One directory you own",
+        "text": "Wiki pages and the SQLite file live under one data directory. New directories are created 0700 and new files 0600 on Unix."
+      },
+      {
+        "title": "No encryption at rest",
+        "text": "Version 1 relies on filesystem permissions. Existing installs are not chmodded for you. Use disk encryption if the laptop needs it."
+      }
     ],
     "download": {
       "title": "The one outbound request on a default install",
@@ -30,10 +42,22 @@
     "figureAlt": "Diagram: a raw hook payload containing keys and passwords enters a single gate labelled sanitize(). Secrets drop out below the gate. A smaller, size-capped observation comes out the other side and is stored.",
     "figureCaption": "The sanitizer is the only path from a hook payload into the store.",
     "items": [
-      { "title": "One way in", "text": "The stored type can only be built by sanitize(). Code that skips the privacy strip does not compile." },
-      { "title": "Secrets are replaced", "text": "Matches become typed markers such as [REDACTED:github_token] or [REDACTED:jwt]. The strip is best effort." },
-      { "title": "Sizes are capped", "text": "Tool excerpts stop at 2 KB and prompts at 16 KiB. A 16 KiB backstop applies to every stored body after redaction." },
-      { "title": "Tool inputs are not kept", "text": "PreToolUse events never retain commands, arguments, paths or input bodies. Observations are an audit trail, never a full transcript." }
+      {
+        "title": "One way in",
+        "text": "The stored type can only be built by sanitize(). Code that skips the privacy strip does not compile."
+      },
+      {
+        "title": "Secrets are replaced",
+        "text": "Matches become typed markers such as [REDACTED:github_token] or [REDACTED:jwt]. Since 2.4 that covers secrets inside JSON and Windows credential paths, and terminal escape sequences are stripped. The strip is best effort."
+      },
+      {
+        "title": "Sizes are capped",
+        "text": "Tool excerpts stop at 2 KB and prompts at 16 KiB. A 16 KiB backstop applies to every stored body after redaction."
+      },
+      {
+        "title": "Tool inputs are not kept",
+        "text": "PreToolUse events never retain commands, arguments, paths or input bodies. Observations are an audit trail, never a full transcript."
+      }
     ],
     "exclude": {
       "title": "Keep a path or a repository out",
@@ -94,13 +118,30 @@
     "lede": "Four paths can send data out. All four are off by default.",
     "figureAlt": "Diagram: hooks, the wiki and index, and the local embedder sit inside an enclosure labelled Your machine, joined by solid lines. Dashed lines to cloud embeddings, a cloud LLM and LLM rerank cross the wall through open switches labelled Opt-in, off by default.",
     "figureCaption": "Solid lines stay inside. Dashed lines exist only after you change a setting.",
-    "columns": { "path": "Path", "sent": "What is sent", "on": "How it is turned on", "default": "Default" },
+    "columns": {
+      "path": "Path",
+      "sent": "What is sent",
+      "on": "How it is turned on",
+      "default": "Default"
+    },
     "off": "Off",
     "rows": [
-      { "path": "Remote embeddings", "sent": "The full text of every stored page. Switching later also backfills the existing corpus. This path is not sanitized the way the others are." },
-      { "path": "Assistant output capture", "sent": "The assistant’s final-turn text, and only if you have also configured a cloud LLM. Global to the install, Claude Code and Codex only." },
-      { "path": "LLM rerank", "sent": "Each live query plus up to 30 bounded page titles and snippets. The query is not redacted, because redaction could change its meaning." },
-      { "path": "LLM consolidation and lint", "sent": "Prompts built from stored observations and pages go to whichever provider you chose. Point it at a local model and nothing leaves." }
+      {
+        "path": "Remote embeddings",
+        "sent": "The full text of every stored page. Switching later also backfills the existing corpus. This path is not sanitized the way the others are."
+      },
+      {
+        "path": "Assistant output capture",
+        "sent": "The assistant’s final-turn text, and only if you have also configured a cloud LLM. Global to the install, Claude Code and Codex only."
+      },
+      {
+        "path": "LLM rerank",
+        "sent": "Each live query plus up to 30 bounded page titles and snippets. The query is not redacted, because redaction could change its meaning."
+      },
+      {
+        "path": "LLM consolidation and lint",
+        "sent": "Prompts built from stored observations and pages go to whichever provider you chose. Point it at a local model and nothing leaves."
+      }
     ],
     "assistantOn": "{server} on the server and {client} on the client",
     "processor": "With none of these enabled there is no third party in the data path. Once you configure a cloud provider, that provider is your processor under your own agreement with it. <a class=\"underline font-semibold text-text\" href=\"{href}\">DATA_HANDLING.md covers the GDPR framing</a>. It is not legal advice."
@@ -125,14 +166,42 @@
       "commentProject": "Remove a whole project"
     },
     "purgeTable": {
-      "columns": { "what": "After a purge", "default": "Default", "compact": "With --compact" },
+      "columns": {
+        "what": "After a purge",
+        "default": "Default",
+        "compact": "With --compact"
+      },
       "rows": [
-        { "what": "Reachable through the API or MCP tools", "default": "No", "compact": "No" },
-        { "what": "Returned by search", "default": "No", "compact": "No" },
-        { "what": "Live markdown file in the wiki", "default": "No, best effort", "compact": "No, best effort" },
-        { "what": "Bytes still inside memory.sqlite", "default": "Yes, in free pages", "compact": "No" },
-        { "what": "Text still in the wiki git history", "default": "Yes", "compact": "Yes" },
-        { "what": "Present in backups taken earlier", "default": "Yes", "compact": "Yes" }
+        {
+          "what": "Reachable through the API or MCP tools",
+          "default": "No",
+          "compact": "No"
+        },
+        {
+          "what": "Returned by search",
+          "default": "No",
+          "compact": "No"
+        },
+        {
+          "what": "Live markdown file in the wiki",
+          "default": "No, best effort",
+          "compact": "No, best effort"
+        },
+        {
+          "what": "Bytes still inside memory.sqlite",
+          "default": "Yes, in free pages",
+          "compact": "No"
+        },
+        {
+          "what": "Text still in the wiki git history",
+          "default": "Yes",
+          "compact": "Yes"
+        },
+        {
+          "what": "Present in backups taken earlier",
+          "default": "Yes",
+          "compact": "Yes"
+        }
       ]
     },
     "forensic": "<code>--compact</code> is not forensic erasure. To remove text from history you rewrite the wiki’s git history and rotate your backups yourself. <a class=\"underline font-semibold text-text\" href=\"{href}\">Lifecycle operations has the full procedure.</a>"
@@ -160,16 +229,40 @@
     }
   },
   "faq": [
-    { "q": "Does ai-memory send my code or prompts anywhere?", "a": "No. There is no telemetry, and capture and search make no network calls. Data leaves the machine only if you turn on remote embeddings, assistant output capture with a cloud LLM, LLM rerank, or a cloud LLM provider for consolidation. All are off by default." },
-    { "q": "Does a default install make any network request?", "a": "One. Since 2.0 the default local embedder downloads an all-MiniLM-L6-v2 model of about 87 MB from Hugging Face on first start. No user data is sent. Set embedding_provider = \"none\" or place the model files yourself to avoid it." },
-    { "q": "Are secrets stored?", "a": "Every hook payload passes a sanitizer before storage. Recognized credentials are replaced with typed [REDACTED:kind] markers and bodies are size capped. The sanitizer is a best-effort credential strip and gives no guarantee." },
-    { "q": "Can I delete a session for good?", "a": "Purge is a logical delete. The content stops being reachable and searchable, but the text stays in the wiki git history and in earlier backups. The --compact flag clears the SQLite free pages and is not forensic erasure." },
-    { "q": "Is ai-memory multi-tenant?", "a": "No. It is a single-tenant service. Accounts give attribution, and every authenticated user can read every project on that server. Run separate servers for people who must not see each other’s data." }
+    {
+      "q": "Does ai-memory send my code or prompts anywhere?",
+      "a": "No. There is no telemetry, and capture and search make no network calls. Data leaves the machine only if you turn on remote embeddings, assistant output capture with a cloud LLM, LLM rerank, or a cloud LLM provider for consolidation. All are off by default."
+    },
+    {
+      "q": "Does a default install make any network request?",
+      "a": "One. Since 2.0 the default local embedder downloads an all-MiniLM-L6-v2 model of about 87 MB from Hugging Face on first start. No user data is sent. Set embedding_provider = \"none\" or place the model files yourself to avoid it."
+    },
+    {
+      "q": "Are secrets stored?",
+      "a": "Every hook payload passes a sanitizer before storage. Recognized credentials are replaced with typed [REDACTED:kind] markers and bodies are size capped. The sanitizer is a best-effort credential strip and gives no guarantee."
+    },
+    {
+      "q": "Can I delete a session for good?",
+      "a": "Purge is a logical delete. The content stops being reachable and searchable, but the text stays in the wiki git history and in earlier backups. The --compact flag clears the SQLite free pages and is not forensic erasure."
+    },
+    {
+      "q": "Is ai-memory multi-tenant?",
+      "a": "No. It is a single-tenant service. Accounts give attribution, and every authenticated user can read every project on that server. Run separate servers for people who must not see each other’s data."
+    }
   ],
   "next": [
-    { "title": "Architecture", "text": "The pipeline from hook to briefing, and why markdown is the source of truth." },
-    { "title": "Advanced setup", "text": "Homelab, TLS, OIDC, air-gapped installs and backups, step by step." },
-    { "title": "For teams", "text": "One shared server, per-person keys, and what sharing means here." }
+    {
+      "title": "Architecture",
+      "text": "The pipeline from hook to briefing, and why markdown is the source of truth."
+    },
+    {
+      "title": "Advanced setup",
+      "text": "Homelab, TLS, OIDC, air-gapped installs and backups, step by step."
+    },
+    {
+      "title": "For teams",
+      "text": "One shared server, per-person keys, and what sharing means here."
+    }
   ],
   "ctaBand": {
     "title": "Try it on loopback first.",

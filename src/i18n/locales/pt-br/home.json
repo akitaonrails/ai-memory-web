@@ -190,5 +190,11 @@
   "community": {
     "title": "Feito às claras, por muita gente.",
     "text": "Chegou agora? <a href=\"{href}\" class=\"underline font-semibold text-text\">A página de contribuição</a> mostra para onde vão bug reports, pull requests e integrações com novos agentes."
+  },
+  "aging": {
+    "title": "A memória velha encolhe, e o que você usa fica.",
+    "text": "As páginas de sessão se acumulam por meses. O ai-memory dá uma pontuação a elas, mantém as que você ainda lê e pode compactar ou mesclar o resto sem LLM. Uma passada de sonho opcional põe o seu LLM para mesclar páginas frias enquanto você está fora, e toda reescrita pode ser restaurada.",
+    "cta": "Como a memória envelhece",
+    "figureAlt": "Diagrama: ler uma página reforça a pontuação de retenção dela. O forget sweep encontra as páginas frias, que são descartadas por padrão ou, quando habilitado, compactadas ou mescladas em uma única sobrevivente. Páginas compactadas e mescladas podem ser restauradas a partir do histórico git."
   }
 }

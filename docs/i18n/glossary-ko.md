@@ -92,3 +92,23 @@ Term decisions beyond the brief. Append rows; never rewrite another translator's
 | best effort | best effort (kept in English) |
 | audit trail | 감사 추적 |
 | hardening | 보안 강화 |
+| memory aging / how memory ages | 기억 노화 / 기억이 나이 드는 방식 |
+| retention score / half-life | 보존 점수 / 반감기 |
+| forget-sweep | 망각 스윕 (short: 스윕) |
+| cold page / cold cluster | 콜드 페이지 / 콜드 클러스터 |
+| evict | 퇴출 |
+| compact / compaction (also agentmemory "compression") | 압축 |
+| near-duplicates | 유사 중복 |
+| dedup / merge | 중복 제거 / 병합 |
+| survivor | 생존 페이지 |
+| superseded (pages, sources) | 대체 처리됨 (diagram: 대체됨) |
+| dream pass | 꿈 패스 |
+| idle / idle trigger | 유휴 / 유휴 트리거 |
+| most novel first | 가장 새로운 내용부터 (diagram: 새로운 것부터) |
+| confidence score | 신뢰도 점수 (Hindsight belief strength: 신뢰 강도) |
+| contradiction / contradiction flags | 모순 / 모순 표시 |
+| pinned page | 고정된 페이지 |
+| keep-tokens | 보존 토큰 |
+| tiers: working / episodic / semantic / procedural | 작업 기억 / 일화 기억 / 의미 기억 / 절차 기억 (pages: 일화 페이지) |
+| shipped, opt-in, unproven | 출시됨, 옵트인, 미검증 |
+| answers with citations / reasoning levels | 인용이 붙은 답변 / 추론 수준 |

@@ -157,5 +157,27 @@
   "teams-topology": {
     "One ai-memory server": "ai-memoryサーバー1台",
     "Project wiki": "プロジェクトのwiki"
+  },
+  "aging-decay-path": {
+    "Page read": "ページの読み取り",
+    "reinforces": "強化",
+    "Retention score": "保持スコア",
+    "Forget-sweep": "忘却スイープ",
+    "Cold?": "コールド？",
+    "Evict": "追い出し",
+    "Compact": "コンパクション",
+    "One survivor": "残る1ページ",
+    "git history": "gitの履歴"
+  },
+  "aging-dream-pass": {
+    "Opt-in": "オプトイン",
+    "Idle 5 min": "アイドル5分",
+    "Cold clusters": "コールドクラスタ",
+    "Most novel first": "新規性の高い順",
+    "LLM rewrite": "LLMが書き直し",
+    "One merged page": "マージ済み1ページ",
+    "Sources superseded": "元ページは置き換え済み",
+    "Activity cancels": "操作があれば中止",
+    "git history": "gitの履歴"
   }
 }

@@ -30,7 +30,8 @@
     "architecture": "아키텍처",
     "research": "리서치",
     "contribute": "기여하기",
-    "download": "다운로드"
+    "download": "다운로드",
+    "aging": "기억 노화"
   },
   "nav": {
     "getStarted": "시작하기",
@@ -40,6 +41,10 @@
       "how": {
         "label": "동작 방식",
         "note": "캡처, 통합, 회상, 인수인계"
+      },
+      "aging": {
+        "label": "기억이 나이 드는 방식",
+        "note": "감쇠, 압축, 꿈 패스"
       },
       "architecture": {
         "label": "아키텍처",
@@ -143,5 +148,8 @@
   "englishOnly": "이 부분은 프로젝트에서 그대로 가져온 내용이라 영어로 표시됩니다.",
   "faq": {
     "title": "자주 묻는 질문"
+  },
+  "release": {
+    "new": "{version}의 새 기능"
   }
 }

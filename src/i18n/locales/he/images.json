@@ -157,5 +157,27 @@
   "teams-topology": {
     "One ai-memory server": "שרת ai-memory אחד",
     "Project wiki": "ויקי הפרויקט"
+  },
+  "aging-decay-path": {
+    "Page read": "קריאת דף",
+    "reinforces": "מחזקת",
+    "Retention score": "ציון שימור",
+    "Forget-sweep": "סבב השכחה",
+    "Cold?": "קר?",
+    "Evict": "פינוי",
+    "Compact": "צמצום",
+    "One survivor": "שורד אחד",
+    "git history": "היסטוריית git"
+  },
+  "aging-dream-pass": {
+    "Opt-in": "הפעלה יזומה",
+    "Idle 5 min": "מנוחה 5 דקות",
+    "Cold clusters": "אשכולות קרים",
+    "Most novel first": "החדשני ביותר קודם",
+    "LLM rewrite": "שכתוב ב-LLM",
+    "One merged page": "דף ממוזג אחד",
+    "Sources superseded": "המקורות מוחלפים",
+    "Activity cancels": "פעילות מבטלת",
+    "git history": "היסטוריית git"
   }
 }

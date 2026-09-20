@@ -1,0 +1,120 @@
+---
+import { useI18n, localePaths, withText } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Figure from '@/components/Figure.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Callout from '@/components/Callout.astro';
+import ReleaseBadge from '@/components/ReleaseBadge.astro';
+import Faq from '@/components/Faq.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { faqPage, type Faq as FaqItem } from '@/lib/schema';
+import { site } from '@/data/site';
+
+const { t, raw, href } = useI18n(Astro, 'aging');
+type Item = { title: string; text: string };
+
+const tiers = withText([{ hue: 'azure' }, { hue: 'green' }, { hue: 'violet' }, { hue: 'teal' }] as const, raw<Item[]>('tiers.items'));
+
+// Which of the zero-LLM pieces run without being asked. Order matches decay.steps in the catalog.
+const stepState = ['on', 'off', 'off', 'off', 'off', 'lint', 'on'] as const;
+const stateLabel = { on: t('decay.stateOn'), off: t('decay.stateOff'), lint: t('decay.stateLint') };
+const stateHue = { on: 'green', off: 'amber', lint: 'azure' };
+const steps = raw<Item[]>('decay.steps').map((s, i) => ({ ...s, state: stepState[i] }));
+
+const decayConfig = `# ${t('decay.codeComment')}
+[decay]
+compact_cold_episodic = true
+dedup_cold_clusters = true
+
+[decay.half_life_days]
+working = 7
+episodic = 365`;
+
+const dreamConfig = `# ${t('dream.codeComment')}
+[dream]
+enabled = true
+idle_window_secs = 300
+max_clusters_per_run = 8`;
+
+const faq = raw<FaqItem[]>('faq');
+const next = withText([
+  { href: '/architecture/', hue: 'azure' },
+  { href: '/compare/', hue: 'amber' },
+  { href: '/research/', hue: 'violet' },
+] as const, raw<Item[]>('next'));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faqPage(faq)]}>
+  <PageHero hue="green" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href="#decay" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href="#dream" class="btn btn-ghost">{t('hero.secondary')}</a>
+    <span class="self-center"><ReleaseBadge version="2.4" /></span>
+  </PageHero>
+
+  <Section title={t('tiers.title')} lede={t('tiers.lede')} hue="green">
+    <FeatureGrid items={tiers} cols={4} />
+  </Section>
+
+  <Section id="decay" title={t('decay.title')} lede={t('decay.lede')} hue="teal" tint>
+    <Figure name="aging-decay-path" alt={t('decay.figureAlt')} caption={t('decay.figureCaption')} />
+    <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-x-16 gap-y-12">
+      <div>
+        <h3 class="text-xl">{t('decay.score.title')}</h3>
+        <ul class="dotlist text-muted mt-5 space-y-3">
+          {raw<string[]>('decay.score.points').map((p) => <li set:html={p} />)}
+        </ul>
+        <div class="mt-8"><CodeBlock title={t('decay.codeTitle')} code={decayConfig} /></div>
+      </div>
+      <ol class="pieces" data-focus-list>
+        {steps.map((s) => (
+          <li>
+            <p class="badge" data-hue={stateHue[s.state]}>{stateLabel[s.state]}</p>
+            <h3 class="text-xl mt-3">{s.title}</h3>
+            <p class="mt-2 text-muted" set:html={s.text} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </Section>
+
+  <Section id="dream" title={t('dream.title')} lede={t('dream.lede')} hue="violet">
+    <Figure name="aging-dream-pass" alt={t('dream.figureAlt')} caption={t('dream.figureCaption')} />
+    <div class="grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-16 gap-y-12">
+      <FeatureGrid items={raw<Item[]>('dream.points').map((p) => ({ ...p, hue: 'violet' as const }))} cols={2} />
+      <div class="min-w-0 space-y-8">
+        <CodeBlock title={t('dream.codeTitle')} code={dreamConfig} />
+        <Callout title={t('dream.unproven.title')} hue="amber"><p>{t('dream.unproven.text')}</p></Callout>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="safety" title={t('safety.title')} lede={t('safety.lede')} hue="rose" tint>
+    <FeatureGrid items={raw<Item[]>('safety.items').map((p) => ({ ...p, hue: 'rose' as const }))} cols={3} />
+    <div class="mt-12">
+      <Callout title={t('safety.deleted.title')} hue="rose">
+        <ul>{raw<string[]>('safety.deleted.items').map((p) => <li set:html={p} />)}</ul>
+      </Callout>
+    </div>
+  </Section>
+
+  <Section id="also" title={t('also.title')} lede={t('also.lede')} hue="azure">
+    <FeatureGrid items={raw<Item[]>('also.items').map((p) => ({ ...p, hue: 'azure' as const }))} cols={3} />
+    <p class="mt-12"><a class="btn btn-ghost" href={`${site.repo}/blob/main/CHANGELOG.md`}>{t('also.link')}</a></p>
+  </Section>
+
+  <Faq items={faq} hue="green" />
+  <NextPages links={next.map((n) => ({ ...n }))} />
+  <CtaBand />
+</Base>
+
+<style>
+  .pieces { display: grid; gap: 1rem; }
+  .pieces li { padding: 1.3rem 1.5rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); transition: opacity .5s, border-color .5s, box-shadow .6s; }
+  .pieces[data-focus-ready] li[data-state='ahead'] { opacity: .55; }
+  .pieces[data-focus-ready] li[data-state='past'] { opacity: .85; }
+  .pieces li[data-state='active'] { border-color: var(--hue-vivid); box-shadow: var(--shadow), 0 0 0 1px var(--hue-vivid); }
+</style>

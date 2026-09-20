@@ -30,7 +30,8 @@
     "architecture": "Architecture",
     "research": "Research",
     "contribute": "Contribute",
-    "download": "Download"
+    "download": "Download",
+    "aging": "Memory aging"
   },
   "nav": {
     "getStarted": "Get started",
@@ -40,6 +41,10 @@
       "how": {
         "label": "How it works",
         "note": "Capture, consolidate, recall, hand off"
+      },
+      "aging": {
+        "label": "How memory ages",
+        "note": "Decay, compaction and the dream pass"
       },
       "architecture": {
         "label": "Architecture",
@@ -143,5 +148,8 @@
   "englishOnly": "This part is in English because it comes straight from the project.",
   "faq": {
     "title": "Questions and answers"
+  },
+  "release": {
+    "new": "New in {version}"
   }
 }

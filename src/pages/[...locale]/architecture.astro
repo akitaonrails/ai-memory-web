@@ -15,7 +15,7 @@ import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
 
-const { t, raw, number, dir } = useI18n(Astro, 'architecture');
+const { t, raw, number, dir, href } = useI18n(Astro, 'architecture');
 type Item = { title: string; text: string };
 
 // Structure here (paths, hues, numbers, crate and tool names), words in src/i18n/locales/<locale>/architecture.json.
@@ -170,6 +170,7 @@ const next = withText([
         <ul class="mt-6 space-y-2.5 text-muted dotlist">
           {raw<string[]>('concurrency.writer.points').map((p) => <li set:html={p} />)}
         </ul>
+        <p class="mt-6 text-muted max-w-[36em]" set:html={t('concurrency.aging', { href: href('/aging/') })} />
       </div>
     </div>
   </Section>

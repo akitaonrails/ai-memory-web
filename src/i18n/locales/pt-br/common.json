@@ -30,7 +30,8 @@
     "architecture": "Arquitetura",
     "research": "Pesquisa",
     "contribute": "Contribua",
-    "download": "Download"
+    "download": "Download",
+    "aging": "Envelhecimento da memória"
   },
   "nav": {
     "getStarted": "Começar",
@@ -40,6 +41,10 @@
       "how": {
         "label": "Como funciona",
         "note": "Captura, consolidação, recuperação, handoff"
+      },
+      "aging": {
+        "label": "Como a memória envelhece",
+        "note": "Decaimento, compactação e a passada de sonho"
       },
       "architecture": {
         "label": "Arquitetura",
@@ -143,5 +148,8 @@
   "englishOnly": "Este trecho está em inglês porque vem direto do projeto.",
   "faq": {
     "title": "Perguntas e respostas"
+  },
+  "release": {
+    "new": "Novo na {version}"
   }
 }

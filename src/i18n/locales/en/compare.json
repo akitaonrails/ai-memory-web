@@ -14,10 +14,22 @@
     "title": "Each tool optimizes one thing",
     "lede": "ai-memory optimizes a git-backed wiki of markdown pages with a derived search index, and it makes zero LLM calls by default. The others made different bets, for different buyers.",
     "items": [
-      { "title": "Fact extractors", "text": "Mem0 and LangMem ask an LLM to pull atomic facts out of every turn, to personalize an app for its end users." },
-      { "title": "Temporal graphs", "text": "Zep, Graphiti and cognee model knowledge as a graph over time. They serve graph queries and run on top of a graph database." },
-      { "title": "Memory operating systems", "text": "Letta and MemGPT let the agent edit its own tiered memory. They suit people who adopt their agent runtime." },
-      { "title": "Hosted APIs", "text": "Supermemory and the managed clouds keep your memory behind an account, in exchange for connectors and zero operations." }
+      {
+        "title": "Fact extractors",
+        "text": "Mem0 and LangMem ask an LLM to pull atomic facts out of every turn, to personalize an app for its end users."
+      },
+      {
+        "title": "Temporal graphs",
+        "text": "Zep, Graphiti and cognee model knowledge as a graph over time. They serve graph queries and run on top of a graph database."
+      },
+      {
+        "title": "Memory operating systems",
+        "text": "Letta and MemGPT let the agent edit its own tiered memory. They suit people who adopt their agent runtime."
+      },
+      {
+        "title": "Hosted APIs",
+        "text": "Supermemory and the managed clouds keep your memory behind an account, in exchange for connectors and zero operations."
+      }
     ]
   },
   "unique": {
@@ -33,7 +45,13 @@
     "figureCaption": "A typical stack against ai-memory. Not every tool needs all four; the table below says which needs what.",
     "caption": "Moving parts each memory tool needs",
     "tool": "Tool",
-    "parts": ["An LLM", "A vector or embedding service", "A graph database", "Another runtime or database", "A cloud account"],
+    "parts": [
+      "An LLM",
+      "A vector or embedding service",
+      "A graph database",
+      "Another runtime or database",
+      "A cloud account"
+    ],
     "needs": "What it needs",
     "ours": "One binary and a folder of markdown",
     "marks": {
@@ -59,13 +77,26 @@
     "chartLabel": "Bar chart of LongMemEval-S hit at 5. {bars}",
     "chartBar": "{label}: {value}.",
     "ours": [
-      { "label": "ai-memory before 2.0", "note": "Full text only" },
-      { "label": "ai-memory, full text only", "note": "Stopword filtering added" },
-      { "label": "ai-memory 2.0 default", "note": "Local embeddings, no API key" }
+      {
+        "label": "ai-memory before 2.0",
+        "note": "Full text only"
+      },
+      {
+        "label": "ai-memory, full text only",
+        "note": "Stopword filtering added"
+      },
+      {
+        "label": "ai-memory 2.0 default",
+        "note": "Local embeddings, no API key"
+      }
     ],
     "theirs": [
-      { "note": "Vendor reported, session level" },
-      { "note": "Vendor reported, with reranking" }
+      {
+        "note": "Vendor reported, session level"
+      },
+      {
+        "note": "Vendor reported, with reranking"
+      }
     ],
     "axis": "hit@5, from 0 to 1. Solid bars were measured by this project. Hatched bars are the vendors’ own numbers and were not reproduced here.",
     "caveats": [
@@ -88,12 +119,34 @@
     "title": "Where ai-memory is behind",
     "lede": "This list comes from the repository’s own audit. If one of these is what you need, stay where you are.",
     "items": [
-      { "title": "No local reranker", "text": "Retrieval scores sit below the systems that rerank. An LLM reranker exists and is off by default. A zero-cost local one does not exist yet." },
-      { "title": "Typed links do not move ranking", "text": "Links between pages explain a result. They carry no ranking weight today, and evidence strength is recorded without affecting order." },
-      { "title": "One timeline", "text": "Point-in-time search uses the time a fact was recorded. Zep models both when something happened and when it was learned." },
-      { "title": "Text from coding sessions only", "text": "It ingests no PDFs, CSVs or images, has no vision model, and is not a graph database you can query with Cypher." },
-      { "title": "One server, no hosted tier", "text": "Many machines reach one server that you run. There is no automatic replication, no SaaS and no enterprise console." },
-      { "title": "More setup than built-in memory", "text": "Claude Code’s own memory is already on. ai-memory asks a solo developer to start a server first." }
+      {
+        "title": "No local reranker",
+        "text": "Retrieval scores sit below the systems that rerank. The only reranker is an LLM, and it is off by default. The cited answers added in 2.4 need an LLM too, and their accuracy has not been evaluated."
+      },
+      {
+        "title": "Link types do not move ranking",
+        "text": "Since 2.4 you can walk from a page to its related pages. In search, the kind of link still only explains a result and carries no weight."
+      },
+      {
+        "title": "Aging features are unproven",
+        "text": "The confidence score, compaction, dedup and the dream pass ship in 2.4, off by default. No recall evaluation has been run on them, so the project claims the mechanism and no measured gain."
+      },
+      {
+        "title": "One timeline",
+        "text": "Point-in-time search uses the time a fact was recorded. Zep models both when something happened and when it was learned."
+      },
+      {
+        "title": "Text from coding sessions only",
+        "text": "It ingests no PDFs, CSVs or images, has no vision model, and is not a graph database you can query with Cypher."
+      },
+      {
+        "title": "One server, no hosted tier",
+        "text": "Many machines reach one server that you run. There is no automatic replication, no SaaS and no enterprise console."
+      },
+      {
+        "title": "More setup than built-in memory",
+        "text": "Claude Code’s own memory is already on. ai-memory asks a solo developer to start a server first."
+      }
     ]
   },
   "move": {
@@ -125,18 +178,45 @@
   "faq": {
     "title": "Questions people ask before switching",
     "items": [
-      { "q": "Do I need an LLM API key?", "a": "No. Capture, search and handoffs work with no key and no LLM. Adding a provider turns on LLM consolidation, bootstrap, richer linting, auto-improve and optional reranking. Subscription logins such as Codex or GitHub Copilot also work as providers." },
-      { "q": "Is there a hosted version?", "a": "No. ai-memory is a single server that you run on a laptop, a homelab box or a LAN host. There is no SaaS tier and no enterprise console." },
-      { "q": "Can I import my data from Mem0, Zep or cognee?", "a": "Not directly. The companion importer reads oh-my-claudecode markdown wikis and a generic conversation JSON format. Adapters for specific products live outside the repository. For an existing codebase, ai-memory bootstrap seeds the wiki from git history and docs." },
-      { "q": "Can I run ai-memory next to my current memory tool?", "a": "Yes. It installs as its own MCP server entry and its own lifecycle hooks, and it leaves other tools’ configuration alone. You can compare both on the same project before removing either." },
-      { "q": "How does its retrieval score compare?", "a": "On LongMemEval-S it scores 0.823 hit@5 with the default local embeddings and 0.668 with full text only. That number measures retrieval and says nothing about answer accuracy. Systems that rerank score higher: agentmemory reports 0.952 and mcp-memory-service reports 0.860 at session level." },
-      { "q": "Does it sync memory between machines?", "a": "It uses one server that all of your machines reach over the network. There is no automatic replication between servers." }
+      {
+        "q": "Do I need an LLM API key?",
+        "a": "No. Capture, search and handoffs work with no key and no LLM. Adding a provider turns on LLM consolidation, bootstrap, richer linting, auto-improve and optional reranking. Subscription logins such as Codex or GitHub Copilot also work as providers."
+      },
+      {
+        "q": "Is there a hosted version?",
+        "a": "No. ai-memory is a single server that you run on a laptop, a homelab box or a LAN host. There is no SaaS tier and no enterprise console."
+      },
+      {
+        "q": "Can I import my data from Mem0, Zep or cognee?",
+        "a": "Not directly. The companion importer reads oh-my-claudecode markdown wikis and a generic conversation JSON format. Adapters for specific products live outside the repository. For an existing codebase, ai-memory bootstrap seeds the wiki from git history and docs."
+      },
+      {
+        "q": "Can I run ai-memory next to my current memory tool?",
+        "a": "Yes. It installs as its own MCP server entry and its own lifecycle hooks, and it leaves other tools’ configuration alone. You can compare both on the same project before removing either."
+      },
+      {
+        "q": "How does its retrieval score compare?",
+        "a": "On LongMemEval-S it scores 0.823 hit@5 with the default local embeddings and 0.668 with full text only. That number measures retrieval and says nothing about answer accuracy. Systems that rerank score higher: agentmemory reports 0.952 and mcp-memory-service reports 0.860 at session level."
+      },
+      {
+        "q": "Does it sync memory between machines?",
+        "a": "It uses one server that all of your machines reach over the network. There is no automatic replication between servers."
+      }
     ]
   },
   "next": [
-    { "title": "Quick setup", "text": "Three commands for one machine, ten minutes for a team." },
-    { "title": "Research and rationale", "text": "Why pages beat fact rows, and the full benchmark." },
-    { "title": "Check your agent", "text": "Every supported agent, OS and provider." }
+    {
+      "title": "Quick setup",
+      "text": "Three commands for one machine, ten minutes for a team."
+    },
+    {
+      "title": "Research and rationale",
+      "text": "Why pages beat fact rows, and the full benchmark."
+    },
+    {
+      "title": "Check your agent",
+      "text": "Every supported agent, OS and provider."
+    }
   ],
   "cta": {
     "title": "Try it next to the tool you have.",
