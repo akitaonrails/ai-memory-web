@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
+import facts from '@/data/facts.json';
 import Faq from '@/components/Faq.astro';
 import BarChart from '@/components/BarChart.astro';
 import { faqPage, type Faq } from '@/lib/schema';
@@ -56,12 +57,8 @@ const shoulders = [
 ].map((s) => ({ ...s, gave: t(`priorArt.gave.${s.id}`) }));
 
 // Columns: before 2.0, filtered full text, local embeddings.
-const metrics: [string, number, number, number][] = [
-  ['hit@1', 0.449, 0.534, 0.536],
-  ['hit@5', 0.617, 0.668, 0.823],
-  ['recall@5', 0.472, 0.538, 0.68],
-];
-const hit5 = metrics[1].slice(1) as number[];
+const metrics = Object.entries(facts.benchmark.metrics).map(([name, values]) => [name, ...values] as [string, number, number, number]);
+const hit5 = facts.benchmark.metrics['hit@5'];
 const bench = raw<string[]>('measured.chart.bars').map((label, i) => ({ label, v: hit5[i] }));
 
 const reproduce = `cargo build --release -p ai-memory-cli
@@ -229,7 +226,7 @@ const faq = faqPage(faqItems);
     <div class="mt-12 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-10 items-start">
       <div class="min-w-0">
         <h3 class="text-xl">{t('measured.reproduce.title')}</h3>
-        <p class="mt-2 text-muted max-w-[40em]" set:html={t('measured.reproduce.text', { date: date('2026-09-01') })} />
+        <p class="mt-2 text-muted max-w-[40em]" set:html={t('measured.reproduce.text', { date: date(facts.benchmark.date) })} />
         <div class="mt-4"><CodeBlock title={t('measured.reproduce.codeTitle')} code={reproduce} /></div>
         <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/README.md`}>{t('measured.reproduce.full')}</a></p>
         <p class="mt-6 text-muted max-w-[40em]" set:html={t('measured.throughputNote', { href: href('/architecture/#concurrency') })} />

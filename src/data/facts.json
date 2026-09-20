@@ -1,0 +1,30 @@
+{
+  "$comment": "Hard numbers the site quotes, each with its source in the ai-memory repository. Pages read them from here; prose that repeats a number lives in the catalogs, and `npm run check:upstream` lists every sentence that does.",
+  "benchmark": {
+    "source": "docs/benchmarks/README.md",
+    "dataset": "LongMemEval-S",
+    "date": "2026-09-01",
+    "questionsScored": 470,
+    "questionsTotal": 500,
+    "columns": ["before 2.0 (full text)", "full text, stopword filtered", "local embeddings (default)"],
+    "metrics": {
+      "hit@1": [0.449, 0.534, 0.536],
+      "hit@5": [0.617, 0.668, 0.823],
+      "recall@5": [0.472, 0.538, 0.68]
+    },
+    "vendorReported": { "mcp-memory-service": 0.86, "agentmemory": 0.952 }
+  },
+  "throughput": {
+    "source": "docs/deploy.md",
+    "rows": [
+      { "writers": 1, "rate": 42, "latency": 23.9 },
+      { "writers": 8, "rate": 295, "latency": 3.4 },
+      { "writers": 32, "rate": 698, "latency": 1.43 },
+      { "writers": 128, "rate": 700, "latency": 1.43 }
+    ]
+  },
+  "crates": {
+    "source": "Cargo.toml [workspace] members, minus test support",
+    "names": ["core", "store", "wiki", "mcp", "hooks", "llm", "consolidate", "web", "cli", "workstream"]
+  }
+}

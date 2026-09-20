@@ -13,6 +13,10 @@ The site is published in en, pt-br, es, he, ja and ko. Whenever you add, reword 
 
 `check:i18n` fails on STALE entries: English changed but a translation did not. Never silence it by stamping without translating. If you cannot translate a language well, say so instead of shipping a guess.
 
+## After an ai-memory release
+
+When the owner says a new ai-memory version is out, use the `sync-release` skill (`.claude/skills/sync-release/SKILL.md`). It starts with `npm run check:upstream`, which compares the site with the release tag and lists what changed since the last reviewed release. Hard numbers live in `src/data/facts.json`. Finish with `npm run check:upstream -- --record`.
+
 ## Other rules
 
 - Writing: `docs/design-system.md`, section "Writing". Go straight to the point. No em dashes, no "not X but Y", no sentences about the documentation, no hype words.
@@ -20,4 +24,4 @@ The site is published in en, pt-br, es, he, ja and ko. Whenever you add, reword 
 - Structure (hues, hrefs, ids, commands) stays in code; words stay in catalogs. Use `withText()` to join them, `href()` for internal links, `date()` and `number()` for formatting.
 - CSS uses logical properties so Hebrew mirrors. Terminals, diagrams and file trees get `dir="ltr"`.
 - Shared patterns belong in `src/components`, `src/lib` or `src/styles/global.css`. Do not redefine a shared class in a page's `<style>`.
-- Before pushing: `npm run check:colors && npm run check:i18n && npm run build`. `main` deploys to production through Netlify.
+- Before pushing: `npm run check:colors && npm run check:i18n && npm run build`. Add `npm run check:upstream` when facts changed. `main` deploys to production through Netlify.

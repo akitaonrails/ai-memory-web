@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import facts from '@/data/facts.json';
 import Faq from '@/components/Faq.astro';
 import BarChart from '@/components/BarChart.astro';
 import { faqPage } from '@/lib/schema';
@@ -46,10 +47,10 @@ const requires: Record<string, number[]> = {
 };
 
 // (e) LongMemEval-S hit@5. Source: docs/benchmarks in the repo, dated 2026-09-01.
-const benchmarkDate = '2026-09-01';
+const benchmarkDate = facts.benchmark.date;
 const score = (n: number) => number(n, { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-const oursValues = [0.617, 0.668, 0.823];
-const theirsMeta = [{ label: 'mcp-memory-service', value: 0.86 }, { label: 'agentmemory', value: 0.952 }];
+const oursValues = facts.benchmark.metrics['hit@5'];
+const theirsMeta = Object.entries(facts.benchmark.vendorReported).map(([label, value]) => ({ label, value }));
 const bars = [
   ...raw<{ label: string; note: string }[]>('benchmark.ours').map((b, i) => ({ ...b, value: oursValues[i], mine: true })),
   ...raw<{ note: string }[]>('benchmark.theirs').map((b, i) => ({ ...b, ...theirsMeta[i], mine: false })),

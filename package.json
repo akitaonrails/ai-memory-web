@@ -13,7 +13,8 @@
     "check:colors": "node scripts/check-contrast.mjs",
     "snapshot:github": "node scripts/snapshot-github.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
-    "i18n:stamp": "node scripts/check-i18n.mjs --stamp"
+    "i18n:stamp": "node scripts/check-i18n.mjs --stamp",
+    "check:upstream": "node scripts/check-upstream.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
