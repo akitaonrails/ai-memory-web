@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Shared memory for a team’s coding agents",
+    "description": "One shared memory server for your team’s coding agents. Faster onboarding, per-person accounts, attribution and an audit log, all open source."
+  },
+  "hero": {
+    "title": "One memory for everyone’s agents",
+    "lede": "Run one server on a homelab box or any LAN host. Every developer points their agents at it, and what one session figures out is there for the next person who asks.",
+    "primary": "Set up a team in 10 minutes",
+    "secondary": "Read the security model"
+  },
+  "server": {
+    "title": "One server that everyone points at",
+    "lede": "A single binary with a single SQLite file and a folder of markdown. There is no sidecar, no vector database and nothing to keep in sync.",
+    "figureAlt": "Diagram: four developer workstations running Claude Code, Codex, Cursor and Gemini CLI all connect to one ai-memory server, which holds one project wiki.",
+    "items": [
+      { "title": "What one session learns, every agent can retrieve", "text": "A page written in a project is readable by everyone on the server. One person’s Codex session finds the gotcha a teammate’s Claude Code session hit last week." },
+      { "title": "Visible at the next query", "text": "A teammate’s note shows up in anyone’s next search or next session brief. A session that is already running is not interrupted." },
+      { "title": "Any mix of agents", "text": "Each person keeps the agent they like. Every memory call resolves its project from the session’s directory, so parallel sessions do not cross." }
+    ]
+  },
+  "onboarding": {
+    "title": "A new developer’s first day",
+    "lede": "They get a key, point their agent at the server, and ask the project what has been going on.",
+    "figureAlt": "Timeline of a new developer’s first day: get an API key, point the agent at the server, ask it to catch me up, then search the wiki.",
+    "items": [
+      { "title": "They ask the project", "text": "\"Catch me up\" returns a digest of recent work. \"Have we discussed the retry logic?\" returns the decision page and the sessions behind it." },
+      { "title": "The wiki is a living knowledge base", "text": "Concepts, decisions and gotchas are written as the work happens, in markdown, with git history. Nobody has to remember to update it." },
+      { "title": "It complements your written docs", "text": "Pages are compiled from sessions and shaped for agents to retrieve. Keep your hand-written README and architecture docs, and let the wiki hold the why and the dead ends." }
+    ],
+    "digest": "The digest is prose when the server has an LLM provider and structured data when it has none. With <code>--enable-web</code>, the same wiki is browsable in a read-only web UI."
+  },
+  "ownership": {
+    "title": "Knowledge is shared, batons are owned",
+    "lede": "Pages belong to the project. A handoff belongs to the person who left it.",
+    "figureAlt": "Two-panel diagram. Left, knowledge is shared: several agent sessions read and write the same stack of wiki pages. Right, batons are owned: a handoff baton passes between two sessions of the same person while a teammate’s session is locked out.",
+    "points": [
+      "Your pending handoff goes to your next session. A teammate starting an agent in the same repository never receives or consumes it.",
+      "Pass <code>shared: true</code> when you want to publish a baton for whoever picks the work up.",
+      "Two people editing the same page produce a version chain. The later write becomes latest and the earlier one stays reachable. There is no merge and nothing is destroyed.",
+      "Optional per-person slots hold \"what I am working on now\" and stay out of the team brief. They are off by default."
+    ],
+    "code": {
+      "title": "what you tell the agent",
+      "commentPersonal": "Personal by default: only your next session receives it",
+      "sayPersonal": "\"Save context for the next session.\"",
+      "commentShared": "Publish one on purpose: {call}",
+      "sayShared": "\"Save a shared handoff so whoever picks this up tomorrow gets it.\""
+    },
+    "messaging": {
+      "title": "Agents can message each other across projects",
+      "text": "The agent in the frontend repository needs an endpoint from the API repository. It sends a self-contained request to that project’s inbox, and the next session there pops it. A message is claimed once, the recipient project must already exist, and an inbox holds at most 256 pending messages. The <a class=\"underline font-semibold text-text\" href=\"{href}\">agent messaging guide on GitHub</a> has the tools."
+    }
+  },
+  "included": {
+    "title": "Accounts, keys and audit, with no paid tier",
+    "lede": "The team features are in the same MIT binary as everything else.",
+    "items": [
+      { "title": "A named account per person", "text": "Add people with one command. Disable someone and their access stops, while their pages stay." },
+      { "title": "API keys per machine", "text": "Each person can hold several labelled keys, one per laptop or agent. Rotating a key rejects the old one immediately." },
+      { "title": "Attribution on every write", "text": "Each page records its author, and the web UI shows who edited it. Authorship never filters who can read." },
+      { "title": "An audit log of every mutation", "text": "Writes are recorded with the author’s id. Admission webhooks can see the actor and reject an operation." }
+    ],
+    "audit": "No screen or command for browsing the audit log is documented yet, so plan on querying the <code>audit_log</code> table in the SQLite file. The <a class=\"underline font-semibold text-text\" href=\"{href}\">users guide on GitHub</a> covers roles, password login and key rotation.",
+    "limits": {
+      "title": "Know the limits before you roll it out",
+      "items": [
+        "Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on the server.",
+        "One team per server. If a second team needs memory, run a second server with its own data directory.",
+        "There are no per-page or per-project permissions. Anyone who is authenticated can write, and history records who did.",
+        "It is a single-tenant homelab service and is not designed to face the open internet directly.",
+        "A bearer token does not encrypt traffic. Put TLS in front, with Caddy, nginx or a Cloudflare Tunnel, for anything beyond the LAN."
+      ],
+      "more": "The <a href=\"{security}\">security page</a> has the full model, and <a href=\"{advanced}\">advanced setup</a> has the TLS and proxy recipes."
+    }
+  },
+  "capacity": {
+    "title": "Measured capacity",
+    "lede": "All writes go through one queue to one writer. The project publishes what that writer can take.",
+    "caption": "Writer throughput by number of concurrent writers",
+    "columns": { "writers": "Concurrent writers", "throughput": "Throughput", "latency": "Mean latency" },
+    "perSecond": "{n}/s",
+    "milliseconds": "{n} ms",
+    "points": [
+      "The ceiling is about 700 writes per second, reached at around 32 writers. The project reads that as several hundred concurrently active agents.",
+      "The queue is bounded at 1024. A burst slows the producers down, and nothing is dropped.",
+      "The numbers were taken on a fast local disk. A network filesystem will be materially lower.",
+      "They measure the store and leave out the HTTP front door.",
+      "Reproduce them with <code>{command}</code>."
+    ]
+  },
+  "setup": {
+    "title": "The 10-minute setup, in short",
+    "steps": [
+      { "title": "Start one server", "text": "A homelab box or any LAN host. Anything that listens beyond loopback needs the bearer token.", "codeTitle": "on the server" },
+      { "title": "Add each person and issue a key", "text": "The temporary password and the <code>aim_</code> key are each shown once.", "codeTitle": "as root" },
+      { "title": "Each person points their agents at it", "text": "Swap the client and agent name for whatever they use.", "codeTitle": "on every machine" }
+    ],
+    "tokenComment": "32 bytes / 64 hex chars",
+    "primary": "See the full team setup",
+    "secondary": "TLS, SSO and backups"
+  },
+  "faq": [
+    { "q": "Can several developers share one ai-memory server?", "a": "Yes. One server holds the wiki and everyone points their agents at it. Pages are shared by everyone on the server. Handoffs stay with the person who created them unless they publish one with shared: true." },
+    { "q": "Does team use need a paid tier?", "a": "No. Per-person accounts, API keys, attribution and the audit log are part of the open source binary." },
+    { "q": "Can I restrict a project or a page to some users?", "a": "No. Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on that server. Run one server per team." },
+    { "q": "How many developers can one server handle?", "a": "The measured write ceiling is about 700 writes per second on a fast local disk, which the project reads as several hundred concurrently active agents. The number measures the store, and network disks will be slower." }
+  ],
+  "next": {
+    "install": { "title": "Team quick setup", "text": "The server, the accounts and the client wiring, step by step." },
+    "security": "What is stored, what leaves the machine, and how to lock the server down.",
+    "advanced": "Homelab deploys, TLS through a proxy, SSO through a gateway, backups."
+  },
+  "cta": {
+    "title": "Give your team’s agents one memory.",
+    "text": "Free and open source. Accounts, keys and the audit log are included."
+  }
+}

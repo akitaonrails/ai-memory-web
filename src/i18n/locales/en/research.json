@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "title": "Research: Karpathy’s LLM wiki, OKF and benchmarks",
+    "description": "Why ai-memory is a compiled markdown wiki in git: the Karpathy LLM Wiki idea, Google’s Open Knowledge Format, each design decision, and the measured results."
+  },
+  "hero": {
+    "kicker": "Product",
+    "title": "Research and rationale",
+    "lede": "Every part of ai-memory has a reason you can check: an idea it came from, a bug in an earlier tool it avoids, or a number it was measured against. This page walks through them in six short chapters.",
+    "primary": "See the benchmark",
+    "secondary": "Read the design decisions"
+  },
+  "quotes": {
+    "compiled": {
+      "text": "“The knowledge is compiled once and then kept current, not re-derived on every query.”",
+      "by": "Andrej Karpathy, <a href=\"{href}\">the LLM Wiki gist</a>"
+    },
+    "rented": {
+      "text": "“The model and the harness are rented, the project’s memory is yours.”",
+      "by": "Fabio Akita, <a href=\"{href}\">announcing ai-memory 2.0</a>"
+    },
+    "noAsterisk": {
+      "text": "“1.x proved the idea worked. 2.0 is the version I’d recommend without an asterisk for someone else to put on a team.”",
+      "by": "Fabio Akita, <a href=\"{href}\">announcing ai-memory 2.0</a>"
+    }
+  },
+  "compile": {
+    "title": "Compile, don’t retrieve",
+    "lede": "In April 2026 Andrej Karpathy published a short “idea file” about what he called an LLM wiki. ai-memory is that idea, adapted for coding agents that never stop producing material.",
+    "layers": {
+      "title": "Three layers",
+      "text": "Raw sources that never change, a wiki of markdown pages that the LLM maintains, and a schema file that tells the agent how the wiki works."
+    },
+    "operations": {
+      "title": "Three operations",
+      "text": "Ingest a source and update the pages it touches. Query the wiki. Lint it for contradictions and orphans."
+    },
+    "figure": {
+      "alt": "Diagram: Karpathy’s three layers on the left, raw sources, wiki and schema, each mapped to its ai-memory counterpart on the right: hook observations, markdown in git, and a block installed into AGENTS.md.",
+      "caption": "Karpathy’s three layers, and where each one lives in an ai-memory install."
+    },
+    "kept": {
+      "title": "What ai-memory kept",
+      "items": [
+        "Markdown files in a git repository as the thing a person can open, diff and read.",
+        "Compiling knowledge when it arrives, with one session fanning out into several pages.",
+        "Wikilinks between pages as the graph.",
+        "Lint for contradictions, stale pages, orphans and duplicate titles.",
+        "A schema block installed into CLAUDE.md or AGENTS.md so the agent knows how to use the wiki."
+      ]
+    },
+    "changed": {
+      "title": "What it changed",
+      "text": "Karpathy’s pattern is curated by a person, one source at a time. A coding agent produces material continuously and nobody is watching.",
+      "colGist": "In the gist",
+      "colHere": "In ai-memory",
+      "rows": [
+        { "was": "You hand the LLM one source at a time", "now": "Lifecycle hooks capture every session on their own" },
+        { "was": "The agent reads index.md first", "now": "One fused index: full text, entities, links and vectors" },
+        { "was": "An LLM does all the maintenance", "now": "Rule-based summaries by default. An LLM is opt-in" },
+        { "was": "One person, one wiki", "now": "Handoffs between agents, several users, per-project scoping" },
+        { "was": "Pages live forever", "now": "Tiers, decay, supersession and TTLs keep stale pages out" }
+      ]
+    },
+    "origin": "Tiers, decay and supersession are not in Karpathy’s gist. They come from agentmemory and the “LLM Wiki v2” writing around it. <a class=\"underline\" href=\"{href}\">The full reading notes are in the repository.</a>"
+  },
+  "okf": {
+    "title": "Your memory is already in an open format",
+    "lede": "Open Knowledge Format is a specification Google Cloud published in June 2026. It describes knowledge as a plain directory of markdown files with YAML frontmatter, one concept per file, and a single required field: type. There is no SDK and no runtime.",
+    "points": [
+      "Since 2.0 the wiki is natively an OKF v0.2 bundle. The files ai-memory works on are the OKF files, so no export step can drift from the truth.",
+      "One project is one bundle, with a generated <code>index.md</code> at its root.",
+      "Every page has YAML frontmatter with a <code>type</code>, derived from the folder it lives in.",
+      "Upgrading from 1.x rewrites frontmatter in place after a verified backup. If the backup fails, the migration stops."
+    ],
+    "exportTitle": "package one project as a validated bundle",
+    "noImport": "There is no import command. Unpack a bundle into a project’s wiki directory and the file watcher indexes it. <a class=\"underline\" href=\"{mapping}\">The OKF mapping is documented field by field</a>, and the specification lives in <a class=\"underline\" href=\"{spec}\">Google Cloud’s knowledge-catalog repository</a>.",
+    "colFolder": "Folder",
+    "colType": "OKF type",
+    "eitherType": "{a} or {b}",
+    "figure": {
+      "alt": "Diagram: a project folder containing index.md and typed pages, a decision, a gotcha and a procedure, moving unchanged to Obsidian, to grep, and to another OKF tool.",
+      "caption": "A bundle is a folder. Anything that reads markdown can read it, with or without ai-memory."
+    },
+    "conformance": {
+      "title": "What OKF conformance does not mean",
+      "text": "ai-memory follows a public specification. Google has not reviewed, certified or endorsed the project."
+    }
+  },
+  "decisions": {
+    "title": "Eight decisions, and the reason for each",
+    "lede": "Most of these trace back to a specific issue in an earlier memory tool.",
+    "weChose": "We chose",
+    "items": [
+      { "chose": "Markdown in git as the truth", "because": "<strong>because</strong> backing up or moving is a git clone or an rsync. The database can be rebuilt from the files, so corruption is recoverable, and any tool that reads markdown can read your memory." },
+      { "chose": "One SQLite file", "because": "<strong>because</strong> full text, packed vectors and link tables live in a single embedded file. Other projects’ issue trackers showed what syncing three stores costs in correctness bugs." },
+      { "chose": "Zero LLM calls by default", "because": "<strong>because</strong> session summaries are rule-based, so a fresh install spends nothing. The lesson came from default-on LLM features elsewhere that surprised users with token bills." },
+      { "chose": "One binary", "because": "<strong>because</strong> SQLite is bundled, libgit2 is vendored and the embedder is pure Rust. A separate sidecar engine was the largest cluster of user pain in the project this one succeeds." },
+      { "chose": "No graph database", "because": "<strong>because</strong> the graph is SQL tables: a links table and recursive queries. That covers one-hop expansion and typed edges without an embedded graph engine to keep alive." },
+      { "chose": "Vectors are optional", "because": "<strong>because</strong> local embeddings are on since 2.0 and still never required. Search is brute-force cosine inside SQLite; a vector extension waits until page counts or latency call for it." },
+      { "chose": "Handoffs as a typed, claim-once protocol", "because": "<strong>because</strong> every research pass flagged cross-agent transfer as the weak spot of earlier tools. A handoff is a typed record matched by directory, and exactly one session can accept it." },
+      { "chose": "Pages over fact rows", "because": "<strong>because</strong> a page about a decision can be read, edited and explained in prose. A table of extracted facts cannot be opened in Obsidian or reviewed in a diff." }
+    ],
+    "all": "Read all of the design decisions"
+  },
+  "priorArt": {
+    "title": "Standing on shoulders",
+    "lede": "The project read the code and the issue trackers of the tools that came first, kept the ideas that held up and left out the parts that kept breaking.",
+    "figureAlt": "Diagram: seven prior projects, Karpathy’s wiki, agentmemory, basic-memory, cognee, Hermes Agent, A-MEM and Hindsight, each feeding one line into ai-memory.",
+    "gave": {
+      "karpathy": "Compile, don’t retrieve. The wiki on disk is the artifact.",
+      "agentmemory": "Automatic hook capture, memory tiers, supersession, decay as a formula and fused ranking. ai-memory is its Rust successor: the ideas stayed, the substrate changed.",
+      "basicMemory": "Files as the source of truth with a derived index, and forward links to pages that do not exist yet.",
+      "cognee": "The task-pipeline shape, provenance stamps on every page and feedback that adjusts ranking.",
+      "hermes": "The design of the self-improvement loop that reviews finished sessions in the background.",
+      "amem": "Zettelkasten-style atomic notes that link to each other automatically.",
+      "hindsight": "Typed redaction labels, per-page evidence counts and a briefing that leads with settled rules."
+    },
+    "noEndorsement": "None of these projects endorse ai-memory. For where each of them is ahead, <a class=\"underline\" href=\"{href}\">see the comparison</a>."
+  },
+  "measured": {
+    "title": "What was measured",
+    "lede": "The retrieval stack is scored on LongMemEval-S: 470 questions about long chat histories, run through the real hook path and the real search. The harness is in the repository.",
+    "chart": {
+      "title": "hit@5 on LongMemEval-S",
+      "subtitle": "Share of 470 questions with an evidence session in the top five. Higher is better.",
+      "bars": [
+        "Full text only, before 2.0",
+        "Stopword-filtered full text",
+        "Plus local embeddings (the 2.0 default)"
+      ]
+    },
+    "steps": {
+      "title": "What each step was",
+      "stopwords": "Dropping stopwords from full-text queries added {hit5} points of hit@5 and {hit1} of hit@1.",
+      "embeddings": "The in-process embedding model added the rest. Getting masked-mean pooling right was worth about {points} points on its own.",
+      "noKey": "No API key and no LLM are involved in any row."
+    },
+    "table": {
+      "metric": "Metric",
+      "before": "Before 2.0",
+      "filtered": "Filtered full text",
+      "local": "Local embeddings"
+    },
+    "retrievalOnly": {
+      "title": "Retrieval, not answers",
+      "text": "hit@5 asks whether the right session was found. No model writes or grades an answer, so this number cannot be compared with the accuracy figures other tools publish. The dataset is chat history, and a coding-session benchmark does not exist yet."
+    },
+    "privacyCap": {
+      "title": "The privacy cap costs points on purpose",
+      "text": "Tool excerpts are cut at 2 KB before storage. Evidence deep inside one long turn never reaches the index. The benchmark scores the system as shipped, cap included."
+    },
+    "reproduce": {
+      "title": "Run it yourself",
+      "text": "Add <code>--embeddings local</code> to the second command for the hybrid row. The published run is dated {date} on a Ryzen 9 7950X3D and has not been repeated for later releases.",
+      "codeTitle": "reproduce the benchmark",
+      "full": "Full results, per question type"
+    },
+    "throughput": {
+      "title": "Write throughput",
+      "text": "All writes go through one queue to one thread. The ceiling is about 700 writes per second, flat past 32 writers, measured on a fast local disk. Network volumes will be lower.",
+      "colWriters": "Concurrent writers",
+      "colThroughput": "Throughput",
+      "colLatency": "Mean latency",
+      "perSecond": "{n}/s",
+      "ms": "{n} ms",
+      "codeTitle": "reproduce the throughput test"
+    }
+  },
+  "next": {
+    "title": "What is next, and where it is behind",
+    "lede": "These are documented recommendations in the repository. None of them has a date.",
+    "recommended": {
+      "title": "Recommended next",
+      "items": [
+        { "title": "A second evaluation harness", "text": "Coding-session data, scored on accuracy, latency and context tokens together. The items below depend on it." },
+        { "title": "A local reranker", "text": "A cross-encoder that runs in process with no LLM. It waits on the harness above to prove its worth." },
+        { "title": "Ranking that uses what is already stored", "text": "Evidence counts and typed edges are recorded today and do not move ranking yet." },
+        { "title": "A bounded sync command", "text": "Either a plainer description of the one-server model or an ai-memory sync built on the git wiki." },
+        { "title": "An easier start for Claude Code users", "text": "An importer for people coming from Claude’s built-in memory." }
+      ],
+      "notPlanned": "Not planned: a graph database, a self-editing memory OS, cloud connectors, or growing the tool count for its own sake."
+    },
+    "behind": {
+      "title": "Behind today",
+      "reranked": "Raw retrieval score is below the tools that rerank. agentmemory reports {score} on the same dataset (their number, not reproduced here).",
+      "items": [
+        "There is no local reranker that works without an LLM.",
+        "Typed edges and evidence counts are stored and shown in explain output, with no weight in ranking.",
+        "Time travel with as_of knows when ai-memory learned a fact. It does not know when the fact became true.",
+        "One server that many machines reach. There is no automatic replication, no hosted tier and no enterprise console.",
+        "Claude Code’s built-in memory needs no setup at all. For one person on one machine in one agent, that is hard to beat."
+      ]
+    }
+  },
+  "nextPages": [
+    { "title": "Architecture", "text": "How the binary, the wiki and the index fit together." },
+    { "title": "Compare and migrate", "text": "Tool by tool, including where the others win." },
+    { "title": "Contribute", "text": "The evaluation harness is the most wanted piece of work." }
+  ],
+  "cta": {
+    "title": "Read the reasoning. Then try it.",
+    "text": "Free and open source. The default install makes no LLM calls and listens on your machine only."
+  },
+  "faq": [
+    { "q": "What is the Karpathy LLM Wiki idea behind ai-memory?", "a": "Andrej Karpathy’s April 2026 gist describes an LLM that builds and maintains a persistent wiki of markdown files between you and your raw sources, so knowledge is compiled once and kept current. ai-memory applies that to coding agents, with automatic capture from lifecycle hooks and a default path that makes no LLM calls." },
+    { "q": "Is ai-memory compatible with the Open Knowledge Format?", "a": "Since 2.0 every project in the wiki is natively an OKF v0.2 bundle. Each page has YAML frontmatter with a type, each project has a generated index.md, and ai-memory export-okf packages a project into a validated tarball." },
+    { "q": "What does the LongMemEval-S benchmark measure for ai-memory?", "a": "Retrieval only: whether a session holding the evidence appears in the top results, over 470 questions. hit@5 is {hybrid} with the default local embeddings and {fts} with full text only. It does not measure answer accuracy." }
+  ]
+}

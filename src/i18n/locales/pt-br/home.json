@@ -1,0 +1,194 @@
+{
+  "hero": {
+    "releaseOut": "A {tag} saiu",
+    "releaseLink": "Veja o que mudou",
+    "title": "Troque de agente. Mantenha o contexto.",
+    "lede": "ai-memory é memória de longo prazo para agentes de código com IA. Saia do Claude Code no meio de uma tarefa, abra o Codex no mesmo diretório e continue sem explicar de novo a arquitetura, as abordagens que falharam e as questões em aberto.",
+    "primary": "Instale em 5 minutos",
+    "star": "Estrela no GitHub",
+    "facts": [
+      "Open source, MIT",
+      "Um binário só, markdown puro",
+      "Funciona sem chave de API"
+    ],
+    "marquee": "Funciona com {n} agentes de código, incluindo {names}"
+  },
+  "statement": "Seu agente de código já faz anotações. Elas ficam em uma máquina só, pertencem a um agente só e somem na hora em que você troca de ferramenta ou de colega de time. O ai-memory é o que existe do outro lado desses muros.",
+  "continuity": {
+    "label": "O que fica quando todo o resto muda",
+    "title": "Mude tudo. Mantenha o que você sabe.",
+    "scenes": {
+      "agents": {
+        "title": "Troque de agente no meio da tarefa.",
+        "text": "Saia do Claude Code, abra o Codex no mesmo diretório. Ele começa com um handoff: o que foi feito, o que falhou e o que ainda está em aberto.",
+        "link": "Como funcionam os handoffs",
+        "inLabel": "claude",
+        "in": [
+          "> mover o refresh pro middleware",
+          "● Edit auth/middleware.rs",
+          "● cargo test: 2 falharam",
+          "> /exit"
+        ],
+        "outLabel": "codex",
+        "out": [
+          "Handoff do Claude Code",
+          "✓ Refresh movido para o middleware",
+          "✗ Só cookie quebrou o mobile",
+          "? Rate limit no /refresh",
+          "> corrige os 2 testes que falham"
+        ]
+      },
+      "machines": {
+        "title": "Troque de máquina.",
+        "text": "A memória fica em um servidor pequeno que você mesmo roda: no laptop, numa máquina do homelab, onde quiser. O projeto que você largou no desktop é o mesmo que você retoma no notebook.",
+        "link": "Um servidor, várias máquinas",
+        "inLabel": "desktop, escritório",
+        "in": [
+          "~/app $ ai-memory run claude",
+          "● 41 observações capturadas",
+          "● sessão salva na wiki"
+        ],
+        "outLabel": "notebook, no trem",
+        "out": [
+          "~/app $ ai-memory run claude",
+          "> onde a gente parou?",
+          "Você parou no rate limit do",
+          "/refresh. 2 testes ainda falham."
+        ]
+      },
+      "team": {
+        "title": "Compartilhe com o time.",
+        "text": "Aponte todo mundo para o mesmo servidor. O que as sessões de uma pessoa aprendem, os agentes de todo mundo encontram. Quem acabou de chegar pergunta para o projeto em vez de interromper você.",
+        "link": "ai-memory para times",
+        "inLabel": "esta semana",
+        "in": [
+          "Ana|arrumou o cache flaky do CI",
+          "Ravi|escolheu advisory locks em vez de fila",
+          "Mei|escreveu o runbook de deploy"
+        ],
+        "outLabel": "Lia, primeiro dia",
+        "out": [
+          "> me atualiza sobre o projeto",
+          "3 decisões, 1 runbook e 2 dúvidas",
+          "abertas nas últimas 2 semanas.",
+          "Comece: decisions/advisory-locks"
+        ]
+      },
+      "wiki": {
+        "title": "Ele escreve a própria wiki.",
+        "text": "Os hooks capturam o trabalho em silêncio. As sessões viram páginas em markdown puro, organizadas e interligadas numa wiki versionada em git. Dê grep nela, abra no Obsidian, edite na mão.",
+        "link": "Veja o que fica guardado",
+        "inLabel": "capturado",
+        "in": [
+          "prompt",
+          "Edit auth.rs",
+          "cargo test failed",
+          "git rebase main",
+          "Read schema.sql",
+          "prompt",
+          "Bash: curl /refresh",
+          "fim da sessão"
+        ],
+        "outLabel": "wiki/",
+        "out": [
+          "decisions/|session-tokens.md",
+          "gotchas/|mobile-cookie-jar.md",
+          "procedures/|deploy.md",
+          "sessions/|2026-09-18-auth.md",
+          "|index.md"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "title": "Comece de onde você está.",
+    "items": [
+      {
+        "who": "Trabalho sozinho",
+        "title": "Pare de explicar seu projeto de novo",
+        "text": "Três comandos para instalar. Sem conta e sem chave de API.",
+        "cta": "ai-memory para uso individual"
+      },
+      {
+        "who": "Lidero um time pequeno",
+        "title": "Uma memória para os agentes de todo mundo",
+        "text": "Faça o onboarding deixando as pessoas perguntarem para o projeto.",
+        "cta": "ai-memory para times"
+      },
+      {
+        "who": "Já uso uma ferramenta de memória",
+        "title": "Veja o que continua igual e o que você ganha",
+        "text": "Mem0, Zep, cognee, OpenViking, a memória do próprio Claude.",
+        "cta": "Comparar e migrar"
+      },
+      {
+        "who": "Quero contribuir",
+        "title": "Um código em Rust com issue tracker ativo",
+        "text": "{n} pessoas já colocaram código no projeto.",
+        "cta": "Comece a contribuir"
+      }
+    ]
+  },
+  "how": {
+    "title": "O que acontece enquanto você trabalha.",
+    "lede": "As quatro etapas rodam em background, e o caminho padrão faz zero chamadas a LLM.",
+    "figureAlt": "Diagrama: terminais emitem observações que são consolidadas em páginas markdown, buscadas por um ranking fundido e passadas ao próximo agente. Embaixo de tudo fica uma wiki versionada em git, feita de arquivos markdown puros.",
+    "steps": [
+      {
+        "title": "Captura",
+        "text": "Hooks de ciclo de vida registram prompts, chamadas de ferramenta e o começo e o fim das sessões. Segredos são removidos antes de qualquer coisa ser gravada."
+      },
+      {
+        "title": "Consolidação",
+        "text": "Quando uma sessão termina, as observações dela viram uma página markdown legível na wiki do projeto."
+      },
+      {
+        "title": "Recuperação",
+        "text": "A próxima sessão recebe um briefing curto e pode buscar em tudo: full-text, entidades, links e vetores, fundidos em um ranking só."
+      },
+      {
+        "title": "Handoff",
+        "text": "A próxima sessão pega o bastão, e só uma sessão consegue assumi-lo. Funciona entre agentes e entre todas as máquinas que alcançam o servidor."
+      }
+    ],
+    "cta": "Conheça a arquitetura"
+  },
+  "compare": {
+    "title": "Vindo de outra ferramenta?",
+    "text": "A maioria das ferramentas de memória precisa de um LLM, um banco vetorial ou um banco de grafos antes de lembrar de qualquer coisa. O ai-memory precisa de um binário e uma pasta.",
+    "cta": "Comparação completa, inclusive onde eles ganham",
+    "pick": "Escolha a ferramenta que você usa hoje",
+    "needs": "{kind}. Precisa de: {needs}.",
+    "same": "O que continua igual",
+    "gain": "O que você ganha"
+  },
+  "quickstart": {
+    "title": "Rodando em cinco minutos.",
+    "text": "Não tem cadastro. A instalação padrão escuta só na sua máquina, então nada de fora chega nela.",
+    "links": {
+      "install": "Todos os caminhos de instalação, passo a passo",
+      "integrations": "Confira seu agente e seu SO",
+      "download": "Baixar a {tag}"
+    },
+    "tabs": [
+      "Só eu",
+      "Meu time"
+    ],
+    "soloTitle": "uma máquina",
+    "teamTitle": "um servidor, várias máquinas",
+    "solo": {
+      "c1": "1. Instale o binário (ou pegue na página de downloads)",
+      "c2": "2. Suba o servidor. Ele escuta só nesta máquina.",
+      "c3": "3. Abra seu agente por ele. Hooks e MCP se configuram sozinhos."
+    },
+    "team": {
+      "c1": "No servidor: uma máquina do homelab ou qualquer host da LAN",
+      "c2": "Em cada máquina, para cada colega de time",
+      "theirKey": "chave de cada um"
+    }
+  },
+  "community": {
+    "title": "Feito às claras, por muita gente.",
+    "text": "Chegou agora? <a href=\"{href}\" class=\"underline font-semibold text-text\">A página de contribuição</a> mostra para onde vão bug reports, pull requests e integrações com novos agentes."
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "site": {
+    "tagline": "memória de longo prazo para agentes de código com IA",
+    "description": "Memória de longo prazo para agentes de código com IA. Troque de agente, máquina e colega sem reexplicar o projeto. Open source, um binário só, markdown puro.",
+    "ogAlt": "O logo do ai-memory: um cérebro metade rede neural, metade placa de circuito, com uma seta atravessando um chip"
+  },
+  "a11y": {
+    "skip": "Pular para o conteúdo",
+    "home": "Página inicial do ai-memory",
+    "mainNav": "Principal",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "menu": "Menu",
+    "theme": "Tema",
+    "toggleTheme": "Alternar entre tema claro e escuro",
+    "language": "Idioma",
+    "starOnGithub": "Dar uma estrela para o ai-memory no GitHub, {n} estrelas",
+    "chooseOne": "Escolha uma opção"
+  },
+  "crumbs": {
+    "home": "Início",
+    "solutions": "Soluções",
+    "individuals": "Uso individual",
+    "teams": "Times",
+    "compare": "Comparação",
+    "integrations": "Integrações",
+    "install": "Instalação rápida",
+    "advanced": "Configuração avançada",
+    "security": "Segurança",
+    "architecture": "Arquitetura",
+    "research": "Pesquisa",
+    "contribute": "Contribua",
+    "download": "Download"
+  },
+  "nav": {
+    "getStarted": "Começar",
+    "github": "GitHub",
+    "product": {
+      "label": "Produto",
+      "how": { "label": "Como funciona", "note": "Captura, consolidação, recuperação, handoff" },
+      "architecture": { "label": "Arquitetura", "note": "Um binário só, arquivos markdown, um índice derivado" },
+      "security": { "label": "Segurança", "note": "O que fica guardado, o que sai, como travar tudo" },
+      "research": { "label": "Pesquisa e fundamentos", "note": "A wiki do Karpathy, OKF e os benchmarks" }
+    },
+    "solutions": {
+      "label": "Soluções",
+      "individuals": { "label": "Para uso individual", "note": "Troque de agente e de máquina, mantenha o contexto" },
+      "teams": { "label": "Para times", "note": "Uma memória compartilhada, onboarding mais rápido" },
+      "compare": { "label": "Migrando de outra ferramenta", "note": "Mem0, Zep, cognee, OpenViking e outras" }
+    },
+    "integrations": {
+      "label": "Integrações",
+      "agents": { "label": "Agentes e editores", "note": "Claude Code, Codex, Cursor, Gemini CLI e mais 20" },
+      "platforms": { "label": "Sistemas operacionais", "note": "Linux, macOS, Windows" },
+      "providers": { "label": "Provedores de LLM e embeddings", "note": "Opcionais. Tudo funciona sem nenhum" }
+    },
+    "developers": {
+      "label": "Desenvolvedores",
+      "install": { "label": "Instalação rápida", "note": "Sozinho em três comandos, um time em dez minutos" },
+      "advanced": { "label": "Configuração avançada", "note": "Homelab, TLS, SSO, air-gapped, backups" },
+      "contribute": { "label": "Contribua", "note": "Para onde vão issues, PRs e novos harnesses" },
+      "download": { "label": "Downloads e changelog", "note": "A última release para cada plataforma" }
+    }
+  },
+  "footer": {
+    "motto": "O modelo e o harness são alugados. A memória do projeto é sua.",
+    "themeSystem": "Sistema",
+    "themeLight": "Claro",
+    "themeDark": "Escuro",
+    "rights": "© {year} <a href=\"{authorUrl}\" class=\"underline\">{author}</a>. Todos os direitos reservados. O software ai-memory é open source sob a licença MIT.",
+    "dockerHub": "Docker Hub",
+    "reportVulnerability": "Reportar uma vulnerabilidade",
+    "cookieSettings": "Configurações de cookies"
+  },
+  "cta": {
+    "title": "Dê memória aos seus agentes hoje.",
+    "text": "Gratuito e open source sob a licença MIT. Sem conta e sem chave de API.",
+    "primary": "Instale em 5 minutos",
+    "secondary": "Dê uma estrela no GitHub"
+  },
+  "code": {
+    "terminal": "Terminal",
+    "copy": "Copiar",
+    "copied": "Copiado"
+  },
+  "next": {
+    "title": "Continue lendo"
+  },
+  "stats": {
+    "stars": "estrelas no GitHub",
+    "contributors": "contribuidores",
+    "mergedPRs": "pull requests mergeados",
+    "closedIssues": "issues fechadas"
+  },
+  "consent": {
+    "label": "Consentimento de analytics",
+    "text": "Este site usa o Google Analytics para contar visitas. Ele não mostra anúncios nem segue você por outros sites. Tudo bem?",
+    "decline": "Recusar",
+    "accept": "Aceitar"
+  },
+  "englishOnly": "Este trecho está em inglês porque vem direto do projeto."
+}

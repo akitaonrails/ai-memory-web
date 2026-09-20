@@ -8,6 +8,6 @@ const { title, hue = 'amber' } = Astro.props;
   <div class="mt-2 text-muted prose-site"><slot /></div>
 </aside>
 <style>
-  .callout { border-left: 4px solid var(--hue-vivid); background: var(--hue-soft); border-radius: 0 1rem 1rem 0; padding: 1.4rem 1.6rem; max-width: 48rem; }
+  .callout { border-inline-start: 4px solid var(--hue-vivid); background: var(--hue-soft); border-start-end-radius: 1rem; border-end-end-radius: 1rem; padding: 1.4rem 1.6rem; max-width: 48rem; }
   .callout h3 { color: var(--hue); }
 </style>

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "title": "Arquitectura: un binario, markdown y un índice derivado",
+    "description": "ai-memory por dentro: hooks fire and forget, un escritor único de SQLite, markdown en git como fuente de verdad y cuatro flujos de búsqueda fusionados con RRF."
+  },
+  "hero": {
+    "title": "Un solo binario, archivos markdown y un índice derivado",
+    "lede": "Los hooks capturan lo que hace tu agente. El markdown en git guarda lo aprendido. SQLite es un índice de búsqueda que puedes tirar y reconstruir. Esta página recorre el camino desde un hook hasta el resumen de la siguiente sesión, y dice dónde el diseño todavía flojea.",
+    "primary": "Lee ARCHITECTURE.md",
+    "secondary": "Por qué se hizo así"
+  },
+  "layout": {
+    "title": "Un solo binario, un directorio de datos.",
+    "lede": "SQLite va incluido, libgit2 va vendorizado y el embedder es Rust puro. No hay sidecar, ni servidor de base de datos, ni cola que mantener. Todo lo que sabe está en una carpeta.",
+    "treeLabel": "El directorio de datos de ai-memory",
+    "tree": {
+      "wiki": "Páginas markdown con frontmatter YAML, en un repositorio git. La fuente de verdad.",
+      "db": "El índice derivado: texto completo, entidades, enlaces, embeddings, sesiones, auditoría. Modo WAL.",
+      "raw": "Segmentos JSONL inmutables y saneados de las sesiones gestionadas con ai-memory run.",
+      "models": "El modelo local de embeddings, all-MiniLM-L6-v2, de unos 87 MB y con SHA-256 fijado.",
+      "logs": "Logs con rotación diaria.",
+      "config": "Se lee una vez al arrancar. Cada valor se puede sobrescribir con una variable AI_MEMORY_*."
+    },
+    "backup": "El servidor escucha en <code>127.0.0.1:49374</code> por defecto. Hacer una copia de seguridad es ejecutar <code>ai-memory backup</code>, o un git push de la wiki más un rsync de la carpeta."
+  },
+  "pipeline": {
+    "title": "De un hook al siguiente resumen.",
+    "lede": "Siete de estos ocho pasos corren sin modelo y sin clave de API. El paso con LLM está apagado hasta que configuras un proveedor.",
+    "figureAlt": "Diagrama: un hook emite eventos que pasan por una puerta de saneado hacia un escritor único, se guardan como observaciones, se convierten en una página de sesión, opcionalmente se reparten en más páginas mediante un LLM y se commitean en la wiki de git. Una flecha de retorno con la etiqueta Resumen va de la wiki al siguiente hook.",
+    "figureCaption": "Solo la etapa en línea discontinua necesita un LLM. La flecha de retorno es el resumen que se inyecta en el siguiente SessionStart.",
+    "zeroLlm": "Cero LLM",
+    "optionalLlm": "LLM opcional",
+    "steps": [
+      { "title": "Hook", "text": "La CLI del agente dispara un hook de ciclo de vida. Es fire and forget con un presupuesto de 200 ms: los hooks nativos guardan el evento en una cola local y un helper independiente lo entrega. El servidor responde 202, o 429 si está saturado." },
+      { "title": "Saneado", "text": "El router de /hook elimina los secretos y limita los tamaños. Es el único camino del texto no confiable hacia el store." },
+      { "title": "Escritor único", "text": "El evento saneado entra en una sola cola, que vacía un solo hilo, dueño de la única conexión de escritura." },
+      { "title": "Observaciones", "text": "Los eventos caen en SQLite como un rastro de auditoría operativo. Es una proyección acotada de la sesión, nunca una transcripción completa." },
+      { "title": "Fin de sesión", "text": "Unas reglas, sin modelo, convierten las observaciones en sessions/<id>.md y abren una fila Handoff para el siguiente agente, en una sola transacción." },
+      { "title": "Consolidación", "text": "Con un proveedor configurado, un LLM reescribe el resumen o lo reparte en concepts/, decisions/, gotchas/ y procedures/. Corre desde una cola con reintentos, fuera de la latencia de los hooks." },
+      { "title": "Commit e índice", "text": "Cada escritura de página es atómica (tmp, rename, fsync), se commitea en git y se indexa en la misma transacción de SQLite que su fila." },
+      { "title": "Consulta y resumen", "text": "memory_query busca en el índice. En el siguiente SessionStart, el hook trae el traspaso abierto y un resumen estructurado para ese directorio." }
+    ]
+  },
+  "truth": {
+    "title": "Dos capas, una fuente de verdad.",
+    "lede": "Si los archivos y el índice no coinciden, ganan los archivos.",
+    "figureAlt": "Diagrama: un estante de páginas markdown en git, marcado como Fuente de verdad, está encima de un índice SQLite marcado como Derivado. El escritor alimenta a los dos. Una flecha discontinua del file watcher y una flecha continua de reindex apuntan del markdown hacia el índice.",
+    "layers": [
+      { "title": "Los archivos son la verdad", "text": "Las páginas son markdown con frontmatter YAML bajo wiki/<workspace>/<project>/. Ábrelas en Obsidian, pásales grep, súbelas a un remoto." },
+      { "title": "SQLite es derivado", "text": "Todo lo que hay en memory.sqlite que describe una página se puede reconstruir desde los archivos con ai-memory reindex. Un índice corrupto se recupera." },
+      { "title": "Las escrituras son del servidor", "text": "Las escrituras normales pasan por la capa de la wiki, que actualiza juntos el archivo, el historial de git y el índice." },
+      { "title": "Un watcher recoge el resto", "text": "Un file watcher detecta las ediciones hechas desde vim u Obsidian. Un diff completo cada 30 segundos recoge los eventos que se le escaparon." }
+    ],
+    "noTransaction": {
+      "title": "No hay transacción entre el sistema de archivos y SQLite",
+      "text": "Las filas del índice se confirman en la misma transacción de SQLite que sus datos, y las escrituras de archivos son atómicas, pero una caída entre ambas puede dejarlos desfasados. <code>ai-memory reindex</code> resuelve esas ventanas reconstruyendo desde los archivos."
+    }
+  },
+  "retrieval": {
+    "title": "Recuperación: cuatro flujos, un ranking.",
+    "figureAlt": "Diagrama: una consulta se reparte en cuatro carriles con las etiquetas FTS5, Entidades, Grafo y Vectores, con el carril de vectores en línea discontinua por ser opcional. Los carriles se unen en un nodo con la etiqueta RRF k=60, pasan por una balanza de Autoridad y terminan en una lista ordenada de resultados.",
+    "figureCaption": "El carril de vectores va en línea discontinua porque la búsqueda funciona sin él.",
+    "streams": [
+      { "title": "Texto completo", "text": "SQLite FTS5 sobre los títulos y los cuerpos de las páginas, con las stopwords filtradas en las consultas sin operadores." },
+      { "title": "Coincidencia de entidades", "text": "Un índice léxico de nombres sacados de las entidades y los tags del frontmatter, ponderado por frecuencia inversa de página." },
+      { "title": "Vecinos en el grafo", "text": "Un salto sobre la tabla de enlaces: wikilinks, enlaces markdown, aristas tipadas y enlaces entre proyectos. SQL plano, sin base de datos de grafos." },
+      { "title": "Vectores, opcionales", "text": "Similitud coseno sobre embeddings del modelo local que corre dentro del proceso. Activados por defecto desde la 2.0, nunca obligatorios, y por fuerza bruta a propósito." }
+    ],
+    "afterFusion": {
+      "title": "Después de la fusión",
+      "points": [
+        "Reciprocal Rank Fusion con k=60 fusiona los flujos por posición, así que ningún flujo necesita calibrar sus puntuaciones.",
+        "Después, un multiplicador de autoridad acotado inclina los empates ajustados hacia reglas, decisiones, procedimientos y gotchas que se mantienen al día. Las páginas episódicas e históricas siguen apareciendo en las búsquedas, y nada se excluye del todo.",
+        "Rerank opcional con LLM: una llamada por consulta sobre hasta 30 títulos y fragmentos. Ante cualquier fallo se conserva el orden local. Todavía no hay un reranker local, y es la carencia más citada del proyecto.",
+        "Si las páginas compiladas no dan ningún resultado, una búsqueda acotada sobre las observaciones en bruto devuelve raw_hits.",
+        "Pasa explain=true para ver las posiciones por flujo, las contribuciones de RRF y el multiplicador de cada resultado."
+      ]
+    },
+    "asOf": {
+      "title": "Tiempo: <code>as_of</code>",
+      "points": [
+        "Pasa una fecha ISO para preguntar qué decía la wiki sobre algo en ese momento.",
+        "Solo registra el tiempo de ingesta: cuándo ai-memory aprendió un dato y cuándo lo reemplazó, nunca cuándo fue cierto en el mundo.",
+        "No reproduce el ranking que habría devuelto una búsqueda en esa fecha."
+      ],
+      "link": "Validez temporal en la documentación"
+    },
+    "typedEdges": {
+      "title": "Aristas tipadas",
+      "points": [
+        "El campo <code>relations:</code> del frontmatter acepta un conjunto cerrado: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. Una errata no puede crear un tipo nuevo.",
+        "<code>contradicts</code> alimenta el lint sin LLM y se reporta hasta que alguien lo reconcilia.",
+        "Solo sirven para explain. Entran en el grafo como enlaces normales y todavía no mueven el ranking, porque el benchmark no dio base para asignarles un peso."
+      ],
+      "link": "Aristas tipadas en la documentación"
+    }
+  },
+  "concurrency": {
+    "title": "Un solo receptor, un solo escritor.",
+    "lede": "Dos reglas sostienen casi toda la corrección: un traspaso se puede reclamar una sola vez, y solo un hilo escribe en SQLite.",
+    "handoff": {
+      "title": "Los traspasos son un protocolo",
+      "fsmLabel": "Máquina de estados: un traspaso empieza abierto. Aceptarlo lo pasa a aceptado, exactamente una vez. Cancelarlo, o que se acepte un traspaso automático más reciente para el mismo directorio, lo pasa a expirado.",
+      "states": { "open": "abierto", "accepted": "aceptado", "expired": "expirado" },
+      "edges": { "accept": "aceptar, una vez", "expire": "cancelado o reemplazado" },
+      "points": [
+        "Un traspaso es un registro tipado: agente de origen y de destino, proyecto, cwd, resumen, preguntas abiertas, archivos tocados, siguientes pasos.",
+        "Aceptar es un compare and set atómico. Un segundo agente que pregunte no recibe nada.",
+        "El cwd coincide por límites de ruta: <code>/repo</code> cubre <code>/repo/api</code> y nunca <code>/repo-other</code>.",
+        "Un traspaso manual gana al automático. Aceptarlo expira los candidatos automáticos más antiguos en la misma transacción.",
+        "En un servidor compartido, un traspaso pertenece a su dueño salvo que se envíe con <code>shared=true</code>."
+      ]
+    },
+    "writer": {
+      "title": "La regla del escritor único, medida",
+      "text": "Todas las escrituras pasan por una cola acotada de 1024 hacia un solo hilo del sistema operativo. Las lecturas usan un pool aparte, de solo lectura. Una ráfaga frena a sus productores, y no se pierde ninguna escritura.",
+      "chartLabel": "Gráfico de barras del throughput del store: {r0} escrituras por segundo con {w0} escritor, {r1} con {w1}, {r2} con {w2} y {r3} con {w3}.",
+      "rowLabels": ["{n} escritor", "{n} escritores", "{n} escritores", "{n} escritores"],
+      "rate": "{n}/s",
+      "latency": "{n} ms",
+      "points": [
+        "El techo ronda las 700 escrituras por segundo, plano de 32 escritores en adelante. A un solo escritor lo limita fsync, no la CPU.",
+        "Medido en un disco local rápido. Un volumen en red o lento dará cifras bastante más bajas.",
+        "El test ataca el store directamente y se salta la entrada HTTP.",
+        "Reprodúcelo con <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>."
+      ]
+    }
+  },
+  "codebase": {
+    "title": "El código, crate por crate.",
+    "lede": "Nueve crates, cada uno con una sola tarea y una API tipada, sin dependencias circulares.",
+    "columns": { "crate": "Crate", "job": "Responsabilidad" },
+    "crates": {
+      "core": "Tipos de dominio, errores, ids. Sin IO.",
+      "store": "SQLite, el actor escritor, el pool de lectores, el cálculo del decaimiento.",
+      "wiki": "Escrituras atómicas de markdown, el file watcher, git.",
+      "mcp": "Transporte MCP y router de herramientas.",
+      "hooks": "Esquemas de payload, el sanitizer, la entrada de /hook.",
+      "llm": "Frontera de autenticación con proveedores, traits de LLM y de embedder.",
+      "consolidate": "Ingesta, lint, sweep y el pipeline de auto-improve.",
+      "workstream": "Adaptadores de solo lectura para transcripciones nativas y lanzamientos.",
+      "cli": "El binario ai-memory y sus subcomandos HTTP, que son finos."
+    },
+    "tools": {
+      "title": "{n} herramientas MCP, pocas a propósito",
+      "text": "Los hooks hacen la captura rutinaria, así que los agentes rara vez tienen que llamarlas a mano.",
+      "groups": {
+        "recall": "Recuperación",
+        "handoffs": "Traspasos",
+        "messages": "Mensajes entre proyectos",
+        "maintain": "Escritura y mantenimiento"
+      }
+    },
+    "invariants": "ARCHITECTURE.md, con los 15 invariantes",
+    "decisions": "Decisiones de diseño y opciones descartadas"
+  },
+  "faq": [
+    { "q": "¿Dónde guarda ai-memory sus datos?", "a": "En un solo directorio de datos: un repositorio git de páginas markdown en wiki/, un índice SQLite derivado en db/, segmentos saneados del workstream en raw/, el modelo local de embeddings en models/, y los logs." },
+    { "q": "¿ai-memory necesita un LLM?", "a": "No. La captura, los resúmenes de sesión, los traspasos, la indexación, la búsqueda y el resumen inicial funcionan sin ningún proveedor configurado. La consolidación con LLM, la mejora automática y el rerank son opt-in." },
+    { "q": "¿Qué pasa si el índice SQLite se pierde o se corrompe?", "a": "Los archivos markdown son la fuente de verdad. ai-memory reindex reconstruye el índice de páginas a partir de ellos. No hay una transacción que abarque el sistema de archivos y SQLite, y reindex también es la forma de resolver las ventanas que deja una caída." },
+    { "q": "¿Cómo ordena los resultados la recuperación?", "a": "Cuatro flujos de candidatos (texto completo con FTS5, coincidencia de entidades, vecinos en el grafo y vectores opcionales) se fusionan con Reciprocal Rank Fusion con k=60, y después se ajustan con un multiplicador acotado de autoridad de la fuente. El rerank con LLM es opcional, y las observaciones en bruto sirven de respaldo." },
+    { "q": "¿Cuántas escrituras por segundo aguanta?", "a": "El store mide 42 escrituras por segundo con un escritor, 295 con 8, y un techo cercano a 700 de 32 escritores en adelante. Las cifras salen de un disco local rápido, y el test ataca el store directamente, sin la entrada HTTP." }
+  ],
+  "next": [
+    { "title": "Seguridad", "text": "Qué deja fuera el sanitizer, qué puede salir de la máquina y cómo endurecer un servidor compartido." },
+    { "title": "Investigación y fundamentos", "text": "La wiki de Karpathy, OKF, los proyectos previos y el benchmark publicado." },
+    { "title": "Contribuir", "text": "Adónde van los issues, los pull requests y los adaptadores para harness nuevos." }
+  ],
+  "ctaBand": {
+    "title": "Lee los archivos que escribe.",
+    "text": "Instálalo, ejecuta una sesión y abre la carpeta de la wiki en tu editor."
+  }
+}

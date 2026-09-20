@@ -1,0 +1,184 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Tabs from '@/components/Tabs.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import webUi from '@/assets/img/web-project-view.png';
+import { site, type Hue } from '@/data/site';
+import { harnesses } from '@/data/support';
+
+const { t, raw, href } = useI18n(Astro, 'individuals');
+const managed = harnesses.filter((h) => h.run).length;
+
+// Structure here, words in src/i18n/locales/<locale>/individuals.json.
+type Feature = { title: string; text: string };
+const withHues = (key: string, hues: Hue[]) => raw<Feature[]>(key).map((it, i) => ({ ...it, hue: hues[i] }));
+const handoff = withHues('handoff.items', ['violet', 'amber', 'azure']);
+const defaults = withHues('defaults.items', ['green', 'teal', 'azure']);
+const phrases = raw<{ say: string; does: string }[]>('phrases.items');
+const webUrl = 'http://127.0.0.1:49374/web';
+
+// Commands never change with the language. Only the comments do.
+const runCode = `cd /path/to/project
+ai-memory run claude
+
+# ${t('launcher.run.commentSwitch')}
+ai-memory run codex --yolo
+
+# ${t('launcher.run.commentContinue')}
+ai-memory continue`;
+
+const backfillCode = `# ${t('launcher.adopt.backfill.comment')}
+ai-memory backfill --dry-run
+ai-memory backfill`;
+
+const bootstrapCode = `# ${t('launcher.adopt.bootstrap.comment')}
+ai-memory bootstrap --dry-run
+ai-memory bootstrap`;
+
+const clientCode = `# ${t('machines.comment')}
+export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
+export AI_MEMORY_AUTH_TOKEN="$TOKEN"
+ai-memory install-mcp   --client claude-code --apply
+ai-memory install-hooks --agent  claude-code --apply`;
+
+const webCode = `ai-memory serve --transport http --bind 127.0.0.1:49374 --enable-web
+# ${t('defaults.web.comment', { url: webUrl })}`;
+
+const wikiCode = `# ${t('defaults.files.commentCopy')}
+docker cp ai-memory:/data/wiki ./my-ai-memory-wiki
+
+# ${t('defaults.files.commentHistory')}
+git -C /data/wiki log --oneline`;
+
+const faq = raw<{ q: string; a: string }[]>('faq');
+const schema = [{
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}];
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
+  <PageHero hue="violet" kicker={t('crumbs.solutions')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href={href('/install/')} class="btn btn-primary">{t('cta.primary')}</a>
+    <a href={href('/integrations/#agents')} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section title={t('handoff.title')} lede={t('handoff.lede')} hue="violet" fill>
+    <Figure name="individuals-handoff" alt={t('handoff.figureAlt')} caption={t('handoff.figureCaption')} />
+    <FeatureGrid items={handoff} />
+    <p class="mt-10 text-muted max-w-[40em]" set:html={t('handoff.exceptions', { href: href('/integrations/#agents') })} />
+  </Section>
+
+  <Section title={t('phrases.title')} lede={t('phrases.lede')} hue="violet" tint>
+    <dl class="says">
+      {phrases.map((p) => (
+        <div class="row">
+          <dt>{p.say}</dt>
+          <dd>{p.does}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-8 text-muted max-w-[40em]" set:html={t('phrases.more', { href: site.docs + '/usage.md' })} />
+  </Section>
+
+  <Section title={t('launcher.title')} hue="amber">
+    <div class="grid lg:grid-cols-2 gap-x-12 gap-y-14">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('launcher.run.title')}</h3>
+        <ul class="mt-4 space-y-2.5 text-muted ticks">
+          {raw<string[]>('launcher.run.points').map((_, i) => <li set:html={t(`launcher.run.points.${i}`, { n: managed })} />)}
+        </ul>
+        <div class="mt-6"><CodeBlock title={t('launcher.run.codeTitle')} code={runCode} /></div>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('launcher.adopt.title')}</h3>
+        <p class="mt-4 text-muted max-w-[40em]">{t('launcher.adopt.text')}</p>
+        <div class="mt-6">
+          <Tabs id="adopt" labels={raw<string[]>('launcher.adopt.tabs')}>
+            <div slot="0">
+              <CodeBlock title={t('launcher.adopt.backfill.codeTitle')} code={backfillCode} />
+              <p class="mt-4 text-sm text-muted max-w-[40em]" set:html={t('launcher.adopt.backfill.note')} />
+            </div>
+            <div slot="1">
+              <CodeBlock title={t('launcher.adopt.bootstrap.codeTitle')} code={bootstrapCode} />
+              <p class="mt-4 text-sm text-muted max-w-[40em]" set:html={t('launcher.adopt.bootstrap.note')} />
+            </div>
+          </Tabs>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="machines" title={t('machines.title')} lede={t('machines.lede')} hue="azure" tint>
+    <Figure name="individuals-machines" alt={t('machines.figureAlt')} />
+    <div class="grid lg:grid-cols-2 gap-x-12 gap-y-10">
+      <ul class="space-y-4 text-muted ticks max-w-[40em]">
+        {raw<string[]>('machines.points').map((point) => <li set:html={point} />)}
+      </ul>
+      <div class="min-w-0">
+        <CodeBlock title={t('machines.codeTitle')} code={clientCode} />
+      </div>
+    </div>
+    <div class="mt-12">
+      <Callout title={t('machines.callout.title')} hue="azure">
+        <p set:html={t('machines.callout.text', { href: href('/advanced/') })} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section title={t('defaults.title')} lede={t('defaults.lede')} hue="green">
+    <FeatureGrid items={defaults} />
+    <Figure name="individuals-markdown" alt={t('defaults.figureAlt')} caption={t('defaults.figureCaption')} />
+    <div class="grid lg:grid-cols-2 gap-x-12 gap-y-10 items-start">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('defaults.files.title')}</h3>
+        <p class="mt-3 text-muted max-w-[40em]" set:html={t('defaults.files.text')} />
+        <div class="mt-5"><CodeBlock title={t('defaults.files.codeTitle')} code={wikiCode} /></div>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('defaults.web.title')}</h3>
+        <p class="mt-3 text-muted max-w-[40em]">{t('defaults.web.text')}</p>
+        <div class="mt-5"><CodeBlock title={t('defaults.web.codeTitle')} code={webCode} /></div>
+      </div>
+    </div>
+    <Figure src={webUi} alt={t('defaults.web.shotAlt')} caption={t('defaults.web.shotCaption')} />
+  </Section>
+
+  <Section title={t('need.title')} hue="amber" narrow>
+    <Callout title={t('need.callout.title')}>
+      <p>{t('need.callout.stay')}</p>
+      <p>{t('need.callout.stops')}</p>
+      <ul class="ticks space-y-2 list-none ps-0">
+        {raw<string[]>('need.callout.reasons').map((r) => <li>{r}</li>)}
+      </ul>
+      <p set:html={t('need.callout.compare', { href: href('/compare/') })} />
+    </Callout>
+    <p class="mt-10"><a href={href('/install/')} class="btn btn-primary">{t('need.cta')}</a></p>
+  </Section>
+
+  <NextPages links={[
+    { href: '/install/', title: t('crumbs.install'), text: t('next.install'), hue: 'amber' },
+    { href: '/integrations/', title: t('next.integrations.title'), text: t('next.integrations.text'), hue: 'violet' },
+    { href: '/solutions/teams/', title: t('nav.solutions.teams.label'), text: t('next.teams'), hue: 'teal' },
+  ]} />
+  <CtaBand text={t('cta.text')} />
+</Base>
+
+<style>
+  .says { border-top: 1px solid var(--line); max-width: 60rem; }
+  .says .row { display: grid; gap: .35rem 2.5rem; padding-block: 1.1rem; border-bottom: 1px solid var(--line); }
+  .says dt { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--hue); }
+  .says dd { color: var(--muted); }
+  @media (min-width: 48rem) { .says .row { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); align-items: baseline; } }
+  .ticks li { position: relative; padding-inline-start: 1.5rem; }
+  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .7em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .ticks :global(code), p :global(code) { background: var(--surface); border: 1px solid var(--line); border-radius: .35em; padding: .1em .4em; font-size: .88em; overflow-wrap: anywhere; }
+</style>

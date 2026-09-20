@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Memória entre agentes de código, para quem programa solo",
+    "description": "Troque entre Claude Code, Codex e outros agentes no meio da tarefa, no PC ou no notebook, sem explicar o projeto de novo. Sem chave de API, em markdown puro."
+  },
+  "hero": {
+    "title": "Pare de explicar seu projeto de novo",
+    "lede": "Você fecha um agente, abre outro, e ele já conhece a arquitetura, o que foi tentado e não deu certo e o que ainda está em aberto. Funciona igual no PC e no notebook, e não precisa de chave de API.",
+    "secondary": "Confira seu agente"
+  },
+  "handoff": {
+    "title": "Troque de agente no meio da tarefa",
+    "lede": "Bateu no rate limit do Claude Code às 4 da tarde. Abra o Codex no mesmo diretório e continue.",
+    "figureAlt": "Diagrama: uma sessão do Claude Code termina e passa o bastão do handoff, pelo ai-memory, para uma sessão do Codex. O handoff leva um resumo, os próximos passos e as perguntas em aberto. Um segundo terminal que tenta pegar o mesmo bastão fica de fora, porque ele já foi assumido uma vez.",
+    "figureCaption": "O handoff é associado ao diretório do projeto, então o próximo agente só precisa iniciar no mesmo checkout.",
+    "items": [
+      { "title": "Tipado", "text": "Um handoff leva o resumo da sessão, os próximos passos e as perguntas em aberto. O próximo agente recebe isso no início da sessão, antes de você digitar qualquer coisa." },
+      { "title": "Assumido uma vez só", "text": "A primeira sessão que inicia naquele diretório pega o bastão. Uma segunda que pedir não recebe nada, então dois agentes nunca retomam o mesmo trabalho." },
+      { "title": "Automático, e você pode sobrescrever", "text": "Todo fim de sessão grava um. Diga \"salve o contexto para a próxima sessão\" para gravar o seu, e o seu tem prioridade sobre o automático." }
+    ],
+    "exceptions": "Dois agentes, Grok Build CLI e Zero, ignoram o que os hooks imprimem no início da sessão. Peça para eles aceitarem o handoff e eles buscam via MCP. A <a class=\"underline font-semibold text-text\" href=\"{href}\">página de integrações lista todos os agentes</a> e o que cada um suporta."
+  },
+  "phrases": {
+    "title": "O que você fala no dia a dia",
+    "lede": "Na maioria dos dias você não fala nada. Os hooks capturam a sessão, e o fim da sessão transforma isso em páginas da wiki. Quando você quiser alguma coisa, a interface é português mesmo.",
+    "items": [
+      { "say": "“Onde a gente parou?”", "does": "Lê o handoff pendente: resumo, próximos passos, perguntas em aberto." },
+      { "say": "“A gente já discutiu X?”", "does": "Busca na wiki com full-text, entidades, links e vetores fundidos em um ranking só." },
+      { "say": "“Me atualiza. Fiquei um tempo fora.”", "does": "Monta um resumo que fica mais longo quanto mais tempo você ficou fora. Sai em prosa com um LLM configurado, e em dados estruturados sem um." },
+      { "say": "“Lembre disso para sempre.”", "does": "Grava uma página durável, versionada em git. Fixe a página e ela nunca decai." },
+      { "say": "“Lembre disso até sexta.”", "does": "Grava a página com data de expiração. Depois disso, o forget sweep apaga." },
+      { "say": "“Essa página está desatualizada.”", "does": "Registra um feedback que rebaixa a página nos próximos rankings. Feedback nunca apaga nada." }
+    ],
+    "more": "O <a class=\"underline font-semibold text-text\" href=\"{href}\">guia de uso no GitHub</a> tem a lista completa de frases e a ferramenta MCP por trás de cada uma."
+  },
+  "launcher": {
+    "title": "Um launcher, e uma porta de entrada para projetos antigos",
+    "run": {
+      "title": "Inicie seu agente com ai-memory run",
+      "points": [
+        "A primeira execução instala os hooks e a entrada MCP daquele agente, se estiverem faltando. Isso acontece uma vez por agente.",
+        "Trocar de agente retoma o mesmo workstream, com o histórico visível somado ao resumo do handoff.",
+        "<code>ai-memory continue</code> encontra seu checkout mais recente a partir de qualquer diretório e retoma lá.",
+        "Hoje cobre {n} agentes. Abrir o agente direto continua funcionando, e só os hooks já levam o handoff."
+      ],
+      "codeTitle": "troque de harness, mantenha o workstream",
+      "commentSwitch": "Feche o Claude Code e continue o mesmo workstream no Codex.",
+      "commentContinue": "De qualquer diretório: me leve de volta para onde eu estava."
+    },
+    "adopt": {
+      "title": "Adote um projeto que já existe",
+      "text": "A primeira sessão em um projeto vazio importa seu histórico local de agentes uma vez, limitado às 25 sessões mais recentes. Você também pode rodar na mão.",
+      "tabs": ["Backfill, sem LLM", "Bootstrap, com LLM"],
+      "backfill": {
+        "codeTitle": "importar o histórico local de agentes",
+        "comment": "Veja o que seria importado, depois importe",
+        "note": "Desative a importação automática da primeira execução com <code>AI_MEMORY_BACKFILL_ON_START=false</code>."
+      },
+      "bootstrap": {
+        "codeTitle": "popular a wiki a partir do repositório",
+        "comment": "Precisa de um provedor de LLM no servidor",
+        "note": "O bootstrap lê o git log, o README, <code>docs/</code> e seus arquivos de regras. O projeto mediu uma execução em bem menos de US$ 0,20 com Kimi 2.6 via OpenRouter. Ele pode escrever páginas que parecem certas e estão erradas, então leia o dry run antes."
+      }
+    }
+  },
+  "machines": {
+    "title": "A mesma memória no PC e no notebook",
+    "lede": "Rode um servidor pequeno e aponte todas as máquinas para ele. O projeto é identificado pelo nome do checkout, então caminhos diferentes em cada máquina caem na mesma memória.",
+    "figureAlt": "Diagrama: um PC e um notebook se conectam a um único servidor ai-memory. O notebook está offline, então os eventos dele esperam em um spool local e são enviados ao servidor depois. Só existe um servidor.",
+    "points": [
+      "Coloque o servidor em uma máquina do homelab, ou na que ficar sempre ligada. É um binário só ou um container só.",
+      "Quando o notebook está offline, os eventos dos hooks vão para um spool local e são enviados quando o servidor volta a responder. Cada entrada tem uma chave de idempotência, então nada é gravado duas vezes.",
+      "<code>ai-memory status</code> mostra quantos eventos estão pendentes e a idade do mais antigo.",
+      "Um servidor que escuta fora do loopback exige um bearer token. O token não criptografa o tráfego, então adicione TLS antes de sair da sua LAN."
+    ],
+    "codeTitle": "apontar uma máquina para o servidor",
+    "comment": "No PC e no notebook",
+    "callout": {
+      "title": "Um servidor, sem replicação",
+      "text": "As máquinas compartilham a memória porque acessam o mesmo servidor. Dois servidores não sincronizam entre si, e apontar dois servidores para uma mesma pasta de dados sincronizada não é suportado, porque a wiki não sobrevive a isso. A <a href=\"{href}\">página de configuração avançada</a> cobre a instalação em homelab, TLS e backups."
+    }
+  },
+  "defaults": {
+    "title": "Sem chave de API, e arquivos que você consegue ler",
+    "lede": "A instalação padrão não custa nada para rodar e guarda tudo como markdown em um repositório git.",
+    "items": [
+      { "title": "Zero chamadas a LLM", "text": "Captura, resumos de sessão, handoffs e busca rodam sem modelo nenhum. Os resumos são baseados em regras até você adicionar um provedor." },
+      { "title": "Embeddings rodam dentro do binário", "text": "Um modelo local pequeno (all-MiniLM-L6-v2, cerca de 87 MB) é baixado uma vez em background. A busca vetorial liga no próximo restart. Não precisa de chave nem de GPU." },
+      { "title": "Só loopback", "text": "O servidor padrão escuta em 127.0.0.1:49374, sem conta e sem telemetria. Nada mais na rede consegue acessá-lo." }
+    ],
+    "figureAlt": "Diagrama: uma pasta wiki de arquivos markdown puros no centro, com ligações para grep, Obsidian, um editor de texto e rsync, e um histórico git por baixo.",
+    "figureCaption": "Edite uma página no Obsidian ou no vim e um file watcher atualiza o índice de busca.",
+    "files": {
+      "title": "Leve os arquivos para onde quiser",
+      "text": "O índice SQLite é derivado dos arquivos e pode ser reconstruído a partir deles. Faça backup com <code>ai-memory backup</code>, rsync ou um git push para o seu próprio remote.",
+      "codeTitle": "a wiki é um repositório git",
+      "commentCopy": "Copie a wiki para fora do container e abra no Obsidian",
+      "commentHistory": "Ou leia o histórico dela"
+    },
+    "web": {
+      "title": "Ou navegue por uma interface web somente leitura",
+      "text": "Uma flag adiciona uma visualização no navegador com a lista de projetos, a árvore de páginas, markdown renderizado, busca e links de wiki clicáveis. Ela não edita nada.",
+      "codeTitle": "habilitar a interface web",
+      "comment": "depois abra {url}",
+      "shotAlt": "Captura de tela da interface web do ai-memory mostrando um projeto: à esquerda, uma árvore de páginas agrupada em conceitos, decisões, gotchas e sessões; à direita, uma lista de atividade recente com páginas markdown.",
+      "shotCaption": "A visão de projeto da interface web. As páginas são agrupadas em conceitos, decisões, gotchas e sessões."
+    }
+  },
+  "need": {
+    "title": "Você precisa disso?",
+    "callout": {
+      "title": "A memória nativa do Claude Code pode ser suficiente",
+      "stay": "Se você trabalha sozinho, em uma máquina só, e usa apenas o Claude Code, fique com a memória nativa dele. Ela já vem ligada e não tem servidor para rodar.",
+      "stops": "Ela deixa de ser suficiente quando você:",
+      "reasons": [
+        "adiciona um segundo agente, porque essa memória é só do Claude Code",
+        "adiciona uma segunda máquina, porque ela mora em um laptop só",
+        "quer buscar em meses de sessões, incluindo o que as ferramentas fizeram",
+        "adiciona uma segunda pessoa"
+      ],
+      "compare": "A <a href=\"{href}\">página de comparação</a> cobre essa e as outras ferramentas de memória, incluindo onde elas estão na frente."
+    },
+    "cta": "Ir para a instalação rápida"
+  },
+  "faq": [
+    { "q": "Preciso de uma chave de API ou de um LLM para usar o ai-memory?", "a": "Não. Captura, resumos de sessão, handoffs e busca funcionam com zero chamadas a LLM. Os embeddings da busca vetorial rodam in-process com um modelo local. Um provedor de LLM é opcional e adiciona consolidação mais rica, bootstrap e reranking." },
+    { "q": "Dá para usar a mesma memória no PC e no notebook?", "a": "Sim. Rode um servidor ai-memory em uma máquina do homelab ou em uma das duas máquinas e aponte ambas para ele. Não existe replicação entre servidores. Se o notebook estiver offline, os eventos dos hooks ficam em um spool local e são enviados quando o servidor volta a responder." },
+    { "q": "A memória nativa do Claude Code é suficiente?", "a": "Para um desenvolvedor em uma máquina só, usando apenas o Claude Code, pode ser. Deixa de ser suficiente quando você adiciona um segundo agente, uma segunda máquina ou uma segunda pessoa." },
+    { "q": "Onde minha memória fica guardada?", "a": "Em uma pasta de arquivos markdown puros, versionada em git, dentro do diretório de dados do ai-memory. O SQLite guarda um índice de busca que pode ser reconstruído a partir dos arquivos." }
+  ],
+  "next": {
+    "install": "Instale o binário, suba o servidor, abra seu agente por ele.",
+    "integrations": { "title": "Agentes e plataformas", "text": "Quais agentes têm hooks, MCP e o launcher gerenciado, em qual sistema operacional." },
+    "teams": "O mesmo servidor, compartilhado por algumas pessoas e todos os agentes delas."
+  },
+  "cta": {
+    "text": "Gratuito e open source. Não precisa de conta nem de chave de API, e os arquivos continuam sendo seus."
+  }
+}

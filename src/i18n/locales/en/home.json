@@ -1,0 +1,194 @@
+{
+  "hero": {
+    "releaseOut": "{tag} is out",
+    "releaseLink": "See what changed",
+    "title": "Switch agents. Keep the context.",
+    "lede": "ai-memory is long-term memory for AI coding agents. Quit Claude Code mid-task, open Codex in the same directory, and carry on without re-explaining the architecture, the failed approaches or the open questions.",
+    "primary": "Set it up in 5 minutes",
+    "star": "Star on GitHub",
+    "facts": [
+      "Open source, MIT",
+      "One binary, plain markdown",
+      "Works with no API key"
+    ],
+    "marquee": "Works with {n} coding agents, including {names}"
+  },
+  "statement": "Your coding agent already takes notes. They live on one machine, belong to one agent, and disappear the moment you switch tools or teammates. ai-memory is what is on the other side of those walls.",
+  "continuity": {
+    "label": "What stays when everything else changes",
+    "title": "Change everything. Keep what you know.",
+    "scenes": {
+      "agents": {
+        "title": "Switch agents mid-task.",
+        "text": "Quit Claude Code, open Codex in the same directory. It starts with a handoff: what got done, what failed and what is still open.",
+        "link": "How handoffs work",
+        "inLabel": "claude",
+        "in": [
+          "> move refresh into middleware",
+          "● Edit auth/middleware.rs",
+          "● cargo test: 2 failed",
+          "> /exit"
+        ],
+        "outLabel": "codex",
+        "out": [
+          "Handoff from Claude Code",
+          "✓ Refresh moved to middleware",
+          "✗ Cookie-only broke mobile",
+          "? Rate limit on /refresh",
+          "> fix the two failing tests"
+        ]
+      },
+      "machines": {
+        "title": "Switch machines.",
+        "text": "Memory lives in a small server you run: on your laptop, a homelab box, wherever. The project you left on the desktop is the project you resume on the notebook.",
+        "link": "One server, many machines",
+        "inLabel": "desktop, office",
+        "in": [
+          "~/app $ ai-memory run claude",
+          "● 41 observations captured",
+          "● session saved to the wiki"
+        ],
+        "outLabel": "notebook, on the train",
+        "out": [
+          "~/app $ ai-memory run claude",
+          "> where did we leave off?",
+          "You were rate limiting /refresh.",
+          "Two tests in auth_spec still fail."
+        ]
+      },
+      "team": {
+        "title": "Share it with your team.",
+        "text": "Point everyone at one server. What one person’s sessions learn, everyone’s agents can find. New hires ask the project instead of interrupting you.",
+        "link": "ai-memory for teams",
+        "inLabel": "this week",
+        "in": [
+          "Ana|fixed the flaky CI cache",
+          "Ravi|chose advisory locks over a queue",
+          "Mei|wrote the deploy runbook"
+        ],
+        "outLabel": "Lia, first day",
+        "out": [
+          "> catch me up on this project",
+          "3 decisions, 1 runbook and 2 open",
+          "questions from the last two weeks.",
+          "Start at decisions/advisory-locks"
+        ]
+      },
+      "wiki": {
+        "title": "It writes its own wiki.",
+        "text": "Hooks capture the work silently. Sessions become plain markdown pages, filed and cross-linked in a git-backed wiki. Grep it, open it in Obsidian, edit it by hand.",
+        "link": "See what is stored",
+        "inLabel": "captured",
+        "in": [
+          "prompt",
+          "Edit auth.rs",
+          "cargo test failed",
+          "git rebase main",
+          "Read schema.sql",
+          "prompt",
+          "Bash: curl /refresh",
+          "session end"
+        ],
+        "outLabel": "wiki/",
+        "out": [
+          "decisions/|session-tokens.md",
+          "gotchas/|mobile-cookie-jar.md",
+          "procedures/|deploy.md",
+          "sessions/|2026-09-18-auth.md",
+          "|index.md"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "title": "Start where you are.",
+    "items": [
+      {
+        "who": "I work alone",
+        "title": "Stop re-explaining your project",
+        "text": "Three commands to install. You need no account and no API key.",
+        "cta": "ai-memory for individuals"
+      },
+      {
+        "who": "I run a small team",
+        "title": "One memory for everyone’s agents",
+        "text": "Onboard people by letting them ask the project.",
+        "cta": "ai-memory for teams"
+      },
+      {
+        "who": "I already use a memory tool",
+        "title": "See what carries over and what you gain",
+        "text": "Mem0, Zep, cognee, OpenViking, Claude’s own memory.",
+        "cta": "Compare and migrate"
+      },
+      {
+        "who": "I want to contribute",
+        "title": "A Rust codebase with an active issue tracker",
+        "text": "{n} people have landed code so far.",
+        "cta": "Start contributing"
+      }
+    ]
+  },
+  "how": {
+    "title": "What happens while you work.",
+    "lede": "All four steps run in the background, and the default path makes zero LLM calls.",
+    "figureAlt": "Diagram: terminals emit observations that are consolidated into markdown pages, searched through fused ranking, and handed off to the next agent. Underneath it all sits a git-backed wiki of plain markdown files.",
+    "steps": [
+      {
+        "title": "Capture",
+        "text": "Lifecycle hooks record prompts, tool calls and session boundaries. Secrets are stripped before anything is stored."
+      },
+      {
+        "title": "Consolidate",
+        "text": "When a session ends, its observations become a readable markdown page in the project’s wiki."
+      },
+      {
+        "title": "Recall",
+        "text": "The next session gets a short brief and can search everything: full text, entities, links and vectors, fused into one ranking."
+      },
+      {
+        "title": "Hand off",
+        "text": "The next session picks up the baton, and only one session can claim it. It works across agents and across every machine that reaches the server."
+      }
+    ],
+    "cta": "Read the architecture"
+  },
+  "compare": {
+    "title": "Coming from another tool?",
+    "text": "Most memory tools need an LLM, a vector store or a graph database before they remember anything. ai-memory needs one binary and a folder.",
+    "cta": "Full comparison, including where they win",
+    "pick": "Pick the tool you use today",
+    "needs": "{kind}. It needs: {needs}.",
+    "same": "What stays the same",
+    "gain": "What you gain"
+  },
+  "quickstart": {
+    "title": "Running in five minutes.",
+    "text": "There is no sign-up. The default install listens on your machine only, so nothing else can reach it.",
+    "links": {
+      "install": "Every install path, step by step",
+      "integrations": "Check your agent and OS",
+      "download": "Download {tag}"
+    },
+    "tabs": [
+      "Just me",
+      "My team"
+    ],
+    "soloTitle": "one machine",
+    "teamTitle": "one server, many machines",
+    "solo": {
+      "c1": "1. Install the binary (or grab it from the downloads page)",
+      "c2": "2. Start the server. It listens on this machine only.",
+      "c3": "3. Launch your agent through it. Hooks and MCP wire themselves."
+    },
+    "team": {
+      "c1": "On the server: a homelab box or any LAN host",
+      "c2": "On every machine, for every teammate",
+      "theirKey": "their key"
+    }
+  },
+  "community": {
+    "title": "Built in the open, by a lot of people.",
+    "text": "New here? <a href=\"{href}\" class=\"underline font-semibold text-text\">The contributing page</a> shows where bug reports, pull requests and new agent integrations go."
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "title": "Architecture: one binary, markdown, a derived index",
+    "description": "How ai-memory works inside: fire-and-forget hooks, a single SQLite writer, markdown in git as the source of truth, and four retrieval streams fused with RRF."
+  },
+  "hero": {
+    "title": "One binary, markdown files, a derived index",
+    "lede": "Hooks capture what your agent does. Markdown in git holds what was learned. SQLite is a search index you can throw away and rebuild. This page walks the path from a hook to the next session’s briefing, and says where the design is still thin.",
+    "primary": "Read ARCHITECTURE.md",
+    "secondary": "Why it was built this way"
+  },
+  "layout": {
+    "title": "One binary, one data directory.",
+    "lede": "SQLite is bundled, libgit2 is vendored and the embedder is pure Rust. There is no sidecar, no database server and no queue to run. Everything it knows is in one folder.",
+    "treeLabel": "The ai-memory data directory",
+    "tree": {
+      "wiki": "Markdown pages with YAML frontmatter, in a git repository. The source of truth.",
+      "db": "The derived index: full text, entities, links, embeddings, sessions, audit. WAL mode.",
+      "raw": "Immutable, sanitized JSONL segments from managed ai-memory run sessions.",
+      "models": "The local embedding model, all-MiniLM-L6-v2, about 87 MB and SHA-256 pinned.",
+      "logs": "Rolling daily log output.",
+      "config": "Read once at startup. Every value has an AI_MEMORY_* override."
+    },
+    "backup": "The server binds <code>127.0.0.1:49374</code> by default. Backing up means <code>ai-memory backup</code>, or a git push of the wiki plus an rsync of the folder."
+  },
+  "pipeline": {
+    "title": "From a hook to the next briefing.",
+    "lede": "Seven of these eight steps run with no model and no API key. The LLM step is off until you configure a provider.",
+    "figureAlt": "Diagram: a hook emits events that pass through a sanitize gate into a single writer, are stored as observations, become a session page, optionally fan out into more pages through an LLM, and are committed to the git wiki. A return arrow labelled Briefing runs from the wiki back to the next hook.",
+    "figureCaption": "Only the dashed stage needs an LLM. The return arrow is the briefing injected at the next SessionStart.",
+    "zeroLlm": "Zero LLM",
+    "optionalLlm": "Optional LLM",
+    "steps": [
+      { "title": "Hook", "text": "The agent CLI fires a lifecycle hook. It is fire and forget with a 200 ms budget: native hooks spool the event locally and a detached helper delivers it. The server answers 202, or 429 when saturated." },
+      { "title": "Sanitize", "text": "The /hook router strips secrets and caps sizes. This is the only path from untrusted text into the store." },
+      { "title": "Single writer", "text": "The sanitized event goes onto one queue, drained by one thread that owns the only write connection." },
+      { "title": "Observations", "text": "Events land in SQLite as an operational audit trail. It is a bounded projection of the session, never a full transcript." },
+      { "title": "Session end", "text": "Rules, no model, turn the observations into sessions/<id>.md and open a Handoff row for the next agent, in one transaction." },
+      { "title": "Consolidation", "text": "With a provider configured, an LLM rewrites the summary or fans it out into concepts/, decisions/, gotchas/ and procedures/. It runs from a retryable queue, outside hook latency." },
+      { "title": "Commit and index", "text": "Each page write is atomic (tmp, rename, fsync), committed to git, and indexed in the same SQLite transaction as its row." },
+      { "title": "Query and briefing", "text": "memory_query searches the index. At the next SessionStart the hook fetches the open handoff and a structured briefing for that directory." }
+    ]
+  },
+  "truth": {
+    "title": "Two layers, one source of truth.",
+    "lede": "If the files and the index disagree, the files win.",
+    "figureAlt": "Diagram: a shelf of markdown pages in git, marked Source of truth, sits above a SQLite index marked Derived. The writer feeds both. A dashed file watcher arrow and a solid reindex arrow both point from the markdown down to the index.",
+    "layers": [
+      { "title": "Files are the truth", "text": "Pages are markdown with YAML frontmatter under wiki/<workspace>/<project>/. Open them in Obsidian, grep them, push them to a remote." },
+      { "title": "SQLite is derived", "text": "Everything in memory.sqlite that describes a page can be rebuilt from the files with ai-memory reindex. A corrupt index is recoverable." },
+      { "title": "The server owns writes", "text": "Normal writes go through the wiki layer, which updates the file, the git history and the index together." },
+      { "title": "A watcher catches the rest", "text": "Edits from vim or Obsidian are picked up by a file watcher. A full diff every 30 seconds catches events it missed." }
+    ],
+    "noTransaction": {
+      "title": "There is no transaction across the filesystem and SQLite",
+      "text": "Index rows commit in the same SQLite transaction as their data, and file writes are atomic, but a crash between the two can leave them out of step. <code>ai-memory reindex</code> resolves those windows by rebuilding from the files."
+    }
+  },
+  "retrieval": {
+    "title": "Retrieval: four streams, one ranking.",
+    "figureAlt": "Diagram: a query fans out into four lanes labelled FTS5, Entities, Graph and Vectors, with the vector lane dashed as optional. The lanes merge in a node labelled RRF k=60, pass through an Authority scale, and end as a ranked list of results.",
+    "figureCaption": "The vector lane is dashed because search works without it.",
+    "streams": [
+      { "title": "Full text", "text": "SQLite FTS5 over page titles and bodies, with stopwords filtered from bare queries." },
+      { "title": "Entity match", "text": "A lexical index of names from frontmatter entities and tags, weighted by inverse page frequency." },
+      { "title": "Graph neighbours", "text": "One hop over the links table: wikilinks, markdown links, typed edges and cross-project links. Plain SQL, no graph database." },
+      { "title": "Vectors, optional", "text": "Cosine similarity over embeddings from the in-process local model. On by default since 2.0, never required, and brute force on purpose." }
+    ],
+    "afterFusion": {
+      "title": "After fusion",
+      "points": [
+        "Reciprocal Rank Fusion with k=60 merges the streams by rank, so no stream needs score calibration.",
+        "A bounded authority multiplier then nudges close contests toward maintained rules, decisions, procedures and gotchas. Episodic and historical pages stay searchable, and nothing is excluded outright.",
+        "Optional LLM rerank: one call per query over up to 30 titles and snippets. Any failure keeps the local order. There is no local reranker yet, which is the project’s most cited gap.",
+        "If compiled pages miss entirely, a bounded search over raw observations returns raw_hits.",
+        "Pass explain=true to see per-stream ranks, RRF contributions and the multiplier for every hit."
+      ]
+    },
+    "asOf": {
+      "title": "Time: <code>as_of</code>",
+      "points": [
+        "Pass an ISO date to ask what the wiki said about something back then.",
+        "It records ingestion time only: when ai-memory learned a fact and when it replaced it, never when it was true in the world.",
+        "It does not reproduce the ranking a search would have returned on that date."
+      ],
+      "link": "Temporal validity in the docs"
+    },
+    "typedEdges": {
+      "title": "Typed edges",
+      "points": [
+        "Frontmatter <code>relations:</code> accepts a closed set: <code>causes</code>, <code>fixes</code>, <code>contradicts</code>. A typo cannot mint a new kind.",
+        "<code>contradicts</code> feeds lint with no LLM and is reported until someone reconciles it.",
+        "They are explain only. They join the graph as ordinary links and do not yet move ranking, because the benchmark showed no basis for a weight."
+      ],
+      "link": "Typed edges in the docs"
+    }
+  },
+  "concurrency": {
+    "title": "One claimant, one writer.",
+    "lede": "Two rules carry most of the correctness: a handoff can be claimed once, and only one thread writes to SQLite.",
+    "handoff": {
+      "title": "Handoffs are a protocol",
+      "fsmLabel": "State machine: a handoff starts open. Accepting it moves it to accepted, exactly once. Cancelling it, or a newer automatic handoff for the same directory being accepted, moves it to expired.",
+      "states": { "open": "open", "accepted": "accepted", "expired": "expired" },
+      "edges": { "accept": "accept, once", "expire": "cancel or superseded" },
+      "points": [
+        "A handoff is a typed record: from and to agent, project, cwd, summary, open questions, files touched, next steps.",
+        "Accepting is an atomic compare and set. A second agent asking gets nothing.",
+        "The cwd matches on path boundaries: <code>/repo</code> covers <code>/repo/api</code> and never <code>/repo-other</code>.",
+        "A manual handoff beats the automatic one. Accepting expires older automatic candidates in the same transaction.",
+        "On a shared server a handoff belongs to its owner unless it is sent with <code>shared=true</code>."
+      ]
+    },
+    "writer": {
+      "title": "The single-writer rule, measured",
+      "text": "All writes pass through one bounded queue of 1024 to one OS thread. Reads use a separate read-only pool. A burst slows its producers down, and no write is dropped.",
+      "chartLabel": "Bar chart of store throughput: {r0} writes per second with {w0} writer, {r1} with {w1}, {r2} with {w2} and {r3} with {w3}.",
+      "rowLabels": ["{n} writer", "{n} writers", "{n} writers", "{n} writers"],
+      "rate": "{n}/s",
+      "latency": "{n} ms",
+      "points": [
+        "The ceiling is about 700 writes per second, flat from 32 writers up. One writer is bound by fsync, not CPU.",
+        "Measured on a fast local disk. A network or slow volume will be materially lower.",
+        "The test drives the store directly and skips the HTTP front door.",
+        "Reproduce it with <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>."
+      ]
+    }
+  },
+  "codebase": {
+    "title": "The code, by crate.",
+    "lede": "Nine crates, each with one job and a typed API, with no circular dependencies.",
+    "columns": { "crate": "Crate", "job": "Responsibility" },
+    "crates": {
+      "core": "Domain types, errors, ids. No IO.",
+      "store": "SQLite, the writer actor, the reader pool, decay math.",
+      "wiki": "Atomic markdown writes, the file watcher, git.",
+      "mcp": "MCP transport and tool router.",
+      "hooks": "Payload schemas, the sanitizer, /hook ingress.",
+      "llm": "Provider auth boundary, LLM and embedder traits.",
+      "consolidate": "Ingest, lint, sweep and the auto-improve pipeline.",
+      "workstream": "Read-only native transcript and launch adapters.",
+      "cli": "The ai-memory binary and its thin HTTP subcommands."
+    },
+    "tools": {
+      "title": "{n} MCP tools, narrow on purpose",
+      "text": "Hooks do the routine capture, so agents rarely need to call these by hand.",
+      "groups": {
+        "recall": "Recall",
+        "handoffs": "Handoffs",
+        "messages": "Cross-project messages",
+        "maintain": "Write and maintain"
+      }
+    },
+    "invariants": "ARCHITECTURE.md, with all 15 invariants",
+    "decisions": "Design decisions and rejected options"
+  },
+  "faq": [
+    { "q": "Where does ai-memory keep its data?", "a": "In one data directory: a git repository of markdown pages under wiki/, a derived SQLite index under db/, sanitized workstream segments under raw/, the local embedding model under models/, and logs." },
+    { "q": "Does ai-memory need an LLM?", "a": "No. Capture, session summaries, handoffs, indexing, search and the briefing run with no provider configured. LLM consolidation, auto-improvement and rerank are opt-in." },
+    { "q": "What happens if the SQLite index is lost or corrupted?", "a": "The markdown files are the source of truth. ai-memory reindex rebuilds the page index from them. There is no cross-resource transaction between the filesystem and SQLite, and reindex is also how crash windows are resolved." },
+    { "q": "How does retrieval rank results?", "a": "Four candidate streams (FTS5 full text, entity match, graph neighbours and optional vectors) are fused with Reciprocal Rank Fusion at k=60, then adjusted by a bounded source-authority multiplier. LLM rerank is optional, and raw observations are a fallback." },
+    { "q": "How many writes per second can it take?", "a": "The store measures 42 writes per second with one writer, 295 with 8, and a ceiling near 700 from 32 writers up. The numbers come from a fast local disk, and the test drives the store directly without the HTTP front door." }
+  ],
+  "next": [
+    { "title": "Security", "text": "What the sanitizer keeps out, what can leave the machine, and how to harden a shared server." },
+    { "title": "Research and rationale", "text": "Karpathy’s wiki, OKF, the prior art, and the published benchmark." },
+    { "title": "Contribute", "text": "Where issues, pull requests and new harness adapters go." }
+  ],
+  "ctaBand": {
+    "title": "Read the files it writes.",
+    "text": "Install it, run one session, then open the wiki folder in your editor."
+  }
+}

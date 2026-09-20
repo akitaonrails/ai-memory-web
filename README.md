@@ -29,6 +29,7 @@ GITHUB_TOKEN=$(gh auth token) npm run build
 | Command | What it does |
 |---|---|
 | `npm run check:colors` | Measures WCAG contrast for every color pairing in `src/styles/global.css`. Fails if one misses its target. |
+| `npm run check:i18n` | Compares every translation catalog with the English one. Fails on mismatched keys, placeholders or markup. |
 | `npm run snapshot:github` | Refreshes the committed GitHub fallback data. |
 | `node scripts/gen-image.mjs <name>` | Generates an illustration from `scripts/prompts/<name>.txt`. See [docs/images.md](docs/images.md). |
 
@@ -49,6 +50,8 @@ docs/               how to deploy, set up the domain, and the design studies
 - [docs/deploy.md](docs/deploy.md): Netlify through its GitHub integration or through GitHub Actions, and the tokens each needs
 - [docs/domain-godaddy.md](docs/domain-godaddy.md): pointing aimemory.io from GoDaddy to Netlify
 - [docs/seo.md](docs/seo.md): what is in place and what to do after launch
+- [docs/i18n.md](docs/i18n.md): the five languages, how detection works, changing text, translating diagrams
+- [docs/analytics.md](docs/analytics.md): turning on Google Analytics, consent, and the events it records
 - [docs/color-study.md](docs/color-study.md): the palette, derived from the logo, with measured contrast
 - [docs/design-system.md](docs/design-system.md): type, layout, motion and the rules pages follow
 - [docs/images.md](docs/images.md): how the diagrams are generated and how to redo one

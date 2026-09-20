@@ -1,0 +1,8 @@
+{
+  "meta": { "title": "Page not found", "description": "That page is not part of aimemory.io." },
+  "title": "This page was never captured.",
+  "lede": "The address does not match anything on the site. It may have moved.",
+  "home": "Go to the homepage",
+  "install": "Quick setup",
+  "integrations": "Integrations"
+}

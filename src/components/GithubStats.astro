@@ -1,18 +1,20 @@
 ---
 import { getGithub } from '@/data/github';
 import { site } from '@/data/site';
+import { useI18n } from '@/i18n';
+const { t, number, htmlLang } = useI18n(Astro);
 const gh = await getGithub();
 const stats = [
-  { n: gh.stars, label: 'GitHub stars', hue: 'amber', live: 'stars', href: `${site.repo}/stargazers` },
-  { n: gh.contributors, label: 'contributors', hue: 'teal', href: `${site.repo}/graphs/contributors` },
-  { n: gh.mergedPRs, label: 'merged pull requests', hue: 'violet', href: `${site.repo}/pulls?q=is%3Apr+is%3Amerged` },
-  { n: gh.closedIssues, label: 'issues closed', hue: 'green', href: `${site.repo}/issues?q=is%3Aissue+is%3Aclosed` },
+  { n: gh.stars, label: t('stats.stars'), hue: 'amber', live: 'stars', href: `${site.repo}/stargazers` },
+  { n: gh.contributors, label: t('stats.contributors'), hue: 'teal', href: `${site.repo}/graphs/contributors` },
+  { n: gh.mergedPRs, label: t('stats.mergedPRs'), hue: 'violet', href: `${site.repo}/pulls?q=is%3Apr+is%3Amerged` },
+  { n: gh.closedIssues, label: t('stats.closedIssues'), hue: 'green', href: `${site.repo}/issues?q=is%3Aissue+is%3Aclosed` },
 ];
 ---
 <dl class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
   {stats.map((s) => (
     <a href={s.href} class="stat" data-hue={s.hue}>
-      <dd class="num" data-count={s.n}>{s.n.toLocaleString('en-US')}</dd>
+      <dd class="num" data-count={s.n} data-count-locale={htmlLang}>{number(s.n)}</dd>
       <dt>{s.label}</dt>
     </a>
   ))}

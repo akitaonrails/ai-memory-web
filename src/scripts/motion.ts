@@ -15,9 +15,14 @@ const mm = gsap.matchMedia();
 
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   document.querySelectorAll<HTMLElement>('[data-fill]').forEach((el) => {
-    const words = el.textContent!.trim().split(/\s+/);
-    el.setAttribute('aria-label', words.join(' '));
-    el.innerHTML = words.map((w) => `<span aria-hidden="true" style="opacity:.16">${w}</span>`).join(' ');
+    // Japanese has no spaces between words, so ask the browser where the words are.
+    const text = el.textContent!.trim().replace(/\s+/g, ' ');
+    const lang = document.documentElement.lang;
+    const words = 'Segmenter' in Intl && /^(ja|zh|th)/.test(lang)
+      ? [...new Intl.Segmenter(lang, { granularity: 'word' }).segment(text)].map((s) => s.segment)
+      : text.split(/(?<= )/);
+    el.setAttribute('aria-label', text);
+    el.innerHTML = words.map((w) => `<span aria-hidden="true" style="opacity:.16">${w}</span>`).join('');
     gsap.to(el.children, {
       opacity: 1, stagger: 0.1, ease: 'none',
       scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 45%', scrub: 0.4 },
@@ -59,7 +64,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
 
   document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
     const end = Number(el.dataset.count);
-    const fmt = (n: number) => (el.dataset.countFormat === 'compact' ? compact(Math.round(n)) : Math.round(n).toLocaleString('en-US'));
+    const fmt = (n: number) => (el.dataset.countFormat === 'compact' ? compact(Math.round(n)) : Math.round(n).toLocaleString(el.dataset.countLocale ?? document.documentElement.lang));
     const state = { n: 0 };
     gsap.to(state, {
       n: end, duration: 1.6, ease: 'power2.out', onUpdate: () => (el.textContent = fmt(state.n)),

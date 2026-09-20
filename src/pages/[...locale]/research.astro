@@ -1,0 +1,348 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+import type { Hue } from '@/data/site';
+
+const { t, raw, href, date, number, htmlLang } = useI18n(Astro, 'research');
+
+const gist = 'https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f';
+const post = 'https://akitaonrails.com/en/2026/09/02/ai-memory-2-0-best-memory-system-for-agents-and-teams/';
+const okfSpec = 'https://github.com/GoogleCloudPlatform/knowledge-catalog';
+
+// Scores keep three decimals in every language; only the decimal separator changes.
+const score = (n: number) => n.toLocaleString(htmlLang, { minimumFractionDigits: 3 });
+
+// Structure here, words in src/i18n/locales/<locale>/research.json.
+const kept = raw<string[]>('compile.kept.items');
+const changed = raw<{ was: string; now: string }[]>('compile.changed.rows');
+const okfPoints = raw<string[]>('okf.points');
+
+// Folder names and OKF type values are literals from the specification.
+const okfTypes: [string, string][] = [
+  ['sessions/', 'Session Summary'],
+  ['decisions/', 'Decision'],
+  ['gotchas/', 'Gotcha'],
+  ['procedures/', 'Procedure'],
+  ['concepts/', 'Concept'],
+  ['_rules/', 'Rule'],
+  ['notes/', 'Note'],
+  ['runbooks/', 'Runbook'],
+  ['_slots/', t('okf.eitherType', { a: 'Invariant', b: 'State' })],
+];
+
+const decisionHues: Hue[] = ['green', 'azure', 'violet', 'azure', 'teal', 'violet', 'amber', 'green'];
+const decisions = raw<{ chose: string; because: string }[]>('decisions.items').map((d, i) => ({ ...d, hue: decisionHues[i] }));
+
+const shoulders = [
+  { id: 'karpathy', name: 'Karpathy LLM Wiki', href: gist },
+  { id: 'agentmemory', name: 'agentmemory', href: 'https://github.com/rohitg00/agentmemory' },
+  { id: 'basicMemory', name: 'basic-memory', href: 'https://github.com/basicmachines-co/basic-memory' },
+  { id: 'cognee', name: 'cognee', href: 'https://github.com/topoteretes/cognee' },
+  { id: 'hermes', name: 'Hermes Agent', href: 'https://github.com/NousResearch/hermes-agent' },
+  { id: 'amem', name: 'A-MEM', href: 'https://arxiv.org/abs/2502.12110' },
+  { id: 'hindsight', name: 'Hindsight', href: 'https://arxiv.org/abs/2512.12818' },
+].map((s) => ({ ...s, gave: t(`priorArt.gave.${s.id}`) }));
+
+// Columns: before 2.0, filtered full text, local embeddings.
+const metrics: [string, number, number, number][] = [
+  ['hit@1', 0.449, 0.534, 0.536],
+  ['hit@5', 0.617, 0.668, 0.823],
+  ['recall@5', 0.472, 0.538, 0.68],
+];
+const hit5 = metrics[1].slice(1) as number[];
+const bench = raw<string[]>('measured.chart.bars').map((label, i) => ({ label, v: hit5[i] }));
+const writers = [
+  { n: 1, perSecond: 42, ms: 23.9 },
+  { n: 8, perSecond: 295, ms: 3.4 },
+  { n: 32, perSecond: 698, ms: 1.43 },
+  { n: 128, perSecond: 700, ms: 1.43 },
+];
+
+const reproduce = `cargo build --release -p ai-memory-cli
+cargo run --release -p ai-memory-eval -- retrieval --fetch`;
+const throughput = `cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture`;
+const exportOkf = `ai-memory export-okf --project myproject -o myproject-bundle.tar.gz`;
+
+const recommended = raw<{ title: string; text: string }[]>('next.recommended.items');
+const behind = [t('next.behind.reranked', { score: score(0.952) }), ...raw<string[]>('next.behind.items')];
+
+const nextMeta: { href: string; hue: Hue }[] = [
+  { href: '/architecture/', hue: 'azure' },
+  { href: '/compare/', hue: 'amber' },
+  { href: '/contribute/', hue: 'teal' },
+];
+const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i) => ({ ...n, ...nextMeta[i] }));
+
+const faqParams = { hybrid: score(hit5[2]), fts: score(hit5[1]) };
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: raw<{ q: string; a: string }[]>('faq').map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) },
+  })),
+};
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faq]}>
+  <PageHero hue="violet" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href="#measured" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={`${site.docs}/design-decisions.md`} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <!-- (a) Karpathy -->
+  <Section id="compile" hue="green" title={t('compile.title')} lede={t('compile.lede')}>
+    <blockquote class="pull">
+      <p>{t('quotes.compiled.text')}</p>
+      <footer set:html={t('quotes.compiled.by', { href: gist })} />
+    </blockquote>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-[64rem]">
+      <div>
+        <h3 class="text-xl">{t('compile.layers.title')}</h3>
+        <p class="mt-2 text-muted">{t('compile.layers.text')}</p>
+      </div>
+      <div>
+        <h3 class="text-xl">{t('compile.operations.title')}</h3>
+        <p class="mt-2 text-muted">{t('compile.operations.text')}</p>
+      </div>
+    </div>
+
+    <Figure name="research-three-layers" alt={t('compile.figure.alt')} caption={t('compile.figure.caption')} />
+
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-12">
+      <div>
+        <h3 class="text-xl">{t('compile.kept.title')}</h3>
+        <ul class="mt-4 space-y-3 text-muted ticks">
+          {kept.map((k) => <li>{k}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl">{t('compile.changed.title')}</h3>
+        <p class="mt-2 text-muted max-w-[40em]">{t('compile.changed.text')}</p>
+        <div class="table-wrap mt-5">
+          <table class="table-site">
+            <thead><tr><th>{t('compile.changed.colGist')}</th><th>{t('compile.changed.colHere')}</th></tr></thead>
+            <tbody>{changed.map((c) => <tr><td>{c.was}</td><td>{c.now}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="mt-8 text-muted max-w-[40em]" set:html={t('compile.origin', { href: `${site.docs}/research-karpathy-llm-wiki.md` })} />
+  </Section>
+
+  <!-- (b) OKF -->
+  <Section id="okf" hue="teal" tint title={t('okf.title')} lede={t('okf.lede')}>
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 items-start">
+      <div class="min-w-0">
+        <ul class="space-y-3 text-muted ticks max-w-[40em]">
+          {okfPoints.map((p) => <li set:html={p} />)}
+        </ul>
+        <div class="mt-8"><CodeBlock title={t('okf.exportTitle')} code={exportOkf} /></div>
+        <p class="mt-5 text-muted max-w-[40em]" set:html={t('okf.noImport', { mapping: `${site.docs}/okf.md`, spec: okfSpec })} />
+      </div>
+      <div class="table-wrap">
+        <table class="table-site">
+          <thead><tr><th>{t('okf.colFolder')}</th><th>{t('okf.colType')}</th></tr></thead>
+          <tbody>{okfTypes.map(([folder, type]) => <tr><td><code>{folder}</code></td><td>{type}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <Figure name="research-okf-bundle" alt={t('okf.figure.alt')} caption={t('okf.figure.caption')} />
+
+    <blockquote class="pull">
+      <p>{t('quotes.rented.text')}</p>
+      <footer set:html={t('quotes.rented.by', { href: post })} />
+    </blockquote>
+
+    <div class="mt-10">
+      <Callout title={t('okf.conformance.title')} hue="amber">
+        <p>{t('okf.conformance.text')}</p>
+      </Callout>
+    </div>
+  </Section>
+
+  <!-- (c) Decisions -->
+  <Section id="decisions" hue="violet" title={t('decisions.title')} lede={t('decisions.lede')}>
+    <ul class="grid md:grid-cols-2 gap-x-12 gap-y-10" data-reveal="children">
+      {decisions.map((d) => (
+        <li class="decision" data-hue={d.hue}>
+          <p class="we">{t('decisions.weChose')}</p>
+          <h3 class="text-xl mt-1">{d.chose}</h3>
+          <p class="mt-3 text-muted" set:html={d.because} />
+        </li>
+      ))}
+    </ul>
+    <p class="mt-12"><a class="btn btn-ghost" href={`${site.docs}/design-decisions.md`}>{t('decisions.all')}</a></p>
+  </Section>
+
+  <!-- (d) Shoulders -->
+  <Section id="prior-art" hue="azure" tint title={t('priorArt.title')} lede={t('priorArt.lede')}>
+    <Figure name="research-lineage" alt={t('priorArt.figureAlt')} />
+    <dl class="lineage">
+      {shoulders.map((s) => (
+        <div>
+          <dt><a href={s.href}>{s.name}</a></dt>
+          <dd>{s.gave}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-10 text-muted max-w-[40em]" set:html={t('priorArt.noEndorsement', { href: href('/compare/') })} />
+  </Section>
+
+  <!-- (e) Measured -->
+  <Section id="measured" hue="violet" title={t('measured.title')} lede={t('measured.lede')}>
+    <div class="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 items-start">
+      <figure class="chart" aria-labelledby="chart-title">
+        <figcaption id="chart-title">
+          <strong>{t('measured.chart.title')}</strong>
+          <span>{t('measured.chart.subtitle')}</span>
+        </figcaption>
+        <ol class="bars">
+          {bench.map((b, i) => (
+            <li class:list={[{ last: i === bench.length - 1 }]}>
+              <span class="lab">{b.label}</span>
+              <span class="track"><span class="bar" style={`width:${b.v * 100}%`}></span></span>
+              <span class="val">{score(b.v)}</span>
+            </li>
+          ))}
+        </ol>
+        <p class="axis"><span>{number(0)}</span><span>{number(0.5)}</span><span>{(1).toLocaleString(htmlLang, { minimumFractionDigits: 1 })}</span></p>
+      </figure>
+      <div>
+        <h3 class="text-xl">{t('measured.steps.title')}</h3>
+        <ul class="mt-4 space-y-3 text-muted ticks">
+          <li>{t('measured.steps.stopwords', { hit5: number(5.1), hit1: number(8.5) })}</li>
+          <li>{t('measured.steps.embeddings', { points: number(6.6) })}</li>
+          <li>{t('measured.steps.noKey')}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-wrap mt-12">
+      <table class="table-site">
+        <thead><tr><th>{t('measured.table.metric')}</th><th>{t('measured.table.before')}</th><th>{t('measured.table.filtered')}</th><th>{t('measured.table.local')}</th></tr></thead>
+        <tbody>{metrics.map(([name, ...vals]) => <tr><td class="tabular-nums">{name}</td>{vals.map((v) => <td class="tabular-nums">{score(v)}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      <Callout title={t('measured.retrievalOnly.title')} hue="amber">
+        <p>{t('measured.retrievalOnly.text')}</p>
+      </Callout>
+      <Callout title={t('measured.privacyCap.title')} hue="rose">
+        <p>{t('measured.privacyCap.text')}</p>
+      </Callout>
+    </div>
+
+    <div class="mt-12 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-10 items-start">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('measured.reproduce.title')}</h3>
+        <p class="mt-2 text-muted max-w-[40em]" set:html={t('measured.reproduce.text', { date: date('2026-09-01') })} />
+        <div class="mt-4"><CodeBlock title={t('measured.reproduce.codeTitle')} code={reproduce} /></div>
+        <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/README.md`}>{t('measured.reproduce.full')}</a></p>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('measured.throughput.title')}</h3>
+        <p class="mt-2 text-muted max-w-[40em]">{t('measured.throughput.text')}</p>
+        <div class="table-wrap mt-4">
+          <table class="table-site">
+            <thead><tr><th>{t('measured.throughput.colWriters')}</th><th>{t('measured.throughput.colThroughput')}</th><th>{t('measured.throughput.colLatency')}</th></tr></thead>
+            <tbody>
+              {writers.map((w) => (
+                <tr>
+                  <td class="tabular-nums">{number(w.n)}</td>
+                  <td class="tabular-nums">{t('measured.throughput.perSecond', { n: number(w.perSecond) })}</td>
+                  <td class="tabular-nums">{t('measured.throughput.ms', { n: number(w.ms) })}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4"><CodeBlock title={t('measured.throughput.codeTitle')} code={throughput} /></div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- (f) Next -->
+  <Section id="next" hue="amber" tint title={t('next.title')} lede={t('next.lede')}>
+    <div class="grid lg:grid-cols-2 gap-x-16 gap-y-12">
+      <div>
+        <h3 class="text-xl">{t('next.recommended.title')}</h3>
+        <ul class="mt-5 space-y-5">
+          {recommended.map((n) => (
+            <li class="plan">
+              <p class="font-semibold">{n.title}</p>
+              <p class="text-muted mt-1">{n.text}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-muted max-w-[40em]">{t('next.recommended.notPlanned')}</p>
+      </div>
+      <div>
+        <h3 class="text-xl">{t('next.behind.title')}</h3>
+        <ul class="mt-5 space-y-3 text-muted behind">
+          {behind.map((b) => <li>{b}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <blockquote class="pull mt-16">
+      <p>{t('quotes.noAsterisk.text')}</p>
+      <footer set:html={t('quotes.noAsterisk.by', { href: post })} />
+    </blockquote>
+  </Section>
+
+  <NextPages links={nextPages} />
+  <CtaBand title={t('cta.title')} text={t('cta.text')} />
+</Base>
+
+<style>
+  .pull { max-width: 46rem; border-inline-start: 4px solid var(--hue-vivid); padding-block: .25rem; padding-inline-start: clamp(1.1rem, 3vw, 2rem); }
+  .pull p { font-family: var(--font-display); font-weight: 600; font-size: var(--text-2xl); line-height: 1.18; letter-spacing: -.01em; }
+  .pull footer { margin-top: 1rem; color: var(--muted); font-size: .95rem; }
+  .pull footer :global(a) { text-decoration: underline; color: var(--hue); }
+
+  .ticks li, .behind li { position: relative; padding-inline-start: 1.5rem; max-width: 40em; }
+  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .behind li::before { content: ''; position: absolute; inset-inline-start: .1rem; top: .5em; width: .55rem; height: .55rem; border-radius: 50%; border: 2px solid var(--muted); }
+  :global(.band) :is(td, p, li) > :global(code) { background: var(--tint); border-radius: .35em; padding: .1em .35em; font-size: .92em; }
+  :global(.bg-tint) :is(td, p, li) > :global(code) { background: var(--surface); }
+
+  .decision { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
+  .decision .we { color: var(--hue); font-weight: 600; font-size: .9rem; }
+  .decision :global(strong) { color: var(--text); font-weight: 600; }
+
+  .lineage { display: grid; border-top: 1px solid var(--line); }
+  .lineage > div { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: .25rem 2rem; padding-block: 1.1rem; border-bottom: 1px solid var(--line); }
+  .lineage dt { font-family: var(--font-display); font-weight: 640; font-size: var(--text-lg); }
+  .lineage dt a { text-decoration: underline; text-decoration-color: var(--hue-vivid); text-underline-offset: .2em; }
+  .lineage dt a:hover { color: var(--hue); }
+  .lineage dd { color: var(--muted); max-width: 44em; }
+  @media (max-width: 40rem) { .lineage > div { grid-template-columns: minmax(0, 1fr); } }
+
+  .chart figcaption { display: grid; gap: .25rem; }
+  .chart figcaption strong { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 640; }
+  .chart figcaption span { color: var(--muted); font-size: .95rem; }
+  .bars { margin-top: 1.75rem; display: grid; gap: 1.4rem; }
+  .bars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .45rem 1rem; align-items: center; }
+  .bars .lab { grid-column: 1 / -1; color: var(--muted); font-size: .95rem; }
+  .bars .last .lab { color: var(--text); font-weight: 600; }
+  .bars .track { display: block; height: 1.1rem; border-inline-start: 1px solid var(--line); background: linear-gradient(var(--line), var(--line)) 50% 0 / 1px 100% no-repeat; border-inline-end: 1px solid var(--line); }
+  .bars .bar { display: block; height: 100%; border-start-end-radius: 4px; border-end-end-radius: 4px; background: color-mix(in oklch, var(--hue-vivid) 45%, var(--tint)); }
+  .bars .last .bar { background: var(--hue-vivid); }
+  .bars .val { font-variant-numeric: tabular-nums; font-weight: 640; font-family: var(--font-display); font-size: var(--text-lg); min-width: 3.2rem; text-align: end; }
+  .axis { display: flex; justify-content: space-between; margin-top: .5rem; margin-inline-end: 4.2rem; color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+
+  .plan { border-inline-start: 3px solid var(--hue-vivid); padding-inline-start: 1rem; max-width: 40em; }
+</style>

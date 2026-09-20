@@ -89,6 +89,21 @@
   );
 }
 
+/* Font stacks per language. Latin text uses the brand faces everywhere. Hebrew and Japanese glyphs come from
+   faces loaded only on those locales (src/styles/fonts-he.css, fonts-ja.css), so other visitors never download them. */
+:root {
+  --ff-display: 'Bricolage Grotesque Variable', 'Instrument Sans Variable', system-ui, sans-serif;
+  --ff-sans: 'Instrument Sans Variable', system-ui, sans-serif;
+}
+:root:lang(he) {
+  --ff-display: 'Bricolage Grotesque Variable', 'Rubik Variable', system-ui, sans-serif;
+  --ff-sans: 'Instrument Sans Variable', 'Heebo Variable', system-ui, sans-serif;
+}
+:root:lang(ja) {
+  --ff-display: 'Bricolage Grotesque Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --ff-sans: 'Instrument Sans Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -113,8 +128,8 @@
   --color-on-amber: var(--on-amber);
   --color-ink: var(--ink);
 
-  --font-display: 'Bricolage Grotesque Variable', 'Instrument Sans Variable', system-ui, sans-serif;
-  --font-sans: 'Instrument Sans Variable', system-ui, sans-serif;
+  --font-display: var(--ff-display);
+  --font-sans: var(--ff-sans);
   --font-mono: 'Commit Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Type scale: a 4:5 major third from a 17px base, rounded to the pixel.
@@ -289,11 +304,11 @@
   }
   .prose-site :where(ul) {
     list-style: disc;
-    padding-left: 1.2em;
+    padding-inline-start: 1.2em;
   }
   .prose-site :where(ol) {
     list-style: decimal;
-    padding-left: 1.4em;
+    padding-inline-start: 1.4em;
   }
   .prose-site :where(li + li) {
     margin-top: 0.4em;
@@ -308,6 +323,43 @@
     border-radius: 0.35em;
     padding: 0.12em 0.4em;
   }
+}
+
+/* Scripts without Latin proportions: no negative tracking, more leading, and widths measured in em, because
+   a heading capped at "16ch" holds about half as many full-width Japanese characters as Latin ones. */
+:lang(ja) :is(h1, h2, h3, h4),
+:lang(he) :is(h1, h2, h3, h4) {
+  letter-spacing: 0;
+  line-height: 1.22;
+}
+:lang(ja) :is(h1, h2, h3, h4) {
+  font-weight: 800;
+  max-width: 22em !important;
+  line-break: strict;
+  word-break: auto-phrase;
+}
+:lang(ja) body {
+  line-height: 1.8;
+  font-variation-settings: normal;
+  line-break: strict;
+}
+:lang(ja) :is(p, li, dd) {
+  word-break: auto-phrase;
+}
+:lang(he) body {
+  font-variation-settings: normal;
+}
+/* Code, commands, file paths and version numbers stay left to right inside right-to-left text. */
+[dir='rtl'] :is(code, kbd, pre, samp, .font-mono) {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+[dir='rtl'] :is(pre, .code) {
+  text-align: left;
+}
+/* Arrow icons that mean "forward" point the other way in right-to-left layouts. */
+[dir='rtl'] .flip-rtl {
+  scale: -1 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -335,7 +387,7 @@
     font-size: 0.97rem;
   }
   .table-site th {
-    text-align: left;
+    text-align: start;
     font-weight: 600;
     color: var(--muted);
     font-size: 0.875rem;

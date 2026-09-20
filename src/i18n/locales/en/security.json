@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "title": "Security: what is stored and what leaves your machine",
+    "description": "ai-memory listens on loopback by default, strips secrets before storage and sends nothing out unless you opt in. How to harden it, and where it stops."
+  },
+  "hero": {
+    "title": "What it stores, and what leaves your machine",
+    "lede": "A default install listens on your machine only, strips secrets before anything is written, and has no telemetry. Every path that sends data out is off until you turn it on. This page also lists what the project does not defend against.",
+    "primary": "Read SECURITY.md",
+    "secondary": "Data handling for reviewers"
+  },
+  "posture": {
+    "title": "The default is local.",
+    "lede": "Install it, run it, and the only thing that can talk to it is your own machine.",
+    "items": [
+      { "title": "Loopback only", "text": "The server binds 127.0.0.1:49374. No process outside the machine can reach it, which is why the default needs no password." },
+      { "title": "No telemetry", "text": "The binary has no analytics, crash reporting or usage tracking. Capture and search make zero network calls." },
+      { "title": "One directory you own", "text": "Wiki pages and the SQLite file live under one data directory. New directories are created 0700 and new files 0600 on Unix." },
+      { "title": "No encryption at rest", "text": "Version 1 relies on filesystem permissions. Existing installs are not chmodded for you. Use disk encryption if the laptop needs it." }
+    ],
+    "download": {
+      "title": "The one outbound request on a default install",
+      "what": "Since 2.0 the default embedder runs in process. On first start it downloads the all-MiniLM-L6-v2 model, about 87 MB, from Hugging Face and checks it against a pinned SHA-256. No user data is sent.",
+      "avoid": "To avoid the download, set <code>embedding_provider = \"none\"</code> or copy the three model files into <code>&lt;data_dir&gt;/models/</code>. The <a href=\"{href}\">air-gapped install guide</a> has the steps."
+    }
+  },
+  "boundary": {
+    "title": "Nothing is stored before it is sanitized.",
+    "lede": "Hook payloads are untrusted text. They reach the store through one function, and the type system enforces it.",
+    "figureAlt": "Diagram: a raw hook payload containing keys and passwords enters a single gate labelled sanitize(). Secrets drop out below the gate. A smaller, size-capped observation comes out the other side and is stored.",
+    "figureCaption": "The sanitizer is the only path from a hook payload into the store.",
+    "items": [
+      { "title": "One way in", "text": "The stored type can only be built by sanitize(). Code that skips the privacy strip does not compile." },
+      { "title": "Secrets are replaced", "text": "Matches become typed markers such as [REDACTED:github_token] or [REDACTED:jwt]. The strip is best effort." },
+      { "title": "Sizes are capped", "text": "Tool excerpts stop at 2 KB and prompts at 16 KiB. A 16 KiB backstop applies to every stored body after redaction." },
+      { "title": "Tool inputs are not kept", "text": "PreToolUse events never retain commands, arguments, paths or input bodies. Observations are an audit trail, never a full transcript." }
+    ],
+    "exclude": {
+      "title": "Keep a path or a repository out",
+      "points": [
+        "A <code>[capture]</code> block in <code>.ai-memory.toml</code> lists paths to ignore. Matching events are dropped on your machine, before the spool, the network and the logs.",
+        "Allowlist mode inverts it: a repository without the file emits no events at all.",
+        "An invalid rule set falls back to metadata only. It never applies half a policy.",
+        "Matching is lexical. Symlinks are not resolved, and prompts and shell commands cannot be tied to a path. This is a capture boundary. It is not complete DLP.",
+        "Assistant output is never stored by default. It takes a server flag and a client flag together."
+      ],
+      "codeTitle": "per-repository capture rules",
+      "commentFile": ".ai-memory.toml in the repository",
+      "commentAllowlist": "Or capture only repositories that opt in"
+    },
+    "docker": {
+      "title": "The Docker wrapper does not enforce ignore_paths",
+      "text": "Capture rules are enforced by the native <code>ai-memory hook</code> commands and the generated OpenCode, OMP, Pi and OpenClaw integrations. The Docker wrapper installs posix shell hooks, and those shell and PowerShell scripts skip the rules. If you depend on <code>ignore_paths</code> or allowlist mode, install the native binary on the client. The <a href=\"{href}\">marker file reference</a> has the details."
+    }
+  },
+  "hardening": {
+    "title": "Add one rung at a time.",
+    "lede": "Each step exists for a specific situation. Stop at the one that matches yours.",
+    "ladder": [
+      {
+        "when": "One person, one machine",
+        "title": "Loopback, no auth",
+        "text": "The default. Nothing to configure, because nothing else can connect."
+      },
+      {
+        "when": "A homelab box or a second machine",
+        "title": "Bearer token for the LAN",
+        "text": "Create a token with <code>ai-memory generate-auth-token</code> and set <code>AI_MEMORY_AUTH_TOKEN</code>. It is compared in constant time and protects <code>/mcp</code>, <code>/hook</code>, <code>/handoff</code> and the admin and API routes. Set <code>AI_MEMORY_ALLOWED_HOSTS</code> as well; it blocks DNS rebinding and does not replace the token."
+      },
+      {
+        "when": "More than one person writes",
+        "title": "Accounts and API keys",
+        "text": "Passwords are stored as Argon2id hashes. Each machine gets an <code>aim_</code> key that is printed once and never shown again. <code>ai-memory api-key rotate &lt;id&gt;</code> makes the old key return 401 at once. The first account turns every <code>/admin/*</code> route root only."
+      },
+      {
+        "when": "Your team already has Keycloak, Okta or Entra ID",
+        "title": "OIDC device auth for hooks",
+        "text": "Native hooks and the CLI can carry a token from <code>ai-memory auth login oidc-device</code>. The server does not validate OIDC tokens itself, so this needs an OIDC-aware gateway in front of it. It is hook and CLI auth through a gateway, and the server has no built-in SSO login."
+      },
+      {
+        "when": "Anything beyond loopback",
+        "title": "TLS through a reverse proxy",
+        "text": "ai-memory does not terminate TLS, by design. Bearer tokens are not encrypted on the wire, so put Caddy, nginx or a Cloudflare Tunnel in front. The repo ships compose templates for Caddy and cloudflared. Set <code>AI_MEMORY_AUTH__SECURE_COOKIE=true</code> when people sign in from other machines."
+      }
+    ],
+    "failClosed": {
+      "title": "Exposed without a token, it refuses to start",
+      "bind": "A non-loopback bind with no auth fails closed. <code>--allow-insecure-no-auth</code> is the documented dangerous override. Inside a container the check can only warn, because the process cannot see your <code>-p</code> publish spec: <code>-p 127.0.0.1:49374:49374</code> is safe without a token, and anything wider needs one.",
+      "more": "Request bodies are capped at 10 MB, and shared servers can rate limit hooks per source. Full walkthroughs: <a href=\"{security}\">the security model</a>, <a href=\"{users}\">accounts and API keys</a>, <a href=\"{sso}\">OIDC</a> and <a href=\"{https}\">HTTPS through a proxy</a>."
+    }
+  },
+  "egress": {
+    "title": "What leaves the machine, and when.",
+    "lede": "Four paths can send data out. All four are off by default.",
+    "figureAlt": "Diagram: hooks, the wiki and index, and the local embedder sit inside an enclosure labelled Your machine, joined by solid lines. Dashed lines to cloud embeddings, a cloud LLM and LLM rerank cross the wall through open switches labelled Opt-in, off by default.",
+    "figureCaption": "Solid lines stay inside. Dashed lines exist only after you change a setting.",
+    "columns": { "path": "Path", "sent": "What is sent", "on": "How it is turned on", "default": "Default" },
+    "off": "Off",
+    "rows": [
+      { "path": "Remote embeddings", "sent": "The full text of every stored page. Switching later also backfills the existing corpus. This path is not sanitized the way the others are." },
+      { "path": "Assistant output capture", "sent": "The assistant’s final-turn text, and only if you have also configured a cloud LLM. Global to the install, Claude Code and Codex only." },
+      { "path": "LLM rerank", "sent": "Each live query plus up to 30 bounded page titles and snippets. The query is not redacted, because redaction could change its meaning." },
+      { "path": "LLM consolidation and lint", "sent": "Prompts built from stored observations and pages go to whichever provider you chose. Point it at a local model and nothing leaves." }
+    ],
+    "assistantOn": "{server} on the server and {client} on the client",
+    "processor": "With none of these enabled there is no third party in the data path. Once you configure a cloud provider, that provider is your processor under your own agreement with it. <a class=\"underline font-semibold text-text\" href=\"{href}\">DATA_HANDLING.md covers the GDPR framing</a>. It is not legal advice."
+  },
+  "audit": {
+    "title": "Who wrote it, and how to remove it.",
+    "attribution": {
+      "title": "Attribution and audit",
+      "points": [
+        "With accounts on, each write carries its author. Pages record <code>author_id</code> and a <code>last_modified_by</code> block in the frontmatter.",
+        "Every mutation lands in an <code>audit_log</code> table, with the user’s identity on attributed rows.",
+        "The wiki is a git repository, so every page change is also a commit you can diff and restore.",
+        "Admission webhooks receive the actor and can reject an operation.",
+        "There is no audit log screen yet. The rows are in SQLite."
+      ]
+    },
+    "deletion": {
+      "title": "What a purge removes",
+      "text": "Purge is a logical delete, scoped so that project A can never remove files from project B. Data has no expiry unless a page sets one.",
+      "codeTitle": "purge",
+      "commentSession": "Remove one session",
+      "commentProject": "Remove a whole project"
+    },
+    "purgeTable": {
+      "columns": { "what": "After a purge", "default": "Default", "compact": "With --compact" },
+      "rows": [
+        { "what": "Reachable through the API or MCP tools", "default": "No", "compact": "No" },
+        { "what": "Returned by search", "default": "No", "compact": "No" },
+        { "what": "Live markdown file in the wiki", "default": "No, best effort", "compact": "No, best effort" },
+        { "what": "Bytes still inside memory.sqlite", "default": "Yes, in free pages", "compact": "No" },
+        { "what": "Text still in the wiki git history", "default": "Yes", "compact": "Yes" },
+        { "what": "Present in backups taken earlier", "default": "Yes", "compact": "Yes" }
+      ]
+    },
+    "forensic": "<code>--compact</code> is not forensic erasure. To remove text from history you rewrite the wiki’s git history and rotate your backups yourself. <a class=\"underline font-semibold text-text\" href=\"{href}\">Lifecycle operations has the full procedure.</a>"
+  },
+  "limits": {
+    "title": "Where it stops.",
+    "calloutTitle": "Limits you should plan around",
+    "points": [
+      "It is a single-tenant workstation and homelab service.",
+      "Accounts are not a tenancy boundary. Every user sees every project on that server, so run one server per team.",
+      "There are no per-user or per-project access lists.",
+      "Memory that an agent retrieves is untrusted historical data. Handoffs, briefs and LLM prompts mark it as such, and no text filter can prove a model will ignore a hostile passage.",
+      "It is not built for direct exposure to the open internet.",
+      "If you push the wiki to a git remote, securing that remote is on you."
+    ],
+    "reporting": {
+      "title": "Reporting a vulnerability",
+      "points": [
+        "Do not open a public issue. <a class=\"underline font-semibold text-text\" href=\"{advisory}\">Open a private security advisory on GitHub.</a>",
+        "You get a response within 7 days. The target for a patch is 30 days, with credit in the changelog unless you decline.",
+        "Only the latest release receives security fixes.",
+        "Release assets ship with SHA-256 files, and CI actions are pinned to reviewed commits."
+      ],
+      "policy": "Threat model and policy in SECURITY.md"
+    }
+  },
+  "faq": [
+    { "q": "Does ai-memory send my code or prompts anywhere?", "a": "No. There is no telemetry, and capture and search make no network calls. Data leaves the machine only if you turn on remote embeddings, assistant output capture with a cloud LLM, LLM rerank, or a cloud LLM provider for consolidation. All are off by default." },
+    { "q": "Does a default install make any network request?", "a": "One. Since 2.0 the default local embedder downloads an all-MiniLM-L6-v2 model of about 87 MB from Hugging Face on first start. No user data is sent. Set embedding_provider = \"none\" or place the model files yourself to avoid it." },
+    { "q": "Are secrets stored?", "a": "Every hook payload passes a sanitizer before storage. Recognized credentials are replaced with typed [REDACTED:kind] markers and bodies are size capped. The sanitizer is a best-effort credential strip and gives no guarantee." },
+    { "q": "Can I delete a session for good?", "a": "Purge is a logical delete. The content stops being reachable and searchable, but the text stays in the wiki git history and in earlier backups. The --compact flag clears the SQLite free pages and is not forensic erasure." },
+    { "q": "Is ai-memory multi-tenant?", "a": "No. It is a single-tenant service. Accounts give attribution, and every authenticated user can read every project on that server. Run separate servers for people who must not see each other’s data." }
+  ],
+  "next": [
+    { "title": "Architecture", "text": "The pipeline from hook to briefing, and why markdown is the source of truth." },
+    { "title": "Advanced setup", "text": "Homelab, TLS, OIDC, air-gapped installs and backups, step by step." },
+    { "title": "For teams", "text": "One shared server, per-person keys, and what sharing means here." }
+  ],
+  "ctaBand": {
+    "title": "Try it on loopback first.",
+    "text": "No account and no API key. Nothing can reach it but your own machine."
+  }
+}

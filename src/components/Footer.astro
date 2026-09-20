@@ -2,38 +2,41 @@
 import { Image } from 'astro:assets';
 import logo from '@/assets/img/logo.png';
 import { nav, site } from '@/data/site';
+import { useI18n } from '@/i18n';
+const { t, href } = useI18n(Astro);
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-line mt-8">
   <div class="spectrum-rule !rounded-none !h-[2px] opacity-80"></div>
   <div class="wrap py-14 grid gap-10 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
     <div>
-      <a href="/" class="flex items-center gap-2.5">
+      <a href={href('/')} class="flex items-center gap-2.5">
         <Image src={logo} alt="" width={44} height={44} class="size-11" />
         <span class="font-display text-2xl font-semibold tracking-tight">ai-memory</span>
       </a>
-      <p class="mt-4 text-muted max-w-[22em]">The model and the harness are rented. The project’s memory is yours.</p>
-      <div class="mt-6 inline-flex rounded-full border border-line p-1 text-sm" role="group" aria-label="Theme">
-        {['system', 'light', 'dark'].map((t) => (
-          <button type="button" data-theme-set={t} aria-pressed="false" class="theme-opt capitalize">{t}</button>
+      <p class="mt-4 text-muted max-w-[22em]">{t('footer.motto')}</p>
+      <div class="mt-6 inline-flex rounded-full border border-line p-1 text-sm" role="group" aria-label={t('a11y.theme')}>
+        {(['system', 'light', 'dark'] as const).map((mode) => (
+          <button type="button" data-theme-set={mode} aria-pressed="false" class="theme-opt">{t(`footer.theme${mode[0].toUpperCase()}${mode.slice(1)}`)}</button>
         ))}
       </div>
     </div>
     {nav.map((group) => (
-      <nav aria-label={group.label}>
-        <h2 class="!font-sans !tracking-normal text-sm font-semibold text-muted">{group.label}</h2>
+      <nav aria-label={t(`nav.${group.id}.label`)}>
+        <h2 class="!font-sans !tracking-normal text-sm font-semibold text-muted">{t(`nav.${group.id}.label`)}</h2>
         <ul class="mt-3 space-y-2.5">
-          {group.links.map((l) => <li><a href={l.href} class="hover:underline">{l.label}</a></li>)}
+          {group.links.map((l) => <li><a href={href(l.href)} class="hover:underline">{t(`nav.${group.id}.${l.id}.label`)}</a></li>)}
         </ul>
       </nav>
     ))}
   </div>
   <div class="wrap pb-10 flex flex-wrap gap-x-8 gap-y-2 justify-between text-sm text-muted">
-    <p>© {year} <a href={site.authorUrl} class="underline">{site.author}</a>. All rights reserved. The ai-memory software is open source under the MIT license.</p>
+    <p set:html={t('footer.rights', { year, author: site.author, authorUrl: site.authorUrl })} />
     <p class="flex gap-5">
-      <a href={site.repo} class="hover:underline">GitHub</a>
-      <a href={site.docker} class="hover:underline">Docker Hub</a>
-      <a href={`${site.repo}/blob/main/SECURITY.md`} class="hover:underline">Report a vulnerability</a>
+      <a href={site.repo} class="hover:underline">{t('nav.github')}</a>
+      <a href={site.docker} class="hover:underline">{t('footer.dockerHub')}</a>
+      <a href={`${site.repo}/blob/main/SECURITY.md`} class="hover:underline">{t('footer.reportVulnerability')}</a>
+      <a href="#" data-consent-open class="hover:underline">{t('footer.cookieSettings')}</a>
     </p>
   </div>
 </footer>

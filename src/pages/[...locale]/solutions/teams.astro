@@ -1,0 +1,155 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Steps from '@/components/Steps.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site, type Hue } from '@/data/site';
+
+const { t, raw, href, number } = useI18n(Astro, 'teams');
+
+// Structure here, words in src/i18n/locales/<locale>/teams.json.
+type Feature = { title: string; text: string };
+const withHues = (key: string, hues: Hue[]) => raw<Feature[]>(key).map((it, i) => ({ ...it, hue: hues[i] }));
+const shared = withHues('server.items', ['teal', 'green', 'violet']);
+const onboarding = withHues('onboarding.items', ['azure', 'green', 'amber']);
+const included = withHues('included.items', ['teal', 'azure', 'green', 'rose']);
+
+// Commands never change with the language. Only the comments and what you say to the agent do.
+const batonCode = `# ${t('ownership.code.commentPersonal')}
+${t('ownership.code.sayPersonal')}
+
+# ${t('ownership.code.commentShared', { call: 'memory_handoff_begin with shared: true' })}
+${t('ownership.code.sayShared')}`;
+
+// Writers, writes per second, mean latency in milliseconds.
+const capacity = [
+  [1, 42, 23.9],
+  [8, 295, 3.4],
+  [32, 698, 1.43],
+  [128, 700, 1.43],
+];
+const throughputTest = 'cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture';
+
+const setupCode = [
+  `TOKEN=$(ai-memory generate-auth-token)      # ${t('setup.tokenComment')}
+docker run -d --name ai-memory \\
+    --restart unless-stopped \\
+    -p 0.0.0.0:49374:49374 \\
+    -v ai-memory-data:/data \\
+    -e AI_MEMORY_AUTH_TOKEN="$TOKEN" \\
+    -e AI_MEMORY_ALLOWED_HOSTS="<server-ip>,localhost,127.0.0.1" \\
+    akitaonrails/ai-memory:latest`,
+  `ai-memory user add-human --username alice --email alice@home --name "Alice Smith"
+ai-memory api-key add --username alice --label codex-laptop`,
+  `export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
+export AI_MEMORY_AUTH_TOKEN="aim_..."
+ai-memory install-mcp   --client claude-code --apply
+ai-memory install-hooks --agent  claude-code --apply`,
+];
+const setup = raw<{ title: string; text: string; codeTitle: string }[]>('setup.steps').map((s, i) => ({ ...s, code: setupCode[i] }));
+
+const faq = raw<{ q: string; a: string }[]>('faq');
+const schema = [{
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}];
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
+  <PageHero hue="teal" kicker={t('crumbs.solutions')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href={href('/install/#team')} class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={href('/security/')} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section title={t('server.title')} lede={t('server.lede')} hue="teal" fill>
+    <Figure name="teams-topology" alt={t('server.figureAlt')} />
+    <FeatureGrid items={shared} />
+  </Section>
+
+  <Section title={t('onboarding.title')} lede={t('onboarding.lede')} hue="azure" tint>
+    <Figure name="teams-first-day" alt={t('onboarding.figureAlt')} />
+    <FeatureGrid items={onboarding} />
+    <p class="mt-10 text-muted max-w-[40em]" set:html={t('onboarding.digest')} />
+  </Section>
+
+  <Section title={t('ownership.title')} lede={t('ownership.lede')} hue="violet">
+    <Figure name="teams-shared-owned" alt={t('ownership.figureAlt')} />
+    <div class="grid lg:grid-cols-2 gap-x-12 gap-y-10 items-start">
+      <ul class="space-y-4 text-muted ticks max-w-[40em]">
+        {raw<string[]>('ownership.points').map((point) => <li set:html={point} />)}
+      </ul>
+      <div class="min-w-0">
+        <CodeBlock title={t('ownership.code.title')} code={batonCode} />
+      </div>
+    </div>
+
+    <h3 class="text-xl mt-16">{t('ownership.messaging.title')}</h3>
+    <p class="mt-3 text-muted max-w-[40em]" set:html={t('ownership.messaging.text', { href: site.docs + '/agent-messaging.md' })} />
+  </Section>
+
+  <Section title={t('included.title')} lede={t('included.lede')} hue="teal" tint>
+    <FeatureGrid items={included} cols={4} />
+    <p class="mt-10 text-muted max-w-[40em]" set:html={t('included.audit', { href: site.docs + '/users.md' })} />
+
+    <div class="mt-12">
+      <Callout title={t('included.limits.title')} hue="rose">
+        <ul class="ticks space-y-2 list-none ps-0">
+          {raw<string[]>('included.limits.items').map((item) => <li>{item}</li>)}
+        </ul>
+        <p set:html={t('included.limits.more', { security: href('/security/'), advanced: href('/advanced/') })} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section title={t('capacity.title')} lede={t('capacity.lede')} hue="azure">
+    <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-x-12 gap-y-10 items-start">
+      <div class="table-wrap">
+        <table class="table-site">
+          <caption class="sr-only">{t('capacity.caption')}</caption>
+          <thead><tr><th scope="col">{t('capacity.columns.writers')}</th><th scope="col">{t('capacity.columns.throughput')}</th><th scope="col">{t('capacity.columns.latency')}</th></tr></thead>
+          <tbody>
+            {capacity.map(([writers, perSecond, ms]) => (
+              <tr>
+                <td>{number(writers)}</td>
+                <td class="tabular-nums">{t('capacity.perSecond', { n: number(perSecond) })}</td>
+                <td class="tabular-nums">{t('capacity.milliseconds', { n: number(ms) })}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul class="space-y-4 text-muted ticks max-w-[40em]">
+        {raw<string[]>('capacity.points').map((_, i) => <li set:html={t(`capacity.points.${i}`, { command: throughputTest })} />)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section title={t('setup.title')} hue="amber" tint>
+    <Steps steps={setup} />
+    <p class="mt-12 flex flex-wrap gap-3">
+      <a href={href('/install/#team')} class="btn btn-primary">{t('setup.primary')}</a>
+      <a href={href('/advanced/')} class="btn btn-ghost">{t('setup.secondary')}</a>
+    </p>
+  </Section>
+
+  <NextPages links={[
+    { href: '/install/#team', title: t('next.install.title'), text: t('next.install.text'), hue: 'amber' },
+    { href: '/security/', title: t('crumbs.security'), text: t('next.security'), hue: 'rose' },
+    { href: '/advanced/', title: t('crumbs.advanced'), text: t('next.advanced'), hue: 'azure' },
+  ]} />
+  <CtaBand title={t('cta.title')} text={t('cta.text')} />
+</Base>
+
+<style>
+  .ticks li { position: relative; padding-inline-start: 1.5rem; }
+  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .7em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .ticks :global(code), p :global(code) { background: var(--surface); border: 1px solid var(--line); border-radius: .35em; padding: .1em .4em; font-size: .88em; overflow-wrap: anywhere; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>

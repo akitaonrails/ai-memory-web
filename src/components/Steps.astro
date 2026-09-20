@@ -20,7 +20,7 @@ const { steps } = Astro.props;
 <style>
   .steps { display: grid; gap: 2.75rem; counter-reset: step; }
   .steps li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1.1rem; position: relative; }
-  .steps li:not(:last-child)::before { content: ''; position: absolute; left: 1.35rem; top: 3.2rem; bottom: -2.2rem; width: 2px; background: var(--line); }
+  .steps li:not(:last-child)::before { content: ''; position: absolute; inset-inline-start: 1.35rem; top: 3.2rem; bottom: -2.2rem; width: 2px; background: var(--line); }
   .n { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--hue-soft, var(--amber-soft)); color: var(--hue, var(--amber-ink)); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
   @media (max-width: 40rem) { .steps li { grid-template-columns: minmax(0, 1fr); } .steps li::before { display: none; } }
   .steps :global(p a) { color: var(--hue, var(--azure)); text-decoration: underline; text-decoration-thickness: 1.5px; font-weight: 600; }

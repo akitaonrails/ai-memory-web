@@ -1,0 +1,154 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import { marked } from 'marked';
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+import { getGithub } from '@/data/github';
+
+const { t, raw, href, date, htmlLang, locale } = useI18n(Astro, 'download');
+const gh = await getGithub();
+const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const day = date;
+const mb = (n: number) => `${(n / 1048576).toLocaleString(htmlLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} MB`;
+const asset = (name: string) => latest.assets.find((a) => a.name === name);
+const dl = (name: string) => `${site.repo}/releases/latest/download/${name}`;
+
+const builds = [
+  { os: 'linux', hue: 'green', name: 'Linux', files: [['x86_64', 'ai-memory-linux-x86_64.tar.gz'], ['ARM64', 'ai-memory-linux-aarch64.tar.gz']], note: t('builds.linux.note') },
+  { os: 'mac', hue: 'azure', name: 'macOS', files: [[t('builds.mac.apple'), 'ai-memory-macos-aarch64.tar.gz'], [t('builds.mac.intel'), 'ai-memory-macos-x86_64.tar.gz']], note: t('builds.mac.note') },
+  { os: 'win', hue: 'violet', name: 'Windows', files: [['x86_64', 'ai-memory-windows-x86_64.zip']], note: t('builds.win.note') },
+].map((b) => ({ ...b, files: b.files.map(([label, file]) => ({ label, file, size: asset(file)?.size })) }));
+
+const channels = [
+  { title: t('channels.mise.title'), code: 'mise use -g github:akitaonrails/ai-memory', note: t('channels.mise.note') },
+  { title: t('channels.aur.title'), code: `yay -S ai-memory-bin    # ${t('channels.aur.prebuilt')}\nyay -S ai-memory        # ${t('channels.aur.source')}`, note: t('channels.aur.note') },
+  { title: t('channels.docker.title'), code: 'docker pull akitaonrails/ai-memory:latest', note: t('channels.docker.note') },
+  { title: t('channels.src.title'), code: 'git clone https://github.com/akitaonrails/ai-memory\ncd ai-memory && cargo build --release --workspace', note: t('channels.src.note') },
+];
+
+// Release notes are the project's own markdown. Raw HTML in them is dropped, never rendered.
+marked.use({ renderer: { html: () => '' } });
+const kinds = ['Added', 'Changed', 'Fixed', 'Security', 'Removed', 'Deprecated'] as const;
+const entries = gh.changelog.map((e) => ({
+  ...e,
+  html: marked.parse(e.body.replace(/\(#(\d+)\)/g, `([#$1](${site.repo}/issues/$1))`)) as string,
+  counts: kinds
+    .map((k) => ({ k, n: (e.body.split(new RegExp(`^### ${k}\\s*$`, 'm'))[1]?.split(/^### /m)[0].match(/^- /gm) ?? []).length }))
+    .filter((c) => c.n),
+}));
+---
+<Base title={t('meta.title')} description={t('meta.description', { tag: latest.tag })}>
+  <PageHero hue="green" kicker={t('hero.kicker')} title={t('hero.title', { tag: latest.tag })} lede={t('hero.lede', { date: day(latest.date) })}>
+    <a href="#builds" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href="#changelog" class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section title={t('builds.title')} id="builds" hue="green">
+    <div class="grid md:grid-cols-3 gap-4">
+      {builds.map((b) => (
+        <article class="build" data-hue={b.hue} data-os={b.os}>
+          <p class="yours badge" hidden>{t('builds.yours')}</p>
+          <h3 class="text-2xl">{b.name}</h3>
+          <ul class="mt-5 space-y-2.5">
+            {b.files.map((f) => (
+              <li>
+                <a href={dl(f.file)} class="file">
+                  <span><strong>{f.label}</strong><span class="block text-sm text-muted font-mono">{f.file}</span></span>
+                  <span class="text-sm text-muted whitespace-nowrap">{f.size ? mb(f.size) : ''}</span>
+                </a>
+                <a href={dl(`${f.file}.sha256`)} class="text-sm text-muted underline ms-1">{t('builds.checksum')}</a>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-5 text-muted text-[0.95rem]">{b.note}</p>
+        </article>
+      ))}
+    </div>
+    <div class="mt-10 max-w-3xl">
+      <CodeBlock title={t('builds.verifyTitle')} code={`sha256sum -c ai-memory-linux-x86_64.tar.gz.sha256     # macOS: shasum -a 256 -c ...`} />
+    </div>
+    <p class="mt-6 text-muted" set:html={t('builds.after', { href: href('/install/') })} />
+  </Section>
+
+  <Section title={t('channels.title')} id="channels" hue="azure" tint>
+    <div class="grid lg:grid-cols-2 gap-x-8 gap-y-10">
+      {channels.map((c) => (
+        <div class="min-w-0">
+          <h3 class="text-xl mb-3">{c.title}</h3>
+          <CodeBlock title={c.title} code={c.code} />
+          <p class="mt-3 text-muted text-[0.95rem]">{c.note}</p>
+        </div>
+      ))}
+    </div>
+    <p class="mt-10 text-muted max-w-[44em]" set:html={t('channels.clients', { href: latest.url })} />
+  </Section>
+
+  <Section title={t('changelog.title')} id="changelog" hue="green" lede={`${t('changelog.lede', { n: entries.length })}${locale === 'en' ? '' : ` ${t('englishOnly')}`}`}>
+    <div class="log">
+      {entries.map((e, i) => (
+        <details open={i === 0}>
+          <summary>
+            <span class="ver">{e.version}</span>
+            <time datetime={e.date ?? undefined} class="text-muted">{day(e.date)}</time>
+            <span class="counts">{e.counts.map((c) => <span class="badge" data-hue={c.k === 'Fixed' ? 'azure' : c.k === 'Added' ? 'green' : c.k === 'Security' ? 'rose' : 'violet'}>{t(`changelog.kinds.${c.k}`, { n: c.n })}</span>)}</span>
+          </summary>
+          <div class="notes prose-site" lang="en" dir="ltr" set:html={e.html} />
+        </details>
+      ))}
+    </div>
+    <p class="mt-10 flex flex-wrap gap-3">
+      <a href={`${site.repo}/blob/main/CHANGELOG.md`} class="btn btn-ghost">{t('changelog.full')}</a>
+      <a href={`${site.repo}/releases`} class="btn btn-ghost">{t('changelog.releases')}</a>
+      <a href={`${site.docs}/MIGRATION-2.0.md`} class="btn btn-ghost">{t('changelog.upgrading')}</a>
+    </p>
+  </Section>
+
+  <NextPages links={[
+    { href: '/install/', hue: 'amber' as const },
+    { href: '/integrations/', hue: 'violet' as const },
+    { href: '/advanced/', hue: 'azure' as const },
+  ].map((l, i) => ({ ...l, ...raw<{ title: string; text: string }[]>('next')[i] }))} />
+  <CtaBand />
+</Base>
+
+<script>
+  // Point out the build that matches the visitor's system.
+  const ua = navigator.userAgent;
+  const os = /Windows/.test(ua) ? 'win' : /Mac/.test(ua) ? 'mac' : /Linux|X11/.test(ua) ? 'linux' : null;
+  const card = os && document.querySelector<HTMLElement>(`[data-os="${os}"]`);
+  if (card) {
+    card.setAttribute('data-yours', '');
+    card.querySelector<HTMLElement>('.yours')!.hidden = false;
+  }
+</script>
+
+<style>
+  .build { position: relative; padding: 1.75rem; border-radius: 1.5rem; border: 1px solid var(--line); background: var(--surface); }
+  .build[data-yours] { border-color: var(--hue-vivid); box-shadow: 0 0 0 1px var(--hue-vivid), 0 20px 60px -30px var(--hue-vivid); }
+  .yours { position: absolute; top: 1.6rem; inset-inline-end: 1.5rem; }
+  .file { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; border-radius: .9rem; background: var(--hue-soft); transition: transform .3s var(--ease-out-quint); }
+  .file:hover { transform: translateX(3px); }
+  .file strong { color: var(--hue); }
+  .file .font-mono { font-size: .74rem; word-break: break-all; }
+
+  .log { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.25rem; padding: 1.2rem 0; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ''; margin-inline-start: auto; align-self: center; width: .6rem; height: .6rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); rotate: 45deg; transition: rotate .3s var(--ease-out-quint); }
+  details[open] summary::after { rotate: -135deg; }
+  .ver { font-family: var(--font-display); font-weight: 680; font-size: var(--text-xl); min-width: 4.5rem; }
+  .counts { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .notes { padding: 0 0 2rem; font-size: .97rem; }
+  .notes :global(h3) { font-size: 1.05rem; margin: 1.5rem 0 .6rem; color: var(--green); }
+  .notes :global(ul) { list-style: disc; padding-inline-start: 1.2rem; display: grid; gap: .6rem; max-width: 52em; }
+  .notes :global(li) { color: var(--muted); }
+  .notes :global(li strong), .notes :global(li code) { color: var(--text); }
+  .notes :global(pre) { overflow-x: auto; background: var(--tint); padding: 1rem; border-radius: .75rem; margin-top: .6rem; }
+</style>

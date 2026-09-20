@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Memória compartilhada para os agentes de código do time",
+    "description": "Um servidor de memória compartilhada para os agentes de código do time. Onboarding mais rápido, conta por pessoa, autoria e log de auditoria, tudo open source."
+  },
+  "hero": {
+    "title": "Uma memória para os agentes de todo mundo",
+    "lede": "Rode um servidor em uma máquina do homelab ou em qualquer host da LAN. Cada desenvolvedor aponta seus agentes para ele, e o que uma sessão descobre fica lá para a próxima pessoa que perguntar.",
+    "primary": "Monte um time em 10 minutos",
+    "secondary": "Leia o modelo de segurança"
+  },
+  "server": {
+    "title": "Um servidor para onde todo mundo aponta",
+    "lede": "Um binário só, com um único arquivo SQLite e uma pasta de markdown. Não tem sidecar, não tem banco vetorial e não tem nada para manter sincronizado.",
+    "figureAlt": "Diagrama: quatro estações de trabalho de desenvolvedores, rodando Claude Code, Codex, Cursor e Gemini CLI, se conectam a um único servidor ai-memory, que guarda a wiki de um projeto.",
+    "items": [
+      { "title": "O que uma sessão aprende, todo agente consegue recuperar", "text": "Uma página escrita em um projeto pode ser lida por todo mundo no servidor. A sessão de Codex de uma pessoa encontra o gotcha em que a sessão de Claude Code de um colega de time esbarrou na semana passada." },
+      { "title": "Visível na próxima consulta", "text": "A anotação de um colega aparece na próxima busca ou no próximo briefing de sessão de qualquer pessoa. Uma sessão que já está rodando não é interrompida." },
+      { "title": "Qualquer combinação de agentes", "text": "Cada pessoa continua com o agente de que gosta. Toda chamada de memória resolve o projeto a partir do diretório da sessão, então sessões paralelas não se misturam." }
+    ]
+  },
+  "onboarding": {
+    "title": "O primeiro dia de quem acabou de chegar",
+    "lede": "A pessoa recebe uma chave, aponta o agente para o servidor e pergunta ao projeto o que anda acontecendo.",
+    "figureAlt": "Linha do tempo do primeiro dia de um desenvolvedor novo: receber uma chave de API, apontar o agente para o servidor, pedir para ele contar o que aconteceu e depois buscar na wiki.",
+    "items": [
+      { "title": "Ela pergunta ao projeto", "text": "\"Me atualiza\" devolve um resumo do trabalho recente. \"A gente já discutiu a lógica de retry?\" devolve a página da decisão e as sessões por trás dela." },
+      { "title": "A wiki é uma base de conhecimento viva", "text": "Conceitos, decisões e gotchas são escritos enquanto o trabalho acontece, em markdown, com histórico em git. Ninguém precisa lembrar de atualizar." },
+      { "title": "Ela complementa a documentação que você escreve", "text": "As páginas são compiladas a partir das sessões e moldadas para os agentes recuperarem. Mantenha seu README e seus documentos de arquitetura escritos à mão, e deixe a wiki guardar os porquês e os becos sem saída." }
+    ],
+    "digest": "O resumo sai em prosa quando o servidor tem um provedor de LLM e em dados estruturados quando não tem. Com <code>--enable-web</code>, dá para navegar pela mesma wiki em uma interface web somente leitura."
+  },
+  "ownership": {
+    "title": "O conhecimento é de todos, o bastão tem dono",
+    "lede": "As páginas pertencem ao projeto. Um handoff pertence a quem o deixou.",
+    "figureAlt": "Diagrama em dois painéis. À esquerda, o conhecimento é compartilhado: várias sessões de agentes leem e escrevem na mesma pilha de páginas da wiki. À direita, o bastão tem dono: o bastão do handoff passa entre duas sessões da mesma pessoa, e a sessão de um colega de time fica de fora.",
+    "points": [
+      "Seu handoff pendente vai para a sua próxima sessão. Um colega que abrir um agente no mesmo repositório nunca o recebe nem o consome.",
+      "Passe <code>shared: true</code> quando quiser publicar um bastão para quem for assumir o trabalho.",
+      "Duas pessoas editando a mesma página geram uma cadeia de versões. A escrita mais recente vira a atual e a anterior continua acessível. Não há merge e nada é destruído.",
+      "Slots opcionais por pessoa guardam \"no que estou trabalhando agora\" e ficam fora do briefing do time. Vêm desligados por padrão."
+    ],
+    "code": {
+      "title": "o que você diz ao agente",
+      "commentPersonal": "Pessoal por padrão: só a sua próxima sessão recebe",
+      "sayPersonal": "\"Salve o contexto para a próxima sessão.\"",
+      "commentShared": "Publique um de propósito: {call}",
+      "sayShared": "\"Salve um handoff compartilhado para quem pegar isso amanhã receber.\""
+    },
+    "messaging": {
+      "title": "Agentes podem trocar mensagens entre projetos",
+      "text": "O agente no repositório do frontend precisa de um endpoint do repositório da API. Ele manda um pedido autocontido para a inbox daquele projeto, e a próxima sessão de lá retira a mensagem. Uma mensagem é assumida uma vez só, o projeto de destino precisa já existir, e uma inbox guarda no máximo 256 mensagens pendentes. O <a class=\"underline font-semibold text-text\" href=\"{href}\">guia de mensagens entre agentes no GitHub</a> tem as ferramentas."
+    }
+  },
+  "included": {
+    "title": "Contas, chaves e auditoria, sem plano pago",
+    "lede": "Os recursos de time estão no mesmo binário MIT que todo o resto.",
+    "items": [
+      { "title": "Uma conta nomeada por pessoa", "text": "Adicione pessoas com um comando. Desative alguém e o acesso dela acaba, mas as páginas ficam." },
+      { "title": "Chaves de API por máquina", "text": "Cada pessoa pode ter várias chaves com rótulo, uma por laptop ou por agente. Rotacionar uma chave rejeita a antiga na hora." },
+      { "title": "Autoria em toda escrita", "text": "Cada página registra seu autor, e a interface web mostra quem editou. A autoria nunca filtra quem pode ler." },
+      { "title": "Log de auditoria de toda mutação", "text": "As escritas são registradas com o id do autor. Webhooks de admissão enxergam o ator e podem rejeitar uma operação." }
+    ],
+    "audit": "Ainda não há tela nem comando documentado para navegar pelo log de auditoria, então conte com consultar a tabela <code>audit_log</code> no arquivo SQLite. O <a class=\"underline font-semibold text-text\" href=\"{href}\">guia de usuários no GitHub</a> cobre papéis, login por senha e rotação de chaves.",
+    "limits": {
+      "title": "Conheça os limites antes de colocar em uso",
+      "items": [
+        "Contas não são uma fronteira de tenancy. Todo usuário autenticado vê todas as páginas de todos os projetos do servidor.",
+        "Um time por servidor. Se um segundo time precisar de memória, rode um segundo servidor com seu próprio diretório de dados.",
+        "Não há permissões por página nem por projeto. Qualquer pessoa autenticada pode escrever, e o histórico registra quem escreveu.",
+        "É um serviço single-tenant de homelab e não foi projetado para ficar exposto direto na internet aberta.",
+        "Um bearer token não criptografa o tráfego. Coloque TLS na frente, com Caddy, nginx ou um Cloudflare Tunnel, para qualquer coisa além da LAN."
+      ],
+      "more": "A <a href=\"{security}\">página de segurança</a> tem o modelo completo, e a <a href=\"{advanced}\">configuração avançada</a> tem as receitas de TLS e proxy."
+    }
+  },
+  "capacity": {
+    "title": "Capacidade medida",
+    "lede": "Todas as escritas passam por uma fila até um único writer. O projeto publica o quanto esse writer aguenta.",
+    "caption": "Throughput do writer por número de writers concorrentes",
+    "columns": { "writers": "Writers concorrentes", "throughput": "Throughput", "latency": "Latência média" },
+    "perSecond": "{n}/s",
+    "milliseconds": "{n} ms",
+    "points": [
+      "O teto é de cerca de 700 escritas por segundo, atingido por volta de 32 writers. O projeto interpreta isso como algumas centenas de agentes ativos ao mesmo tempo.",
+      "A fila é limitada a 1024. Um pico desacelera os produtores, e nada é descartado.",
+      "Os números foram medidos em um disco local rápido. Um filesystem de rede vai ficar bem abaixo disso.",
+      "Eles medem o armazenamento e deixam de fora a porta de entrada HTTP.",
+      "Reproduza com <code>{command}</code>."
+    ]
+  },
+  "setup": {
+    "title": "O setup de 10 minutos, resumido",
+    "steps": [
+      { "title": "Suba um servidor", "text": "Uma máquina do homelab ou qualquer host da LAN. Tudo que escuta fora do loopback precisa do bearer token.", "codeTitle": "no servidor" },
+      { "title": "Adicione cada pessoa e emita uma chave", "text": "A senha temporária e a chave <code>aim_</code> são mostradas uma única vez cada.", "codeTitle": "como root" },
+      { "title": "Cada pessoa aponta seus agentes para ele", "text": "Troque o cliente e o nome do agente pelo que cada um usa.", "codeTitle": "em cada máquina" }
+    ],
+    "tokenComment": "32 bytes / 64 caracteres hex",
+    "primary": "Veja o setup completo de time",
+    "secondary": "TLS, SSO e backups"
+  },
+  "faq": [
+    { "q": "Vários desenvolvedores podem compartilhar um servidor ai-memory?", "a": "Sim. Um servidor guarda a wiki e todo mundo aponta seus agentes para ele. As páginas são compartilhadas por todos no servidor. Os handoffs ficam com quem os criou, a menos que a pessoa publique um com shared: true." },
+    { "q": "O uso em time exige um plano pago?", "a": "Não. Contas por pessoa, chaves de API, autoria e o log de auditoria fazem parte do binário open source." },
+    { "q": "Posso restringir um projeto ou uma página a alguns usuários?", "a": "Não. Contas não são uma fronteira de tenancy. Todo usuário autenticado vê todas as páginas de todos os projetos daquele servidor. Rode um servidor por time." },
+    { "q": "Quantos desenvolvedores um servidor aguenta?", "a": "O teto de escrita medido é de cerca de 700 escritas por segundo em um disco local rápido, o que o projeto interpreta como algumas centenas de agentes ativos ao mesmo tempo. O número mede o armazenamento, e discos de rede vão ser mais lentos." }
+  ],
+  "next": {
+    "install": { "title": "Instalação rápida para times", "text": "O servidor, as contas e a ligação dos clientes, passo a passo." },
+    "security": "O que é armazenado, o que sai da máquina e como travar o servidor.",
+    "advanced": "Deploys em homelab, TLS via proxy, SSO via gateway, backups."
+  },
+  "cta": {
+    "title": "Dê uma memória só para os agentes do seu time.",
+    "text": "Gratuito e open source. Contas, chaves e o log de auditoria já vêm incluídos."
+  }
+}

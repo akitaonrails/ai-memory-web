@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "title": "תרומה לפרויקט: issues, pull requests וסוכנים חדשים",
+    "description": "בונים את ai-memory מקוד המקור, עוברים את חמש בדיקות החובה, מוצאים את ה-crate הנכון ופותחים pull request שנכנס כבר ב-review הראשון. Rust, ברישיון MIT."
+  },
+  "hero": {
+    "kicker": "מפתחים",
+    "title": "תורמים ל-ai-memory",
+    "lede": "עד עכשיו {n} אנשים הכניסו קוד. הדף הזה לוקח אתכם מרעיון אל ה-issue הנכון, אל ה-crate הנכון ואל pull request שעובר review בפעם הראשונה.",
+    "primary": "בחירת דרך כניסה",
+    "secondary": "לקריאת CONTRIBUTING.md"
+  },
+  "numbers": {
+    "title": "פרויקט פעיל, במספרים",
+    "lede": "הספירות מגיעות מה-API של GitHub בזמן שהאתר נבנה.",
+    "badgesLabel": "נתוני ה-repository",
+    "badges": {
+      "release": "גרסה",
+      "license": "רישיון",
+      "stars": "כוכבים",
+      "forks": "forks",
+      "openIssues": "issues פתוחים"
+    },
+    "top": "התורמים המובילים",
+    "commits": "{login}, {n} commits",
+    "avatarAlt": "{login} ב-GitHub",
+    "all": "לכל {n} התורמים ב-GitHub"
+  },
+  "ways": {
+    "title": "בחירת דרך כניסה",
+    "lede": "כל אחת מהן מובילה בדיוק לדף הנכון ב-GitHub.",
+    "items": {
+      "bug": { "title": "מדווחים על באג", "text": "התבנית מבקשת את הגרסה, מערכת ההפעלה, הסוכן, ה-transport ושורות הלוג הרלוונטיות של השרת.", "link": "פתיחת דיווח על באג" },
+      "feature": { "title": "מציעים פיצ'ר", "text": "הצעות הן issues, כי ל-repository אין לוח discussions. התבנית שואלת איזו בעיה זה פותר ואם זה ישבור התקנות קיימות.", "link": "פתיחת בקשה לפיצ'ר" },
+      "firstIssue": { "title": "מוצאים issue ראשון", "text": "התווית good first issue מסמנת עבודה שמתאימה למי שחדש בפרויקט. help wanted מסמנת את השאר.", "link": "ל-good first issues" },
+      "harness": { "title": "מוסיפים או מתקנים harness", "text": "לתמיכה ב-harness מנוהל יש פרוטוקול כתוב: מוכיחים את חוזה הסשן הנייטיב, קוראים מאגרים לקריאה בלבד, מעבירים הקשר לפני שמאשרים אותו, ומצרפים את הטסטים הנדרשים.", "link": "לפרוטוקול ה-harness" },
+      "docs": { "title": "משפרים את התיעוד", "text": "המדריכים יושבים ב-docs/ כ-markdown. תיקון תיעוד הוא pull request רגיל, והוא מדלג על יומן השינויים כששום דבר שגלוי למשתמש לא משתנה.", "link": "לתיקיית docs/" },
+      "companion": { "title": "בונים מסביב", "text": "importers, ממשקי משתמש עשירים יותר וממשקי צ'אט שייכים לפרויקטים נלווים (companion) שמשתמשים בממשקי ה-HTTP וה-MCP הציבוריים.", "link": "לכללי ה-companion" }
+    },
+    "security": {
+      "title": "דיווחי אבטחה אף פעם לא נכנסים ל-issue ציבורי",
+      "text": "במקום זה פותחים <a href=\"{advisory}\">security advisory פרטי</a>. <a href=\"{policy}\">SECURITY.md</a> מסביר מה לכלול ומה עושים אם אי אפשר להשתמש בתהליך ה-advisory של GitHub."
+    },
+    "figure": {
+      "alt": "תרשים: תרומה עוברת שישה שלבים, מ-issue, ל-branch, לבדיקות החובה המקומיות, ל-pull request, ל-review, ומשם יוצאת בגרסה הבאה.",
+      "caption": "מרעיון עד גרסה. תיקונים יוצאים ב-patch הבא, ופיצ'רים שרק מוסיפים יוצאים ב-minor הבא."
+    }
+  },
+  "build": {
+    "title": "מגיעים ל-build שעובד",
+    "lede": "ה-build עומד בפני עצמו. אף אחת מהפקודות האלה לא צריכה משתנה סביבה.",
+    "steps": [
+      { "title": "עושים clone ו-build", "text": "נדרש Rust 1.95, והוא מקובע ב-<code>rust-toolchain.toml</code> יחד עם rustfmt ו-clippy, כך ש-rustup מתקין את ה-toolchain הנכון ב-build הראשון. SQLite מגיע ארוז בפנים ו-libgit2 הוא vendored. צריך toolchain סטנדרטי של C ושום דבר מעבר לזה.", "codeTitle": "סביבת פיתוח" },
+      { "title": "עובדים עם הלולאה היומיומית", "text": "<code>cargo t</code> צריך את nextest: <code>cargo install cargo-nextest --locked</code>. הוא מדלג על מודולים בשם <code>slow</code> או <code>stress</code>, שה-pre-push hook וה-CI עדיין מריצים.", "codeTitle": "תוך כדי עבודה" },
+      { "title": "מתקינים את ה-pre-push hook", "text": "פעם אחת לכל clone. הוא נוגע רק בבלוק של עצמו בתוך <code>.git/hooks/pre-push</code>. ב-branch של עבודה בתהליך, <code>git push --no-verify</code> מדלג עליו.", "codeTitle": "פעם אחת לכל clone" },
+      { "title": "עוברים את בדיקות החובה לפני push", "text": "ה-CI אוכף את כל החמש. בלי nextest, הפקודה <code>cargo test --workspace --all-targets</code> שקולה ל-<code>cargo tf</code>. אם האחרונה חסרה: <code>cargo install cargo-deny cargo-audit</code>.", "codeTitle": "בדיקות החובה" },
+      { "title": "בודקים על שם מי ה-commits שלכם רשומים", "text": "משתמשים באימייל שאומת בחשבון ה-GitHub שלכם, או בכתובת ה-noreply שלו. ההיסטוריה ב-main אף פעם לא נכתבת מחדש כדי לתקן ייחוס.", "codeTitle": "ייחוס של commits" }
+    ],
+    "comments": {
+      "allButSlow": "הכול חוץ מהשכבה האיטית, כ-20 שניות כשה-cache חם",
+      "oneCrate": "crate אחד: בונה רק את קובצי הטסט שלו",
+      "oneTopic": "נושא אחד (בונה הכול, מריץ תת-קבוצה)",
+      "everyTest": "כל הטסטים (alias: cargo nextest run -P full)",
+      "dependencyPolicy": "מדיניות תלויות"
+    }
+  },
+  "rules": {
+    "title": "כללי היסוד ורף הקבלה",
+    "lede": "AGENTS.md הוא קובץ הכללים הקנוני, לאנשים ולסוכני קוד. CONTRIBUTING.md מתמצת אותו לזה.",
+    "landing": {
+      "title": "איך עבודה אמורה להיכנס",
+      "items": [
+        { "title": "יומן השינויים הוא תנאי ל-merge", "text": "כל שינוי שגלוי למשתמש מוסיף רשומה תחת [Unreleased] באותו pull request. רשומה חסרה חוסמת את ה-review. refactors ושינויים בטסטים בלבד פטורים." },
+        { "title": "טסטים לפני \"גמור\"", "text": "עבודה נחשבת גמורה כשיש לה טסטים, ובראש ובראשונה parsers, גזירת מזהים וחישובי ה-retention." },
+        { "title": "בלי קוד מת, בלי פיצ'רים חצי בנויים", "text": "stubs מתועדים בהערת המודול, יחד עם אבן הדרך שתשלים אותם." },
+        { "title": "נשארים בתוך גבולות השינוי", "text": "לא עושים refactor לקוד שאבן הדרך הנוכחית לא צריכה." },
+        { "title": "הערות מסבירות למה", "text": "הערה שחוזרת על השורה שמעליה נמחקת." }
+      ]
+    },
+    "invariants": {
+      "title": "אינווריאנטים ש-pull request לא יכול לשבור",
+      "items": [
+        "כל הכתיבות ל-SQLite עוברות דרך ה-writer actor היחיד, <code>WriterHandle</code>.",
+        "הקונפיגורציה נקראת פעם אחת בעלייה. אין <code>std::env::var</code> מחוץ ל-<code>Config::load</code>.",
+        "כתיבות לקבצים הן אטומיות: tmp, rename, fsync. אף פעם לא במקום.",
+        "כל דף ויקי משויך ל-namespace של <code>(workspace_id, project_id)</code>.",
+        "ה-CLI הוא לקוח HTTP דק. הוא אף פעם לא פותח את קובץ ה-SQLite או את תיקיית הוויקי."
+      ],
+      "full": "הרשימה המלאה, עם הבאג שכל אחד מהם מונע, נמצאת ב-AGENTS.md"
+    }
+  },
+  "map": {
+    "title": "מפה של בסיס הקוד",
+    "lede": "עשרה crates נכנסים לקובץ הבינארי. לכל אחד יש אחריות אחת ו-API מטופס, ואין תלויות מעגליות.",
+    "figure": {
+      "alt": "תרשים: ה-crates בארבע שכבות. ה-crate cli נמצא למעלה. מתחתיו hooks, mcp, web, consolidate ו-workstream. מתחתיהם store, wiki ו-llm. ה-crate core הוא היסוד שמתחת לכול.",
+      "caption": "שמות ה-crates בלי הקידומת ai-memory-. הכול תלוי ב-core, ורק ה-crate cli תלוי בכול."
+    },
+    "colCrate": "Crate",
+    "colDirectory": "תיקייה",
+    "colWhat": "מה יושב שם",
+    "crates": {
+      "core": "טיפוסי הדומיין, שגיאות ומזהים. בלי IO.",
+      "store": "SQLite, ה-writer actor, מאגר הקוראים וחישובי הדעיכה.",
+      "wiki": "כתיבות markdown אטומיות, ה-file watcher ו-git.",
+      "mcp": "ה-transport של MCP, נתב הכלים ונתיבי הניהול.",
+      "hooks": "סכמות ה-payload של ה-hooks, ה-sanitizer וה-endpoint של /hook.",
+      "llm": "גבול האימות מול הספקים וה-traits של ה-LLM ושל ה-embedder.",
+      "consolidate": "הזנה, lint, sweep וה-pipeline של auto-improve.",
+      "web": "הדפדפן לקריאה בלבד ב-/web ונתיבי ה-JSON של /api/v1.",
+      "workstream": "קוראים לקריאה בלבד של תמלילים נייטיב, ומתאמי ההפעלה שמאחורי ai-memory run.",
+      "cli": "הקובץ הבינארי ai-memory ותת-הפקודות הדקות שלו מעל HTTP."
+    },
+    "outside": "מחוץ ל-crates/",
+    "dirs": {
+      "companions": "ai-memory-importer, חבילה עצמאית מחוץ ל-workspace הראשי. בונים אותה עם --manifest-path.",
+      "hooks": "חבילות hooks של מחזור החיים, תיקייה לכל סוכן, ב-shell ונייטיב.",
+      "evals": "ה-harness של הבנצ'מרק. חבר ב-workspace שאף פעם לא משוחרר.",
+      "docs": "ארכיטקטורה, החלטות תכנון, ומדריכי התקנה, פריסה ושימוש.",
+      "tests": "טסטי smoke מקצה לקצה, טסטי shell של ה-hooks ו-fixtures."
+    },
+    "tests": "טסטי האינטגרציה יושבים ב-<code>tests/suite/</code> בתוך כל crate. עזרים שמשותפים לכמה crates נכנסים ל-<code>crates/ai-memory-test-support</code>, שאף פעם לא משוחרר."
+  },
+  "review": {
+    "title": "איך עושים review ל-pull requests",
+    "lede": "ה-review הולך לפי תבנית ה-pull request, אז מילוי כן שלה הוא רוב העבודה.",
+    "items": [
+      { "title": "התבנית היא ה-checklist", "text": "היא שואלת מה השתנה, למה, מה תוכנית הבדיקות עם בדיקות החובה מסומנות, ייחוס ה-commits, ההשפעה על הגרסה ורשומת יומן השינויים." },
+      { "title": "אומרים איזה סוג גרסה זה", "text": "מסמנים patch, minor או major. תיקון שנרשם תחת \"Added\" עלול להקפיץ את הגרסה הלא נכונה, אז שמים את הרשומה ביומן השינויים תחת הכותרת הנכונה." },
+      { "title": "שינויים שוברים מחכים ל-major", "text": "מציינים אותם בתיאור. הם מקבלים את התווית breaking-change ומתוזמנים, כך שהם לא מעכבים גרסאות patch ו-minor." },
+      { "title": "ה-CI מהיר בכל merge", "text": "merge מותנה ב-jobs המהירים של Linux. ה-jobs של macOS ושל Windows רצים לפי תווית, מדי לילה או ידנית, ותמיד לפני גרסה." },
+      { "title": "תיקונים יוצאים ראשונים", "text": "תיקון באג יוצא בגרסת ה-patch הבאה ולא מחכה לעבודה על פיצ'רים. harness חדש או ספק חדש יוצאים ב-minor הבא." }
+    ],
+    "harness": "pull request של harness מריץ את הבדיקה המקוצרת הזאת, רושם מול איזו גרסת CLI הוא נבדק, וכולל מעבר ידני מול ה-harness האמיתי.",
+    "harnessCodeTitle": "מתוך managed-harness-contributions.md"
+  },
+  "nextPages": [
+    { "title": "ארכיטקטורה", "text": "ה-writer actor, הוויקי והאינדקס, לפני שמשנים אותם." },
+    { "title": "מחקר ונימוקים", "text": "למה התקבלה כל החלטת תכנון, ומה רוצים בהמשך." },
+    { "title": "סוכנים ועורכים", "text": "אילו harnesses נתמכים היום ובאיזו רמה." }
+  ],
+  "cta": {
+    "title": "נסו אותו לפני שמשנים אותו.",
+    "text": "מריצים אותו יום אחד על הפרויקטים שלכם. הבאג שתמצאו הוא ה-issue הראשון שלכם."
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "title": "התקנה מתקדמת: TLS, שירותי מערכת, גיבויים ו-SSO",
+    "description": "מריצים את ai-memory ברצינות: טופולוגיות פריסה, TLS דרך Caddy, nginx או Cloudflare Tunnel, שירותי מערכת, גיבויים, ניתוב בין פרויקטים, OIDC ומגבלות שנמדדו."
+  },
+  "hero": {
+    "title": "התקנה מתקדמת ותשתית",
+    "lede": "לרגע שבו השרת עוזב את הלפטופ. בכל נושא יש תרשים או טבלה, הקונפיגורציה הנכונה הקצרה ביותר וקישור למסמך המלא ב-GitHub.",
+    "primary": "להתחיל מההתקנה המהירה",
+    "secondary": "לקרוא את מדריך הפריסה"
+  },
+  "jump": {
+    "label": "בדף הזה",
+    "topologies": "טופולוגיות",
+    "tls": "TLS",
+    "services": "שירותים",
+    "data": "נתונים וגיבויים",
+    "routing": "ניתוב",
+    "sso": "SSO",
+    "airgapped": "מנותק מהרשת",
+    "capacity": "קיבולת",
+    "upgrading": "שדרוג"
+  },
+  "topologies": {
+    "title": "ארבעה מקומות שבהם זה יכול לרוץ",
+    "lede": "הקובץ הבינארי זהה בכל הארבעה. מה שמשתנה הוא כתובת ה-bind, ואיתה כמה אימות והצפנה נדרשים.",
+    "figure": {
+      "alt": "ארבע טופולוגיות פריסה זו לצד זו: לפטופ בלבד שהשרת רץ בתוכו, מכונת homelab ששני לפטופים מתחברים אליה, שרת LAN שמגן TLS עומד לפניו, ושרת שמגיעים אליו דרך tunnel יוצא לקצה של ענן.",
+      "caption": "כל צעד ימינה מרחיב את הגישה ומוסיף דרישה. באף אחת מהן אין רפליקציה בין שרתים: הרבה מכונות מגיעות לשרת אחד."
+    },
+    "columns": { "topology": "טופולוגיה", "bind": "Bind", "auth": "אימות", "tls": "TLS", "runs": "רץ בתור" },
+    "bindProxy": "<code>{addr}</code> מאחורי proxy",
+    "bindNone": "בלי פורט על המארח בכלל",
+    "items": [
+      { "name": "לפטופ בלבד", "auth": "לא נדרש", "tls": "לא", "runs": "יחידת משתמש של systemd, סוכן launchd או קונטיינר" },
+      { "name": "מכונת homelab", "auth": "bearer token ו-allowlist של מארחים, שניהם חובה", "tls": "מומלץ", "runs": "Docker עם healthcheck, או שירות המערכת מ-AUR" },
+      { "name": "LAN עם TLS", "auth": "טוקן root, ובנוסף משתמש ומפתח API לכל אדם", "tls": "כן. Caddy עם ה-CA הפנימי שלו עובד גם בלי דומיין", "runs": "Docker Compose עם sidecar של Caddy" },
+      { "name": "Tunnel", "auth": "כמו בשרת ה-LAN", "tls": "כן, בקצה של Cloudflare", "runs": "Docker Compose עם sidecar של cloudflared" }
+    ],
+    "stdio": "בלפטופ אפשר לוותר לגמרי על HTTP עם <code>ai-memory serve --transport stdio</code>. ל-homelab, ה-repository כולל סקריפט <code>bin/deploy</code> עם תבניות compose ו-env. <a class=\"link\" href=\"{href}\">למדריך הפריסה ל-homelab, צעד אחר צעד</a>.",
+    "internet": {
+      "title": "לא מיועד לאינטרנט הפתוח",
+      "text": "ai-memory הוא שירות single-tenant לתחנת עבודה ול-homelab. הוא לא תוכנן לחשיפה ישירה לאינטרנט הלא מהימן, ומניעת שירות מתעבורה עוינת נמצאת מחוץ לתחום. שמים לפניו tunnel או proxy עם בקרת גישה משלו."
+    }
+  },
+  "tls": {
+    "title": "TLS דרך reverse proxy",
+    "lede": "ai-memory לא מסיים TLS בעצמו, וזו החלטת תכנון. bearer token מאמת בקשה. הוא לא מצפין אותה.",
+    "skip": {
+      "title": "אפשר לוותר על TLS כאשר",
+      "items": [
+        "הסוכן מדבר איתו דרך stdio",
+        "השרת מאזין רק על loopback, למשתמש אחד, ואף אחד לא פותח את <code>/web</code> ממכונה אחרת",
+        "מדובר בפיתוח מקומי או בניסוי חד-פעמי"
+      ]
+    },
+    "need": {
+      "title": "צריך TLS כאשר",
+      "items": [
+        "יש חשבונות, כי אז מפתחות <code>aim_</code> עוברים ברשת",
+        "השרת מאזין מעבר ל-loopback",
+        "פותחים את <code>/web</code> ממכונה אחרת",
+        "אפשר להגיע לשרת מחוץ ל-LAN"
+      ]
+    },
+    "figure": {
+      "alt": "שני לפטופים מתחברים ב-HTTPS ל-reverse proxy. ה-proxy מעביר HTTP רגיל ל-ai-memory. ה-proxy ו-ai-memory יושבים על אותו מארח.",
+      "caption": "התעודה שייכת ל-proxy. ai-memory נשאר מאחוריו על HTTP רגיל, ואפשר להגיע אליו רק דרך רשת ה-Docker או loopback."
+    },
+    "tabs": ["Caddy", "Caddy ב-LAN", "nginx", "Cloudflare Tunnel"],
+    "caddy": "לדומיין ציבורי שהפורטים 80 ו-443 שלו נגישים. Caddy מנפיק ומחדש את תעודת Let’s Encrypt בעצמו. קובץ ה-compose המלא נמצא ב-repository בשם <code>docker/compose.tls.caddy.yml</code>.",
+    "caddyLan": {
+      "text": "בלי דומיין ובלי לחשוף שום דבר. ה-CA הפנימי של Caddy חותם על התעודה, ואת תעודת ה-root שלו מתקינים פעם אחת בכל מכונת לקוח. בלי הצעד הזה הלקוחות מסרבים להתחבר, או שאנשים מתרגלים ללחוץ \"המשך\" על אזהרות.",
+      "comment": "מורה ל-Caddy להשתמש ב-CA הפנימי במקום ב-LE",
+      "extractTitle": "חילוץ תעודת ה-root"
+    },
+    "nginx": "למי שכבר מריץ nginx ויש לו קובצי תעודה. HTTP/1.1 וכותרת <code>Connection</code> ריקה הם חובה בשביל ה-transport מסוג streamable HTTP של MCP.",
+    "cloudflared": {
+      "text": "tunnel יוצא בלבד, כך שלא פותחים פורטים בראוטר. צריך דומיין ב-Cloudflare, והתוכנית החינמית מספיקה. בדשבורד מפנים את ה-hostname הציבורי אל <code>http://ai-memory:49374</code>. קובץ ה-compose המלא הוא <code>docker/compose.tls.cloudflared.yml</code>.",
+      "codeTitle": "שירות compose"
+    },
+    "server": {
+      "title": "אחר כך מעדכנים את השרת",
+      "text": "ה-allowlist חייב לכלול את ה-hostname הציבורי, אחרת ההגנה מפני DNS rebinding דוחה את הבקשות של ה-proxy. הגדרת ה-secure cookie היא חובה מרגע שאנשים מתחברים דרך listener שמעבר ל-loopback."
+    },
+    "clients": {
+      "title": "ומכוונים מחדש את הלקוחות",
+      "text": "כתובת ה-MCP מסתיימת ב-<code>/mcp</code>. כתובת ה-hook היא ה-origin בלבד."
+    },
+    "guide": "למדריך ה-HTTPS המלא, כולל subpaths ו-timeouts של proxy לריצות bootstrap ארוכות"
+  },
+  "services": {
+    "title": "לשמור על השרת רץ",
+    "lede": "ai-memory לא מפעיל את עצמו מחדש. את זה עושה מנהל השירותים של כל מערכת הפעלה.",
+    "tabs": ["יחידת משתמש של systemd", "יחידת מערכת של systemd", "launchd ב-macOS", "WinSW ב-Windows"],
+    "user": {
+      "text": "לתחנת עבודה של משתמש אחד. חבילות ה-AUR מתקינות את היחידה. היא לא דורשת sudo ושומרת את המצב ב-<code>~/.local/share/ai-memory</code>. יחידת משתמש נעצרת ב-logout, אלא אם מפעילים lingering.",
+      "lingerComment": "ממשיך לרוץ גם אחרי logout"
+    },
+    "system": "לתחנת עבודה משותפת או למכונה ב-LAN. הנתונים נמצאים ב-<code>/var/lib/ai-memory</code>, הקונפיגורציה ב-<code>/etc/ai-memory/config.toml</code> והסודות ב-<code>/etc/ai-memory/env</code>. לא מריצים את שתי היחידות על אותה כתובת bind.",
+    "launchd": "קובצי ה-tarball ל-macOS כוללים plist של LaunchAgent עם שני placeholders. מריצים את זה מתוך ה-tarball שחולץ. LaunchAgent נעצר ב-logout, וב-macOS אין מקבילה ל-lingering. שום דבר לא מבצע רוטציה לשני קובצי הלוג שלו.",
+    "winsw": "ל-ai-memory אין dispatcher של Windows Service, ולכן <code>sc create</code> שמצביע על ה-exe לא עובד, ו-Scheduled Task עם <code>Start-Process</code> מת ב-reboot הבא. WinSW עוטף אותו. משתמשים בנתיבים מוחלטים: שירות רץ בתור LocalSystem, ו-<code>%LOCALAPPDATA%</code> היה נפתח לפרופיל הלא נכון.",
+    "links": {
+      "systemd": "יחידות systemd במדריך ההתקנה",
+      "launchd": "launchd במדריך ל-macOS",
+      "winsw": "WinSW במדריך ל-Windows"
+    }
+  },
+  "data": {
+    "title": "תיקיית הנתונים וגיבויים",
+    "lede": "הוויקי הוא האמת. הוא markdown פשוט בתוך repository של git, ואינדקס החיפוש נבנה ממנו.",
+    "figure": {
+      "alt": "תיקיית הנתונים מחולקת לשניים. בצד של מקור האמת: wiki, ערימת דפי markdown בניהול גרסאות של git, ו-raw. בצד הנגזר: db, models ו-logs. חץ עם התווית reindex יוצא מ-wiki אל db.",
+      "caption": "reindex בונה מחדש מהוויקי את הדפים, הקישורים וחיפוש הטקסט המלא. הוא לא מחזיר סשנים, תצפיות, העברות, משתמשים, מפתחות, שורות ביקורת או embeddings, ולכן גם מסד הנתונים צריך להיות בגיבוי."
+    },
+    "columns": { "dir": "תיקייה", "holds": "מה יש בה", "kind": "סוג", "backup": "לגבות?" },
+    "dirs": {
+      "wiki": { "holds": "כל דף כקובץ markdown, ב-repository אחד של git", "kind": "אמת", "backup": "כן. היא נכללת ב-tarball של הגיבוי, ואפשר גם להעתיק אותה ב-rsync או לעשות לה git push" },
+      "raw": { "holds": "מקטעי תמלול שעברו ניקוי ואינם משתנים, מהרצות מנוהלות", "kind": "אמת", "backup": "כן, אם משתמשים ב-ai-memory run. מעתיקים אותה בנפרד" },
+      "db": { "holds": "memory.sqlite: אינדקס טקסט מלא, ישויות, embeddings, סשנים, משתמשים, שורות ביקורת", "kind": "ברובה נגזרת", "backup": "כן. דפים, קישורים וחיפוש נבנים מחדש מהוויקי. סשנים, העברות, משתמשים ומפתחות קיימים רק כאן" },
+      "models": { "holds": "מודל ה-embeddings המקומי, בערך 87 MB", "kind": "ניתנת לבנייה מחדש", "backup": "לא. המודל יורד שוב, או שמניחים את הקבצים ידנית" },
+      "logs": { "holds": "פלט trace מתגלגל", "kind": "אפשר לזרוק", "backup": "לא" }
+    },
+    "defaults": "ברירות המחדל: <code>~/.local/share/ai-memory</code> ב-Linux, <code>~/Library/Application Support/ai-memory</code> ב-macOS, <code>%LOCALAPPDATA%\\ai-memory</code> ב-Windows, <code>/data</code> בקונטיינר. אפשר לשנות עם <code>AI_MEMORY_DATA_DIR</code>.",
+    "backup": {
+      "title": "גיבוי ושחזור",
+      "figure": {
+        "alt": "הגיבוי יוצר ארכיון tar.gz משרת רץ. השחזור עובר מהארכיון אל שרת עצור, ואחריו מפעילים את השרת מחדש.",
+        "caption": "הגיבוי רץ מול שרת חי. השחזור עובד ישירות על הדיסק ומסרב לפעול כל עוד תהליך כלשהו של ai-memory חי."
+      },
+      "save": {
+        "title": "גיבוי",
+        "text": "הגיבוי משתמש ב-online backup API של SQLite, כך שכתיבות בזמן ה-snapshot נשארות עקביות. ה-tarball כולל את עץ הוויקי, את ה-snapshot של מסד הנתונים ואת <code>config.toml</code>.",
+        "comment": "בטוח גם כשהשרת רץ"
+      },
+      "restore": {
+        "title": "שחזור",
+        "text": "<code>--data-dir</code> הוא הנתיב של ה-volume בצד המארח. הנתיבים כאן לקוחים ממדריך הפריסה. משתמשים בנתיבים שלכם.",
+        "stopComment": "קודם עוצרים את השרת.",
+        "restoreComment": "שחזור (sysinfo מסרב אם הקונטיינר עדיין רץ).",
+        "startComment": "מפעילים מחדש."
+      }
+    },
+    "oneServer": {
+      "title": "שרת אחד לכל תיקיית נתונים",
+      "text": "שני שרתים על תיקייה אחת (תיקייה מסונכרנת, mount של NFS, שני קונטיינרים על volume אחד) מריצים כל אחד כותב ו-handle של git משלו. SQLite שורד את זה והוויקי לא. מאז 2.0 הפקודה <code>serve</code> לוקחת נעילה בלעדית על <code>.serve.lock</code>, ושרת שני מסרב לעלות ומציין איזה תהליך מחזיק בה. מערכת ההפעלה משחררת את הנעילה כשהתהליך מסתיים."
+    },
+    "reindex": {
+      "title": "בנייה מחדש של האינדקס",
+      "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code> דורש שרת עצור ומסד נתונים נקי. מגבים, מזיזים הצידה את <code>db/memory.sqlite</code> ואת קובצי ה-WAL וה-SHM שלו, מריצים את הפקודה, ואחרי ההפעלה מחדש מריצים <code>ai-memory embed</code> כדי לבנות מחדש את ה-embeddings."
+    },
+    "lifecycle": "לקריאה על פעולות מחזור החיים: purge, שינוי שם, העברה, שחזור דף, reset"
+  },
+  "routing": {
+    "title": "ניתוב וזהות",
+    "lede": "שרת משותף צריך לענות על שתי שאלות: לאיזה פרויקט הסשן הזה שייך, ומי שואל.",
+    "marker": {
+      "title": "קובץ הסימון",
+      "text": "כברירת מחדל הפרויקט הוא שם התיקייה הנוכחית, בתוך workspace בשם <code>default</code>. כדי לשנות את זה מניחים <code>.ai-memory.toml</code> באחת מתיקיות האב. ה-hooks עולים מתיקיית העבודה כלפי מעלה ומשתמשים בקובץ הסימון הראשון שהם מוצאים.",
+      "items": [
+        { "title": "עבודה ואישי", "text": "קובץ סימון אחד לכל תיקיית אב. כל repository שמתחתיה נכנס ל-workspace הזה, ושם התיקייה הוא שם הפרויקט." },
+        { "title": "Mono-repo", "text": "קובץ סימון שמגדיר project מצמיד את כל תתי-התיקיות לפרויקט האחד הזה. קובץ הסימון הקרוב ביותר קובע." },
+        { "title": "Git worktrees", "text": "worktrees מקושרים ותתי-תיקיות מתמפים ל-repository הראשי, גם כשה-worktree נמצא מחוץ לו." }
+      ],
+      "capture": "באותו קובץ יש גם כללי <code>[capture]</code> עם <code>ignore_paths</code>, והפקודה <code>ai-memory install-hooks --apply --capture-mode allowlist</code> הופכת את קובץ הסימון ל-opt-in: repository בלי קובץ כזה לא שולח אירועים. ה-hooks הנייטיב אוכפים את שניהם. ה-shell hooks של ה-wrapper של Docker לא אוכפים. <a class=\"link\" href=\"{href}\">לתיעוד המלא של קובץ הסימון</a>."
+    },
+    "autoScope": {
+      "title": "מצבי auto-scope",
+      "text": "קריאת MCP בלי פרויקט מפורש נפתרת דרך מצביע של \"הפרויקט הנוכחי\". המצב קובע מי חולק את המצביע הזה. השרת רושם בלוג את המצב הפעיל בזמן העלייה.",
+      "columns": { "mode": "מצב", "when": "מתי להשתמש בו" },
+      "modes": {
+        "per_actor": "ברירת המחדל. מבודד harnesses שרצים במקביל ואנשים שונים על שרת אחד.",
+        "per_session": "ללקוחות מודעי סשן, שמעבירים את מזהה הסשן של ה-hook בכל בקשת MCP.",
+        "single": "ההתנהגות שלפני v1.39. משבצת אחת לכל התהליך, והכתיבה האחרונה מנצחת. לא בטוח בשרת משותף."
+      },
+      "comments": {
+        "mode": "\"per_actor\" (ברירת המחדל מאז v1.39) | \"per_session\" | \"single\"",
+        "ttl": "TTL לרשומות לפי מפתח (ברירת מחדל: שעה)",
+        "max": "תקרה קשיחה; הרשומות הישנות ביותר מפונות ראשונות"
+      },
+      "link": "איך עובד הבידוד של auto-scope"
+    },
+    "sso": {
+      "title": "SSO ו-OIDC",
+      "text": "כל מפתח מתחבר פעם אחת ב-device flow של OIDC מול כל issuer שעומד בתקן, למשל Keycloak, Okta או Entra ID. הטוקן מאמת אחר כך את ה-hooks הנייטיב של מחזור החיים ואת פקודות ה-CLI, כשלא הוגדר bearer token סטטי.",
+      "calloutTitle": "השרת לא מאמת טוקנים של OIDC",
+      "calloutText": "זה לא שער התחברות לשרת. ai-memory לא בודק טוקנים של OIDC מול ספק הזהויות שלכם לצורך גישה ל-API. כדי לשים את השרת מאחורי ה-IdP צריך לפניו gateway או reverse proxy שמבין OIDC ומתרגם זהויות שאושרו ל-bearer סטטי או למפתח API לכל משתמש. אימות hooks ב-OIDC דורש גם את מסלול ה-hooks הנייטיב. ה-shell hooks של ה-wrapper של Docker לא משתמשים בו.",
+      "link": "לדף על SSO וזהות ארגונית"
+    }
+  },
+  "ops": {
+    "title": "אופליין, מגבלות ושדרוגים",
+    "lede": "מה שצריך לדעת בשביל סקירת אבטחה, תכנון קיבולת וחלון תחזוקה.",
+    "airgapped": {
+      "title": "התקנה מנותקת מהרשת (air-gapped)",
+      "binaries": {
+        "title": "קבצים בינאריים",
+        "text": "לכל קובץ בגרסה יש קובץ <code>.sha256</code>. מורידים במכונה מחוברת, מאמתים ומעבירים פנימה. הגרסאות כוללות checksums בלבד, בלי SLSA provenance ובלי artifact attestation."
+      },
+      "source": {
+        "title": "בנייה מקוד המקור",
+        "text": "SQLite מגיע בפנים ו-libgit2 הוא vendored, כך שהבנייה צריכה toolchain של C ואת ה-mirror שלכם ל-crates. <code>cargo vendor</code> עובד."
+      },
+      "model": {
+        "title": "מודל ה-embeddings",
+        "text": "התקנת ברירת מחדל מורידה את המודל מ-Hugging Face בהפעלה הראשונה. כדי שלא תצא אף בקשה החוצה, מניחים מראש את <code>model.safetensors</code>, <code>tokenizer.json</code> ו-<code>config.json</code> בתוך <code>&lt;data_dir&gt;/models/all-MiniLM-L6-v2/</code>. ה-checksums מקובעים בקוד המקור."
+      },
+      "telemetry": "בקובץ הבינארי אין טלמטריה. ה-wrapper של Docker בודק ב-Docker Hub אם יש image חדש יותר, לכל היותר פעם ב-24 שעות, ו-<code>AI_MEMORY_NO_VERSION_CHECK=1</code> מכבה את זה. עדכונים בסביבה מנותקת הם ידניים, בדיוק כמו ההתקנה. <a class=\"link\" href=\"{href}\">לדף על התקנה אופליין</a>."
+    },
+    "capacity": {
+      "title": "קיבולת",
+      "text": "כל כתיבה עוברת דרך כותב אחד. הפרויקט מדד איפה זה נעצר, בעזרת <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.",
+      "columns": { "writers": "כותבים במקביל", "throughput": "תפוקה", "latency": "השהיה ממוצעת" },
+      "perSecond": "{n} לשנייה",
+      "ms": "{n} ms",
+      "notes": [
+        "התקרה היא בערך 700 כתיבות בשנייה, ומגיעים אליה בסביבות 32 כותבים.",
+        "תור הכתיבה מוגבל ל-1024. מעבר לזה היצרנים מאטים, וכל כתיבה עדיין נשמרת.",
+        "shell hooks מוותרים על השרת אחרי 200 ms ושומרים את האירוע ב-spool מקומי, כך ששרת איטי לא תוקע את הסוכן.",
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> ו-<code>AI_MEMORY_HOOK_RATE_BURST</code> מוסיפים rate limit אופציונלי לכל actor וסשן. כבוי כברירת מחדל."
+      ],
+      "caveats": {
+        "title": "קוראים את המספרים יחד עם ההסתייגויות",
+        "text": "הם נמדדו על דיסק מקומי מהיר, והעלות היא <code>fsync</code>, כך שמערכת קבצים ברשת או volume איטי יתנו מספרים נמוכים משמעותית. הם מודדים את ה-store ולא את שכבת ה-HTTP שבחזית. נתון ההשהיה היחיד שפורסם ל-hooks, בערך 145 ms לקריאת hook נייטיב במכונת macOS אחת, הוא מדידה של אותה מכונה ולא בנצ'מרק."
+      },
+      "link": "לפרק הקיבולת במדריך הפריסה"
+    },
+    "upgrading": {
+      "title": "שדרוג",
+      "notes": [
+        "עם ה-wrapper של Docker, הפקודה מאמתת ומחליפה את ה-wrapper, מושכת את ה-image ומכינה מחדש את סקריפטי ה-hooks. שרת שרץ על מארח אחר משדרגים בנפרד.",
+        "מיגרציות של הסכמה ושל הוויקי רצות בעלייה. הן חד-כיווניות: קובץ בינארי ישן יותר מסרב לפתוח תיקייה שעברה מיגרציה, אז מריצים קודם <code>ai-memory backup</code> אם ייתכן שתרצו לחזור אחורה."
+      ],
+      "from1x": {
+        "title": "מגיעים מ-1.x",
+        "text": "ההפעלה הראשונה של 2.0 כותבת מחדש את הוויקי ל-Open Knowledge Format v0.2. לפני שהיא נוגעת במשהו היא מארכבת את כל תיקיית הנתונים אל <code>~/ai-memory-backup-okf-v0.2-&lt;date&gt;.tar.gz</code> (<code>/data/backups/</code> בקונטיינר) ומאמתת את הארכיון. אם אי אפשר לכתוב או לאמת את הגיבוי, המיגרציה מתבטלת והשרת מסרב לעלות, והנתונים שלכם נשארים כמו שהיו."
+      },
+      "link": "למדריך המיגרציה ל-2.0, כולל איך חוזרים אחורה"
+    }
+  },
+  "faq": [
+    {
+      "q": "האם ai-memory צריך TLS?",
+      "a": "לא בלפטופ של משתמש אחד שמאזין על 127.0.0.1, ולא דרך stdio. מוסיפים proxy עם TLS כשיש חשבונות, כשהשרת מאזין מעבר ל-loopback, כשפותחים את ממשק ה-web ממכונה אחרת, או כשאפשר להגיע אליו מחוץ ל-LAN. ai-memory לא מסיים TLS בעצמו."
+    },
+    {
+      "q": "מה צריך לגבות?",
+      "a": "מריצים ai-memory backup, וזה בטוח גם כשהשרת רץ. ה-tarball כולל את עץ הוויקי, snapshot עקבי של SQLite ואת config.toml. הוויקי הוא מקור האמת. דפים, קישורים וחיפוש אפשר לבנות ממנו מחדש עם ai-memory reindex, אבל סשנים, העברות, משתמשים ומפתחות קיימים רק במסד הנתונים."
+    },
+    {
+      "q": "האם ai-memory תומך ב-SSO?",
+      "a": "הוא תומך באימות device של OIDC ל-hooks של מחזור החיים ולפקודות CLI, מול כל issuer שעומד בתקן. השרת לא מאמת טוקנים של OIDC בעצמו, ולכן כדי לשים את ה-API של השרת מאחורי ספק הזהויות שלכם צריך לפניו gateway שמבין OIDC."
+    },
+    {
+      "q": "האם שני שרתים יכולים לחלוק תיקיית נתונים אחת?",
+      "a": "לא. מריצים שרת אחד לכל תיקיית נתונים. מאז 2.0 השרת לוקח נעילה בלעדית על .serve.lock, ושרת שני מסרב לעלות."
+    }
+  ],
+  "nextPages": {
+    "install": "הדרך הקצרה: מכונה אחת בשלושה צעדים, צוות בחמישה.",
+    "security": "סולם ההקשחה, גבול הפרטיות ומה המשמעות של מחיקה.",
+    "architecture": "קובץ בינארי אחד, קובצי markdown ואינדקס נגזר."
+  },
+  "help": {
+    "title": "מריצים את זה במקום לא שגרתי?",
+    "text": "פותחים issue ומתארים את הסביבה שלכם. הקוד, התיעוד וה-tracker כולם ציבוריים."
+  }
+}

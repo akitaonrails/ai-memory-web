@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "title": "Advanced setup: TLS, services, backups and SSO",
+    "description": "Run ai-memory seriously: deployment topologies, TLS through Caddy, nginx or Cloudflare Tunnel, system services, backups, routing, OIDC and measured limits."
+  },
+  "hero": {
+    "title": "Advanced setup and infrastructure",
+    "lede": "For when the server leaves your laptop. Each topic is a diagram or a table, the shortest correct config, and a link to the full document on GitHub.",
+    "primary": "Start with quick setup",
+    "secondary": "Read the deploy guide"
+  },
+  "jump": {
+    "label": "On this page",
+    "topologies": "Topologies",
+    "tls": "TLS",
+    "services": "Services",
+    "data": "Data and backups",
+    "routing": "Routing",
+    "sso": "SSO",
+    "airgapped": "Air-gapped",
+    "capacity": "Capacity",
+    "upgrading": "Upgrading"
+  },
+  "topologies": {
+    "title": "Four places it can run",
+    "lede": "The binary is the same in all four. What changes is the bind address, and with it how much auth and encryption you owe.",
+    "figure": {
+      "alt": "Four deployment topologies side by side: laptop only with the server inside the laptop, a homelab box that two laptops connect to, a LAN server with a TLS shield in front of it, and a server reached through an outbound tunnel to a cloud edge.",
+      "caption": "Moving right adds reach, and every step to the right adds a requirement. There is no replication between servers in any of them: many machines reach one server."
+    },
+    "columns": { "topology": "Topology", "bind": "Bind", "auth": "Auth", "tls": "TLS", "runs": "Runs as" },
+    "bindProxy": "<code>{addr}</code> behind a proxy",
+    "bindNone": "No host port at all",
+    "items": [
+      { "name": "Laptop only", "auth": "None needed", "tls": "No", "runs": "systemd user unit, launchd agent, or a container" },
+      { "name": "Homelab box", "auth": "Bearer token and host allowlist, both required", "tls": "Recommended", "runs": "Docker with a healthcheck, or the AUR system service" },
+      { "name": "LAN with TLS", "auth": "Root token, plus a user and an API key per person", "tls": "Yes. Caddy with its internal CA works without a domain", "runs": "Docker Compose with a Caddy sidecar" },
+      { "name": "Tunnel", "auth": "Same as the LAN server", "tls": "Yes, at Cloudflare’s edge", "runs": "Docker Compose with a cloudflared sidecar" }
+    ],
+    "stdio": "A laptop can skip HTTP entirely with <code>ai-memory serve --transport stdio</code>. For a homelab, the repository ships a <code>bin/deploy</code> script with compose and env templates. <a class=\"link\" href=\"{href}\">Follow the homelab deploy walkthrough</a>.",
+    "internet": {
+      "title": "Not for the open internet",
+      "text": "ai-memory is a single-tenant workstation and homelab service. It is not designed for direct exposure to the untrusted internet, and denial of service from hostile traffic is out of scope. Put a tunnel or a proxy with its own access control in front."
+    }
+  },
+  "tls": {
+    "title": "TLS through a reverse proxy",
+    "lede": "ai-memory does not terminate TLS itself, by design. A bearer token authenticates a request. It does not encrypt it.",
+    "skip": {
+      "title": "You can skip TLS when",
+      "items": [
+        "the agent talks to it over stdio",
+        "the server is loopback-only, for one user, and nobody opens <code>/web</code> from another machine",
+        "it is local development or a one-off experiment"
+      ]
+    },
+    "need": {
+      "title": "You need TLS when",
+      "items": [
+        "accounts exist, because <code>aim_</code> keys then cross the network",
+        "the server is bound beyond loopback",
+        "you open <code>/web</code> from a different machine",
+        "the server is reachable beyond the LAN"
+      ]
+    },
+    "figure": {
+      "alt": "Two laptops connect over HTTPS to a reverse proxy. The proxy forwards plain HTTP to ai-memory. The proxy and ai-memory sit on the same host.",
+      "caption": "The proxy owns the certificate. ai-memory stays on plain HTTP behind it, reachable only over the Docker network or loopback."
+    },
+    "tabs": ["Caddy", "Caddy on a LAN", "nginx", "Cloudflare Tunnel"],
+    "caddy": "For a public domain with ports 80 and 443 reachable. Caddy issues and renews the Let’s Encrypt certificate on its own. The repository has the full compose file as <code>docker/compose.tls.caddy.yml</code>.",
+    "caddyLan": {
+      "text": "No domain and nothing exposed. Caddy’s internal CA signs the certificate, and you install its root certificate once on every client machine. Skip that step and clients either refuse the connection or learn to click through warnings.",
+      "comment": "tells Caddy to use the internal CA instead of LE",
+      "extractTitle": "extract the root certificate"
+    },
+    "nginx": "For when you already run nginx and have certificate files. HTTP/1.1 and the empty <code>Connection</code> header are required for MCP’s streamable HTTP transport.",
+    "cloudflared": {
+      "text": "An outbound-only tunnel, so no ports open on your router. It needs a domain on Cloudflare, and the free tier works. In the dashboard, point the public hostname at <code>http://ai-memory:49374</code>. The full compose file is <code>docker/compose.tls.cloudflared.yml</code>.",
+      "codeTitle": "compose service"
+    },
+    "server": {
+      "title": "Then tell the server",
+      "text": "The allowlist must include the public hostname, or the DNS rebinding guard rejects the proxy’s requests. The secure cookie setting is required once people log in through a listener beyond loopback."
+    },
+    "clients": {
+      "title": "And repoint the clients",
+      "text": "The MCP URL ends in <code>/mcp</code>. The hook URL is the bare origin."
+    },
+    "guide": "Read the full HTTPS guide, including subpaths and proxy timeouts for long bootstrap runs"
+  },
+  "services": {
+    "title": "Keep the server running",
+    "lede": "ai-memory does not restart itself. The service manager on each operating system does that.",
+    "tabs": ["systemd user unit", "systemd system unit", "launchd on macOS", "WinSW on Windows"],
+    "user": {
+      "text": "For a single-user workstation. The AUR packages install the unit. It needs no sudo and keeps state in <code>~/.local/share/ai-memory</code>. A user unit stops at logout unless you enable lingering.",
+      "lingerComment": "keep it running after you log out"
+    },
+    "system": "For a shared workstation or a LAN box. Data lives in <code>/var/lib/ai-memory</code>, config in <code>/etc/ai-memory/config.toml</code>, secrets in <code>/etc/ai-memory/env</code>. Do not run both units on the same bind address.",
+    "launchd": "The macOS tarballs include a LaunchAgent plist with two placeholders. Run this from the extracted tarball. A LaunchAgent stops at logout, and macOS has no equivalent of lingering. Nothing rotates its two log files.",
+    "winsw": "ai-memory has no Windows Service dispatcher, so <code>sc create</code> pointed at the exe does not work, and a Scheduled Task with <code>Start-Process</code> dies at the next reboot. WinSW wraps it. Use absolute paths: a service runs as LocalSystem, and <code>%LOCALAPPDATA%</code> would expand to the wrong profile.",
+    "links": {
+      "systemd": "systemd units in the install guide",
+      "launchd": "launchd in the macOS guide",
+      "winsw": "WinSW in the Windows guide"
+    }
+  },
+  "data": {
+    "title": "The data directory and backups",
+    "lede": "The wiki is the truth. It is plain markdown in a git repository, and the search index is built from it.",
+    "figure": {
+      "alt": "The data directory split in two. On the source of truth side: wiki, a git-versioned stack of markdown pages, and raw. On the derived side: db, models and logs. An arrow labelled reindex goes from wiki to db.",
+      "caption": "Reindex rebuilds pages, links and full-text search from the wiki. It does not bring back sessions, observations, handoffs, users, keys, audit rows or embeddings, so the database still belongs in your backup."
+    },
+    "columns": { "dir": "Directory", "holds": "Holds", "kind": "Kind", "backup": "Back it up?" },
+    "dirs": {
+      "wiki": { "holds": "Every page as markdown, in one git repository", "kind": "Truth", "backup": "Yes. It is in the backup tarball, and you can also rsync it or git push it" },
+      "raw": { "holds": "Immutable, sanitized transcript segments from managed launches", "kind": "Truth", "backup": "Yes, if you use ai-memory run. Copy it separately" },
+      "db": { "holds": "memory.sqlite: full-text index, entities, embeddings, sessions, users, audit rows", "kind": "Mostly derived", "backup": "Yes. Pages, links and search rebuild from the wiki. Sessions, handoffs, users and keys live only here" },
+      "models": { "holds": "The local embedding model, about 87 MB", "kind": "Rebuildable", "backup": "No. It downloads again, or you place the files yourself" },
+      "logs": { "holds": "Rolling trace output", "kind": "Disposable", "backup": "No" }
+    },
+    "defaults": "Defaults: <code>~/.local/share/ai-memory</code> on Linux, <code>~/Library/Application Support/ai-memory</code> on macOS, <code>%LOCALAPPDATA%\\ai-memory</code> on Windows, <code>/data</code> in the container. Override with <code>AI_MEMORY_DATA_DIR</code>.",
+    "backup": {
+      "title": "Backup and restore",
+      "figure": {
+        "alt": "Backup takes a tar.gz archive from a running server. Restore goes from the archive into a stopped server, which is then started again.",
+        "caption": "Backup runs against a live server. Restore works directly on disk and refuses while any ai-memory process is alive."
+      },
+      "save": {
+        "title": "Back up",
+        "text": "It uses SQLite’s online backup API, so writes during the snapshot stay coherent. The tarball holds the wiki tree, the database snapshot and <code>config.toml</code>.",
+        "comment": "safe while the server runs"
+      },
+      "restore": {
+        "title": "Restore",
+        "text": "<code>--data-dir</code> is the host-side path of the volume. The paths here are the ones from the deploy guide. Use yours.",
+        "stopComment": "Stop the server first.",
+        "restoreComment": "Restore (sysinfo refuses if the container is still running).",
+        "startComment": "Start back up."
+      }
+    },
+    "oneServer": {
+      "title": "One server per data directory",
+      "text": "Two servers on one directory (a synced folder, an NFS mount, two containers on one volume) each run their own writer and git handle. SQLite survives it and the wiki does not. Since 2.0, <code>serve</code> takes an exclusive lock on <code>.serve.lock</code>, and a second server refuses to start and names the process holding it. The OS releases the lock when the process exits."
+    },
+    "reindex": {
+      "title": "Rebuilding the index",
+      "text": "<code>ai-memory reindex --data-dir &lt;path&gt;</code> needs the server stopped and a clean database. Take a backup, move <code>db/memory.sqlite</code> and its WAL and SHM files aside, run it, then run <code>ai-memory embed</code> after the restart to rebuild embeddings."
+    },
+    "lifecycle": "Read lifecycle operations: purge, rename, move, restore a page, reset"
+  },
+  "routing": {
+    "title": "Routing and identity",
+    "lede": "A shared server has to answer two questions: which project does this session belong to, and who is asking.",
+    "marker": {
+      "title": "The marker file",
+      "text": "By default the project is the name of the current directory, in a workspace called <code>default</code>. Drop a <code>.ai-memory.toml</code> in any ancestor directory to change that. Hooks walk up from the working directory and use the first marker they find.",
+      "items": [
+        { "title": "Work and personal", "text": "One marker per parent directory. Every repository below it lands in that workspace, with the directory name as the project." },
+        { "title": "Mono-repo", "text": "A marker with a project pins every subdirectory to that one project. The closest marker wins." },
+        { "title": "Git worktrees", "text": "Linked worktrees and subdirectories resolve to the main repository, even when the worktree lives outside it." }
+      ],
+      "capture": "The same file holds <code>[capture]</code> rules with <code>ignore_paths</code>, and <code>ai-memory install-hooks --apply --capture-mode allowlist</code> turns the marker into an opt-in: a repository without one emits no events. Native hooks enforce both. The Docker wrapper’s shell hooks do not. <a class=\"link\" href=\"{href}\">Read the marker file reference</a>."
+    },
+    "autoScope": {
+      "title": "Auto-scope modes",
+      "text": "An MCP call without an explicit project resolves through a “current project” pointer. The mode decides who shares that pointer. The server logs the live mode at startup.",
+      "columns": { "mode": "Mode", "when": "When to use it" },
+      "modes": {
+        "per_actor": "The default. Isolates parallel harnesses and separate people on one server.",
+        "per_session": "For session-aware clients that forward the hook session id on every MCP request.",
+        "single": "The behaviour before v1.39. One slot for the whole process, last write wins. Unsafe on a shared server."
+      },
+      "comments": {
+        "mode": "\"per_actor\" (default since v1.39) | \"per_session\" | \"single\"",
+        "ttl": "TTL for per-key entries (default 1 h)",
+        "max": "hard cap; oldest insertions evicted first"
+      },
+      "link": "Read how auto-scope isolation works"
+    },
+    "sso": {
+      "title": "SSO and OIDC",
+      "text": "Each developer logs in once with an OIDC device flow against any standards-compliant issuer, such as Keycloak, Okta or Entra ID. The token then authenticates native lifecycle hooks and CLI commands when no static bearer token is set.",
+      "calloutTitle": "The server does not validate OIDC tokens",
+      "calloutText": "This is not a login gate for the server. ai-memory does not check OIDC tokens against your identity provider for API access. To put the server behind your IdP you need an OIDC-aware gateway or reverse proxy in front that translates accepted identities into a static bearer or a per-user API key. OIDC hook auth also needs the native hook path. The Docker wrapper’s shell hooks do not use it.",
+      "link": "Read the SSO and enterprise identity page"
+    }
+  },
+  "ops": {
+    "title": "Offline, limits and upgrades",
+    "lede": "What a security review, a capacity plan and a maintenance window each need to know.",
+    "airgapped": {
+      "title": "Air-gapped install",
+      "binaries": {
+        "title": "Binaries",
+        "text": "Every release asset has a <code>.sha256</code> file. Download on a connected machine, verify, carry it in. Releases carry checksums only, with no SLSA provenance or artifact attestation."
+      },
+      "source": {
+        "title": "Source builds",
+        "text": "SQLite is bundled and libgit2 is vendored, so the build needs a C toolchain and your crates mirror. <code>cargo vendor</code> works."
+      },
+      "model": {
+        "title": "The embedding model",
+        "text": "A default install fetches the model from Hugging Face on first start. For no outbound request at all, place <code>model.safetensors</code>, <code>tokenizer.json</code> and <code>config.json</code> in <code>&lt;data_dir&gt;/models/all-MiniLM-L6-v2/</code> beforehand. Checksums are pinned in source."
+      },
+      "telemetry": "The binary has no telemetry. The Docker wrapper checks Docker Hub for a newer image at most once every 24 hours, and <code>AI_MEMORY_NO_VERSION_CHECK=1</code> turns that off. Updates in an air gap are manual, the same way as the install. <a class=\"link\" href=\"{href}\">Read the offline install page</a>."
+    },
+    "capacity": {
+      "title": "Capacity",
+      "text": "Every write goes through one writer. The project measured where that stops, with <code>cargo test -p ai-memory-store --test writer_throughput -- --ignored --nocapture</code>.",
+      "columns": { "writers": "Concurrent writers", "throughput": "Throughput", "latency": "Mean latency" },
+      "perSecond": "{n}/s",
+      "ms": "{n} ms",
+      "notes": [
+        "The ceiling is about 700 writes per second, reached near 32 writers.",
+        "The write queue is bounded at 1024. Past that, producers slow down and every write still lands.",
+        "Shell hooks give up on the server after 200 ms and spool the event locally, so a slow server does not stall your agent.",
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> and <code>AI_MEMORY_HOOK_RATE_BURST</code> add an optional rate limit per actor and session. It is off by default."
+      ],
+      "caveats": {
+        "title": "Read the numbers with their caveats",
+        "text": "They were taken on a fast local disk, and the cost is <code>fsync</code>, so a network filesystem or a slow volume will be materially lower. They measure the store and not the HTTP front door. The one published hook latency figure, about 145 ms per native hook call on one macOS host, is that host’s measurement and not a benchmark."
+      },
+      "link": "Read the capacity section of the deploy guide"
+    },
+    "upgrading": {
+      "title": "Upgrading",
+      "notes": [
+        "With the Docker wrapper, this verifies and replaces the wrapper, pulls the image and restages hook scripts. A server on another host is upgraded separately.",
+        "Schema and wiki migrations run on start. They are forward-only: an older binary refuses to open a migrated directory, so run <code>ai-memory backup</code> first if you might roll back."
+      ],
+      "from1x": {
+        "title": "Coming from 1.x",
+        "text": "The first 2.0 start rewrites the wiki to Open Knowledge Format v0.2. Before touching anything it archives the whole data directory to <code>~/ai-memory-backup-okf-v0.2-&lt;date&gt;.tar.gz</code> (<code>/data/backups/</code> in a container) and verifies the archive. If the backup cannot be written or verified, the migration aborts and the server refuses to start, with your data untouched."
+      },
+      "link": "Read the 2.0 migration guide, including how to go back"
+    }
+  },
+  "faq": [
+    {
+      "q": "Does ai-memory need TLS?",
+      "a": "Not on a single-user laptop bound to 127.0.0.1, and not over stdio. Add a TLS proxy when accounts exist, when the server is bound beyond loopback, when you open the web UI from another machine, or when it is reachable beyond the LAN. ai-memory does not terminate TLS itself."
+    },
+    {
+      "q": "What do I need to back up?",
+      "a": "Run ai-memory backup, which is safe while the server runs. The tarball holds the wiki tree, a consistent SQLite snapshot and config.toml. The wiki is the source of truth. Pages, links and search can be rebuilt from it with ai-memory reindex, but sessions, handoffs, users and keys exist only in the database."
+    },
+    {
+      "q": "Does ai-memory support SSO?",
+      "a": "It supports OIDC device auth for lifecycle hooks and CLI commands against any standards-compliant issuer. The server does not validate OIDC tokens itself, so putting the server API behind your identity provider requires an OIDC-aware gateway in front of it."
+    },
+    {
+      "q": "Can two servers share one data directory?",
+      "a": "No. Run one server per data directory. Since 2.0 the server takes an exclusive lock on .serve.lock and a second server refuses to start."
+    }
+  ],
+  "nextPages": {
+    "install": "The short path: one machine in three steps, a team in five.",
+    "security": "The hardening ladder, the privacy boundary and what deletion means.",
+    "architecture": "One binary, markdown files and a derived index."
+  },
+  "help": {
+    "title": "Running it somewhere unusual?",
+    "text": "Open an issue and describe your setup. The source, the docs and the tracker are all public."
+  }
+}

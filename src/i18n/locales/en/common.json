@@ -1,0 +1,102 @@
+{
+  "site": {
+    "tagline": "long-term memory for AI coding agents",
+    "description": "Long-term memory for AI coding agents. Switch agents, machines and teammates without re-explaining your project. Open source, one binary, plain markdown.",
+    "ogAlt": "The ai-memory logo: a brain that is half neural network, half circuit board, with an arrow passing through a chip"
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "home": "ai-memory home",
+    "mainNav": "Main",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menu": "Menu",
+    "theme": "Theme",
+    "toggleTheme": "Switch between light and dark theme",
+    "language": "Language",
+    "starOnGithub": "Star ai-memory on GitHub, {n} stars",
+    "chooseOne": "Choose one"
+  },
+  "crumbs": {
+    "home": "Home",
+    "solutions": "Solutions",
+    "individuals": "Individuals",
+    "teams": "Teams",
+    "compare": "Compare",
+    "integrations": "Integrations",
+    "install": "Quick setup",
+    "advanced": "Advanced setup",
+    "security": "Security",
+    "architecture": "Architecture",
+    "research": "Research",
+    "contribute": "Contribute",
+    "download": "Download"
+  },
+  "nav": {
+    "getStarted": "Get started",
+    "github": "GitHub",
+    "product": {
+      "label": "Product",
+      "how": { "label": "How it works", "note": "Capture, consolidate, recall, hand off" },
+      "architecture": { "label": "Architecture", "note": "One binary, markdown files, a derived index" },
+      "security": { "label": "Security", "note": "What is stored, what leaves, how to lock it down" },
+      "research": { "label": "Research and rationale", "note": "Karpathy’s wiki, OKF, and the benchmarks" }
+    },
+    "solutions": {
+      "label": "Solutions",
+      "individuals": { "label": "For individuals", "note": "Switch agents and machines, keep the context" },
+      "teams": { "label": "For teams", "note": "One shared memory, faster onboarding" },
+      "compare": { "label": "Migrating from another tool", "note": "Mem0, Zep, cognee, OpenViking and others" }
+    },
+    "integrations": {
+      "label": "Integrations",
+      "agents": { "label": "Agents and editors", "note": "Claude Code, Codex, Cursor, Gemini CLI and 20 more" },
+      "platforms": { "label": "Operating systems", "note": "Linux, macOS, Windows" },
+      "providers": { "label": "LLM and embedding providers", "note": "Optional. Everything works without one" }
+    },
+    "developers": {
+      "label": "Developers",
+      "install": { "label": "Quick setup", "note": "Solo in three commands, a team in ten minutes" },
+      "advanced": { "label": "Advanced setup", "note": "Homelab, TLS, SSO, air-gapped, backups" },
+      "contribute": { "label": "Contribute", "note": "Where issues, PRs and new harnesses go" },
+      "download": { "label": "Downloads and changelog", "note": "Latest release for every platform" }
+    }
+  },
+  "footer": {
+    "motto": "The model and the harness are rented. The project’s memory is yours.",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "rights": "© {year} <a href=\"{authorUrl}\" class=\"underline\">{author}</a>. All rights reserved. The ai-memory software is open source under the MIT license.",
+    "dockerHub": "Docker Hub",
+    "reportVulnerability": "Report a vulnerability",
+    "cookieSettings": "Cookie settings"
+  },
+  "cta": {
+    "title": "Give your agents a memory today.",
+    "text": "Free and open source under the MIT license. You need no account and no API key.",
+    "primary": "Set it up in 5 minutes",
+    "secondary": "Star it on GitHub"
+  },
+  "code": {
+    "terminal": "Terminal",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "next": {
+    "title": "Keep reading"
+  },
+  "stats": {
+    "stars": "GitHub stars",
+    "contributors": "contributors",
+    "mergedPRs": "merged pull requests",
+    "closedIssues": "issues closed"
+  },
+  "consent": {
+    "label": "Analytics consent",
+    "text": "This site uses Google Analytics to count visits. It shows no ads and does not follow you to other sites. Is that okay?",
+    "decline": "Decline",
+    "accept": "Accept"
+  },
+  "englishOnly": "This part is in English because it comes straight from the project."
+}

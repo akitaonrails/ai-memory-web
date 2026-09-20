@@ -61,7 +61,7 @@ Rules:
 | `Steps` | A numbered procedure with terminal blocks. Props: `steps[{title,text,code,codeTitle}]`. `text` accepts inline HTML. |
 | `CodeBlock` | A terminal with a copy button. Props: `code`, `title`. Lines starting with `#` dim as comments. |
 | `Tabs` | Props: `id`, `labels[]`. Panels are slots named `"0"`, `"1"`... |
-| `Figure` | A generated diagram. Props: `src` (imported image), `alt` (describe what the diagram says), `caption`, `zoom`. |
+| `Figure` | A generated diagram. Props: `name` (file name in `src/assets/img/gen/`; the translated copy is used when one exists), or `src` for a screenshot, `alt` (describe what the diagram says), `caption`, `zoom`. |
 | `Callout` | Limits and caveats. Props: `title`, `hue`. |
 | `GithubStats` | The four live numbers. |
 | `NextPages` | Two or three onward links at the bottom of a detail page. |
@@ -96,6 +96,10 @@ The reader is a developer deciding whether to install something. Tell them what 
 - Say where the project is behind. The repository's own comparison does, and it is the most persuasive thing on the site.
 - No em dashes or en dashes. No "not X, but Y" constructions. No three-item lists for rhythm. No closing one-liners that restate the section. No "seamless", "robust", "powerful", "unlock", "effortless", "key", "crucial", "landscape". No arrows or emoji in text.
 - Do not claim: multi-tenant or enterprise readiness, automatic cross-machine sync (it is one server that many machines reach), forensic deletion, endorsement by Google, Anthropic or anyone else.
+
+## Languages
+
+Every visible string lives in `src/i18n/locales/`, never in an `.astro` file, and CSS uses logical properties so Hebrew mirrors. See [i18n.md](i18n.md).
 
 ## Images
 

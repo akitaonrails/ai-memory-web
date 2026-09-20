@@ -1,0 +1,219 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Steps from '@/components/Steps.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import GithubStats from '@/components/GithubStats.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+import type { Hue } from '@/data/site';
+import { getGithub, compact } from '@/data/github';
+
+const { t, raw, number } = useI18n(Astro, 'contribute');
+const gh = await getGithub();
+const latest = gh.releases.find((r) => !r.prerelease) ?? gh.releases[0];
+const blob = `${site.repo}/blob/main`;
+
+// Structure here, words in src/i18n/locales/<locale>/contribute.json.
+const badges = [
+  { id: 'release', v: latest.tag, href: latest.url, hue: 'green' },
+  { id: 'license', v: gh.license, href: `${blob}/LICENSE`, hue: 'azure' },
+  { id: 'stars', v: compact(gh.stars), href: `${site.repo}/stargazers`, hue: 'amber', live: 'stars' },
+  { id: 'forks', v: compact(gh.forks), href: `${site.repo}/forks`, hue: 'violet' },
+  { id: 'openIssues', v: number(gh.openIssues), href: `${site.repo}/issues`, hue: 'teal' },
+].map((b) => ({ ...b, k: t(`numbers.badges.${b.id}`) }));
+
+const wayMeta: { id: string; href: string; hue: Hue }[] = [
+  { id: 'bug', href: `${site.repo}/issues/new?template=bug.md`, hue: 'rose' },
+  { id: 'feature', href: `${site.repo}/issues/new?template=feature.md`, hue: 'violet' },
+  { id: 'firstIssue', href: `${site.repo}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22`, hue: 'green' },
+  { id: 'harness', href: `${site.docs}/managed-harness-contributions.md`, hue: 'azure' },
+  { id: 'docs', href: `${site.repo}/tree/main/docs`, hue: 'teal' },
+  { id: 'companion', href: `${site.docs}/companion-crates.md`, hue: 'amber' },
+];
+const ways = wayMeta.map((w) => ({ ...w, ...raw<{ title: string; text: string; link: string }>(`ways.items.${w.id}`) }));
+
+// Commands never change with the language. Only the comments do.
+const buildCode = [
+  `git clone https://github.com/akitaonrails/ai-memory
+cd ai-memory
+cargo build --workspace
+cargo test --workspace --all-targets`,
+  `cargo t                        # ${t('build.comments.allButSlow')}
+cargo t -p ai-memory-store     # ${t('build.comments.oneCrate')}
+cargo t -E 'test(/purge/)'     # ${t('build.comments.oneTopic')}`,
+  `scripts/install-git-hooks.sh`,
+  `cargo fmt --all -- --check
+git diff --check
+cargo clippy --workspace --all-targets -- -D warnings
+cargo tf                            # ${t('build.comments.everyTest')}
+cargo deny check                    # ${t('build.comments.dependencyPolicy')}`,
+  `git log --format='%h %an <%ae>' "$(git merge-base HEAD origin/main)"..HEAD`,
+];
+const build = raw<{ title: string; text: string; codeTitle: string }[]>('build.steps').map((s, i) => ({ ...s, code: buildCode[i] }));
+
+const rules = raw<{ title: string; text: string }[]>('rules.landing.items');
+const invariants = raw<string[]>('rules.invariants.items');
+
+const crates = ['core', 'store', 'wiki', 'mcp', 'hooks', 'llm', 'consolidate', 'web', 'workstream', 'cli']
+  .map((id) => [`ai-memory-${id}`, t(`map.crates.${id}`)]);
+const dirs = ['companions', 'hooks', 'evals', 'docs', 'tests'].map((id) => [`${id}/`, t(`map.dirs.${id}`)]);
+
+const review = raw<{ title: string; text: string }[]>('review.items');
+
+const nextMeta: { href: string; hue: Hue }[] = [
+  { href: '/architecture/', hue: 'azure' },
+  { href: '/research/', hue: 'violet' },
+  { href: '/integrations/', hue: 'violet' },
+];
+const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i) => ({ ...n, ...nextMeta[i] }));
+---
+<Base title={t('meta.title')} description={t('meta.description')}>
+  <PageHero hue="teal" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede', { n: number(gh.contributors) })}>
+    <a href="#ways" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={`${blob}/CONTRIBUTING.md`} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <!-- (a) + (g) numbers, badges, people -->
+  <Section id="numbers" hue="teal" title={t('numbers.title')} lede={t('numbers.lede')}>
+    <ul class="badges" aria-label={t('numbers.badgesLabel')}>
+      {badges.map((b) => (
+        <li><a href={b.href} class="gbadge" data-hue={b.hue}><span class="k">{b.k}</span><span class="v" data-gh={b.live}>{b.v}</span></a></li>
+      ))}
+    </ul>
+    <div class="mt-12"><GithubStats /></div>
+
+    <h3 class="text-xl mt-16">{t('numbers.top')}</h3>
+    <ul class="wall mt-6" data-reveal="children">
+      {gh.people.map((p) => (
+        <li>
+          <a href={p.url} title={t('numbers.commits', { login: p.login, n: number(p.contributions) })}>
+            <img src={`${p.avatar}&s=96`} alt={t('numbers.avatarAlt', { login: p.login })} width="48" height="48" loading="lazy" />
+            <span dir="ltr">{p.login}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-6"><a class="underline font-semibold" href={`${site.repo}/graphs/contributors`}>{t('numbers.all', { n: number(gh.contributors) })}</a></p>
+  </Section>
+
+  <!-- (b) ways in -->
+  <Section id="ways" hue="teal" tint title={t('ways.title')} lede={t('ways.lede')}>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal="children">
+      {ways.map((w) => (
+        <a href={w.href} class="way" data-hue={w.hue}>
+          <h3 class="text-xl">{w.title}</h3>
+          <p class="mt-2.5 text-muted">{w.text}</p>
+          <span class="go">{w.link}</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-10">
+      <Callout title={t('ways.security.title')} hue="rose">
+        <p set:html={t('ways.security.text', { advisory: `${site.repo}/security/advisories/new`, policy: `${blob}/SECURITY.md` })} />
+      </Callout>
+    </div>
+    <Figure name="contribute-flow" alt={t('ways.figure.alt')} caption={t('ways.figure.caption')} />
+  </Section>
+
+  <!-- (c) build -->
+  <Section id="build" hue="amber" title={t('build.title')} lede={t('build.lede')}>
+    <Steps steps={build} />
+  </Section>
+
+  <!-- (d) rules -->
+  <Section id="rules" hue="violet" tint title={t('rules.title')} lede={t('rules.lede')}>
+    <div class="grid lg:grid-cols-2 gap-x-16 gap-y-12">
+      <div>
+        <h3 class="text-xl">{t('rules.landing.title')}</h3>
+        <ul class="mt-5 space-y-5">
+          {rules.map((r) => (
+            <li class="rule">
+              <p class="font-semibold">{r.title}</p>
+              <p class="text-muted mt-1">{r.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl">{t('rules.invariants.title')}</h3>
+        <ul class="mt-5 space-y-3 text-muted ticks">
+          {invariants.map((i) => <li set:html={i} />)}
+        </ul>
+        <p class="mt-6"><a class="underline font-semibold" href={`${blob}/AGENTS.md`}>{t('rules.invariants.full')}</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- (e) map -->
+  <Section id="map" hue="azure" title={t('map.title')} lede={t('map.lede')}>
+    <Figure name="contribute-crates" alt={t('map.figure.alt')} caption={t('map.figure.caption')} />
+    <div class="table-wrap">
+      <table class="table-site">
+        <thead><tr><th>{t('map.colCrate')}</th><th>{t('map.colWhat')}</th></tr></thead>
+        <tbody>{crates.map(([name, what]) => <tr><td><code>{name}</code></td><td>{what}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <h3 class="text-xl mt-14">{t('map.outside')}</h3>
+    <div class="table-wrap mt-5">
+      <table class="table-site">
+        <thead><tr><th>{t('map.colDirectory')}</th><th>{t('map.colWhat')}</th></tr></thead>
+        <tbody>{dirs.map(([name, what]) => <tr><td><code>{name}</code></td><td>{what}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-muted max-w-[40em]" set:html={t('map.tests')} />
+  </Section>
+
+  <!-- (f) review -->
+  <Section id="review" hue="green" tint title={t('review.title')} lede={t('review.lede')}>
+    <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10" data-reveal="children">
+      {review.map((r) => (
+        <li class="feat">
+          <h3 class="text-xl">{r.title}</h3>
+          <p class="mt-2.5 text-muted">{r.text}</p>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-12 min-w-0 max-w-[48rem]">
+      <p class="text-muted">{t('review.harness')}</p>
+      <div class="mt-4"><CodeBlock title={t('review.harnessCodeTitle')} code={`cargo fmt --check
+git diff --check
+cargo test --workspace
+cargo clippy --workspace --all-targets -- -D warnings`} /></div>
+    </div>
+  </Section>
+
+  <NextPages links={nextPages} />
+  <CtaBand title={t('cta.title')} text={t('cta.text')} />
+</Base>
+
+<style>
+  .badges { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .gbadge { display: inline-flex; align-items: stretch; border-radius: .5rem; overflow: hidden; border: 1px solid var(--line); font-size: .9rem; font-weight: 600; line-height: 1; transition: border-color .2s; }
+  .gbadge:hover { border-color: var(--hue-vivid); }
+  .gbadge .k { padding: .5rem .7rem; background: var(--tint); color: var(--muted); }
+  .gbadge .v { padding: .5rem .7rem; background: var(--hue-soft); color: var(--hue); font-variant-numeric: tabular-nums; }
+
+  .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .5rem .75rem; }
+  .wall a { display: flex; align-items: center; gap: .7rem; padding: .4rem; border-radius: 999px; min-width: 0; transition: background-color .2s; }
+  .wall a:hover { background: var(--tint); }
+  .wall img { width: 3rem; height: 3rem; border-radius: 50%; flex: none; background: var(--tint); }
+  .wall span { font-weight: 600; font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .way { display: flex; flex-direction: column; padding: 1.6rem 1.75rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--hue-vivid); transition: transform .4s var(--ease-out-quint); }
+  .way:hover { transform: translateY(-3px); }
+  .way .go { margin-top: auto; padding-top: 1.25rem; font-weight: 600; color: var(--hue); text-decoration: underline; }
+
+  .rule { border-inline-start: 3px solid var(--hue-vivid); padding-inline-start: 1rem; max-width: 40em; }
+  .ticks li { position: relative; padding-inline-start: 1.5rem; max-width: 40em; }
+  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .8rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
+  .feat { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
+  :global(.band) :is(td, p, li) > :global(code) { background: var(--tint); border-radius: .35em; padding: .1em .35em; font-size: .92em; }
+  :global(.bg-tint) :is(td, p, li) > :global(code) { background: var(--surface); }
+</style>

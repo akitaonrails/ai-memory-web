@@ -6,6 +6,7 @@ document.addEventListener('click', async (e) => {
   await navigator.clipboard.writeText(text.replace(/^\$ /gm, ''));
   const label = btn.querySelector('[data-copy-label]');
   if (!label) return;
-  label.textContent = 'Copied';
-  setTimeout(() => (label.textContent = 'Copy'), 1600);
+  const idle = label.textContent;
+  label.textContent = (label as HTMLElement).dataset.copied ?? idle;
+  setTimeout(() => (label.textContent = idle), 1600);
 });

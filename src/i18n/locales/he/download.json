@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "הורדת ai-memory ויומן השינויים",
+    "description": "הורדת ai-memory {tag} ל-Linux, macOS ו-Windows, או התקנה דרך mise, AUR או Docker. כולל checksums, היסטוריית גרסאות ויומן השינויים המלא של הפרויקט."
+  },
+  "hero": {
+    "kicker": "מפתחים",
+    "title": "הורדת ai-memory {tag}",
+    "lede": "שוחררה ב-{date}. קובץ בינארי עצמאי אחד לכל פלטפורמה, ולצידו checksum מסוג SHA-256. ברישיון MIT.",
+    "primary": "בחירת פלטפורמה",
+    "secondary": "מה השתנה"
+  },
+  "builds": {
+    "title": "קבצים בינאריים",
+    "yours": "נראה שזו המערכת שלך",
+    "checksum": "checksum מסוג SHA-256",
+    "verifyTitle": "אימות הורדה",
+    "after": "אחרי החילוץ, עוברים אל <a class=\"underline font-semibold text-text\" href=\"{href}\">ההתקנה המהירה</a>. היא לוקחת שלוש פקודות.",
+    "linux": { "note": "מחלצים, מריצים ./ai-memory init ואז serve." },
+    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "כולל launchd agent. אם ההורדה נעשתה בדפדפן, צריך קודם להסיר את דגל ה-quarantine." },
+    "win": { "note": "ניסיוני. המסלול הנתמך הוא WSL2 עם ה-build של Linux." }
+  },
+  "channels": {
+    "title": "מנהלי חבילות וקונטיינרים",
+    "mise": { "title": "mise", "note": "Linux ו-macOS. מאמת את ה-checksum בשבילך. גרסאות חדשות יכולות להופיע באיחור של יום בערך." },
+    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "בנוי מראש", "source": "מקוד מקור", "note": "מתקין יחידות systemd לשירות משתמש או לשירות מערכת." },
+    "docker": { "title": "Docker או Podman", "note": "Multi-arch: linux/amd64 ו-linux/arm64, כך ש-Apple Silicon לא צריך אמולציה." },
+    "src": { "title": "מקוד מקור", "note": "דורש את ה-toolchain של Rust בגרסה שמקובעת ב-rust-toolchain.toml." },
+    "clients": "מחשבי לקוח שרק שולחים hooks לשרת מרוחק לא צריכים את הקובץ הבינארי המלא. הגרסה כוללת גם את <code>ai-memory-install-hooks</code> וסקריפטי wrapper ל-Docker ב-Linux, macOS ו-Windows. כולם מופיעים ב<a class=\"underline font-semibold text-text\" href=\"{href}\">דף הגרסה</a>."
+  },
+  "changelog": {
+    "title": "יומן שינויים",
+    "lede": "{n} הגרסאות האחרונות. מאז 2.0 הפרויקט עובד לפי semantic versioning.",
+    "kinds": { "Added": "{n} נוספו", "Changed": "{n} שונו", "Fixed": "{n} תוקנו", "Security": "{n} אבטחה", "Removed": "{n} הוסרו", "Deprecated": "{n} הוצאו משימוש" },
+    "full": "יומן השינויים המלא ב-GitHub",
+    "releases": "כל הגרסאות",
+    "upgrading": "שדרוג מ-1.x"
+  },
+  "next": [
+    { "title": "התקנה מהירה", "text": "מקובץ בינארי לזיכרון עובד בשלוש פקודות." },
+    { "title": "אינטגרציות", "text": "בדיקת הסוכן ומערכת ההפעלה." },
+    { "title": "התקנה מתקדמת", "text": "שירותים, TLS, גיבויים ושדרוגים." }
+  ]
+}

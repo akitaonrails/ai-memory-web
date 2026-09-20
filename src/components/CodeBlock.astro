@@ -1,14 +1,16 @@
 ---
 // A terminal-style block. Pass the code as the default slot or `code` prop. Lines starting with "# " render as comments.
+import { useI18n } from '@/i18n';
 interface Props { title?: string; code: string; hue?: string }
-const { title = 'Terminal', code, hue } = Astro.props;
+const { t } = useI18n(Astro);
+const { title = t('code.terminal'), code, hue } = Astro.props;
 const lines = code.trim().split('\n');
 ---
-<figure class="code" data-code data-hue={hue}>
+<figure class="code" data-code data-hue={hue} dir="ltr">
   <figcaption>
     <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="title">{title}</span>
-    <button type="button" data-copy class="copy"><span data-copy-label>Copy</span></button>
+    <button type="button" data-copy class="copy"><span data-copy-label data-copied={t('code.copied')}>{t('code.copy')}</span></button>
   </figcaption>
   <pre tabindex="0"><code>{lines.map((l) => <span class:list={['line', { c: l.trimStart().startsWith('#') }]}>{l + '\n'}</span>)}</code></pre>
 </figure>

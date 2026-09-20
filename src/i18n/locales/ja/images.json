@@ -1,0 +1,165 @@
+{
+  "advanced-backup-flow": {
+    "Backup": "バックアップ",
+    "Running server": "稼働中のサーバー",
+    "Restore": "リストア",
+    "Server stopped": "サーバー停止"
+  },
+  "advanced-data-dir": {
+    "Source of truth": "正本",
+    "Derived": "派生"
+  },
+  "advanced-tls-proxy": {
+    "Reverse proxy": "リバースプロキシ",
+    "Same host": "同一ホスト"
+  },
+  "advanced-topologies": {
+    "Laptop only": "ノートPCのみ",
+    "Homelab box": "ホームラボ",
+    "LAN with TLS": "TLS付きLAN",
+    "Tunnel": "トンネル"
+  },
+  "architecture-layers": {
+    "Markdown in git": "git上のMarkdown",
+    "Source of truth": "正本",
+    "SQLite index": "SQLiteインデックス",
+    "Derived": "派生",
+    "Writer": "ライター",
+    "File watcher": "ファイル監視",
+    "Reindex": "再インデックス"
+  },
+  "architecture-pipeline": {
+    "Hook": "フック",
+    "Sanitize": "サニタイズ",
+    "Single writer": "単一ライター",
+    "Observations": "オブザベーション",
+    "Session page": "セッションページ",
+    "Optional LLM": "LLM（任意）",
+    "Git wiki": "Git wiki",
+    "Briefing": "ブリーフィング"
+  },
+  "architecture-retrieval": {
+    "Query": "クエリ",
+    "Entities": "エンティティ",
+    "Graph": "グラフ",
+    "Vectors": "ベクトル",
+    "Authority": "権威度",
+    "Results": "結果"
+  },
+  "compare-side-by-side": {
+    "Git history": "Git履歴",
+    "README and docs": "READMEとドキュメント",
+    "Your agent": "あなたのエージェント",
+    "Current memory tool": "今のメモリツール"
+  },
+  "compare-stack": {
+    "Typical memory stack": "よくあるメモリスタック",
+    "Vector store": "ベクトルストア",
+    "Graph database": "グラフDB",
+    "Python service": "Pythonサービス",
+    "One binary": "単一バイナリ",
+    "Markdown folder": "Markdownフォルダ"
+  },
+  "contribute-flow": {
+    "Issue": "Issue",
+    "Branch": "ブランチ",
+    "Local gates": "ローカルチェック",
+    "Pull request": "Pull request",
+    "Review": "レビュー",
+    "Next release": "次のリリース"
+  },
+  "how-it-works": {
+    "Capture": "キャプチャ",
+    "Consolidate": "統合",
+    "Recall": "想起",
+    "Hand off": "引き継ぎ",
+    "A git-backed wiki of plain markdown files": "プレーンなmarkdownでできたgit管理のwiki"
+  },
+  "individuals-handoff": {
+    "Handoff": "引き継ぎ",
+    "Summary": "要約",
+    "Next steps": "次のステップ",
+    "Open questions": "未解決の質問",
+    "Claimed once": "受け取りは一度だけ"
+  },
+  "individuals-machines": {
+    "One ai-memory server": "ai-memoryサーバー1台",
+    "Notebook": "ノートPC",
+    "Offline": "オフライン",
+    "Local spool": "ローカルスプール",
+    "Drains later": "後で送信"
+  },
+  "individuals-markdown": {
+    "wiki/ plain markdown": "wiki/ プレーンなmarkdown",
+    "Edit": "編集",
+    "git history": "git履歴"
+  },
+  "install-solo-path": {
+    "Install": "インストール",
+    "Start the server": "サーバーを起動",
+    "Run your agent": "エージェントを実行"
+  },
+  "install-team-topology": {
+    "One shared server": "共有サーバー1台",
+    "Token": "トークン",
+    "One API key each": "1人に1つのAPIキー",
+    "One wiki for the team": "チームで1つのwiki"
+  },
+  "integrations-hooks-vs-mcp": {
+    "Hooks": "フック",
+    "Automatic capture": "自動キャプチャ",
+    "Tools the agent calls": "エージェントが呼ぶツール",
+    "Your agent": "あなたのエージェント",
+    "Memory": "記憶"
+  },
+  "integrations-hub": {
+    "One memory": "1つの記憶"
+  },
+  "research-okf-bundle": {
+    "One project": "1つのプロジェクト",
+    "Decision": "決定事項",
+    "Gotcha": "落とし穴",
+    "Procedure": "手順",
+    "Another OKF tool": "別のOKFツール"
+  },
+  "research-three-layers": {
+    "Raw sources": "生のソース",
+    "Wiki": "Wiki",
+    "Schema": "スキーマ",
+    "Hook observations": "フックの観測",
+    "Markdown in git": "git上のMarkdown",
+    "AGENTS.md block": "AGENTS.mdのブロック"
+  },
+  "security-boundary": {
+    "Hook payload": "フックのペイロード",
+    "Secrets dropped": "シークレットを除去",
+    "Stored": "保存",
+    "Size capped": "サイズ上限あり"
+  },
+  "security-egress": {
+    "Your machine": "あなたのマシン",
+    "Third parties": "第三者",
+    "Hooks": "フック",
+    "Wiki and index": "wikiとインデックス",
+    "Local embedder": "ローカル埋め込み",
+    "Cloud embeddings": "クラウド埋め込み",
+    "Cloud LLM": "クラウドLLM",
+    "LLM rerank": "LLMリランク",
+    "Opt-in, off by default": "オプトイン、既定はオフ"
+  },
+  "teams-first-day": {
+    "Get an API key": "APIキーを取得",
+    "Point at the server": "サーバーを指定",
+    "Catch me up": "状況を教えて",
+    "Search the wiki": "wikiを検索",
+    "Day one": "初日"
+  },
+  "teams-shared-owned": {
+    "Knowledge is shared": "知識は共有",
+    "Batons are owned": "バトンは1人のもの"
+  },
+  "teams-topology": {
+    "One ai-memory server": "ai-memoryサーバー1台",
+    "Project wiki": "プロジェクトのwiki"
+  }
+}

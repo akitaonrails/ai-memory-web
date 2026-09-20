@@ -1,0 +1,214 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Steps from '@/components/Steps.astro';
+import Tabs from '@/components/Tabs.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Callout from '@/components/Callout.astro';
+import Figure from '@/components/Figure.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+
+const { t, raw, href } = useI18n(Astro, 'install');
+const readme = `${site.repo}#docker`;
+const doc = (file: string) => `${site.docs}/${file}`;
+
+// Structure and commands here, words in src/i18n/locales/<locale>/install.json.
+// Every command below is copied from README.md, docs/install.md, docs/macos.md, docs/windows.md or docs/users.md.
+interface StepText { title: string; text?: string; codeTitle?: string; [k: string]: string | undefined }
+const links: Record<string, string> = {
+  services: href('/advanced/#services'),
+  tls: href('/advanced/#tls'),
+  readme,
+  windowsDoc: doc('windows.md'),
+  usersDoc: doc('users.md'),
+};
+const fill = (s?: string) => s?.replace(/\{(\w+)\}/g, (m, k) => links[k] ?? m);
+/** Catalog words plus the code for each step, merged by index. */
+const steps = (key: string, code: (string | undefined | ((s: StepText) => string))[]) =>
+  raw<StepText[]>(key).map((s, i) => {
+    const c = code[i];
+    return { title: s.title, text: fill(s.text), codeTitle: s.codeTitle, code: typeof c === 'function' ? c(s) : c };
+  });
+
+const wire = `ai-memory install-mcp   --client claude-code --apply
+ai-memory install-hooks --agent  claude-code --apply`;
+
+const mise = steps('solo.mise', [
+  'mise use -g github:akitaonrails/ai-memory',
+  `ai-memory init
+ai-memory serve --transport http --bind 127.0.0.1:49374`,
+  'ai-memory run claude',
+]);
+
+const aur = steps('solo.aur', [
+  (s) => `yay -S ai-memory-bin    # ${s.prebuilt}
+yay -S ai-memory        # ${s.source}`,
+  `mkdir -p ~/.config/ai-memory ~/.local/share/ai-memory
+ai-memory --data-dir ~/.local/share/ai-memory \\
+  --config ~/.config/ai-memory/config.toml init`,
+  'systemctl --user enable --now ai-memory.service',
+  'ai-memory run claude',
+]);
+
+const macos = steps('solo.macos', [
+  `mkdir -p ~/Applications/ai-memory && cd ~/Applications/ai-memory
+curl -fsSL -O https://github.com/akitaonrails/ai-memory/releases/latest/download/ai-memory-macos-aarch64.tar.gz
+tar -xzf ai-memory-macos-aarch64.tar.gz`,
+  `./ai-memory init
+./ai-memory serve --transport http --bind 127.0.0.1:49374`,
+  `cd ~/Applications/ai-memory
+./ai-memory install-hooks --agent claude-code --apply
+./ai-memory install-mcp --client claude-code --apply`,
+]);
+
+const docker = steps('solo.docker', [
+  undefined,
+  `docker run -d --name ai-memory \\
+    --restart unless-stopped \\
+    -p 127.0.0.1:49374:49374 \\
+    -v ai-memory-data:/data \\
+    docker.io/akitaonrails/ai-memory:latest`,
+  wire,
+]);
+
+const windows = steps('solo.windows', [
+  undefined,
+  `docker run -d --name ai-memory \\
+    --restart unless-stopped \\
+    -p 127.0.0.1:49374:49374 \\
+    -v ai-memory-data:/data \\
+    akitaonrails/ai-memory:latest`,
+  `ai-memory install-mcp --client claude-code --apply
+ai-memory install-hooks --agent claude-code --apply`,
+]);
+
+const team = steps('team.steps', [
+  `TOKEN=$(ai-memory generate-auth-token)
+docker run -d --name ai-memory \\
+    --restart unless-stopped \\
+    -p 0.0.0.0:49374:49374 \\
+    -v ai-memory-data:/data \\
+    -e AI_MEMORY_AUTH_TOKEN="$TOKEN" \\
+    -e AI_MEMORY_ALLOWED_HOSTS="<server-ip>,localhost,127.0.0.1" \\
+    akitaonrails/ai-memory:latest`,
+  'ai-memory user add-human --username alice --email alice@home --name "Alice Smith"',
+  'ai-memory api-key add --username alice --label codex-laptop',
+  (s) => `# ${s.tokenComment}
+export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
+export AI_MEMORY_AUTH_TOKEN="$TOKEN"
+
+ai-memory install-mcp   --client claude-code --apply
+ai-memory install-hooks --apply --agent claude-code \\
+    --as-user alice --auth-token aim_XGq...<secret>`,
+  undefined,
+]);
+
+const howTo = {
+  '@type': 'HowTo',
+  name: t('howTo.name'),
+  description: t('howTo.description'),
+  tool: [{ '@type': 'HowToTool', name: 'mise' }],
+  step: mise.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.title,
+    text: s.code!.replace(/\n/g, ' && '),
+    url: `https://${site.domain}${href('/install/')}#solo`,
+  })),
+};
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[howTo]}>
+  <PageHero hue="amber" kicker={t('nav.developers.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href="#solo" class="btn btn-primary">{t('solo.title')}</a>
+    <a href="#team" class="btn btn-ghost">{t('team.title')}</a>
+  </PageHero>
+
+  <Section id="solo" hue="amber" title={t('solo.title')} lede={t('solo.lede')}>
+    <div class="tabs-wrap"><Tabs id="platform" labels={raw<string[]>('solo.tabs')}>
+      <div slot="0"><Steps steps={mise} /></div>
+      <div slot="1"><Steps steps={aur} /></div>
+      <div slot="2"><Steps steps={macos} /></div>
+      <div slot="3"><Steps steps={docker} /></div>
+      <div slot="4"><Steps steps={windows} /></div>
+    </Tabs></div>
+    <Figure name="install-solo-path" alt={t('solo.figure.alt')} caption={t('solo.figure.caption')} />
+    <p class="text-muted max-w-[40em]" set:html={t('solo.runNote', { href: doc('managed-workstreams.md') })} />
+  </Section>
+
+  <Section id="check" hue="green" tint title={t('check.title')} lede={t('check.lede')}>
+    <div class="grid gap-8 lg:grid-cols-3">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('check.server.title')}</h3>
+        <p class="mt-2 text-muted">{t('check.server.text')}</p>
+        <div class="mt-4"><CodeBlock code="curl http://127.0.0.1:49374/mcp" /></div>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('check.cli.title')}</h3>
+        <p class="mt-2 text-muted">{t('check.cli.text')}</p>
+        <div class="mt-4"><CodeBlock code="ai-memory status" /></div>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('check.agent.title')}</h3>
+        <p class="mt-2 text-muted">{t('check.agent.text')}</p>
+        <p class="mt-4 ask">{t('check.agent.ask')}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="next" hue="violet" title={t('next.title')} lede={t('next.lede')}>
+    <div class="grid gap-x-8 gap-y-12 lg:grid-cols-3">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('next.agent.title')}</h3>
+        <p class="mt-2 text-muted">{t('next.agent.text')}</p>
+        <div class="mt-4"><CodeBlock code={`ai-memory install-mcp   --client codex --apply
+ai-memory install-hooks --agent  codex --apply`} /></div>
+        <p class="mt-4"><a class="link" href={href('/integrations/#agents')}>{t('next.agent.link')}</a></p>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('next.llm.title')}</h3>
+        <p class="mt-2 text-muted" set:html={t('next.llm.text')} />
+        <div class="mt-4"><CodeBlock title={t('next.llm.codeTitle')} code={`AI_MEMORY_LLM_PROVIDER=anthropic
+ANTHROPIC_API_KEY=sk-ant-...`} /></div>
+        <p class="mt-4"><a class="link" href={href('/integrations/#providers')}>{t('next.llm.link')}</a></p>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('next.undo.title')}</h3>
+        <p class="mt-2 text-muted">{t('next.undo.text')}</p>
+        <div class="mt-4"><CodeBlock code="ai-memory uninstall --apply" /></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="team" hue="teal" tint title={t('team.title')} lede={t('team.lede')}>
+    <Figure name="install-team-topology" alt={t('team.figure.alt')} caption={t('team.figure.caption')} />
+    <div class="steps-wrap"><Steps steps={team} /></div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <Callout title={t('team.oneServer.title')} hue="amber">
+        <p set:html={t('team.oneServer.text')} />
+      </Callout>
+      <Callout title={t('team.limits.title')} hue="rose">
+        <p>{t('team.limits.text')}</p>
+      </Callout>
+    </div>
+  </Section>
+
+  <NextPages links={[
+    { href: '/advanced/', title: t('crumbs.advanced'), text: t('nextPages.advanced'), hue: 'azure' },
+    { href: '/integrations/', title: t('crumbs.integrations'), text: t('nextPages.integrations'), hue: 'violet' },
+    { href: '/security/', title: t('crumbs.security'), text: t('nextPages.security'), hue: 'rose' },
+  ]} />
+  <CtaBand title={t('help.title')} text={t('help.text')} />
+</Base>
+
+<style>
+  @media (max-width: 48rem) { .tabs-wrap :global(.tablist) { border-radius: 1.25rem; } }
+  .tabs-wrap :global(.steps a), .steps-wrap :global(.steps a) { color: var(--hue); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
+  .ask { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.3; color: var(--hue); }
+  .link, p :global(a.link) { color: var(--hue, var(--text)); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
+  p :global(code), p code { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .92em; }
+</style>

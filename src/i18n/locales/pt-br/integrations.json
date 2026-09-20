@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "Agentes, sistemas operacionais e provedores suportados",
+    "description": "Agentes de código, editores, sistemas operacionais e provedores de LLM ou embeddings que o ai-memory suporta, com comando de instalação e status de cada um."
+  },
+  "hero": {
+    "kicker": "Integrações",
+    "title": "Seus agentes, seu SO, seus provedores",
+    "lede": "{n} agentes de código e editores, quatro alvos de sistema operacional e uma lista de provedores de LLM e embeddings que você pode ignorar, porque tudo funciona sem nenhum.",
+    "primary": "Encontre seu agente",
+    "secondary": "Ir para a instalação rápida"
+  },
+  "hub": {
+    "title": "Muitos agentes, uma memória",
+    "lede": "Cada agente se conecta ao mesmo servidor. O que o Claude Code aprendeu de manhã está lá quando você abre o Codex à tarde.",
+    "figureAlt": "Diagrama hub and spoke: Claude Code, Codex, Cursor, Gemini CLI, OpenCode e Zed se conectam a uma única memória no centro."
+  },
+  "agents": {
+    "title": "Agentes e editores",
+    "lede": "Filtre por status e escolha uma linha para ver os comandos de instalação.",
+    "filterLabel": "Filtrar agentes por status",
+    "all": "Todos",
+    "caption": "Agentes de código e editores suportados",
+    "cols": {
+      "agent": "Agente",
+      "status": "Status",
+      "notes": "Notas"
+    },
+    "managed": "Gerenciado",
+    "direct": "Abertura direta",
+    "commands": {
+      "mcp": "as ferramentas de memória, via MCP",
+      "hooks": "captura automática, pelos hooks de ciclo de vida",
+      "hooksOnly": "prepara os scripts de hook e imprime um trecho para colar nas configurações do agente",
+      "managedOnly": "abra pelo ai-memory",
+      "orManaged": "ou abra no modo gerenciado; os dois se configuram sozinhos"
+    },
+    "dryRun": "Tire o --apply para imprimir a mudança sem gravar.",
+    "community": "O ai-memory não traz instalador para este. O servidor reconhece os eventos de hook dele, e o plugin é mantido pela comunidade. Revise antes de instalar: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin no GitHub</a>.",
+    "statusTitle": "O que cada status significa",
+    "after": "Detalhes por agente, locais dos arquivos de configuração e peculiaridades conhecidas estão na <a class=\"underline font-semibold text-text\" href=\"{matrix}\">matriz de suporte</a> e no <a class=\"underline font-semibold text-text\" href=\"{mcp}\">guia de instalação do MCP</a>."
+  },
+  "lanes": {
+    "title": "Hooks capturam, MCP responde",
+    "lede": "São duas conexões separadas, e um agente com suporte completo tem as duas. Os status acima dizem quais o seu agente recebe.",
+    "figureAlt": "Diagrama com duas pistas. Hooks: seu agente envia eventos para a memória por conta própria, que é a captura automática. MCP: seu agente manda uma requisição para a memória e recebe uma resposta, que são as ferramentas que o agente chama.",
+    "hooksTitle": "Hooks",
+    "hooksText": "Os eventos de ciclo de vida do agente disparam um comando pequeno que registra prompts, chamadas de ferramenta e os limites da sessão. Você não faz nada, e o agente não gasta tokens com isso. Segredos são removidos antes de qualquer coisa ser armazenada.",
+    "mcpText": "O agente ganha ferramentas de memória que pode chamar quando a conversa pede: buscar, ler uma página, escrever uma página, aceitar um handoff. Agentes que só têm MCP usam a memória por completo, mas nada é capturado a menos que eles escrevam.",
+    "managedTitle": "O que o “gerenciado” acrescenta",
+    "managedText": "<code>ai-memory run &lt;agent&gt;</code> abre o agente com hooks e MCP já configurados, e retoma o mesmo trabalho quando você troca entre agentes gerenciados. Agentes marcados como “abertura direta” funcionam do jeito normal: instale uma vez e depois abra como sempre."
+  },
+  "os": {
+    "title": "Sistemas operacionais",
+    "lede": "Um binário Rust por plataforma. No Windows, o WSL2 é o caminho suportado e a build nativa é experimental.",
+    "caption": "Sistemas operacionais suportados",
+    "cols": {
+      "platform": "Plataforma",
+      "status": "Status",
+      "how": "Como instala",
+      "notes": "Notas"
+    },
+    "how": {
+      "linux": "Tarball da release, imagem Docker ou Podman, ou um pacote do AUR",
+      "macos": "Tarball da release com um agente launchd, ou Docker",
+      "windows-via-wsl2": "O binário de Linux, dentro do WSL2",
+      "native-windows": "Zip da release, wrapper para Docker Desktop, ou build a partir do código-fonte"
+    },
+    "download": "Baixar a última release",
+    "windowsGuide": "Leia o guia de Windows"
+  },
+  "providers": {
+    "title": "Provedores de LLM e embeddings",
+    "lede": "Os dois são opcionais. Sem nenhum, os hooks continuam capturando, a busca continua funcionando, e toda sessão continua terminando com uma página de resumo e um handoff.",
+    "embeddings": {
+      "title": "Embeddings: locais por padrão",
+      "text": "Desde a 2.0, a busca vetorial roda in-process com um modelo aberto pequeno. Não precisa de chave de API nem de GPU. O modelo tem cerca de 87 MB, é baixado em background na primeira inicialização, e a busca híbrida liga no próximo restart. Se o download falhar, a busca continua funcionando em full-text.",
+      "note": "Desative com <code>embedding_provider = \"none\"</code>. Um provedor que você mesmo configurou nunca é sobrescrito."
+    },
+    "llm": {
+      "title": "LLM: desligado por padrão",
+      "text": "Adicione um quando quiser consolidação escrita por LLM, <code>ai-memory bootstrap</code>, linting mais rico, auto-improve ou reranking. Um modelo pequeno e rápido é do tamanho certo para esse trabalho. Logins de assinatura funcionam, então não é preciso ter uma chave de API paga de plataforma.",
+      "note": "Teste um provedor com <code>ai-memory llm-test</code>. Cadeias de fallback são suportadas."
+    },
+    "after": "Modelos, padrões e custos estão no <a class=\"underline font-semibold text-text\" href=\"{llm}\">guia de provedores de LLM</a> e no <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">guia de embeddings locais</a>."
+  },
+  "notListed": {
+    "title": "Seu agente não está na lista?",
+    "lede": "Qualquer coisa que fale MCP já pode usar as ferramentas de memória hoje.",
+    "register": "Registre um servidor MCP HTTP remoto neste endereço nas configurações do seu agente. Busca, leitura e escrita de páginas e handoffs funcionam. A captura automática precisa dos hooks de ciclo de vida, então sem eles o agente só lembra do que ele mesmo escreve.",
+    "contribute": "Quer suporte completo para ele? <a href=\"{guide}\">O guia de contribuição de harness gerenciado</a> descreve o que um adapter precisa provar, e <a href=\"{contribute}\">a página de contribuição</a> diz para onde vão issues e pull requests.",
+    "codeTitle": "endpoint MCP",
+    "codeComment": "o servidor local padrão"
+  },
+  "faq": [
+    { "q": "Com quais agentes de código o ai-memory funciona?", "a": "A lista tem {n} agentes e editores, incluindo {names}. {supported} deles têm tanto a captura automática pelos hooks de ciclo de vida quanto as ferramentas de memória via MCP." },
+    { "q": "Qual é a diferença entre hooks e MCP?", "a": "Os hooks capturam as sessões automaticamente: prompts, chamadas de ferramenta e limites de sessão são registrados sem o agente fazer nada. O MCP dá ao agente ferramentas que ele pode chamar para buscar e escrever na memória. Um agente com suporte completo tem os dois." },
+    { "q": "Meu agente não está na lista. Dá para usar mesmo assim?", "a": "Dá, se ele falar MCP. Aponte para http://127.0.0.1:49374/mcp e ele consegue buscar e escrever na memória. Sem hooks de ciclo de vida, nada é capturado automaticamente." },
+    { "q": "Preciso de um LLM ou de um provedor de embeddings?", "a": "Não. Os dois são opcionais. Desde a 2.0 os embeddings padrão rodam in-process com um modelo de cerca de 87 MB, baixado na primeira inicialização, e nenhuma chave de API entra na história." },
+    { "q": "O ai-memory roda no Windows?", "a": "Sim. O WSL2 é suportado pelo caminho do Linux. O Windows nativo é experimental e vem como um zip da release com o ai-memory.exe." }
+  ],
+  "next": [
+    { "title": "Instalação rápida", "text": "Instale o binário, suba o servidor, abra seu agente." },
+    { "title": "Arquitetura", "text": "Como hooks, MCP e a wiki cabem em um binário só." },
+    { "title": "Contribua", "text": "Adicione seu agente, ou conserte o que você usa." }
+  ]
+}

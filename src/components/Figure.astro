@@ -1,12 +1,25 @@
 ---
 // A generated diagram or illustration. Art is drawn on the dark ink ground, so it is framed the same in both themes.
+// Pass `name` for a generated diagram: the component shows src/assets/img/gen/<locale>/<name>.webp when that
+// translation exists and falls back to the English original in src/assets/img/gen/<name>.webp.
+// Pass `src` for any other imported image (screenshots).
 import { Image } from 'astro:assets';
-interface Props { src: ImageMetadata; alt: string; caption?: string; zoom?: boolean; wide?: boolean }
-const { src, alt, caption, zoom = true, wide = false } = Astro.props;
+import { useI18n } from '@/i18n';
+interface Props { name?: string; src?: ImageMetadata; alt: string; caption?: string; zoom?: boolean }
+const { name, src, alt, caption, zoom = true } = Astro.props;
+const { locale } = useI18n(Astro);
+
+const originals = import.meta.glob<{ default: ImageMetadata }>('/src/assets/img/gen/*.webp', { eager: true });
+const localized = import.meta.glob<{ default: ImageMetadata }>('/src/assets/img/gen/*/*.webp', { eager: true });
+const image = src
+  ?? localized[`/src/assets/img/gen/${locale}/${name}.webp`]?.default
+  ?? originals[`/src/assets/img/gen/${name}.webp`]?.default;
+if (!image) throw new Error(`Figure: no image for name="${name}"`);
 ---
-<figure class:list={['fig', { wide }]}>
-  <div class="frame" data-zoom={zoom ? '' : undefined}>
-    <Image src={src} alt={alt} widths={[640, 960, 1280, 1920]} sizes="(min-width: 1280px) 1216px, 94vw" quality={82} class="w-full h-auto block" />
+<figure class="fig">
+  {/* Diagrams read left to right in every language, like the logo. */}
+  <div class="frame" dir="ltr" data-zoom={zoom ? '' : undefined}>
+    <Image src={image} alt={alt} widths={[640, 960, 1280, 1920]} sizes="(min-width: 1280px) 1216px, 94vw" quality={82} class="w-full h-auto block" />
   </div>
   {caption && <figcaption>{caption}</figcaption>}
 </figure>

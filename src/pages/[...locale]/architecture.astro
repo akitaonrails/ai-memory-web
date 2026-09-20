@@ -1,0 +1,270 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+
+const { t, raw, number, dir } = useI18n(Astro, 'architecture');
+type Item = { title: string; text: string };
+
+// Structure here (paths, hues, numbers, crate and tool names), words in src/i18n/locales/<locale>/architecture.json.
+const tree = [
+  { path: 'wiki/', note: 'wiki', hue: 'green' },
+  { path: 'db/memory.sqlite', note: 'db', hue: 'azure' },
+  { path: 'raw/', note: 'raw', hue: 'teal' },
+  { path: 'models/', note: 'models', hue: 'violet' },
+  { path: 'logs/', note: 'logs', hue: 'rose' },
+  { path: 'config.toml', note: 'config', hue: 'amber' },
+].map((n) => ({ ...n, note: t(`layout.tree.${n.note}`) }));
+
+const llmSteps = [false, false, false, false, false, true, false, false];
+const pipeline = raw<Item[]>('pipeline.steps').map((p, i) => ({ ...p, llm: llmSteps[i] }));
+
+const layerHues = ['green', 'azure', 'amber', 'teal'] as const;
+const layers = raw<Item[]>('truth.layers').map((l, i) => ({ ...l, hue: layerHues[i] }));
+const streamHues = ['green', 'teal', 'azure', 'violet'] as const;
+const streams = raw<Item[]>('retrieval.streams').map((s, i) => ({ ...s, hue: streamHues[i] }));
+
+const rowLabels = raw<string[]>('concurrency.writer.rowLabels');
+const throughput = [
+  { writers: 1, rate: 42, latency: 23.9 },
+  { writers: 8, rate: 295, latency: 3.4 },
+  { writers: 32, rate: 698, latency: 1.43 },
+  { writers: 128, rate: 700, latency: 1.43 },
+].map((r, i) => ({
+  ...r,
+  label: rowLabels[i].replace('{n}', number(r.writers)),
+  rateText: t('concurrency.writer.rate', { n: number(r.rate) }),
+  latencyText: t('concurrency.writer.latency', { n: number(r.latency) }),
+}));
+const chartLabel = t('concurrency.writer.chartLabel', Object.fromEntries(throughput.flatMap((r, i) => [[`r${i}`, number(r.rate)], [`w${i}`, number(r.writers)]])));
+
+const crates = ['core', 'store', 'wiki', 'mcp', 'hooks', 'llm', 'consolidate', 'workstream', 'cli']
+  .map((id) => ({ name: `ai-memory-${id}`, job: t(`codebase.crates.${id}`) }));
+
+const tools = [
+  { group: 'recall', hue: 'violet', names: ['memory_query', 'memory_recent', 'memory_read_page', 'memory_read_session_observations', 'memory_briefing', 'memory_explore', 'memory_status'] },
+  { group: 'handoffs', hue: 'amber', names: ['memory_handoff_begin', 'memory_handoff_list', 'memory_handoff_accept', 'memory_handoff_cancel'] },
+  { group: 'messages', hue: 'teal', names: ['memory_message_send', 'memory_message_list', 'memory_message_pop', 'memory_message_cancel'] },
+  { group: 'maintain', hue: 'green', names: ['memory_write_page', 'memory_delete_page', 'memory_consolidate', 'memory_auto_improve', 'memory_feedback', 'memory_lint', 'memory_forget_sweep', 'memory_install_self_routing'] },
+].map((g) => ({ ...g, group: t(`codebase.tools.groups.${g.group}`) }));
+const toolCount = tools.reduce((n, g) => n + g.names.length, 0);
+
+const faq = raw<{ q: string; a: string }[]>('faq');
+const schema = [{
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}];
+const next = [
+  { href: '/security/', hue: 'rose' as const },
+  { href: '/research/', hue: 'violet' as const },
+  { href: '/contribute/', hue: 'teal' as const },
+].map((l, i) => ({ ...l, ...raw<Item[]>('next')[i] }));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
+  <PageHero hue="azure" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href={`${site.docs}/ARCHITECTURE.md`} class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={`${site.docs}/design-decisions.md`} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section hue="azure" id="layout" title={t('layout.title')} lede={t('layout.lede')}>
+    {/* A directory tree reads left to right in every language. The notes keep the reader's direction. */}
+    <div class="tree" dir="ltr" role="list" aria-label={t('layout.treeLabel')}>
+      <p class="root"><code>&lt;data_dir&gt;/</code></p>
+      {tree.map((n) => (
+        <div class="node" role="listitem" data-hue={n.hue}>
+          <code>{n.path}</code>
+          <span dir={dir}>{n.note}</span>
+        </div>
+      ))}
+    </div>
+    <p class="mt-8 text-muted max-w-[40em] codey" set:html={t('layout.backup')} />
+  </Section>
+
+  <Section hue="azure" id="pipeline" tint fill title={t('pipeline.title')} lede={t('pipeline.lede')}>
+    <Figure name="architecture-pipeline" alt={t('pipeline.figureAlt')} caption={t('pipeline.figureCaption')} />
+    <ol class="pipe">
+      {pipeline.map((p, i) => (
+        <li>
+          <span class="n" aria-hidden="true">{i + 1}</span>
+          <div class="min-w-0">
+            <h3 class="text-xl flex flex-wrap items-center gap-x-3 gap-y-1">{p.title}
+              <span class="badge" data-hue={p.llm ? 'violet' : 'green'}>{p.llm ? t('pipeline.optionalLlm') : t('pipeline.zeroLlm')}</span>
+            </h3>
+            <p class="mt-2 text-muted">{p.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <Section hue="green" id="truth" title={t('truth.title')} lede={t('truth.lede')}>
+    <div class="grid lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] gap-x-14 items-center">
+      <div class="layers-fig">
+        <Figure name="architecture-layers" alt={t('truth.figureAlt')} />
+      </div>
+      <FeatureGrid cols={2} items={layers} />
+    </div>
+    <div class="mt-12">
+      <Callout title={t('truth.noTransaction.title')} hue="amber">
+        <p set:html={t('truth.noTransaction.text')} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section hue="violet" id="retrieval" tint title={t('retrieval.title')}>
+    <Figure name="architecture-retrieval" alt={t('retrieval.figureAlt')} caption={t('retrieval.figureCaption')} />
+    <FeatureGrid cols={4} items={streams} />
+    <h3 class="text-xl mt-16">{t('retrieval.afterFusion.title')}</h3>
+    <ul class="mt-4 space-y-3 text-muted max-w-[44em] dotlist">
+      {raw<string[]>('retrieval.afterFusion.points').map((p) => <li>{p}</li>)}
+    </ul>
+
+    <div class="mt-16 grid md:grid-cols-2 gap-x-14 gap-y-12">
+      <div data-hue="azure" class="rule-top">
+        <h3 class="text-xl codey" set:html={t('retrieval.asOf.title')} />
+        <ul class="mt-3 space-y-2.5 text-muted dotlist">
+          {raw<string[]>('retrieval.asOf.points').map((p) => <li set:html={p} />)}
+        </ul>
+        <a class="mt-3 inline-block underline font-semibold" style="color:var(--hue)" href={`${site.docs}/temporal.md`}>{t('retrieval.asOf.link')}</a>
+      </div>
+      <div data-hue="rose" class="rule-top">
+        <h3 class="text-xl">{t('retrieval.typedEdges.title')}</h3>
+        <ul class="mt-3 space-y-2.5 text-muted dotlist">
+          {raw<string[]>('retrieval.typedEdges.points').map((p) => <li set:html={p} />)}
+        </ul>
+        <a class="mt-3 inline-block underline font-semibold" style="color:var(--hue)" href={`${site.docs}/typed-edges.md`}>{t('retrieval.typedEdges.link')}</a>
+      </div>
+    </div>
+  </Section>
+
+  <Section hue="amber" id="concurrency" title={t('concurrency.title')} lede={t('concurrency.lede')}>
+    <div class="grid lg:grid-cols-2 gap-x-14 gap-y-16">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('concurrency.handoff.title')}</h3>
+        {/* The state machine flows left to right in every language; only the words change. */}
+        <div class="fsm" dir="ltr" role="img" aria-label={t('concurrency.handoff.fsmLabel')}>
+          <span class="st" dir={dir} data-hue="amber">{t('concurrency.handoff.states.open')}</span>
+          <span class="arrows" aria-hidden="true">
+            <span class="edge"><i></i><b dir={dir}>{t('concurrency.handoff.edges.accept')}</b></span>
+            <span class="edge"><i></i><b dir={dir}>{t('concurrency.handoff.edges.expire')}</b></span>
+          </span>
+          <span class="ends">
+            <span class="st" dir={dir} data-hue="green">{t('concurrency.handoff.states.accepted')}</span>
+            <span class="st" dir={dir} data-hue="rose">{t('concurrency.handoff.states.expired')}</span>
+          </span>
+        </div>
+        <ul class="mt-6 space-y-2.5 text-muted dotlist">
+          {raw<string[]>('concurrency.handoff.points').map((p) => <li set:html={p} />)}
+        </ul>
+      </div>
+      <div class="min-w-0" data-hue="azure">
+        <h3 class="text-xl">{t('concurrency.writer.title')}</h3>
+        <p class="mt-3 text-muted max-w-[36em]">{t('concurrency.writer.text')}</p>
+        <div class="bars mt-6" role="img" aria-label={chartLabel}>
+          {throughput.map((r) => (
+            <div class="bar-row">
+              <span class="lab">{r.label}</span>
+              <span class="track"><span class="fillbar" style={`width:${Math.max(4, (r.rate / 700) * 100)}%`}></span></span>
+              <span class="val tabular-nums">{r.rateText} <small>{r.latencyText}</small></span>
+            </div>
+          ))}
+        </div>
+        <ul class="mt-6 space-y-2.5 text-muted dotlist">
+          {raw<string[]>('concurrency.writer.points').map((p) => <li set:html={p} />)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section hue="azure" id="code" tint title={t('codebase.title')} lede={t('codebase.lede')}>
+    <div class="grid lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] gap-x-12 gap-y-14 items-start">
+      <div class="table-wrap">
+        <table class="table-site">
+          <thead><tr><th>{t('codebase.columns.crate')}</th><th>{t('codebase.columns.job')}</th></tr></thead>
+          <tbody>
+            {crates.map((c) => (
+              <tr><td><code class="whitespace-nowrap">{c.name}</code></td><td class="text-muted min-w-[14rem]">{c.job}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('codebase.tools.title', { n: number(toolCount) })}</h3>
+        <p class="mt-3 text-muted max-w-[36em]">{t('codebase.tools.text')}</p>
+        <div class="mt-6 grid gap-6">
+          {tools.map((g) => (
+            <div data-hue={g.hue}>
+              <p class="font-semibold" style="color:var(--hue)">{g.group} <span class="text-muted font-normal">({number(g.names.length)})</span></p>
+              <ul class="mt-2 flex flex-wrap gap-1.5">
+                {g.names.map((n) => <li><code class="tool">{n}</code></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    <p class="mt-12 flex flex-wrap gap-3">
+      <a href={`${site.docs}/ARCHITECTURE.md`} class="btn btn-ghost">{t('codebase.invariants')}</a>
+      <a href={`${site.docs}/design-decisions.md`} class="btn btn-ghost">{t('codebase.decisions')}</a>
+    </p>
+  </Section>
+
+  <NextPages links={next} />
+  <CtaBand title={t('ctaBand.title')} text={t('ctaBand.text')} />
+</Base>
+
+<style>
+  /* Messages rendered with set:html carry no scope attribute, hence :global. */
+  .codey :global(code), .dotlist :global(code) { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; overflow-wrap: anywhere; }
+  :global(.bg-tint) .codey :global(code), :global(.bg-tint) .dotlist :global(code) { background: var(--surface); }
+  .dotlist li { position: relative; padding-inline-start: 1.4rem; }
+  .dotlist li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
+  .rule-top { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
+
+  /* Directory tree. It is dir="ltr" in every language, so the physical left/right below are intended. */
+  .tree { max-width: 52rem; }
+  .tree .root code { font-weight: 600; }
+  .node { position: relative; display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: .25rem 1.25rem; margin-left: .6rem; padding: .85rem 0 .85rem 2rem; border-left: 2px solid var(--line); }
+  .node:last-child { border-left-color: transparent; }
+  .node::before { content: ''; position: absolute; left: -2px; top: 0; width: 1.4rem; height: 1.6rem; border-left: 2px solid var(--line); border-bottom: 2px solid var(--line); border-bottom-left-radius: .6rem; }
+  .node code { color: var(--hue); font-weight: 600; }
+  .node span { color: var(--muted); text-align: left; }
+  @media (max-width: 40rem) { .node { grid-template-columns: minmax(0, 1fr); } }
+
+  /* Pipeline steps */
+  .pipe { display: grid; gap: 2.25rem 3rem; }
+  @media (min-width: 48rem) { .pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .pipe li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 1rem; }
+  .pipe .n { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--hue-soft); color: var(--hue); font-family: var(--font-display); font-weight: 700; }
+
+  .layers-fig :global(.fig) { margin-block: 0 2.5rem; }
+  @media (min-width: 64rem) { .layers-fig :global(.fig) { margin-block: 0; } }
+
+  /* Handoff state machine. Also dir="ltr": the arrows point right in every language. */
+  .fsm { margin-top: 1.5rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .75rem; max-width: 34rem; }
+  .st { display: inline-block; padding: .5rem 1rem; border-radius: 999px; background: var(--hue-soft); color: var(--hue); font-weight: 600; border: 1.5px solid var(--hue-vivid); text-align: center; }
+  .ends, .arrows { display: grid; gap: 1.75rem; }
+  .edge { position: relative; display: block; text-align: center; font-size: .85rem; color: var(--muted); padding-bottom: .5rem; }
+  .edge b { font-weight: 600; }
+  .edge i { position: absolute; left: 0; right: .35rem; bottom: 0; height: 2px; background: var(--amber); }
+  .edge i::after { content: ''; position: absolute; right: -.35rem; top: -4px; border: 5px solid transparent; border-left-color: var(--amber); border-right: 0; }
+
+  /* Throughput bars */
+  .bars { display: grid; gap: .7rem; max-width: 34rem; }
+  .bar-row { display: grid; grid-template-columns: 5.8rem minmax(0, 1fr) 7.2rem; align-items: center; gap: .75rem; font-size: .92rem; }
+  .bar-row .lab { color: var(--muted); }
+  .bar-row .track { height: .8rem; border-radius: 999px; background: var(--tint); overflow: hidden; }
+  .bar-row .fillbar { display: block; height: 100%; border-radius: 999px; background: var(--hue-vivid); }
+  .bar-row .val { font-weight: 600; }
+  .bar-row small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+
+  .tool { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: .5rem; padding: .15rem .5rem; font-size: .8rem; }
+</style>

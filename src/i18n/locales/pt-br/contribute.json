@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "title": "Contribua: issues, pull requests e novos agentes",
+    "description": "Compile o ai-memory do código-fonte, passe nos cinco gates obrigatórios, ache o crate certo e abra um pull request que entra na primeira revisão. Rust, MIT."
+  },
+  "hero": {
+    "kicker": "Desenvolvedores",
+    "title": "Contribua com o ai-memory",
+    "lede": "{n} pessoas já colocaram código no projeto. Esta página leva você de uma ideia até a issue certa, o crate certo e um pull request que passa no review de primeira.",
+    "primary": "Escolha por onde entrar",
+    "secondary": "Leia o CONTRIBUTING.md"
+  },
+  "numbers": {
+    "title": "Um projeto ativo, em números",
+    "lede": "As contagens vêm da API do GitHub no momento em que este site é gerado.",
+    "badgesLabel": "Dados do repositório",
+    "badges": {
+      "release": "release",
+      "license": "licença",
+      "stars": "estrelas",
+      "forks": "forks",
+      "openIssues": "issues abertas"
+    },
+    "top": "Principais contribuidores",
+    "commits": "{login}, {n} commits",
+    "avatarAlt": "{login} no GitHub",
+    "all": "Veja todos os {n} contribuidores no GitHub"
+  },
+  "ways": {
+    "title": "Escolha por onde entrar",
+    "lede": "Cada item leva para a página exata no GitHub.",
+    "items": {
+      "bug": { "title": "Reporte um bug", "text": "O template pede sua versão, SO, agente, transporte e as linhas relevantes do log do servidor.", "link": "Abrir um bug report" },
+      "feature": { "title": "Proponha uma feature", "text": "Propostas são issues; o repositório não tem discussions. O template pergunta que problema ela resolve e se quebraria instalações existentes.", "link": "Abrir um feature request" },
+      "firstIssue": { "title": "Ache uma primeira issue", "text": "O label good first issue marca trabalho adequado para quem está chegando. O help wanted marca o resto.", "link": "Ver as good first issues" },
+      "harness": { "title": "Adicione ou conserte um harness", "text": "O suporte a harness gerenciado tem um protocolo escrito: provar o contrato nativo de sessão, ler os stores em modo somente leitura, entregar o contexto antes de confirmar o recebimento e incluir os testes exigidos.", "link": "Leia o protocolo de harness" },
+      "docs": { "title": "Melhore a documentação", "text": "Os guias ficam em docs/, em markdown. Uma correção de documentação é um pull request normal e dispensa o changelog quando nada muda para o usuário.", "link": "Ver docs/" },
+      "companion": { "title": "Construa em volta", "text": "Importadores, UIs mais ricas e front ends de chat ficam em projetos companion que usam as superfícies públicas de HTTP e MCP.", "link": "Leia as regras de companion" }
+    },
+    "security": {
+      "title": "Relatos de segurança nunca vão em uma issue pública",
+      "text": "Abra um <a href=\"{advisory}\">security advisory privado</a>. O <a href=\"{policy}\">SECURITY.md</a> explica o que incluir e o que fazer se você não puder usar o fluxo de advisory do GitHub."
+    },
+    "figure": {
+      "alt": "Diagrama: uma contribuição passa por seis etapas, de uma issue para um branch, para os gates locais, para um pull request, para o review, e sai na próxima release.",
+      "caption": "Da ideia à release. Correções saem no próximo patch, features aditivas na próxima minor."
+    }
+  },
+  "build": {
+    "title": "Faça o build funcionar",
+    "lede": "O build é autocontido. Nenhum destes comandos precisa de variável de ambiente.",
+    "steps": [
+      { "title": "Clone e compile", "text": "O Rust 1.95 é obrigatório e está fixado no <code>rust-toolchain.toml</code>, com rustfmt e clippy, então o rustup instala a toolchain certa no primeiro build. O SQLite vem embutido e a libgit2 é vendorizada. Você precisa de uma toolchain C padrão e mais nada.", "codeTitle": "setup de dev" },
+      { "title": "Use o loop do dia a dia", "text": "<code>cargo t</code> precisa do nextest: <code>cargo install cargo-nextest --locked</code>. Ele pula os módulos chamados <code>slow</code> ou <code>stress</code>, que o hook de pre-push e o CI rodam mesmo assim.", "codeTitle": "enquanto você trabalha" },
+      { "title": "Instale o hook de pre-push", "text": "Uma vez por clone. Ele só mexe no próprio bloco dentro de <code>.git/hooks/pre-push</code>. Em um branch de trabalho em andamento, <code>git push --no-verify</code> pula o hook.", "codeTitle": "uma vez por clone" },
+      { "title": "Passe nos gates antes do push", "text": "O CI exige os cinco. Sem o nextest, <code>cargo test --workspace --all-targets</code> equivale a <code>cargo tf</code>. Se o último estiver faltando: <code>cargo install cargo-deny cargo-audit</code>.", "codeTitle": "gates obrigatórios" },
+      { "title": "Confira quem seus commits dizem que você é", "text": "Use um email verificado na sua conta do GitHub ou o endereço noreply dela. O histórico da main nunca é reescrito para corrigir autoria.", "codeTitle": "autoria dos commits" }
+    ],
+    "comments": {
+      "allButSlow": "tudo menos o tier lento, ~20s com cache quente",
+      "oneCrate": "um crate: compila só os binários de teste dele",
+      "oneTopic": "um assunto (compila tudo, roda um subconjunto)",
+      "everyTest": "todos os testes (alias: cargo nextest run -P full)",
+      "dependencyPolicy": "política de dependências"
+    }
+  },
+  "rules": {
+    "title": "Regras básicas e o critério de aceitação",
+    "lede": "O AGENTS.md é o arquivo de regras canônico, para pessoas e para agentes de código. O CONTRIBUTING.md condensa tudo nisto.",
+    "landing": {
+      "title": "Como se espera que o trabalho chegue",
+      "items": [
+        { "title": "O changelog é um gate de merge", "text": "Toda mudança visível para o usuário adiciona uma entrada em [Unreleased] no mesmo pull request. Os revisores tratam entrada faltando como bloqueio. Refactors e mudanças só de teste ficam isentos." },
+        { "title": "Testes antes do “pronto”", "text": "O trabalho conta como pronto quando tem testes, principalmente parsers, derivação de IDs e a matemática de retenção." },
+        { "title": "Sem código morto, sem feature pela metade", "text": "Stubs são documentados no comentário do módulo, com o milestone que vai terminá-los." },
+        { "title": "Fique dentro da mudança", "text": "Não refatore código de que o milestone atual não precisa." },
+        { "title": "Comentários explicam o porquê", "text": "Um comentário que repete a linha de cima é removido." }
+      ]
+    },
+    "invariants": {
+      "title": "Invariantes que um pull request não pode quebrar",
+      "items": [
+        "Todas as escritas no SQLite passam pelo único writer actor, o <code>WriterHandle</code>.",
+        "A config é lida uma vez na inicialização. Nada de <code>std::env::var</code> fora de <code>Config::load</code>.",
+        "Escritas em arquivo são atômicas: tmp, rename, fsync. Nunca in place.",
+        "Toda página da wiki tem namespace <code>(workspace_id, project_id)</code>.",
+        "A CLI é um cliente HTTP fino. Ela nunca abre o arquivo SQLite nem o diretório da wiki."
+      ],
+      "full": "A lista completa, com o bug que cada uma evita, está no AGENTS.md"
+    }
+  },
+  "map": {
+    "title": "Um mapa da base de código",
+    "lede": "Dez crates vão no binário. Cada um tem uma responsabilidade e uma API tipada, e não há dependências circulares.",
+    "figure": {
+      "alt": "Diagrama: os crates em quatro camadas. O crate cli fica no topo. Abaixo dele estão hooks, mcp, web, consolidate e workstream. Abaixo desses estão store, wiki e llm. O crate core é a fundação embaixo de tudo.",
+      "caption": "Nomes dos crates sem o prefixo ai-memory-. Tudo depende do core, e só o crate cli depende de tudo."
+    },
+    "colCrate": "Crate",
+    "colDirectory": "Diretório",
+    "colWhat": "O que mora lá",
+    "crates": {
+      "core": "Tipos de domínio, erros e ids. Sem IO.",
+      "store": "SQLite, o writer actor, o pool de leitores e a matemática de decaimento.",
+      "wiki": "Escritas atômicas de markdown, o file watcher e o git.",
+      "mcp": "O transporte MCP, o roteador de ferramentas e as rotas de admin.",
+      "hooks": "Schemas de payload dos hooks, o sanitizador e o endpoint /hook.",
+      "llm": "A fronteira de autenticação dos provedores e as traits de LLM e de embedder.",
+      "consolidate": "Ingestão, lint, sweep e o pipeline de auto-improve.",
+      "web": "O navegador somente leitura em /web e as rotas JSON de /api/v1.",
+      "workstream": "Leitores somente leitura de transcripts nativos e os adapters de abertura por trás do ai-memory run.",
+      "cli": "O binário ai-memory e seus subcomandos HTTP finos."
+    },
+    "outside": "Fora de crates/",
+    "dirs": {
+      "companions": "ai-memory-importer, um pacote standalone fora do workspace raiz. Compile com --manifest-path.",
+      "hooks": "Pacotes de hooks de ciclo de vida, uma pasta por agente, em shell e nativos.",
+      "evals": "O harness de benchmark. É membro do workspace e nunca é distribuído.",
+      "docs": "Arquitetura, decisões de design e guias de instalação, deploy e uso.",
+      "tests": "Smoke tests de ponta a ponta, testes de shell dos hooks e fixtures."
+    },
+    "tests": "Os testes de integração ficam em <code>tests/suite/</code> dentro de cada crate. Helpers compartilhados entre crates vão em <code>crates/ai-memory-test-support</code>, que nunca é distribuído."
+  },
+  "review": {
+    "title": "Como os pull requests são revisados",
+    "lede": "Os reviews seguem o template de pull request, então preencher com honestidade é a maior parte do trabalho.",
+    "items": [
+      { "title": "O template é o checklist", "text": "Ele pede o que mudou, por quê, um plano de testes com os gates marcados, autoria dos commits, impacto na release e a entrada do changelog." },
+      { "title": "Diga que tipo de release é", "text": "Marque patch, minor ou major. Uma correção registrada em “Added” pode subir a versão errada, então coloque a entrada do changelog sob o título certo." },
+      { "title": "Breaking changes esperam uma major", "text": "Destaque na descrição. Elas recebem o label breaking-change e são agendadas, então não seguram as releases de patch e minor." },
+      { "title": "O CI é rápido por merge", "text": "Um merge depende dos jobs rápidos de Linux. As etapas de macOS e Windows rodam por label, toda noite ou na mão, e sempre antes de uma release." },
+      { "title": "Correções saem primeiro", "text": "Um bug fix sai na próxima release de patch e não fica esperando trabalho de feature. Um harness ou provedor novo sai na próxima minor." }
+    ],
+    "harness": "Um pull request de harness roda este gate mais curto, registra a versão da CLI contra a qual foi testado e inclui uma rodada manual contra o harness real.",
+    "harnessCodeTitle": "de managed-harness-contributions.md"
+  },
+  "nextPages": [
+    { "title": "Arquitetura", "text": "O writer actor, a wiki e o índice, antes de você mexer neles." },
+    { "title": "Pesquisa e fundamentos", "text": "Por que cada decisão de design foi tomada, e o que se quer em seguida." },
+    { "title": "Agentes e editores", "text": "Quais harnesses são suportados hoje e em que nível." }
+  ],
+  "cta": {
+    "title": "Experimente antes de mudar.",
+    "text": "Rode nos seus próprios projetos por um dia. O bug que você achar é a sua primeira issue."
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "advanced-backup-flow": {
+    "Backup": "Backup",
+    "Running server": "Servidor rodando",
+    "Restore": "Restore",
+    "Server stopped": "Servidor parado"
+  },
+  "advanced-data-dir": {
+    "Source of truth": "Fonte da verdade",
+    "Derived": "Derivado"
+  },
+  "advanced-tls-proxy": {
+    "Reverse proxy": "Proxy reverso",
+    "Same host": "Mesmo host"
+  },
+  "advanced-topologies": {
+    "Laptop only": "Só no laptop",
+    "Homelab box": "Máquina homelab",
+    "LAN with TLS": "LAN com TLS",
+    "Tunnel": "Túnel"
+  },
+  "architecture-layers": {
+    "Markdown in git": "Markdown no git",
+    "Source of truth": "Fonte da verdade",
+    "SQLite index": "Índice SQLite",
+    "Derived": "Derivado",
+    "Writer": "Writer",
+    "File watcher": "File watcher",
+    "Reindex": "Reindexar"
+  },
+  "architecture-pipeline": {
+    "Hook": "Hook",
+    "Sanitize": "Sanitizar",
+    "Single writer": "Single writer",
+    "Observations": "Observações",
+    "Session page": "Página da sessão",
+    "Optional LLM": "LLM opcional",
+    "Git wiki": "Wiki no git",
+    "Briefing": "Briefing"
+  },
+  "architecture-retrieval": {
+    "Query": "Query",
+    "Entities": "Entidades",
+    "Graph": "Grafo",
+    "Vectors": "Vetores",
+    "Authority": "Autoridade",
+    "Results": "Resultados"
+  },
+  "compare-side-by-side": {
+    "Git history": "Histórico do git",
+    "README and docs": "README e docs",
+    "Your agent": "Seu agente",
+    "Current memory tool": "Ferramenta de memória"
+  },
+  "compare-stack": {
+    "Typical memory stack": "Stack de memória típica",
+    "Vector store": "Banco vetorial",
+    "Graph database": "Banco de grafos",
+    "Python service": "Serviço Python",
+    "One binary": "Um binário só",
+    "Markdown folder": "Pasta de markdown"
+  },
+  "contribute-flow": {
+    "Issue": "Issue",
+    "Branch": "Branch",
+    "Local gates": "Gates locais",
+    "Pull request": "Pull request",
+    "Review": "Review",
+    "Next release": "Próxima release"
+  },
+  "how-it-works": {
+    "Capture": "Captura",
+    "Consolidate": "Consolidação",
+    "Recall": "Recuperação",
+    "Hand off": "Handoff",
+    "A git-backed wiki of plain markdown files": "Uma wiki em git, feita de markdown puro"
+  },
+  "individuals-handoff": {
+    "Handoff": "Handoff",
+    "Summary": "Resumo",
+    "Next steps": "Próximos passos",
+    "Open questions": "Questões em aberto",
+    "Claimed once": "Assumido uma vez"
+  },
+  "individuals-machines": {
+    "One ai-memory server": "Um servidor ai-memory",
+    "Notebook": "Notebook",
+    "Offline": "Offline",
+    "Local spool": "Spool local",
+    "Drains later": "Envia depois"
+  },
+  "individuals-markdown": {
+    "wiki/ plain markdown": "wiki/ markdown puro",
+    "Edit": "Editar",
+    "git history": "histórico do git"
+  },
+  "install-solo-path": {
+    "Install": "Instalar",
+    "Start the server": "Subir o servidor",
+    "Run your agent": "Rodar seu agente"
+  },
+  "install-team-topology": {
+    "One shared server": "Um servidor compartilhado",
+    "Token": "Token",
+    "One API key each": "Uma chave de API cada",
+    "One wiki for the team": "Uma wiki para o time"
+  },
+  "integrations-hooks-vs-mcp": {
+    "Hooks": "Hooks",
+    "Automatic capture": "Captura automática",
+    "Tools the agent calls": "Tools que o agente chama",
+    "Your agent": "Seu agente",
+    "Memory": "Memória"
+  },
+  "integrations-hub": {
+    "One memory": "Uma memória só"
+  },
+  "research-okf-bundle": {
+    "One project": "Um projeto",
+    "Decision": "Decisão",
+    "Gotcha": "Gotcha",
+    "Procedure": "Procedimento",
+    "Another OKF tool": "Outra ferramenta OKF"
+  },
+  "research-three-layers": {
+    "Raw sources": "Fontes brutas",
+    "Wiki": "Wiki",
+    "Schema": "Schema",
+    "Hook observations": "Observações dos hooks",
+    "Markdown in git": "Markdown no git",
+    "AGENTS.md block": "Bloco no AGENTS.md"
+  },
+  "security-boundary": {
+    "Hook payload": "Payload do hook",
+    "Secrets dropped": "Segredos removidos",
+    "Stored": "Armazenado",
+    "Size capped": "Tamanho limitado"
+  },
+  "security-egress": {
+    "Your machine": "Sua máquina",
+    "Third parties": "Terceiros",
+    "Hooks": "Hooks",
+    "Wiki and index": "Wiki e índice",
+    "Local embedder": "Embedder local",
+    "Cloud embeddings": "Embeddings na nuvem",
+    "Cloud LLM": "LLM na nuvem",
+    "LLM rerank": "Rerank por LLM",
+    "Opt-in, off by default": "Opt-in, desligado por padrão"
+  },
+  "teams-first-day": {
+    "Get an API key": "Pegar chave de API",
+    "Point at the server": "Apontar para o servidor",
+    "Catch me up": "Me atualize",
+    "Search the wiki": "Buscar na wiki",
+    "Day one": "Primeiro dia"
+  },
+  "teams-shared-owned": {
+    "Knowledge is shared": "O conhecimento é de todos",
+    "Batons are owned": "O bastão tem dono"
+  },
+  "teams-topology": {
+    "One ai-memory server": "Um servidor ai-memory",
+    "Project wiki": "Wiki do projeto"
+  }
+}

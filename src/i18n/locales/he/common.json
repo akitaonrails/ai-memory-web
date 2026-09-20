@@ -1,0 +1,102 @@
+{
+  "site": {
+    "tagline": "זיכרון לטווח ארוך לסוכני קוד מבוססי AI",
+    "description": "זיכרון לטווח ארוך לסוכני קוד מבוססי AI. מחליפים סוכן, מחשב או חבר צוות בלי להסביר את הפרויקט מחדש. קוד פתוח, קובץ בינארי אחד, markdown פשוט.",
+    "ogAlt": "הלוגו של ai-memory: מוח שחציו רשת נוירונים וחציו מעגל מודפס, וחץ שעובר דרך שבב"
+  },
+  "a11y": {
+    "skip": "דילוג לתוכן",
+    "home": "דף הבית של ai-memory",
+    "mainNav": "ראשי",
+    "openMenu": "פתיחת התפריט",
+    "closeMenu": "סגירת התפריט",
+    "menu": "תפריט",
+    "theme": "ערכת נושא",
+    "toggleTheme": "מעבר בין ערכת נושא בהירה לכהה",
+    "language": "שפה",
+    "starOnGithub": "כוכב ל-ai-memory ב-GitHub, {n} כוכבים",
+    "chooseOne": "בחירת אפשרות אחת"
+  },
+  "crumbs": {
+    "home": "בית",
+    "solutions": "פתרונות",
+    "individuals": "יחידים",
+    "teams": "צוותים",
+    "compare": "השוואה",
+    "integrations": "אינטגרציות",
+    "install": "התקנה מהירה",
+    "advanced": "התקנה מתקדמת",
+    "security": "אבטחה",
+    "architecture": "ארכיטקטורה",
+    "research": "מחקר",
+    "contribute": "תרומה לפרויקט",
+    "download": "הורדה"
+  },
+  "nav": {
+    "getStarted": "מתחילים",
+    "github": "GitHub",
+    "product": {
+      "label": "המוצר",
+      "how": { "label": "איך זה עובד", "note": "לכידה, איחוד, שליפה, העברת מקל" },
+      "architecture": { "label": "ארכיטקטורה", "note": "קובץ בינארי אחד, קובצי markdown, אינדקס נגזר" },
+      "security": { "label": "אבטחה", "note": "מה נשמר, מה יוצא החוצה, ואיך נועלים" },
+      "research": { "label": "מחקר ונימוקים", "note": "הוויקי של Karpathy, OKF והבנצ'מרקים" }
+    },
+    "solutions": {
+      "label": "פתרונות",
+      "individuals": { "label": "ליחידים", "note": "מחליפים סוכן ומחשב, ההקשר נשאר" },
+      "teams": { "label": "לצוותים", "note": "זיכרון משותף אחד, קליטה מהירה יותר" },
+      "compare": { "label": "מעבר מכלי אחר", "note": "Mem0, Zep, cognee, OpenViking ואחרים" }
+    },
+    "integrations": {
+      "label": "אינטגרציות",
+      "agents": { "label": "סוכנים ועורכים", "note": "Claude Code, Codex, Cursor, Gemini CLI ועוד 20" },
+      "platforms": { "label": "מערכות הפעלה", "note": "Linux, macOS, Windows" },
+      "providers": { "label": "ספקי LLM ו-embeddings", "note": "אופציונלי. הכול עובד גם בלי ספק" }
+    },
+    "developers": {
+      "label": "מפתחים",
+      "install": { "label": "התקנה מהירה", "note": "לבד בשלוש פקודות, צוות בעשר דקות" },
+      "advanced": { "label": "התקנה מתקדמת", "note": "homelab, TLS, SSO, סביבה מנותקת מהרשת, גיבויים" },
+      "contribute": { "label": "תרומה לפרויקט", "note": "לאן מגיעים issues, PRs ותמיכה ב-harness חדש" },
+      "download": { "label": "הורדות ויומן שינויים", "note": "הגרסה האחרונה לכל פלטפורמה" }
+    }
+  },
+  "footer": {
+    "motto": "את המודל ואת ה-harness שוכרים. הזיכרון של הפרויקט שלך.",
+    "themeSystem": "מערכת",
+    "themeLight": "בהיר",
+    "themeDark": "כהה",
+    "rights": "© {year} <a href=\"{authorUrl}\" class=\"underline\">{author}</a>. כל הזכויות שמורות. התוכנה ai-memory היא קוד פתוח ברישיון MIT.",
+    "dockerHub": "Docker Hub",
+    "reportVulnerability": "דיווח על פגיעות",
+    "cookieSettings": "הגדרות עוגיות"
+  },
+  "cta": {
+    "title": "תנו לסוכנים שלכם זיכרון, כבר היום.",
+    "text": "חינם ובקוד פתוח, ברישיון MIT. בלי חשבון ובלי מפתח API.",
+    "primary": "התקנה ב-5 דקות",
+    "secondary": "כוכב ב-GitHub"
+  },
+  "code": {
+    "terminal": "טרמינל",
+    "copy": "העתקה",
+    "copied": "הועתק"
+  },
+  "next": {
+    "title": "להמשך קריאה"
+  },
+  "stats": {
+    "stars": "כוכבים ב-GitHub",
+    "contributors": "תורמים",
+    "mergedPRs": "pull requests שמוזגו",
+    "closedIssues": "issues שנסגרו"
+  },
+  "consent": {
+    "label": "הסכמה לאנליטיקס",
+    "text": "האתר משתמש ב-Google Analytics כדי לספור ביקורים. אין בו פרסומות והוא לא עוקב אחריכם באתרים אחרים. זה בסדר?",
+    "decline": "דחייה",
+    "accept": "אישור"
+  },
+  "englishOnly": "החלק הזה באנגלית כי הוא מגיע ישירות מהפרויקט."
+}

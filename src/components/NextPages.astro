@@ -2,14 +2,16 @@
 // Two or three places to go next, at the bottom of every detail page.
 import type { Hue } from '@/data/site';
 interface Props { links: { href: string; title: string; text: string; hue: Hue }[] }
+import { useI18n } from '@/i18n';
+const { t, href } = useI18n(Astro);
 const { links } = Astro.props;
 ---
 <section class="band !pb-0">
   <div class="wrap">
-    <h2 class="text-2xl">Keep reading</h2>
+    <h2 class="text-2xl">{t('next.title')}</h2>
     <div class:list={['mt-8 grid gap-4', links.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3']}>
       {links.map((l) => (
-        <a href={l.href} data-hue={l.hue} class="next">
+        <a href={href(l.href)} data-hue={l.hue} class="next">
           <h3 class="text-xl">{l.title}</h3>
           <p class="mt-2 text-muted">{l.text}</p>
         </a>

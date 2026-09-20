@@ -1,0 +1,207 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+
+const { t, raw, href } = useI18n(Astro, 'security');
+type Item = { title: string; text: string };
+
+const securityMd = `${site.repo}/blob/main/SECURITY.md`;
+const dataHandlingMd = `${site.repo}/blob/main/DATA_HANDLING.md`;
+const advisory = `${site.repo}/security/advisories/new`;
+
+// Structure here, words in src/i18n/locales/<locale>/security.json.
+const posture = raw<Item[]>('posture.items').map((p) => ({ ...p, hue: 'rose' as const }));
+const boundaryPoints = raw<Item[]>('boundary.items').map((p) => ({ ...p, hue: 'rose' as const }));
+const ladder = raw<{ when: string; title: string; text: string }[]>('hardening.ladder');
+
+const cfg = (code: string) => `<code class="cfg">${code}</code>`;
+const egressOn = [
+  cfg('embedding_provider = openai | voyage | google | openai-compat'),
+  t('egress.assistantOn', { server: cfg('capture_assistant'), client: cfg('install-hooks --capture-assistant') }),
+  cfg('AI_MEMORY_RERANKER=llm'),
+  cfg('AI_MEMORY_LLM_PROVIDER'),
+];
+const egressRows = raw<{ path: string; sent: string }[]>('egress.rows').map((r, i) => ({ ...r, on: egressOn[i] }));
+const purgeRows = raw<{ what: string; default: string; compact: string }[]>('audit.purgeTable.rows');
+
+// Commands never change with the language. Only the comments do.
+const purge = `# ${t('audit.deletion.commentSession')}
+ai-memory purge-session --workspace default --project my-app --session-id <uuid> --confirm
+
+# ${t('audit.deletion.commentProject')}
+ai-memory purge-project --project experimental --confirm`;
+
+const allowlist = `# ${t('boundary.exclude.commentFile')}
+[capture]
+ignore_paths = ["private/**", "~/personal-notes/**"]
+
+# ${t('boundary.exclude.commentAllowlist')}
+ai-memory install-hooks --apply --capture-mode allowlist`;
+
+const faq = raw<{ q: string; a: string }[]>('faq');
+const schema = [{
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}];
+const next = [
+  { href: '/architecture/', hue: 'azure' as const },
+  { href: '/advanced/', hue: 'azure' as const },
+  { href: '/solutions/teams/', hue: 'teal' as const },
+].map((l, i) => ({ ...l, ...raw<Item[]>('next')[i] }));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={schema}>
+  <PageHero hue="rose" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href={securityMd} class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={dataHandlingMd} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section hue="rose" id="default" title={t('posture.title')} lede={t('posture.lede')}>
+    <FeatureGrid cols={4} items={posture} />
+    <div class="mt-14">
+      <Callout title={t('posture.download.title')} hue="amber">
+        <p>{t('posture.download.what')}</p>
+        <p set:html={t('posture.download.avoid', { href: `${site.docs}/airgapped-install.md` })} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section hue="rose" id="boundary" tint title={t('boundary.title')} lede={t('boundary.lede')}>
+    <Figure name="security-boundary" alt={t('boundary.figureAlt')} caption={t('boundary.figureCaption')} />
+    <FeatureGrid cols={4} items={boundaryPoints} />
+
+    <div class="mt-16 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10">
+      <div>
+        <h3 class="text-xl">{t('boundary.exclude.title')}</h3>
+        <ul class="mt-4 space-y-3 text-muted max-w-[34em] dotlist">
+          {raw<string[]>('boundary.exclude.points').map((p) => <li set:html={p} />)}
+        </ul>
+      </div>
+      <div class="min-w-0">
+        <CodeBlock title={t('boundary.exclude.codeTitle')} code={allowlist} />
+      </div>
+    </div>
+    <div class="mt-10">
+      <Callout title={t('boundary.docker.title')} hue="amber">
+        <p set:html={t('boundary.docker.text', { href: `${site.docs}/marker-file.md` })} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section hue="rose" id="hardening" title={t('hardening.title')} lede={t('hardening.lede')}>
+    <ol class="ladder">
+      {ladder.map((r, i) => (
+        <li style={`--i:${i}`}>
+          <span class="n" aria-hidden="true">{i + 1}</span>
+          <div class="min-w-0">
+            <p class="badge" data-hue="rose">{r.when}</p>
+            <h3 class="text-xl mt-3">{r.title}</h3>
+            <p class="mt-2 text-muted prose-site" set:html={r.text} />
+          </div>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-12">
+      <Callout title={t('hardening.failClosed.title')} hue="rose">
+        <p set:html={t('hardening.failClosed.bind')} />
+        <p set:html={t('hardening.failClosed.more', { security: `${site.docs}/security.md`, users: `${site.docs}/users.md`, sso: `${site.docs}/sso.md`, https: `${site.docs}/https-via-proxy.md` })} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section hue="rose" id="egress" tint title={t('egress.title')} lede={t('egress.lede')}>
+    <Figure name="security-egress" alt={t('egress.figureAlt')} caption={t('egress.figureCaption')} />
+    <div class="table-wrap">
+      <table class="table-site">
+        <thead><tr><th>{t('egress.columns.path')}</th><th>{t('egress.columns.sent')}</th><th>{t('egress.columns.on')}</th><th>{t('egress.columns.default')}</th></tr></thead>
+        <tbody>
+          {egressRows.map((r) => (
+            <tr>
+              <td class="min-w-[11rem]">{r.path}</td>
+              <td class="min-w-[18rem] text-muted">{r.sent}</td>
+              <td class="min-w-[15rem] codey" set:html={r.on} />
+              <td><span class="badge" data-hue="green">{t('egress.off')}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-muted max-w-[40em]" set:html={t('egress.processor', { href: dataHandlingMd })} />
+  </Section>
+
+  <Section hue="rose" id="audit" title={t('audit.title')}>
+    <div class="grid lg:grid-cols-2 gap-x-14 gap-y-14">
+      <div>
+        <h3 class="text-xl">{t('audit.attribution.title')}</h3>
+        <ul class="mt-4 space-y-3 text-muted max-w-[34em] dotlist">
+          {raw<string[]>('audit.attribution.points').map((p) => <li set:html={p} />)}
+        </ul>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('audit.deletion.title')}</h3>
+        <p class="mt-4 text-muted max-w-[34em]">{t('audit.deletion.text')}</p>
+        <div class="mt-5"><CodeBlock title={t('audit.deletion.codeTitle')} code={purge} /></div>
+      </div>
+    </div>
+    <div class="table-wrap mt-12">
+      <table class="table-site">
+        <thead><tr><th>{t('audit.purgeTable.columns.what')}</th><th>{t('audit.purgeTable.columns.default')}</th><th>{t('audit.purgeTable.columns.compact')}</th></tr></thead>
+        <tbody>
+          {purgeRows.map((r) => (
+            <tr><td class="min-w-[15rem]">{r.what}</td><td class="min-w-[9rem] text-muted">{r.default}</td><td class="min-w-[9rem] text-muted">{r.compact}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-muted max-w-[40em] codey" set:html={t('audit.forensic', { href: `${site.docs}/lifecycle-ops.md` })} />
+  </Section>
+
+  <Section hue="rose" id="limits" tint title={t('limits.title')}>
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <Callout title={t('limits.calloutTitle')} hue="rose">
+        <ul class="limits">
+          {raw<string[]>('limits.points').map((p) => <li>{p}</li>)}
+        </ul>
+      </Callout>
+      <div>
+        <h3 class="text-xl">{t('limits.reporting.title')}</h3>
+        <ul class="mt-4 space-y-3 text-muted max-w-[34em] dotlist">
+          {raw<string[]>('limits.reporting.points').map((p) => <li set:html={p.replace('{advisory}', advisory)} />)}
+        </ul>
+        <p class="mt-6"><a href={securityMd} class="btn btn-ghost">{t('limits.reporting.policy')}</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <NextPages links={next} />
+  <CtaBand title={t('ctaBand.title')} text={t('ctaBand.text')} />
+</Base>
+
+<style>
+  .dotlist li { position: relative; padding-inline-start: 1.4rem; }
+  .dotlist li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
+  /* Messages rendered with set:html carry no scope attribute, hence :global. */
+  .dotlist :global(code), .codey :global(code) { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
+  .codey :global(code) { overflow-wrap: anywhere; }
+  .limits { list-style: disc; padding-inline-start: 1.2rem; display: grid; gap: .6rem; }
+
+  .ladder { display: grid; gap: 1rem; }
+  .ladder li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1.1rem; padding: 1.4rem 1.5rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-inline-start: 4px solid color-mix(in oklch, var(--hue-vivid) calc(30% + var(--i) * 17%), var(--line)); }
+  .ladder .n { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--hue-soft); color: var(--hue); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+  .ladder .badge { white-space: normal; }
+  @media (min-width: 64rem) {
+    .ladder li { margin-inline-start: calc(var(--i) * 7%); max-width: 46rem; }
+  }
+  @media (max-width: 30rem) {
+    .ladder li { grid-template-columns: minmax(0, 1fr); padding: 1.2rem; }
+  }
+</style>

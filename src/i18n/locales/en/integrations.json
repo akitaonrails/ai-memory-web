@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "Supported agents, operating systems and providers",
+    "description": "Every coding agent, editor, operating system and LLM or embedding provider that ai-memory supports, with the install command and a status label for each."
+  },
+  "hero": {
+    "kicker": "Integrations",
+    "title": "Your agents, your OS, your providers",
+    "lede": "{n} coding agents and editors, four operating system targets, and a list of LLM and embedding providers that you can ignore, because everything works without one.",
+    "primary": "Find your agent",
+    "secondary": "Go to quick setup"
+  },
+  "hub": {
+    "title": "Many agents, one memory",
+    "lede": "Each agent connects to the same server. What Claude Code learned this morning is there when you open Codex this afternoon.",
+    "figureAlt": "Hub and spoke diagram: Claude Code, Codex, Cursor, Gemini CLI, OpenCode and Zed all connect to one memory in the centre."
+  },
+  "agents": {
+    "title": "Agents and editors",
+    "lede": "Filter by status, then pick a row to get its install commands.",
+    "filterLabel": "Filter agents by status",
+    "all": "All",
+    "caption": "Supported coding agents and editors",
+    "cols": {
+      "agent": "Agent",
+      "status": "Status",
+      "notes": "Notes"
+    },
+    "managed": "Managed",
+    "direct": "Direct launch",
+    "commands": {
+      "mcp": "the memory tools, over MCP",
+      "hooks": "automatic capture, through lifecycle hooks",
+      "hooksOnly": "stages the hook scripts and prints a snippet to paste into the agent’s settings",
+      "managedOnly": "launch it through ai-memory",
+      "orManaged": "or launch it managed; both wire themselves"
+    },
+    "dryRun": "Leave out --apply to print the change without writing it.",
+    "community": "ai-memory ships no installer for this one. The server recognizes its hook events, and the plugin is maintained by the community. Review it before you install it: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin on GitHub</a>.",
+    "statusTitle": "What each status means",
+    "after": "Per-agent details, config file locations and known quirks are in <a class=\"underline font-semibold text-text\" href=\"{matrix}\">the support matrix</a> and <a class=\"underline font-semibold text-text\" href=\"{mcp}\">the MCP install guide</a>."
+  },
+  "lanes": {
+    "title": "Hooks capture, MCP answers",
+    "lede": "These are two separate connections, and a fully supported agent has both. The status labels above say which ones your agent gets.",
+    "figureAlt": "Diagram with two lanes. Hooks: your agent streams events into memory on its own, which is automatic capture. MCP: your agent sends a request to memory and gets an answer back, which are tools the agent calls.",
+    "hooksTitle": "Hooks",
+    "hooksText": "The agent’s lifecycle events fire a small command that records prompts, tool calls and session boundaries. You do nothing, and the agent spends no tokens on it. Secrets are stripped before anything is stored.",
+    "mcpText": "The agent gets memory tools it can call when the conversation needs them: search, read a page, write a page, accept a handoff. MCP-only agents can use memory fully, but nothing is captured unless they write it.",
+    "managedTitle": "What “managed” adds",
+    "managedText": "<code>ai-memory run &lt;agent&gt;</code> launches the agent with hooks and MCP already wired, and resumes the same piece of work when you switch between managed agents. Agents marked “direct launch” work the normal way: install once, then start them as you always do."
+  },
+  "os": {
+    "title": "Operating systems",
+    "lede": "One Rust binary per platform. On Windows, WSL2 is the supported path and the native build is experimental.",
+    "caption": "Supported operating systems",
+    "cols": {
+      "platform": "Platform",
+      "status": "Status",
+      "how": "How it installs",
+      "notes": "Notes"
+    },
+    "how": {
+      "linux": "Release tarball, Docker or Podman image, or an AUR package",
+      "macos": "Release tarball with a launchd agent, or Docker",
+      "windows-via-wsl2": "The Linux binary, inside WSL2",
+      "native-windows": "Release zip, Docker Desktop wrapper, or a source build"
+    },
+    "download": "Download the latest release",
+    "windowsGuide": "Read the Windows guide"
+  },
+  "providers": {
+    "title": "LLM and embedding providers",
+    "lede": "Both are optional. With neither, hooks still capture, search still works, and every session still ends with a summary page and a handoff.",
+    "embeddings": {
+      "title": "Embeddings: local by default",
+      "text": "Since 2.0, vector search runs in-process with a small open model. It needs no API key and no GPU. The model is about 87 MB, downloads in the background on first start, and hybrid search turns on at the next restart. If the download fails, search keeps working on full text.",
+      "note": "Opt out with <code>embedding_provider = \"none\"</code>. A provider you configured yourself is never overridden."
+    },
+    "llm": {
+      "title": "LLM: off by default",
+      "text": "Add one when you want LLM-written consolidation, <code>ai-memory bootstrap</code>, richer linting, auto-improve or reranking. A small, fast model is the right size for this work. Subscription logins work, so a paid platform API key is not required.",
+      "note": "Check a provider with <code>ai-memory llm-test</code>. Fallback chains are supported."
+    },
+    "after": "Models, defaults and costs are in <a class=\"underline font-semibold text-text\" href=\"{llm}\">the LLM providers guide</a> and <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">the local embeddings guide</a>."
+  },
+  "notListed": {
+    "title": "Your agent is not listed?",
+    "lede": "Anything that speaks MCP can use the memory tools today.",
+    "register": "Register a remote HTTP MCP server at this address in your agent’s settings. Search, page reads and writes, and handoffs all work. Automatic capture needs lifecycle hooks, so without them the agent only remembers what it writes.",
+    "contribute": "Want full support for it? <a href=\"{guide}\">The managed-harness contribution guide</a> describes what an adapter has to prove, and <a href=\"{contribute}\">the contribute page</a> says where issues and pull requests go.",
+    "codeTitle": "MCP endpoint",
+    "codeComment": "the default local server"
+  },
+  "faq": [
+    { "q": "Which coding agents does ai-memory work with?", "a": "{n} agents and editors are listed, including {names}. {supported} of them have both automatic capture through lifecycle hooks and the memory tools over MCP." },
+    { "q": "What is the difference between hooks and MCP?", "a": "Hooks capture sessions automatically: prompts, tool calls and session boundaries are recorded without the agent doing anything. MCP gives the agent tools it can call to search and write memory. A fully supported agent has both." },
+    { "q": "My agent is not listed. Can I still use it?", "a": "Yes, if it speaks MCP. Point it at http://127.0.0.1:49374/mcp and it can search and write memory. Without lifecycle hooks, nothing is captured automatically." },
+    { "q": "Do I need an LLM or an embedding provider?", "a": "No. Both are optional. Since 2.0 the default embeddings run in-process with a model of about 87 MB that downloads on first start, and no API key is involved." },
+    { "q": "Does ai-memory run on Windows?", "a": "Yes. WSL2 is supported through the Linux path. Native Windows is experimental and ships as a release zip with ai-memory.exe." }
+  ],
+  "next": [
+    { "title": "Quick setup", "text": "Install the binary, start the server, launch your agent." },
+    { "title": "Architecture", "text": "How hooks, MCP and the wiki fit into one binary." },
+    { "title": "Contribute", "text": "Add your agent, or fix the one you use." }
+  ]
+}

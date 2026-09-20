@@ -1,0 +1,189 @@
+{
+  "items": {
+    "claude-memory": {
+      "name": "Memoria integrada de Claude Code",
+      "kind": "Un MEMORY.md por portátil",
+      "needs": [
+        "Claude Code",
+        "Una sola máquina"
+      ],
+      "same": "La comodidad de \"recuerda mi proyecto\", en markdown.",
+      "gain": [
+        "La misma memoria en Codex, Cursor, Gemini CLI y 20 más",
+        "Sincronizada entre tus máquinas",
+        "Compartida con tu equipo",
+        "Búsqueda de verdad, y captura de lo que las herramientas hicieron realmente"
+      ],
+      "theyWin": "Cero instalación. Ya viene activada y no hay servidor que mantener. Para un desarrollador en una sola máquina que solo usa Claude Code, puede ser todo lo que necesitas.",
+      "verdict": "Cámbiate cuando sumes un segundo agente, una segunda máquina o una segunda persona."
+    },
+    "mem0": {
+      "name": "Mem0 y LangMem",
+      "kind": "Extractores de hechos",
+      "needs": [
+        "Un LLM en cada turno",
+        "Un almacén vectorial"
+      ],
+      "same": "Captura automática, sin la ceremonia de “recuerda esto”.",
+      "gain": [
+        "Páginas legibles que puedes abrir y editar, en lugar de filas de hechos opacas",
+        "Búsqueda que fusiona texto completo, entidades, enlaces y vectores",
+        "Ningún gasto de API para capturar o buscar"
+      ],
+      "theyWin": "Un gran ecosistema de SDK y una nube gestionada, pensada para personalizar apps para usuarios finales.",
+      "verdict": "Otro tipo de cliente. Mem0 recuerda a los usuarios de tu app. ai-memory recuerda tu repositorio."
+    },
+    "zep": {
+      "name": "Zep y Graphiti",
+      "kind": "Grafo de conocimiento temporal",
+      "needs": [
+        "Neo4j, FalkorDB o Neptune",
+        "Un LLM"
+      ],
+      "same": "Los hechos se reemplazan, nunca se borran. Puedes preguntar qué era cierto en un momento dado.",
+      "gain": [
+        "Consultas a un punto en el tiempo y enlaces tipados en un solo binario con SQLite",
+        "Ninguna base de datos de grafos que mantener",
+        "Nativo para agentes de programación, con hooks para más de 20"
+      ],
+      "theyWin": "Modelado bitemporal real, consultas de grafos con Cypher y tipos de entidad personalizados. ai-memory solo registra el momento de ingesta, por diseño.",
+      "verdict": "Cámbiate si lo alojas tú mismo para programar. Quédate si necesitas consultas de grafos de nivel empresarial."
+    },
+    "cognee": {
+      "name": "cognee",
+      "kind": "Pipeline de grafo, vectores y relacional",
+      "needs": [
+        "Tres almacenes sincronizados",
+        "Una llamada a un LLM por fragmento",
+        "Python"
+      ],
+      "same": "Procedencia, ranking ponderado por feedback y un plugin para Claude Code.",
+      "gain": [
+        "Un solo almacén que respaldar: una carpeta de markdown",
+        "Ninguna factura de LLM por la ingesta",
+        "Un solo binario que corre en un equipo de homelab"
+      ],
+      "theyWin": "Amplitud: más de 14 modos de recuperación, anclaje en ontologías e ingesta de PDF, CSV y páginas web.",
+      "verdict": "Cámbiate si quieres memoria para sesiones de programación. Quédate si ingieres documentos."
+    },
+    "openviking": {
+      "name": "OpenViking y Hindsight",
+      "kind": "Memoria de documentos vivos, LLM obligatorio",
+      "needs": [
+        "Un LLM o VLM",
+        "Embeddings",
+        "Postgres o un servicio alojado"
+      ],
+      "same": "Memoria compilada en páginas vivas por un bucle de consolidación en segundo plano.",
+      "gain": [
+        "Captura, búsqueda y traspasos sin ninguna llamada a un LLM",
+        "Archivos que son tuyos, con licencia MIT, sin el peso de la AGPL ni de un SaaS",
+        "Compartir por proyecto en equipo, en lugar de un aislamiento estricto por banco"
+      ],
+      "theyWin": "Mayor precisión reportada con un LLM en el circuito: Hindsight reporta 91,4% en LongMemEval y OpenViking reporta grandes ahorros de tokens. Ambas son cifras del proveedor.",
+      "verdict": "Cámbiate para uso autoalojado (self-hosted), sin conexión o en equipo. Quédate si necesitas su precisión y aceptas que el LLM sea obligatorio."
+    },
+    "basic-memory": {
+      "name": "basic-memory",
+      "kind": "Base de conocimiento en markdown sobre MCP",
+      "needs": [
+        "Tú, escribiendo notas a mano"
+      ],
+      "same": "El markdown en disco es la fuente de verdad, con un índice derivado.",
+      "gain": [
+        "Captura automática desde los hooks de ciclo de vida",
+        "Decaimiento y reemplazo, para que las notas viejas dejen de aparecer arriba",
+        "Traspasos entre agentes y uso compartido entre varios usuarios"
+      ],
+      "theyWin": "Un reranker cross-encoder local, edición colaborativa en tiempo real y una app móvil alojada.",
+      "verdict": "Cámbiate si buscas continuidad al programar con varios agentes. Quédate si quieres una base de conocimiento personal al estilo de Obsidian."
+    },
+    "mcp-memory-service": {
+      "name": "mcp-memory-service",
+      "kind": "El pariente más cercano",
+      "needs": [
+        "Sobre todo Claude Code"
+      ],
+      "same": "SQLite, embeddings locales, captura por hooks, enlaces tipados y cifras honestas.",
+      "gain": [
+        "Páginas que puedes leer, en lugar de filas de hechos",
+        "Traspasos entre agentes que se reclaman una sola vez",
+        "Mensajería entre proyectos y búsqueda a un punto en el tiempo"
+      ],
+      "theyWin": "Consolidación basada en clustering, replicación multibackend y un visualizador de grafos. Su puntuación de 0,860 a nivel de sesión supera el 0,823 de ai-memory.",
+      "verdict": "Cámbiate si te gustó la captura por hooks y la quieres en todos los agentes."
+    },
+    "agentmemory": {
+      "name": "agentmemory",
+      "kind": "El antecesor de este proyecto",
+      "needs": [
+        "Un sidecar en Node",
+        "Más de 50 herramientas MCP"
+      ],
+      "same": "Casi todos los conceptos: niveles, reemplazo, decaimiento, ranking fusionado, hooks.",
+      "gain": [
+        "Un binario autocontenido, sin sidecar",
+        "Índices SQL reales, confirmados en una sola transacción",
+        "Archivos como fuente de verdad, paridad en Windows y autenticación más completa"
+      ],
+      "theyWin": "Unos 13 puntos de recuperación bruta: reporta 0,952 en LongMemEval-S frente a 0,823, porque hace rerank. También tiene sincronización peer-to-peer.",
+      "verdict": "Cámbiate por la operabilidad y por ser dueño de tus datos."
+    },
+    "letta": {
+      "name": "Letta y MemGPT",
+      "kind": "Sistema operativo de memoria",
+      "needs": [
+        "Adoptar su runtime de agentes"
+      ],
+      "same": "Niveles de memoria y consolidación fuera de la ruta crítica.",
+      "gain": [
+        "Memoria que va debajo del agente que ya usas",
+        "Ningún runtime que adoptar, ningún token gastado en autoedición"
+      ],
+      "theyWin": "Un framework de agentes completo con su entorno de desarrollo, y buena coherencia en tareas de largo horizonte.",
+      "verdict": "Quédate si construyes sobre Letta. Cámbiate si solo quieres que tu agente de programación recuerde."
+    },
+    "supermemory": {
+      "name": "Supermemory",
+      "kind": "API de memoria alojada",
+      "needs": [
+        "Una cuenta en la nube",
+        "Gasto de API"
+      ],
+      "same": "Un segundo cerebro con ingesta automática y reemplazo.",
+      "gain": [
+        "Markdown versionado en git que es tuyo",
+        "Funciona sin conexión",
+        "Acotado a tu repositorio, mientras que Supermemory es un almacén de uso general"
+      ],
+      "theyWin": "Conectores gestionados para Drive, Gmail, Notion y S3, ingesta multimodal y perfiles de usuario.",
+      "verdict": "Otro tipo de cliente."
+    }
+  },
+  "moat": [
+    {
+      "title": "Cero llamadas a un LLM por defecto",
+      "text": "La captura, la búsqueda y los traspasos funcionan sin clave de API."
+    },
+    {
+      "title": "Los archivos son la fuente de verdad",
+      "text": "Una carpeta de markdown respaldada por git. La base de datos es un índice que se puede reconstruir."
+    },
+    {
+      "title": "Un solo binario autocontenido",
+      "text": "Corre sin base de datos de grafos, sin runtime de Python y sin proceso sidecar."
+    },
+    {
+      "title": "Todos los agentes, automáticamente",
+      "text": "Hooks de ciclo de vida para más de 20 agentes de programación."
+    },
+    {
+      "title": "Traspasos tipados que se reclaman una vez",
+      "text": "Un protocolo: cada traspaso tiene un tipo y un dueño, y solo una sesión puede reclamarlo."
+    },
+    {
+      "title": "Equipos sin plan de pago",
+      "text": "Las cuentas, la atribución y un registro de auditoría vienen incluidos."
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "title": "Instalación rápida para un desarrollador o un equipo",
+    "description": "Instala ai-memory con mise, el AUR, un binario de macOS o Docker, comprueba que la captura funciona y comparte un servidor con tu equipo. Comandos para copiar."
+  },
+  "howTo": {
+    "name": "Instalar ai-memory en una máquina",
+    "description": "Instala el binario de ai-memory con mise, arranca el servidor local en loopback y lanza un agente de programación a través de él para que los hooks y MCP queden conectados."
+  },
+  "hero": {
+    "title": "Instalación rápida",
+    "lede": "Elige tu ruta y copia los comandos. Una máquina son tres pasos, sin cuenta. Un servidor compartido para un equipo son cinco."
+  },
+  "solo": {
+    "title": "Solo yo",
+    "lede": "Instala un binario, arranca un servidor local y lanza tu agente. El servidor se enlaza a 127.0.0.1:49374, así que nada fuera de esta máquina puede llegar a él y no necesita token.",
+    "tabs": ["Linux o macOS (mise)", "Arch Linux (AUR)", "Binario de macOS", "Docker o Podman", "Windows"],
+    "mise": [
+      {
+        "title": "Instala el binario",
+        "text": "mise descarga el archivo de la versión para tu sistema y tu chip, y lo verifica contra el archivo <code>.sha256</code> publicado. No necesita el toolchain de Rust ni Docker."
+      },
+      {
+        "title": "Crea el directorio de datos y arranca el servidor",
+        "text": "<code>init</code> solo crea el directorio de datos. <code>serve</code> tiene que seguir corriendo, así que dale su propia terminal. Solo escucha en esta máquina y no necesita token."
+      },
+      {
+        "title": "Lanza tu agente a través de él",
+        "text": "El primer lanzamiento de un harness instala sus hooks y su entrada MCP si faltan. Lanzar <code>claude</code> directamente sigue funcionando después."
+      }
+    ],
+    "aur": [
+      {
+        "title": "Instala el paquete",
+        "text": "El paquete <code>-bin</code> es un binario precompilado para x86_64 o aarch64. Los dos paquetes traen una unidad de usuario y una unidad de sistema para systemd.",
+        "prebuilt": "binario precompilado para Linux x86_64/aarch64",
+        "source": "compila desde el código fuente"
+      },
+      { "title": "Crea el directorio de datos" },
+      {
+        "title": "Arranca el servicio de usuario",
+        "text": "No necesita sudo, y todo el estado se queda en tu directorio home. La <a href=\"{services}\">sección de servicios</a> cubre la unidad de sistema y cómo seguir corriendo después de cerrar sesión."
+      },
+      { "title": "Lanza tu agente a través de él" }
+    ],
+    "macos": [
+      {
+        "title": "Descarga y descomprime",
+        "text": "Este archivo es para Apple Silicon. En un Mac con Intel, cambia <code>aarch64</code> por <code>x86_64</code>. Una descarga hecha con el navegador necesita <code>xattr -d com.apple.quarantine ./ai-memory</code> una vez. Una descarga con curl no."
+      },
+      {
+        "title": "Crea el directorio de datos y arranca el servidor",
+        "text": "Deja <code>serve</code> corriendo en esta terminal. Como alternativa, el <a href=\"{services}\">agente de launchd</a> lo arranca al iniciar sesión."
+      },
+      {
+        "title": "Conecta tu agente desde una segunda terminal",
+        "text": "Deja el binario descomprimido donde está, porque los comandos de los hooks apuntan a esa ruta."
+      }
+    ],
+    "docker": [
+      {
+        "title": "Instala el script wrapper",
+        "text": "El wrapper es un script de shell pequeño que queda en <code>~/.local/bin/ai-memory</code>. <a href=\"{readme}\">El README tiene el script de instalación</a>, que verifica la descarga contra su archivo SHA-256 antes de instalarla. Cópialo de ahí."
+      },
+      {
+        "title": "Arranca el servidor",
+        "text": "La imagen cubre <code>linux/amd64</code> y <code>linux/arm64</code>. En un host con Podman, cambia <code>docker</code> por <code>podman</code>. El wrapper usa Podman rootless por su cuenta cuando Docker no está instalado."
+      },
+      {
+        "title": "Conecta tu agente",
+        "text": "Después de esto, arranca Claude Code como siempre. Esta ruta tiene un límite: los hooks de shell del wrapper no aplican las reglas de captura <code>ignore_paths</code> por repositorio. El binario nativo sí."
+      }
+    ],
+    "windows": [
+      {
+        "title": "Decide dónde corre tu agente",
+        "text": "Un agente lanzado dentro de WSL2 necesita ai-memory dentro de WSL2. Esa ruta tiene soporte y es la misma que la pestaña de Docker: <a href=\"{readme}\">instala el wrapper desde el README</a> en tu shell de WSL2. Con Docker Desktop, activa antes la integración con WSL para la distro."
+      },
+      { "title": "Arranca el servidor dentro de WSL2" },
+      {
+        "title": "Conecta tu agente, también dentro de WSL2",
+        "text": "Windows nativo es experimental. Tiene un zip de la versión con <code>ai-memory.exe</code>, un wrapper de Docker en PowerShell y una receta de servicio con WinSW. <a href=\"{windowsDoc}\">La guía de Windows tiene los tres</a>."
+      }
+    ],
+    "figure": {
+      "alt": "La instalación individual en tres etapas sobre un portátil: instalar el binario, arrancar el servidor en 127.0.0.1:49374 y ejecutar tu agente, que se conecta al servidor mediante hooks y MCP. Nada sale del portátil.",
+      "caption": "Toda la ruta individual. El servidor se queda en loopback, y tu agente llega a él de dos formas: los hooks capturan la sesión y MCP le permite al agente buscar en ella."
+    },
+    "runNote": "<code>ai-memory run</code> es el lanzador recomendado y es opcional. Conecta un harness en el primer lanzamiento y añade la reanudación nativa de sesiones entre harness. Los hooks por sí solos ya llevan el traspaso, así que lanzar tu agente directamente sigue funcionando. <a class=\"link\" href=\"{href}\">Lee cómo funcionan los lanzamientos gestionados</a>."
+  },
+  "check": {
+    "title": "Comprueba que funciona",
+    "lede": "Tres comprobaciones, desde la red hasta el agente.",
+    "server": {
+      "title": "El servidor responde",
+      "text": "Un error de JSON-RPC es la respuesta correcta. Significa que el puerto es accesible y que el servidor está respondiendo."
+    },
+    "cli": {
+      "title": "La CLI llega a él",
+      "text": "La CLI es un cliente HTTP ligero. Si esto imprime un estado, los hooks también pueden llegar al servidor."
+    },
+    "agent": {
+      "title": "El agente recuerda",
+      "text": "Trabaja unos minutos, sal y abre una segunda sesión en el mismo directorio. Luego pregúntale:",
+      "ask": "“¿Dónde lo dejamos?”"
+    }
+  },
+  "next": {
+    "title": "Después del primer agente",
+    "lede": "Las tres cosas son opcionales. Hazlas cuando las necesites.",
+    "agent": {
+      "title": "Añade otro agente",
+      "text": "Ejecuta los mismos dos comandos con otro nombre. A partir de ahí, los dos agentes comparten una misma memoria del proyecto.",
+      "link": "Mira todos los agentes con soporte y su nombre"
+    },
+    "llm": {
+      "title": "Opcional: mejores resúmenes con un LLM",
+      "text": "Sin proveedor, la captura, la búsqueda y los resúmenes basados en reglas funcionan sin coste. Un proveedor reescribe las páginas de sesión como narrativas legibles. Define estas dos variables en el entorno del servidor (flags <code>-e</code> para Docker, <code>~/.config/ai-memory/env</code> para el servicio de usuario de systemd) y reinícialo.",
+      "codeTitle": "entorno del servidor",
+      "link": "Compara proveedores, incluidas suscripciones y modelos locales"
+    },
+    "undo": {
+      "title": "Deshazlo todo",
+      "text": "Esto quita solo lo que instaló ai-memory. Los comandos de instalación son idempotentes, y cada uno escribe una copia de seguridad con marca de tiempo junto a cada archivo que toca."
+    }
+  },
+  "team": {
+    "title": "Mi equipo",
+    "lede": "Un servidor al que llegan todas las máquinas y todos los compañeros de equipo. No hay replicación entre servidores: memoria compartida significa que todos se conectan al mismo.",
+    "figure": {
+      "alt": "Topología de equipo: tres portátiles, de alice, bob y carol, se conectan a un servidor compartido protegido por un token. Cada persona tiene una clave de API, y el servidor guarda una wiki para el equipo.",
+      "caption": "El servidor guarda la wiki. Las personas reciben cuentas, las máquinas reciben claves de API y el token root se queda con quien administra el servidor."
+    },
+    "steps": [
+      {
+        "title": "Arranca el servidor compartido con un token",
+        "text": "Elige un equipo del homelab o cualquier host de la LAN. Un servidor enlazado más allá de loopback necesita tanto un bearer token como una allowlist de hosts. La allowlist contiene todos los nombres o IP que usan tus máquinas para llegar a él.",
+        "codeTitle": "en el servidor"
+      },
+      {
+        "title": "Crea a las personas",
+        "text": "Ejecuta esto con el token root exportado. La contraseña temporal se imprime una vez, y la persona la cambia en su primer inicio de sesión. No emite ninguna clave de API. <a href=\"{usersDoc}\">La guía de usuarios</a> cubre la identidad root en <code>[auth]</code>."
+      },
+      {
+        "title": "Dale a cada persona una clave de API",
+        "text": "El secreto <code>aim_</code> se muestra una sola vez. <code>ai-memory api-key rotate &lt;id&gt;</code> y <code>ai-memory api-key revoke &lt;id&gt;</code> surten efecto de inmediato."
+      },
+      {
+        "title": "Apunta cada máquina al servidor",
+        "text": "Cada persona usa su propia clave como token. Se guarda en un archivo <code>0600</code> dentro del directorio de datos y no aparece en la línea de comandos de los hooks. <code>--as-user</code> solo etiqueta la instalación.",
+        "codeTitle": "en cada portátil",
+        "tokenComment": "Aquí TOKEN es la clave aim_ de esta persona, no el token root"
+      },
+      {
+        "title": "Añade TLS antes de salir de la LAN",
+        "text": "Un bearer token autentica una petición y no la cifra. Las claves y las cookies web viajan en claro por HTTP plano, así que <a href=\"{tls}\">pon Caddy, nginx o un Cloudflare Tunnel por delante</a> en cuanto existan cuentas o el servidor sea accesible más allá de tu escritorio."
+      }
+    ],
+    "oneServer": {
+      "title": "Un servidor por directorio de datos, nunca dos",
+      "text": "Dos procesos <code>ai-memory serve</code> sobre el mismo directorio de datos (una carpeta sincronizada, un montaje NFS, dos contenedores en un mismo volumen) corren cada uno su propio escritor y su propio handle de git sobre la wiki. SQLite sobrevive a eso. La wiki no. Desde la 2.0, un segundo servidor se niega a arrancar mientras <code>.serve.lock</code> esté tomado."
+    },
+    "limits": {
+      "title": "Lo que el modo equipo no hace",
+      "text": "Las cuentas no son una barrera de aislamiento (tenancy). Todo usuario autenticado ve todas las páginas de todos los proyectos de ese servidor, y todavía no hay permisos por proyecto. Ejecuta un servidor por equipo, y un servidor aparte con su propio directorio de datos para un segundo equipo."
+    }
+  },
+  "nextPages": {
+    "advanced": "TLS, servicios, copias de seguridad, enrutamiento, SSO y cifras de capacidad.",
+    "integrations": "Todos los agentes, sistemas operativos y proveedores, con su estado.",
+    "security": "Qué se guarda, qué sale de la máquina y cómo cerrarlo."
+  },
+  "help": {
+    "title": "¿Atascado en un paso?",
+    "text": "El cookbook de instalación en GitHub tiene los comandos por agente, los servidores remotos y Windows. El issue tracker está abierto."
+  }
+}

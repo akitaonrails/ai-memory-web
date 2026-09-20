@@ -1,0 +1,143 @@
+{
+  "status": {
+    "supported": {
+      "label": "נתמך",
+      "means": "לכידה אוטומטית דרך hooks של מחזור החיים, וגם כלי הזיכרון מעל MCP."
+    },
+    "mcp-only": {
+      "label": "MCP בלבד",
+      "means": "הסוכן יכול לחפש בזיכרון ולכתוב אליו. הוא לא חושף hooks של מחזור החיים, ולכן שום דבר לא נלכד אוטומטית."
+    },
+    "hooks-only": {
+      "label": "Hooks בלבד",
+      "means": "הסשנים נלכדים אוטומטית. לסוכן אין לקוח MCP שדרכו אפשר לשאול את הזיכרון."
+    },
+    "managed-only": {
+      "label": "הרצה מנוהלת בלבד",
+      "means": "עובד כשמריצים דרך `ai-memory run`. אין מתקין hooks נפרד."
+    },
+    "community": {
+      "label": "קהילה",
+      "means": "פלאגין שהקהילה מתחזקת. ai-memory עצמו לא מתקין אותו."
+    },
+    "experimental": {
+      "label": "ניסיוני",
+      "means": "זה משוחרר וזה עובד, אבל צריך לצפות לפינות לא מלוטשות."
+    }
+  },
+  "platforms": {
+    "linux": {
+      "name": "Linux",
+      "note": "x86_64 ו-ARM64. קובץ בינארי נייטיב, Docker או Podman, חבילות AUR עם יחידות systemd."
+    },
+    "macos": {
+      "name": "macOS",
+      "note": "Apple Silicon ו-Intel. קובץ בינארי נייטיב עם launchd agent, או Docker."
+    },
+    "windows-via-wsl2": {
+      "name": "Windows דרך WSL2",
+      "note": "הולכים במסלול של Linux בתוך WSL2 ומריצים את הסוכן משם."
+    },
+    "native-windows": {
+      "name": "Windows נייטיב",
+      "note": "קובץ zip של הגרסה עם ai-memory.exe, ה-wrapper ל-Docker Desktop, או build מקוד מקור."
+    }
+  },
+  "harnesses": {
+    "claude-code": {
+      "note": "Hooks ו-MCP. ניתוב לפי סשן, אופציונלי."
+    },
+    "codex": {
+      "note": "Hooks ו-MCP. סיום סשן מחובר החל מ-Codex CLI 0.145.0."
+    },
+    "cursor": {
+      "note": "קונפיגורציית MCP ו-hooks של מחזור החיים."
+    },
+    "gemini-cli": {
+      "note": "קונפיגורציית MCP ו-hooks של מחזור החיים."
+    },
+    "opencode": {
+      "note": "MCP מרוחק ופלאגין TypeScript שנוצר אוטומטית."
+    },
+    "opencode2": {
+      "note": "פלאגין ל-API של הבטא. צפויים שינויים תכופים ב-upstream."
+    },
+    "grok": {
+      "note": "הלכידה עובדת. העברות נאספות דרך MCP."
+    },
+    "devin": {
+      "note": "Hooks ו-MCP, כולל לכידה אחרי compaction."
+    },
+    "kimi-code": {
+      "note": "עשרה אירועי hook. העברות מוזרקות בפרומפט הראשון."
+    },
+    "kiro-cli": {
+      "note": "גם מנוע v2 וגם מנוע v3."
+    },
+    "command-code": {
+      "note": "MCP וארבעה אירועי hook, עם resume נייטיב."
+    },
+    "antigravity-cli": {
+      "note": "סשנים נסגרים עם finalize-session."
+    },
+    "pi": {
+      "note": "הרחבה שנוצרת אוטומטית נותנת לכידה וגשר ל-MCP."
+    },
+    "omp": {
+      "note": "MCP נייטיב והרחבת TypeScript."
+    },
+    "openclaw": {
+      "note": "קונפיגורציית MCP ו-hooks נייטיב של פלאגין."
+    },
+    "zero": {
+      "note": "הלכידה כוללת אירועים של subagents."
+    },
+    "zcode": {
+      "note": "שישה טריגרים. הזרקת העברות עובדת."
+    },
+    "crush": {
+      "note": "מריצים אותו עם ai-memory run crush."
+    },
+    "pool": {
+      "note": "מדביקים בהגדרות שלו קטע hooks שנוצר אוטומטית."
+    },
+    "claude-desktop": {
+      "note": "מתחבר דרך mcp-remote."
+    },
+    "vscode-copilot": {
+      "note": "Copilot עדיין לא חושף hooks של מחזור החיים."
+    },
+    "zed": {
+      "note": "רשום כ-context server."
+    },
+    "swival": {
+      "note": "קונפיגורציית MCP ברמת הפרויקט."
+    },
+    "muse": {
+      "note": "הגדרות MCP ברמת המשתמש."
+    },
+    "hermes": {
+      "note": "פלאגין קהילתי של MrLuciano."
+    }
+  },
+  "llmProviders": [
+    "Anthropic",
+    "OpenAI",
+    "OpenAI OAuth / התחברות דרך Codex CLI",
+    "GitHub Copilot",
+    "Google Gemini",
+    "OpenCode Go ו-Zen",
+    "Ollama",
+    "LM Studio",
+    "vLLM",
+    "כל endpoint תואם OpenAI"
+  ],
+  "embeddingProviders": [
+    "מקומי, בתוך התהליך (ברירת המחדל)",
+    "OpenAI",
+    "Voyage",
+    "Google Gemini",
+    "GitHub Copilot",
+    "Ollama, LM Studio, vLLM"
+  ]
+}

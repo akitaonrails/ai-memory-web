@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "ai-memoryのダウンロードと変更履歴",
+    "description": "ai-memory {tag}をLinux、macOS、Windows向けにダウンロード。mise、AUR、Dockerでもインストールできます。チェックサム、リリース履歴、変更履歴の全文も掲載しています。"
+  },
+  "hero": {
+    "kicker": "開発者",
+    "title": "ai-memory {tag}をダウンロード",
+    "lede": "{date}リリース。プラットフォームごとに自己完結型のバイナリが1つあり、それぞれにSHA-256チェックサムが付いています。MITライセンスです。",
+    "primary": "プラットフォームを選ぶ",
+    "secondary": "変更点を見る"
+  },
+  "builds": {
+    "title": "バイナリ",
+    "yours": "お使いのシステムのようです",
+    "checksum": "SHA-256チェックサム",
+    "verifyTitle": "ダウンロードを検証",
+    "after": "展開したら<a class=\"underline font-semibold text-text\" href=\"{href}\">クイックセットアップ</a>に進んでください。コマンド3つで終わります。",
+    "linux": { "note": "展開して./ai-memory initを実行し、続けてserveを実行します。" },
+    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "launchdエージェントが付属します。ブラウザでダウンロードした場合は、先にquarantineフラグを外してください。" },
+    "win": { "note": "実験的です。サポート対象はWSL2上でLinuxビルドを使う方法です。" }
+  },
+  "channels": {
+    "title": "パッケージマネージャーとコンテナ",
+    "mise": { "title": "mise", "note": "LinuxとmacOS。チェックサムは自動で検証されます。新しいリリースが反映されるまで1日ほどかかることがあります。" },
+    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "ビルド済み", "source": "ソースから", "note": "ユーザーサービスまたはシステムサービス用のsystemdユニットをインストールします。" },
+    "docker": { "title": "DockerまたはPodman", "note": "マルチアーキテクチャ対応。linux/amd64とlinux/arm64があるので、Apple Siliconでもエミュレーションは不要です。" },
+    "src": { "title": "ソースから", "note": "rust-toolchain.tomlで固定されたRustツールチェーンが必要です。" },
+    "clients": "リモートサーバーにフックを送るだけのクライアントマシンには、フルバイナリは要りません。リリースには<code>ai-memory-install-hooks</code>と、Linux、macOS、Windows向けのDocker用ラッパースクリプトも含まれます。一覧は<a class=\"underline font-semibold text-text\" href=\"{href}\">リリースページ</a>にあります。"
+  },
+  "changelog": {
+    "title": "変更履歴",
+    "lede": "直近{n}件のリリースです。2.0以降はセマンティックバージョニングに従っています。",
+    "kinds": { "Added": "追加{n}件", "Changed": "変更{n}件", "Fixed": "修正{n}件", "Security": "セキュリティ{n}件", "Removed": "削除{n}件", "Deprecated": "非推奨{n}件" },
+    "full": "GitHubで変更履歴の全文を見る",
+    "releases": "すべてのリリース",
+    "upgrading": "1.xからのアップグレード"
+  },
+  "next": [
+    { "title": "クイックセットアップ", "text": "バイナリから動く記憶まで、コマンド3つ。" },
+    { "title": "連携", "text": "お使いのエージェントとOSを確認できます。" },
+    { "title": "詳細セットアップ", "text": "サービス化、TLS、バックアップ、アップグレード。" }
+  ]
+}

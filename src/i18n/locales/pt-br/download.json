@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "Download do ai-memory e changelog",
+    "description": "Baixe o ai-memory {tag} para Linux, macOS e Windows, ou instale com mise, AUR ou Docker. Checksums, histórico de releases e o changelog completo."
+  },
+  "hero": {
+    "kicker": "Desenvolvedores",
+    "title": "Baixe o ai-memory {tag}",
+    "lede": "Lançado em {date}. Um binário autocontido por plataforma, cada um com seu checksum SHA-256 ao lado. Licença MIT.",
+    "primary": "Escolha sua plataforma",
+    "secondary": "O que mudou"
+  },
+  "builds": {
+    "title": "Binários",
+    "yours": "Parece ser o seu sistema",
+    "checksum": "Checksum SHA-256",
+    "verifyTitle": "verificar um download",
+    "after": "Depois de descompactar, siga a <a class=\"underline font-semibold text-text\" href=\"{href}\">instalação rápida</a>. São três comandos.",
+    "linux": { "note": "Descompacte, rode ./ai-memory init e depois serve." },
+    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Inclui um agente launchd. Se você baixar pelo navegador, remova antes a flag de quarentena." },
+    "win": { "note": "Experimental. O caminho suportado é WSL2 com o build de Linux." }
+  },
+  "channels": {
+    "title": "Gerenciadores de pacotes e containers",
+    "mise": { "title": "mise", "note": "Linux e macOS. Verifica o checksum para você. Releases novas podem levar cerca de um dia para aparecer." },
+    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "pré-compilado", "source": "a partir do código-fonte", "note": "Instala units do systemd para serviço de usuário ou de sistema." },
+    "docker": { "title": "Docker ou Podman", "note": "Multi-arch: linux/amd64 e linux/arm64, então Apple Silicon roda sem emulação." },
+    "src": { "title": "A partir do código-fonte", "note": "Precisa do toolchain de Rust fixado em rust-toolchain.toml." },
+    "clients": "Máquinas cliente que só enviam hooks para um servidor remoto não precisam do binário completo. A release também traz o <code>ai-memory-install-hooks</code> e scripts wrapper para Docker no Linux, macOS e Windows. Eles estão listados na <a class=\"underline font-semibold text-text\" href=\"{href}\">página da release</a>."
+  },
+  "changelog": {
+    "title": "Changelog",
+    "lede": "As últimas {n} releases. O projeto segue versionamento semântico desde a 2.0.",
+    "kinds": { "Added": "adições: {n}", "Changed": "mudanças: {n}", "Fixed": "correções: {n}", "Security": "segurança: {n}", "Removed": "remoções: {n}", "Deprecated": "depreciações: {n}" },
+    "full": "Changelog completo no GitHub",
+    "releases": "Todas as releases",
+    "upgrading": "Atualizando a partir da 1.x"
+  },
+  "next": [
+    { "title": "Instalação rápida", "text": "De um binário a uma memória funcionando em três comandos." },
+    { "title": "Integrações", "text": "Confira seu agente e seu sistema operacional." },
+    { "title": "Configuração avançada", "text": "Serviços, TLS, backups e upgrades." }
+  ]
+}

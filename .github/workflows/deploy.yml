@@ -33,6 +33,8 @@ jobs:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+      # Only matters when this workflow deploys (mode B). Not a secret: it is visible in the page source.
+      PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
     steps:
       - uses: actions/checkout@v7
 
@@ -43,6 +45,7 @@ jobs:
 
       - run: npm ci
       - run: npm run check:colors
+      - run: npm run check:i18n
       - run: npm run build
 
       # Mode A: ask Netlify to rebuild on the daily schedule (and on manual runs).

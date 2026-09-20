@@ -1,0 +1,189 @@
+{
+  "items": {
+    "claude-memory": {
+      "name": "Memória nativa do Claude Code",
+      "kind": "Um MEMORY.md por laptop",
+      "needs": [
+        "Claude Code",
+        "Uma máquina só"
+      ],
+      "same": "A conveniência de “lembrar do meu projeto”, em markdown.",
+      "gain": [
+        "A mesma memória no Codex, Cursor, Gemini CLI e mais 20",
+        "Sincronizada entre as suas máquinas",
+        "Compartilhada com o seu time",
+        "Busca de verdade, e captura do que as ferramentas realmente fizeram"
+      ],
+      "theyWin": "Zero configuração. Já vem ligada e não tem servidor para rodar. Para um desenvolvedor em uma máquina que só usa Claude Code, pode ser tudo de que você precisa.",
+      "verdict": "Migre quando entrar um segundo agente, uma segunda máquina ou uma segunda pessoa."
+    },
+    "mem0": {
+      "name": "Mem0 e LangMem",
+      "kind": "Extratores de fatos",
+      "needs": [
+        "Um LLM a cada turno",
+        "Um banco vetorial"
+      ],
+      "same": "Captura automática, sem o ritual de “lembre disso”.",
+      "gain": [
+        "Páginas legíveis que você abre e edita, no lugar de linhas de fatos opacas",
+        "Busca que funde full-text, entidades, links e vetores",
+        "Nenhum gasto com API para capturar ou buscar"
+      ],
+      "theyWin": "Um ecossistema grande de SDKs e uma nuvem gerenciada feita para personalizar apps para usuários finais.",
+      "verdict": "Outro público. O Mem0 lembra dos usuários do seu app. O ai-memory lembra do seu repositório."
+    },
+    "zep": {
+      "name": "Zep e Graphiti",
+      "kind": "Grafo de conhecimento temporal",
+      "needs": [
+        "Neo4j, FalkorDB ou Neptune",
+        "Um LLM"
+      ],
+      "same": "Fatos são substituídos, nunca apagados. Dá para perguntar o que era verdade em um ponto no tempo.",
+      "gain": [
+        "Consultas point-in-time e links tipados em um binário só com SQLite",
+        "Nenhum banco de grafos para manter",
+        "Nativo para agentes de código, com hooks para mais de 20 deles"
+      ],
+      "theyWin": "Modelagem bitemporal de verdade, consultas de grafo em Cypher e tipos de entidade customizados. O ai-memory registra só o tempo de ingestão, por decisão de projeto.",
+      "verdict": "Migre se você roda self-hosted para programar. Fique se precisa de consultas de grafo enterprise."
+    },
+    "cognee": {
+      "name": "cognee",
+      "kind": "Pipeline de grafo, vetores e relacional",
+      "needs": [
+        "Três bancos em sincronia",
+        "Uma chamada de LLM por chunk",
+        "Python"
+      ],
+      "same": "Proveniência, ranking ponderado por feedback e um plugin para Claude Code.",
+      "gain": [
+        "Um lugar só para fazer backup: uma pasta de markdown",
+        "Nenhuma conta de LLM na ingestão",
+        "Um binário único que roda numa máquina de homelab"
+      ],
+      "theyWin": "Amplitude: mais de 14 modos de busca, grounding em ontologias e ingestão de PDFs, CSVs e páginas web.",
+      "verdict": "Migre se você quer memória para sessões de código. Fique se você ingere documentos."
+    },
+    "openviking": {
+      "name": "OpenViking e Hindsight",
+      "kind": "Memória em documentos vivos, LLM obrigatório",
+      "needs": [
+        "Um LLM ou VLM",
+        "Embeddings",
+        "Postgres ou um serviço hospedado"
+      ],
+      "same": "Memória compilada em páginas vivas por um loop de consolidação em background.",
+      "gain": [
+        "Captura, busca e handoffs com zero chamadas a LLM",
+        "Arquivos que são seus, licença MIT, sem o peso de AGPL ou SaaS",
+        "Compartilhamento com o time por projeto, no lugar de isolamento rígido por bank"
+      ],
+      "theyWin": "Acurácia reportada mais alta com um LLM no loop: o Hindsight reporta 91,4% no LongMemEval, o OpenViking reporta grande economia de tokens. Os dois números são dos próprios fornecedores.",
+      "verdict": "Migre para uso self-hosted, offline ou em time. Fique se você precisa da acurácia deles e aceita a exigência de LLM."
+    },
+    "basic-memory": {
+      "name": "basic-memory",
+      "kind": "Base de conhecimento em markdown via MCP",
+      "needs": [
+        "Você, escrevendo notas na mão"
+      ],
+      "same": "Markdown em disco é a fonte da verdade, com um índice derivado.",
+      "gain": [
+        "Captura automática pelos hooks de ciclo de vida",
+        "Decaimento e substituição, para notas velhas pararem de ranquear",
+        "Handoffs entre agentes e compartilhamento multiusuário"
+      ],
+      "theyWin": "Um reranker cross-encoder local, edição colaborativa em tempo real e um app mobile hospedado.",
+      "verdict": "Migre pela continuidade de código entre vários agentes. Fique por uma base de conhecimento pessoal no estilo Obsidian."
+    },
+    "mcp-memory-service": {
+      "name": "mcp-memory-service",
+      "kind": "O parente mais próximo",
+      "needs": [
+        "Basicamente Claude Code"
+      ],
+      "same": "SQLite, embeddings locais, captura por hooks, links tipados e números honestos.",
+      "gain": [
+        "Páginas que você consegue ler, no lugar de linhas de fatos",
+        "Handoffs entre agentes que só uma sessão assume",
+        "Mensagens entre projetos e busca point-in-time"
+      ],
+      "theyWin": "Consolidação por clustering, replicação multi-backend e um visualizador de grafo. A nota dele por sessão, 0,860, fica acima dos 0,823 do ai-memory.",
+      "verdict": "Migre se você gostou da captura por hooks e quer isso em todos os agentes."
+    },
+    "agentmemory": {
+      "name": "agentmemory",
+      "kind": "O ancestral deste projeto",
+      "needs": [
+        "Um sidecar em Node",
+        "Mais de 50 ferramentas MCP"
+      ],
+      "same": "Quase todos os conceitos: camadas, substituição, decaimento, ranking fundido, hooks.",
+      "gain": [
+        "Um binário autocontido, sem sidecar",
+        "Índices SQL de verdade, gravados em uma transação só",
+        "Arquivos como fonte da verdade, paridade no Windows, autenticação mais completa"
+      ],
+      "theyWin": "Cerca de 13 pontos de recuperação bruta: ele reporta 0,952 no LongMemEval-S contra 0,823, porque faz rerank. Também tem sync peer-to-peer.",
+      "verdict": "Migre pela operação mais simples e para ser dono dos seus dados."
+    },
+    "letta": {
+      "name": "Letta e MemGPT",
+      "kind": "Sistema operacional de memória",
+      "needs": [
+        "Adotar o runtime de agentes deles"
+      ],
+      "same": "Camadas de memória e consolidação fora do hot path.",
+      "gain": [
+        "Memória que fica embaixo do agente que você já usa",
+        "Nenhum runtime para adotar, nenhum token gasto com autoedição"
+      ],
+      "theyWin": "Um framework de agentes completo com ambiente de desenvolvimento, e boa coerência em horizontes longos.",
+      "verdict": "Fique se você constrói em cima do Letta. Migre se só quer que seu agente de código lembre das coisas."
+    },
+    "supermemory": {
+      "name": "Supermemory",
+      "kind": "API de memória hospedada",
+      "needs": [
+        "Uma conta na nuvem",
+        "Gasto com API"
+      ],
+      "same": "Um segundo cérebro com ingestão automática e substituição.",
+      "gain": [
+        "Markdown versionado em git que é seu",
+        "Funciona offline",
+        "Focado no seu repositório, enquanto o Supermemory é um cofre genérico"
+      ],
+      "theyWin": "Conectores gerenciados para Drive, Gmail, Notion e S3, ingestão multimodal e perfis de usuário.",
+      "verdict": "Outro público."
+    }
+  },
+  "moat": [
+    {
+      "title": "Zero chamadas a LLM por padrão",
+      "text": "Captura, busca e handoffs funcionam sem chave de API."
+    },
+    {
+      "title": "Os arquivos são a fonte da verdade",
+      "text": "Uma pasta de markdown versionada em git. O banco de dados é um índice que dá para reconstruir."
+    },
+    {
+      "title": "Um binário autocontido",
+      "text": "Roda sem banco de grafos, sem runtime Python e sem processo sidecar."
+    },
+    {
+      "title": "Todos os agentes, automaticamente",
+      "text": "Hooks de ciclo de vida para mais de 20 agentes de código."
+    },
+    {
+      "title": "Handoffs tipados, assumidos uma vez só",
+      "text": "Um protocolo: cada handoff tem tipo e dono, e só uma sessão consegue assumi-lo."
+    },
+    {
+      "title": "Times sem plano pago",
+      "text": "Contas, atribuição e log de auditoria já vêm inclusos."
+    }
+  ]
+}

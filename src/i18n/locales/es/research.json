@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "title": "Investigación: la LLM wiki de Karpathy, OKF y benchmarks",
+    "description": "Por qué ai-memory es una wiki markdown compilada en git: la idea de la LLM Wiki de Karpathy, el Open Knowledge Format de Google y cada decisión de diseño."
+  },
+  "hero": {
+    "kicker": "Producto",
+    "title": "Investigación y fundamentos",
+    "lede": "Cada parte de ai-memory tiene un motivo que puedes comprobar: una idea de la que viene, un bug de una herramienta anterior que evita o una cifra contra la que se midió. Esta página los recorre en seis capítulos cortos.",
+    "primary": "Mira el benchmark",
+    "secondary": "Lee las decisiones de diseño"
+  },
+  "quotes": {
+    "compiled": {
+      "text": "“El conocimiento se compila una vez y después se mantiene al día, en lugar de volver a derivarse en cada consulta.”",
+      "by": "Andrej Karpathy, <a href=\"{href}\">el gist de la LLM Wiki</a>"
+    },
+    "rented": {
+      "text": "“El modelo y el harness son alquilados, la memoria del proyecto es tuya.”",
+      "by": "Fabio Akita, <a href=\"{href}\">en el anuncio de ai-memory 2.0</a>"
+    },
+    "noAsterisk": {
+      "text": "“La 1.x demostró que la idea funcionaba. La 2.0 es la versión que recomendaría sin asterisco a otra persona para ponerla en un equipo.”",
+      "by": "Fabio Akita, <a href=\"{href}\">en el anuncio de ai-memory 2.0</a>"
+    }
+  },
+  "compile": {
+    "title": "Compila, no recuperes",
+    "lede": "En abril de 2026, Andrej Karpathy publicó un breve “idea file” sobre lo que llamó una LLM wiki. ai-memory es esa idea, adaptada a agentes de programación que nunca dejan de producir material.",
+    "layers": {
+      "title": "Tres capas",
+      "text": "Fuentes en bruto que nunca cambian, una wiki de páginas markdown que mantiene el LLM y un archivo de esquema que le dice al agente cómo funciona la wiki."
+    },
+    "operations": {
+      "title": "Tres operaciones",
+      "text": "Ingerir una fuente y actualizar las páginas que toca. Consultar la wiki. Pasarle lint en busca de contradicciones y páginas huérfanas."
+    },
+    "figure": {
+      "alt": "Diagrama: las tres capas de Karpathy a la izquierda, fuentes en bruto, wiki y esquema, cada una asociada a su equivalente en ai-memory a la derecha: observaciones de hooks, markdown en git y un bloque instalado en AGENTS.md.",
+      "caption": "Las tres capas de Karpathy, y dónde vive cada una en una instalación de ai-memory."
+    },
+    "kept": {
+      "title": "Qué conservó ai-memory",
+      "items": [
+        "Archivos markdown en un repositorio git, como aquello que una persona puede abrir, comparar con diff y leer.",
+        "Compilar el conocimiento cuando llega, con una sesión que se reparte en varias páginas.",
+        "Los wikilinks entre páginas como grafo.",
+        "Lint para contradicciones, páginas obsoletas, huérfanas y títulos duplicados.",
+        "Un bloque de esquema instalado en CLAUDE.md o AGENTS.md para que el agente sepa usar la wiki."
+      ]
+    },
+    "changed": {
+      "title": "Qué cambió",
+      "text": "El patrón de Karpathy lo cura una persona, fuente por fuente. Un agente de programación produce material sin parar y nadie lo está mirando.",
+      "colGist": "En el gist",
+      "colHere": "En ai-memory",
+      "rows": [
+        { "was": "Le pasas al LLM una fuente cada vez", "now": "Los hooks de ciclo de vida capturan cada sesión por su cuenta" },
+        { "was": "El agente lee primero index.md", "now": "Un índice fusionado: texto completo, entidades, enlaces y vectores" },
+        { "was": "Un LLM hace todo el mantenimiento", "now": "Resúmenes basados en reglas por defecto. El LLM es opt-in" },
+        { "was": "Una persona, una wiki", "now": "Traspasos entre agentes, varios usuarios, alcance por proyecto" },
+        { "was": "Las páginas viven para siempre", "now": "Niveles, decaimiento, reemplazo y TTL dejan fuera las páginas obsoletas" }
+      ]
+    },
+    "origin": "Los niveles, el decaimiento y el reemplazo no están en el gist de Karpathy. Vienen de agentmemory y de los textos sobre “LLM Wiki v2” que lo rodean. <a class=\"underline\" href=\"{href}\">Las notas de lectura completas están en el repositorio.</a>"
+  },
+  "okf": {
+    "title": "Tu memoria ya está en un formato abierto",
+    "lede": "Open Knowledge Format es una especificación que Google Cloud publicó en junio de 2026. Describe el conocimiento como un directorio plano de archivos markdown con frontmatter YAML, un concepto por archivo y un único campo obligatorio: type. No hay SDK ni runtime.",
+    "points": [
+      "Desde la 2.0, la wiki es de forma nativa un bundle OKF v0.2. Los archivos con los que trabaja ai-memory son los archivos OKF, así que no hay un paso de exportación que pueda desviarse de la verdad.",
+      "Un proyecto es un bundle, con un <code>index.md</code> generado en su raíz.",
+      "Cada página tiene frontmatter YAML con un <code>type</code>, derivado de la carpeta en la que vive.",
+      "Actualizar desde la 1.x reescribe el frontmatter en el sitio después de una copia de seguridad verificada. Si la copia falla, la migración se detiene."
+    ],
+    "exportTitle": "empaquetar un proyecto como bundle validado",
+    "noImport": "No hay comando de importación. Descomprime un bundle en el directorio de la wiki de un proyecto y el file watcher lo indexa. <a class=\"underline\" href=\"{mapping}\">El mapeo a OKF está documentado campo por campo</a>, y la especificación vive en <a class=\"underline\" href=\"{spec}\">el repositorio knowledge-catalog de Google Cloud</a>.",
+    "colFolder": "Carpeta",
+    "colType": "Tipo OKF",
+    "eitherType": "{a} o {b}",
+    "figure": {
+      "alt": "Diagrama: una carpeta de proyecto con index.md y páginas tipadas, una decisión, un gotcha y un procedimiento, que pasa sin cambios a Obsidian, a grep y a otra herramienta OKF.",
+      "caption": "Un bundle es una carpeta. Cualquier cosa que lea markdown puede leerlo, con o sin ai-memory."
+    },
+    "conformance": {
+      "title": "Qué no significa cumplir con OKF",
+      "text": "ai-memory sigue una especificación pública. Google no ha revisado, certificado ni avalado el proyecto."
+    }
+  },
+  "decisions": {
+    "title": "Ocho decisiones, y el motivo de cada una",
+    "lede": "La mayoría se remonta a un issue concreto de una herramienta de memoria anterior.",
+    "weChose": "Elegimos",
+    "items": [
+      { "chose": "Markdown en git como la verdad", "because": "<strong>porque</strong> hacer una copia o mudarse es un git clone o un rsync. La base de datos se puede reconstruir desde los archivos, así que la corrupción tiene arreglo, y cualquier herramienta que lea markdown puede leer tu memoria." },
+      { "chose": "Un solo archivo SQLite", "because": "<strong>porque</strong> el texto completo, los vectores empaquetados y las tablas de enlaces viven en un único archivo embebido. Los issue trackers de otros proyectos mostraron cuántos bugs de corrección cuesta sincronizar tres almacenes." },
+      { "chose": "Cero llamadas a LLM por defecto", "because": "<strong>porque</strong> los resúmenes de sesión se basan en reglas, así que una instalación nueva no gasta nada. La lección vino de funciones con LLM activadas por defecto en otros proyectos, que sorprendieron a sus usuarios con facturas de tokens." },
+      { "chose": "Un solo binario", "because": "<strong>porque</strong> SQLite va incluido, libgit2 va vendorizado y el embedder es Rust puro. Un motor sidecar aparte fue el mayor foco de problemas para los usuarios del proyecto al que este sucede." },
+      { "chose": "Sin base de datos de grafos", "because": "<strong>porque</strong> el grafo son tablas SQL: una tabla de enlaces y consultas recursivas. Eso cubre la expansión a un salto y las aristas tipadas sin un motor de grafos embebido que mantener vivo." },
+      { "chose": "Los vectores son opcionales", "because": "<strong>porque</strong> los embeddings locales vienen activados desde la 2.0 y siguen sin ser obligatorios. La búsqueda es coseno por fuerza bruta dentro de SQLite; una extensión vectorial espera hasta que el número de páginas o la latencia la pidan." },
+      { "chose": "Traspasos como protocolo tipado que se reclama una sola vez", "because": "<strong>porque</strong> cada ronda de investigación señaló la transferencia entre agentes como el punto débil de las herramientas anteriores. Un traspaso es un registro tipado que se asocia por directorio, y exactamente una sesión puede aceptarlo." },
+      { "chose": "Páginas en vez de filas de hechos", "because": "<strong>porque</strong> una página sobre una decisión se puede leer, editar y explicar en prosa. Una tabla de hechos extraídos no se puede abrir en Obsidian ni revisar en un diff." }
+    ],
+    "all": "Lee todas las decisiones de diseño"
+  },
+  "priorArt": {
+    "title": "A hombros de otros",
+    "lede": "El proyecto leyó el código y los issue trackers de las herramientas que llegaron antes, se quedó con las ideas que aguantaron y dejó fuera las partes que se rompían una y otra vez.",
+    "figureAlt": "Diagrama: siete proyectos previos, la wiki de Karpathy, agentmemory, basic-memory, cognee, Hermes Agent, A-MEM y Hindsight, cada uno aportando una línea a ai-memory.",
+    "gave": {
+      "karpathy": "Compila, no recuperes. La wiki en disco es el artefacto.",
+      "agentmemory": "Captura automática con hooks, niveles de memoria, reemplazo, decaimiento como fórmula y ranking fusionado. ai-memory es su sucesor en Rust: las ideas se quedaron, el sustrato cambió.",
+      "basicMemory": "Los archivos como fuente de verdad con un índice derivado, y enlaces hacia páginas que todavía no existen.",
+      "cognee": "La forma del pipeline de tareas, los sellos de procedencia en cada página y el feedback que ajusta el ranking.",
+      "hermes": "El diseño del bucle de automejora que revisa en segundo plano las sesiones terminadas.",
+      "amem": "Notas atómicas al estilo Zettelkasten que se enlazan entre sí automáticamente.",
+      "hindsight": "Etiquetas de redacción tipadas, recuentos de evidencia por página y un resumen que abre con las reglas ya asentadas."
+    },
+    "noEndorsement": "Ninguno de estos proyectos avala ai-memory. Para saber dónde va por delante cada uno, <a class=\"underline\" href=\"{href}\">mira la comparación</a>."
+  },
+  "measured": {
+    "title": "Qué se midió",
+    "lede": "El stack de recuperación se evalúa con LongMemEval-S: 470 preguntas sobre historiales de chat largos, pasadas por la ruta real de hooks y la búsqueda real. El harness de evaluación está en el repositorio.",
+    "chart": {
+      "title": "hit@5 en LongMemEval-S",
+      "subtitle": "Porcentaje de las 470 preguntas con una sesión de evidencia entre los cinco primeros resultados. Más alto es mejor.",
+      "bars": [
+        "Solo texto completo, antes de la 2.0",
+        "Texto completo con stopwords filtradas",
+        "Más embeddings locales (por defecto en la 2.0)"
+      ]
+    },
+    "steps": {
+      "title": "Qué fue cada paso",
+      "stopwords": "Quitar las stopwords de las consultas de texto completo sumó {hit5} puntos de hit@5 y {hit1} de hit@1.",
+      "embeddings": "El modelo de embeddings dentro del proceso sumó el resto. Acertar con el masked-mean pooling valió por sí solo unos {points} puntos.",
+      "noKey": "En ninguna fila intervienen una clave de API ni un LLM."
+    },
+    "table": {
+      "metric": "Métrica",
+      "before": "Antes de la 2.0",
+      "filtered": "Texto completo filtrado",
+      "local": "Embeddings locales"
+    },
+    "retrievalOnly": {
+      "title": "Recuperación, no respuestas",
+      "text": "hit@5 pregunta si se encontró la sesión correcta. Ningún modelo escribe ni califica una respuesta, así que esta cifra no se puede comparar con las de precisión que publican otras herramientas. El dataset es historial de chat, y todavía no existe un benchmark de sesiones de programación."
+    },
+    "privacyCap": {
+      "title": "El tope de privacidad cuesta puntos a propósito",
+      "text": "Los extractos de herramientas se cortan a 2 KB antes de guardarse. La evidencia que está muy dentro de un turno largo nunca llega al índice. El benchmark evalúa el sistema tal como se distribuye, tope incluido."
+    },
+    "reproduce": {
+      "title": "Ejecútalo tú mismo",
+      "text": "Añade <code>--embeddings local</code> al segundo comando para la fila híbrida. La ejecución publicada es del {date}, en un Ryzen 9 7950X3D, y no se ha repetido en versiones posteriores.",
+      "codeTitle": "reproducir el benchmark",
+      "full": "Resultados completos, por tipo de pregunta"
+    },
+    "throughput": {
+      "title": "Throughput de escritura",
+      "text": "Todas las escrituras pasan por una cola hacia un solo hilo. El techo ronda las 700 escrituras por segundo, plano a partir de 32 escritores, medido en un disco local rápido. Los volúmenes en red darán menos.",
+      "colWriters": "Escritores concurrentes",
+      "colThroughput": "Throughput",
+      "colLatency": "Latencia media",
+      "perSecond": "{n}/s",
+      "ms": "{n} ms",
+      "codeTitle": "reproducir el test de throughput"
+    }
+  },
+  "next": {
+    "title": "Qué viene después, y dónde va por detrás",
+    "lede": "Son recomendaciones documentadas en el repositorio. Ninguna tiene fecha.",
+    "recommended": {
+      "title": "Lo siguiente recomendado",
+      "items": [
+        { "title": "Un segundo harness de evaluación", "text": "Datos de sesiones de programación, evaluados a la vez en precisión, latencia y tokens de contexto. Los puntos de abajo dependen de él." },
+        { "title": "Un reranker local", "text": "Un cross-encoder que corre dentro del proceso, sin LLM. Espera a que el harness de arriba demuestre que vale la pena." },
+        { "title": "Un ranking que use lo que ya se guarda", "text": "Los recuentos de evidencia y las aristas tipadas se registran hoy y todavía no mueven el ranking." },
+        { "title": "Un comando de sync acotado", "text": "O una descripción más clara del modelo de un solo servidor, o un ai-memory sync construido sobre la wiki de git." },
+        { "title": "Un arranque más fácil para quien usa Claude Code", "text": "Un importador para quien viene de la memoria integrada de Claude." }
+      ],
+      "notPlanned": "No está previsto: una base de datos de grafos, un sistema operativo de memoria que se edita a sí mismo, conectores a la nube ni aumentar el número de herramientas porque sí."
+    },
+    "behind": {
+      "title": "Dónde va por detrás hoy",
+      "reranked": "La puntuación de recuperación bruta queda por debajo de las herramientas que hacen rerank. agentmemory reporta {score} en el mismo dataset (es su cifra, no está reproducida aquí).",
+      "items": [
+        "No hay un reranker local que funcione sin un LLM.",
+        "Las aristas tipadas y los recuentos de evidencia se guardan y se muestran en la salida de explain, sin peso en el ranking.",
+        "El viaje en el tiempo con as_of sabe cuándo ai-memory aprendió un dato. No sabe cuándo ese dato empezó a ser cierto.",
+        "Un servidor al que llegan muchas máquinas. No hay replicación automática, ni plan alojado, ni consola corporativa.",
+        "La memoria integrada de Claude Code no necesita ninguna configuración. Para una persona, en una máquina y con un solo agente, es difícil de superar."
+      ]
+    }
+  },
+  "nextPages": [
+    { "title": "Arquitectura", "text": "Cómo encajan el binario, la wiki y el índice." },
+    { "title": "Comparar y migrar", "text": "Herramienta por herramienta, incluido dónde ganan las otras." },
+    { "title": "Contribuir", "text": "El harness de evaluación es el trabajo que más falta hace." }
+  ],
+  "cta": {
+    "title": "Lee el razonamiento. Después, pruébalo.",
+    "text": "Gratis y de código abierto. La instalación por defecto no hace llamadas a un LLM y solo escucha en tu máquina."
+  },
+  "faq": [
+    { "q": "¿Qué es la idea de la LLM Wiki de Karpathy que hay detrás de ai-memory?", "a": "El gist de Andrej Karpathy de abril de 2026 describe un LLM que construye y mantiene una wiki persistente de archivos markdown entre tú y tus fuentes en bruto, de modo que el conocimiento se compila una vez y se mantiene al día. ai-memory aplica eso a los agentes de programación, con captura automática desde los hooks de ciclo de vida y una ruta por defecto que no hace llamadas a un LLM." },
+    { "q": "¿ai-memory es compatible con el Open Knowledge Format?", "a": "Desde la 2.0, cada proyecto de la wiki es de forma nativa un bundle OKF v0.2. Cada página tiene frontmatter YAML con un type, cada proyecto tiene un index.md generado, y ai-memory export-okf empaqueta un proyecto en un tarball validado." },
+    { "q": "¿Qué mide el benchmark LongMemEval-S en ai-memory?", "a": "Solo recuperación: si una sesión que contiene la evidencia aparece entre los primeros resultados, sobre 470 preguntas. hit@5 es {hybrid} con los embeddings locales por defecto y {fts} con solo texto completo. No mide la precisión de las respuestas." }
+  ]
+}

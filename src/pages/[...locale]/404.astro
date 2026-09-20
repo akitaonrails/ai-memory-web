@@ -1,0 +1,17 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+const { t, href } = useI18n(Astro, 'notfound');
+---
+<Base title={t('meta.title')} description={t('meta.description')} noindex>
+  <section class="wrap pt-44 pb-32" data-hue="violet">
+    <h1 class="text-4xl max-w-[14ch]">{t('title')}</h1>
+    <p class="lede mt-6">{t('lede')}</p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a href={href('/')} class="btn btn-primary">{t('home')}</a>
+      <a href={href('/install/')} class="btn btn-ghost">{t('install')}</a>
+      <a href={href('/integrations/')} class="btn btn-ghost">{t('integrations')}</a>
+    </div>
+  </section>
+</Base>

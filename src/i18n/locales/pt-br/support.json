@@ -1,0 +1,143 @@
+{
+  "status": {
+    "supported": {
+      "label": "Suportado",
+      "means": "Captura automática pelos hooks de ciclo de vida, mais as ferramentas de memória via MCP."
+    },
+    "mcp-only": {
+      "label": "Só MCP",
+      "means": "O agente consegue buscar e escrever na memória. Ele não expõe hooks de ciclo de vida, então nada é capturado automaticamente."
+    },
+    "hooks-only": {
+      "label": "Só hooks",
+      "means": "As sessões são capturadas automaticamente. O agente não tem cliente MCP para consultar a memória."
+    },
+    "managed-only": {
+      "label": "Só gerenciado",
+      "means": "Funciona quando aberto via `ai-memory run`. Não existe instalador de hooks separado."
+    },
+    "community": {
+      "label": "Comunidade",
+      "means": "Plugin mantido pela comunidade. O ai-memory em si não faz a instalação dele."
+    },
+    "experimental": {
+      "label": "Experimental",
+      "means": "Já vem na release e funciona, mas espere algumas arestas."
+    }
+  },
+  "platforms": {
+    "linux": {
+      "name": "Linux",
+      "note": "x86_64 e ARM64. Binário nativo, Docker ou Podman, pacotes no AUR com units do systemd."
+    },
+    "macos": {
+      "name": "macOS",
+      "note": "Apple Silicon e Intel. Binário nativo com agente launchd, ou Docker."
+    },
+    "windows-via-wsl2": {
+      "name": "Windows via WSL2",
+      "note": "Siga o caminho do Linux dentro do WSL2 e abra seu agente de lá."
+    },
+    "native-windows": {
+      "name": "Windows nativo",
+      "note": "Zip da release com ai-memory.exe, o wrapper para Docker Desktop ou build a partir do código-fonte."
+    }
+  },
+  "harnesses": {
+    "claude-code": {
+      "note": "Hooks e MCP. Roteamento por sessão opcional."
+    },
+    "codex": {
+      "note": "Hooks e MCP. O fim de sessão funciona a partir do Codex CLI 0.145.0."
+    },
+    "cursor": {
+      "note": "Config de MCP e hooks de ciclo de vida."
+    },
+    "gemini-cli": {
+      "note": "Config de MCP e hooks de ciclo de vida."
+    },
+    "opencode": {
+      "note": "MCP remoto e um plugin TypeScript gerado."
+    },
+    "opencode2": {
+      "note": "Plugin para a API beta. Espere mudanças frequentes no upstream."
+    },
+    "grok": {
+      "note": "A captura funciona. Os handoffs chegam via MCP."
+    },
+    "devin": {
+      "note": "Hooks e MCP, incluindo captura pós-compactação."
+    },
+    "kimi-code": {
+      "note": "Dez eventos de hook. Handoffs entram no primeiro prompt."
+    },
+    "kiro-cli": {
+      "note": "Tanto a engine v2 quanto a v3."
+    },
+    "command-code": {
+      "note": "MCP e quatro eventos de hook, com resume nativo."
+    },
+    "antigravity-cli": {
+      "note": "As sessões fecham com finalize-session."
+    },
+    "pi": {
+      "note": "Uma extensão gerada faz a captura e a ponte com MCP."
+    },
+    "omp": {
+      "note": "MCP nativo e uma extensão TypeScript."
+    },
+    "openclaw": {
+      "note": "Config de MCP e hooks nativos de plugin."
+    },
+    "zero": {
+      "note": "A captura inclui eventos de subagentes."
+    },
+    "zcode": {
+      "note": "Seis triggers. A injeção de handoff funciona."
+    },
+    "crush": {
+      "note": "Abra com ai-memory run crush."
+    },
+    "pool": {
+      "note": "Cole nas configurações dele um snippet de hooks gerado."
+    },
+    "claude-desktop": {
+      "note": "Conecta via mcp-remote."
+    },
+    "vscode-copilot": {
+      "note": "O Copilot ainda não expõe hooks de ciclo de vida."
+    },
+    "zed": {
+      "note": "Registrado como context server."
+    },
+    "swival": {
+      "note": "Config de MCP por projeto."
+    },
+    "muse": {
+      "note": "Config de MCP por usuário."
+    },
+    "hermes": {
+      "note": "Plugin da comunidade, por MrLuciano."
+    }
+  },
+  "llmProviders": [
+    "Anthropic",
+    "OpenAI",
+    "OpenAI OAuth / login do Codex CLI",
+    "GitHub Copilot",
+    "Google Gemini",
+    "OpenCode Go e Zen",
+    "Ollama",
+    "LM Studio",
+    "vLLM",
+    "Qualquer endpoint compatível com OpenAI"
+  ],
+  "embeddingProviders": [
+    "Local, in-process (o padrão)",
+    "OpenAI",
+    "Voyage",
+    "Google Gemini",
+    "GitHub Copilot",
+    "Ollama, LM Studio, vLLM"
+  ]
+}

@@ -5,37 +5,25 @@
 import { Image } from 'astro:assets';
 import logo from '@/assets/img/logo.png';
 
-const scenes = [
-  {
-    id: 'agents', hue: 'violet', href: '/solutions/individuals/', link: 'How handoffs work',
-    title: 'Switch agents mid-task.',
-    text: 'Quit Claude Code, open Codex in the same directory. It starts with a handoff: what got done, what failed and what is still open.',
-    in: { kind: 'term', label: 'claude', lines: ['> move refresh into middleware', '● Edit auth/middleware.rs', '● cargo test: 2 failed', '> /exit'] },
-    out: { kind: 'term', label: 'codex', lines: ['Handoff from Claude Code', '✓ Refresh moved to middleware', '✗ Cookie-only broke mobile', '? Rate limit on /refresh', '> fix the two failing tests'] },
-  },
-  {
-    id: 'machines', hue: 'azure', href: '/solutions/individuals/#machines', link: 'One server, many machines',
-    title: 'Switch machines.',
-    text: 'Memory lives in a small server you run: on your laptop, a homelab box, wherever. The project you left on the desktop is the project you resume on the notebook.',
-    in: { kind: 'term', label: 'desktop, office', lines: ['~/app $ ai-memory run claude', '● 41 observations captured', '● session saved to the wiki'] },
-    out: { kind: 'term', label: 'notebook, on the train', lines: ['~/app $ ai-memory run claude', '> where did we leave off?', 'You were rate limiting /refresh.', 'Two tests in auth_spec still fail.'] },
-  },
-  {
-    id: 'team', hue: 'teal', href: '/solutions/teams/', link: 'ai-memory for teams',
-    title: 'Share it with your team.',
-    text: 'Point everyone at one server. What one person’s sessions learn, everyone’s agents can find. New hires ask the project instead of interrupting you.',
-    in: { kind: 'people', label: 'this week', lines: ['Ana|fixed the flaky CI cache', 'Ravi|chose advisory locks over a queue', 'Mei|wrote the deploy runbook'] },
-    out: { kind: 'term', label: 'Lia, first day', lines: ['> catch me up on this project', '3 decisions, 1 runbook and 2 open', 'questions from the last two weeks.', 'Start with decisions/advisory-locks.'] },
-  },
-  {
-    id: 'wiki', hue: 'green', href: '/architecture/', link: 'See what is stored',
-    title: 'It writes its own wiki.',
-    text: 'Hooks capture the work silently. Sessions become plain markdown pages, filed and cross-linked in a git-backed wiki. Grep it, open it in Obsidian, edit it by hand.',
-    in: { kind: 'chips', label: 'captured', lines: ['prompt', 'Edit auth.rs', 'cargo test failed', 'git rebase main', 'Read schema.sql', 'prompt', 'Bash: curl /refresh', 'session end'] },
-    out: { kind: 'tree', label: 'wiki/', lines: ['decisions/|session-tokens.md', 'gotchas/|mobile-cookie-jar.md', 'procedures/|deploy.md', 'sessions/|2026-09-18-auth.md', '|index.md'] },
-  },
+import { useI18n } from '@/i18n';
+const { t, raw, href } = useI18n(Astro, 'home');
+
+// Structure here; every word (including the terminal lines) is in home.json under continuity.scenes.<id>.
+const sceneMeta = [
+  { id: 'agents', hue: 'violet', href: '/solutions/individuals/', inKind: 'term', outKind: 'term' },
+  { id: 'machines', hue: 'azure', href: '/solutions/individuals/#machines', inKind: 'term', outKind: 'term' },
+  { id: 'team', hue: 'teal', href: '/solutions/teams/', inKind: 'people', outKind: 'term' },
+  { id: 'wiki', hue: 'green', href: '/architecture/', inKind: 'chips', outKind: 'tree' },
 ] as const;
-type Side = (typeof scenes)[number]['in'] | (typeof scenes)[number]['out'];
+interface SceneText { title: string; text: string; link: string; inLabel: string; in: string[]; outLabel: string; out: string[] }
+type Kind = 'term' | 'people' | 'chips' | 'tree';
+interface Side { kind: Kind; label: string; lines: string[] }
+const scenes = sceneMeta.map((m) => {
+  const x = raw<SceneText>(`continuity.scenes.${m.id}`);
+  return { ...m, href: href(m.href), title: x.title, text: x.text, link: x.link,
+    in: { kind: m.inKind, label: x.inLabel, lines: x.in } as Side,
+    out: { kind: m.outKind, label: x.outLabel, lines: x.out } as Side };
+});
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -44,25 +32,25 @@ function card(side: Side): string {
   const body = (() => {
     switch (side.kind) {
       case 'term':
-        return side.lines.map((l) => `<span class="ln ${l.startsWith('>') || l.includes('$') ? 'p' : l.startsWith('●') ? 'd' : ''}">${esc(l)}</span>`).join('');
+        return side.lines.map((l) => `<span dir="auto" class="ln ${l.startsWith('>') || l.includes('$') ? 'p' : l.startsWith('●') ? 'd' : ''}">${esc(l)}</span>`).join('');
       case 'people':
-        return side.lines.map((l) => { const [who, what] = l.split('|'); return `<div class="person"><b>${who[0]}</b><div><strong>${who}</strong> <span>${esc(what)}</span></div></div>`; }).join('');
+        return side.lines.map((l) => { const [who, what] = l.split('|'); return `<div class="person" dir="auto"><b>${who[0]}</b><div><strong>${who}</strong> <span>${esc(what)}</span></div></div>`; }).join('');
       case 'chips':
-        return side.lines.map((l) => `<span class="chip">${esc(l)}</span>`).join('');
+        return side.lines.map((l) => `<span class="chip" dir="auto">${esc(l)}</span>`).join('');
       case 'tree':
-        return side.lines.map((l, i, a) => { const [dir, file] = l.split('|'); return `<span class="ln">${i === a.length - 1 ? '└─' : '├─'} <span class="dir">${dir}</span>${file}</span>`; }).join('');
+        return side.lines.map((l, i, a) => { const [dir, file] = l.split('|'); return `<span class="ln" dir="ltr">${i === a.length - 1 ? '└─' : '├─'} <span class="dir">${dir}</span>${file}</span>`; }).join('');
     }
   })();
-  return `<div class="sc ${side.kind}"><header>${esc(side.label)}</header><div class="body">${body}</div></div>`;
+  return `<div class="sc ${side.kind}"><header dir="auto">${esc(side.label)}</header><div class="body" dir="auto">${body}</div></div>`;
 }
 ---
 
-<section class="continuity" data-continuity aria-label="What stays when everything else changes">
+<section class="continuity" data-continuity aria-label={t('continuity.label')}>
   <!-- Desktop: pinned -->
   <div class="pin hidden lg:block">
     <div class="wrap h-full grid grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 items-center">
       <div>
-        <h2 class="text-3xl max-w-[11ch] xl:max-w-[16ch]">Change everything. Keep what you know.</h2>
+        <h2 class="text-3xl max-w-[11ch] xl:max-w-[16ch]">{t('continuity.title')}</h2>
         <ol class="mt-10 space-y-1">
           {scenes.map((s, i) => (
             <li class="step" data-step={i} data-hue={s.hue}>
@@ -77,7 +65,7 @@ function card(side: Side): string {
         </ol>
       </div>
 
-      <div class="stage">
+      <div class="stage" dir="ltr">
         <div class="flow" aria-hidden="true"></div>
         {scenes.map((s, i) => (
           <div class="art" data-art={i} data-hue={s.hue}>
@@ -92,13 +80,13 @@ function card(side: Side): string {
 
   <!-- Mobile and tablet: stacked -->
   <div class="lg:hidden wrap band">
-    <h2 class="text-3xl max-w-[12ch]">Change everything. Keep what you know.</h2>
+    <h2 class="text-3xl max-w-[12ch]">{t('continuity.title')}</h2>
     <div class="mt-12 space-y-16">
       {scenes.map((s) => (
         <article data-hue={s.hue}>
           <h3 class="text-2xl">{s.title}</h3>
           <p class="text-muted mt-3">{s.text}</p>
-          <div class="stack mt-6">
+          <div class="stack mt-6" dir="ltr">
             <Fragment set:html={card(s.in)} />
             <div class="down" aria-hidden="true"><Image src={logo} alt="" width={72} height={72} loading="lazy" /></div>
             <Fragment set:html={card(s.out)} />
@@ -149,9 +137,9 @@ function card(side: Side): string {
 
 <style is:global>
   .continuity .pin { height: 100vh; min-height: 40rem; }
-  .continuity .step { position: relative; padding: .9rem 0 .9rem 1.5rem; cursor: pointer; opacity: .42; transition: opacity .4s; }
+  .continuity .step { position: relative; padding-block: .9rem; padding-inline-start: 1.5rem; cursor: pointer; opacity: .42; transition: opacity .4s; }
   .continuity .step[data-active] { opacity: 1; }
-  .continuity .step .bar { position: absolute; left: 0; top: .9rem; bottom: .9rem; width: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .continuity .step .bar { position: absolute; inset-inline-start: 0; top: .9rem; bottom: .9rem; width: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
   .continuity .step .bar i { position: absolute; inset: 0; background: var(--hue-vivid); transform-origin: top; transform: scaleY(var(--p, 0)); }
   .continuity .step .more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease-out-quint); }
   .continuity .step .more > div { overflow: hidden; }

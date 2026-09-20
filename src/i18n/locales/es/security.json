@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "title": "Seguridad: qué se guarda y qué sale de tu máquina",
+    "description": "ai-memory escucha en loopback por defecto, elimina los secretos antes de guardar y no envía nada fuera salvo que lo actives. Cómo endurecerlo y dónde se queda."
+  },
+  "hero": {
+    "title": "Qué guarda y qué sale de tu máquina",
+    "lede": "Una instalación por defecto solo escucha en tu máquina, elimina los secretos antes de escribir nada y no tiene telemetría. Todas las rutas que envían datos fuera están apagadas hasta que las enciendes. Esta página también enumera aquello contra lo que el proyecto no te defiende.",
+    "primary": "Lee SECURITY.md",
+    "secondary": "Tratamiento de datos para revisores"
+  },
+  "posture": {
+    "title": "Por defecto, todo es local.",
+    "lede": "Instálalo, ejecútalo, y lo único que puede hablar con él es tu propia máquina.",
+    "items": [
+      { "title": "Solo loopback", "text": "El servidor escucha en 127.0.0.1:49374. Ningún proceso de fuera de la máquina puede llegar a él, y por eso la configuración por defecto no necesita contraseña." },
+      { "title": "Sin telemetría", "text": "El binario no tiene analítica, reporte de fallos ni seguimiento de uso. La captura y la búsqueda hacen cero llamadas de red." },
+      { "title": "Un directorio que es tuyo", "text": "Las páginas de la wiki y el archivo SQLite viven en un solo directorio de datos. En Unix, los directorios nuevos se crean con 0700 y los archivos nuevos con 0600." },
+      { "title": "Sin cifrado en reposo", "text": "La versión 1 se apoya en los permisos del sistema de archivos. A las instalaciones existentes no se les hace chmod por ti. Usa cifrado de disco si el portátil lo necesita." }
+    ],
+    "download": {
+      "title": "La única petición saliente de una instalación por defecto",
+      "what": "Desde la 2.0, el embedder por defecto corre dentro del proceso. En el primer arranque descarga de Hugging Face el modelo all-MiniLM-L6-v2, de unos 87 MB, y lo comprueba contra un SHA-256 fijado. No se envía ningún dato del usuario.",
+      "avoid": "Para evitar la descarga, pon <code>embedding_provider = \"none\"</code> o copia los tres archivos del modelo en <code>&lt;data_dir&gt;/models/</code>. La <a href=\"{href}\">guía de instalación air-gapped</a> tiene los pasos."
+    }
+  },
+  "boundary": {
+    "title": "Nada se guarda sin sanear antes.",
+    "lede": "Los payloads de los hooks son texto no confiable. Llegan al store por una sola función, y el sistema de tipos lo garantiza.",
+    "figureAlt": "Diagrama: un payload de hook en bruto, con claves y contraseñas, entra por una única puerta con la etiqueta sanitize(). Los secretos caen por debajo de la puerta. Por el otro lado sale una observación más pequeña y con tamaño limitado, que es la que se guarda.",
+    "figureCaption": "El sanitizer es el único camino de un payload de hook hacia el store.",
+    "items": [
+      { "title": "Una sola entrada", "text": "El tipo que se guarda solo lo puede construir sanitize(). El código que se salte la limpieza de privacidad no compila." },
+      { "title": "Los secretos se reemplazan", "text": "Las coincidencias se convierten en marcadores tipados como [REDACTED:github_token] o [REDACTED:jwt]. La limpieza es best effort." },
+      { "title": "Los tamaños tienen tope", "text": "Los extractos de herramientas se cortan a 2 KB y los prompts a 16 KiB. Un tope final de 16 KiB se aplica a todo cuerpo guardado, después de la redacción." },
+      { "title": "Las entradas de herramientas no se conservan", "text": "Los eventos PreToolUse nunca retienen comandos, argumentos, rutas ni cuerpos de entrada. Las observaciones son un rastro de auditoría, nunca una transcripción completa." }
+    ],
+    "exclude": {
+      "title": "Deja fuera una ruta o un repositorio",
+      "points": [
+        "Un bloque <code>[capture]</code> en <code>.ai-memory.toml</code> lista las rutas a ignorar. Los eventos que coinciden se descartan en tu máquina, antes de la cola local, de la red y de los logs.",
+        "El modo allowlist lo invierte: un repositorio sin el archivo no emite ningún evento.",
+        "Un conjunto de reglas inválido cae a solo metadatos. Nunca aplica media política.",
+        "La coincidencia es léxica. Los symlinks no se resuelven, y los prompts y los comandos de shell no se pueden asociar a una ruta. Esto es una frontera de captura. No es un DLP completo.",
+        "La salida del asistente nunca se guarda por defecto. Hacen falta un flag en el servidor y otro en el cliente, los dos a la vez."
+      ],
+      "codeTitle": "reglas de captura por repositorio",
+      "commentFile": ".ai-memory.toml en el repositorio",
+      "commentAllowlist": "O captura solo los repositorios que se apunten"
+    },
+    "docker": {
+      "title": "El wrapper de Docker no aplica ignore_paths",
+      "text": "Las reglas de captura las aplican los comandos nativos <code>ai-memory hook</code> y las integraciones generadas para OpenCode, OMP, Pi y OpenClaw. El wrapper de Docker instala hooks de shell posix, y esos scripts de shell y de PowerShell se saltan las reglas. Si dependes de <code>ignore_paths</code> o del modo allowlist, instala el binario nativo en el cliente. La <a href=\"{href}\">referencia del archivo marcador</a> tiene los detalles."
+    }
+  },
+  "hardening": {
+    "title": "Sube un peldaño cada vez.",
+    "lede": "Cada paso existe para una situación concreta. Párate en el que corresponde a la tuya.",
+    "ladder": [
+      {
+        "when": "Una persona, una máquina",
+        "title": "Loopback, sin autenticación",
+        "text": "La configuración por defecto. No hay nada que configurar, porque nada más puede conectarse."
+      },
+      {
+        "when": "Un equipo de homelab o una segunda máquina",
+        "title": "Bearer token para la LAN",
+        "text": "Crea un token con <code>ai-memory generate-auth-token</code> y define <code>AI_MEMORY_AUTH_TOKEN</code>. Se compara en tiempo constante y protege <code>/mcp</code>, <code>/hook</code>, <code>/handoff</code> y las rutas de administración y de la API. Define también <code>AI_MEMORY_ALLOWED_HOSTS</code>; bloquea el DNS rebinding y no sustituye al token."
+      },
+      {
+        "when": "Escribe más de una persona",
+        "title": "Cuentas y claves de API",
+        "text": "Las contraseñas se guardan como hashes Argon2id. Cada máquina recibe una clave <code>aim_</code> que se imprime una vez y no se vuelve a mostrar. Con <code>ai-memory api-key rotate &lt;id&gt;</code> la clave antigua empieza a devolver 401 al instante. La primera cuenta deja todas las rutas <code>/admin/*</code> solo para root."
+      },
+      {
+        "when": "Tu equipo ya tiene Keycloak, Okta o Entra ID",
+        "title": "Autenticación OIDC por dispositivo para los hooks",
+        "text": "Los hooks nativos y la CLI pueden llevar un token obtenido con <code>ai-memory auth login oidc-device</code>. El servidor no valida tokens OIDC por sí mismo, así que esto necesita delante un gateway compatible con OIDC. Es autenticación de hooks y de CLI a través de un gateway, y el servidor no trae login SSO integrado."
+      },
+      {
+        "when": "Cualquier cosa más allá de loopback",
+        "title": "TLS con un proxy inverso",
+        "text": "ai-memory no termina TLS, por diseño. Los bearer tokens viajan sin cifrar por la red, así que pon delante Caddy, nginx o un Cloudflare Tunnel. El repo trae plantillas de compose para Caddy y cloudflared. Define <code>AI_MEMORY_AUTH__SECURE_COOKIE=true</code> cuando la gente inicie sesión desde otras máquinas."
+      }
+    ],
+    "failClosed": {
+      "title": "Expuesto y sin token, se niega a arrancar",
+      "bind": "Escuchar fuera de loopback sin autenticación falla en cerrado. <code>--allow-insecure-no-auth</code> es la excepción documentada, y es peligrosa. Dentro de un contenedor la comprobación solo puede avisar, porque el proceso no ve tu configuración de publicación <code>-p</code>: <code>-p 127.0.0.1:49374:49374</code> es seguro sin token, y cualquier cosa más abierta necesita uno.",
+      "more": "Los cuerpos de las peticiones tienen un tope de 10 MB, y los servidores compartidos pueden aplicar un rate limit a los hooks por origen. Guías completas: <a href=\"{security}\">el modelo de seguridad</a>, <a href=\"{users}\">cuentas y claves de API</a>, <a href=\"{sso}\">OIDC</a> y <a href=\"{https}\">HTTPS con un proxy</a>."
+    }
+  },
+  "egress": {
+    "title": "Qué sale de la máquina, y cuándo.",
+    "lede": "Hay cuatro rutas que pueden enviar datos fuera. Las cuatro vienen apagadas.",
+    "figureAlt": "Diagrama: los hooks, la wiki con su índice y el embedder local están dentro de un recinto con la etiqueta Tu máquina, unidos por líneas continuas. Las líneas discontinuas hacia embeddings en la nube, un LLM en la nube y el rerank con LLM cruzan el muro por interruptores abiertos con la etiqueta Opt-in, apagado por defecto.",
+    "figureCaption": "Las líneas continuas se quedan dentro. Las discontinuas solo existen después de que cambies un ajuste.",
+    "columns": { "path": "Ruta", "sent": "Qué se envía", "on": "Cómo se activa", "default": "Por defecto" },
+    "off": "Apagado",
+    "rows": [
+      { "path": "Embeddings remotos", "sent": "El texto completo de cada página guardada. Si lo activas más tarde, también se procesa el corpus que ya existe. Esta ruta no se sanea como las demás." },
+      { "path": "Captura de la salida del asistente", "sent": "El texto del último turno del asistente, y solo si además has configurado un LLM en la nube. Es global a la instalación y solo para Claude Code y Codex." },
+      { "path": "Rerank con LLM", "sent": "Cada consulta en vivo, más hasta 30 títulos y fragmentos de página acotados. La consulta no se redacta, porque la redacción podría cambiar su significado." },
+      { "path": "Consolidación y lint con LLM", "sent": "Los prompts construidos con observaciones y páginas guardadas van al proveedor que hayas elegido. Apúntalo a un modelo local y no sale nada." }
+    ],
+    "assistantOn": "{server} en el servidor y {client} en el cliente",
+    "processor": "Sin ninguna de estas rutas activada, no hay terceros en el recorrido de los datos. En cuanto configuras un proveedor en la nube, ese proveedor es tu encargado del tratamiento, según tu propio acuerdo con él. <a class=\"underline font-semibold text-text\" href=\"{href}\">DATA_HANDLING.md cubre el encaje con el RGPD</a>. No es asesoría legal."
+  },
+  "audit": {
+    "title": "Quién lo escribió y cómo quitarlo.",
+    "attribution": {
+      "title": "Atribución y auditoría",
+      "points": [
+        "Con las cuentas activadas, cada escritura lleva su autor. Las páginas registran <code>author_id</code> y un bloque <code>last_modified_by</code> en el frontmatter.",
+        "Cada mutación queda en una tabla <code>audit_log</code>, con la identidad del usuario en las filas atribuidas.",
+        "La wiki es un repositorio git, así que cada cambio de página es también un commit al que puedes hacer diff y que puedes restaurar.",
+        "Los webhooks de admisión reciben el actor y pueden rechazar una operación.",
+        "Todavía no hay una pantalla para el registro de auditoría. Las filas están en SQLite."
+      ]
+    },
+    "deletion": {
+      "title": "Qué elimina un purge",
+      "text": "El purge es un borrado lógico, acotado de modo que el proyecto A nunca pueda eliminar archivos del proyecto B. Los datos no caducan salvo que una página fije una caducidad.",
+      "codeTitle": "purge",
+      "commentSession": "Elimina una sesión",
+      "commentProject": "Elimina un proyecto entero"
+    },
+    "purgeTable": {
+      "columns": { "what": "Después de un purge", "default": "Por defecto", "compact": "Con --compact" },
+      "rows": [
+        { "what": "Accesible por la API o las herramientas MCP", "default": "No", "compact": "No" },
+        { "what": "Aparece en las búsquedas", "default": "No", "compact": "No" },
+        { "what": "Archivo markdown vivo en la wiki", "default": "No, best effort", "compact": "No, best effort" },
+        { "what": "Bytes que siguen dentro de memory.sqlite", "default": "Sí, en páginas libres", "compact": "No" },
+        { "what": "Texto que sigue en el historial git de la wiki", "default": "Sí", "compact": "Sí" },
+        { "what": "Presente en copias de seguridad anteriores", "default": "Sí", "compact": "Sí" }
+      ]
+    },
+    "forensic": "<code>--compact</code> no es un borrado forense. Para quitar texto del historial tienes que reescribir el historial git de la wiki y rotar tus copias de seguridad por tu cuenta. <a class=\"underline font-semibold text-text\" href=\"{href}\">Las operaciones de ciclo de vida tienen el procedimiento completo.</a>"
+  },
+  "limits": {
+    "title": "Hasta dónde llega.",
+    "calloutTitle": "Límites con los que debes contar",
+    "points": [
+      "Es un servicio de un solo tenant para estaciones de trabajo y homelabs.",
+      "Las cuentas no son una frontera entre tenants. Todos los usuarios ven todos los proyectos de ese servidor, así que ejecuta un servidor por equipo.",
+      "No hay listas de acceso por usuario ni por proyecto.",
+      "La memoria que recupera un agente es un dato histórico no confiable. Los traspasos, los resúmenes y los prompts para LLM la marcan como tal, y ningún filtro de texto puede demostrar que un modelo vaya a ignorar un pasaje hostil.",
+      "No está hecho para exponerse directamente a internet abierto.",
+      "Si haces push de la wiki a un remoto de git, proteger ese remoto te toca a ti."
+    ],
+    "reporting": {
+      "title": "Reportar una vulnerabilidad",
+      "points": [
+        "No abras un issue público. <a class=\"underline font-semibold text-text\" href=\"{advisory}\">Abre un aviso de seguridad privado en GitHub.</a>",
+        "Recibes respuesta en un plazo de 7 días. El objetivo para el parche es de 30 días, con mención en el changelog salvo que prefieras que no.",
+        "Solo la última versión recibe correcciones de seguridad.",
+        "Los archivos de cada versión se publican con su SHA-256, y las actions de CI están fijadas a commits revisados."
+      ],
+      "policy": "Modelo de amenazas y política en SECURITY.md"
+    }
+  },
+  "faq": [
+    { "q": "¿ai-memory envía mi código o mis prompts a algún sitio?", "a": "No. No hay telemetría, y la captura y la búsqueda no hacen llamadas de red. Los datos solo salen de la máquina si activas los embeddings remotos, la captura de la salida del asistente con un LLM en la nube, el rerank con LLM o un proveedor de LLM en la nube para la consolidación. Todo viene apagado por defecto." },
+    { "q": "¿Una instalación por defecto hace alguna petición de red?", "a": "Una. Desde la 2.0, el embedder local por defecto descarga de Hugging Face un modelo all-MiniLM-L6-v2 de unos 87 MB en el primer arranque. No se envía ningún dato del usuario. Para evitarla, pon embedding_provider = \"none\" o coloca tú mismo los archivos del modelo." },
+    { "q": "¿Se guardan los secretos?", "a": "Todo payload de hook pasa por un sanitizer antes de guardarse. Las credenciales reconocidas se reemplazan por marcadores tipados [REDACTED:kind] y los cuerpos tienen tope de tamaño. El sanitizer es una limpieza de credenciales best effort y no da ninguna garantía." },
+    { "q": "¿Puedo borrar una sesión para siempre?", "a": "El purge es un borrado lógico. El contenido deja de ser accesible y de aparecer en las búsquedas, pero el texto sigue en el historial git de la wiki y en las copias de seguridad anteriores. El flag --compact limpia las páginas libres de SQLite y no es un borrado forense." },
+    { "q": "¿ai-memory es multi-tenant?", "a": "No. Es un servicio de un solo tenant. Las cuentas dan atribución, y todo usuario autenticado puede leer todos los proyectos de ese servidor. Usa servidores separados para personas que no deban ver los datos de las otras." }
+  ],
+  "next": [
+    { "title": "Arquitectura", "text": "El recorrido del hook al resumen, y por qué el markdown es la fuente de verdad." },
+    { "title": "Instalación avanzada", "text": "Homelab, TLS, OIDC, instalaciones air-gapped y copias de seguridad, paso a paso." },
+    { "title": "Para equipos", "text": "Un servidor compartido, claves por persona y qué significa compartir aquí." }
+  ],
+  "ctaBand": {
+    "title": "Pruébalo primero en loopback.",
+    "text": "Sin cuenta y sin clave de API. Solo tu propia máquina puede llegar a él."
+  }
+}

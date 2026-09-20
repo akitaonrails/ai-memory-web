@@ -1,0 +1,143 @@
+{
+  "status": {
+    "supported": {
+      "label": "対応",
+      "means": "ライフサイクルフックによる自動キャプチャと、MCP経由のメモリツールの両方が使えます。"
+    },
+    "mcp-only": {
+      "label": "MCPのみ",
+      "means": "エージェントは記憶の検索と書き込みができます。ライフサイクルフックを公開していないため、自動キャプチャはありません。"
+    },
+    "hooks-only": {
+      "label": "フックのみ",
+      "means": "セッションは自動でキャプチャされます。エージェントにMCPクライアントがないため、記憶への問い合わせはできません。"
+    },
+    "managed-only": {
+      "label": "マネージド起動のみ",
+      "means": "`ai-memory run`経由で起動した場合に動作します。フック単体のインストーラーはありません。"
+    },
+    "community": {
+      "label": "コミュニティ",
+      "means": "コミュニティがメンテナンスするプラグインです。ai-memory本体はインストールしません。"
+    },
+    "experimental": {
+      "label": "実験的",
+      "means": "リリースされていて動作しますが、粗い部分が残っています。"
+    }
+  },
+  "platforms": {
+    "linux": {
+      "name": "Linux",
+      "note": "x86_64とARM64。ネイティブバイナリ、DockerまたはPodman、systemdユニット付きのAURパッケージ。"
+    },
+    "macos": {
+      "name": "macOS",
+      "note": "Apple SiliconとIntel。launchdエージェント付きのネイティブバイナリ、またはDocker。"
+    },
+    "windows-via-wsl2": {
+      "name": "WSL2経由のWindows",
+      "note": "WSL2の中でLinuxの手順に従い、そこからエージェントを起動します。"
+    },
+    "native-windows": {
+      "name": "ネイティブWindows",
+      "note": "ai-memory.exe入りのリリースzip、Docker Desktop用ラッパー、またはソースからのビルド。"
+    }
+  },
+  "harnesses": {
+    "claude-code": {
+      "note": "フックとMCP。セッションを認識するルーティングも任意で使えます。"
+    },
+    "codex": {
+      "note": "フックとMCP。セッション終了の連携はCodex CLI 0.145.0以降です。"
+    },
+    "cursor": {
+      "note": "MCP設定とライフサイクルフック。"
+    },
+    "gemini-cli": {
+      "note": "MCP設定とライフサイクルフック。"
+    },
+    "opencode": {
+      "note": "リモートMCPと、生成されるTypeScriptプラグイン。"
+    },
+    "opencode2": {
+      "note": "ベータAPI向けのプラグイン。上流の変更が頻繁にあります。"
+    },
+    "grok": {
+      "note": "キャプチャは動作します。引き継ぎはMCP経由で受け取ります。"
+    },
+    "devin": {
+      "note": "フックとMCP。コンパクション後のキャプチャにも対応。"
+    },
+    "kimi-code": {
+      "note": "フックイベントは10種。引き継ぎは最初のプロンプトで注入されます。"
+    },
+    "kiro-cli": {
+      "note": "v2とv3の両エンジンに対応。"
+    },
+    "command-code": {
+      "note": "MCPと4種のフックイベント。ネイティブのresumeに対応。"
+    },
+    "antigravity-cli": {
+      "note": "セッションはfinalize-sessionで閉じます。"
+    },
+    "pi": {
+      "note": "生成される拡張機能が、キャプチャとMCPブリッジを提供します。"
+    },
+    "omp": {
+      "note": "ネイティブMCPとTypeScript拡張機能。"
+    },
+    "openclaw": {
+      "note": "MCP設定とネイティブのプラグインフック。"
+    },
+    "zero": {
+      "note": "サブエージェントのイベントもキャプチャします。"
+    },
+    "zcode": {
+      "note": "トリガーは6種。引き継ぎの注入も動作します。"
+    },
+    "crush": {
+      "note": "ai-memory run crushで起動します。"
+    },
+    "pool": {
+      "note": "生成されたフックのスニペットを設定に貼り付けます。"
+    },
+    "claude-desktop": {
+      "note": "mcp-remote経由で接続します。"
+    },
+    "vscode-copilot": {
+      "note": "Copilotはまだライフサイクルフックを公開していません。"
+    },
+    "zed": {
+      "note": "コンテキストサーバーとして登録されます。"
+    },
+    "swival": {
+      "note": "プロジェクト単位のMCP設定。"
+    },
+    "muse": {
+      "note": "ユーザー単位のMCP設定。"
+    },
+    "hermes": {
+      "note": "MrLuciano氏によるコミュニティプラグイン。"
+    }
+  },
+  "llmProviders": [
+    "Anthropic",
+    "OpenAI",
+    "OpenAI OAuth / Codex CLIログイン",
+    "GitHub Copilot",
+    "Google Gemini",
+    "OpenCode GoとZen",
+    "Ollama",
+    "LM Studio",
+    "vLLM",
+    "OpenAI互換の任意のエンドポイント"
+  ],
+  "embeddingProviders": [
+    "ローカル、インプロセス（デフォルト）",
+    "OpenAI",
+    "Voyage",
+    "Google Gemini",
+    "GitHub Copilot",
+    "Ollama、LM Studio、vLLM"
+  ]
+}

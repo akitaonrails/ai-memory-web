@@ -1,0 +1,275 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+import { platforms, harnesses, statusHue, slug, type Status } from '@/data/support';
+
+const { t, raw, href } = useI18n(Astro, 'integrations', 'support');
+
+// Structure here, words in src/i18n/locales/<locale>/integrations.json and support.json.
+// Installer ids come from docs/install.md and docs/mcp-install.md. Add an entry here only if a support.ts id ever differs from the CLI value.
+const cliId: Record<string, string> = {};
+// Launcher names documented for `ai-memory run` in docs/managed-workstreams.md and docs/support-matrix.md.
+const launcher: Record<string, string> = {
+  'claude-code': 'claude', codex: 'codex', opencode: 'opencode', opencode2: 'opencode2', grok: 'grok',
+  'kimi-code': 'kimi', 'kiro-cli': 'kiro', 'command-code': 'command-code', 'antigravity-cli': 'antigravity', crush: 'crush',
+};
+
+// Commands never change with the language. Only the comments do.
+const commandsFor = (h: (typeof harnesses)[number]) => {
+  const id = cliId[h.id!] ?? h.id!;
+  const lines: string[] = [];
+  if (h.status === 'Supported' || h.status === 'MCP-only') lines.push(`# ${t('agents.commands.mcp')}`, `ai-memory install-mcp --client ${id} --apply`);
+  if (h.status === 'Supported') lines.push(`# ${t('agents.commands.hooks')}`, `ai-memory install-hooks --agent ${id} --apply`);
+  if (h.status === 'Hooks-only') lines.push(`# ${t('agents.commands.hooksOnly')}`, `ai-memory install-hooks --agent ${id} --apply`);
+  if (h.run && launcher[h.id!]) lines.push(`# ${t(h.status === 'Managed-only' ? 'agents.commands.managedOnly' : 'agents.commands.orManaged')}`, `ai-memory run ${launcher[h.id!]}`);
+  return lines.join('\n');
+};
+
+const statusLabel = (s: Status) => t(`status.${slug(s)}.label`);
+const statuses = [...new Set(harnesses.map((h) => h.status))] as Status[];
+const allStatuses = Object.keys(statusHue) as Status[];
+const count = (s: Status) => harnesses.filter((h) => h.status === s).length;
+const agents = harnesses.map((h) => ({ ...h, note: t(`harnesses.${h.id}.note`), hue: statusHue[h.status], label: statusLabel(h.status) }));
+const hermesPlugin = 'https://github.com/MrLuciano/ai-memory-hermes-plugin';
+
+const faq = raw<{ q: string; a: string }[]>('faq').map((f) => ({
+  q: f.q,
+  a: f.a.replace('{n}', String(harnesses.length)).replace('{names}', harnesses.slice(0, 5).map((h) => h.name).join(', ')).replace('{supported}', String(count('Supported'))),
+}));
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const nextMeta = [
+  { href: '/install/', hue: 'amber' as const },
+  { href: '/architecture/', hue: 'azure' as const },
+  { href: '/contribute/', hue: 'teal' as const },
+];
+const next = raw<{ title: string; text: string }[]>('next').map((n, i) => ({ ...n, ...nextMeta[i] }));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faqSchema]}>
+  <PageHero hue="violet" kicker={t('hero.kicker')} title={t('hero.title')} lede={t('hero.lede', { n: harnesses.length })}>
+    <a href="#agents" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={href('/install/')} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section title={t('hub.title')} lede={t('hub.lede')} hue="violet" fill>
+    <Figure name="integrations-hub" alt={t('hub.figureAlt')} />
+  </Section>
+
+  <Section id="agents" title={t('agents.title')} lede={t('agents.lede')} hue="violet" tint>
+    <div data-agents>
+      <div class="filters" role="group" aria-label={t('agents.filterLabel')}>
+        <button type="button" class="pick" aria-pressed="true" data-filter="all">{t('agents.all')} <span class="n">{harnesses.length}</span></button>
+        {statuses.map((s) => (
+          <button type="button" class="pick" aria-pressed="false" data-filter={slug(s)} data-hue={statusHue[s]}>{statusLabel(s)} <span class="n">{count(s)}</span></button>
+        ))}
+      </div>
+
+      <div class="agents-grid mt-8">
+        <div class="cmd" aria-live="polite">
+          {agents.map((h, i) => (
+            <div data-panel={h.id} hidden={i !== 0}>
+              <p class="cmd-head"><span class="font-semibold text-text">{h.name}</span> <span class="badge" data-hue={h.hue}>{h.label}</span></p>
+              {h.status === 'Community'
+                ? <p class="mt-3 text-muted" set:html={t('agents.community', { href: hermesPlugin })} />
+                : <div class="mt-3"><CodeBlock title={h.name} code={commandsFor(h)} /></div>}
+              <p class="mt-3 text-sm text-muted">{h.note}{(h.status === 'Supported' || h.status === 'MCP-only') && ` ${t('agents.dryRun')}`}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="table-wrap">
+          <table class="table-site agents">
+            <caption class="sr-only">{t('agents.caption')}</caption>
+            <thead>
+              <tr><th scope="col">{t('agents.cols.agent')}</th><th scope="col">{t('agents.cols.status')}</th><th scope="col">{t('agents.cols.notes')}</th><th scope="col"><code dir="ltr">ai-memory run</code></th></tr>
+            </thead>
+            <tbody>
+              {agents.map((h, i) => (
+                <tr data-status={slug(h.status)} data-id={h.id} data-selected={i === 0 ? 'true' : 'false'}>
+                  <th scope="row"><button type="button" class="row-pick">{h.name}</button></th>
+                  <td><span class="badge" data-hue={h.hue}>{h.label}</span></td>
+                  <td class="text-muted">{h.note}</td>
+                  <td>{h.run ? <span class="yes">{t('agents.managed')}</span> : <span class="text-muted">{t('agents.direct')}</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-xl mt-16">{t('agents.statusTitle')}</h3>
+    <dl class="legend mt-6">
+      {allStatuses.map((s) => (
+        <div data-hue={statusHue[s]}>
+          <dt><span class="badge">{statusLabel(s)}</span></dt>
+          <dd class="mt-2 text-muted" set:html={t(`status.${slug(s)}.means`).replace(/`([^`]+)`/g, '<code dir="ltr">$1</code>')} />
+        </div>
+      ))}
+    </dl>
+    <p class="mt-10 text-muted max-w-[40em]" set:html={t('agents.after', { matrix: `${site.docs}/support-matrix.md`, mcp: `${site.docs}/mcp-install.md` })} />
+  </Section>
+
+  <Section title={t('lanes.title')} lede={t('lanes.lede')} hue="violet">
+    <Figure name="integrations-hooks-vs-mcp" alt={t('lanes.figureAlt')} />
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+      <div data-hue="green" class="lane">
+        <h3 class="text-xl">{t('lanes.hooksTitle')}</h3>
+        <p class="mt-2 text-muted">{t('lanes.hooksText')}</p>
+      </div>
+      <div data-hue="azure" class="lane">
+        <h3 class="text-xl">MCP</h3>
+        <p class="mt-2 text-muted">{t('lanes.mcpText')}</p>
+      </div>
+    </div>
+    <div class="mt-12">
+      <Callout title={t('lanes.managedTitle')} hue="violet">
+        <p set:html={t('lanes.managedText')} />
+      </Callout>
+    </div>
+  </Section>
+
+  <Section id="platforms" title={t('os.title')} lede={t('os.lede')} hue="azure" tint>
+    <div class="table-wrap">
+      <table class="table-site plat">
+        <caption class="sr-only">{t('os.caption')}</caption>
+        <thead><tr><th scope="col">{t('os.cols.platform')}</th><th scope="col">{t('os.cols.status')}</th><th scope="col">{t('os.cols.how')}</th><th scope="col">{t('os.cols.notes')}</th></tr></thead>
+        <tbody>
+          {platforms.map((p) => (
+            <tr>
+              <td>{t(`platforms.${slug(p.name)}.name`)}</td>
+              <td><span class="badge" data-hue={statusHue[p.status]}>{statusLabel(p.status)}</span></td>
+              <td>{t(`os.how.${slug(p.name)}`)}</td>
+              <td class="text-muted">{t(`platforms.${slug(p.name)}.note`)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-8 flex flex-wrap gap-3">
+      <a href={href('/download/')} class="btn btn-primary">{t('os.download')}</a>
+      <a href={`${site.docs}/windows.md`} class="btn btn-ghost">{t('os.windowsGuide')}</a>
+    </p>
+  </Section>
+
+  <Section id="providers" title={t('providers.title')} lede={t('providers.lede')} hue="green">
+    <div class="grid lg:grid-cols-2 gap-x-14 gap-y-14">
+      <div>
+        <h3 class="text-xl">{t('providers.embeddings.title')}</h3>
+        <p class="mt-2 text-muted max-w-[34em]">{t('providers.embeddings.text')}</p>
+        <ul class="chips mt-6">{raw<string[]>('embeddingProviders').map((p, i) => <li class:list={{ first: i === 0 }}>{p}</li>)}</ul>
+        <p class="mt-4 text-sm text-muted" set:html={t('providers.embeddings.note')} />
+      </div>
+      <div>
+        <h3 class="text-xl">{t('providers.llm.title')}</h3>
+        <p class="mt-2 text-muted max-w-[34em]" set:html={t('providers.llm.text')} />
+        <ul class="chips mt-6">{raw<string[]>('llmProviders').map((p) => <li>{p}</li>)}</ul>
+        <p class="mt-4 text-sm text-muted" set:html={t('providers.llm.note')} />
+      </div>
+    </div>
+    <p class="mt-12 text-muted max-w-[40em]" set:html={t('providers.after', { llm: `${site.docs}/llm-providers.md`, embeddings: `${site.docs}/local-embeddings.md` })} />
+  </Section>
+
+  <Section id="not-listed" title={t('notListed.title')} lede={t('notListed.lede')} hue="teal" tint>
+    <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-x-14 gap-y-10">
+      <div class="prose-site text-muted">
+        <p>{t('notListed.register')}</p>
+        <p set:html={t('notListed.contribute', { guide: `${site.docs}/managed-harness-contributions.md`, contribute: href('/contribute/') })} />
+      </div>
+      <div class="min-w-0"><CodeBlock title={t('notListed.codeTitle')} code={`# ${t('notListed.codeComment')}\nhttp://127.0.0.1:49374/mcp`} /></div>
+    </div>
+  </Section>
+
+  <NextPages links={next} />
+  <CtaBand />
+</Base>
+
+<noscript><style>[data-agents] [data-panel][hidden] { display: block; margin-bottom: 2rem; } [data-agents] .filters { display: none; }</style></noscript>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-agents]').forEach((root) => {
+    const filters = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const rows = [...root.querySelectorAll<HTMLTableRowElement>('tr[data-id]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+    const cmd = root.querySelector<HTMLElement>('.cmd')!;
+
+    const select = (row: HTMLTableRowElement, reveal = false) => {
+      rows.forEach((r) => r.setAttribute('data-selected', String(r === row)));
+      panels.forEach((p) => (p.hidden = p.dataset.panel !== row.dataset.id));
+      if (!reveal) return;
+      const box = cmd.getBoundingClientRect();
+      if (box.top < 80 || box.bottom > innerHeight) cmd.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    };
+
+    rows.forEach((r) => r.addEventListener('click', () => select(r, true)));
+
+    filters.forEach((f) => f.addEventListener('click', () => {
+      filters.forEach((x) => x.setAttribute('aria-pressed', String(x === f)));
+      const want = f.dataset.filter!;
+      rows.forEach((r) => (r.hidden = want !== 'all' && r.dataset.status !== want));
+      const current = rows.find((r) => r.getAttribute('data-selected') === 'true');
+      if (current?.hidden) select(rows.find((r) => !r.hidden)!);
+    }));
+  });
+</script>
+
+<style>
+  .table-wrap { position: relative; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .pick { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .95rem; border-radius: 999px; border: 1.5px solid var(--line); font-weight: 600; font-size: .95rem; background: var(--surface); transition: border-color .2s, background-color .2s, color .2s; }
+  .pick .n { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .pick:hover { border-color: var(--text); }
+  .pick[aria-pressed='true'] { background: var(--text); border-color: var(--text); color: var(--bg); }
+  .pick[aria-pressed='true'] .n { color: inherit; opacity: .7; }
+  .pick[data-hue]::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
+
+  .agents-grid { display: grid; gap: 2rem; align-items: start; }
+  .cmd { min-width: 0; }
+  .cmd-head { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; font-family: var(--font-display); font-size: var(--text-xl); }
+  .legend :global(code), .lede-code { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
+  @media (min-width: 64rem) {
+    .agents-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .cmd { order: 2; position: sticky; top: 6rem; }
+  }
+
+  .agents td { vertical-align: middle; }
+  .agents tbody th { background: transparent; text-align: start; padding: 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .agents tr:last-child th { border-bottom: 0; }
+  .agents tbody tr { cursor: pointer; transition: background-color .15s; }
+  .agents tbody tr:hover { background: var(--tint); }
+  .agents tbody tr[data-selected='true'] { background: var(--hue-soft); box-shadow: inset 3px 0 0 var(--hue-vivid); }
+  :global([dir='rtl']) .agents tbody tr[data-selected='true'] { box-shadow: inset -3px 0 0 var(--hue-vivid); }
+  .row-pick { display: block; width: 100%; text-align: start; padding: .9rem 1.1rem; font-weight: 600; }
+  .row-pick:focus-visible { outline: 2px solid var(--hue-vivid); outline-offset: -2px; }
+  .yes { font-weight: 600; color: var(--hue); white-space: nowrap; }
+  .agents td:last-child { white-space: nowrap; }
+  .agents td:nth-child(3) { min-width: 15rem; }
+  /* On phones the note moves to the selected-agent panel, so the table fits without scrolling. */
+  @media (max-width: 40rem) { .agents :is(th, td):nth-child(3) { display: none; } .row-pick { white-space: normal; } }
+  .plat td:nth-child(n + 3) { min-width: 14rem; }
+
+  .legend { display: grid; gap: 1.75rem 2.5rem; }
+  @media (min-width: 40rem) { .legend { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .legend { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .lane { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips li { padding: .4rem .85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: .95rem; font-weight: 500; }
+  .chips li.first { background: var(--hue-soft); border-color: var(--hue-vivid); color: var(--hue); font-weight: 600; }
+  :global(#providers) code, :global(#agents) .callout-code { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
+</style>

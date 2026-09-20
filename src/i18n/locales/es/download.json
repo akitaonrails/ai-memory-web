@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "Descargar ai-memory y consultar el changelog",
+    "description": "Descarga ai-memory {tag} para Linux, macOS y Windows, o instálalo con mise, el AUR o Docker. Checksums, historial de versiones y el changelog completo."
+  },
+  "hero": {
+    "kicker": "Desarrolladores",
+    "title": "Descarga ai-memory {tag}",
+    "lede": "Publicada el {date}. Un binario autocontenido por plataforma, cada uno con su checksum SHA-256 al lado. Licencia MIT.",
+    "primary": "Elige tu plataforma",
+    "secondary": "Qué cambió"
+  },
+  "builds": {
+    "title": "Binarios",
+    "yours": "Parece tu sistema",
+    "checksum": "Checksum SHA-256",
+    "verifyTitle": "verificar una descarga",
+    "after": "Después de descomprimir, sigue la <a class=\"underline font-semibold text-text\" href=\"{href}\">instalación rápida</a>. Son tres comandos.",
+    "linux": { "note": "Descomprime, ejecuta ./ai-memory init y luego serve." },
+    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Incluye un agente de launchd. Si lo descargas con un navegador, quita antes la marca de cuarentena." },
+    "win": { "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux." }
+  },
+  "channels": {
+    "title": "Gestores de paquetes y contenedores",
+    "mise": { "title": "mise", "note": "Linux y macOS. Verifica el checksum por ti. Las versiones nuevas pueden tardar cerca de un día en aparecer." },
+    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "precompilado", "source": "desde el código fuente", "note": "Instala unidades de systemd para un servicio de usuario o de sistema." },
+    "docker": { "title": "Docker o Podman", "note": "Multiarquitectura: linux/amd64 y linux/arm64, así que Apple Silicon no necesita emulación." },
+    "src": { "title": "Desde el código fuente", "note": "Necesita el toolchain de Rust fijado en rust-toolchain.toml." },
+    "clients": "Las máquinas cliente que solo envían hooks a un servidor remoto no necesitan el binario completo. La versión también incluye <code>ai-memory-install-hooks</code> y scripts wrapper para Docker en Linux, macOS y Windows. Están listados en la <a class=\"underline font-semibold text-text\" href=\"{href}\">página de la versión</a>."
+  },
+  "changelog": {
+    "title": "Changelog",
+    "lede": "Las últimas {n} versiones. El proyecto sigue versionado semántico desde la 2.0.",
+    "kinds": { "Added": "{n} añadidos", "Changed": "{n} cambios", "Fixed": "{n} correcciones", "Security": "{n} de seguridad", "Removed": "{n} eliminados", "Deprecated": "{n} obsoletos" },
+    "full": "Changelog completo en GitHub",
+    "releases": "Todas las versiones",
+    "upgrading": "Actualizar desde 1.x"
+  },
+  "next": [
+    { "title": "Instalación rápida", "text": "De un binario a una memoria funcionando en tres comandos." },
+    { "title": "Integraciones", "text": "Comprueba tu agente y tu sistema operativo." },
+    { "title": "Instalación avanzada", "text": "Servicios, TLS, copias de seguridad y actualizaciones." }
+  ]
+}

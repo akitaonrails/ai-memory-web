@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "Download ai-memory and read the changelog",
+    "description": "Download ai-memory {tag} for Linux, macOS and Windows, or install it with mise, the AUR or Docker. Checksums, release history and the full changelog."
+  },
+  "hero": {
+    "kicker": "Developers",
+    "title": "Download ai-memory {tag}",
+    "lede": "Released {date}. One self-contained binary per platform, each with a SHA-256 checksum next to it. MIT licensed.",
+    "primary": "Pick your platform",
+    "secondary": "What changed"
+  },
+  "builds": {
+    "title": "Binaries",
+    "yours": "Looks like your system",
+    "checksum": "SHA-256 checksum",
+    "verifyTitle": "verify a download",
+    "after": "After unpacking, follow the <a class=\"underline font-semibold text-text\" href=\"{href}\">quick setup</a>. It takes three commands.",
+    "linux": { "note": "Unpack, run ./ai-memory init, then serve." },
+    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Includes a launchd agent. If you download with a browser, clear the quarantine flag first." },
+    "win": { "note": "Experimental. WSL2 with the Linux build is the supported path." }
+  },
+  "channels": {
+    "title": "Package managers and containers",
+    "mise": { "title": "mise", "note": "Linux and macOS. Verifies the checksum for you. New releases can take about a day to appear." },
+    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "prebuilt", "source": "from source", "note": "Installs systemd units for a user or a system service." },
+    "docker": { "title": "Docker or Podman", "note": "Multi-arch: linux/amd64 and linux/arm64, so Apple Silicon needs no emulation." },
+    "src": { "title": "From source", "note": "Needs the Rust toolchain pinned in rust-toolchain.toml." },
+    "clients": "Client machines that only send hooks to a remote server do not need the full binary. The release also ships <code>ai-memory-install-hooks</code> and wrapper scripts for Docker on Linux, macOS and Windows. They are listed on the <a class=\"underline font-semibold text-text\" href=\"{href}\">release page</a>."
+  },
+  "changelog": {
+    "title": "Changelog",
+    "lede": "The last {n} releases. The project follows semantic versioning since 2.0.",
+    "kinds": { "Added": "{n} added", "Changed": "{n} changed", "Fixed": "{n} fixed", "Security": "{n} security", "Removed": "{n} removed", "Deprecated": "{n} deprecated" },
+    "full": "Full changelog on GitHub",
+    "releases": "All releases",
+    "upgrading": "Upgrading from 1.x"
+  },
+  "next": [
+    { "title": "Quick setup", "text": "From a binary to a working memory in three commands." },
+    { "title": "Integrations", "text": "Check your agent and your operating system." },
+    { "title": "Advanced setup", "text": "Services, TLS, backups and upgrades." }
+  ]
+}

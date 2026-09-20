@@ -1,0 +1,410 @@
+---
+import { useI18n, localePaths } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Tabs from '@/components/Tabs.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Callout from '@/components/Callout.astro';
+import Figure from '@/components/Figure.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+
+const { t, raw, href, number } = useI18n(Astro, 'advanced');
+const doc = (file: string) => `${site.docs}/${file}`;
+
+// Structure, commands and config here, words in src/i18n/locales/<locale>/advanced.json.
+
+const jump = ['topologies', 'tls', 'services', 'data', 'routing', 'sso', 'airgapped', 'capacity', 'upgrading'];
+
+// Addresses stay in <code>; the words around them come from the catalog.
+const topologyBind = ['<code>127.0.0.1:49374</code>', '<code>0.0.0.0:49374</code>', t('topologies.bindProxy', { addr: '0.0.0.0:49374' }), t('topologies.bindNone')];
+const topologies = raw<{ name: string; auth: string; tls: string; runs: string }[]>('topologies.items').map((x, i) => ({ ...x, bind: topologyBind[i] }));
+
+// Every block below is copied from docs/https-via-proxy.md.
+const caddyfile = `memory.example.com {
+    reverse_proxy ai-memory:49374
+}`;
+const caddyLan = `{
+    local_certs   # ${t('tls.caddyLan.comment')}
+}
+
+homelab.local, 192.168.1.50 {
+    reverse_proxy ai-memory:49374
+}`;
+const nginx = `server {
+    listen 443 ssl http2;
+    server_name memory.example.com;
+
+    ssl_certificate     /etc/nginx/certs/memory.crt;
+    ssl_certificate_key /etc/nginx/certs/memory.key;
+
+    location / {
+        proxy_pass http://ai-memory:49374;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+    }
+}`;
+const cloudflared = `  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: ai-memory-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=\${CLOUDFLARE_TUNNEL_TOKEN}`;
+const envProd = `AI_MEMORY_AUTH_TOKEN=...long-random-token-from-generate-auth-token...
+AI_MEMORY_AUTH__SECURE_COOKIE=true
+AI_MEMORY_ALLOWED_HOSTS=memory.example.com,localhost,127.0.0.1
+AI_MEMORY_BIND=0.0.0.0:49374`;
+const tlsClient = `ai-memory install-mcp   --client claude-code --apply \\
+    --server-url "https://memory.example.com/mcp" --auth-token "$AI_MEMORY_AUTH_TOKEN"
+ai-memory install-hooks --agent  claude-code --apply \\
+    --server-url "https://memory.example.com" --auth-token "$AI_MEMORY_AUTH_TOKEN"`;
+
+// docs/install.md (AUR), docs/macos.md, docs/windows.md.
+const systemdUser = `systemctl --user daemon-reload
+systemctl --user enable --now ai-memory.service
+systemctl --user status ai-memory.service
+journalctl --user -u ai-memory.service -f
+
+# ${t('services.user.lingerComment')}
+loginctl enable-linger "$USER"`;
+const systemdSystem = `sudo systemd-sysusers /usr/lib/sysusers.d/ai-memory.conf
+sudo systemd-tmpfiles --create /usr/lib/tmpfiles.d/ai-memory.conf
+sudo -u ai-memory ai-memory \\
+  --data-dir /var/lib/ai-memory \\
+  --config /etc/ai-memory/config.toml \\
+  init
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now ai-memory.service
+journalctl -u ai-memory.service -f`;
+const launchd = `mkdir -p ~/Library/Logs/ai-memory
+AI_MEMORY_BIN=~/Applications/ai-memory/ai-memory
+
+sed -e "s|__AI_MEMORY_BIN__|$AI_MEMORY_BIN|" \\
+    -e "s|__HOME__|$HOME|" \\
+    packaging/launchd/com.github.akitaonrails.ai-memory.plist \\
+    > ~/Library/LaunchAgents/com.github.akitaonrails.ai-memory.plist
+
+launchctl bootstrap gui/$(id -u) \\
+    ~/Library/LaunchAgents/com.github.akitaonrails.ai-memory.plist`;
+const winsw = `<service>
+  <id>ai-memory</id>
+  <name>ai-memory MCP server</name>
+  <description>Long-term memory server for AI coding agents.</description>
+  <executable>C:\\Users\\you\\AppData\\Local\\ai-memory\\ai-memory.exe</executable>
+  <arguments>--data-dir "C:\\Users\\you\\AppData\\Local\\ai-memory" serve --transport http --bind 127.0.0.1:49374</arguments>
+  <startmode>Automatic</startmode>
+  <onfailure action="restart" delay="5 sec"/>
+  <log mode="roll"/>
+</service>`;
+const winswRun = `& "$Dest\\ai-memory-service.exe" install
+& "$Dest\\ai-memory-service.exe" start
+& "$Dest\\ai-memory-service.exe" status`;
+
+const dataDirs = ['wiki', 'raw', 'db', 'models', 'logs'].map((d) => ({ dir: `${d}/`, ...raw<{ holds: string; kind: string; backup: string }>(`data.dirs.${d}`) }));
+
+const backupCmd = `# ${t('data.backup.save.comment')}
+ai-memory backup --to /tmp/ai-memory-backup.tar.gz`;
+const restoreCmd = `# ${t('data.backup.restore.stopComment')}
+docker compose -f ~/deploy/ai-memory/docker-compose.yml down
+# ${t('data.backup.restore.restoreComment')}
+ai-memory restore --from /tmp/ai-memory-backup.tar.gz --data-dir /var/opt/docker/utils/ai-memory/data --force
+# ${t('data.backup.restore.startComment')}
+docker compose -f ~/deploy/ai-memory/docker-compose.yml up -d`;
+
+// docs/marker-file.md
+const markerCode = [
+  `# ~/projects/movvia/.ai-memory.toml
+workspace = "movvia"
+
+# ~/personal/.ai-memory.toml
+workspace = "personal"`,
+  `# ~/projects/movvia/pe-portais/.ai-memory.toml
+workspace = "movvia"
+project = "pe-portais"`,
+  `# ~/projects/.ai-memory.toml
+workspace = "oss"
+project_strategy = "repo-root"`,
+];
+const markers = raw<{ title: string; text: string }[]>('routing.marker.items').map((m, i) => ({ ...m, code: markerCode[i] }));
+const autoScope = ['per_actor', 'per_session', 'single'].map((mode) => ({ mode, when: t(`routing.autoScope.modes.${mode}`) }));
+const autoScopeToml = `[auto_scope]
+mode = "per_actor"        # ${t('routing.autoScope.comments.mode')}
+session_ttl_secs = 3600   # ${t('routing.autoScope.comments.ttl')}
+max_entries = 4096        # ${t('routing.autoScope.comments.max')}`;
+
+// Concurrent writers, writes per second, mean latency in ms.
+const capacity = [[1, 42, 23.9], [8, 295, 3.4], [32, 698, 1.43], [128, 700, 1.43]];
+
+const faq = {
+  '@type': 'FAQPage',
+  mainEntity: raw<{ q: string; a: string }[]>('faq').map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faq]}>
+  <PageHero hue="azure" kicker={t('nav.developers.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href={href('/install/')} class="btn btn-primary">{t('hero.primary')}</a>
+    <a href={doc('deploy.md')} class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <nav class="wrap jump" data-hue="azure" aria-label={t('jump.label')}>
+    {jump.map((id) => <a href={`#${id}`}>{t(`jump.${id}`)}</a>)}
+  </nav>
+
+  <Section id="topologies" hue="azure" title={t('topologies.title')} lede={t('topologies.lede')}>
+    <Figure name="advanced-topologies" alt={t('topologies.figure.alt')} caption={t('topologies.figure.caption')} />
+    <div class="table-wrap">
+      <table class="table-site">
+        <thead><tr><th>{t('topologies.columns.topology')}</th><th>{t('topologies.columns.bind')}</th><th>{t('topologies.columns.auth')}</th><th>{t('topologies.columns.tls')}</th><th>{t('topologies.columns.runs')}</th></tr></thead>
+        <tbody>
+          {topologies.map((x) => (
+            <tr><th scope="row">{x.name}</th><td set:html={x.bind} /><td>{x.auth}</td><td>{x.tls}</td><td>{x.runs}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+      <p class="text-muted max-w-[40em]" set:html={t('topologies.stdio', { href: doc('deploy.md') })} />
+      <Callout title={t('topologies.internet.title')} hue="rose">
+        <p>{t('topologies.internet.text')}</p>
+      </Callout>
+    </div>
+  </Section>
+
+  <Section id="tls" hue="azure" tint title={t('tls.title')} lede={t('tls.lede')}>
+    <div class="grid gap-10 md:grid-cols-2">
+      <div>
+        <h3 class="text-xl">{t('tls.skip.title')}</h3>
+        <ul class="ticks mt-4">
+          {raw<string[]>('tls.skip.items').map((item) => <li set:html={item} />)}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl">{t('tls.need.title')}</h3>
+        <ul class="ticks mt-4">
+          {raw<string[]>('tls.need.items').map((item) => <li set:html={item} />)}
+        </ul>
+      </div>
+    </div>
+    <Figure name="advanced-tls-proxy" alt={t('tls.figure.alt')} caption={t('tls.figure.caption')} />
+    <div class="tabs-wrap"><Tabs id="tls-proxy" labels={raw<string[]>('tls.tabs')}>
+      <div slot="0" class="stack">
+        <p class="text-muted max-w-[40em]" set:html={t('tls.caddy')} />
+        <CodeBlock title="Caddyfile" code={caddyfile} />
+      </div>
+      <div slot="1" class="stack">
+        <p class="text-muted max-w-[40em]">{t('tls.caddyLan.text')}</p>
+        <CodeBlock title="Caddyfile" code={caddyLan} />
+        <CodeBlock title={t('tls.caddyLan.extractTitle')} code="docker compose exec caddy cat /data/caddy/pki/authorities/local/root.crt > caddy-root.crt" />
+      </div>
+      <div slot="2" class="stack">
+        <p class="text-muted max-w-[40em]" set:html={t('tls.nginx')} />
+        <CodeBlock title="nginx" code={nginx} />
+      </div>
+      <div slot="3" class="stack">
+        <p class="text-muted max-w-[40em]" set:html={t('tls.cloudflared.text')} />
+        <CodeBlock title={t('tls.cloudflared.codeTitle')} code={cloudflared} />
+      </div>
+    </Tabs></div>
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('tls.server.title')}</h3>
+        <p class="mt-2 text-muted">{t('tls.server.text')}</p>
+        <div class="mt-4"><CodeBlock title=".env.production" code={envProd} /></div>
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('tls.clients.title')}</h3>
+        <p class="mt-2 text-muted" set:html={t('tls.clients.text')} />
+        <div class="mt-4"><CodeBlock code={tlsClient} /></div>
+      </div>
+    </div>
+    <p class="mt-8"><a class="link" href={doc('https-via-proxy.md')}>{t('tls.guide')}</a></p>
+  </Section>
+
+  <Section id="services" hue="azure" title={t('services.title')} lede={t('services.lede')}>
+    <div class="tabs-wrap"><Tabs id="svc" labels={raw<string[]>('services.tabs')}>
+      <div slot="0" class="stack">
+        <p class="text-muted max-w-[40em]" set:html={t('services.user.text')} />
+        <CodeBlock code={systemdUser} />
+      </div>
+      <div slot="1" class="stack">
+        <p class="text-muted max-w-[40em]" set:html={t('services.system')} />
+        <CodeBlock code={systemdSystem} />
+      </div>
+      <div slot="2" class="stack">
+        <p class="text-muted max-w-[40em]">{t('services.launchd')}</p>
+        <CodeBlock code={launchd} />
+      </div>
+      <div slot="3" class="stack">
+        <p class="text-muted max-w-[40em]" set:html={t('services.winsw')} />
+        <CodeBlock title="ai-memory-service.xml" code={winsw} />
+        <CodeBlock title="PowerShell" code={winswRun} />
+      </div>
+    </Tabs></div>
+    <p class="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+      <a class="link" href={`${doc('install.md')}#arch-linux-native-packages-aur`}>{t('services.links.systemd')}</a>
+      <a class="link" href={doc('macos.md')}>{t('services.links.launchd')}</a>
+      <a class="link" href={doc('windows.md')}>{t('services.links.winsw')}</a>
+    </p>
+  </Section>
+
+  <Section id="data" hue="green" tint title={t('data.title')} lede={t('data.lede')}>
+    <Figure name="advanced-data-dir" alt={t('data.figure.alt')} caption={t('data.figure.caption')} />
+    <div class="table-wrap">
+      <table class="table-site">
+        <thead><tr><th>{t('data.columns.dir')}</th><th>{t('data.columns.holds')}</th><th>{t('data.columns.kind')}</th><th>{t('data.columns.backup')}</th></tr></thead>
+        <tbody>
+          {dataDirs.map((d) => (
+            <tr><th scope="row"><code>{d.dir}</code></th><td>{d.holds}</td><td>{d.kind}</td><td>{d.backup}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-muted max-w-[40em]" set:html={t('data.defaults')} />
+
+    <h3 class="text-2xl mt-16">{t('data.backup.title')}</h3>
+    <Figure name="advanced-backup-flow" alt={t('data.backup.figure.alt')} caption={t('data.backup.figure.caption')} />
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="min-w-0">
+        <h4 class="text-xl">{t('data.backup.save.title')}</h4>
+        <p class="mt-2 text-muted" set:html={t('data.backup.save.text')} />
+        <div class="mt-4"><CodeBlock code={backupCmd} /></div>
+      </div>
+      <div class="min-w-0">
+        <h4 class="text-xl">{t('data.backup.restore.title')}</h4>
+        <p class="mt-2 text-muted" set:html={t('data.backup.restore.text')} />
+        <div class="mt-4"><CodeBlock code={restoreCmd} /></div>
+      </div>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <Callout title={t('data.oneServer.title')} hue="amber">
+        <p set:html={t('data.oneServer.text')} />
+      </Callout>
+      <Callout title={t('data.reindex.title')} hue="green">
+        <p set:html={t('data.reindex.text')} />
+      </Callout>
+    </div>
+    <p class="mt-8"><a class="link" href={doc('lifecycle-ops.md')}>{t('data.lifecycle')}</a></p>
+  </Section>
+
+  <Section id="routing" hue="violet" title={t('routing.title')} lede={t('routing.lede')}>
+    <h3 class="text-2xl">{t('routing.marker.title')}</h3>
+    <p class="mt-3 text-muted max-w-[40em]" set:html={t('routing.marker.text')} />
+    <div class="mt-8 grid gap-8 lg:grid-cols-3">
+      {markers.map((m) => (
+        <div class="min-w-0">
+          <h4 class="text-xl">{m.title}</h4>
+          <p class="mt-2 text-muted">{m.text}</p>
+          <div class="mt-4"><CodeBlock title=".ai-memory.toml" code={m.code} /></div>
+        </div>
+      ))}
+    </div>
+    <p class="mt-8 text-muted max-w-[40em]" set:html={t('routing.marker.capture', { href: doc('marker-file.md') })} />
+
+    <h3 class="text-2xl mt-16">{t('routing.autoScope.title')}</h3>
+    <p class="mt-3 text-muted max-w-[40em]">{t('routing.autoScope.text')}</p>
+    <div class="table-wrap mt-6">
+      <table class="table-site">
+        <thead><tr><th>{t('routing.autoScope.columns.mode')}</th><th>{t('routing.autoScope.columns.when')}</th></tr></thead>
+        <tbody>{autoScope.map((a) => <tr><th scope="row"><code>{a.mode}</code></th><td>{a.when}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <div class="mt-6 max-w-[40rem]"><CodeBlock title="config.toml" code={autoScopeToml} /></div>
+    <p class="mt-6"><a class="link" href={doc('auto-scope.md')}>{t('routing.autoScope.link')}</a></p>
+
+    <div id="sso" class="anchor">
+      <h3 class="text-2xl mt-16">{t('routing.sso.title')}</h3>
+      <p class="mt-3 text-muted max-w-[40em]">{t('routing.sso.text')}</p>
+      <div class="mt-6 max-w-[44rem]"><CodeBlock code={`ai-memory auth login oidc-device \\
+  --issuer "https://issuer.example.com/realms/team" \\
+  --client-id "ai-memory-cli"`} /></div>
+      <div class="mt-8">
+        <Callout title={t('routing.sso.calloutTitle')} hue="rose">
+          <p>{t('routing.sso.calloutText')}</p>
+        </Callout>
+      </div>
+      <p class="mt-6"><a class="link" href={doc('sso.md')}>{t('routing.sso.link')}</a></p>
+    </div>
+  </Section>
+
+  <Section id="airgapped" hue="azure" tint title={t('ops.title')} lede={t('ops.lede')}>
+    <h3 class="text-2xl">{t('ops.airgapped.title')}</h3>
+    <div class="mt-6 grid gap-8 md:grid-cols-3">
+      {(['binaries', 'source', 'model'] as const).map((k) => (
+        <div>
+          <h4 class="text-xl">{t(`ops.airgapped.${k}.title`)}</h4>
+          <p class="mt-2 text-muted" set:html={t(`ops.airgapped.${k}.text`)} />
+        </div>
+      ))}
+    </div>
+    <p class="mt-6 text-muted max-w-[40em]" set:html={t('ops.airgapped.telemetry', { href: doc('airgapped-install.md') })} />
+
+    <div id="capacity" class="anchor">
+      <h3 class="text-2xl mt-16">{t('ops.capacity.title')}</h3>
+      <p class="mt-3 text-muted max-w-[40em]" set:html={t('ops.capacity.text')} />
+      <div class="mt-6 grid gap-8 lg:grid-cols-2">
+        <div class="table-wrap">
+          <table class="table-site">
+            <thead><tr><th>{t('ops.capacity.columns.writers')}</th><th>{t('ops.capacity.columns.throughput')}</th><th>{t('ops.capacity.columns.latency')}</th></tr></thead>
+            <tbody>{capacity.map(([writers, perSec, ms]) => <tr><th scope="row">{number(writers)}</th><td>{t('ops.capacity.perSecond', { n: number(perSec) })}</td><td>{t('ops.capacity.ms', { n: number(ms) })}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <ul class="ticks">
+          {raw<string[]>('ops.capacity.notes').map((item) => <li set:html={item} />)}
+        </ul>
+      </div>
+      <div class="mt-8">
+        <Callout title={t('ops.capacity.caveats.title')} hue="amber">
+          <p set:html={t('ops.capacity.caveats.text')} />
+        </Callout>
+      </div>
+      <p class="mt-6"><a class="link" href={`${doc('deploy.md')}#how-much-load-one-server-absorbs`}>{t('ops.capacity.link')}</a></p>
+    </div>
+
+    <div id="upgrading" class="anchor">
+      <h3 class="text-2xl mt-16">{t('ops.upgrading.title')}</h3>
+      <div class="mt-6 grid gap-8 lg:grid-cols-2">
+        <div class="min-w-0">
+          <CodeBlock code="ai-memory upgrade" />
+          <ul class="ticks mt-6">
+            {raw<string[]>('ops.upgrading.notes').map((item) => <li set:html={item} />)}
+          </ul>
+        </div>
+        <Callout title={t('ops.upgrading.from1x.title')} hue="green">
+          <p set:html={t('ops.upgrading.from1x.text')} />
+        </Callout>
+      </div>
+      <p class="mt-6"><a class="link" href={doc('MIGRATION-2.0.md')}>{t('ops.upgrading.link')}</a></p>
+    </div>
+  </Section>
+
+  <NextPages links={[
+    { href: '/install/', title: t('crumbs.install'), text: t('nextPages.install'), hue: 'amber' },
+    { href: '/security/', title: t('crumbs.security'), text: t('nextPages.security'), hue: 'rose' },
+    { href: '/architecture/', title: t('crumbs.architecture'), text: t('nextPages.architecture'), hue: 'azure' },
+  ]} />
+  <CtaBand title={t('help.title')} text={t('help.text')} />
+</Base>
+
+<style>
+  @media (max-width: 48rem) { .tabs-wrap :global(.tablist) { border-radius: 1.25rem; } }
+  .jump { display: flex; flex-wrap: wrap; gap: .5rem; padding-bottom: 1rem; }
+  .jump a { padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: .92rem; transition: color .2s, border-color .2s; }
+  .jump a:hover { color: var(--text); border-color: var(--hue-vivid); }
+  .link, p :global(a.link) { color: var(--hue, var(--text)); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
+  .stack { display: grid; gap: 1.25rem; }
+  .stack > :global(*) { min-width: 0; }
+  .ticks { display: grid; gap: .7rem; color: var(--muted); max-width: 40em; }
+  .ticks li { position: relative; padding-inline-start: 1.4rem; }
+  .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--hue-vivid); }
+  .anchor, :global(section[id]) { scroll-margin-top: 5rem; }
+  p code, li code, td code, th code, p :global(code), li :global(code), td :global(code) { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .92em; }
+  :global(.bg-tint) p code, :global(.bg-tint) li code, :global(.bg-tint) td code, :global(.bg-tint) th code, :global(.bg-tint) p :global(code), :global(.bg-tint) li :global(code), :global(.bg-tint) td :global(code) { background: var(--surface); }
+</style>

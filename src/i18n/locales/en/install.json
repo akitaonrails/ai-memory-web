@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "title": "Quick setup for one developer or a team",
+    "description": "Install ai-memory with mise, the AUR, a macOS binary or Docker, check that capture works, then share one server with your team. Copy and paste commands."
+  },
+  "howTo": {
+    "name": "Install ai-memory on one machine",
+    "description": "Install the ai-memory binary with mise, start the local server on loopback, and launch a coding agent through it so hooks and MCP are wired."
+  },
+  "hero": {
+    "title": "Quick setup",
+    "lede": "Pick your track and copy the commands. One machine takes three steps and no account. A shared server for a team takes five."
+  },
+  "solo": {
+    "title": "Just me",
+    "lede": "Install one binary, start one local server, then launch your agent. The server binds to 127.0.0.1:49374, so nothing outside this machine can reach it and it needs no token.",
+    "tabs": ["Linux or macOS (mise)", "Arch Linux (AUR)", "macOS binary", "Docker or Podman", "Windows"],
+    "mise": [
+      {
+        "title": "Install the binary",
+        "text": "mise downloads the release archive for your OS and chip and checks it against the published <code>.sha256</code> file. It needs no Rust toolchain and no Docker."
+      },
+      {
+        "title": "Create the data directory and start the server",
+        "text": "<code>init</code> only creates the data directory. <code>serve</code> has to stay running, so give it its own terminal. It listens on this machine only and needs no token."
+      },
+      {
+        "title": "Launch your agent through it",
+        "text": "The first launch of a harness installs its hooks and MCP entry if they are missing. Launching <code>claude</code> directly keeps working afterwards."
+      }
+    ],
+    "aur": [
+      {
+        "title": "Install the package",
+        "text": "The <code>-bin</code> package is a prebuilt x86_64 or aarch64 binary. Both packages ship a user unit and a system unit for systemd.",
+        "prebuilt": "prebuilt Linux x86_64/aarch64 binary",
+        "source": "builds from source"
+      },
+      { "title": "Create the data directory" },
+      {
+        "title": "Start the user service",
+        "text": "It needs no sudo, and all state stays in your home directory. The <a href=\"{services}\">services section</a> covers the system unit and running after logout."
+      },
+      { "title": "Launch your agent through it" }
+    ],
+    "macos": [
+      {
+        "title": "Download and extract",
+        "text": "This archive is for Apple Silicon. On an Intel Mac, replace <code>aarch64</code> with <code>x86_64</code>. A browser download needs <code>xattr -d com.apple.quarantine ./ai-memory</code> once. A curl download does not."
+      },
+      {
+        "title": "Create the data directory and start the server",
+        "text": "Leave <code>serve</code> running in this terminal. The <a href=\"{services}\">launchd agent</a> starts it at login instead."
+      },
+      {
+        "title": "Wire your agent from a second terminal",
+        "text": "Keep the extracted binary where it is, because the hook commands point at that path."
+      }
+    ],
+    "docker": [
+      {
+        "title": "Install the wrapper script",
+        "text": "The wrapper is a small shell script that lands in <code>~/.local/bin/ai-memory</code>. <a href=\"{readme}\">The README has the install script</a>, which checks the download against its SHA-256 file before installing it. Copy it from there."
+      },
+      {
+        "title": "Start the server",
+        "text": "The image covers <code>linux/amd64</code> and <code>linux/arm64</code>. On a Podman host, replace <code>docker</code> with <code>podman</code>. The wrapper uses rootless Podman on its own when Docker is not installed."
+      },
+      {
+        "title": "Wire your agent",
+        "text": "After this, start Claude Code as usual. This path has one limit: the wrapper’s shell hooks do not enforce per-repository <code>ignore_paths</code> capture rules. The native binary does."
+      }
+    ],
+    "windows": [
+      {
+        "title": "Decide where your agent runs",
+        "text": "An agent launched inside WSL2 needs ai-memory inside WSL2. That path is supported and is the same as the Docker tab: <a href=\"{readme}\">install the wrapper from the README</a> in your WSL2 shell. With Docker Desktop, enable WSL integration for the distro first."
+      },
+      { "title": "Start the server inside WSL2" },
+      {
+        "title": "Wire your agent, also inside WSL2",
+        "text": "Native Windows is experimental. It has a release zip with <code>ai-memory.exe</code>, a PowerShell Docker wrapper and a WinSW service recipe. <a href=\"{windowsDoc}\">The Windows guide has all three</a>."
+      }
+    ],
+    "figure": {
+      "alt": "The solo install in three stages on one laptop: install the binary, start the server on 127.0.0.1:49374, then run your agent, which connects to the server through hooks and MCP. Nothing leaves the laptop.",
+      "caption": "The whole solo path. The server stays on loopback, and your agent reaches it two ways: hooks capture the session, MCP lets the agent search it."
+    },
+    "runNote": "<code>ai-memory run</code> is the recommended launcher and it is optional. It wires a harness on first launch and adds native session resume across harnesses. Hooks alone already carry the handoff, so launching your agent directly keeps working. <a class=\"link\" href=\"{href}\">Read how managed launches work</a>."
+  },
+  "check": {
+    "title": "Check that it works",
+    "lede": "Three checks, from the network up to the agent.",
+    "server": {
+      "title": "The server answers",
+      "text": "A JSON-RPC error is the right answer. It means the port is reachable and the server is responding."
+    },
+    "cli": {
+      "title": "The CLI reaches it",
+      "text": "The CLI is a thin HTTP client. If this prints a status, hooks can reach the server too."
+    },
+    "agent": {
+      "title": "The agent remembers",
+      "text": "Work for a few minutes, quit, and open a second session in the same directory. Then ask it:",
+      "ask": "“Where did we leave off?”"
+    }
+  },
+  "next": {
+    "title": "After the first agent",
+    "lede": "All three are optional. Do them when you need them.",
+    "agent": {
+      "title": "Add another agent",
+      "text": "Run the same two commands with a different name. Both agents then share one project memory.",
+      "link": "See every supported agent and its name"
+    },
+    "llm": {
+      "title": "Optional: better summaries with an LLM",
+      "text": "Without a provider, capture, search and rule-based summaries all work at no cost. A provider rewrites session pages as readable narratives. Set these two variables in the server’s environment (<code>-e</code> flags for Docker, <code>~/.config/ai-memory/env</code> for the systemd user service) and restart it.",
+      "codeTitle": "server environment",
+      "link": "Compare providers, including subscriptions and local models"
+    },
+    "undo": {
+      "title": "Undo everything",
+      "text": "This removes only what ai-memory installed. Install commands are idempotent, and each one writes a timestamped backup next to any file it touches."
+    }
+  },
+  "team": {
+    "title": "My team",
+    "lede": "One server that every machine and every teammate reaches. There is no replication between servers: shared memory means everyone connects to the same one.",
+    "figure": {
+      "alt": "Team topology: three laptops for alice, bob and carol each connect to one shared server protected by a token. Each person has one API key, and the server holds one wiki for the team.",
+      "caption": "The server holds the wiki. People get accounts, machines get API keys, and the root token stays with whoever runs the server."
+    },
+    "steps": [
+      {
+        "title": "Start the shared server with a token",
+        "text": "Pick a homelab box or any LAN host. A server bound beyond loopback needs both a bearer token and a host allowlist. The allowlist holds every name or IP your machines use to reach it.",
+        "codeTitle": "on the server"
+      },
+      {
+        "title": "Create the people",
+        "text": "Run this with the root token exported. The temporary password prints once, and the person changes it at first login. It does not issue an API key. <a href=\"{usersDoc}\">The users guide</a> covers the root identity in <code>[auth]</code>."
+      },
+      {
+        "title": "Give each person an API key",
+        "text": "The <code>aim_</code> secret is shown once. <code>ai-memory api-key rotate &lt;id&gt;</code> and <code>ai-memory api-key revoke &lt;id&gt;</code> take effect immediately."
+      },
+      {
+        "title": "Point each machine at the server",
+        "text": "Each person uses their own key as the token. It is stored in a <code>0600</code> file in the data directory and stays off the hook command line. <code>--as-user</code> only labels the install.",
+        "codeTitle": "on every laptop",
+        "tokenComment": "TOKEN here is this person's aim_ key, not the root token"
+      },
+      {
+        "title": "Add TLS before leaving the LAN",
+        "text": "A bearer token authenticates a request and does not encrypt it. Keys and web cookies travel in the clear over plain HTTP, so <a href=\"{tls}\">put Caddy, nginx or a Cloudflare Tunnel in front</a> once accounts exist or the server is reachable beyond your desk."
+      }
+    ],
+    "oneServer": {
+      "title": "One server per data directory, never two",
+      "text": "Two <code>ai-memory serve</code> processes on the same data directory (a synced folder, an NFS mount, two containers on one volume) each run their own writer and their own git handle on the wiki. SQLite survives that. The wiki does not. Since 2.0 a second server refuses to start while <code>.serve.lock</code> is held."
+    },
+    "limits": {
+      "title": "What team mode does not do",
+      "text": "Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on that server, and there are no per-project permissions yet. Run one server per team, and a separate server with its own data directory for a second team."
+    }
+  },
+  "nextPages": {
+    "advanced": "TLS, services, backups, routing, SSO and capacity numbers.",
+    "integrations": "Every agent, operating system and provider, with its status.",
+    "security": "What is stored, what leaves the machine, and how to lock it down."
+  },
+  "help": {
+    "title": "Stuck on a step?",
+    "text": "The install cookbook on GitHub has the per-agent commands, remote servers and Windows. The issue tracker is open."
+  }
+}

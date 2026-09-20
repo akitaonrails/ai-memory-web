@@ -1,0 +1,143 @@
+{
+  "status": {
+    "supported": {
+      "label": "Supported",
+      "means": "Automatic capture through lifecycle hooks, plus the memory tools over MCP."
+    },
+    "mcp-only": {
+      "label": "MCP-only",
+      "means": "The agent can search and write memory. It exposes no lifecycle hooks, so nothing is captured automatically."
+    },
+    "hooks-only": {
+      "label": "Hooks-only",
+      "means": "Sessions are captured automatically. The agent has no MCP client to query memory with."
+    },
+    "managed-only": {
+      "label": "Managed-only",
+      "means": "Works when launched through `ai-memory run`. There is no separate hook installer."
+    },
+    "community": {
+      "label": "Community",
+      "means": "A plugin maintained by the community, not installed by ai-memory itself."
+    },
+    "experimental": {
+      "label": "Experimental",
+      "means": "It ships and it works, with rough edges you should expect."
+    }
+  },
+  "platforms": {
+    "linux": {
+      "name": "Linux",
+      "note": "x86_64 and ARM64. Native binary, Docker or Podman, AUR packages with systemd units."
+    },
+    "macos": {
+      "name": "macOS",
+      "note": "Apple Silicon and Intel. Native binary with a launchd agent, or Docker."
+    },
+    "windows-via-wsl2": {
+      "name": "Windows via WSL2",
+      "note": "Follow the Linux path inside WSL2 and launch your agent from there."
+    },
+    "native-windows": {
+      "name": "Native Windows",
+      "note": "Release zip with ai-memory.exe, the Docker Desktop wrapper, or a source build."
+    }
+  },
+  "harnesses": {
+    "claude-code": {
+      "note": "Hooks and MCP. Optional session-aware routing."
+    },
+    "codex": {
+      "note": "Hooks and MCP. Session end is wired from Codex CLI 0.145.0."
+    },
+    "cursor": {
+      "note": "MCP config and lifecycle hooks."
+    },
+    "gemini-cli": {
+      "note": "MCP config and lifecycle hooks."
+    },
+    "opencode": {
+      "note": "Remote MCP and a generated TypeScript plugin."
+    },
+    "opencode2": {
+      "note": "Plugin for the beta API. Expect churn upstream."
+    },
+    "grok": {
+      "note": "Capture works. Handoffs are picked up through MCP."
+    },
+    "devin": {
+      "note": "Hooks and MCP, including post-compaction capture."
+    },
+    "kimi-code": {
+      "note": "Ten hook events. Handoffs inject on the first prompt."
+    },
+    "kiro-cli": {
+      "note": "Both the v2 and v3 engines."
+    },
+    "command-code": {
+      "note": "MCP and four hook events, with native resume."
+    },
+    "antigravity-cli": {
+      "note": "Sessions close with finalize-session."
+    },
+    "pi": {
+      "note": "A generated extension gives capture and an MCP bridge."
+    },
+    "omp": {
+      "note": "Native MCP and a TypeScript extension."
+    },
+    "openclaw": {
+      "note": "MCP config and native plugin hooks."
+    },
+    "zero": {
+      "note": "Capture includes subagent events."
+    },
+    "zcode": {
+      "note": "Six triggers. Handoff injection works."
+    },
+    "crush": {
+      "note": "Launch it with ai-memory run crush."
+    },
+    "pool": {
+      "note": "Paste a generated hooks snippet into its settings."
+    },
+    "claude-desktop": {
+      "note": "Connects through mcp-remote."
+    },
+    "vscode-copilot": {
+      "note": "Copilot exposes no lifecycle hooks yet."
+    },
+    "zed": {
+      "note": "Registered as a context server."
+    },
+    "swival": {
+      "note": "Project-level MCP config."
+    },
+    "muse": {
+      "note": "User-level MCP settings."
+    },
+    "hermes": {
+      "note": "Community plugin by MrLuciano."
+    }
+  },
+  "llmProviders": [
+    "Anthropic",
+    "OpenAI",
+    "OpenAI OAuth / Codex CLI login",
+    "GitHub Copilot",
+    "Google Gemini",
+    "OpenCode Go and Zen",
+    "Ollama",
+    "LM Studio",
+    "vLLM",
+    "Any OpenAI-compatible endpoint"
+  ],
+  "embeddingProviders": [
+    "Local, in-process (the default)",
+    "OpenAI",
+    "Voyage",
+    "Google Gemini",
+    "GitHub Copilot",
+    "Ollama, LM Studio, vLLM"
+  ]
+}

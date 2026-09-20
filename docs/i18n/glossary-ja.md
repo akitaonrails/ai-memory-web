@@ -1,0 +1,100 @@
+# 用語集 (ja)
+
+Terms decided while translating, in addition to the glossary in `docs/research/I18N-TRANSLATE-BRIEF.md`.
+
+| English | ja |
+|---|---|
+| memory (the product concept) | 記憶 |
+| memory tool / memory API (product category, competitors) | メモリツール / メモリAPI |
+| Claude's built-in memory | Claude Code組み込みのメモリ / メモリ機能 |
+| plain markdown | プレーンなmarkdown |
+| git-backed wiki | git管理のwiki |
+| context | コンテキスト |
+| fused ranking / fuse | 融合ランキング / 融合 (never 統合, which is "consolidate") |
+| supersede / supersession | 置き換える / 置き換え |
+| decay | 減衰 |
+| memory tiers | 記憶の階層 |
+| typed links | 型付きリンク |
+| claim (a handoff) / claim-once | 受け取る / 一度だけ受け取れる |
+| point-in-time query / search | 時点指定クエリ / 時点指定検索 |
+| provenance | 来歴 |
+| attribution (who did what) | 作業者の記録 |
+| ingestion | 取り込み |
+| rerank / reranker | リランク / リランカー |
+| sidecar | サイドカー |
+| self-contained binary | 自己完結型のバイナリ |
+| hosted / managed | ホスト型 / マネージド |
+| secrets | シークレット |
+| decision / gotcha / procedure (page types) | 決定事項 / 落とし穴 / 手順 |
+| runbook | ランブック |
+| open questions | 未解決の質問 |
+| notebook, laptop | ノートPC |
+| homelab box | ホームラボのマシン (diagram label: ホームラボ) |
+| source of truth (diagram label, paired with 派生) | 正本 (headline: ファイルが正) |
+| observation (diagram label, short) | 観測 |
+| local gates (contribute flow) | ローカルチェック |
+| opt-in, off by default | オプトイン、既定はオフ |
+| Get started | はじめる |
+| Quick setup / Advanced setup | クイックセットアップ / 詳細セットアップ |
+| Integrations | 連携 |
+| Solutions / Individuals / Teams | ソリューション / 個人 / チーム |
+| Research and rationale | リサーチと設計根拠 |
+| contribute / contributor | コントリビュート / コントリビューター |
+| Star on GitHub | GitHubでスターする |
+| Move if / Stay if (verdicts) | 〜なら移行を / 〜なら今のままで |
+| Different buyer | 想定ユーザーが違います |
+| Supported / MCP-only / Hooks-only / Managed-only / Community / Experimental | 対応 / MCPのみ / フックのみ / マネージド起動のみ / コミュニティ / 実験的 |
+| Pull request, Issue, Git wiki (diagram labels) | kept in English |
+| parentheses | full-width （）, e.g. 引き継ぎ（ハンドオフ）, 埋め込み（embeddings） |
+| workstream | ワークストリーム |
+| launcher / managed launch / direct launch | ランチャー / マネージド起動 / 直接起動 |
+| checkout (git working copy) | チェックアウト |
+| spool / drain | スプール / 送り出す |
+| idempotency key / idempotent | 冪等キー / 冪等 |
+| backfill / bootstrap / dry run | バックフィル / ブートストラップ / ドライラン |
+| seed the wiki / seed pages | wikiの初期ページを作る / 初期ページ |
+| pin (a page) / forget sweep | ピン留め / 忘却スイープ |
+| digest ("catch me up") | ダイジェスト |
+| loopback / bearer token / host allowlist | ループバック / ベアラートークン / ホストの許可リスト |
+| tenancy boundary / single-tenant | テナントの境界 / シングルテナント |
+| writer (actor) / throughput / latency | ライター（ライターアクター） / スループット / レイテンシ |
+| wire (an agent) | 接続する |
+| gates (CI, required) | チェック / 必須チェック |
+| commit attribution | コミットの作者情報 |
+| invariants | 不変条件 |
+| crate / companion crates | クレート / コンパニオンクレート |
+| fact extractors / temporal graphs / memory operating systems | ファクト抽出型 / 時系列グラフ型 / メモリOS型 |
+| caveats (benchmark) | 但し書き |
+| vendor reported | ベンダー公表値 |
+| Check your agent | 対応エージェントを確認 |
+| "Where did we leave off?" | 「どこまでやったっけ？」 |
+| "Save context for the next session." | 「次のセッション用にコンテキストを保存して」 |
+| bind / bind address | バインド / バインドアドレス |
+| loopback | ループバック |
+| bearer token | ベアラートークン |
+| host allowlist / allowlist mode | ホスト許可リスト / allowlistモード |
+| reverse proxy / terminate TLS | リバースプロキシ / TLSを終端する |
+| topology (deployment) | 構成 |
+| harden / hardening | 堅牢化 |
+| sanitize / sanitizer | サニタイズ / サニタイザー |
+| redact / redaction | 墨消し |
+| purge / logical delete / forensic erasure | パージ / 論理削除 / フォレンジックレベルの消去 |
+| restore (backup) | リストア |
+| marker file | マーカーファイル |
+| auto-scope | 自動スコープ |
+| single writer / writer / throughput / latency | 単一ライター / ライター / スループット / レイテンシ |
+| retrieval streams | 検索の系統 |
+| authority multiplier | 権威度の乗数 |
+| typed edges | 型付きエッジ |
+| graph neighbours | グラフの隣接ページ |
+| accept (a handoff) / expired | 受理する / 失効 (state names open, accepted, expired stay in English) |
+| fire and forget | 送りっぱなし |
+| crate | クレート |
+| invariants | 不変条件 |
+| design decisions | 設計上の決定 |
+| prior art | 先行事例 / 先行ツール |
+| evaluation harness | 評価ハーネス |
+| bundle (OKF) | バンドル |
+| evidence (benchmark, counts) | 根拠 (benchmark) / エビデンス数 |
+| single-tenant / multi-tenant | シングルテナント / マルチテナント |
+| default | デフォルト (diagram label only: 既定) |

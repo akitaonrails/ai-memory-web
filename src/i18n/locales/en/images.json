@@ -1,0 +1,165 @@
+{
+  "advanced-backup-flow": {
+    "Backup": "Backup",
+    "Running server": "Running server",
+    "Restore": "Restore",
+    "Server stopped": "Server stopped"
+  },
+  "advanced-data-dir": {
+    "Source of truth": "Source of truth",
+    "Derived": "Derived"
+  },
+  "advanced-tls-proxy": {
+    "Reverse proxy": "Reverse proxy",
+    "Same host": "Same host"
+  },
+  "advanced-topologies": {
+    "Laptop only": "Laptop only",
+    "Homelab box": "Homelab box",
+    "LAN with TLS": "LAN with TLS",
+    "Tunnel": "Tunnel"
+  },
+  "architecture-layers": {
+    "Markdown in git": "Markdown in git",
+    "Source of truth": "Source of truth",
+    "SQLite index": "SQLite index",
+    "Derived": "Derived",
+    "Writer": "Writer",
+    "File watcher": "File watcher",
+    "Reindex": "Reindex"
+  },
+  "architecture-pipeline": {
+    "Hook": "Hook",
+    "Sanitize": "Sanitize",
+    "Single writer": "Single writer",
+    "Observations": "Observations",
+    "Session page": "Session page",
+    "Optional LLM": "Optional LLM",
+    "Git wiki": "Git wiki",
+    "Briefing": "Briefing"
+  },
+  "architecture-retrieval": {
+    "Query": "Query",
+    "Entities": "Entities",
+    "Graph": "Graph",
+    "Vectors": "Vectors",
+    "Authority": "Authority",
+    "Results": "Results"
+  },
+  "compare-side-by-side": {
+    "Git history": "Git history",
+    "README and docs": "README and docs",
+    "Your agent": "Your agent",
+    "Current memory tool": "Current memory tool"
+  },
+  "compare-stack": {
+    "Typical memory stack": "Typical memory stack",
+    "Vector store": "Vector store",
+    "Graph database": "Graph database",
+    "Python service": "Python service",
+    "One binary": "One binary",
+    "Markdown folder": "Markdown folder"
+  },
+  "contribute-flow": {
+    "Issue": "Issue",
+    "Branch": "Branch",
+    "Local gates": "Local gates",
+    "Pull request": "Pull request",
+    "Review": "Review",
+    "Next release": "Next release"
+  },
+  "how-it-works": {
+    "Capture": "Capture",
+    "Consolidate": "Consolidate",
+    "Recall": "Recall",
+    "Hand off": "Hand off",
+    "A git-backed wiki of plain markdown files": "A git-backed wiki of plain markdown files"
+  },
+  "individuals-handoff": {
+    "Handoff": "Handoff",
+    "Summary": "Summary",
+    "Next steps": "Next steps",
+    "Open questions": "Open questions",
+    "Claimed once": "Claimed once"
+  },
+  "individuals-machines": {
+    "One ai-memory server": "One ai-memory server",
+    "Notebook": "Notebook",
+    "Offline": "Offline",
+    "Local spool": "Local spool",
+    "Drains later": "Drains later"
+  },
+  "individuals-markdown": {
+    "wiki/ plain markdown": "wiki/ plain markdown",
+    "Edit": "Edit",
+    "git history": "git history"
+  },
+  "install-solo-path": {
+    "Install": "Install",
+    "Start the server": "Start the server",
+    "Run your agent": "Run your agent"
+  },
+  "install-team-topology": {
+    "One shared server": "One shared server",
+    "Token": "Token",
+    "One API key each": "One API key each",
+    "One wiki for the team": "One wiki for the team"
+  },
+  "integrations-hooks-vs-mcp": {
+    "Hooks": "Hooks",
+    "Automatic capture": "Automatic capture",
+    "Tools the agent calls": "Tools the agent calls",
+    "Your agent": "Your agent",
+    "Memory": "Memory"
+  },
+  "integrations-hub": {
+    "One memory": "One memory"
+  },
+  "research-okf-bundle": {
+    "One project": "One project",
+    "Decision": "Decision",
+    "Gotcha": "Gotcha",
+    "Procedure": "Procedure",
+    "Another OKF tool": "Another OKF tool"
+  },
+  "research-three-layers": {
+    "Raw sources": "Raw sources",
+    "Wiki": "Wiki",
+    "Schema": "Schema",
+    "Hook observations": "Hook observations",
+    "Markdown in git": "Markdown in git",
+    "AGENTS.md block": "AGENTS.md block"
+  },
+  "security-boundary": {
+    "Hook payload": "Hook payload",
+    "Secrets dropped": "Secrets dropped",
+    "Stored": "Stored",
+    "Size capped": "Size capped"
+  },
+  "security-egress": {
+    "Your machine": "Your machine",
+    "Third parties": "Third parties",
+    "Hooks": "Hooks",
+    "Wiki and index": "Wiki and index",
+    "Local embedder": "Local embedder",
+    "Cloud embeddings": "Cloud embeddings",
+    "Cloud LLM": "Cloud LLM",
+    "LLM rerank": "LLM rerank",
+    "Opt-in, off by default": "Opt-in, off by default"
+  },
+  "teams-first-day": {
+    "Get an API key": "Get an API key",
+    "Point at the server": "Point at the server",
+    "Catch me up": "Catch me up",
+    "Search the wiki": "Search the wiki",
+    "Day one": "Day one"
+  },
+  "teams-shared-owned": {
+    "Knowledge is shared": "Knowledge is shared",
+    "Batons are owned": "Batons are owned"
+  },
+  "teams-topology": {
+    "One ai-memory server": "One ai-memory server",
+    "Project wiki": "Project wiki"
+  }
+}

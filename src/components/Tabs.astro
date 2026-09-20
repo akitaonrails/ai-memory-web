@@ -1,10 +1,12 @@
 ---
 // Accessible tabs. Panels are passed as slots named "0", "1", ... matching `labels`.
 interface Props { labels: string[]; id: string }
+import { useI18n } from '@/i18n';
+const { t } = useI18n(Astro);
 const { labels, id } = Astro.props;
 ---
 <div data-tabs>
-  <div role="tablist" class="tablist" aria-label="Choose one">
+  <div role="tablist" class="tablist" aria-label={t('a11y.chooseOne')}>
     {labels.map((label, i) => (
       <button type="button" role="tab" id={`${id}-t${i}`} aria-controls={`${id}-p${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{label}</button>
     ))}

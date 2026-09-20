@@ -1,7 +1,9 @@
 ---
 import { site } from '@/data/site';
+import { useI18n } from '@/i18n';
 interface Props { title?: string; text?: string }
-const { title = 'Give your agents a memory today.', text = 'Free and open source under the MIT license. You need no account and no API key.' } = Astro.props;
+const { t, href } = useI18n(Astro);
+const { title = t('cta.title'), text = t('cta.text') } = Astro.props;
 ---
 <section class="band">
   <div class="wrap">
@@ -10,8 +12,8 @@ const { title = 'Give your agents a memory today.', text = 'Free and open source
       <h2 class="relative text-3xl max-w-[16ch]">{title}</h2>
       <p class="relative lede mt-5 !text-[oklch(0.82_0.03_285)]">{text}</p>
       <div class="relative mt-9 flex flex-wrap gap-3">
-        <a href="/install/" class="btn btn-primary">Set it up in 5 minutes</a>
-        <a href={site.repo} class="btn cta-ghost">Star it on GitHub</a>
+        <a href={href('/install/')} class="btn btn-primary">{t('cta.primary')}</a>
+        <a href={site.repo} class="btn cta-ghost">{t('cta.secondary')}</a>
       </div>
     </div>
   </div>

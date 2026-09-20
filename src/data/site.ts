@@ -1,7 +1,6 @@
 export const site = {
   name: 'ai-memory',
   domain: 'aimemory.io',
-  tagline: 'Long-term memory for AI coding agents',
   repo: 'https://github.com/akitaonrails/ai-memory',
   repoSlug: 'akitaonrails/ai-memory',
   docs: 'https://github.com/akitaonrails/ai-memory/blob/main/docs',
@@ -11,44 +10,45 @@ export const site = {
 };
 
 export type Hue = 'green' | 'teal' | 'azure' | 'violet' | 'rose' | 'amber';
-export interface NavLink { label: string; href: string; note: string; hue: Hue }
-export interface NavGroup { label: string; links: NavLink[] }
+export interface NavLink { id: string; href: string; hue: Hue }
+export interface NavGroup { id: string; links: NavLink[] }
 
+// Labels and notes live in src/i18n/locales/<locale>/common.json under nav.<group>.<link>.
 // One hue per subject, used everywhere that subject appears (nav, cards, page headers, diagrams):
 // agents = violet, machines = azure, teams = teal, the wiki = green, security = rose, action/handoff = amber.
 export const nav: NavGroup[] = [
   {
-    label: 'Product',
+    id: 'product',
     links: [
-      { label: 'How it works', href: '/#how', note: 'Capture, consolidate, recall, hand off', hue: 'green' },
-      { label: 'Architecture', href: '/architecture/', note: 'One binary, markdown files, a derived index', hue: 'azure' },
-      { label: 'Security', href: '/security/', note: 'What is stored, what leaves, how to lock it down', hue: 'rose' },
-      { label: 'Research and rationale', href: '/research/', note: 'Karpathy’s wiki, OKF, and the benchmarks', hue: 'violet' },
+      { id: 'how', href: '/#how', hue: 'green' },
+      { id: 'architecture', href: '/architecture/', hue: 'azure' },
+      { id: 'security', href: '/security/', hue: 'rose' },
+      { id: 'research', href: '/research/', hue: 'violet' },
     ],
   },
   {
-    label: 'Solutions',
+    id: 'solutions',
     links: [
-      { label: 'For individuals', href: '/solutions/individuals/', note: 'Switch agents and machines, keep the context', hue: 'violet' },
-      { label: 'For teams', href: '/solutions/teams/', note: 'One shared memory, faster onboarding', hue: 'teal' },
-      { label: 'Migrating from another tool', href: '/compare/', note: 'Mem0, Zep, cognee, OpenViking and others', hue: 'amber' },
+      { id: 'individuals', href: '/solutions/individuals/', hue: 'violet' },
+      { id: 'teams', href: '/solutions/teams/', hue: 'teal' },
+      { id: 'compare', href: '/compare/', hue: 'amber' },
     ],
   },
   {
-    label: 'Integrations',
+    id: 'integrations',
     links: [
-      { label: 'Agents and editors', href: '/integrations/#agents', note: 'Claude Code, Codex, Cursor, Gemini CLI and 20 more', hue: 'violet' },
-      { label: 'Operating systems', href: '/integrations/#platforms', note: 'Linux, macOS, Windows', hue: 'azure' },
-      { label: 'LLM and embedding providers', href: '/integrations/#providers', note: 'Optional. Everything works without one', hue: 'green' },
+      { id: 'agents', href: '/integrations/#agents', hue: 'violet' },
+      { id: 'platforms', href: '/integrations/#platforms', hue: 'azure' },
+      { id: 'providers', href: '/integrations/#providers', hue: 'green' },
     ],
   },
   {
-    label: 'Developers',
+    id: 'developers',
     links: [
-      { label: 'Quick setup', href: '/install/', note: 'Solo in three commands, a team in ten minutes', hue: 'amber' },
-      { label: 'Advanced setup', href: '/advanced/', note: 'Homelab, TLS, SSO, air-gapped, backups', hue: 'azure' },
-      { label: 'Contribute', href: '/contribute/', note: 'Where issues, PRs and new harnesses go', hue: 'teal' },
-      { label: 'Downloads and changelog', href: '/download/', note: 'Latest release for every platform', hue: 'green' },
+      { id: 'install', href: '/install/', hue: 'amber' },
+      { id: 'advanced', href: '/advanced/', hue: 'azure' },
+      { id: 'contribute', href: '/contribute/', hue: 'teal' },
+      { id: 'download', href: '/download/', hue: 'green' },
     ],
   },
 ];

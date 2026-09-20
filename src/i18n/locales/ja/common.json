@@ -1,0 +1,102 @@
+{
+  "site": {
+    "tagline": "AIコーディングエージェントの長期記憶",
+    "description": "AIコーディングエージェントの長期記憶。エージェント、マシン、チームメンバーが替わっても、プロジェクトを説明し直す必要はありません。オープンソース、単一バイナリ、プレーンなmarkdown。",
+    "ogAlt": "ai-memoryのロゴ。半分がニューラルネットワーク、半分が回路基板になった脳で、1本の矢印がチップを通り抜けている"
+  },
+  "a11y": {
+    "skip": "本文へスキップ",
+    "home": "ai-memoryホーム",
+    "mainNav": "メイン",
+    "openMenu": "メニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "menu": "メニュー",
+    "theme": "テーマ",
+    "toggleTheme": "ライトテーマとダークテーマを切り替える",
+    "language": "言語",
+    "starOnGithub": "GitHubでai-memoryにスターを付ける、現在{n}スター",
+    "chooseOne": "1つ選択"
+  },
+  "crumbs": {
+    "home": "ホーム",
+    "solutions": "ソリューション",
+    "individuals": "個人",
+    "teams": "チーム",
+    "compare": "比較",
+    "integrations": "連携",
+    "install": "クイックセットアップ",
+    "advanced": "詳細セットアップ",
+    "security": "セキュリティ",
+    "architecture": "アーキテクチャ",
+    "research": "リサーチ",
+    "contribute": "コントリビュート",
+    "download": "ダウンロード"
+  },
+  "nav": {
+    "getStarted": "はじめる",
+    "github": "GitHub",
+    "product": {
+      "label": "プロダクト",
+      "how": { "label": "仕組み", "note": "キャプチャ、統合、想起、引き継ぎ" },
+      "architecture": { "label": "アーキテクチャ", "note": "単一バイナリ、markdownファイル、派生インデックス" },
+      "security": { "label": "セキュリティ", "note": "何を保存し、何が外に出て、どう制限するか" },
+      "research": { "label": "リサーチと設計根拠", "note": "Karpathyのwiki、OKF、ベンチマーク" }
+    },
+    "solutions": {
+      "label": "ソリューション",
+      "individuals": { "label": "個人向け", "note": "エージェントやマシンを替えてもコンテキストはそのまま" },
+      "teams": { "label": "チーム向け", "note": "1つの共有記憶でオンボーディングを短縮" },
+      "compare": { "label": "他のツールからの移行", "note": "Mem0、Zep、cognee、OpenVikingなど" }
+    },
+    "integrations": {
+      "label": "連携",
+      "agents": { "label": "エージェントとエディタ", "note": "Claude Code、Codex、Cursor、Gemini CLIほか20種以上" },
+      "platforms": { "label": "OS", "note": "Linux、macOS、Windows" },
+      "providers": { "label": "LLMと埋め込みのプロバイダー", "note": "任意です。なくてもすべて動きます" }
+    },
+    "developers": {
+      "label": "開発者",
+      "install": { "label": "クイックセットアップ", "note": "個人ならコマンド3つ、チームなら10分" },
+      "advanced": { "label": "詳細セットアップ", "note": "ホームラボ、TLS、SSO、エアギャップ、バックアップ" },
+      "contribute": { "label": "コントリビュート", "note": "Issue、PR、新しいハーネスの受付先" },
+      "download": { "label": "ダウンロードと変更履歴", "note": "全プラットフォームの最新リリース" }
+    }
+  },
+  "footer": {
+    "motto": "モデルもハーネスも借り物です。プロジェクトの記憶はあなたのものです。",
+    "themeSystem": "システム",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "rights": "© {year} <a href=\"{authorUrl}\" class=\"underline\">{author}</a>. All rights reserved. ai-memoryはMITライセンスのオープンソースソフトウェアです。",
+    "dockerHub": "Docker Hub",
+    "reportVulnerability": "脆弱性を報告",
+    "cookieSettings": "Cookie設定"
+  },
+  "cta": {
+    "title": "今日からエージェントに記憶を。",
+    "text": "MITライセンスの無料オープンソースです。アカウントもAPIキーも要りません。",
+    "primary": "5分でセットアップ",
+    "secondary": "GitHubでスターする"
+  },
+  "code": {
+    "terminal": "ターミナル",
+    "copy": "コピー",
+    "copied": "コピーしました"
+  },
+  "next": {
+    "title": "続けて読む"
+  },
+  "stats": {
+    "stars": "GitHubスター",
+    "contributors": "コントリビューター",
+    "mergedPRs": "マージ済みプルリクエスト",
+    "closedIssues": "クローズ済みIssue"
+  },
+  "consent": {
+    "label": "アクセス解析への同意",
+    "text": "このサイトは訪問数を数えるためにGoogle Analyticsを使用します。広告は表示せず、他のサイトまで追跡することもありません。よろしいですか？",
+    "decline": "同意しない",
+    "accept": "同意する"
+  },
+  "englishOnly": "この部分はプロジェクトからそのまま取り込んでいるため、英語のままです。"
+}
