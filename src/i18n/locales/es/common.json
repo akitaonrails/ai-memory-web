@@ -93,7 +93,7 @@
       "label": "Desarrolladores",
       "install": {
         "label": "Instalación rápida",
-        "note": "Tú solo en tres comandos, un equipo en diez minutos"
+        "note": "Comandos para una máquina o para todo el equipo"
       },
       "advanced": {
         "label": "Instalación avanzada",
@@ -122,7 +122,7 @@
   "cta": {
     "title": "Dale memoria a tus agentes hoy.",
     "text": "Gratis y de código abierto bajo la licencia MIT. No necesitas cuenta ni clave de API.",
-    "primary": "Instálalo en 5 minutos",
+    "primary": "Instalar ahora",
     "secondary": "Dale una estrella en GitHub"
   },
   "code": {

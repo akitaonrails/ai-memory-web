@@ -6,7 +6,7 @@
   "hero": {
     "title": "Uma memória para os agentes de todo mundo",
     "lede": "Rode um servidor em uma máquina do homelab ou em qualquer host da LAN. Cada desenvolvedor aponta seus agentes para ele, e o que uma sessão descobre fica lá para a próxima pessoa que perguntar.",
-    "primary": "Monte um time em 10 minutos",
+    "primary": "Configurar um time",
     "secondary": "Leia o modelo de segurança"
   },
   "server": {
@@ -105,7 +105,7 @@
     }
   },
   "setup": {
-    "title": "Setup em 10 minutos",
+    "title": "Configure o seu time",
     "text": "A página de instalação mostra o passo a passo: subir um servidor, dar uma chave para cada pessoa e apontar os agentes para ele.",
     "primary": "Veja o setup completo de time",
     "secondary": "TLS, SSO e backups"

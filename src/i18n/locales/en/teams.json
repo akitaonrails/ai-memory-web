@@ -6,7 +6,7 @@
   "hero": {
     "title": "One memory for everyone’s agents",
     "lede": "Run one server on a homelab box or any LAN host. Every developer points their agents at it, and what one session figures out is there for the next person who asks.",
-    "primary": "Set up a team in 10 minutes",
+    "primary": "Set up a team",
     "secondary": "Read the security model"
   },
   "server": {
@@ -105,7 +105,7 @@
     }
   },
   "setup": {
-    "title": "Set it up in 10 minutes",
+    "title": "Set up your team",
     "text": "The install page walks through it: start one server, give each person a key, and point their agents at it.",
     "primary": "See the full team setup",
     "secondary": "TLS, SSO and backups"

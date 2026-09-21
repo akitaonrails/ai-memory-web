@@ -14,10 +14,22 @@
     "title": "Cada herramienta optimiza una cosa",
     "lede": "ai-memory optimiza una wiki de páginas markdown respaldada por git, con un índice de búsqueda derivado, y por defecto no hace ninguna llamada a un LLM. Las demás hicieron otras apuestas, para otro tipo de cliente.",
     "items": [
-      { "title": "Extractores de hechos", "text": "Mem0 y LangMem le piden a un LLM que saque hechos atómicos de cada turno, para personalizar una app para sus usuarios finales." },
-      { "title": "Grafos temporales", "text": "Zep, Graphiti y cognee modelan el conocimiento como un grafo a lo largo del tiempo. Sirven consultas de grafos y corren sobre una base de datos de grafos." },
-      { "title": "Sistemas operativos de memoria", "text": "Letta y MemGPT dejan que el agente edite su propia memoria por niveles. Encajan con quien adopta su runtime de agentes." },
-      { "title": "APIs alojadas", "text": "Supermemory y las nubes gestionadas guardan tu memoria detrás de una cuenta, a cambio de conectores y cero operaciones." }
+      {
+        "title": "Extractores de hechos",
+        "text": "Mem0 y LangMem le piden a un LLM que saque hechos atómicos de cada turno, para personalizar una app para sus usuarios finales."
+      },
+      {
+        "title": "Grafos temporales",
+        "text": "Zep, Graphiti y cognee modelan el conocimiento como un grafo a lo largo del tiempo. Sirven consultas de grafos y corren sobre una base de datos de grafos."
+      },
+      {
+        "title": "Sistemas operativos de memoria",
+        "text": "Letta y MemGPT dejan que el agente edite su propia memoria por niveles. Encajan con quien adopta su runtime de agentes."
+      },
+      {
+        "title": "APIs alojadas",
+        "text": "Supermemory y las nubes gestionadas guardan tu memoria detrás de una cuenta, a cambio de conectores y cero operaciones."
+      }
     ]
   },
   "unique": {
@@ -33,7 +45,13 @@
     "figureCaption": "Un stack típico frente a ai-memory. No todas las herramientas necesitan los cuatro; la tabla de abajo dice cuál necesita qué.",
     "caption": "Piezas móviles que necesita cada herramienta de memoria",
     "tool": "Herramienta",
-    "parts": ["Un LLM", "Un servicio vectorial o de embeddings", "Una base de datos de grafos", "Otro runtime u otra base de datos", "Una cuenta en la nube"],
+    "parts": [
+      "Un LLM",
+      "Un servicio vectorial o de embeddings",
+      "Una base de datos de grafos",
+      "Otro runtime u otra base de datos",
+      "Una cuenta en la nube"
+    ],
     "needs": "Qué necesita",
     "ours": "Un solo binario y una carpeta de markdown",
     "marks": {
@@ -59,13 +77,26 @@
     "chartLabel": "Gráfico de barras de hit at 5 en LongMemEval-S. {bars}",
     "chartBar": "{label}: {value}.",
     "ours": [
-      { "label": "ai-memory antes de 2.0", "note": "Solo texto completo" },
-      { "label": "ai-memory, solo texto completo", "note": "Con filtrado de stopwords" },
-      { "label": "ai-memory 2.0 por defecto", "note": "Embeddings locales, sin clave de API" }
+      {
+        "label": "ai-memory antes de 2.0",
+        "note": "Solo texto completo"
+      },
+      {
+        "label": "ai-memory, solo texto completo",
+        "note": "Con filtrado de stopwords"
+      },
+      {
+        "label": "ai-memory 2.0 por defecto",
+        "note": "Embeddings locales, sin clave de API"
+      }
     ],
     "theirs": [
-      { "note": "Cifra del proveedor, a nivel de sesión" },
-      { "note": "Cifra del proveedor, con rerank" }
+      {
+        "note": "Cifra del proveedor, a nivel de sesión"
+      },
+      {
+        "note": "Cifra del proveedor, con rerank"
+      }
     ],
     "axis": "hit@5, de 0 a 1. Las barras sólidas las midió este proyecto. Las barras rayadas son cifras de los propios proveedores y no se reprodujeron aquí.",
     "caveats": [
@@ -88,13 +119,34 @@
     "title": "Dónde ai-memory va por detrás",
     "lede": "Esta lista sale de la auditoría del propio repositorio. Si lo que necesitas es alguna de estas cosas, quédate donde estás.",
     "items": [
-      { "title": "Sin reranker local", "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas también necesitan un LLM, y su precisión no se ha evaluado." },
-      { "title": "Los tipos de enlace no mueven el ranking", "text": "Puedes ir de una página a sus páginas relacionadas. En la búsqueda, el tipo de enlace sigue sirviendo solo para explicar un resultado y no tiene ningún peso." },
-      { "title": "El envejecimiento está sin demostrar", "text": "La puntuación de confianza, la compactación, el dedup y la pasada de sueño vienen desactivados por defecto. No se ha hecho ninguna evaluación de recuperación sobre ellos, así que el proyecto afirma el mecanismo y ninguna mejora medida." },
-      { "title": "Una sola línea de tiempo", "text": "La búsqueda a un punto en el tiempo usa el momento en que se registró un hecho. Zep modela tanto cuándo pasó algo como cuándo se supo." },
-      { "title": "Solo texto de sesiones de programación", "text": "No ingiere PDF, CSV ni imágenes, no tiene modelo de visión y no es una base de datos de grafos que puedas consultar con Cypher." },
-      { "title": "Un servidor, sin plan alojado", "text": "Muchas máquinas llegan a un servidor que ejecutas tú. No hay replicación automática, ni SaaS, ni consola empresarial." },
-      { "title": "Más instalación que la memoria integrada", "text": "La memoria propia de Claude Code ya viene activada. ai-memory le pide a quien trabaja solo que primero arranque un servidor." }
+      {
+        "title": "Sin reranker local",
+        "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas también necesitan un LLM, y su precisión no se ha evaluado."
+      },
+      {
+        "title": "Los tipos de enlace no mueven el ranking",
+        "text": "Puedes ir de una página a sus páginas relacionadas. En la búsqueda, el tipo de enlace sigue sirviendo solo para explicar un resultado y no tiene ningún peso."
+      },
+      {
+        "title": "El envejecimiento está sin demostrar",
+        "text": "La puntuación de confianza, la compactación, el dedup y la pasada de sueño vienen desactivados por defecto. No se ha hecho ninguna evaluación de recuperación sobre ellos, así que el proyecto afirma el mecanismo y ninguna mejora medida."
+      },
+      {
+        "title": "Una sola línea de tiempo",
+        "text": "La búsqueda a un punto en el tiempo usa el momento en que se registró un hecho. Zep modela tanto cuándo pasó algo como cuándo se supo."
+      },
+      {
+        "title": "Solo texto de sesiones de programación",
+        "text": "No ingiere PDF, CSV ni imágenes, no tiene modelo de visión y no es una base de datos de grafos que puedas consultar con Cypher."
+      },
+      {
+        "title": "Un servidor, sin plan alojado",
+        "text": "Muchas máquinas llegan a un servidor que ejecutas tú. No hay replicación automática, ni SaaS, ni consola empresarial."
+      },
+      {
+        "title": "Más instalación que la memoria integrada",
+        "text": "La memoria propia de Claude Code ya viene activada. ai-memory le pide a quien trabaja solo que primero arranque un servidor."
+      }
     ]
   },
   "move": {
@@ -104,7 +156,7 @@
     "steps": [
       {
         "title": "Instálalo junto a lo que ya tienes",
-        "text": "ai-memory añade su propia entrada MCP y sus propios hooks, y deja en su sitio las entradas de otras herramientas. <a href=\"{install}\">La instalación rápida</a> lleva unos cinco minutos."
+        "text": "ai-memory añade su propia entrada MCP y sus propios hooks, y deja en su sitio las entradas de otras herramientas. <a href=\"{install}\">La instalación rápida</a> tiene los comandos."
       },
       {
         "title": "Siembra la wiki desde el propio proyecto",
@@ -126,18 +178,45 @@
   "faq": {
     "title": "Preguntas que la gente hace antes de cambiarse",
     "items": [
-      { "q": "¿Necesito una clave de API de un LLM?", "a": "No. La captura, la búsqueda y los traspasos funcionan sin clave y sin LLM. Añadir un proveedor activa la consolidación con LLM, bootstrap, un linting más rico, auto-improve y el rerank opcional. Los inicios de sesión por suscripción, como Codex o GitHub Copilot, también sirven como proveedores." },
-      { "q": "¿Hay una versión alojada?", "a": "No. ai-memory es un único servidor que ejecutas tú en un portátil, en un equipo del homelab o en un host de la LAN. No hay plan SaaS ni consola empresarial." },
-      { "q": "¿Puedo importar mis datos de Mem0, Zep o cognee?", "a": "Directamente, no. El importador complementario lee wikis markdown de oh-my-claudecode y un formato JSON genérico de conversaciones. Los adaptadores para productos concretos viven fuera del repositorio. Para un código que ya existe, ai-memory bootstrap siembra la wiki a partir del historial de git y la documentación." },
-      { "q": "¿Puedo ejecutar ai-memory junto a mi herramienta de memoria actual?", "a": "Sí. Se instala como su propia entrada de servidor MCP y sus propios hooks de ciclo de vida, y no toca la configuración de otras herramientas. Puedes comparar las dos en el mismo proyecto antes de quitar ninguna." },
-      { "q": "¿Cómo queda su puntuación de recuperación frente a las demás?", "a": "En LongMemEval-S obtiene 0,823 de hit@5 con los embeddings locales por defecto y 0,668 solo con texto completo. Esa cifra mide la recuperación y no dice nada sobre la precisión de las respuestas. Los sistemas que hacen rerank puntúan más alto: agentmemory reporta 0,952 y mcp-memory-service reporta 0,860 a nivel de sesión." },
-      { "q": "¿Sincroniza la memoria entre máquinas?", "a": "Usa un solo servidor al que todas tus máquinas llegan por la red. No hay replicación automática entre servidores." }
+      {
+        "q": "¿Necesito una clave de API de un LLM?",
+        "a": "No. La captura, la búsqueda y los traspasos funcionan sin clave y sin LLM. Añadir un proveedor activa la consolidación con LLM, bootstrap, un linting más rico, auto-improve y el rerank opcional. Los inicios de sesión por suscripción, como Codex o GitHub Copilot, también sirven como proveedores."
+      },
+      {
+        "q": "¿Hay una versión alojada?",
+        "a": "No. ai-memory es un único servidor que ejecutas tú en un portátil, en un equipo del homelab o en un host de la LAN. No hay plan SaaS ni consola empresarial."
+      },
+      {
+        "q": "¿Puedo importar mis datos de Mem0, Zep o cognee?",
+        "a": "Directamente, no. El importador complementario lee wikis markdown de oh-my-claudecode y un formato JSON genérico de conversaciones. Los adaptadores para productos concretos viven fuera del repositorio. Para un código que ya existe, ai-memory bootstrap siembra la wiki a partir del historial de git y la documentación."
+      },
+      {
+        "q": "¿Puedo ejecutar ai-memory junto a mi herramienta de memoria actual?",
+        "a": "Sí. Se instala como su propia entrada de servidor MCP y sus propios hooks de ciclo de vida, y no toca la configuración de otras herramientas. Puedes comparar las dos en el mismo proyecto antes de quitar ninguna."
+      },
+      {
+        "q": "¿Cómo queda su puntuación de recuperación frente a las demás?",
+        "a": "En LongMemEval-S obtiene 0,823 de hit@5 con los embeddings locales por defecto y 0,668 solo con texto completo. Esa cifra mide la recuperación y no dice nada sobre la precisión de las respuestas. Los sistemas que hacen rerank puntúan más alto: agentmemory reporta 0,952 y mcp-memory-service reporta 0,860 a nivel de sesión."
+      },
+      {
+        "q": "¿Sincroniza la memoria entre máquinas?",
+        "a": "Usa un solo servidor al que todas tus máquinas llegan por la red. No hay replicación automática entre servidores."
+      }
     ]
   },
   "next": [
-    { "title": "Instalación rápida", "text": "Tres comandos para una máquina, diez minutos para un equipo." },
-    { "title": "Investigación y fundamentos", "text": "Por qué las páginas ganan a las filas de hechos, y el benchmark completo." },
-    { "title": "Comprueba tu agente", "text": "Todos los agentes, sistemas operativos y proveedores con soporte." }
+    {
+      "title": "Instalación rápida",
+      "text": "Tres comandos para una máquina, cinco pasos para un equipo."
+    },
+    {
+      "title": "Investigación y fundamentos",
+      "text": "Por qué las páginas ganan a las filas de hechos, y el benchmark completo."
+    },
+    {
+      "title": "Comprueba tu agente",
+      "text": "Todos los agentes, sistemas operativos y proveedores con soporte."
+    }
   ],
   "cta": {
     "title": "Pruébalo junto a la herramienta que ya tienes.",

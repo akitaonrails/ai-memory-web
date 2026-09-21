@@ -156,7 +156,7 @@
     "steps": [
       {
         "title": "Instale ao lado do que você já tem",
-        "text": "O ai-memory adiciona sua própria entrada MCP e seus próprios hooks, e deixa as entradas das outras ferramentas no lugar. <a href=\"{install}\">A instalação rápida</a> leva uns cinco minutos."
+        "text": "O ai-memory adiciona sua própria entrada MCP e seus próprios hooks, e deixa as entradas das outras ferramentas no lugar. <a href=\"{install}\">A instalação rápida</a> traz os comandos."
       },
       {
         "title": "Popule a wiki a partir do próprio projeto",
@@ -207,7 +207,7 @@
   "next": [
     {
       "title": "Instalação rápida",
-      "text": "Três comandos para uma máquina, dez minutos para um time."
+      "text": "Três comandos para uma máquina, cinco passos para um time."
     },
     {
       "title": "Pesquisa e fundamentos",

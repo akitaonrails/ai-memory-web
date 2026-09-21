@@ -93,7 +93,7 @@
       "label": "Developers",
       "install": {
         "label": "Quick setup",
-        "note": "Solo in three commands, a team in ten minutes"
+        "note": "Commands for one machine or a whole team"
       },
       "advanced": {
         "label": "Advanced setup",
@@ -122,7 +122,7 @@
   "cta": {
     "title": "Give your agents a memory today.",
     "text": "Free and open source under the MIT license. You need no account and no API key.",
-    "primary": "Set it up in 5 minutes",
+    "primary": "Install now",
     "secondary": "Star it on GitHub"
   },
   "code": {

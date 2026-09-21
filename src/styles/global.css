@@ -154,6 +154,12 @@
 }
 
 @layer base {
+  /* A grid or flex child defaults to min-width: auto, so one long command or unbreakable phrase widens the
+     whole page on a phone. Let children shrink; their own content then wraps or scrolls. */
+  .grid > *,
+  .flex > * {
+    min-width: 0;
+  }
   html {
     background: var(--bg);
     color: var(--text);
@@ -258,11 +264,14 @@
     align-items: center;
     gap: 0.6em;
     padding: 0.8em 1.35em;
-    border-radius: 999px;
+    /* 1.6rem is more than half the height of a one-line button, so it still reads as a pill,
+       and a label that wraps on a narrow phone (long translations do) becomes a rounded box. */
+    border-radius: 1.6rem;
     font-weight: 600;
     font-size: 1rem;
-    line-height: 1.1;
-    white-space: nowrap;
+    line-height: 1.2;
+    max-width: 100%;
+    text-wrap: balance;
     transition:
       transform 0.25s var(--ease-out-quint),
       background-color 0.2s,
@@ -346,6 +355,10 @@
 }
 :lang(ja) :is(p, li, dd) {
   word-break: auto-phrase;
+}
+/* Phrase-based breaking keeps phrases whole, which on a narrow phone can be wider than the screen. */
+:lang(ja) :is(h1, h2, h3, h4, p, li, dd, dt, td, th, a, span) {
+  overflow-wrap: anywhere;
 }
 :lang(he) body {
   font-variation-settings: normal;

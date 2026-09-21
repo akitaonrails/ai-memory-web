@@ -156,7 +156,7 @@
     "steps": [
       {
         "title": "Install it next to what you have",
-        "text": "ai-memory adds its own MCP entry and its own hooks, and leaves the entries of other tools in place. <a href=\"{install}\">The quick setup</a> takes about five minutes."
+        "text": "ai-memory adds its own MCP entry and its own hooks, and leaves the entries of other tools in place. <a href=\"{install}\">The quick setup</a> has the commands."
       },
       {
         "title": "Seed the wiki from the project itself",
@@ -207,7 +207,7 @@
   "next": [
     {
       "title": "Quick setup",
-      "text": "Three commands for one machine, ten minutes for a team."
+      "text": "Three commands for one machine, five steps for a team."
     },
     {
       "title": "Research and rationale",

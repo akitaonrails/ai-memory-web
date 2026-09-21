@@ -4,7 +4,7 @@
     "releaseLink": "Mira qué cambió",
     "title": "Cambia de agente. Conserva el contexto.",
     "lede": "ai-memory es memoria a largo plazo para agentes de programación con IA. Cierra Claude Code a mitad de una tarea, abre Codex en el mismo directorio y sigue sin volver a explicar la arquitectura, los intentos fallidos ni las preguntas abiertas.",
-    "primary": "Instálalo en 5 minutos",
+    "primary": "Instalar ahora",
     "star": "Estrella en GitHub",
     "facts": [
       "Código abierto, MIT",
@@ -163,7 +163,7 @@
     "gain": "Qué ganas"
   },
   "quickstart": {
-    "title": "Funcionando en cinco minutos.",
+    "title": "En marcha con tres comandos.",
     "text": "No hay registro. La instalación por defecto solo escucha en tu máquina, así que nada más puede llegar a ella.",
     "links": {
       "install": "Todas las rutas de instalación, paso a paso",

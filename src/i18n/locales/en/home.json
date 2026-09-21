@@ -4,7 +4,7 @@
     "releaseLink": "See what changed",
     "title": "Switch agents. Keep the context.",
     "lede": "ai-memory is long-term memory for AI coding agents. Quit Claude Code mid-task, open Codex in the same directory, and carry on without re-explaining the architecture, the failed approaches or the open questions.",
-    "primary": "Set it up in 5 minutes",
+    "primary": "Install now",
     "star": "Star on GitHub",
     "facts": [
       "Open source, MIT",
@@ -163,7 +163,7 @@
     "gain": "What you gain"
   },
   "quickstart": {
-    "title": "Running in five minutes.",
+    "title": "Up and running in three commands.",
     "text": "There is no sign-up. The default install listens on your machine only, so nothing else can reach it.",
     "links": {
       "install": "Every install path, step by step",

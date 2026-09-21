@@ -6,7 +6,7 @@
   "hero": {
     "title": "Una memoria para los agentes de todos",
     "lede": "Ejecuta un servidor en un equipo del homelab o en cualquier host de la LAN. Cada desarrollador apunta sus agentes a él, y lo que una sesión descubre queda disponible para la siguiente persona que pregunte.",
-    "primary": "Monta un equipo en 10 minutos",
+    "primary": "Configurar un equipo",
     "secondary": "Lee el modelo de seguridad"
   },
   "server": {
@@ -105,7 +105,7 @@
     }
   },
   "setup": {
-    "title": "Instalación en 10 minutos",
+    "title": "Configura tu equipo",
     "text": "La página de instalación lo explica paso a paso: levantar un servidor, dar una clave a cada persona y apuntar sus agentes a él.",
     "primary": "Mira la instalación completa para equipos",
     "secondary": "TLS, SSO y copias de seguridad"

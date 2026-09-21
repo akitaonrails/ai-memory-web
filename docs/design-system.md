@@ -49,6 +49,7 @@ Rules:
 - Content is left aligned. Nothing is centered except the CTA band.
 - Prefer open layouts (a rule on top, whitespace) over boxes. Cards are for things you click.
 - Mobile first. Every grid collapses to one column. Tables scroll sideways inside `.table-wrap`.
+- Test at 360px wide, in the longest languages (Portuguese, Spanish) and in Japanese. The page must never scroll sideways: `document.documentElement.scrollWidth` has to equal the viewport width. Buttons wrap, grid and flex children can shrink (`min-width: 0` is set globally), and long commands scroll inside their code block.
 
 ## Components (`src/components`)
 
@@ -104,6 +105,7 @@ The reader is a developer deciding whether to install something. Tell them what 
 
 - Short. A section is a heading, one or two sentences, and something to look at. If a paragraph passes three sentences, it wants to be a list, a table or a diagram.
 - Plain verbs, second person, active voice. A button says what it does.
+- Do not promise how long something takes ("in 5 minutes"). Say what the reader does: "three commands", "five steps".
 - Claims come from the ai-memory repository. Numbers keep their caveats. Competitor numbers are labelled as the vendor's own.
 - Say where the project is behind. The repository's own comparison does, and it is the most persuasive thing on the site.
 - No em dashes or en dashes. No "not X, but Y" constructions. No three-item lists for rhythm. No closing one-liners that restate the section. No "seamless", "robust", "powerful", "unlock", "effortless", "key", "crucial", "landscape". No arrows or emoji in text.
