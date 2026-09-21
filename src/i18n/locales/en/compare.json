@@ -101,7 +101,7 @@
     "axis": "hit@5, from 0 to 1. Solid bars were measured by this project. Hatched bars are the vendors’ own numbers and were not reproduced here.",
     "caveats": [
       "hit@5 asks whether a session holding the evidence is in the top five results. It measures retrieval. It says nothing about answer accuracy.",
-      "470 of the 500 questions are scored. The 30 abstention questions are excluded. The run is from {date}.",
+      "470 of the 500 questions are scored. The 30 abstention questions are excluded. The run is from {date}. A second run on the same commit scored {runB}, so read the default score as about {readAs}.",
       "{local} uses the default in-process embedding model, with no API key and no LLM. {fts} is full text, entities and links only.",
       "No head-to-head run against any competitor exists. Accuracy figures such as Hindsight’s 91.4% are a different metric and do not compare with hit@5.",
       "Stored excerpts are capped at 2 KB for privacy, so evidence deep inside one long turn cannot be found. The benchmark measures the shipped system.",

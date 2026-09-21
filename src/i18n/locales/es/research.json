@@ -216,8 +216,8 @@
         "tokens": "Tokens de contexto por consulta, media"
       },
       "ms": "{n} ms",
-      "stable": "La ejecución anterior, del {prevDate}, obtuvo {prevLocal} y {prevFts}. La diferencia es ruido entre ejecuciones. El envejecimiento de la memoria viene desactivado por defecto, así que la búsqueda por defecto no cambió.",
-      "determinism": "Ejecutar una misma configuración dos veces da una precisión y un número de tokens idénticos, así que las diferencias de la tabla vienen de la configuración."
+      "stable": "Dos ejecuciones completas sobre el mismo commit obtuvieron {runA} y {runB}, así que conviene leer hit@5 como aproximadamente {readAs}, más o menos {plusMinus}. La ejecución anterior, del {prevDate}, obtuvo {prevLocal}, que es el mismo resultado. El envejecimiento de la memoria viene desactivado por defecto, así que la búsqueda por defecto no cambió.",
+      "determinism": "Dentro de una misma ejecución el harness es determinista: ejecutar una configuración dos veces da una precisión y un número de tokens idénticos. Entre ejecuciones separadas, los tipos de pregunta más pequeños se mueven hasta 0,03 en cualquier dirección, así que una caída en uno de ellos en una sola ejecución significa poco."
     }
   },
   "next": {

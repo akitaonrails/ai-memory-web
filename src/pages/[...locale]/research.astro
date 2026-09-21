@@ -79,6 +79,7 @@ const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i)
 const ab = facts.benchmark.ab.rows as { id: string; fts: number; local: number; delta: number; unit?: string }[];
 const abValue = (r: { unit?: string }, v: number) =>
   r.unit === 'ms' ? t('measured.ab.ms', { n: number(Math.round(v)) }) : r.unit === 'tokens' ? number(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : score(v);
+const variance = facts.benchmark.variance;
 const faqParams = { hybrid: score(hit5[2]), fts: score(hit5[1]) };
 const faqItems = raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) }));
 const faq = faqPage(faqItems);
@@ -259,7 +260,7 @@ const faq = faqPage(faqItems);
         </div>
       </div>
       <ul class="dotlist text-muted space-y-4 lg:mt-12">
-        <li>{t('measured.ab.stable', { prevDate: date(facts.benchmark.previous.date), prevLocal: score(facts.benchmark.previous['hit@5'].local), prevFts: score(facts.benchmark.previous['hit@5'].fts) })}</li>
+        <li>{t('measured.ab.stable', { runA: score(variance.runs[0]), runB: score(variance.runs[1]), readAs: number(variance.readAs, { minimumFractionDigits: 2 }), plusMinus: score(variance.plusMinus), prevDate: date(facts.benchmark.previous.date), prevLocal: score(facts.benchmark.previous['hit@5'].local) })}</li>
         <li>{t('measured.ab.determinism')}</li>
       </ul>
     </div>

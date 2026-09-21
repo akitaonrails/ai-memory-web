@@ -110,7 +110,7 @@
         "Aging that is off by default, and every rewrite can be restored",
         "Claim-once handoffs between agents, and cross-project messaging"
       ],
-      "theyWin": "Its aging runs on its own with no setup. It also has multi-backend replication and a graph visualizer, and its session-level score of 0.860 is above ai-memory’s 0.815.",
+      "theyWin": "Its aging runs on its own with no setup. It also has multi-backend replication and a graph visualizer, and its session-level score of 0.860 is above ai-memory’s, which is about 0.82.",
       "verdict": "Move if you liked hook capture and want it across every agent."
     },
     "agentmemory": {
@@ -126,7 +126,7 @@
         "Real SQL indexes committed in one transaction",
         "Files as the source of truth, Windows parity, fuller auth"
       ],
-      "theyWin": "About 14 points of raw retrieval: it reports 0.952 on LongMemEval-S against 0.815, because it reranks. It also has peer-to-peer sync.",
+      "theyWin": "About 13 points of raw retrieval: it reports 0.952 on LongMemEval-S against about 0.82, because it reranks. It also has peer-to-peer sync.",
       "verdict": "Move for operability and data ownership."
     },
     "letta": {

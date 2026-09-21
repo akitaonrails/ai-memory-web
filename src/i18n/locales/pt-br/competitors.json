@@ -110,7 +110,7 @@
         "Envelhecimento desligado por padrão, e toda reescrita pode ser restaurada",
         "Handoffs entre agentes que só uma sessão assume, e mensagens entre projetos"
       ],
-      "theyWin": "O envelhecimento dele roda sozinho, sem configurar nada. Ele também tem replicação multi-backend e um visualizador de grafo, e a nota dele por sessão, 0,860, fica acima dos 0,815 do ai-memory.",
+      "theyWin": "O envelhecimento dele roda sozinho, sem configurar nada. Ele também tem replicação multi-backend e um visualizador de grafo, e a nota dele por sessão, 0,860, fica acima da do ai-memory, que é cerca de 0,82.",
       "verdict": "Migre se você gostou da captura por hooks e quer isso em todos os agentes."
     },
     "agentmemory": {
@@ -126,7 +126,7 @@
         "Índices SQL de verdade, gravados em uma transação só",
         "Arquivos como fonte da verdade, paridade no Windows, autenticação mais completa"
       ],
-      "theyWin": "Cerca de 14 pontos de recuperação bruta: ele reporta 0,952 no LongMemEval-S contra 0,815, porque faz rerank. Também tem sync peer-to-peer.",
+      "theyWin": "Cerca de 13 pontos de recuperação bruta: ele reporta 0,952 no LongMemEval-S contra cerca de 0,82, porque faz rerank. Também tem sync peer-to-peer.",
       "verdict": "Migre pela operação mais simples e para ser dono dos seus dados."
     },
     "letta": {

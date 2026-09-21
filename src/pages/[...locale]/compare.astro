@@ -79,7 +79,9 @@ cargo run -p ai-memory-eval -- retrieval --sample 10`;
 
 // Scores come from src/data/facts.json, so a benchmark re-run needs no new translation.
 const scores = { local: score(oursValues[2]), fts: score(oursValues[1]) };
-const fill = (s: string) => s.replace('{local}', scores.local).replace('{fts}', scores.fts);
+const variance = facts.benchmark.variance;
+const fill = (s: string) => s.replace('{local}', scores.local).replace('{fts}', scores.fts)
+  .replace('{runB}', score(variance.runs[1])).replace('{readAs}', number(variance.readAs, { minimumFractionDigits: 2 }));
 const faq = raw<{ q: string; a: string }[]>('faq.items').map((f) => ({ q: f.q, a: fill(f.a) }));
 const faqSchema = faqPage(faq);
 

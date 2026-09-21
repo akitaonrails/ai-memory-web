@@ -85,6 +85,15 @@
         }
       ]
     },
+    "variance": {
+      "comment": "Two full local-embeddings runs on the same commit. Upstream: treat overall hit@5 as about 0.82 +/- 0.005.",
+      "runs": [
+        0.815,
+        0.821
+      ],
+      "readAs": 0.82,
+      "plusMinus": 0.005
+    },
     "vendorReported": {
       "mcp-memory-service": 0.86,
       "agentmemory": 0.952

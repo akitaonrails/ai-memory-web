@@ -216,8 +216,8 @@
         "tokens": "Context tokens per query, mean"
       },
       "ms": "{n} ms",
-      "stable": "The earlier run, from {prevDate}, scored {prevLocal} and {prevFts}. The difference is run-to-run noise. Memory aging is off by default, so default search did not change.",
-      "determinism": "Running one configuration twice gives identical accuracy and token counts, so the differences in the table come from the configuration."
+      "stable": "Two full runs on the same commit scored {runA} and {runB}, so read hit@5 as about {readAs}, give or take {plusMinus}. The earlier run, from {prevDate}, scored {prevLocal}, which is the same result. Memory aging is off by default, so default search did not change.",
+      "determinism": "Within one run the harness is deterministic: running one configuration twice gives identical accuracy and token counts. Across separate runs, the smaller question types move by up to 0.03 in either direction, so a dip in one of them from a single run means little."
     }
   },
   "next": {
