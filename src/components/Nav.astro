@@ -13,7 +13,7 @@ const languages = languageLinks(Astro.url.pathname);
 <header class="site-nav fixed inset-x-0 top-0 z-50" data-nav>
   <div class="wrap flex h-16 items-center gap-6">
     <a href={href('/')} class="flex items-center gap-2.5 shrink-0" aria-label={t('a11y.home')}>
-      <Image src={logo} alt="" width={40} height={40} class="size-10 -my-1" loading="eager" />
+      <Image src={logo} alt="" width={40} height={40} densities={[1, 2, 3]} class="size-10 -my-1" loading="eager" />
       <span class="font-display text-[1.35rem] font-semibold tracking-tight" style="font-variation-settings:'opsz' 24,'wdth' 90">ai-memory</span>
     </a>
 

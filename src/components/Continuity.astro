@@ -53,7 +53,7 @@ const scenes = sceneMeta.map((m) => {
             <div class="side out"><SceneCard side={s.out} /></div>
           </div>
         ))}
-        <div class="hub"><Image src={logo} alt="" width={260} height={260} loading="lazy" /></div>
+        <div class="hub"><Image src={logo} alt="" width={200} height={200} densities={[1, 2, 3]} loading="lazy" /></div>
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@ const scenes = sceneMeta.map((m) => {
           <p class="text-muted mt-3">{s.text}</p>
           <div class="stack mt-6" dir="ltr">
             <SceneCard side={s.in} />
-            <div class="down" aria-hidden="true"><Image src={logo} alt="" width={72} height={72} loading="lazy" /></div>
+            <div class="down" aria-hidden="true"><Image src={logo} alt="" width={72} height={72} densities={[1, 2, 3]} loading="lazy" /></div>
             <SceneCard side={s.out} />
           </div>
           <a href={s.href} class="more-link">{s.link}</a>

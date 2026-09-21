@@ -13,7 +13,7 @@ const year = new Date().getFullYear();
   <div class="wrap py-14 grid gap-10 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
     <div>
       <a href={href('/')} class="flex items-center gap-2.5">
-        <Image src={logo} alt="" width={44} height={44} class="size-11" />
+        <Image src={logo} alt="" width={44} height={44} densities={[1, 2, 3]} class="size-11" />
         <span class="font-display text-2xl font-semibold tracking-tight">ai-memory</span>
       </a>
       <p class="mt-4 text-muted max-w-[22em]">{t('footer.motto')}</p>
