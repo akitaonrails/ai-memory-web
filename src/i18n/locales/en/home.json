@@ -164,7 +164,7 @@
   },
   "quickstart": {
     "title": "Up and running in three commands.",
-    "text": "There is no sign-up. The default install listens on your machine only, so nothing else can reach it.",
+    "text": "There is no sign-up. The default install listens on your machine only, so nothing else can reach it. You can add it to a project that is already under way: the first session imports the agent history you have on disk.",
     "links": {
       "install": "Every install path, step by step",
       "integrations": "Check your agent and OS",

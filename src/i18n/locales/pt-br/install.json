@@ -14,7 +14,13 @@
   "solo": {
     "title": "Só eu",
     "lede": "Instale um binário, suba um servidor local e abra seu agente. O servidor escuta em 127.0.0.1:49374, então nada de fora desta máquina consegue acessá-lo e ele não precisa de token.",
-    "tabs": ["Linux ou macOS (mise)", "Arch Linux (AUR)", "Binário para macOS", "Docker ou Podman", "Windows"],
+    "tabs": [
+      "Linux ou macOS (mise)",
+      "Arch Linux (AUR)",
+      "Binário para macOS",
+      "Docker ou Podman",
+      "Windows"
+    ],
     "mise": [
       {
         "title": "Instale o binário",
@@ -36,12 +42,16 @@
         "prebuilt": "binário pré-compilado para Linux x86_64/aarch64",
         "source": "compila a partir do código-fonte"
       },
-      { "title": "Crie o diretório de dados" },
+      {
+        "title": "Crie o diretório de dados"
+      },
       {
         "title": "Inicie o serviço de usuário",
         "text": "Não precisa de sudo, e todo o estado fica no seu diretório home. A <a href=\"{services}\">seção de serviços</a> cobre a unit de sistema e como continuar rodando depois do logout."
       },
-      { "title": "Abra seu agente por ele" }
+      {
+        "title": "Abra seu agente por ele"
+      }
     ],
     "macos": [
       {
@@ -76,7 +86,9 @@
         "title": "Decida onde seu agente roda",
         "text": "Um agente aberto dentro do WSL2 precisa do ai-memory dentro do WSL2. Esse caminho é suportado e é igual ao da aba Docker: <a href=\"{readme}\">instale o wrapper a partir do README</a> no seu shell do WSL2. Com Docker Desktop, habilite antes a integração com WSL para a distro."
       },
-      { "title": "Suba o servidor dentro do WSL2" },
+      {
+        "title": "Suba o servidor dentro do WSL2"
+      },
       {
         "title": "Configure seu agente, também dentro do WSL2",
         "text": "O Windows nativo é experimental. Ele tem um zip da release com o <code>ai-memory.exe</code>, um wrapper de Docker em PowerShell e uma receita de serviço com WinSW. <a href=\"{windowsDoc}\">O guia de Windows tem os três</a>."
@@ -86,7 +98,16 @@
       "alt": "A instalação solo em três etapas em um laptop: instalar o binário, subir o servidor em 127.0.0.1:49374 e rodar seu agente, que se conecta ao servidor por hooks e MCP. Nada sai do laptop.",
       "caption": "O caminho solo inteiro. O servidor fica em loopback, e seu agente chega nele de dois jeitos: os hooks capturam a sessão, o MCP deixa o agente buscar nela."
     },
-    "runNote": "<code>ai-memory run</code> é o launcher recomendado, e é opcional. Ele configura um harness na primeira abertura e adiciona a retomada nativa de sessão entre harnesses. Só os hooks já levam o handoff, então abrir seu agente direto continua funcionando. <a class=\"link\" href=\"{href}\">Leia como funciona a abertura gerenciada</a>."
+    "runNote": "<code>ai-memory run</code> é o launcher recomendado, e é opcional. Ele configura um harness na primeira abertura e adiciona a retomada nativa de sessão entre harnesses. Só os hooks já levam o handoff, então abrir seu agente direto continua funcionando. <a class=\"link\" href=\"{href}\">Leia como funciona a abertura gerenciada</a>.",
+    "existing": {
+      "title": "Já está há meses em um projeto?",
+      "text": "Você não precisa começar do zero. A primeira sessão em um projeto que ainda não tem memória importa as sessões de agente que já estão nesta máquina, de todos os agentes suportados, uma vez só e em background. Ela pega as 25 sessões mais recentes, e tudo passa pela mesma remoção de dados sensíveis da captura ao vivo.",
+      "points": [
+        "Veja uma prévia com <code>ai-memory backfill --dry-run</code>, ou desative com <code>AI_MEMORY_BACKFILL_ON_START=false</code>.",
+        "Só roda enquanto o projeto não tem memória. Em um servidor compartilhado, isso significa o histórico da primeira máquina que abrir o projeto.",
+        "Para o git log, o README e seus docs, <a class=\"link\" href=\"{href}\">o bootstrap monta páginas com um LLM</a>."
+      ]
+    }
   },
   "check": {
     "title": "Confira se está funcionando",

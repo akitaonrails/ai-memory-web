@@ -14,7 +14,13 @@
   "solo": {
     "title": "Just me",
     "lede": "Install one binary, start one local server, then launch your agent. The server binds to 127.0.0.1:49374, so nothing outside this machine can reach it and it needs no token.",
-    "tabs": ["Linux or macOS (mise)", "Arch Linux (AUR)", "macOS binary", "Docker or Podman", "Windows"],
+    "tabs": [
+      "Linux or macOS (mise)",
+      "Arch Linux (AUR)",
+      "macOS binary",
+      "Docker or Podman",
+      "Windows"
+    ],
     "mise": [
       {
         "title": "Install the binary",
@@ -36,12 +42,16 @@
         "prebuilt": "prebuilt Linux x86_64/aarch64 binary",
         "source": "builds from source"
       },
-      { "title": "Create the data directory" },
+      {
+        "title": "Create the data directory"
+      },
       {
         "title": "Start the user service",
         "text": "It needs no sudo, and all state stays in your home directory. The <a href=\"{services}\">services section</a> covers the system unit and running after logout."
       },
-      { "title": "Launch your agent through it" }
+      {
+        "title": "Launch your agent through it"
+      }
     ],
     "macos": [
       {
@@ -76,7 +86,9 @@
         "title": "Decide where your agent runs",
         "text": "An agent launched inside WSL2 needs ai-memory inside WSL2. That path is supported and is the same as the Docker tab: <a href=\"{readme}\">install the wrapper from the README</a> in your WSL2 shell. With Docker Desktop, enable WSL integration for the distro first."
       },
-      { "title": "Start the server inside WSL2" },
+      {
+        "title": "Start the server inside WSL2"
+      },
       {
         "title": "Wire your agent, also inside WSL2",
         "text": "Native Windows is experimental. It has a release zip with <code>ai-memory.exe</code>, a PowerShell Docker wrapper and a WinSW service recipe. <a href=\"{windowsDoc}\">The Windows guide has all three</a>."
@@ -86,7 +98,16 @@
       "alt": "The solo install in three stages on one laptop: install the binary, start the server on 127.0.0.1:49374, then run your agent, which connects to the server through hooks and MCP. Nothing leaves the laptop.",
       "caption": "The whole solo path. The server stays on loopback, and your agent reaches it two ways: hooks capture the session, MCP lets the agent search it."
     },
-    "runNote": "<code>ai-memory run</code> is the recommended launcher and it is optional. It wires a harness on first launch and adds native session resume across harnesses. Hooks alone already carry the handoff, so launching your agent directly keeps working. <a class=\"link\" href=\"{href}\">Read how managed launches work</a>."
+    "runNote": "<code>ai-memory run</code> is the recommended launcher and it is optional. It wires a harness on first launch and adds native session resume across harnesses. Hooks alone already carry the handoff, so launching your agent directly keeps working. <a class=\"link\" href=\"{href}\">Read how managed launches work</a>.",
+    "existing": {
+      "title": "Already months into a project?",
+      "text": "You do not have to start from scratch. The first session in a project that has no memory yet imports the agent sessions already on this machine, from every supported agent, once and in the background. It takes the newest 25 sessions, and everything passes the same privacy strip as live capture.",
+      "points": [
+        "Preview it with <code>ai-memory backfill --dry-run</code>, or turn it off with <code>AI_MEMORY_BACKFILL_ON_START=false</code>.",
+        "It only runs while the project has no memory. On a shared server, that is the history of the first machine to open the project.",
+        "For the git log, the README and your docs, <a class=\"link\" href=\"{href}\">bootstrap builds pages with an LLM</a>."
+      ]
+    }
   },
   "check": {
     "title": "Check that it works",

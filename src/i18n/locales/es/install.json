@@ -14,7 +14,13 @@
   "solo": {
     "title": "Solo yo",
     "lede": "Instala un binario, arranca un servidor local y lanza tu agente. El servidor se enlaza a 127.0.0.1:49374, así que nada fuera de esta máquina puede llegar a él y no necesita token.",
-    "tabs": ["Linux o macOS (mise)", "Arch Linux (AUR)", "Binario de macOS", "Docker o Podman", "Windows"],
+    "tabs": [
+      "Linux o macOS (mise)",
+      "Arch Linux (AUR)",
+      "Binario de macOS",
+      "Docker o Podman",
+      "Windows"
+    ],
     "mise": [
       {
         "title": "Instala el binario",
@@ -36,12 +42,16 @@
         "prebuilt": "binario precompilado para Linux x86_64/aarch64",
         "source": "compila desde el código fuente"
       },
-      { "title": "Crea el directorio de datos" },
+      {
+        "title": "Crea el directorio de datos"
+      },
       {
         "title": "Arranca el servicio de usuario",
         "text": "No necesita sudo, y todo el estado se queda en tu directorio home. La <a href=\"{services}\">sección de servicios</a> cubre la unidad de sistema y cómo seguir corriendo después de cerrar sesión."
       },
-      { "title": "Lanza tu agente a través de él" }
+      {
+        "title": "Lanza tu agente a través de él"
+      }
     ],
     "macos": [
       {
@@ -76,7 +86,9 @@
         "title": "Decide dónde corre tu agente",
         "text": "Un agente lanzado dentro de WSL2 necesita ai-memory dentro de WSL2. Esa ruta tiene soporte y es la misma que la pestaña de Docker: <a href=\"{readme}\">instala el wrapper desde el README</a> en tu shell de WSL2. Con Docker Desktop, activa antes la integración con WSL para la distro."
       },
-      { "title": "Arranca el servidor dentro de WSL2" },
+      {
+        "title": "Arranca el servidor dentro de WSL2"
+      },
       {
         "title": "Conecta tu agente, también dentro de WSL2",
         "text": "Windows nativo es experimental. Tiene un zip de la versión con <code>ai-memory.exe</code>, un wrapper de Docker en PowerShell y una receta de servicio con WinSW. <a href=\"{windowsDoc}\">La guía de Windows tiene los tres</a>."
@@ -86,7 +98,16 @@
       "alt": "La instalación individual en tres etapas sobre un portátil: instalar el binario, arrancar el servidor en 127.0.0.1:49374 y ejecutar tu agente, que se conecta al servidor mediante hooks y MCP. Nada sale del portátil.",
       "caption": "Toda la ruta individual. El servidor se queda en loopback, y tu agente llega a él de dos formas: los hooks capturan la sesión y MCP le permite al agente buscar en ella."
     },
-    "runNote": "<code>ai-memory run</code> es el lanzador recomendado y es opcional. Conecta un harness en el primer lanzamiento y añade la reanudación nativa de sesiones entre harness. Los hooks por sí solos ya llevan el traspaso, así que lanzar tu agente directamente sigue funcionando. <a class=\"link\" href=\"{href}\">Lee cómo funcionan los lanzamientos gestionados</a>."
+    "runNote": "<code>ai-memory run</code> es el lanzador recomendado y es opcional. Conecta un harness en el primer lanzamiento y añade la reanudación nativa de sesiones entre harness. Los hooks por sí solos ya llevan el traspaso, así que lanzar tu agente directamente sigue funcionando. <a class=\"link\" href=\"{href}\">Lee cómo funcionan los lanzamientos gestionados</a>.",
+    "existing": {
+      "title": "¿Ya llevas meses en un proyecto?",
+      "text": "No tienes que empezar de cero. La primera sesión en un proyecto que todavía no tiene memoria importa las sesiones de agentes que ya están en esta máquina, de todos los agentes compatibles, una sola vez y en segundo plano. Toma las 25 sesiones más recientes, y todo pasa por la misma limpieza de privacidad que la captura en vivo.",
+      "points": [
+        "Mira antes qué haría con <code>ai-memory backfill --dry-run</code>, o desactívalo con <code>AI_MEMORY_BACKFILL_ON_START=false</code>.",
+        "Solo se ejecuta mientras el proyecto no tiene memoria. En un servidor compartido, eso es el historial de la primera máquina que abre el proyecto.",
+        "Para el git log, el README y tus docs, <a class=\"link\" href=\"{href}\">bootstrap construye páginas con un LLM</a>."
+      ]
+    }
   },
   "check": {
     "title": "Comprueba que funciona",

@@ -164,7 +164,7 @@
   },
   "quickstart": {
     "title": "Rodando com três comandos.",
-    "text": "Não tem cadastro. A instalação padrão escuta só na sua máquina, então nada de fora chega nela.",
+    "text": "Não tem cadastro. A instalação padrão escuta só na sua máquina, então nada de fora chega nela. Dá para adicionar a um projeto que já está em andamento: a primeira sessão importa o histórico de agentes que você tem em disco.",
     "links": {
       "install": "Todos os caminhos de instalação, passo a passo",
       "integrations": "Confira seu agente e seu SO",

@@ -164,7 +164,7 @@
   },
   "quickstart": {
     "title": "En marcha con tres comandos.",
-    "text": "No hay registro. La instalación por defecto solo escucha en tu máquina, así que nada más puede llegar a ella.",
+    "text": "No hay registro. La instalación por defecto solo escucha en tu máquina, así que nada más puede llegar a ella. Puedes añadirlo a un proyecto que ya está en marcha: la primera sesión importa el historial de agentes que tienes en disco.",
     "links": {
       "install": "Todas las rutas de instalación, paso a paso",
       "integrations": "Comprueba tu agente y tu sistema",

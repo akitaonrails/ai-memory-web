@@ -98,7 +98,7 @@ const schema = [faqPage(faq)];
         <div class="mt-6"><CodeBlock title={t('launcher.run.codeTitle')} code={runCode} /></div>
       </div>
       <div class="min-w-0">
-        <h3 class="text-xl">{t('launcher.adopt.title')}</h3>
+        <h3 id="adopt-existing" class="text-xl scroll-mt-24">{t('launcher.adopt.title')}</h3>
         <p class="mt-4 text-muted max-w-[40em]">{t('launcher.adopt.text')}</p>
         <div class="mt-6">
           <Tabs id="adopt" labels={raw<string[]>('launcher.adopt.tabs')}>

@@ -14,9 +14,18 @@
     "figureAlt": "Diagram: a Claude Code session ends and passes a handoff baton through ai-memory to a Codex session. The handoff holds a summary, next steps and open questions. A second terminal that reaches for the same baton is locked out because it was claimed once.",
     "figureCaption": "The handoff is matched by project directory, so the next agent only has to start in the same checkout.",
     "items": [
-      { "title": "Typed", "text": "A handoff carries a session summary, the next steps and the open questions. The next agent gets it at session start, before you type anything." },
-      { "title": "Claimed exactly once", "text": "The first session that starts in that directory takes the baton. A second one asking for it gets nothing, so two agents never resume the same work." },
-      { "title": "Automatic, with a manual override", "text": "Every session end writes one. Say \"save context for the next session\" to write your own, and yours outranks the automatic one." }
+      {
+        "title": "Typed",
+        "text": "A handoff carries a session summary, the next steps and the open questions. The next agent gets it at session start, before you type anything."
+      },
+      {
+        "title": "Claimed exactly once",
+        "text": "The first session that starts in that directory takes the baton. A second one asking for it gets nothing, so two agents never resume the same work."
+      },
+      {
+        "title": "Automatic, with a manual override",
+        "text": "Every session end writes one. Say \"save context for the next session\" to write your own, and yours outranks the automatic one."
+      }
     ],
     "exceptions": "Two agents, Grok Build CLI and Zero, ignore what hooks print at session start. Ask them to accept the handoff and they fetch it over MCP. The <a class=\"underline font-semibold text-text\" href=\"{href}\">integrations page lists every agent</a> and what each one supports."
   },
@@ -24,12 +33,30 @@
     "title": "What you say day to day",
     "lede": "Most days you say nothing. Hooks capture the session, and the session end turns it into wiki pages. When you do want something, plain English is the interface.",
     "items": [
-      { "say": "“Where did we leave off?”", "does": "Reads the pending handoff: summary, next steps, open questions." },
-      { "say": "“Have we discussed X?”", "does": "Searches the wiki with full text, entities, links and vectors fused into one ranking." },
-      { "say": "“Catch me up. I have been away.”", "does": "Builds a digest that gets longer the longer you were gone. It is prose with an LLM configured, structured data without one." },
-      { "say": "“Remember this permanently.”", "does": "Writes a durable, git-versioned page. Pin it and it never decays." },
-      { "say": "“Remember this until Friday.”", "does": "Writes the page with an expiry date. The forget sweep deletes it after that." },
-      { "say": "“That page is out of date.”", "does": "Records feedback that lowers the page in future rankings. Feedback never deletes anything." }
+      {
+        "say": "“Where did we leave off?”",
+        "does": "Reads the pending handoff: summary, next steps, open questions."
+      },
+      {
+        "say": "“Have we discussed X?”",
+        "does": "Searches the wiki with full text, entities, links and vectors fused into one ranking."
+      },
+      {
+        "say": "“Catch me up. I have been away.”",
+        "does": "Builds a digest that gets longer the longer you were gone. It is prose with an LLM configured, structured data without one."
+      },
+      {
+        "say": "“Remember this permanently.”",
+        "does": "Writes a durable, git-versioned page. Pin it and it never decays."
+      },
+      {
+        "say": "“Remember this until Friday.”",
+        "does": "Writes the page with an expiry date. The forget sweep deletes it after that."
+      },
+      {
+        "say": "“That page is out of date.”",
+        "does": "Records feedback that lowers the page in future rankings. Feedback never deletes anything."
+      }
     ],
     "more": "The <a class=\"underline font-semibold text-text\" href=\"{href}\">usage guide on GitHub</a> has the full list of phrases and the MCP tool behind each one."
   },
@@ -50,7 +77,10 @@
     "adopt": {
       "title": "Adopt a project you already have",
       "text": "The first session in an empty project imports your local agent history once, capped at the newest 25 sessions. You can also run it by hand.",
-      "tabs": ["Backfill, no LLM", "Bootstrap, with an LLM"],
+      "tabs": [
+        "Backfill, no LLM",
+        "Bootstrap, with an LLM"
+      ],
       "backfill": {
         "codeTitle": "import local agent history",
         "comment": "See what would be imported, then import it",
@@ -84,9 +114,18 @@
     "title": "No API key, and files you can read",
     "lede": "The default install costs nothing to run and stores everything as markdown in a git repository.",
     "items": [
-      { "title": "Zero LLM calls", "text": "Capture, session summaries, handoffs and search all run without a model. Summaries are rule based until you add a provider." },
-      { "title": "Embeddings run in the binary", "text": "A small local model (all-MiniLM-L6-v2, about 87 MB) downloads once in the background. Vector search turns on at the next restart. It needs no key and no GPU." },
-      { "title": "Loopback only", "text": "The default server listens on 127.0.0.1:49374 with no account and no telemetry. Nothing else on the network can reach it." }
+      {
+        "title": "Zero LLM calls",
+        "text": "Capture, session summaries, handoffs and search all run without a model. Summaries are rule based until you add a provider."
+      },
+      {
+        "title": "Embeddings run in the binary",
+        "text": "A small local model (all-MiniLM-L6-v2, about 87 MB) downloads once in the background. Vector search turns on at the next restart. It needs no key and no GPU."
+      },
+      {
+        "title": "Loopback only",
+        "text": "The default server listens on 127.0.0.1:49374 with no account and no telemetry. Nothing else on the network can reach it."
+      }
     ],
     "figureAlt": "Diagram: a wiki folder of plain markdown files at the centre, with spokes to grep, Obsidian, a text editor and rsync, and a git history underneath.",
     "figureCaption": "Edit a page in Obsidian or vim and a file watcher updates the search index.",
@@ -123,14 +162,33 @@
     "cta": "Go to the quick setup"
   },
   "faq": [
-    { "q": "Do I need an API key or an LLM to use ai-memory?", "a": "No. Capture, session summaries, handoffs and search work with zero LLM calls. Embeddings for vector search run in-process with a local model. An LLM provider is optional and adds richer consolidation, bootstrap and reranking." },
-    { "q": "Can I use the same memory on a PC and a notebook?", "a": "Yes. Run one ai-memory server on a homelab box or on one of the machines and point both at it. There is no replication between servers. If the notebook is offline, hook events spool locally and drain when the server is reachable again." },
-    { "q": "Is Claude Code’s built-in memory enough?", "a": "For one developer on one machine who only uses Claude Code, it may be. It stops being enough when you add a second agent, a second machine or a second person." },
-    { "q": "Where is my memory stored?", "a": "In a git-versioned folder of plain markdown files in the ai-memory data directory. SQLite holds a search index that can be rebuilt from the files." }
+    {
+      "q": "Do I need an API key or an LLM to use ai-memory?",
+      "a": "No. Capture, session summaries, handoffs and search work with zero LLM calls. Embeddings for vector search run in-process with a local model. An LLM provider is optional and adds richer consolidation, bootstrap and reranking."
+    },
+    {
+      "q": "Do I have to use ai-memory from the first day of a project?",
+      "a": "No. Add it at any point. The first session in a project with no memory yet imports the agent sessions already on your machine, from every supported agent, up to the newest 25. It runs once, in the background, with no LLM. ai-memory bootstrap can also build pages from the git log, the README and your docs, and that one needs an LLM."
+    },
+    {
+      "q": "Can I use the same memory on a PC and a notebook?",
+      "a": "Yes. Run one ai-memory server on a homelab box or on one of the machines and point both at it. There is no replication between servers. If the notebook is offline, hook events spool locally and drain when the server is reachable again."
+    },
+    {
+      "q": "Is Claude Code’s built-in memory enough?",
+      "a": "For one developer on one machine who only uses Claude Code, it may be. It stops being enough when you add a second agent, a second machine or a second person."
+    },
+    {
+      "q": "Where is my memory stored?",
+      "a": "In a git-versioned folder of plain markdown files in the ai-memory data directory. SQLite holds a search index that can be rebuilt from the files."
+    }
   ],
   "next": {
     "install": "Install the binary, start the server, launch your agent through it.",
-    "integrations": { "title": "Agents and platforms", "text": "Which agents get hooks, MCP and the managed launcher, on which OS." },
+    "integrations": {
+      "title": "Agents and platforms",
+      "text": "Which agents get hooks, MCP and the managed launcher, on which OS."
+    },
     "teams": "The same server, shared by a few people and all of their agents."
   },
   "cta": {

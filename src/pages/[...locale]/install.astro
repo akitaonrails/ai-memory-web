@@ -136,6 +136,12 @@ const howTo = {
       <div slot="3"><Steps steps={docker} /></div>
       <div slot="4"><Steps steps={windows} /></div>
     </Tabs></div>
+    <div class="mt-12">
+      <Callout title={t('solo.existing.title')} hue="green">
+        <p>{t('solo.existing.text')}</p>
+        <ul>{raw<string[]>('solo.existing.points').map((p) => <li set:html={p.replace('{href}', href('/solutions/individuals/#adopt-existing'))} />)}</ul>
+      </Callout>
+    </div>
     <Figure name="install-solo-path" alt={t('solo.figure.alt')} caption={t('solo.figure.caption')} />
     <p class="text-muted max-w-[40em]" set:html={t('solo.runNote', { href: doc('managed-workstreams.md') })} />
   </Section>
