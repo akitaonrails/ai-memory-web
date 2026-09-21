@@ -75,6 +75,10 @@ const nextMeta: { href: string; hue: Hue }[] = [
 ];
 const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i) => ({ ...n, ...nextMeta[i] }));
 
+// Full text only against local embeddings, same questions. Ratios get three decimals, times whole milliseconds, tokens one decimal.
+const ab = facts.benchmark.ab.rows as { id: string; fts: number; local: number; delta: number; unit?: string }[];
+const abValue = (r: { unit?: string }, v: number) =>
+  r.unit === 'ms' ? t('measured.ab.ms', { n: number(Math.round(v)) }) : r.unit === 'tokens' ? number(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : score(v);
 const faqParams = { hybrid: score(hit5[2]), fts: score(hit5[1]) };
 const faqItems = raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) }));
 const faq = faqPage(faqItems);
@@ -232,6 +236,32 @@ const faq = faqPage(faqItems);
         <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/README.md`}>{t('measured.reproduce.full')}</a></p>
         <p class="mt-6 text-muted max-w-[40em]" set:html={t('measured.throughputNote', { href: href('/architecture/#concurrency') })} />
       </div>
+    </div>
+
+    <div class="mt-16 grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-16 gap-y-10 items-start">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('measured.ab.title')}</h3>
+        <p class="mt-2 text-muted max-w-[40em]">{t('measured.ab.text', { ms: number(Math.round(ab.find((r) => r.id === 'p50')!.delta / 10) * 10) })}</p>
+        <div class="table-wrap mt-5">
+          <table class="table-site">
+            <thead><tr><th>{t('measured.ab.columns.metric')}</th><th>{t('measured.ab.columns.fts')}</th><th>{t('measured.ab.columns.local')}</th><th>{t('measured.ab.columns.delta')}</th></tr></thead>
+            <tbody>
+              {ab.map((r) => (
+                <tr>
+                  <td>{t(`measured.ab.rows.${r.id}`)}</td>
+                  <td class="tabular-nums">{abValue(r, r.fts)}</td>
+                  <td class="tabular-nums">{abValue(r, r.local)}</td>
+                  <td class="tabular-nums" dir="ltr">+{abValue(r, r.delta)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ul class="dotlist text-muted space-y-4 lg:mt-12">
+        <li>{t('measured.ab.stable', { prevDate: date(facts.benchmark.previous.date), prevLocal: score(facts.benchmark.previous['hit@5'].local), prevFts: score(facts.benchmark.previous['hit@5'].fts) })}</li>
+        <li>{t('measured.ab.determinism')}</li>
+      </ul>
     </div>
   </Section>
 

@@ -167,7 +167,7 @@
       "bars": [
         "Full text only, before 2.0",
         "Stopword-filtered full text",
-        "Plus local embeddings (the 2.0 default)"
+        "Plus local embeddings (the default)"
       ]
     },
     "steps": {
@@ -192,11 +192,33 @@
     },
     "reproduce": {
       "title": "Run it yourself",
-      "text": "Add <code>--embeddings local</code> to the second command for the hybrid row. The published run is dated {date} on a Ryzen 9 7950X3D and has not been repeated for later releases.",
+      "text": "Add <code>--candidate-embeddings local</code> to the second command to run full text and local embeddings side by side. The published run is dated {date}, on a Ryzen 9 7950X3D.",
       "codeTitle": "reproduce the benchmark",
       "full": "Full results, per question type"
     },
-    "throughputNote": "Write throughput was measured too. <a class=\"link\" href=\"{href}\">The numbers are on the architecture page</a>."
+    "throughputNote": "Write throughput was measured too. <a class=\"link\" href=\"{href}\">The numbers are on the architecture page</a>.",
+    "ab": {
+      "title": "What local embeddings buy, and what they cost",
+      "text": "The same 470 questions, run twice: with full text only, then with the default local embedding model. Embeddings find the evidence far more often in the top ten, and add about {ms} ms to a query.",
+      "columns": {
+        "metric": "Metric",
+        "fts": "Full text, no LLM",
+        "local": "Local embeddings",
+        "delta": "Change"
+      },
+      "rows": {
+        "hit1": "hit@1",
+        "hit5": "hit@5",
+        "hit10": "hit@10",
+        "recall10": "recall@10",
+        "p50": "Query time, median",
+        "p95": "Query time, 95th percentile",
+        "tokens": "Context tokens per query, mean"
+      },
+      "ms": "{n} ms",
+      "stable": "The earlier run, from {prevDate}, scored {prevLocal} and {prevFts}. The difference is run-to-run noise. Memory aging is off by default, so default search did not change.",
+      "determinism": "Running one configuration twice gives identical accuracy and token counts, so the differences in the table come from the configuration."
+    }
   },
   "next": {
     "title": "What is next, and where it is behind",
@@ -205,8 +227,8 @@
       "title": "Recommended next",
       "items": [
         {
-          "title": "The full evaluation run",
-          "text": "A second harness scores answers as well as retrieval. Its full-dataset run is still to come, and the items below wait on it."
+          "title": "Answer accuracy at full scale",
+          "text": "The second harness has a full retrieval run, with accuracy, query time and context tokens. Its answer-accuracy mode has only a 20-question sample so far, and the items below wait on it."
         },
         {
           "title": "A local reranker",

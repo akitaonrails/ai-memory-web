@@ -77,7 +77,10 @@ cargo run --release -p ai-memory-eval -- retrieval --fetch
 # ${t('benchmark.code.smoke')}
 cargo run -p ai-memory-eval -- retrieval --sample 10`;
 
-const faq = raw<{ q: string; a: string }[]>('faq.items');
+// Scores come from src/data/facts.json, so a benchmark re-run needs no new translation.
+const scores = { local: score(oursValues[2]), fts: score(oursValues[1]) };
+const fill = (s: string) => s.replace('{local}', scores.local).replace('{fts}', scores.fts);
+const faq = raw<{ q: string; a: string }[]>('faq.items').map((f) => ({ q: f.q, a: fill(f.a) }));
 const faqSchema = faqPage(faq);
 
 const nextMeta = [
@@ -190,7 +193,7 @@ const next = withText(nextMeta, raw<Titled[]>('next'));
       tone: !b.mine ? 'other' : i === oursValues.length - 1 ? 'strong' : 'soft',
     }))} />
     <ul class="dotlist text-muted mt-10 grid md:grid-cols-2 gap-x-10 gap-y-5">
-      {raw<string[]>('benchmark.caveats').map((c) => <li>{c.replace('{date}', date(benchmarkDate))}</li>)}
+      {raw<string[]>('benchmark.caveats').map((c) => <li>{fill(c).replace('{date}', date(benchmarkDate))}</li>)}
     </ul>
     <div class="mt-10 max-w-[44rem]">
       <p class="text-muted mb-4" set:html={t('benchmark.reproduce', { href: `${site.repo}/tree/main/docs/benchmarks` })} />

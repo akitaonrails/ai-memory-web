@@ -112,11 +112,15 @@ section('2. Hard facts');
 {
   const before = problems;
   const text = up('docs/benchmarks/README.md');
-  const upstreamHit5 = [...text.matchAll(/^\| \d{4}-\d{2}-\d{2} \|[^|]*\|[^|]*\| \**([\d.]+)\**\s*\|/gm)].map((m) => Number(m[1])).sort();
-  const ours = [...facts.benchmark.metrics['hit@5']].sort();
-  if (JSON.stringify(upstreamHit5) !== JSON.stringify(ours)) bad(`benchmark hit@5: site has ${ours.join(', ')}; docs/benchmarks/README.md has ${upstreamHit5.join(', ')}`);
-  const latestDate = [...text.matchAll(/^\| (\d{4}-\d{2}-\d{2}) \|/gm)].map((m) => m[1]).sort().pop();
+  // The README lists every dated baseline. The site shows the newest run, plus the pre-2.0 figure as history.
+  const rows = [...text.matchAll(/^\| \**(\d{4}-\d{2}-\d{2})\**\s*\|[^|]*\|[^|]*\| \**([\d.]+)\**\s*\|/gm)].map((m) => ({ date: m[1], hit5: Number(m[2]) }));
+  const latestDate = rows.map((r) => r.date).sort().pop();
+  const ours = facts.benchmark.metrics['hit@5'];
+  for (const v of ours) if (!rows.some((r) => r.hit5 === v)) bad(`benchmark hit@5 ${v} is on the site but not in docs/benchmarks/README.md`);
+  for (const r of rows.filter((x) => x.date === latestDate)) if (!ours.includes(r.hit5)) bad(`benchmark: newest upstream baseline (${r.date}) has hit@5 ${r.hit5}, which the site does not show`);
   if (latestDate && latestDate !== facts.benchmark.date) bad(`benchmark date: site says ${facts.benchmark.date}, newest upstream baseline is ${latestDate}`);
+  const abText = upFiles.includes('docs/benchmarks/retrieval-ab-r2.md') ? up('docs/benchmarks/retrieval-ab-r2.md') : '';
+  for (const r of facts.benchmark.ab?.rows ?? []) for (const v of [r.fts, r.local, r.delta]) if (!abText.includes(String(v))) bad(`benchmark A/B value ${v} (${r.id}) is not in docs/benchmarks/retrieval-ab-r2.md`);
   for (const [name, values] of Object.entries(facts.benchmark.metrics)) {
     for (const v of values) if (!text.includes(String(v)) && !upFiles.filter((f) => f.startsWith('docs/benchmarks/')).some((f) => up(f).includes(String(v)))) note(`benchmark ${name} ${v} is not quoted anywhere under docs/benchmarks (check it)`);
   }

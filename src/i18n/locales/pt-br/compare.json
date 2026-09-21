@@ -86,7 +86,7 @@
         "note": "Filtro de stopwords adicionado"
       },
       {
-        "label": "ai-memory 2.0 padrão",
+        "label": "ai-memory padrão",
         "note": "Embeddings locais, sem chave de API"
       }
     ],
@@ -101,8 +101,8 @@
     "axis": "hit@5, de 0 a 1. As barras sólidas foram medidas por este projeto. As hachuradas são números dos próprios fornecedores e não foram reproduzidas aqui.",
     "caveats": [
       "O hit@5 pergunta se uma sessão que contém a evidência está entre os cinco primeiros resultados. Ele mede recuperação. Não diz nada sobre a acurácia das respostas.",
-      "470 das 500 perguntas são pontuadas. As 30 perguntas de abstenção ficam de fora. A execução é de {date} e não foi republicada para releases posteriores.",
-      "0,823 usa o modelo de embeddings in-process padrão, sem chave de API e sem LLM. 0,668 é só full-text, entidades e links.",
+      "470 das 500 perguntas são pontuadas. As 30 perguntas de abstenção ficam de fora. A execução é de {date}.",
+      "{local} usa o modelo de embeddings in-process padrão, sem chave de API e sem LLM. {fts} é só full-text, entidades e links.",
       "Não existe nenhuma execução lado a lado contra qualquer concorrente. Números de acurácia, como os 91,4% do Hindsight, são outra métrica e não se comparam com hit@5.",
       "Os trechos armazenados são limitados a 2 KB por privacidade, então uma evidência no fundo de um turno longo não é encontrada. O benchmark mede o sistema como ele é distribuído.",
       "O LongMemEval é histórico de assistente de chat. Um benchmark de sessões de código está planejado e ainda não existe."
@@ -196,7 +196,7 @@
       },
       {
         "q": "Como fica a pontuação de recuperação dele na comparação?",
-        "a": "No LongMemEval-S ele marca 0,823 de hit@5 com os embeddings locais padrão e 0,668 só com full-text. Esse número mede recuperação e não diz nada sobre a acurácia das respostas. Sistemas que fazem reranking pontuam mais: o agentmemory reporta 0,952 e o mcp-memory-service reporta 0,860 por sessão."
+        "a": "No LongMemEval-S ele marca {local} de hit@5 com os embeddings locais padrão e {fts} só com full-text. Esse número mede recuperação e não diz nada sobre a acurácia das respostas. Sistemas que fazem reranking pontuam mais: o agentmemory reporta 0,952 e o mcp-memory-service reporta 0,860 por sessão."
       },
       {
         "q": "Ele sincroniza a memória entre máquinas?",

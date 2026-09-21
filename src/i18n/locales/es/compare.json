@@ -86,7 +86,7 @@
         "note": "Con filtrado de stopwords"
       },
       {
-        "label": "ai-memory 2.0 por defecto",
+        "label": "ai-memory por defecto",
         "note": "Embeddings locales, sin clave de API"
       }
     ],
@@ -101,8 +101,8 @@
     "axis": "hit@5, de 0 a 1. Las barras sólidas las midió este proyecto. Las barras rayadas son cifras de los propios proveedores y no se reprodujeron aquí.",
     "caveats": [
       "hit@5 pregunta si una sesión que contiene la evidencia está entre los cinco primeros resultados. Mide la recuperación. No dice nada sobre la precisión de las respuestas.",
-      "Se puntúan 470 de las 500 preguntas. Las 30 preguntas de abstención quedan excluidas. La ejecución es del {date} y no se ha vuelto a publicar para versiones posteriores.",
-      "0,823 usa el modelo de embeddings por defecto, dentro del proceso, sin clave de API y sin LLM. 0,668 es solo texto completo, entidades y enlaces.",
+      "Se puntúan 470 de las 500 preguntas. Las 30 preguntas de abstención quedan excluidas. La ejecución es del {date}.",
+      "{local} usa el modelo de embeddings por defecto, dentro del proceso, sin clave de API y sin LLM. {fts} es solo texto completo, entidades y enlaces.",
       "No existe ninguna ejecución cara a cara contra ningún competidor. Las cifras de precisión, como el 91,4% de Hindsight, son otra métrica y no se comparan con hit@5.",
       "Los extractos guardados se limitan a 2 KB por privacidad, así que la evidencia que está muy adentro de un turno largo no se puede encontrar. El benchmark mide el sistema tal como se distribuye.",
       "LongMemEval es historial de asistentes de chat. Hay planeado un benchmark de sesiones de programación, y todavía no existe."
@@ -196,7 +196,7 @@
       },
       {
         "q": "¿Cómo queda su puntuación de recuperación frente a las demás?",
-        "a": "En LongMemEval-S obtiene 0,823 de hit@5 con los embeddings locales por defecto y 0,668 solo con texto completo. Esa cifra mide la recuperación y no dice nada sobre la precisión de las respuestas. Los sistemas que hacen rerank puntúan más alto: agentmemory reporta 0,952 y mcp-memory-service reporta 0,860 a nivel de sesión."
+        "a": "En LongMemEval-S obtiene {local} de hit@5 con los embeddings locales por defecto y {fts} solo con texto completo. Esa cifra mide la recuperación y no dice nada sobre la precisión de las respuestas. Los sistemas que hacen rerank puntúan más alto: agentmemory reporta 0,952 y mcp-memory-service reporta 0,860 a nivel de sesión."
       },
       {
         "q": "¿Sincroniza la memoria entre máquinas?",

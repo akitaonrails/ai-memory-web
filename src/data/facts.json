@@ -1,30 +1,133 @@
 {
   "$comment": "Hard numbers the site quotes, each with its source in the ai-memory repository. Pages read them from here; prose that repeats a number lives in the catalogs, and `npm run check:upstream` lists every sentence that does.",
   "benchmark": {
-    "source": "docs/benchmarks/README.md",
+    "source": "docs/benchmarks/README.md and docs/benchmarks/retrieval-ab-r2.md",
     "dataset": "LongMemEval-S",
-    "date": "2026-09-01",
+    "date": "2026-09-21",
     "questionsScored": 470,
     "questionsTotal": 500,
-    "columns": ["before 2.0 (full text)", "full text, stopword filtered", "local embeddings (default)"],
+    "columns": [
+      "before 2.0 (full text, 2026-09-01 run)",
+      "full text, stopword filtered",
+      "local embeddings (default)"
+    ],
     "metrics": {
-      "hit@1": [0.449, 0.534, 0.536],
-      "hit@5": [0.617, 0.668, 0.823],
-      "recall@5": [0.472, 0.538, 0.68]
+      "hit@1": [
+        0.449,
+        0.532,
+        0.536
+      ],
+      "hit@5": [
+        0.617,
+        0.666,
+        0.815
+      ],
+      "recall@5": [
+        0.472,
+        0.536,
+        0.677
+      ]
     },
-    "vendorReported": { "mcp-memory-service": 0.86, "agentmemory": 0.952 }
+    "previous": {
+      "date": "2026-09-01",
+      "hit@5": {
+        "fts": 0.668,
+        "local": 0.823
+      }
+    },
+    "ab": {
+      "comment": "Same 470 questions, full text only vs local embeddings. Latency is the memory_query round trip in ms; tokens are chars/4 over returned titles and snippets. Deltas are the published ones, computed upstream before rounding.",
+      "rows": [
+        {
+          "id": "hit1",
+          "fts": 0.532,
+          "local": 0.536,
+          "delta": 0.004
+        },
+        {
+          "id": "hit5",
+          "fts": 0.666,
+          "local": 0.815,
+          "delta": 0.149
+        },
+        {
+          "id": "hit10",
+          "fts": 0.694,
+          "local": 0.891,
+          "delta": 0.198
+        },
+        {
+          "id": "recall10",
+          "fts": 0.564,
+          "local": 0.817,
+          "delta": 0.254
+        },
+        {
+          "id": "p50",
+          "fts": 5,
+          "local": 94,
+          "unit": "ms",
+          "delta": 89
+        },
+        {
+          "id": "p95",
+          "fts": 40,
+          "local": 162,
+          "unit": "ms",
+          "delta": 122
+        },
+        {
+          "id": "tokens",
+          "fts": 350.3,
+          "local": 415.7,
+          "unit": "tokens",
+          "delta": 65.4
+        }
+      ]
+    },
+    "vendorReported": {
+      "mcp-memory-service": 0.86,
+      "agentmemory": 0.952
+    }
   },
   "throughput": {
     "source": "docs/deploy.md",
     "rows": [
-      { "writers": 1, "rate": 42, "latency": 23.9 },
-      { "writers": 8, "rate": 295, "latency": 3.4 },
-      { "writers": 32, "rate": 698, "latency": 1.43 },
-      { "writers": 128, "rate": 700, "latency": 1.43 }
+      {
+        "writers": 1,
+        "rate": 42,
+        "latency": 23.9
+      },
+      {
+        "writers": 8,
+        "rate": 295,
+        "latency": 3.4
+      },
+      {
+        "writers": 32,
+        "rate": 698,
+        "latency": 1.43
+      },
+      {
+        "writers": 128,
+        "rate": 700,
+        "latency": 1.43
+      }
     ]
   },
   "crates": {
     "source": "Cargo.toml [workspace] members, minus test support",
-    "names": ["core", "store", "wiki", "mcp", "hooks", "llm", "consolidate", "web", "cli", "workstream"]
+    "names": [
+      "core",
+      "store",
+      "wiki",
+      "mcp",
+      "hooks",
+      "llm",
+      "consolidate",
+      "web",
+      "cli",
+      "workstream"
+    ]
   }
 }

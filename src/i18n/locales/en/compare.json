@@ -86,7 +86,7 @@
         "note": "Stopword filtering added"
       },
       {
-        "label": "ai-memory 2.0 default",
+        "label": "ai-memory default",
         "note": "Local embeddings, no API key"
       }
     ],
@@ -101,8 +101,8 @@
     "axis": "hit@5, from 0 to 1. Solid bars were measured by this project. Hatched bars are the vendors’ own numbers and were not reproduced here.",
     "caveats": [
       "hit@5 asks whether a session holding the evidence is in the top five results. It measures retrieval. It says nothing about answer accuracy.",
-      "470 of the 500 questions are scored. The 30 abstention questions are excluded. The run is from {date} and has not been re-published for later releases.",
-      "0.823 uses the default in-process embedding model, with no API key and no LLM. 0.668 is full text, entities and links only.",
+      "470 of the 500 questions are scored. The 30 abstention questions are excluded. The run is from {date}.",
+      "{local} uses the default in-process embedding model, with no API key and no LLM. {fts} is full text, entities and links only.",
       "No head-to-head run against any competitor exists. Accuracy figures such as Hindsight’s 91.4% are a different metric and do not compare with hit@5.",
       "Stored excerpts are capped at 2 KB for privacy, so evidence deep inside one long turn cannot be found. The benchmark measures the shipped system.",
       "LongMemEval is chat-assistant history. A coding-session benchmark is planned and does not exist yet."
@@ -196,7 +196,7 @@
       },
       {
         "q": "How does its retrieval score compare?",
-        "a": "On LongMemEval-S it scores 0.823 hit@5 with the default local embeddings and 0.668 with full text only. That number measures retrieval and says nothing about answer accuracy. Systems that rerank score higher: agentmemory reports 0.952 and mcp-memory-service reports 0.860 at session level."
+        "a": "On LongMemEval-S it scores {local} hit@5 with the default local embeddings and {fts} with full text only. That number measures retrieval and says nothing about answer accuracy. Systems that rerank score higher: agentmemory reports 0.952 and mcp-memory-service reports 0.860 at session level."
       },
       {
         "q": "Does it sync memory between machines?",

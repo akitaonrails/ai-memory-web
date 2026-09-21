@@ -167,7 +167,7 @@
       "bars": [
         "Só full-text, antes da 2.0",
         "Full-text com filtro de stopwords",
-        "Mais embeddings locais (o padrão da 2.0)"
+        "Mais embeddings locais (o padrão)"
       ]
     },
     "steps": {
@@ -192,11 +192,33 @@
     },
     "reproduce": {
       "title": "Rode você mesmo",
-      "text": "Acrescente <code>--embeddings local</code> ao segundo comando para obter a linha híbrida. A execução publicada é de {date}, num Ryzen 9 7950X3D, e não foi repetida para as releases seguintes.",
+      "text": "Acrescente <code>--candidate-embeddings local</code> ao segundo comando para rodar full-text e embeddings locais lado a lado. A execução publicada é de {date}, num Ryzen 9 7950X3D.",
       "codeTitle": "reproduzir o benchmark",
       "full": "Resultados completos, por tipo de pergunta"
     },
-    "throughputNote": "A vazão de escrita também foi medida. <a class=\"link\" href=\"{href}\">Os números estão na página de arquitetura</a>."
+    "throughputNote": "A vazão de escrita também foi medida. <a class=\"link\" href=\"{href}\">Os números estão na página de arquitetura</a>.",
+    "ab": {
+      "title": "O que os embeddings locais entregam, e quanto custam",
+      "text": "As mesmas 470 perguntas, rodadas duas vezes: primeiro só com full-text, depois com o modelo de embeddings local padrão. Com embeddings, a evidência aparece entre os dez primeiros com muito mais frequência, e cada consulta fica cerca de {ms} ms mais lenta.",
+      "columns": {
+        "metric": "Métrica",
+        "fts": "Full-text, sem LLM",
+        "local": "Embeddings locais",
+        "delta": "Variação"
+      },
+      "rows": {
+        "hit1": "hit@1",
+        "hit5": "hit@5",
+        "hit10": "hit@10",
+        "recall10": "recall@10",
+        "p50": "Tempo de consulta, mediana",
+        "p95": "Tempo de consulta, percentil 95",
+        "tokens": "Tokens de contexto por consulta, média"
+      },
+      "ms": "{n} ms",
+      "stable": "A execução anterior, de {prevDate}, marcou {prevLocal} e {prevFts}. A diferença é ruído entre uma execução e outra. O envelhecimento da memória sai desligado por padrão, então a busca padrão não mudou.",
+      "determinism": "Rodar a mesma configuração duas vezes dá acurácia e contagem de tokens idênticas, então as diferenças da tabela vêm da configuração."
+    }
   },
   "next": {
     "title": "O que vem a seguir, e onde ele está atrás",
@@ -205,8 +227,8 @@
       "title": "Próximos passos recomendados",
       "items": [
         {
-          "title": "A rodada completa de avaliação",
-          "text": "Um segundo harness avalia as respostas, além da recuperação. A rodada dele com o dataset inteiro ainda está por vir, e os itens abaixo esperam por ela."
+          "title": "Acurácia das respostas em escala completa",
+          "text": "O segundo harness já tem uma execução completa de recuperação, com acurácia, tempo de consulta e tokens de contexto. O modo de acurácia das respostas só tem uma amostra de 20 perguntas por enquanto, e os itens abaixo esperam por ele."
         },
         {
           "title": "Um reranker local",
