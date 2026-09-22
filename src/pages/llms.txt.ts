@@ -31,7 +31,7 @@ ${localeCodes.map((l) => `- [${locales[l].label}](${abs(localizePath(l, '/'))})`
 - [How ai-memory compares](${site.docs}/comparison.md): a fair rundown against other memory tools
 - [Benchmarks](${site.docs}/benchmarks/README.md): published LongMemEval-S retrieval numbers, reproducible
 - [Security model](${site.docs}/security.md) and [data handling](${site.repo}/blob/main/DATA_HANDLING.md)
-- [Changelog](${site.repo}/blob/main/CHANGELOG.md)
+- [Changelog](${abs('/download/#changelog')}) and [releases](${site.repo}/releases)
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

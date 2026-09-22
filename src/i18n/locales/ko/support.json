@@ -32,7 +32,7 @@
     },
     "macos": {
       "name": "macOS",
-      "note": "Apple Silicon과 Intel. launchd 에이전트가 포함된 네이티브 바이너리 또는 Docker."
+      "note": "Apple Silicon과 Intel. launchd 에이전트가 포함된 네이티브 바이너리, Docker, 또는 소스에서 빌드하는 메뉴 막대 앱."
     },
     "windows-via-wsl2": {
       "name": "WSL2를 통한 Windows",

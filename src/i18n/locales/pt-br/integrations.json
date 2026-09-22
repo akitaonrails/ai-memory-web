@@ -62,7 +62,7 @@
     },
     "how": {
       "linux": "Tarball da release, imagem Docker ou Podman, ou um pacote do AUR",
-      "macos": "Tarball da release com um agente launchd, ou Docker",
+      "macos": "Tarball da release com um agente launchd, Docker, ou o app de barra de menus compilado do código-fonte",
       "windows-via-wsl2": "O binário de Linux, dentro do WSL2",
       "native-windows": "Zip da release, wrapper para Docker Desktop, ou build a partir do código-fonte"
     },
@@ -79,7 +79,7 @@
     },
     "llm": {
       "title": "LLM: desligado por padrão",
-      "text": "Adicione um quando quiser consolidação escrita por LLM, <code>ai-memory bootstrap</code>, linting mais rico, auto-improve ou reranking. Um modelo pequeno e rápido é do tamanho certo para esse trabalho. Logins de assinatura funcionam, então não é preciso ter uma chave de API paga de plataforma.",
+      "text": "Adicione um quando quiser consolidação escrita por LLM, <code>ai-memory bootstrap</code>, linting mais rico, auto-improve ou reranking. Um modelo pequeno e rápido é do tamanho certo para esse trabalho, quando o provedor deixa você escolher. Com login do Codex ou do ChatGPT, mantenha o modelo padrão do provedor, porque esse backend rejeita outros nomes de modelo. Logins de assinatura funcionam, então não é preciso ter uma chave de API paga de plataforma.",
       "note": "Teste um provedor com <code>ai-memory llm-test</code>. Cadeias de fallback são suportadas."
     },
     "after": "Modelos, padrões e custos estão no <a class=\"underline font-semibold text-text\" href=\"{llm}\">guia de provedores de LLM</a> e no <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">guia de embeddings locais</a>."
@@ -93,15 +93,39 @@
     "codeComment": "o servidor local padrão"
   },
   "faq": [
-    { "q": "Com quais agentes de código o ai-memory funciona?", "a": "A lista tem {n} agentes e editores, incluindo {names}. {supported} deles têm tanto a captura automática pelos hooks de ciclo de vida quanto as ferramentas de memória via MCP." },
-    { "q": "Qual é a diferença entre hooks e MCP?", "a": "Os hooks capturam as sessões automaticamente: prompts, chamadas de ferramenta e limites de sessão são registrados sem o agente fazer nada. O MCP dá ao agente ferramentas que ele pode chamar para buscar e escrever na memória. Um agente com suporte completo tem os dois." },
-    { "q": "Meu agente não está na lista. Dá para usar mesmo assim?", "a": "Dá, se ele falar MCP. Aponte para http://127.0.0.1:49374/mcp e ele consegue buscar e escrever na memória. Sem hooks de ciclo de vida, nada é capturado automaticamente." },
-    { "q": "Preciso de um LLM ou de um provedor de embeddings?", "a": "Não. Os dois são opcionais. Desde a 2.0 os embeddings padrão rodam in-process com um modelo de cerca de 87 MB, baixado na primeira inicialização, e nenhuma chave de API entra na história." },
-    { "q": "O ai-memory roda no Windows?", "a": "Sim. O WSL2 é suportado pelo caminho do Linux. O Windows nativo é experimental e vem como um zip da release com o ai-memory.exe." }
+    {
+      "q": "Com quais agentes de código o ai-memory funciona?",
+      "a": "A lista tem {n} agentes e editores, incluindo {names}. {supported} deles têm tanto a captura automática pelos hooks de ciclo de vida quanto as ferramentas de memória via MCP."
+    },
+    {
+      "q": "Qual é a diferença entre hooks e MCP?",
+      "a": "Os hooks capturam as sessões automaticamente: prompts, chamadas de ferramenta e limites de sessão são registrados sem o agente fazer nada. O MCP dá ao agente ferramentas que ele pode chamar para buscar e escrever na memória. Um agente com suporte completo tem os dois."
+    },
+    {
+      "q": "Meu agente não está na lista. Dá para usar mesmo assim?",
+      "a": "Dá, se ele falar MCP. Aponte para http://127.0.0.1:49374/mcp e ele consegue buscar e escrever na memória. Sem hooks de ciclo de vida, nada é capturado automaticamente."
+    },
+    {
+      "q": "Preciso de um LLM ou de um provedor de embeddings?",
+      "a": "Não. Os dois são opcionais. Desde a 2.0 os embeddings padrão rodam in-process com um modelo de cerca de 87 MB, baixado na primeira inicialização, e nenhuma chave de API entra na história."
+    },
+    {
+      "q": "O ai-memory roda no Windows?",
+      "a": "Sim. O WSL2 é suportado pelo caminho do Linux. O Windows nativo é experimental e vem como um zip da release com o ai-memory.exe."
+    }
   ],
   "next": [
-    { "title": "Instalação rápida", "text": "Instale o binário, suba o servidor, abra seu agente." },
-    { "title": "Arquitetura", "text": "Como hooks, MCP e a wiki cabem em um binário só." },
-    { "title": "Contribua", "text": "Adicione seu agente, ou conserte o que você usa." }
+    {
+      "title": "Instalação rápida",
+      "text": "Instale o binário, suba o servidor, abra seu agente."
+    },
+    {
+      "title": "Arquitetura",
+      "text": "Como hooks, MCP e a wiki cabem em um binário só."
+    },
+    {
+      "title": "Contribua",
+      "text": "Adicione seu agente, ou conserte o que você usa."
+    }
   ]
 }

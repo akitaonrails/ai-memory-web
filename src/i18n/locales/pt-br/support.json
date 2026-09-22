@@ -32,7 +32,7 @@
     },
     "macos": {
       "name": "macOS",
-      "note": "Apple Silicon e Intel. Binário nativo com agente launchd, ou Docker."
+      "note": "Apple Silicon e Intel. Binário nativo com agente launchd, Docker, ou um app de barra de menus que você compila do código-fonte."
     },
     "windows-via-wsl2": {
       "name": "Windows via WSL2",

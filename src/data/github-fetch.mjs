@@ -34,7 +34,7 @@ export function parseChangelog(md, limit = 12) {
 }
 
 export async function fetchGithub() {
-  const [repo, contributors, commits, mergedPRs, closedIssues, people, releases, changelogMd] = await Promise.all([
+  const [repo, contributors, commits, mergedPRs, closedIssues, people, releases] = await Promise.all([
     gh(`/repos/${REPO}`).then((r) => r.json()),
     countVia(`/repos/${REPO}/contributors`),
     countVia(`/repos/${REPO}/commits`),
@@ -42,8 +42,12 @@ export async function fetchGithub() {
     searchCount('is:issue is:closed'),
     gh(`/repos/${REPO}/contributors?per_page=60`).then((r) => r.json()),
     gh(`/repos/${REPO}/releases?per_page=15`).then((r) => r.json()),
-    fetch(`https://raw.githubusercontent.com/${REPO}/main/CHANGELOG.md`, { signal: AbortSignal.timeout(15000) }).then((r) => (r.ok ? r.text() : '')),
   ]);
+  // The changelog as released: read it at the newest release tag, because a release can be cut from a release
+  // branch before that branch is merged into main. Falls back to main.
+  const newestTag = releases.find((r) => !r.draft)?.tag_name;
+  const rawChangelog = (ref) => fetch(`https://raw.githubusercontent.com/${REPO}/${ref}/CHANGELOG.md`, { signal: AbortSignal.timeout(15000) }).then((r) => (r.ok ? r.text() : ''));
+  const changelogMd = (newestTag && (await rawChangelog(newestTag))) || (await rawChangelog('main'));
   const published = new Set(releases.map((r) => r.tag_name.replace(/^v/, '')));
   return {
     fetchedAt: new Date().toISOString(),

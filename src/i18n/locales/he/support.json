@@ -32,7 +32,7 @@
     },
     "macos": {
       "name": "macOS",
-      "note": "Apple Silicon ו-Intel. קובץ בינארי נייטיב עם launchd agent, או Docker."
+      "note": "Apple Silicon ו-Intel. קובץ בינארי נייטיב עם launchd agent, Docker, או אפליקציית שורת תפריטים שבונים מקוד המקור."
     },
     "windows-via-wsl2": {
       "name": "Windows דרך WSL2",

@@ -101,7 +101,7 @@ const next = withText([
 
   <Section id="also" title={t('also.title')} lede={t('also.lede')} hue="azure">
     <FeatureGrid items={raw<Item[]>('also.items').map((p) => ({ ...p, hue: 'azure' as const }))} cols={3} />
-    <p class="mt-12"><a class="btn btn-ghost" href={`${site.repo}/blob/main/CHANGELOG.md`}>{t('also.link')}</a></p>
+    <p class="mt-12"><a class="btn btn-ghost" href={href('/download/#changelog')}>{t('also.link')}</a></p>
   </Section>
 
   <Faq items={faq} hue="green" />

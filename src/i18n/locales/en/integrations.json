@@ -62,7 +62,7 @@
     },
     "how": {
       "linux": "Release tarball, Docker or Podman image, or an AUR package",
-      "macos": "Release tarball with a launchd agent, or Docker",
+      "macos": "Release tarball with a launchd agent, Docker, or the menu bar app built from source",
       "windows-via-wsl2": "The Linux binary, inside WSL2",
       "native-windows": "Release zip, Docker Desktop wrapper, or a source build"
     },
@@ -79,7 +79,7 @@
     },
     "llm": {
       "title": "LLM: off by default",
-      "text": "Add one when you want LLM-written consolidation, <code>ai-memory bootstrap</code>, richer linting, auto-improve or reranking. A small, fast model is the right size for this work. Subscription logins work, so a paid platform API key is not required.",
+      "text": "Add one when you want LLM-written consolidation, <code>ai-memory bootstrap</code>, richer linting, auto-improve or reranking. A small, fast model is the right size for this work, where the provider lets you pick one. With a Codex or ChatGPT login, keep the provider’s default model, because that backend rejects other model names. Subscription logins work, so a paid platform API key is not required.",
       "note": "Check a provider with <code>ai-memory llm-test</code>. Fallback chains are supported."
     },
     "after": "Models, defaults and costs are in <a class=\"underline font-semibold text-text\" href=\"{llm}\">the LLM providers guide</a> and <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">the local embeddings guide</a>."
@@ -93,15 +93,39 @@
     "codeComment": "the default local server"
   },
   "faq": [
-    { "q": "Which coding agents does ai-memory work with?", "a": "{n} agents and editors are listed, including {names}. {supported} of them have both automatic capture through lifecycle hooks and the memory tools over MCP." },
-    { "q": "What is the difference between hooks and MCP?", "a": "Hooks capture sessions automatically: prompts, tool calls and session boundaries are recorded without the agent doing anything. MCP gives the agent tools it can call to search and write memory. A fully supported agent has both." },
-    { "q": "My agent is not listed. Can I still use it?", "a": "Yes, if it speaks MCP. Point it at http://127.0.0.1:49374/mcp and it can search and write memory. Without lifecycle hooks, nothing is captured automatically." },
-    { "q": "Do I need an LLM or an embedding provider?", "a": "No. Both are optional. Since 2.0 the default embeddings run in-process with a model of about 87 MB that downloads on first start, and no API key is involved." },
-    { "q": "Does ai-memory run on Windows?", "a": "Yes. WSL2 is supported through the Linux path. Native Windows is experimental and ships as a release zip with ai-memory.exe." }
+    {
+      "q": "Which coding agents does ai-memory work with?",
+      "a": "{n} agents and editors are listed, including {names}. {supported} of them have both automatic capture through lifecycle hooks and the memory tools over MCP."
+    },
+    {
+      "q": "What is the difference between hooks and MCP?",
+      "a": "Hooks capture sessions automatically: prompts, tool calls and session boundaries are recorded without the agent doing anything. MCP gives the agent tools it can call to search and write memory. A fully supported agent has both."
+    },
+    {
+      "q": "My agent is not listed. Can I still use it?",
+      "a": "Yes, if it speaks MCP. Point it at http://127.0.0.1:49374/mcp and it can search and write memory. Without lifecycle hooks, nothing is captured automatically."
+    },
+    {
+      "q": "Do I need an LLM or an embedding provider?",
+      "a": "No. Both are optional. Since 2.0 the default embeddings run in-process with a model of about 87 MB that downloads on first start, and no API key is involved."
+    },
+    {
+      "q": "Does ai-memory run on Windows?",
+      "a": "Yes. WSL2 is supported through the Linux path. Native Windows is experimental and ships as a release zip with ai-memory.exe."
+    }
   ],
   "next": [
-    { "title": "Quick setup", "text": "Install the binary, start the server, launch your agent." },
-    { "title": "Architecture", "text": "How hooks, MCP and the wiki fit into one binary." },
-    { "title": "Contribute", "text": "Add your agent, or fix the one you use." }
+    {
+      "title": "Quick setup",
+      "text": "Install the binary, start the server, launch your agent."
+    },
+    {
+      "title": "Architecture",
+      "text": "How hooks, MCP and the wiki fit into one binary."
+    },
+    {
+      "title": "Contribute",
+      "text": "Add your agent, or fix the one you use."
+    }
   ]
 }

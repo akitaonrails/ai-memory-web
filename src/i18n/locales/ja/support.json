@@ -32,7 +32,7 @@
     },
     "macos": {
       "name": "macOS",
-      "note": "Apple SiliconとIntel。launchdエージェント付きのネイティブバイナリ、またはDocker。"
+      "note": "Apple SiliconとIntel。launchdエージェント付きのネイティブバイナリ、Docker、またはソースからビルドするメニューバーアプリ。"
     },
     "windows-via-wsl2": {
       "name": "WSL2経由のWindows",

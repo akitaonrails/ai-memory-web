@@ -104,7 +104,7 @@ const entries = gh.changelog.map((e) => ({
       ))}
     </div>
     <p class="mt-10 flex flex-wrap gap-3">
-      <a href={`${site.repo}/blob/main/CHANGELOG.md`} class="btn btn-ghost">{t('changelog.full')}</a>
+      <a href={`${site.repo}/blob/${latest.tag}/CHANGELOG.md`} class="btn btn-ghost">{t('changelog.full')}</a>
       <a href={`${site.repo}/releases`} class="btn btn-ghost">{t('changelog.releases')}</a>
       <a href={`${site.docs}/MIGRATION-2.0.md`} class="btn btn-ghost">{t('changelog.upgrading')}</a>
     </p>
