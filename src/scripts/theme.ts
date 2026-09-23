@@ -8,6 +8,9 @@ function apply(choice: string | null) {
   document.querySelectorAll<HTMLElement>('[data-theme-set]').forEach((el) =>
     el.setAttribute('aria-pressed', String((el.dataset.themeSet ?? 'system') === (choice ?? 'system'))),
   );
+  document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((el) =>
+    el.setAttribute('aria-pressed', String(root.dataset.theme === 'dark')),
+  );
 }
 
 document.addEventListener('click', (e) => {
