@@ -17,6 +17,10 @@ The site is published in en, pt-br, es, he, ja and ko. Whenever you add, reword 
 
 When the owner says a new ai-memory version is out, use the `sync-release` skill (`.claude/skills/sync-release/SKILL.md`). It starts with `npm run check:upstream`, which compares the site with the release tag and lists what changed since the last reviewed release. Hard numbers live in `src/data/facts.json`. Finish with `npm run check:upstream -- --record`.
 
+## Pull requests from outside contributors
+
+Bug fixes and small adjustments (layout, CSS, scripts, accessibility, build tooling) can be audited and merged without asking. Any change to content needs the owner's explicit approval before it is merged: visible text in `src/i18n/locales/`, numbers in `src/data/facts.json`, diagrams and their prompts, the competitor and support tables, and pages added or removed. Audit those as usual, report, and stop at the approval step even when a standing "merge if approved" instruction exists.
+
 ## Other rules
 
 - Writing: `docs/design-system.md`, section "Writing". Go straight to the point. No em dashes, no "not X but Y", no sentences about the documentation, no hype words.
