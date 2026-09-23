@@ -1,0 +1,117 @@
+---
+import { useI18n, localePaths, withText } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Figure from '@/components/Figure.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Faq from '@/components/Faq.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { faqPage, type Faq as FaqItem } from '@/lib/schema';
+import { site } from '@/data/site';
+
+const { t, raw, href } = useI18n(Astro, 'features');
+type Item = { title: string; text: string };
+const doc = (f: string) => `${site.docs}/${f}`;
+
+// Commands come from docs/agent-messaging.md and docs/marker-file.md at the release; only the comments are translated.
+const messagingCli = `# ${t('messaging.cli.c1')}
+ai-memory message send --to-workspace default --to-project api \\
+    --subject "export endpoint" "Add a /v1/export endpoint that streams NDJSON…"
+
+# ${t('messaging.cli.c2')}
+ai-memory message list
+ai-memory message pop
+
+# ${t('messaging.cli.c3')}
+ai-memory message cancel --id <message-id>`;
+
+const markerCode = `# ${t('scopes.codeComment')}
+workspace = "client-a"`;
+
+const briefCode = `# ${t('rules.codeComment')}
+[briefing]
+inject_on_session_start = true`;
+
+const faq = raw<FaqItem[]>('faq');
+const next = withText([
+  { href: '/solutions/teams/', hue: 'teal' },
+  { href: '/advanced/#routing', hue: 'azure' },
+  { href: '/security/', hue: 'rose' },
+] as const, raw<Item[]>('next'));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faqPage(faq)]}>
+  <PageHero hue="violet" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href="#messaging" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href="#scopes" class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section id="messaging" title={t('messaging.title')} lede={t('messaging.lede')} hue="violet" fill>
+    <Figure name="features-messaging" alt={t('messaging.figureAlt')} caption={t('messaging.figureCaption')} />
+    <div class="grid lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] gap-x-16 gap-y-12">
+      <div class="min-w-0">
+        <h3 class="text-xl">{t('messaging.example.title')}</h3>
+        <ol class="exchange mt-5" data-focus-list>
+          <li>
+            <p class="who">{t('messaging.example.sendLabel')}</p>
+            <p class="said">{t('messaging.example.send')}</p>
+            <p class="then">{t('messaging.example.sendResult')}</p>
+          </li>
+          <li>
+            <p class="who">{t('messaging.example.noticeLabel')}</p>
+            <p class="notice" dir="ltr">{t('messaging.example.notice')}</p>
+            <p class="said">{t('messaging.example.receive')}</p>
+            <p class="then">{t('messaging.example.receiveResult')}</p>
+          </li>
+        </ol>
+        <div class="mt-8"><CodeBlock title={t('messaging.cliTitle')} code={messagingCli} /></div>
+        <p class="mt-4"><a class="link" href={doc('agent-messaging.md')}>{t('messaging.docs')}</a></p>
+      </div>
+      <FeatureGrid items={raw<Item[]>('messaging.points').map((p) => ({ ...p, hue: 'violet' as const }))} cols={2} />
+    </div>
+  </Section>
+
+  <Section id="scopes" title={t('scopes.title')} lede={t('scopes.lede')} hue="azure" tint>
+    <Figure name="features-scopes" alt={t('scopes.figureAlt')} caption={t('scopes.figureCaption')} />
+    <div class="grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-16 gap-y-10 items-start">
+      <FeatureGrid items={raw<Item[]>('scopes.items').map((p) => ({ ...p, hue: 'azure' as const }))} cols={2} />
+      <div class="min-w-0">
+        <CodeBlock title={t('scopes.codeTitle')} code={markerCode} />
+        <p class="mt-4"><a class="link" href={doc('marker-file.md')}>{t('scopes.docs')}</a></p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="rules" title={t('rules.title')} lede={t('rules.lede')} hue="green">
+    <div class="grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-16 gap-y-10 items-start">
+      <FeatureGrid items={raw<Item[]>('rules.items').map((p) => ({ ...p, hue: 'green' as const }))} cols={2} />
+      <div class="min-w-0"><CodeBlock title={t('rules.codeTitle')} code={briefCode} /></div>
+    </div>
+  </Section>
+
+  <Section id="notes" title={t('notes.title')} hue="amber" tint>
+    <FeatureGrid items={raw<Item[]>('notes.items').map((p) => ({ ...p, hue: 'amber' as const }))} cols={4} />
+  </Section>
+
+  <Section id="browse" title={t('browse.title')} hue="teal">
+    <FeatureGrid items={raw<Item[]>('browse.items').map((p) => ({ ...p, hue: 'teal' as const }))} cols={3} />
+  </Section>
+
+  <Faq items={faq} hue="violet" />
+  <NextPages links={next.map((n) => ({ ...n }))} />
+  <CtaBand />
+</Base>
+
+<style>
+  .exchange { display: grid; gap: 1rem; }
+  .exchange li { padding: 1.2rem 1.4rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); transition: opacity .5s, border-color .5s, box-shadow .6s; }
+  .exchange[data-focus-ready] li[data-state='ahead'] { opacity: .55; }
+  .exchange li[data-state='active'] { border-color: var(--hue-vivid); box-shadow: var(--shadow), 0 0 0 1px var(--hue-vivid); }
+  .who { font-size: .85rem; font-weight: 600; color: var(--hue); }
+  .said { margin-top: .5rem; font-family: var(--font-mono); font-size: .9rem; color: var(--text); }
+  .notice { margin-top: .5rem; font-family: var(--font-mono); font-size: .82rem; color: var(--muted); }
+  .then { margin-top: .6rem; color: var(--muted); font-size: .95rem; }
+</style>

@@ -1,0 +1,6 @@
+A wide isometric diagram of how one memory server keeps projects and workspaces apart, reading left to right.
+Left: three folder icons stacked vertically labelled "client-a", "client-b" and "personal", each with a small file tag reading ".ai-memory.toml".
+Center: the logo-style brain-and-chip memory server. Inside or beside it, three separate glowing shelves or drawers, one per folder, connected to their folder by a thin line, labelled "Workspaces".
+On the top shelf, two document pages side by side each connected to a pair of small terminal windows, one pair labelled "Mono-repo", meaning several directories share one project.
+Right: a pinned page with a pushpin icon labelled "Rules", a small amber page with a clock icon labelled "Expires Friday", and a document with a thumbs-up and thumbs-down icon labelled "Feedback".
+Colours follow the spectrum left to right: folders in green and teal, the server in azure, shelves in violet, the right-hand items in rose with amber pins and arrows.

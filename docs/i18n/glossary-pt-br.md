@@ -118,3 +118,15 @@
 | belief strength (Hindsight) | força da crença |
 | reasoning levels | níveis de raciocínio |
 | evaluation run | rodada de avaliação |
+| More you can do (page, nav) | O que mais dá para fazer |
+| inbox | inbox (feminino: a inbox) |
+| pop (claim a message) | pop (verbo: retirar a mensagem, "um segundo pop não retorna nada") |
+| claim (a message) | assumir / assumida uma vez |
+| workspace | workspace |
+| scopes (workspace/project) | escopos |
+| fenced / outside the fence | cercado / fora da cerca |
+| untrusted input | entrada não confiável |
+| sender / recipient project | quem mandou, remetente / projeto de destino |
+| expiring notes | notas que expiram |
+| agent messaging | mensagens entre agentes |
+| self-contained (message body) | autocontido |

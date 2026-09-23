@@ -31,7 +31,8 @@
     "research": "Investigación",
     "contribute": "Contribuir",
     "download": "Descarga",
-    "aging": "Envejecimiento de la memoria"
+    "aging": "Envejecimiento de la memoria",
+    "features": "Más cosas que puedes hacer"
   },
   "nav": {
     "getStarted": "Empezar",
@@ -45,6 +46,10 @@
       "aging": {
         "label": "Cómo envejece la memoria",
         "note": "Decaimiento, compactación y la pasada de sueño"
+      },
+      "features": {
+        "label": "Más cosas que puedes hacer",
+        "note": "Mensajería entre agentes, scopes, reglas, notas que caducan"
       },
       "architecture": {
         "label": "Arquitectura",

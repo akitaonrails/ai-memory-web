@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "title": "More you can do: messaging, scopes, rules, expiring notes",
+    "description": "Beyond handoffs: send a request from one project’s agent to another’s inbox, keep clients and mono-repos apart, pin rules, write notes that expire."
+  },
+  "hero": {
+    "title": "More you can do",
+    "lede": "Handoffs and search are the daily use. These are the other things a memory that lives in one server can do for you, from passing work between projects to keeping a client’s memory apart from another’s.",
+    "primary": "Agent messaging",
+    "secondary": "Scopes and rules"
+  },
+  "messaging": {
+    "title": "One agent asks another project’s agent for something",
+    "lede": "Two repositories that talk over an API, each with its own agent and its own memory. The frontend agent knows the protocol. Instead of reading the whole API repository, it writes a complete request and drops it in that project’s inbox.",
+    "figureAlt": "Diagram: an agent in project A sends a sealed request through the memory server into project B’s inbox, where an agent claims it once and reads an API specification. A wall between the projects marks that no context is shared, and the received message is treated as untrusted input.",
+    "figureCaption": "Only the envelope crosses. Project A never reads project B’s files, and project B never reads project A’s.",
+    "example": {
+      "title": "What it looks like",
+      "sendLabel": "In the frontend repository",
+      "send": "> Ask the agent in default/api to add a /v1/export endpoint that streams NDJSON, keep the existing auth middleware, and send it through ai-memory.",
+      "sendResult": "The agent calls memory_message_send with a self-contained body. The request has to stand on its own, because the reader cannot see this project.",
+      "noticeLabel": "Later, in the API repository",
+      "notice": "📬 ai-memory: 1 cross-project message waiting in this project’s inbox.",
+      "receive": "> Check my ai-memory inbox.",
+      "receiveResult": "The agent calls memory_message_pop, gets the request with who sent it, and works from it. A second pop returns nothing."
+    },
+    "points": [
+      {
+        "title": "Addressed to a project",
+        "text": "A message goes to a workspace and project, and any session in that project can claim it. Once claimed, it is gone from the queue, like a handoff."
+      },
+      {
+        "title": "Nothing enters context by itself",
+        "text": "The session start notice carries only a count. Message text reaches an agent through a deliberate pop, fenced and marked as untrusted, with the sender shown outside the fence."
+      },
+      {
+        "title": "Fails closed",
+        "text": "The recipient project must exist, so a typo is rejected instead of landing in an inbox nobody reads. Each inbox holds at most 256 pending messages."
+      },
+      {
+        "title": "Retractable, audited",
+        "text": "The sender can cancel a message until it is claimed. Secrets are scrubbed on send, the body is size-capped, and on a shared server every message records who sent it."
+      }
+    ],
+    "cliTitle": "from the terminal",
+    "cli": {
+      "c1": "Send from the current project",
+      "c2": "In the other project: list without consuming, or claim the oldest",
+      "c3": "Change your mind before it is claimed"
+    },
+    "docs": "The messaging guide"
+  },
+  "scopes": {
+    "title": "Keep clients, mono-repos and personal work apart",
+    "lede": "Memory is filed by workspace and project. By default the project is the directory name, which is right for one developer and one folder of repositories. A small file changes that.",
+    "figureAlt": "Diagram: three folders, each with a .ai-memory.toml marker, map to separate workspaces inside one memory server. One workspace holds a mono-repo whose directories share a project. To the side sit a pinned rules page, a note that expires on Friday, and a page with feedback.",
+    "figureCaption": "One server, separate shelves. The marker file decides which shelf a directory lands on.",
+    "items": [
+      {
+        "title": "One workspace per client",
+        "text": "Drop <code>.ai-memory.toml</code> in <code>~/work/client-a/</code> and every repository below it files under that workspace. Nothing from client A ever surfaces while you work for client B."
+      },
+      {
+        "title": "A mono-repo as one project",
+        "text": "A marker that names a project pins every subdirectory to it, so packages share one memory. Leave the project out and each package keeps its own."
+      },
+      {
+        "title": "Git worktrees",
+        "text": "Linked worktrees resolve to the main repository, so a branch checked out elsewhere keeps the same memory."
+      },
+      {
+        "title": "Two agents in one project",
+        "text": "The current-project pointer is isolated per caller, so Claude Code and Codex can run side by side in the same directory without confusing each other."
+      }
+    ],
+    "codeTitle": ".ai-memory.toml in ~/work/client-a/",
+    "codeComment": "Every repository under this directory files under the client-a workspace",
+    "docs": "The marker file guide"
+  },
+  "rules": {
+    "title": "Rules that reach every session",
+    "lede": "Tell the agent to remember something permanently and it becomes a page in the wiki. Rules are filed apart from facts, and the session brief can put them in front of the agent before the first prompt.",
+    "items": [
+      {
+        "title": "Say it once",
+        "text": "“Remember: before touching the payment code, read the PCI notes.” The agent writes a durable page. Ask for it as a global rule and it applies to all your projects."
+      },
+      {
+        "title": "The brief carries them in",
+        "text": "With <code>inject_on_session_start = true</code> in the project’s marker file, pinned pages, rules and slots are prepended to every new session’s context."
+      },
+      {
+        "title": "Lint suggests promotion",
+        "text": "When a rule looks durable enough, <code>memory_lint</code> suggests copying it into <code>CLAUDE.md</code> or <code>AGENTS.md</code>. ai-memory never edits those files itself."
+      },
+      {
+        "title": "Decision records stay yours",
+        "text": "ai-memory never writes into your repository. Keep an ADR directory, and list it under <code>[capture] ignore_paths</code> so the wiki does not keep a stale copy of it."
+      }
+    ],
+    "codeTitle": ".ai-memory.toml",
+    "codeComment": "Prepend pinned pages, rules and slots to every session"
+  },
+  "notes": {
+    "title": "Notes that expire, and feedback that reorders",
+    "items": [
+      {
+        "title": "Remember this until Friday",
+        "text": "A page written with <code>expires_at</code> drops out of search after that date. It is still there for a search that asks for expired pages."
+      },
+      {
+        "title": "That page was wrong",
+        "text": "<code>memory_feedback</code> records helpful, not helpful, stale or wrong on a page. Stale and wrong lower it in future rankings and speed up its aging. Feedback never deletes."
+      },
+      {
+        "title": "Move a session",
+        "text": "A session captured in the wrong project, after a <code>cd</code> into a scratch directory, can be reattached with <code>ai-memory move-session</code>. Its observations and page move with it."
+      },
+      {
+        "title": "Recover from compaction",
+        "text": "When Claude Code or Codex compact their context, a hook writes a fresh session page first, so what was compacted away can be recalled."
+      }
+    ]
+  },
+  "browse": {
+    "title": "Read it in a browser, take it anywhere",
+    "items": [
+      {
+        "title": "A read-only web UI",
+        "text": "Start the server with <code>--enable-web</code> and every project’s pages are browsable, grouped into concepts, decisions, gotchas and sessions, with a JSON API under <code>/api/v1</code>."
+      },
+      {
+        "title": "An open format",
+        "text": "Each project is an Open Knowledge Format bundle. <code>ai-memory export-okf</code> packages it for any tool that reads OKF, and the files are plain markdown for everything else."
+      },
+      {
+        "title": "Skills for your agent",
+        "text": "<code>ai-memory install-mcp</code> also installs a short routing snippet and managed Agent Skills, so the agent knows which tool answers “have we discussed this?” and which sends mail."
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Can an agent in one project read another project’s memory?",
+      "a": "No. Memory is filed per project, and messaging is the one deliberate crossing: a project sees only mail addressed to it or sent by it. The message body has to be self-contained because the reader cannot see the sender’s files."
+    },
+    {
+      "q": "Is a received message treated as instructions?",
+      "a": "No. A popped message is fenced as untrusted cross-project input and carries a notice saying so. The agent evaluates it as a task request with you, and the sender is shown outside the fence so you can judge trust first."
+    },
+    {
+      "q": "What happens if two sessions check the same inbox?",
+      "a": "The first pop claims the message and the second gets nothing. A message is claimed exactly once, the same rule handoffs follow."
+    },
+    {
+      "q": "Do I have to configure workspaces?",
+      "a": "No. Without a marker file, everything files under a workspace called default, with the directory name as the project. Add .ai-memory.toml only when you want client separation, a mono-repo as one project, or work and personal memory kept apart."
+    }
+  ],
+  "next": [
+    {
+      "title": "For teams",
+      "text": "One server, shared knowledge, owned handoffs."
+    },
+    {
+      "title": "Advanced setup",
+      "text": "Routing, the marker file and capture rules in detail."
+    },
+    {
+      "title": "Security",
+      "text": "What is stored, what leaves, and what a message can and cannot do."
+    }
+  ]
+}

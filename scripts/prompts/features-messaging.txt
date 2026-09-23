@@ -1,0 +1,8 @@
+A wide horizontal diagram of two separate software projects passing a request through a shared memory server, reading left to right.
+Left: a terminal window on a small folder icon, labelled "Project A". The terminal shows only a prompt symbol and a few short glowing lines, no readable words. From it, an amber sealed envelope with a small copper chip travels along an amber arrow toward the center. The arrow is labelled "send".
+Center: the memory server, drawn as the iridescent brain with the copper chip from the reference logo, with NO label under it. A small tray or mailbox slot is attached to its right side, labelled "Inbox, claimed once".
+Right: a second terminal window on its own folder icon, labelled "Project B". An amber arrow from the mailbox into this terminal, labelled "pop". Inside the terminal the envelope is open, showing a document titled "API spec".
+Between the two projects, a dashed vertical line in violet running the full height, labelled "No shared context".
+Under Project B, a small shield icon labelled "Untrusted input".
+Exactly these seven labels and no other text: "Project A", "send", "Inbox, claimed once", "pop", "Project B", "API spec", "No shared context", "Untrusted input".
+Colours: Project A in green and teal, the server in azure and violet, Project B in violet and rose, the envelope and arrows in amber.

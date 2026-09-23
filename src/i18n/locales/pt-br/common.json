@@ -31,7 +31,8 @@
     "research": "Pesquisa",
     "contribute": "Contribua",
     "download": "Download",
-    "aging": "Envelhecimento da memória"
+    "aging": "Envelhecimento da memória",
+    "features": "O que mais dá para fazer"
   },
   "nav": {
     "getStarted": "Começar",
@@ -45,6 +46,10 @@
       "aging": {
         "label": "Como a memória envelhece",
         "note": "Decaimento, compactação e a passada de sonho"
+      },
+      "features": {
+        "label": "O que mais dá para fazer",
+        "note": "Mensagens entre agentes, escopos, regras, notas que expiram"
       },
       "architecture": {
         "label": "Arquitetura",

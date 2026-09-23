@@ -31,7 +31,8 @@
     "research": "リサーチ",
     "contribute": "コントリビュート",
     "download": "ダウンロード",
-    "aging": "記憶のエイジング"
+    "aging": "記憶のエイジング",
+    "features": "もっとできること"
   },
   "nav": {
     "getStarted": "はじめる",
@@ -45,6 +46,10 @@
       "aging": {
         "label": "記憶はどう古くなるか",
         "note": "減衰、コンパクション、夢見パス"
+      },
+      "features": {
+        "label": "もっとできること",
+        "note": "エージェントメッセージング、スコープ、ルール、期限付きメモ"
       },
       "architecture": {
         "label": "アーキテクチャ",

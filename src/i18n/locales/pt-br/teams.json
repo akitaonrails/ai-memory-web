@@ -67,7 +67,7 @@
     },
     "messaging": {
       "title": "Agentes podem trocar mensagens entre projetos",
-      "text": "O agente no repositório do frontend precisa de um endpoint do repositório da API. Ele manda um pedido autocontido para a inbox daquele projeto, e a próxima sessão de lá retira a mensagem. Uma mensagem é assumida uma vez só, o projeto de destino precisa já existir, e uma inbox guarda no máximo 256 mensagens pendentes. O <a class=\"underline font-semibold text-text\" href=\"{href}\">guia de mensagens entre agentes no GitHub</a> tem as ferramentas."
+      "text": "O agente no repositório do frontend precisa de um endpoint do repositório da API. Ele manda um pedido autocontido para a inbox daquele projeto, e a próxima sessão de lá retira a mensagem. Uma mensagem é assumida uma vez só, o projeto de destino precisa já existir, e uma inbox guarda no máximo 256 mensagens pendentes. <a class=\"link\" href=\"{href}\">Como as mensagens funcionam</a>."
     }
   },
   "included": {

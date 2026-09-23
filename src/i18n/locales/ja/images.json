@@ -179,5 +179,22 @@
     "Sources superseded": "元ページは置き換え済み",
     "Activity cancels": "操作があれば中止",
     "git history": "gitの履歴"
+  },
+  "features-messaging": {
+    "Project A": "プロジェクトA",
+    "send": "send",
+    "Inbox, claimed once": "受信箱、受取は1回",
+    "pop": "pop",
+    "Project B": "プロジェクトB",
+    "API spec": "API仕様",
+    "No shared context": "コンテキスト非共有",
+    "Untrusted input": "信頼できない入力"
+  },
+  "features-scopes": {
+    "Workspaces": "ワークスペース",
+    "Mono-repo": "モノレポ",
+    "Rules": "ルール",
+    "Expires Friday": "金曜に期限切れ",
+    "Feedback": "フィードバック"
   }
 }

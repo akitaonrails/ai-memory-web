@@ -31,7 +31,8 @@
     "research": "Research",
     "contribute": "Contribute",
     "download": "Download",
-    "aging": "Memory aging"
+    "aging": "Memory aging",
+    "features": "More you can do"
   },
   "nav": {
     "getStarted": "Get started",
@@ -45,6 +46,10 @@
       "aging": {
         "label": "How memory ages",
         "note": "Decay, compaction and the dream pass"
+      },
+      "features": {
+        "label": "More you can do",
+        "note": "Agent messaging, scopes, rules, expiring notes"
       },
       "architecture": {
         "label": "Architecture",

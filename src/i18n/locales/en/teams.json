@@ -67,7 +67,7 @@
     },
     "messaging": {
       "title": "Agents can message each other across projects",
-      "text": "The agent in the frontend repository needs an endpoint from the API repository. It sends a self-contained request to that project’s inbox, and the next session there pops it. A message is claimed once, the recipient project must already exist, and an inbox holds at most 256 pending messages. The <a class=\"underline font-semibold text-text\" href=\"{href}\">agent messaging guide on GitHub</a> has the tools."
+      "text": "The agent in the frontend repository needs an endpoint from the API repository. It sends a self-contained request to that project’s inbox, and the next session there pops it. A message is claimed once, the recipient project must already exist, and an inbox holds at most 256 pending messages. <a class=\"link\" href=\"{href}\">How messaging works</a>."
     }
   },
   "included": {

@@ -67,7 +67,7 @@
     },
     "messaging": {
       "title": "Los agentes pueden enviarse mensajes entre proyectos",
-      "text": "El agente del repositorio del frontend necesita un endpoint del repositorio de la API. Envía una petición autocontenida a la bandeja de entrada de ese proyecto, y la siguiente sesión que arranque allí la saca. Un mensaje se reclama una sola vez, el proyecto destinatario ya tiene que existir y una bandeja admite como máximo 256 mensajes pendientes. La <a class=\"underline font-semibold text-text\" href=\"{href}\">guía de mensajería entre agentes en GitHub</a> tiene las herramientas."
+      "text": "El agente del repositorio del frontend necesita un endpoint del repositorio de la API. Envía una petición autocontenida a la bandeja de entrada de ese proyecto, y la siguiente sesión que arranque allí la saca. Un mensaje se reclama una sola vez, el proyecto destinatario ya tiene que existir y una bandeja admite como máximo 256 mensajes pendientes. <a class=\"link\" href=\"{href}\">Cómo funciona la mensajería</a>."
     }
   },
   "included": {

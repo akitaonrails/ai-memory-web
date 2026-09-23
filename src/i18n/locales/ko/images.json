@@ -179,5 +179,22 @@
     "Sources superseded": "원본 대체됨",
     "Activity cancels": "활동 시 취소",
     "git history": "git 히스토리"
+  },
+  "features-messaging": {
+    "Project A": "프로젝트 A",
+    "send": "send",
+    "Inbox, claimed once": "인박스, 1회 수령",
+    "pop": "pop",
+    "Project B": "프로젝트 B",
+    "API spec": "API 명세",
+    "No shared context": "맥락 공유 없음",
+    "Untrusted input": "신뢰할 수 없는 입력"
+  },
+  "features-scopes": {
+    "Workspaces": "워크스페이스",
+    "Mono-repo": "모노레포",
+    "Rules": "규칙",
+    "Expires Friday": "금요일 만료",
+    "Feedback": "피드백"
   }
 }

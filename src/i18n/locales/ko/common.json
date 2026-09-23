@@ -31,7 +31,8 @@
     "research": "리서치",
     "contribute": "기여하기",
     "download": "다운로드",
-    "aging": "기억 노화"
+    "aging": "기억 노화",
+    "features": "더 할 수 있는 일"
   },
   "nav": {
     "getStarted": "시작하기",
@@ -45,6 +46,10 @@
       "aging": {
         "label": "기억이 나이 드는 방식",
         "note": "감쇠, 압축, 꿈 패스"
+      },
+      "features": {
+        "label": "더 할 수 있는 일",
+        "note": "에이전트 메시징, 스코프, 규칙, 만료 메모"
       },
       "architecture": {
         "label": "아키텍처",

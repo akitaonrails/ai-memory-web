@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "title": "Más cosas que puedes hacer: mensajes, scopes, reglas, notas",
+    "description": "Más allá de los traspasos: envía una petición del agente de un proyecto a la bandeja de otro, separa clientes y monorepos, fija reglas y escribe notas que caducan."
+  },
+  "hero": {
+    "title": "Más cosas que puedes hacer",
+    "lede": "Los traspasos y la búsqueda son el uso diario. Esto es lo demás que puede hacer por ti una memoria que vive en un solo servidor, desde pasar trabajo entre proyectos hasta mantener la memoria de un cliente separada de la de otro.",
+    "primary": "Mensajería entre agentes",
+    "secondary": "Scopes y reglas"
+  },
+  "messaging": {
+    "title": "Un agente le pide algo al agente de otro proyecto",
+    "lede": "Dos repositorios que se hablan por una API, cada uno con su agente y su memoria. El agente del frontend conoce el protocolo. En vez de leer el repositorio entero de la API, escribe una petición completa y la deja en la bandeja de entrada de ese proyecto.",
+    "figureAlt": "Diagrama: un agente del proyecto A envía una petición sellada a través del servidor de memoria a la bandeja de entrada del proyecto B, donde un agente la reclama una sola vez y lee una especificación de API. Un muro entre los proyectos marca que no se comparte contexto, y el mensaje recibido se trata como entrada no confiable.",
+    "figureCaption": "Solo cruza el sobre. El proyecto A nunca lee los archivos del proyecto B, y el proyecto B nunca lee los del A.",
+    "example": {
+      "title": "Cómo se ve",
+      "sendLabel": "En el repositorio del frontend",
+      "send": "> Pídele al agente de default/api que añada un endpoint /v1/export que envíe NDJSON en streaming, que mantenga el middleware de auth actual, y mándaselo por ai-memory.",
+      "sendResult": "El agente llama a memory_message_send con un cuerpo autocontenido. La petición tiene que sostenerse sola, porque quien la lee no ve este proyecto.",
+      "noticeLabel": "Más tarde, en el repositorio de la API",
+      "notice": "📬 ai-memory: 1 mensaje de otro proyecto esperando en la bandeja de entrada de este proyecto.",
+      "receive": "> Revisa mi bandeja de entrada de ai-memory.",
+      "receiveResult": "El agente llama a memory_message_pop, recibe la petición con quién la envió y trabaja a partir de ella. Un segundo pop no devuelve nada."
+    },
+    "points": [
+      {
+        "title": "Dirigido a un proyecto",
+        "text": "Un mensaje va a un workspace y un proyecto, y cualquier sesión de ese proyecto puede reclamarlo. Una vez reclamado, desaparece de la cola, como un traspaso."
+      },
+      {
+        "title": "Nada entra al contexto por sí solo",
+        "text": "El aviso al arrancar la sesión solo lleva un recuento. El texto del mensaje llega al agente con un pop deliberado, delimitado y marcado como no confiable, con el remitente fuera de la delimitación."
+      },
+      {
+        "title": "Falla cerrado",
+        "text": "El proyecto destinatario tiene que existir, así que una errata se rechaza en vez de caer en una bandeja que nadie lee. Cada bandeja admite como máximo 256 mensajes pendientes."
+      },
+      {
+        "title": "Se puede retirar, queda auditado",
+        "text": "El remitente puede cancelar un mensaje hasta que alguien lo reclama. Los secretos se limpian al enviar, el cuerpo tiene un tamaño máximo y en un servidor compartido cada mensaje registra quién lo envió."
+      }
+    ],
+    "cliTitle": "desde la terminal",
+    "cli": {
+      "c1": "Enviar desde el proyecto actual",
+      "c2": "En el otro proyecto: listar sin consumir, o reclamar el más antiguo",
+      "c3": "Cambiar de idea antes de que lo reclamen"
+    },
+    "docs": "La guía de mensajería"
+  },
+  "scopes": {
+    "title": "Separa clientes, monorepos y trabajo personal",
+    "lede": "La memoria se archiva por workspace y proyecto. Por defecto el proyecto es el nombre del directorio, que va bien para un desarrollador y una carpeta de repositorios. Un archivo pequeño lo cambia.",
+    "figureAlt": "Diagrama: tres carpetas, cada una con un marcador .ai-memory.toml, se asignan a workspaces separados dentro de un mismo servidor de memoria. Un workspace contiene un monorepo cuyos directorios comparten un proyecto. A un lado hay una página de reglas fijada, una nota que caduca el viernes y una página con feedback.",
+    "figureCaption": "Un servidor, estantes separados. El archivo marcador decide en qué estante cae un directorio.",
+    "items": [
+      {
+        "title": "Un workspace por cliente",
+        "text": "Deja un <code>.ai-memory.toml</code> en <code>~/work/client-a/</code> y todos los repositorios que cuelgan de ahí se archivan en ese workspace. Nada del cliente A aparece mientras trabajas para el cliente B."
+      },
+      {
+        "title": "Un monorepo como un solo proyecto",
+        "text": "Un marcador que nombra un proyecto fija todos los subdirectorios a él, así que los paquetes comparten una memoria. Omite el proyecto y cada paquete conserva la suya."
+      },
+      {
+        "title": "Worktrees de git",
+        "text": "Los worktrees enlazados se resuelven al repositorio principal, así que una rama con checkout en otro sitio conserva la misma memoria."
+      },
+      {
+        "title": "Dos agentes en un proyecto",
+        "text": "El puntero de proyecto actual está aislado por cada llamador, así que Claude Code y Codex pueden correr a la vez en el mismo directorio sin confundirse entre sí."
+      }
+    ],
+    "codeTitle": ".ai-memory.toml en ~/work/client-a/",
+    "codeComment": "Todos los repositorios bajo este directorio se archivan en el workspace client-a",
+    "docs": "La guía del archivo marcador"
+  },
+  "rules": {
+    "title": "Reglas que llegan a todas las sesiones",
+    "lede": "Dile al agente que recuerde algo de forma permanente y se convierte en una página de la wiki. Las reglas se archivan aparte de los hechos, y el resumen de sesión puede ponerlas delante del agente antes del primer prompt.",
+    "items": [
+      {
+        "title": "Dilo una vez",
+        "text": "“Recuerda: antes de tocar el código de pagos, lee las notas de PCI.” El agente escribe una página duradera. Pídela como regla global y se aplica a todos tus proyectos."
+      },
+      {
+        "title": "El resumen las trae",
+        "text": "Con <code>inject_on_session_start = true</code> en el archivo marcador del proyecto, las páginas fijadas, las reglas y los espacios se anteponen al contexto de cada sesión nueva."
+      },
+      {
+        "title": "El lint sugiere promoverlas",
+        "text": "Cuando una regla parece bastante duradera, <code>memory_lint</code> sugiere copiarla a <code>CLAUDE.md</code> o <code>AGENTS.md</code>. ai-memory nunca edita esos archivos por su cuenta."
+      },
+      {
+        "title": "Los registros de decisiones siguen siendo tuyos",
+        "text": "ai-memory nunca escribe en tu repositorio. Mantén un directorio de ADR y ponlo en <code>[capture] ignore_paths</code> para que la wiki no guarde una copia obsoleta."
+      }
+    ],
+    "codeTitle": ".ai-memory.toml",
+    "codeComment": "Anteponer páginas fijadas, reglas y espacios a cada sesión"
+  },
+  "notes": {
+    "title": "Notas que caducan y feedback que reordena",
+    "items": [
+      {
+        "title": "Recuerda esto hasta el viernes",
+        "text": "Una página escrita con <code>expires_at</code> sale de la búsqueda después de esa fecha. Sigue ahí para una búsqueda que pida páginas caducadas."
+      },
+      {
+        "title": "Esa página estaba mal",
+        "text": "<code>memory_feedback</code> registra en una página si fue útil, no útil, obsoleta o incorrecta. Obsoleta e incorrecta la bajan en los próximos rankings y aceleran su envejecimiento. El feedback nunca borra nada."
+      },
+      {
+        "title": "Mover una sesión",
+        "text": "Una sesión capturada en el proyecto equivocado, tras un <code>cd</code> a un directorio temporal, se puede reasignar con <code>ai-memory move-session</code>. Sus observaciones y su página se mueven con ella."
+      },
+      {
+        "title": "Recuperarse de una compactación",
+        "text": "Cuando Claude Code o Codex compactan su contexto, un hook escribe antes una página de sesión nueva, para que se pueda recordar lo que la compactación dejó fuera."
+      }
+    ]
+  },
+  "browse": {
+    "title": "Léelo en el navegador, llévatelo a donde quieras",
+    "items": [
+      {
+        "title": "Una interfaz web de solo lectura",
+        "text": "Arranca el servidor con <code>--enable-web</code> y las páginas de todos los proyectos se pueden navegar, agrupadas en conceptos, decisiones, gotchas y sesiones, con una API JSON en <code>/api/v1</code>."
+      },
+      {
+        "title": "Un formato abierto",
+        "text": "Cada proyecto es un bundle de Open Knowledge Format. <code>ai-memory export-okf</code> lo empaqueta para cualquier herramienta que lea OKF, y para todo lo demás los archivos son markdown plano."
+      },
+      {
+        "title": "Skills para tu agente",
+        "text": "<code>ai-memory install-mcp</code> instala también un fragmento corto de enrutamiento y Agent Skills gestionadas, para que el agente sepa qué herramienta responde a “¿hemos hablado de esto?” y cuál envía mensajes."
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "¿Puede un agente de un proyecto leer la memoria de otro?",
+      "a": "No. La memoria se archiva por proyecto, y la mensajería es el único cruce deliberado: un proyecto solo ve los mensajes dirigidos a él o enviados por él. El cuerpo del mensaje tiene que ser autocontenido porque quien lo lee no ve los archivos del remitente."
+    },
+    {
+      "q": "¿Un mensaje recibido se trata como instrucciones?",
+      "a": "No. Un mensaje sacado con pop va delimitado como entrada no confiable de otro proyecto y lleva un aviso que lo dice. El agente lo evalúa contigo como una petición de tarea, y el remitente aparece fuera de la delimitación para que puedas juzgar primero si te fías."
+    },
+    {
+      "q": "¿Qué pasa si dos sesiones revisan la misma bandeja?",
+      "a": "El primer pop reclama el mensaje y el segundo no recibe nada. Un mensaje se reclama exactamente una vez, la misma regla que siguen los traspasos."
+    },
+    {
+      "q": "¿Tengo que configurar workspaces?",
+      "a": "No. Sin archivo marcador, todo se archiva en un workspace llamado default, con el nombre del directorio como proyecto. Añade .ai-memory.toml solo cuando quieras separar clientes, tratar un monorepo como un solo proyecto o mantener aparte la memoria del trabajo y la personal."
+    }
+  ],
+  "next": [
+    {
+      "title": "Para equipos",
+      "text": "Un servidor, conocimiento compartido, traspasos con dueño."
+    },
+    {
+      "title": "Instalación avanzada",
+      "text": "El enrutamiento, el archivo marcador y las reglas de captura en detalle."
+    },
+    {
+      "title": "Seguridad",
+      "text": "Qué se guarda, qué sale, y qué puede y qué no puede hacer un mensaje."
+    }
+  ]
+}

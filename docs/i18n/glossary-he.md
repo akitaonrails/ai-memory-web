@@ -123,3 +123,16 @@ Terms decided while translating, beyond the table in `docs/research/I18N-TRANSLA
 | answers with citations | תשובות עם ציטוטים |
 | reasoning levels | רמות reasoning |
 | experience pass, stub, embedder, worker, dialectic endpoint | keep in English |
+| More you can do (features page) | עוד דברים שאפשר לעשות |
+| message / agent messaging / cross-project | הודעה / הודעות בין סוכנים / מפרויקט אחר, בין פרויקטים |
+| inbox, workspace | keep in English (diagram labels: ה-inbox, ה-workspaces, so the value starts with a Hebrew letter) |
+| pop (a message) | למשוך / משיכה (the claim itself: לתפוס, נתפסת פעם אחת) |
+| envelope (only the envelope crosses) | מעטפה |
+| fenced / outside the fence | מגודר / מחוץ לגדר |
+| untrusted input | קלט לא מהימן |
+| scopes (workspace + project) | workspaces (no purist term) |
+| expiring notes / expires Friday | פתקים עם תפוגה / פג ביום שישי |
+| feedback | משוב |
+| rules / slots | כללים / משבצות |
+| routing snippet | קטע ניתוב |
+| Agent Skills | keep in English |

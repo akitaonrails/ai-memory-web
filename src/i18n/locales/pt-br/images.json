@@ -179,5 +179,22 @@
     "Sources superseded": "Fontes substituídas",
     "Activity cancels": "Atividade cancela",
     "git history": "histórico git"
+  },
+  "features-messaging": {
+    "Project A": "Projeto A",
+    "send": "send",
+    "Inbox, claimed once": "Inbox, assumida uma vez",
+    "pop": "pop",
+    "Project B": "Projeto B",
+    "API spec": "Spec da API",
+    "No shared context": "Sem contexto compartilhado",
+    "Untrusted input": "Entrada não confiável"
+  },
+  "features-scopes": {
+    "Workspaces": "Workspaces",
+    "Mono-repo": "Mono-repo",
+    "Rules": "Regras",
+    "Expires Friday": "Expira sexta",
+    "Feedback": "Feedback"
   }
 }

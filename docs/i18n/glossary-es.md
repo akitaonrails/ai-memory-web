@@ -133,3 +133,17 @@ Términos decididos durante la traducción que el glosario de `docs/research/I18
 | reasoning levels | niveles de razonamiento |
 | link types | tipos de enlace |
 | New in {version} | Nuevo en la {version} |
+| More you can do (page) | Más cosas que puedes hacer |
+| agent messaging | mensajería entre agentes |
+| message (agent) / sender / recipient project | mensaje / remitente / proyecto destinatario |
+| pop (a message) | sacar con pop / un pop (en diagramas: pop) |
+| claim (a message) | reclamar |
+| workspace | workspace |
+| scopes | scopes |
+| fenced / fence (untrusted text) | delimitado / delimitación |
+| untrusted input | entrada no confiable |
+| slots (per-person) | espacios |
+| expire / expiring notes | caducar / notas que caducan |
+| mono-repo | monorepo |
+| API spec (diagrams) | spec de la API |
+| decision records (ADR) | registros de decisiones |

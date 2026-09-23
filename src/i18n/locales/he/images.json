@@ -179,5 +179,22 @@
     "Sources superseded": "המקורות מוחלפים",
     "Activity cancels": "פעילות מבטלת",
     "git history": "היסטוריית git"
+  },
+  "features-messaging": {
+    "Project A": "פרויקט A",
+    "send": "שליחה",
+    "Inbox, claimed once": "ה-inbox, נתפס פעם אחת",
+    "pop": "משיכה",
+    "Project B": "פרויקט B",
+    "API spec": "מפרט API",
+    "No shared context": "אין הקשר משותף",
+    "Untrusted input": "קלט לא מהימן"
+  },
+  "features-scopes": {
+    "Workspaces": "ה-workspaces",
+    "Mono-repo": "ה-mono-repo",
+    "Rules": "כללים",
+    "Expires Friday": "פג ביום שישי",
+    "Feedback": "משוב"
   }
 }

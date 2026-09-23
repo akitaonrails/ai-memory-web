@@ -112,3 +112,11 @@ Term decisions beyond the brief. Append rows; never rewrite another translator's
 | tiers: working / episodic / semantic / procedural | 작업 기억 / 일화 기억 / 의미 기억 / 절차 기억 (pages: 일화 페이지) |
 | shipped, opt-in, unproven | 출시됨, 옵트인, 미검증 |
 | answers with citations / reasoning levels | 인용이 붙은 답변 / 추론 수준 |
+| inbox / message (cross-project) | 인박스 / 메시지 (프로젝트 간 메시지) |
+| pop (claim a message) | pop으로 꺼내다 (prose: 꺼내다; claimed once: 한 번만 수령; diagram: pop) |
+| scopes (page section) / More you can do | 스코프 / 더 할 수 있는 일 |
+| fenced, untrusted input | 펜스로 감싼, 신뢰할 수 없는 입력 |
+| expiring notes / expires_at | 만료 메모 / 기한이 있는 메모 |
+| envelope (message) | 봉투 |
+| fails closed (messaging) | 실패 시 닫힘 |
+| session start notice / count | 세션 시작 알림 / 건수 |

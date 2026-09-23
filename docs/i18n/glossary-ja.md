@@ -124,3 +124,21 @@ Terms decided while translating, in addition to the glossary in `docs/research/I
 | embedder | 埋め込みモデル |
 | answers with citations / reasoning levels | 引用付きの回答 / 推論レベル |
 | tiers: working / episodic / semantic / procedural | 作業記憶 / エピソード記憶 / 意味記憶 / 手続き記憶 |
+| inbox (cross-project messaging) | 受信箱 |
+| message / cross-project message | メッセージ / プロジェクト間メッセージ |
+| pop (claim a message) | 取り出す (prose) / pop (tool name, diagram label) |
+| claim (a message, once) | 受け取る / 受取は1回 (diagram label) |
+| cancel (a message) | 取り消す |
+| fenced as untrusted input | フェンスで囲まれた信頼できない入力 |
+| sender | 送信元 |
+| fails closed | 失敗時は閉じる |
+| workspace | ワークスペース |
+| scopes (page section) | スコープ |
+| rules (pinned rules page) | ルール |
+| slots (per-member) | スロット |
+| expiring note / expires Friday | 期限付きメモ / 金曜に期限切れ |
+| More you can do (page, nav, crumb) | もっとできること |
+| Agent messaging | エージェントメッセージング |
+| Agent Skills (Claude feature) | Agent Skills (kept in English) |
+| API spec (diagram label) | API仕様 |
+| No shared context (diagram label) | コンテキスト非共有 |
