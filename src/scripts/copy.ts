@@ -29,4 +29,3 @@ document.addEventListener('click', async (e) => {
   label.textContent = (label as HTMLElement).dataset.copied ?? idle;
   setTimeout(() => (label.textContent = idle), 1600);
 });
-
