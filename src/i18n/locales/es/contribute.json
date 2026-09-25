@@ -89,6 +89,35 @@
       "full": "La lista completa, con el bug que evita cada uno, está en AGENTS.md"
     }
   },
+  "quality": {
+    "title": "Cómo se mantiene el listón alto",
+    "lede": "La IA escribe la mayor parte del código. Una persona lo lee todo y nada se fusiona sin comprobarlo. Cada regla de aquí abajo existe porque algo salió mal alguna vez.",
+    "stats": {
+      "directives": "reglas escritas en AGENTS.md",
+      "invariants": "invariantes que ningún pull request puede romper",
+      "docs": "documentos: investigación, post-mortems, decisiones",
+      "tests": "tests, unitarios y de integración"
+    },
+    "figure": {
+      "alt": "Diagrama: un bucle de cuatro etapas. Un error se convierte en una regla escrita, la regla recibe un test que intenta romperla, y el test se ejecuta como requisito en cada pull request. Una persona está en el centro y decide.",
+      "caption": "Nada de esto existía el primer día. Cada regla se añadió después de un error real, y cada una se revisa en cada pull request."
+    },
+    "points": [
+      {
+        "title": "Las reglas nacen de errores",
+        "text": "Cada invariante indica el bug que la causó y el código que lo evita. Una regla que nadie puede rastrear hasta un fallo se elimina."
+      },
+      {
+        "title": "Cada pull request se audita",
+        "text": "Lo que dice un pull request se contrasta con el código, los checks se vuelven a ejecutar, y solo se fusiona lo verificado. Las checklists de auditoría son públicas."
+      },
+      {
+        "title": "Una persona decide",
+        "text": "La IA hace la mayor parte de la escritura. El mantenedor lee, corrige y convierte lo que salió mal en la siguiente regla."
+      }
+    ],
+    "skillsLink": "Lee las checklists de auditoría"
+  },
   "map": {
     "title": "Un mapa del código",
     "lede": "En el binario van diez crates. Cada uno tiene una responsabilidad y una API tipada, y no hay dependencias circulares.",

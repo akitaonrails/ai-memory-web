@@ -9,11 +9,13 @@ import CodeBlock from '@/components/CodeBlock.astro';
 import Figure from '@/components/Figure.astro';
 import Callout from '@/components/Callout.astro';
 import GithubStats from '@/components/GithubStats.astro';
+import StatList from '@/components/StatList.astro';
 import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
 import type { Hue } from '@/data/site';
 import { getGithub, getLatestRelease, compact } from '@/data/github';
+import facts from '@/data/facts.json';
 
 const { t, raw, number } = useI18n(Astro, 'contribute');
 const gh = await getGithub();
@@ -60,6 +62,15 @@ const build = raw<{ title: string; text: string; codeTitle: string }[]>('build.s
 
 const rules = raw<{ title: string; text: string }[]>('rules.landing.items');
 const invariants = raw<string[]>('rules.invariants.items');
+
+const q = facts.quality;
+const quality = [
+  { n: q.directives, label: t('quality.stats.directives'), hue: 'violet', href: `${blob}/AGENTS.md` },
+  { n: q.invariants, label: t('quality.stats.invariants'), hue: 'rose', href: `${blob}/AGENTS.md#cross-cutting-invariants-do-not-violate` },
+  { n: q.docs, label: t('quality.stats.docs'), hue: 'azure', href: `${site.repo}/tree/main/docs` },
+  { n: q.unitTests + q.integrationTests, label: t('quality.stats.tests'), hue: 'green', href: `${site.repo}/tree/main/crates` },
+];
+const points = raw<{ title: string; text: string }[]>('quality.points');
 
 const crates = ['core', 'store', 'wiki', 'mcp', 'hooks', 'llm', 'consolidate', 'web', 'workstream', 'cli']
   .map((id) => [`ai-memory-${id}`, t(`map.crates.${id}`)]);
@@ -149,6 +160,21 @@ const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i)
         <p class="mt-6"><a class="underline font-semibold" href={`${blob}/AGENTS.md`}>{t('rules.invariants.full')}</a></p>
       </div>
     </div>
+  </Section>
+
+  <!-- quality: the numbers and the loop behind them -->
+  <Section id="quality" hue="teal" title={t('quality.title')} lede={t('quality.lede')}>
+    <StatList stats={quality} />
+    <Figure name="contribute-quality-loop" alt={t('quality.figure.alt')} caption={t('quality.figure.caption')} />
+    <ul class="grid md:grid-cols-3 gap-x-10 gap-y-10" data-reveal="children">
+      {points.map((p) => (
+        <li class="feat">
+          <h3 class="text-xl">{p.title}</h3>
+          <p class="mt-2.5 text-muted">{p.text}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-8"><a class="underline font-semibold" href={site.skills}>{t('quality.skillsLink')}</a></p>
   </Section>
 
   <!-- (e) map -->

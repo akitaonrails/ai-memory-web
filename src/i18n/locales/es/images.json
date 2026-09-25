@@ -196,5 +196,12 @@
     "Rules": "Reglas",
     "Expires Friday": "Caduca el viernes",
     "Feedback": "Feedback"
+  },
+  "contribute-quality-loop": {
+    "A mistake": "Un error",
+    "A written rule": "Una regla escrita",
+    "A test that breaks it": "Un test para romperla",
+    "A gate on every pull request": "Requisito en cada PR",
+    "A person decides": "Una persona decide"
   }
 }

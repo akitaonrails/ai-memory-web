@@ -30,12 +30,36 @@
     "title": "Pick your way in",
     "lede": "Each of these goes to the exact page on GitHub.",
     "items": {
-      "bug": { "title": "Report a bug", "text": "The template asks for your version, OS, agent, transport and the relevant server log lines.", "link": "Open a bug report" },
-      "feature": { "title": "Propose a feature", "text": "Proposals are issues; the repository has no discussions board. The template asks what problem it solves and whether it would break existing installs.", "link": "Open a feature request" },
-      "firstIssue": { "title": "Find a first issue", "text": "The good first issue label marks work that suits a newcomer. Help wanted marks the rest.", "link": "Browse good first issues" },
-      "harness": { "title": "Add or fix a harness", "text": "Managed harness support has a written protocol: prove the native session contract, read stores read-only, deliver context before acknowledging it, and ship the required tests.", "link": "Read the harness protocol" },
-      "docs": { "title": "Improve the docs", "text": "Guides live in docs/ as markdown. A doc fix is a normal pull request and skips the changelog when nothing user-facing changes.", "link": "Browse docs/" },
-      "companion": { "title": "Build around it", "text": "Importers, richer UIs and chat front ends belong in companion projects that use the public HTTP and MCP surfaces.", "link": "Read the companion rules" }
+      "bug": {
+        "title": "Report a bug",
+        "text": "The template asks for your version, OS, agent, transport and the relevant server log lines.",
+        "link": "Open a bug report"
+      },
+      "feature": {
+        "title": "Propose a feature",
+        "text": "Proposals are issues; the repository has no discussions board. The template asks what problem it solves and whether it would break existing installs.",
+        "link": "Open a feature request"
+      },
+      "firstIssue": {
+        "title": "Find a first issue",
+        "text": "The good first issue label marks work that suits a newcomer. Help wanted marks the rest.",
+        "link": "Browse good first issues"
+      },
+      "harness": {
+        "title": "Add or fix a harness",
+        "text": "Managed harness support has a written protocol: prove the native session contract, read stores read-only, deliver context before acknowledging it, and ship the required tests.",
+        "link": "Read the harness protocol"
+      },
+      "docs": {
+        "title": "Improve the docs",
+        "text": "Guides live in docs/ as markdown. A doc fix is a normal pull request and skips the changelog when nothing user-facing changes.",
+        "link": "Browse docs/"
+      },
+      "companion": {
+        "title": "Build around it",
+        "text": "Importers, richer UIs and chat front ends belong in companion projects that use the public HTTP and MCP surfaces.",
+        "link": "Read the companion rules"
+      }
     },
     "security": {
       "title": "Security reports never go in a public issue",
@@ -50,11 +74,31 @@
     "title": "Get it building",
     "lede": "The build is self-contained. None of these commands needs an environment variable.",
     "steps": [
-      { "title": "Clone and build", "text": "Rust 1.95 is required and pinned in <code>rust-toolchain.toml</code>, with rustfmt and clippy, so rustup installs the right toolchain on first build. SQLite is bundled and libgit2 is vendored. You need a standard C toolchain and nothing else.", "codeTitle": "dev setup" },
-      { "title": "Use the everyday loop", "text": "<code>cargo t</code> needs nextest: <code>cargo install cargo-nextest --locked</code>. It skips modules named <code>slow</code> or <code>stress</code>, which the pre-push hook and CI still run.", "codeTitle": "while you work" },
-      { "title": "Install the pre-push hook", "text": "Once per clone. It only touches its own block in <code>.git/hooks/pre-push</code>. On a work-in-progress branch, <code>git push --no-verify</code> skips it.", "codeTitle": "once per clone" },
-      { "title": "Pass the gates before you push", "text": "CI enforces all five. Without nextest, <code>cargo test --workspace --all-targets</code> is the equivalent of <code>cargo tf</code>. If the last one is missing: <code>cargo install cargo-deny cargo-audit</code>.", "codeTitle": "required gates" },
-      { "title": "Check who your commits say you are", "text": "Use an email verified on your GitHub account or its noreply address. History on main is never rewritten to fix attribution.", "codeTitle": "commit attribution" }
+      {
+        "title": "Clone and build",
+        "text": "Rust 1.95 is required and pinned in <code>rust-toolchain.toml</code>, with rustfmt and clippy, so rustup installs the right toolchain on first build. SQLite is bundled and libgit2 is vendored. You need a standard C toolchain and nothing else.",
+        "codeTitle": "dev setup"
+      },
+      {
+        "title": "Use the everyday loop",
+        "text": "<code>cargo t</code> needs nextest: <code>cargo install cargo-nextest --locked</code>. It skips modules named <code>slow</code> or <code>stress</code>, which the pre-push hook and CI still run.",
+        "codeTitle": "while you work"
+      },
+      {
+        "title": "Install the pre-push hook",
+        "text": "Once per clone. It only touches its own block in <code>.git/hooks/pre-push</code>. On a work-in-progress branch, <code>git push --no-verify</code> skips it.",
+        "codeTitle": "once per clone"
+      },
+      {
+        "title": "Pass the gates before you push",
+        "text": "CI enforces all five. Without nextest, <code>cargo test --workspace --all-targets</code> is the equivalent of <code>cargo tf</code>. If the last one is missing: <code>cargo install cargo-deny cargo-audit</code>.",
+        "codeTitle": "required gates"
+      },
+      {
+        "title": "Check who your commits say you are",
+        "text": "Use an email verified on your GitHub account or its noreply address. History on main is never rewritten to fix attribution.",
+        "codeTitle": "commit attribution"
+      }
     ],
     "comments": {
       "allButSlow": "all but the slow tier, ~20s warm",
@@ -70,11 +114,26 @@
     "landing": {
       "title": "How work is expected to land",
       "items": [
-        { "title": "The changelog is a merge gate", "text": "Every user-facing change adds an entry under [Unreleased] in the same pull request. Reviewers treat a missing entry as blocking. Refactors and test-only changes are exempt." },
-        { "title": "Tests before “done”", "text": "Work counts as done once it has tests, above all parsers, ID derivation and the retention math." },
-        { "title": "No dead code, no half-built features", "text": "Stubs are documented in the module comment with the milestone that will finish them." },
-        { "title": "Stay inside the change", "text": "Do not refactor code the current milestone does not need." },
-        { "title": "Comments explain why", "text": "A comment that restates the line above it gets removed." }
+        {
+          "title": "The changelog is a merge gate",
+          "text": "Every user-facing change adds an entry under [Unreleased] in the same pull request. Reviewers treat a missing entry as blocking. Refactors and test-only changes are exempt."
+        },
+        {
+          "title": "Tests before “done”",
+          "text": "Work counts as done once it has tests, above all parsers, ID derivation and the retention math."
+        },
+        {
+          "title": "No dead code, no half-built features",
+          "text": "Stubs are documented in the module comment with the milestone that will finish them."
+        },
+        {
+          "title": "Stay inside the change",
+          "text": "Do not refactor code the current milestone does not need."
+        },
+        {
+          "title": "Comments explain why",
+          "text": "A comment that restates the line above it gets removed."
+        }
       ]
     },
     "invariants": {
@@ -88,6 +147,35 @@
       ],
       "full": "The full list, with the bug each one prevents, is in AGENTS.md"
     }
+  },
+  "quality": {
+    "title": "How the bar stays high",
+    "lede": "AI writes most of the code. A person reads all of it, and nothing merges on trust. Every rule below exists because something went wrong once.",
+    "stats": {
+      "directives": "written rules in AGENTS.md",
+      "invariants": "invariants no pull request can break",
+      "docs": "documents: research, post-mortems, decisions",
+      "tests": "tests, unit and integration"
+    },
+    "figure": {
+      "alt": "Diagram: a loop with four stages. A mistake becomes a written rule, the rule gets a test that tries to break it, and the test runs as a gate on every pull request. A person sits at the center and decides.",
+      "caption": "None of this existed on day one. Each rule was added after a real error, and each one is checked on every pull request."
+    },
+    "points": [
+      {
+        "title": "Rules come from errors",
+        "text": "Each invariant names the bug that caused it and the code that prevents it. A rule nobody can trace to a failure gets removed."
+      },
+      {
+        "title": "Every pull request is audited",
+        "text": "The claims in a pull request are checked against the code, the gates run again, and only what was verified merges. The audit checklists are public."
+      },
+      {
+        "title": "A person decides",
+        "text": "The AI does most of the typing. The maintainer reads, corrects, and turns what went wrong into the next rule."
+      }
+    ],
+    "skillsLink": "Read the audit checklists"
   },
   "map": {
     "title": "A map of the codebase",
@@ -125,19 +213,43 @@
     "title": "How pull requests get reviewed",
     "lede": "Reviews follow the pull request template, so filling it in honestly is most of the work.",
     "items": [
-      { "title": "The template is the checklist", "text": "It asks what changed, why, a test plan with the gates ticked, commit attribution, release impact and the changelog entry." },
-      { "title": "Say what kind of release it is", "text": "Tick patch, minor or major. A fix filed under “Added” can bump the wrong version, so put the changelog entry under the right heading." },
-      { "title": "Breaking changes wait for a major", "text": "Call them out in the description. They get the breaking-change label and are scheduled, so they do not hold up patch and minor releases." },
-      { "title": "CI is fast per merge", "text": "A merge gates on the fast Linux jobs. The macOS and Windows legs run on a label, nightly or by hand, and always before a release." },
-      { "title": "Fixes ship first", "text": "A bug fix goes out in the next patch release and is not held for feature work. A new harness or provider ships in the next minor." }
+      {
+        "title": "The template is the checklist",
+        "text": "It asks what changed, why, a test plan with the gates ticked, commit attribution, release impact and the changelog entry."
+      },
+      {
+        "title": "Say what kind of release it is",
+        "text": "Tick patch, minor or major. A fix filed under “Added” can bump the wrong version, so put the changelog entry under the right heading."
+      },
+      {
+        "title": "Breaking changes wait for a major",
+        "text": "Call them out in the description. They get the breaking-change label and are scheduled, so they do not hold up patch and minor releases."
+      },
+      {
+        "title": "CI is fast per merge",
+        "text": "A merge gates on the fast Linux jobs. The macOS and Windows legs run on a label, nightly or by hand, and always before a release."
+      },
+      {
+        "title": "Fixes ship first",
+        "text": "A bug fix goes out in the next patch release and is not held for feature work. A new harness or provider ships in the next minor."
+      }
     ],
     "harness": "A harness pull request runs this shorter gate, records the CLI version it was tested against, and includes a manual pass against the real harness.",
     "harnessCodeTitle": "from managed-harness-contributions.md"
   },
   "nextPages": [
-    { "title": "Architecture", "text": "The writer actor, the wiki and the index, before you change them." },
-    { "title": "Research and rationale", "text": "Why each design decision was made, and what is wanted next." },
-    { "title": "Agents and editors", "text": "Which harnesses are supported today and at what level." }
+    {
+      "title": "Architecture",
+      "text": "The writer actor, the wiki and the index, before you change them."
+    },
+    {
+      "title": "Research and rationale",
+      "text": "Why each design decision was made, and what is wanted next."
+    },
+    {
+      "title": "Agents and editors",
+      "text": "Which harnesses are supported today and at what level."
+    }
   ],
   "cta": {
     "title": "Try it before you change it.",

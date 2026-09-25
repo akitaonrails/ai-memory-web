@@ -1,0 +1,6 @@
+A wide circular process diagram with four stages arranged in a loop, connected by amber-gold arrows that read clockwise, starting at the top left.
+Stage 1, top left, labelled "A mistake": a terminal window with a small red cross in its corner. Rose.
+Stage 2, top right, labelled "A written rule": a document page with a short list of lines and a check mark beside it. Violet.
+Stage 3, bottom right, labelled "A test that breaks it": a small hammer striking a shield, the shield holds. Azure.
+Stage 4, bottom left, labelled "A gate on every pull request": a closed gate with two branch lines meeting in front of it. Teal to green.
+At the center of the loop, a small amber copper chip with a person icon beside it, labelled "A person decides". The arrows form a continuous cycle, so the picture says the loop repeats.

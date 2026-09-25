@@ -1,0 +1,24 @@
+---
+// A row of stand-out numbers. Each one is a link, counts up on first view, and takes the hue of its subject.
+import { useI18n } from '@/i18n';
+export interface Stat { n: number; label: string; hue: string; href: string }
+interface Props { stats: Stat[] }
+const { stats } = Astro.props;
+const { number, htmlLang } = useI18n(Astro);
+---
+<ul class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+  {stats.map((s) => (
+    <li>
+      <a href={s.href} class="stat" data-hue={s.hue}>
+        <span class="num" data-count={s.n} data-count-locale={htmlLang}>{number(s.n)}</span>
+        <span class="label">{s.label}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+<style>
+  .stat { display: flex; flex-direction: column; height: 100%; border-top: 3px solid var(--hue-vivid); padding-top: 1rem; }
+  .num { font-family: var(--font-display); font-weight: 680; font-size: var(--text-3xl); line-height: 1; letter-spacing: -.015em; font-variant-numeric: tabular-nums; font-variation-settings: 'opsz' 96, 'wdth' 92; }
+  .label { margin-top: .5rem; color: var(--muted); }
+  .stat:hover .label { color: var(--hue); }
+</style>

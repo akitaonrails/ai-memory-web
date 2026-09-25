@@ -35,6 +35,7 @@ That writes `src/data/upstream-sync.json` with the tag and commit the site was r
 | Fact | File |
 |---|---|
 | Benchmark, throughput, crate list | `src/data/facts.json` (pages read the numbers from here) |
+| Quality counts on Contribute: rules and invariants in AGENTS.md, docs, unit and integration tests | `src/data/facts.json` under `quality`. `check:upstream` recounts them at the release tag: list items in the six rule sections of AGENTS.md, numbered items under "Cross-cutting invariants", markdown files in `docs/`, and test attributes under `crates/*/src` and `crates/*/tests`. When a count drifts, update the number, never the counting rule, unless AGENTS.md changed shape |
 | Agents, platforms and their status | `src/data/support.ts`, with notes in the `support` catalogs |
 | Competitor comparisons | the `competitors` catalogs |
 | Everything else | the page catalogs under `src/i18n/locales/` |

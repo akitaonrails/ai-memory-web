@@ -136,3 +136,7 @@ Terms decided while translating, beyond the table in `docs/research/I18N-TRANSLA
 | rules / slots | כללים / משבצות |
 | routing snippet | קטע ניתוב |
 | Agent Skills | keep in English |
+| maintainer | מתחזק |
+| post-mortem | post-mortems (keep in English) |
+| checklist (audit checklist) | checklist (keep in English, definite: ה-checklist / ה-checklists) |
+| audited / audit (verb, of a pull request) | עובר ביקורת |

@@ -196,5 +196,12 @@
     "Rules": "ルール",
     "Expires Friday": "金曜に期限切れ",
     "Feedback": "フィードバック"
+  },
+  "contribute-quality-loop": {
+    "A mistake": "ミス",
+    "A written rule": "書かれたルール",
+    "A test that breaks it": "壊すテスト",
+    "A gate on every pull request": "PRのゲート",
+    "A person decides": "人が判断"
   }
 }

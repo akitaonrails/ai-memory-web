@@ -67,7 +67,8 @@ Rules:
 | `SceneCard` | One window of the homepage scroll scene: terminal lines, people, chips or a file tree. |
 | `Faq` | The page's questions as an accordion, fed by the same list as its `faqPage()` structured data. Props: `items`, `title`, `hue`. |
 | `Callout` | Limits and caveats. Props: `title`, `hue`. |
-| `GithubStats` | The four live numbers. |
+| `StatList` | A row of stand-out numbers that count up, each a link. Props: `stats[{n,label,hue,href}]`. |
+| `GithubStats` | The four live GitHub numbers, a `StatList`. |
 | `NextPages` | Two or three onward links at the bottom of a detail page. |
 | `CtaBand` | The closing call to action. Props: `title`, `text`. |
 

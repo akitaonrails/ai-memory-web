@@ -196,5 +196,12 @@
     "Rules": "כללים",
     "Expires Friday": "פג ביום שישי",
     "Feedback": "משוב"
+  },
+  "contribute-quality-loop": {
+    "A mistake": "טעות",
+    "A written rule": "כלל כתוב",
+    "A test that breaks it": "טסט ששובר אותו",
+    "A gate on every pull request": "שער על כל pull request",
+    "A person decides": "אדם מחליט"
   }
 }

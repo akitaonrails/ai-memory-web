@@ -89,6 +89,35 @@
       "full": "A lista completa, com o bug que cada uma evita, está no AGENTS.md"
     }
   },
+  "quality": {
+    "title": "Como o padrão se mantém alto",
+    "lede": "A IA escreve a maior parte do código. Uma pessoa lê tudo, e nada entra por confiança. Cada regra abaixo existe porque algo deu errado uma vez.",
+    "stats": {
+      "directives": "regras escritas no AGENTS.md",
+      "invariants": "invariantes que nenhum pull request pode quebrar",
+      "docs": "documentos: pesquisa, post-mortems, decisões",
+      "tests": "testes, unitários e de integração"
+    },
+    "figure": {
+      "alt": "Diagrama: um loop com quatro etapas. Um erro vira uma regra escrita, a regra ganha um teste que tenta quebrá-la, e o teste roda como gate em todo pull request. Uma pessoa fica no centro e decide.",
+      "caption": "Nada disso existia no primeiro dia. Cada regra foi adicionada depois de um erro real, e cada uma é verificada em todo pull request."
+    },
+    "points": [
+      {
+        "title": "As regras vêm de erros",
+        "text": "Cada invariante nomeia o bug que a causou e o código que a evita. Uma regra que ninguém consegue rastrear até uma falha é removida."
+      },
+      {
+        "title": "Todo pull request é auditado",
+        "text": "As alegações de um pull request são checadas contra o código, os gates rodam de novo, e só o que foi verificado entra. Os checklists de auditoria são públicos."
+      },
+      {
+        "title": "Uma pessoa decide",
+        "text": "A IA faz a maior parte da digitação. O mantenedor lê, corrige, e transforma o que deu errado na próxima regra."
+      }
+    ],
+    "skillsLink": "Leia os checklists de auditoria"
+  },
   "map": {
     "title": "Um mapa da base de código",
     "lede": "Dez crates vão no binário. Cada um tem uma responsabilidade e uma API tipada, e não há dependências circulares.",

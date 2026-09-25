@@ -196,5 +196,12 @@
     "Rules": "규칙",
     "Expires Friday": "금요일 만료",
     "Feedback": "피드백"
+  },
+  "contribute-quality-loop": {
+    "A mistake": "실수",
+    "A written rule": "문서화된 규칙",
+    "A test that breaks it": "규칙을 깨는 테스트",
+    "A gate on every pull request": "모든 풀 리퀘스트의 게이트",
+    "A person decides": "사람이 결정"
   }
 }

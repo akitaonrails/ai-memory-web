@@ -196,5 +196,12 @@
     "Rules": "Rules",
     "Expires Friday": "Expires Friday",
     "Feedback": "Feedback"
+  },
+  "contribute-quality-loop": {
+    "A mistake": "A mistake",
+    "A written rule": "A written rule",
+    "A test that breaks it": "A test that breaks it",
+    "A gate on every pull request": "A gate on every pull request",
+    "A person decides": "A person decides"
   }
 }

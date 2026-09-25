@@ -148,6 +148,28 @@ section('2. Hard facts');
   else ok(`crates: ${ours.length} match Cargo.toml`);
 }
 
+// Quality facts: rule counts in AGENTS.md, docs, and test attributes vs facts.json
+{
+  const before = problems;
+  const agents = up('AGENTS.md');
+  const ruleSections = /^## (Build and test commands|Code style guidelines|Cross-cutting invariants|Testing instructions|Security considerations|Project maintenance rules)/;
+  let inRules = false, directives = 0;
+  for (const line of agents.split('\n')) {
+    if (/^## /.test(line)) inRules = ruleSections.test(line);
+    else if (inRules && /^\s*([0-9]+\.|-) /.test(line)) directives++;
+  }
+  const invariants = (agents.split(/^## Cross-cutting invariants.*$/m)[1]?.split(/^## /m)[0].match(/^[0-9]+\. /gm) ?? []).length;
+  const docs = git('ls-tree', '-r', '--name-only', ref, '--', 'docs').split('\n').filter((f) => f.endsWith('.md')).length;
+  const counts = git('grep', '-c', '-E', String.raw`^\s*#\[(tokio::test|test|rstest|test_case|sqlx::test)`, ref, '--', 'crates/*.rs').split('\n');
+  const sum = (re) => counts.filter((l) => re.test(l)).reduce((n, l) => n + Number(l.slice(l.lastIndexOf(':') + 1)), 0);
+  const unit = sum(/\/src\//), integration = sum(/\/tests\//);
+  const q = facts.quality;
+  for (const [name, here, there] of [['directives', q.directives, directives], ['invariants', q.invariants, invariants], ['docs', q.docs, docs], ['unit tests', q.unitTests, unit], ['integration tests', q.integrationTests, integration]]) {
+    if (here !== there) bad(`quality: site says ${here} ${name}, ${ref} has ${there}`);
+  }
+  if (before === problems) ok(`quality: ${q.directives} directives, ${q.invariants} invariants, ${q.docs} docs, ${q.unitTests}+${q.integrationTests} tests match ${ref}`);
+}
+
 // Commands, flags and environment variables shown on the site must still exist upstream.
 {
   const before = problems;

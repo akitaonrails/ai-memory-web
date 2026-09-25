@@ -4,6 +4,7 @@ export const site = {
   repo: 'https://github.com/akitaonrails/ai-memory',
   repoSlug: 'akitaonrails/ai-memory',
   docs: 'https://github.com/akitaonrails/ai-memory/blob/main/docs',
+  skills: 'https://github.com/akitaonrails/my-skills',
   docker: 'https://hub.docker.com/r/akitaonrails/ai-memory',
   author: 'Fabio Akita',
   authorUrl: 'https://akitaonrails.com',
