@@ -11,17 +11,19 @@ const stats = [
   { n: gh.closedIssues, label: t('stats.closedIssues'), hue: 'green', href: `${site.repo}/issues?q=is%3Aissue+is%3Aclosed` },
 ];
 ---
-<dl class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+<ul class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
   {stats.map((s) => (
-    <a href={s.href} class="stat" data-hue={s.hue}>
-      <dd class="num" data-count={s.n} data-count-locale={htmlLang}>{number(s.n)}</dd>
-      <dt>{s.label}</dt>
-    </a>
+    <li>
+      <a href={s.href} class="stat" data-hue={s.hue}>
+        <span class="num" data-count={s.n} data-count-locale={htmlLang}>{number(s.n)}</span>
+        <span class="label">{s.label}</span>
+      </a>
+    </li>
   ))}
-</dl>
+</ul>
 <style>
-  .stat { display: flex; flex-direction: column; border-top: 3px solid var(--hue-vivid); padding-top: 1rem; }
+  .stat { display: flex; flex-direction: column; height: 100%; border-top: 3px solid var(--hue-vivid); padding-top: 1rem; }
   .num { font-family: var(--font-display); font-weight: 680; font-size: var(--text-3xl); line-height: 1; letter-spacing: -.015em; font-variant-numeric: tabular-nums; font-variation-settings: 'opsz' 96, 'wdth' 92; }
-  dt { margin-top: .5rem; color: var(--muted); }
-  .stat:hover dt { color: var(--hue); }
+  .label { margin-top: .5rem; color: var(--muted); }
+  .stat:hover .label { color: var(--hue); }
 </style>
