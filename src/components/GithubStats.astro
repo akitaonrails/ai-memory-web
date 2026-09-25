@@ -13,14 +13,19 @@ const stats = [
 ---
 <dl class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
   {stats.map((s) => (
-    <a href={s.href} class="stat" data-hue={s.hue}>
+    <div class="stat" data-hue={s.hue}>
+      <dt><a href={s.href}>{s.label}</a></dt>
       <dd class="num" data-count={s.n} data-count-locale={htmlLang}>{number(s.n)}</dd>
-      <dt>{s.label}</dt>
-    </a>
+    </div>
   ))}
 </dl>
 <style>
-  .stat { display: flex; flex-direction: column; border-top: 3px solid var(--hue-vivid); padding-top: 1rem; }
+  /* A <dl> may only hold dt/dd (optionally in a div), so the link lives in the dt and stretches over the card.
+     The term comes first for screen readers; column-reverse keeps the number on top. */
+  .stat { position: relative; display: flex; flex-direction: column-reverse; justify-content: flex-end; border-top: 3px solid var(--hue-vivid); padding-top: 1rem; }
+  .stat a::after { content: ''; position: absolute; inset: 0; }
+  .stat a:focus-visible { outline: none; }
+  .stat:has(a:focus-visible) { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
   .num { font-family: var(--font-display); font-weight: 680; font-size: var(--text-3xl); line-height: 1; letter-spacing: -.015em; font-variant-numeric: tabular-nums; font-variation-settings: 'opsz' 96, 'wdth' 92; }
   dt { margin-top: .5rem; color: var(--muted); }
   .stat:hover dt { color: var(--hue); }

@@ -35,10 +35,17 @@ const { labels, id } = Astro.props;
     tabs.forEach((t, i) => {
       t.addEventListener('click', () => select(t));
       t.addEventListener('keydown', (e) => {
-        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        const next = tabs[(i + d + tabs.length) % tabs.length];
-        select(next); next.focus();
+        // In right-to-left pages the first tab sits on the right, so the arrows swap.
+        const forward = getComputedStyle(root).direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+        const back = forward === 'ArrowRight' ? 'ArrowLeft' : 'ArrowRight';
+        const j = e.key === forward ? (i + 1) % tabs.length
+          : e.key === back ? (i - 1 + tabs.length) % tabs.length
+          : e.key === 'Home' ? 0
+          : e.key === 'End' ? tabs.length - 1
+          : -1;
+        if (j < 0) return;
+        e.preventDefault();
+        select(tabs[j]); tabs[j].focus();
       });
     });
   });
