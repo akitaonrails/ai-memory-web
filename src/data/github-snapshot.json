@@ -1,13 +1,13 @@
 {
-  "fetchedAt": "2026-09-21T23:53:08.464Z",
-  "stars": 7657,
-  "forks": 520,
-  "openIssues": 25,
+  "fetchedAt": "2026-09-25T21:22:31.836Z",
+  "stars": 8418,
+  "forks": 567,
+  "openIssues": 14,
   "license": "MIT",
-  "contributors": 101,
-  "commits": 1961,
-  "mergedPRs": 486,
-  "closedIssues": 272,
+  "contributors": 107,
+  "commits": 2161,
+  "mergedPRs": 534,
+  "closedIssues": 308,
   "changelog": [
     {
       "version": "2.4.0",
@@ -75,7 +75,7 @@
       "login": "akitaonrails",
       "avatar": "https://avatars.githubusercontent.com/u/2840?v=4",
       "url": "https://github.com/akitaonrails",
-      "contributions": 1393
+      "contributions": 1531
     },
     {
       "login": "djalmajr",
@@ -87,7 +87,7 @@
       "login": "samirhvbr",
       "avatar": "https://avatars.githubusercontent.com/u/123646616?v=4",
       "url": "https://github.com/samirhvbr",
-      "contributions": 50
+      "contributions": 51
     },
     {
       "login": "lucasliet",
@@ -114,9 +114,21 @@
       "contributions": 21
     },
     {
-      "login": "lhzapata",
-      "avatar": "https://avatars.githubusercontent.com/u/29761212?v=4",
-      "url": "https://github.com/lhzapata",
+      "login": "kevin9327",
+      "avatar": "https://avatars.githubusercontent.com/u/5299031?v=4",
+      "url": "https://github.com/kevin9327",
+      "contributions": 15
+    },
+    {
+      "login": "pablowinck",
+      "avatar": "https://avatars.githubusercontent.com/u/70986781?v=4",
+      "url": "https://github.com/pablowinck",
+      "contributions": 11
+    },
+    {
+      "login": "rafaelkenedy",
+      "avatar": "https://avatars.githubusercontent.com/u/35613507?v=4",
+      "url": "https://github.com/rafaelkenedy",
       "contributions": 11
     },
     {
@@ -126,10 +138,22 @@
       "contributions": 11
     },
     {
-      "login": "pablowinck",
-      "avatar": "https://avatars.githubusercontent.com/u/70986781?v=4",
-      "url": "https://github.com/pablowinck",
+      "login": "lhzapata",
+      "avatar": "https://avatars.githubusercontent.com/u/29761212?v=4",
+      "url": "https://github.com/lhzapata",
       "contributions": 11
+    },
+    {
+      "login": "evanmaranzano",
+      "avatar": "https://avatars.githubusercontent.com/u/120001257?v=4",
+      "url": "https://github.com/evanmaranzano",
+      "contributions": 10
+    },
+    {
+      "login": "everton-dgn",
+      "avatar": "https://avatars.githubusercontent.com/u/58889432?v=4",
+      "url": "https://github.com/everton-dgn",
+      "contributions": 10
     },
     {
       "login": "aguirreSL",
@@ -138,15 +162,15 @@
       "contributions": 10
     },
     {
-      "login": "evanmaranzano",
-      "avatar": "https://avatars.githubusercontent.com/u/120001257?v=4",
-      "url": "https://github.com/evanmaranzano",
+      "login": "abhisheksharma2411",
+      "avatar": "https://avatars.githubusercontent.com/u/3395340?v=4",
+      "url": "https://github.com/abhisheksharma2411",
       "contributions": 9
     },
     {
-      "login": "kevin9327",
-      "avatar": "https://avatars.githubusercontent.com/u/5299031?v=4",
-      "url": "https://github.com/kevin9327",
+      "login": "felipe-NR",
+      "avatar": "https://avatars.githubusercontent.com/u/74023958?v=4",
+      "url": "https://github.com/felipe-NR",
       "contributions": 9
     },
     {
@@ -162,15 +186,9 @@
       "contributions": 8
     },
     {
-      "login": "rafaelkenedy",
-      "avatar": "https://avatars.githubusercontent.com/u/35613507?v=4",
-      "url": "https://github.com/rafaelkenedy",
-      "contributions": 8
-    },
-    {
-      "login": "lihuiyang1024",
-      "avatar": "https://avatars.githubusercontent.com/u/249777924?v=4",
-      "url": "https://github.com/lihuiyang1024",
+      "login": "JohnC0de",
+      "avatar": "https://avatars.githubusercontent.com/u/88864312?v=4",
+      "url": "https://github.com/JohnC0de",
       "contributions": 7
     },
     {
@@ -180,33 +198,15 @@
       "contributions": 7
     },
     {
-      "login": "felipe-NR",
-      "avatar": "https://avatars.githubusercontent.com/u/74023958?v=4",
-      "url": "https://github.com/felipe-NR",
+      "login": "lihuiyang1024",
+      "avatar": "https://avatars.githubusercontent.com/u/249777924?v=4",
+      "url": "https://github.com/lihuiyang1024",
       "contributions": 7
     },
     {
-      "login": "abhisheksharma2411",
-      "avatar": "https://avatars.githubusercontent.com/u/3395340?v=4",
-      "url": "https://github.com/abhisheksharma2411",
-      "contributions": 7
-    },
-    {
-      "login": "Cardosaum",
-      "avatar": "https://avatars.githubusercontent.com/u/45436839?v=4",
-      "url": "https://github.com/Cardosaum",
-      "contributions": 5
-    },
-    {
-      "login": "vitorvilas",
-      "avatar": "https://avatars.githubusercontent.com/u/224410368?v=4",
-      "url": "https://github.com/vitorvilas",
-      "contributions": 5
-    },
-    {
-      "login": "mobnix",
-      "avatar": "https://avatars.githubusercontent.com/u/37068801?v=4",
-      "url": "https://github.com/mobnix",
+      "login": "atirna",
+      "avatar": "https://avatars.githubusercontent.com/u/288419661?v=4",
+      "url": "https://github.com/atirna",
       "contributions": 5
     },
     {
@@ -222,9 +222,27 @@
       "contributions": 5
     },
     {
-      "login": "atirna",
-      "avatar": "https://avatars.githubusercontent.com/u/288419661?v=4",
-      "url": "https://github.com/atirna",
+      "login": "mobnix",
+      "avatar": "https://avatars.githubusercontent.com/u/37068801?v=4",
+      "url": "https://github.com/mobnix",
+      "contributions": 5
+    },
+    {
+      "login": "vitorvilas",
+      "avatar": "https://avatars.githubusercontent.com/u/224410368?v=4",
+      "url": "https://github.com/vitorvilas",
+      "contributions": 5
+    },
+    {
+      "login": "zanlucathiago",
+      "avatar": "https://avatars.githubusercontent.com/u/53147685?v=4",
+      "url": "https://github.com/zanlucathiago",
+      "contributions": 5
+    },
+    {
+      "login": "Cardosaum",
+      "avatar": "https://avatars.githubusercontent.com/u/45436839?v=4",
+      "url": "https://github.com/Cardosaum",
       "contributions": 5
     },
     {
@@ -240,21 +258,15 @@
       "contributions": 4
     },
     {
-      "login": "zanlucathiago",
-      "avatar": "https://avatars.githubusercontent.com/u/53147685?v=4",
-      "url": "https://github.com/zanlucathiago",
+      "login": "alanhoff",
+      "avatar": "https://avatars.githubusercontent.com/u/1044223?v=4",
+      "url": "https://github.com/alanhoff",
       "contributions": 4
     },
     {
       "login": "davividal",
       "avatar": "https://avatars.githubusercontent.com/u/25622?v=4",
       "url": "https://github.com/davividal",
-      "contributions": 4
-    },
-    {
-      "login": "alanhoff",
-      "avatar": "https://avatars.githubusercontent.com/u/1044223?v=4",
-      "url": "https://github.com/alanhoff",
       "contributions": 4
     },
     {
@@ -384,6 +396,12 @@
       "contributions": 2
     },
     {
+      "login": "phant0um",
+      "avatar": "https://avatars.githubusercontent.com/u/84820508?v=4",
+      "url": "https://github.com/phant0um",
+      "contributions": 2
+    },
+    {
       "login": "omartelo",
       "avatar": "https://avatars.githubusercontent.com/u/125408621?v=4",
       "url": "https://github.com/omartelo",
@@ -406,24 +424,6 @@
       "avatar": "https://avatars.githubusercontent.com/u/1770406?v=4",
       "url": "https://github.com/rpaggi",
       "contributions": 2
-    },
-    {
-      "login": "murilojrpereiras",
-      "avatar": "https://avatars.githubusercontent.com/u/83583058?v=4",
-      "url": "https://github.com/murilojrpereiras",
-      "contributions": 2
-    },
-    {
-      "login": "LuizFernando991",
-      "avatar": "https://avatars.githubusercontent.com/u/65361297?v=4",
-      "url": "https://github.com/LuizFernando991",
-      "contributions": 2
-    },
-    {
-      "login": "jaysonsantos",
-      "avatar": "https://avatars.githubusercontent.com/u/51510?v=4",
-      "url": "https://github.com/jaysonsantos",
-      "contributions": 2
     }
   ],
   "releases": [
@@ -438,121 +438,121 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-hooks.tar.gz",
           "size": 26880,
-          "downloads": 0
+          "downloads": 49
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-hooks.tar.gz.sha256",
           "size": 89,
-          "downloads": 0
+          "downloads": 30
         },
         {
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-install-hooks",
           "size": 7030,
-          "downloads": 0
+          "downloads": 22
         },
         {
           "name": "ai-memory-install-hooks.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-install-hooks.sha256",
           "size": 90,
-          "downloads": 0
+          "downloads": 12
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-linux-aarch64.tar.gz",
           "size": 15025893,
-          "downloads": 0
+          "downloads": 65
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-linux-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 0
+          "downloads": 26
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-linux-x86_64.tar.gz",
           "size": 15969555,
-          "downloads": 0
+          "downloads": 781
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 0
+          "downloads": 518
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-macos-aarch64.tar.gz",
           "size": 14351437,
-          "downloads": 0
+          "downloads": 471
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 0
+          "downloads": 271
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-macos-x86_64.tar.gz",
           "size": 15527605,
-          "downloads": 0
+          "downloads": 29
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-macos-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 0
+          "downloads": 15
         },
         {
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-windows-x86_64.zip",
           "size": 17654188,
-          "downloads": 0
+          "downloads": 506
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-windows-x86_64.zip.sha256",
           "size": 96,
-          "downloads": 0
+          "downloads": 175
         },
         {
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-wrapper",
           "size": 38343,
-          "downloads": 0
+          "downloads": 293
         },
         {
           "name": "ai-memory-wrapper.cmd",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-wrapper.cmd",
           "size": 120,
-          "downloads": 0
+          "downloads": 61
         },
         {
           "name": "ai-memory-wrapper.cmd.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-wrapper.cmd.sha256",
           "size": 88,
-          "downloads": 0
+          "downloads": 49
         },
         {
           "name": "ai-memory-wrapper.ps1",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-wrapper.ps1",
           "size": 7381,
-          "downloads": 0
+          "downloads": 62
         },
         {
           "name": "ai-memory-wrapper.ps1.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-wrapper.ps1.sha256",
           "size": 88,
-          "downloads": 0
+          "downloads": 47
         },
         {
           "name": "ai-memory-wrapper.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-wrapper.sha256",
           "size": 84,
-          "downloads": 0
+          "downloads": 239
         }
       ]
     },
@@ -567,31 +567,31 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-hooks.tar.gz",
           "size": 26880,
-          "downloads": 22
+          "downloads": 29
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-hooks.tar.gz.sha256",
           "size": 89,
-          "downloads": 13
+          "downloads": 18
         },
         {
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-install-hooks",
           "size": 7030,
-          "downloads": 4
+          "downloads": 8
         },
         {
           "name": "ai-memory-install-hooks.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-install-hooks.sha256",
           "size": 90,
-          "downloads": 4
+          "downloads": 7
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-linux-aarch64.tar.gz",
           "size": 14683961,
-          "downloads": 27
+          "downloads": 28
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
@@ -603,67 +603,67 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-linux-x86_64.tar.gz",
           "size": 15616958,
-          "downloads": 405
+          "downloads": 1017
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 203
+          "downloads": 217
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-macos-aarch64.tar.gz",
           "size": 14026898,
-          "downloads": 230
+          "downloads": 1746
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 124
+          "downloads": 129
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-macos-x86_64.tar.gz",
           "size": 15185415,
-          "downloads": 17
+          "downloads": 19
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-macos-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 11
+          "downloads": 14
         },
         {
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-windows-x86_64.zip",
           "size": 17253456,
-          "downloads": 199
+          "downloads": 220
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-windows-x86_64.zip.sha256",
           "size": 96,
-          "downloads": 90
+          "downloads": 97
         },
         {
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-wrapper",
           "size": 38322,
-          "downloads": 112
+          "downloads": 113
         },
         {
           "name": "ai-memory-wrapper.cmd",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-wrapper.cmd",
           "size": 120,
-          "downloads": 30
+          "downloads": 31
         },
         {
           "name": "ai-memory-wrapper.cmd.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-wrapper.cmd.sha256",
           "size": 88,
-          "downloads": 21
+          "downloads": 22
         },
         {
           "name": "ai-memory-wrapper.ps1",
@@ -696,13 +696,13 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.1/ai-memory-hooks.tar.gz",
           "size": 26872,
-          "downloads": 19
+          "downloads": 20
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.1/ai-memory-hooks.tar.gz.sha256",
           "size": 89,
-          "downloads": 11
+          "downloads": 12
         },
         {
           "name": "ai-memory-install-hooks",
@@ -732,13 +732,13 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.1/ai-memory-linux-x86_64.tar.gz",
           "size": 15570086,
-          "downloads": 393
+          "downloads": 398
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.1/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 183
+          "downloads": 186
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
@@ -873,13 +873,13 @@
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.0/ai-memory-macos-aarch64.tar.gz",
           "size": 13981661,
-          "downloads": 72
+          "downloads": 73
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.0/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 43
+          "downloads": 44
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
@@ -897,19 +897,19 @@
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.0/ai-memory-windows-x86_64.zip",
           "size": 17207225,
-          "downloads": 66
+          "downloads": 68
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.0/ai-memory-windows-x86_64.zip.sha256",
           "size": 96,
-          "downloads": 31
+          "downloads": 33
         },
         {
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.0/ai-memory-wrapper",
           "size": 38322,
-          "downloads": 64
+          "downloads": 65
         },
         {
           "name": "ai-memory-wrapper.cmd",
@@ -939,7 +939,7 @@
           "name": "ai-memory-wrapper.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.0/ai-memory-wrapper.sha256",
           "size": 84,
-          "downloads": 60
+          "downloads": 61
         }
       ]
     },
@@ -966,7 +966,7 @@
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-install-hooks",
           "size": 7030,
-          "downloads": 8
+          "downloads": 9
         },
         {
           "name": "ai-memory-install-hooks.sha256",
@@ -990,37 +990,37 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-linux-x86_64.tar.gz",
           "size": 15312792,
-          "downloads": 232
+          "downloads": 238
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 88
+          "downloads": 94
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-aarch64.tar.gz",
           "size": 13757527,
-          "downloads": 128
+          "downloads": 134
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 60
+          "downloads": 65
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-x86_64.tar.gz",
           "size": 14891202,
-          "downloads": 13
+          "downloads": 20
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 10
+          "downloads": 16
         },
         {
           "name": "ai-memory-windows-x86_64.zip",
@@ -1119,37 +1119,37 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.1/ai-memory-linux-x86_64.tar.gz",
           "size": 15306493,
-          "downloads": 460
+          "downloads": 462
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.1/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 239
+          "downloads": 241
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.1/ai-memory-macos-aarch64.tar.gz",
           "size": 13748702,
-          "downloads": 209
+          "downloads": 211
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.1/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 109
+          "downloads": 112
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.1/ai-memory-macos-x86_64.tar.gz",
           "size": 14871212,
-          "downloads": 13
+          "downloads": 14
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.1/ai-memory-macos-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 10
+          "downloads": 11
         },
         {
           "name": "ai-memory-windows-x86_64.zip",
@@ -1248,7 +1248,7 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.0/ai-memory-linux-x86_64.tar.gz",
           "size": 15309820,
-          "downloads": 182
+          "downloads": 183
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
@@ -1377,7 +1377,7 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.2/ai-memory-linux-x86_64.tar.gz",
           "size": 15217020,
-          "downloads": 115
+          "downloads": 117
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
@@ -1482,7 +1482,7 @@
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-install-hooks",
           "size": 7030,
-          "downloads": 18
+          "downloads": 19
         },
         {
           "name": "ai-memory-install-hooks.sha256",
@@ -1500,25 +1500,25 @@
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-linux-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 15
+          "downloads": 16
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-linux-x86_64.tar.gz",
           "size": 15172732,
-          "downloads": 589
+          "downloads": 618
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 310
+          "downloads": 338
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-macos-aarch64.tar.gz",
           "size": 13631946,
-          "downloads": 273
+          "downloads": 275
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
@@ -1542,13 +1542,13 @@
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-windows-x86_64.zip",
           "size": 16738136,
-          "downloads": 319
+          "downloads": 320
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-windows-x86_64.zip.sha256",
           "size": 96,
-          "downloads": 128
+          "downloads": 129
         },
         {
           "name": "ai-memory-wrapper",
@@ -1623,7 +1623,7 @@
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.0/ai-memory-linux-aarch64.tar.gz",
           "size": 14272373,
-          "downloads": 28
+          "downloads": 29
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
@@ -1659,7 +1659,7 @@
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.0/ai-memory-macos-x86_64.tar.gz",
           "size": 14733024,
-          "downloads": 13
+          "downloads": 14
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
@@ -1728,7 +1728,7 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-hooks.tar.gz",
           "size": 21715,
-          "downloads": 26
+          "downloads": 29
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
@@ -1746,13 +1746,13 @@
           "name": "ai-memory-install-hooks.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-install-hooks.sha256",
           "size": 90,
-          "downloads": 6
+          "downloads": 7
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-aarch64.tar.gz",
           "size": 13862018,
-          "downloads": 43
+          "downloads": 44
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
@@ -1764,13 +1764,13 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-x86_64.tar.gz",
           "size": 14726401,
-          "downloads": 307
+          "downloads": 311
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 140
+          "downloads": 142
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
@@ -1869,7 +1869,7 @@
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-install-hooks",
           "size": 6649,
-          "downloads": 13
+          "downloads": 17
         },
         {
           "name": "ai-memory-install-hooks.sha256",
@@ -1905,13 +1905,13 @@
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-macos-aarch64.tar.gz",
           "size": 13206321,
-          "downloads": 117
+          "downloads": 118
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 65
+          "downloads": 66
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
@@ -2010,7 +2010,7 @@
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.1/ai-memory-linux-aarch64.tar.gz",
           "size": 13829149,
-          "downloads": 24
+          "downloads": 26
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
@@ -2022,7 +2022,7 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.1/ai-memory-linux-x86_64.tar.gz",
           "size": 14700403,
-          "downloads": 368
+          "downloads": 369
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
@@ -2034,7 +2034,7 @@
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.1/ai-memory-macos-aarch64.tar.gz",
           "size": 13184266,
-          "downloads": 150
+          "downloads": 151
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
@@ -2115,7 +2115,7 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-hooks.tar.gz",
           "size": 21177,
-          "downloads": 11
+          "downloads": 12
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
@@ -2127,7 +2127,7 @@
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-install-hooks",
           "size": 6649,
-          "downloads": 11
+          "downloads": 12
         },
         {
           "name": "ai-memory-install-hooks.sha256",
@@ -2151,31 +2151,31 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-linux-x86_64.tar.gz",
           "size": 14687373,
-          "downloads": 110
+          "downloads": 111
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 40
+          "downloads": 41
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-macos-aarch64.tar.gz",
           "size": 13175514,
-          "downloads": 99
+          "downloads": 101
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 29
+          "downloads": 30
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-macos-x86_64.tar.gz",
           "size": 14257548,
-          "downloads": 5
+          "downloads": 6
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
@@ -2187,7 +2187,7 @@
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-windows-x86_64.zip",
           "size": 16232873,
-          "downloads": 107
+          "downloads": 113
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
@@ -2199,7 +2199,7 @@
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-wrapper",
           "size": 34947,
-          "downloads": 30
+          "downloads": 32
         },
         {
           "name": "ai-memory-wrapper.cmd",
@@ -2229,7 +2229,7 @@
           "name": "ai-memory-wrapper.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.0/ai-memory-wrapper.sha256",
           "size": 84,
-          "downloads": 25
+          "downloads": 26
         }
       ]
     },
@@ -2328,7 +2328,7 @@
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v1.39.0/ai-memory-wrapper",
           "size": 34947,
-          "downloads": 55
+          "downloads": 56
         },
         {
           "name": "ai-memory-wrapper.cmd",
@@ -2358,7 +2358,7 @@
           "name": "ai-memory-wrapper.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v1.39.0/ai-memory-wrapper.sha256",
           "size": 84,
-          "downloads": 50
+          "downloads": 51
         }
       ]
     }

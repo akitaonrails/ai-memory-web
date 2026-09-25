@@ -146,6 +146,10 @@
       {
         "title": "More setup than built-in memory",
         "text": "Claude Code’s own memory is already on. ai-memory asks a solo developer to start a server first."
+      },
+      {
+        "title": "No fleet-wide governance",
+        "text": "Multi-user access stops at the project: pages are shared, batons are owned, and an auth ladder and an audit log cover who did what. Caura adds visibility scopes and trust tiers across hundreds of agents. That is a different buyer, and ai-memory does not chase it."
       }
     ]
   },

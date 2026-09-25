@@ -146,6 +146,10 @@
       {
         "title": "Mais setup do que a memória nativa",
         "text": "A memória do próprio Claude Code já vem ligada. O ai-memory pede que um desenvolvedor solo suba um servidor primeiro."
+      },
+      {
+        "title": "Sem governança de frota",
+        "text": "O acesso multiusuário não vai além do projeto: páginas são compartilhadas, bastões têm dono, e uma escada de autenticação e um log de auditoria cobrem quem fez o quê. O Caura acrescenta escopos de visibilidade e camadas de confiança entre centenas de agentes. É outro público, e o ai-memory não corre atrás dele."
       }
     ]
   },

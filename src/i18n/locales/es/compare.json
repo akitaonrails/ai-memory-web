@@ -146,6 +146,10 @@
       {
         "title": "Más instalación que la memoria integrada",
         "text": "La memoria propia de Claude Code ya viene activada. ai-memory le pide a quien trabaja solo que primero arranque un servidor."
+      },
+      {
+        "title": "Sin gobernanza de flota",
+        "text": "El acceso multiusuario se detiene en el proyecto: las páginas se comparten, los testigos tienen dueño, y una escalera de autenticación y un registro de auditoría cubren quién hizo qué. Caura añade scopes de visibilidad y niveles de confianza en cientos de agentes. Es otro tipo de cliente, y ai-memory no va detrás de él."
       }
     ]
   },

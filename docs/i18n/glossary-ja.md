@@ -142,3 +142,9 @@ Terms decided while translating, in addition to the glossary in `docs/research/I
 | Agent Skills (Claude feature) | Agent Skills (kept in English) |
 | API spec (diagram label) | API仕様 |
 | No shared context (diagram label) | コンテキスト非共有 |
+| fleet (many agents/machines) | フリート |
+| fleet-wide governance | フリート全体のガバナンス |
+| auth ladder (root token → user+API key → OIDC progression) | 段階的な認証 |
+| visibility scope | 可視性スコープ |
+| trust tier | 信頼の階層 |
+| chase (a market/buyer) | 狙う |
