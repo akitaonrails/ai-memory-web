@@ -35,14 +35,12 @@ const { labels, id } = Astro.props;
     tabs.forEach((t, i) => {
       t.addEventListener('click', () => select(t));
       t.addEventListener('keydown', (e) => {
+        // Alt+Left and Cmd+Left go back in the browser; leave modified keys alone.
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
         // In right-to-left pages the first tab sits on the right, so the arrows swap.
-        const forward = getComputedStyle(root).direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
-        const back = forward === 'ArrowRight' ? 'ArrowLeft' : 'ArrowRight';
-        const j = e.key === forward ? (i + 1) % tabs.length
-          : e.key === back ? (i - 1 + tabs.length) % tabs.length
-          : e.key === 'Home' ? 0
-          : e.key === 'End' ? tabs.length - 1
-          : -1;
+        const rtl = getComputedStyle(root).direction === 'rtl';
+        const d = e.key === 'ArrowRight' ? (rtl ? -1 : 1) : e.key === 'ArrowLeft' ? (rtl ? 1 : -1) : 0;
+        const j = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : d ? (i + d + tabs.length) % tabs.length : -1;
         if (j < 0) return;
         e.preventDefault();
         select(tabs[j]); tabs[j].focus();

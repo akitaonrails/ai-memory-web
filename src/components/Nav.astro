@@ -162,17 +162,14 @@ const languages = languageLinks(Astro.url.pathname);
   // A modal dialog sits in the top layer, so overflow: hidden on the body does not stop a wheel or touch
   // gesture from scrolling the page behind it. Fixing the body at its offset does.
   const drawer = document.querySelector<HTMLDialogElement>('#drawer')!;
-  const opener = document.querySelector<HTMLElement>('[data-drawer-open]')!;
   let lockedAt = 0;
-  opener.addEventListener('click', () => {
+  document.querySelector('[data-drawer-open]')!.addEventListener('click', () => {
     lockedAt = scrollY;
     document.body.style.setProperty('--drawer-lock-y', `-${lockedAt}px`);
     document.body.setAttribute('data-drawer-lock', '');
     drawer.showModal();
-    opener.setAttribute('aria-expanded', 'true');
   });
   drawer.addEventListener('close', () => {
-    opener.setAttribute('aria-expanded', 'false');
     document.body.removeAttribute('data-drawer-lock');
     document.body.style.removeProperty('--drawer-lock-y');
     scrollTo(0, lockedAt);
