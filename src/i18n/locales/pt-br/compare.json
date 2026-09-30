@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Sem reranker local",
-        "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. O único reranker é um LLM, e ele vem desligado por padrão. As respostas com citações também precisam de um LLM, e a acurácia delas não foi avaliada."
+        "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. O único reranker é um LLM, e ele vem desligado por padrão. As respostas com citações também precisam de um LLM, e a acurácia delas não foi avaliada. Um adapter documentado consegue cobrir essa etapa com um modelo juiz local pequeno."
       },
       {
         "title": "Tipos de link não mexem no ranking",

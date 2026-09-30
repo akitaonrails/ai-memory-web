@@ -18,12 +18,14 @@
     "after": "Depois de descompactar, siga a <a class=\"underline font-semibold text-text\" href=\"{href}\">instalação rápida</a>. São três comandos.",
     "linux": { "note": "Descompacte, rode ./ai-memory init e depois serve." },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Inclui um agente launchd. Se você baixar pelo navegador, remova antes a flag de quarentena." },
-    "win": { "note": "Experimental. O caminho suportado é WSL2 com o build de Linux." }
+    "win": { "note": "Experimental. O caminho suportado é WSL2 com o build de Linux." },
+    "upgrade": "Depois, um binário sob um prefixo com permissão de escrita (Linux, macOS, o zip do Windows) se atualiza sozinho com <code>ai-memory upgrade</code>: ele baixa a release correspondente, verifica o checksum e atualiza os hooks. Pacotes são atualizados pelo próprio gerenciador de pacotes."
   },
   "channels": {
     "title": "Gerenciadores de pacotes e containers",
     "mise": { "title": "mise", "note": "Linux e macOS. Verifica o checksum para você. Releases novas podem levar cerca de um dia para aparecer." },
     "aur": { "title": "Arch Linux (AUR)", "prebuilt": "pré-compilado", "source": "a partir do código-fonte", "note": "Instala units do systemd para serviço de usuário ou de sistema." },
+    "rpm": { "title": "Fedora (RPM)", "note": "Pacotes x86_64 e aarch64 com o binário, os hooks de origem e as units do systemd. Depois siga os passos de serviço de usuário ou de sistema." },
     "docker": { "title": "Docker ou Podman", "note": "Multi-arch: linux/amd64 e linux/arm64, então Apple Silicon roda sem emulação." },
     "src": { "title": "A partir do código-fonte", "note": "Precisa do toolchain de Rust fixado em rust-toolchain.toml." },
     "clients": "Máquinas cliente que só enviam hooks para um servidor remoto não precisam do binário completo. A release também traz o <code>ai-memory-install-hooks</code> e scripts wrapper para Docker no Linux, macOS e Windows. Eles estão listados na <a class=\"underline font-semibold text-text\" href=\"{href}\">página da release</a>."

@@ -140,3 +140,6 @@ Terms decided while translating, beyond the table in `docs/research/I18N-TRANSLA
 | post-mortem | post-mortems (keep in English) |
 | checklist (audit checklist) | checklist (keep in English, definite: ה-checklist / ה-checklists) |
 | audited / audit (verb, of a pull request) | עובר ביקורת |
+| remote git mirror (backup pushed to a private git repo) | העתק git מרוחק |
+| judge model (small local reranking model) | מודל שיפוט |
+| server profile (`ai-memory server add`, named in the marker) | פרופיל שרת (profile) |

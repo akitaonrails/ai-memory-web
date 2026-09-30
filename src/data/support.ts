@@ -8,7 +8,8 @@ export const statusHue: Record<Status, string> = {
 };
 export const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-export interface Row { name: string; status: Status; id?: string; run?: boolean }
+export interface Row { name: string; status: Status; id?: string; run?: boolean; print?: boolean }
+// `print`: the hook installer prints a block to paste (no `--apply`) and there is no `install-mcp` client.
 
 export const platforms: Row[] = [
   { name: 'Linux', status: 'Supported' },
@@ -42,6 +43,6 @@ export const harnesses: Row[] = [
   { name: 'Zed', id: 'zed', status: 'MCP-only' },
   { name: 'Swival CLI', id: 'swival', status: 'MCP-only' },
   { name: 'Muse Code', id: 'muse', status: 'MCP-only' },
-  { name: 'Hermes Agent', id: 'hermes', status: 'Community' },
+  { name: 'Hermes Agent', id: 'hermes', status: 'Supported', print: true },
 ];
 

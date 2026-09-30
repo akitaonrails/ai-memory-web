@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Sin reranker local",
-        "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas también necesitan un LLM, y su precisión no se ha evaluado."
+        "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas también necesitan un LLM, y su precisión no se ha evaluado. Un adaptador documentado puede cubrir ese tramo con un modelo juez local pequeño."
       },
       {
         "title": "Los tipos de enlace no mueven el ranking",

@@ -29,6 +29,7 @@ const builds = [
 const channels = [
   { title: t('channels.mise.title'), code: 'mise use -g github:akitaonrails/ai-memory', note: t('channels.mise.note') },
   { title: t('channels.aur.title'), code: `yay -S ai-memory-bin    # ${t('channels.aur.prebuilt')}\nyay -S ai-memory        # ${t('channels.aur.source')}`, note: t('channels.aur.note') },
+  { title: t('channels.rpm.title'), code: `sudo dnf install ./ai-memory-${latest.tag.replace(/^v/, '')}-1.x86_64.rpm    # or .aarch64.rpm`, note: t('channels.rpm.note') },
   { title: t('channels.docker.title'), code: 'docker pull akitaonrails/ai-memory:latest', note: t('channels.docker.note') },
   { title: t('channels.src.title'), code: 'git clone https://github.com/akitaonrails/ai-memory\ncd ai-memory && cargo build --release --workspace', note: t('channels.src.note') },
 ];
@@ -75,6 +76,7 @@ const entries = gh.changelog.map((e) => ({
       <CodeBlock title={t('builds.verifyTitle')} code={`sha256sum -c ai-memory-linux-x86_64.tar.gz.sha256     # macOS: shasum -a 256 -c ...`} />
     </div>
     <p class="mt-6 text-muted" set:html={t('builds.after', { href: href('/install/') })} />
+    <p class="mt-4 text-muted max-w-[44em]" set:html={t('builds.upgrade')} />
   </Section>
 
   <Section title={t('channels.title')} id="channels" hue="azure" tint>

@@ -40,7 +40,7 @@
     },
     "native-windows": {
       "name": "네이티브 Windows",
-      "note": "ai-memory.exe가 들어 있는 릴리스 zip, Docker Desktop 래퍼, 또는 소스 빌드."
+      "note": "ai-memory.exe가 들어 있는 릴리스 zip, Docker Desktop 래퍼, 또는 소스 빌드. zip은 ai-memory upgrade로 스스로 업그레이드됩니다."
     }
   },
   "harnesses": {
@@ -60,10 +60,10 @@
       "note": "원격 MCP와 자동 생성되는 TypeScript 플러그인."
     },
     "opencode2": {
-      "note": "베타 API용 플러그인. 업스트림이 자주 바뀔 수 있습니다."
+      "note": "2.0.10 이상 이벤트 API용 플러그인이며, 2.0.14 기준으로 확인했습니다. 턴이 끝날 때마다 요약과 인수인계를 새로 고칩니다."
     },
     "grok": {
-      "note": "캡처가 동작합니다. 인수인계는 MCP로 받습니다."
+      "note": "캡처가 동작합니다. 인수인계는 첫 도구 호출과 함께 도착합니다."
     },
     "devin": {
       "note": "훅과 MCP. 컴팩션 이후 캡처도 포함합니다."
@@ -72,13 +72,13 @@
       "note": "훅 이벤트 10종. 인수인계는 첫 프롬프트에 주입됩니다."
     },
     "kiro-cli": {
-      "note": "v2와 v3 엔진 모두 지원."
+      "note": "v2와 v3 엔진 모두 지원. ai-memory run 아래에서는 종료 시 닫힙니다."
     },
     "command-code": {
-      "note": "MCP와 훅 이벤트 4종, 네이티브 resume 지원."
+      "note": "MCP와 훅 이벤트 4종, 네이티브 resume 지원. ai-memory run 아래에서는 종료 시 닫힙니다."
     },
     "antigravity-cli": {
-      "note": "세션은 finalize-session으로 닫힙니다."
+      "note": "ai-memory run 아래에서는 세션이 종료 시 닫힙니다. 그렇지 않으면 finalize-session을 사용하세요."
     },
     "pi": {
       "note": "자동 생성되는 확장이 캡처와 MCP 브리지를 제공합니다."
@@ -117,11 +117,12 @@
       "note": "사용자 단위 MCP 설정."
     },
     "hermes": {
-      "note": "MrLuciano가 만든 커뮤니티 플러그인."
+      "note": "훅 설치 프로그램이 ~/.hermes/config.yaml에 붙여넣을 블록을 출력합니다. 회상과 인수인계는 커뮤니티 플러그인이 제공합니다."
     }
   },
   "llmProviders": [
     "Anthropic",
+    "Anthropic OAuth (Claude 구독)",
     "OpenAI",
     "OpenAI OAuth / Codex CLI 로그인",
     "GitHub Copilot",
@@ -130,7 +131,7 @@
     "Ollama",
     "LM Studio",
     "vLLM",
-    "OpenAI 호환 엔드포인트 전부"
+    "OpenRouter와 OpenAI 호환 엔드포인트 전부"
   ],
   "embeddingProviders": [
     "로컬, 인프로세스 (기본값)",

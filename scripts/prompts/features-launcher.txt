@@ -1,0 +1,7 @@
+A wide diagram with one terminal window in the center and four things around it, connected to the center by amber-gold arrows.
+Center: a terminal window showing a single prompt line, labelled "ai-memory run". The window carries a small amber copper chip in its corner.
+Top left, labelled "Sandbox offer": a box with bars in front of a small robot head, in rose.
+Top right, labelled "Self-upgrade": a download arrow into a package box with a small checksum tag beside it, in violet.
+Bottom right, labelled "Closes on exit": a document page with a folded corner and a check mark, in azure.
+Bottom left, labelled "Web sign-in": a browser window with a small key icon, in teal to green.
+The arrows point from the center outwards. Reads as one command with four helpers around it.

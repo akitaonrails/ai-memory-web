@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "No local reranker",
-        "text": "Retrieval scores sit below the systems that rerank. The only reranker is an LLM, and it is off by default. Cited answers need an LLM too, and their accuracy has not been evaluated."
+        "text": "Retrieval scores sit below the systems that rerank. The only reranker is an LLM, and it is off by default. Cited answers need an LLM too, and their accuracy has not been evaluated. A documented adapter can serve that leg from a small local judge model."
       },
       {
         "title": "Link types do not move ranking",

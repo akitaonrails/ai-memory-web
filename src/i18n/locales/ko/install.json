@@ -14,7 +14,7 @@
   "solo": {
     "title": "혼자 씁니다",
     "lede": "바이너리 하나를 설치하고, 로컬 서버 하나를 시작한 다음, 에이전트를 실행합니다. 서버는 127.0.0.1:49374에 바인딩되므로 이 컴퓨터 밖에서는 접근할 수 없고 토큰도 필요 없습니다.",
-    "tabs": ["Linux 또는 macOS (mise)", "Arch Linux (AUR)", "macOS 바이너리", "Docker 또는 Podman", "Windows"],
+    "tabs": ["Linux 또는 macOS (mise)", "Arch Linux (AUR)", "Fedora (RPM)", "macOS 바이너리", "Docker 또는 Podman", "Windows"],
     "mise": [
       {
         "title": "바이너리 설치",
@@ -35,6 +35,18 @@
         "text": "<code>-bin</code> 패키지는 미리 빌드된 x86_64 또는 aarch64 바이너리입니다. 두 패키지 모두 systemd용 사용자 유닛과 시스템 유닛을 함께 제공합니다.",
         "prebuilt": "미리 빌드된 Linux x86_64/aarch64 바이너리",
         "source": "소스에서 빌드"
+      },
+      { "title": "데이터 디렉터리 만들기" },
+      {
+        "title": "사용자 서비스 시작",
+        "text": "sudo가 필요 없고, 모든 상태는 홈 디렉터리에 남습니다. 시스템 유닛과 로그아웃 후 실행은 <a href=\"{services}\">서비스 섹션</a>에서 다룹니다."
+      },
+      { "title": "ai-memory를 통해 에이전트 실행" }
+    ],
+    "rpm": [
+      {
+        "title": "패키지 설치",
+        "text": "릴리스 페이지에서 x86_64 또는 aarch64용 RPM을 다운로드하세요. 바이너리, 훅 소스, systemd 유닛이 들어 있습니다."
       },
       { "title": "데이터 디렉터리 만들기" },
       {

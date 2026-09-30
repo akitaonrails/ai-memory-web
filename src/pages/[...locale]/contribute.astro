@@ -8,6 +8,8 @@ import Steps from '@/components/Steps.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
 import Figure from '@/components/Figure.astro';
 import Callout from '@/components/Callout.astro';
+import BarChart from '@/components/BarChart.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
 import GithubStats from '@/components/GithubStats.astro';
 import StatList from '@/components/StatList.astro';
 import NextPages from '@/components/NextPages.astro';
@@ -17,7 +19,7 @@ import type { Hue } from '@/data/site';
 import { getGithub, getLatestRelease, compact } from '@/data/github';
 import facts from '@/data/facts.json';
 
-const { t, raw, number } = useI18n(Astro, 'contribute');
+const { t, raw, number, locale } = useI18n(Astro, 'contribute');
 const gh = await getGithub();
 const latest = await getLatestRelease();
 const blob = `${site.repo}/blob/main`;
@@ -71,6 +73,16 @@ const quality = [
   { n: q.unitTests + q.integrationTests, label: t('quality.stats.tests'), hue: 'green', href: `${site.repo}/tree/main/crates` },
 ];
 const points = raw<{ title: string; text: string }[]>('quality.points');
+
+// The audit experiment on ai-jail. Counts come from docs/SECURITY_AUDIT_2026-09-30_COMPARISON.md in that repository.
+const experimentLinks = [site.aiJailSite, site.skillsPost[locale === 'pt-br' ? 'pt-br' : 'en'], undefined];
+const setup = raw<{ title: string; text: string; link?: string }[]>('experiment.setup').map((s, i) => ({ ...s, hue: 'violet' as const, href: experimentLinks[i] }));
+const audit = [
+  { id: 'both', n: 11, tone: 'strong' as const },
+  { id: 'genesys', n: 11, tone: 'soft' as const },
+  { id: 'fable', n: 3, tone: 'soft' as const },
+].map((b) => ({ label: t(`experiment.chart.${b.id}`), value: b.n / 11, display: number(b.n), tone: b.tone }));
+const findings = raw<{ title: string; text: string }[]>('experiment.findings').map((f) => ({ ...f, hue: 'violet' as const }));
 
 const crates = ['core', 'store', 'wiki', 'mcp', 'hooks', 'llm', 'consolidate', 'web', 'workstream', 'cli']
   .map((id) => [`ai-memory-${id}`, t(`map.crates.${id}`)]);
@@ -175,6 +187,19 @@ const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i)
       ))}
     </ul>
     <p class="mt-8"><a class="underline font-semibold" href={site.skills}>{t('quality.skillsLink')}</a></p>
+  </Section>
+
+  <!-- the two-model audit experiment on ai-jail -->
+  <Section id="experiment" hue="violet" tint title={t('experiment.title')} lede={t('experiment.lede')}>
+    <FeatureGrid items={setup} cols={3} />
+    <div class="mt-14 max-w-[52rem]">
+      <BarChart label={t('experiment.chart.title')} bars={audit} axis={t('experiment.chart.axis')} />
+    </div>
+    <div class="mt-14"><FeatureGrid items={findings} cols={3} /></div>
+    <div class="mt-12 max-w-[52rem]">
+      <Callout title={t('experiment.disclaimer.title')} hue="rose"><p>{t('experiment.disclaimer.text')}</p></Callout>
+    </div>
+    <p class="mt-8"><a class="underline font-semibold" href={`${site.aiJail}/tree/master/docs`}>{t('experiment.reports')}</a></p>
   </Section>
 
   <!-- (e) map -->

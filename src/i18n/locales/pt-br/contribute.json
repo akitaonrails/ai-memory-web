@@ -118,6 +118,52 @@
     ],
     "skillsLink": "Leia os checklists de auditoria"
   },
+  "experiment": {
+    "title": "Dois modelos, um checklist de auditoria",
+    "lede": "Um experimento pequeno com o ai-jail, o sandbox que pode receber uma execução com --yolo. O mesmo checklist de security-audit, rodado por dois modelos no mesmo commit, depois comparado.",
+    "setup": [
+      {
+        "title": "O alvo",
+        "text": "O ai-jail roda um agente de código dentro de um sandbox do sistema operacional: bubblewrap com Landlock e seccomp no Linux, sandbox-exec no macOS. É uma camada, não um substituto para uma máquina descartável quando o código é hostil.",
+        "link": "aijail.io"
+      },
+      {
+        "title": "A primeira rodada",
+        "text": "O Genesys Pi, conduzido pelo OpenCode, primeiro fez um trabalho comum de implementação no ai-jail e mesclou o código. Depois rodou a skill security-audit do repositório público de skills contra a v2.3.0.",
+        "link": "O post sobre as skills"
+      },
+      {
+        "title": "A segunda rodada",
+        "text": "O Claude Fable 5.1 rodou a mesma skill no mesmo commit sem ler o primeiro relatório. Depois que a lista dele foi fechada, ele refez a derivação de cada pista em comum a partir do código-fonte e escreveu a comparação."
+      }
+    ],
+    "chart": {
+      "title": "Descobertas confirmadas no ai-jail v2.3.0, por quem chegou a elas",
+      "both": "Achado pelos dois",
+      "genesys": "Só o Genesys Pi",
+      "fable": "Só o Claude Fable 5.1",
+      "axis": "Todas as gravidades como cada relatório as declarou. Os dois relatórios reproduziram sozinhos as mesmas duas descobertas de gravidade alta (High)."
+    },
+    "findings": [
+      {
+        "title": "As mesmas duas High",
+        "text": "Metadados forjados de worktree davam leitura e escrita em um diretório do host, e entradas duplicadas de variável de ambiente driblavam o segredo fantasma. Cada modelo reproduziu as duas sem ver a outra."
+      },
+      {
+        "title": "Genesys Pi foi mais longe",
+        "text": "Onze descobertas só dele, entre elas toda a superfície do macOS e os limites de recursos do proxy, com avaliações de gravidade mais precisas. O Fable tinha rejeitado um bug real e deixado outros dois sem resolver até o cruzamento dos relatórios."
+      },
+      {
+        "title": "O Fable achou a brecha mais grave",
+        "text": "Duas válvulas de escape só de teste no binário de release, lidas a partir do ambiente, ficavam exatamente no caminho que as credenciais fantasmas protegem. Ele também rodou os exploits onde o outro relatório só tinha raciocinado sobre eles."
+      }
+    ],
+    "disclaimer": {
+      "title": "O que isso não prova",
+      "text": "Pedir para um modelo achar vulnerabilidades não garante nada. Nenhum dos dois relatórios foi completo, e a união dos dois é a lista que foi corrigida. Encare isso como melhor que nada: rode mais de um modelo, e mantenha uma pessoa na reconciliação."
+    },
+    "reports": "Os três relatórios, no repositório do ai-jail"
+  },
   "map": {
     "title": "Um mapa da base de código",
     "lede": "Dez crates vão no binário. Cada um tem uma responsabilidade e uma API tipada, e não há dependências circulares.",

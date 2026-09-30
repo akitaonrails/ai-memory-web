@@ -52,7 +52,7 @@
   },
   "scopes": {
     "title": "Separa clientes, monorepos y trabajo personal",
-    "lede": "La memoria se archiva por workspace y proyecto. Por defecto el proyecto es el nombre del directorio, que va bien para un desarrollador y una carpeta de repositorios. Un archivo pequeño lo cambia.",
+    "lede": "La memoria se archiva por workspace y proyecto. Un checkout con un remoto de git se archiva por ese remoto, así que el mismo repositorio clonado dos veces comparte una memoria, y una carpeta sin remoto usa su nombre. Un archivo pequeño cambia el resto.",
     "figureAlt": "Diagrama: tres carpetas, cada una con un marcador .ai-memory.toml, se asignan a workspaces separados dentro de un mismo servidor de memoria. Un workspace contiene un monorepo cuyos directorios comparten un proyecto. A un lado hay una página de reglas fijada, una nota que caduca el viernes y una página con feedback.",
     "figureCaption": "Un servidor, estantes separados. El archivo marcador decide en qué estante cae un directorio.",
     "items": [
@@ -71,6 +71,14 @@
       {
         "title": "Dos agentes en un proyecto",
         "text": "El puntero de proyecto actual está aislado por cada llamador, así que Claude Code y Codex pueden correr a la vez en el mismo directorio sin confundirse entre sí."
+      },
+      {
+        "title": "Un portátil, dos empleadores",
+        "text": "Registra cada servidor con <code>ai-memory server add</code> y nómbralo en el marcador con <code>server = \"team-b\"</code>. Los hooks de ese árbol van ahí y a ningún otro sitio, y un nombre que no se resuelve no envía nada."
+      },
+      {
+        "title": "Fija una identidad",
+        "text": "<code>identity = \"acme/platform\"</code> archiva un checkout bajo esa clave donde sea que viva, incluso sin remoto."
       }
     ],
     "codeTitle": ".ai-memory.toml en ~/work/client-a/",
@@ -139,6 +147,39 @@
       }
     ]
   },
+  "operate": {
+    "title": "Tareas que asume el lanzador",
+    "lede": "ai-memory run arranca el agente a través del servidor de memoria. También mantiene el binario al día, cierra las sesiones y avisa antes de desarmar nada.",
+    "figureAlt": "Diagrama: una terminal ejecutando ai-memory run en el centro. Alrededor: un sandbox que el lanzador ofrece antes de desarmar los avisos de seguridad, una descarga con un checksum para la autoactualización, una página de sesión que se cierra cuando el agente sale, y un inicio de sesión de navegador para la interfaz web.",
+    "figureCaption": "Un comando en el medio. El resto pasa alrededor sin una segunda herramienta.",
+    "items": [
+      {
+        "title": "Actualiza con un solo comando",
+        "text": "<code>ai-memory upgrade</code> descarga la versión correspondiente, comprueba el checksum, cambia el binario y renueva los hooks. Las instalaciones de Docker, Homebrew, AUR y RPM siguen su propia ruta."
+      },
+      {
+        "title": "Un aviso antes de quitar los guardarraíles",
+        "text": "<code>ai-memory run --yolo</code> dice qué está a punto de desarmar y, en Linux y macOS con ai-jail instalado, ofrece volver a ejecutar la sesión dentro del sandbox.",
+        "link": "ai-jail en GitHub"
+      },
+      {
+        "title": "Entorno para el harness",
+        "text": "<code>--env KEY=VALUE</code> y <code>--env-file</code> llegan tanto al agente lanzado como a la búsqueda de sesión propia de ai-memory, así que un <code>CLAUDE_CONFIG_DIR</code> por cuenta no necesita ningún script wrapper."
+      },
+      {
+        "title": "Las sesiones se cierran al salir",
+        "text": "Los agentes sin hook de fin de sesión (Command Code, Kiro CLI, Antigravity CLI) reciben su resumen y su traspaso cuando el lanzador sale. <code>finalize-session --reopen</code> cubre una conversación que continuó después."
+      },
+      {
+        "title": "Inicia sesión en la interfaz web",
+        "text": "La wiki integrada tiene páginas de inicio de sesión y de cambio de contraseña para los usuarios con contraseña, y una página solo para root donde aprobar o rechazar propuestas pendientes de auto-mejora en todos los proyectos."
+      },
+      {
+        "title": "Stopwords en tu idioma",
+        "text": "<code>[search.fts] stopwords</code> enumera las palabras funcionales de tu idioma, para que el ranking de búsqueda de texto completo en una wiki en portugués no se desvíe por <code>de</code> y <code>que</code>."
+      }
+    ]
+  },
   "faq": [
     {
       "q": "¿Puede un agente de un proyecto leer la memoria de otro?",
@@ -154,7 +195,7 @@
     },
     {
       "q": "¿Tengo que configurar workspaces?",
-      "a": "No. Sin archivo marcador, todo se archiva en un workspace llamado default, con el nombre del directorio como proyecto. Añade .ai-memory.toml solo cuando quieras separar clientes, tratar un monorepo como un solo proyecto o mantener aparte la memoria del trabajo y la personal."
+      "a": "No. Sin archivo marcador, todo se archiva en un workspace llamado default, con el remoto de git como proyecto, o el nombre del directorio cuando no lo hay. Añade .ai-memory.toml solo cuando quieras separar clientes, tratar un monorepo como un solo proyecto, mantener aparte la memoria del trabajo y la personal, o usar un segundo servidor."
     }
   ],
   "next": [

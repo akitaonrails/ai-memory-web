@@ -118,6 +118,52 @@
     ],
     "skillsLink": "Lee las checklists de auditoría"
   },
+  "experiment": {
+    "title": "Dos modelos, una misma checklist de auditoría",
+    "lede": "Un experimento pequeño con ai-jail, el sandbox al que se le puede entregar una ejecución con --yolo. La misma checklist de security-audit, ejecutada por dos modelos sobre el mismo commit, y después comparada.",
+    "setup": [
+      {
+        "title": "El objetivo",
+        "text": "ai-jail ejecuta un agente de programación con IA dentro de un sandbox del sistema operativo: bubblewrap con Landlock y seccomp en Linux, sandbox-exec en macOS. Es una capa, no un sustituto de una máquina desechable cuando el código es hostil.",
+        "link": "aijail.io"
+      },
+      {
+        "title": "La primera ejecución",
+        "text": "Genesys Pi, manejado a través de OpenCode, primero hizo trabajo de implementación normal en ai-jail y lo fusionó. Después ejecutó la checklist de security-audit del repositorio público de checklists contra la v2.3.0.",
+        "link": "La publicación sobre las checklists"
+      },
+      {
+        "title": "La segunda ejecución",
+        "text": "Claude Fable 5.1 ejecutó la misma checklist sobre el mismo commit sin leer el primer informe. Una vez corregida su lista, volvió a derivar desde el código fuente cada pista compartida y escribió la comparación."
+      }
+    ],
+    "chart": {
+      "title": "Hallazgos confirmados en ai-jail v2.3.0, según quién los encontró",
+      "both": "Encontrado por ambos",
+      "genesys": "Solo Genesys Pi",
+      "fable": "Solo Claude Fable 5.1",
+      "axis": "Todas las severidades tal como las indicó cada informe. Ambos informes reprodujeron por su cuenta los mismos dos hallazgos High."
+    },
+    "findings": [
+      {
+        "title": "Los mismos dos High",
+        "text": "Metadatos de worktree falsificados daban acceso de lectura y escritura a un directorio del host, y entradas de entorno duplicadas se colaban por encima del secreto fantasma. Cada modelo reprodujo ambos hallazgos sin ayuda del otro."
+      },
+      {
+        "title": "Genesys Pi llegó más lejos",
+        "text": "Once hallazgos a los que solo él llegó, entre ellos toda la superficie de macOS y los límites de recursos del proxy, con severidades mejor calibradas. Fable había descartado un bug real y dejado otros dos sin resolver hasta la verificación cruzada."
+      },
+      {
+        "title": "Fable encontró el descuido más grave",
+        "text": "Dos vías de escape de solo pruebas en el binario de release, leídas desde el entorno, estaban justo en la ruta que protegen las credenciales fantasma. Además, ejecutó los exploits en los puntos donde el otro informe solo había razonado sobre ellos."
+      }
+    ],
+    "disclaimer": {
+      "title": "Lo que esto no demuestra",
+      "text": "Pedirle a un modelo que busque vulnerabilidades no garantiza nada. Ningún informe estaba completo, y la lista que se corrigió es la unión de los dos. Tómalo como mejor que nada: ejecuta más de uno, y deja la reconciliación en manos de una persona."
+    },
+    "reports": "Los tres informes, en el repositorio de ai-jail"
+  },
   "map": {
     "title": "Un mapa del código",
     "lede": "En el binario van diez crates. Cada uno tiene una responsabilidad y una API tipada, y no hay dependencias circulares.",

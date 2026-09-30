@@ -33,7 +33,8 @@
       "hooks": "ライフサイクルフックによる自動キャプチャ",
       "hooksOnly": "フックスクリプトを配置し、エージェントの設定に貼り付けるスニペットを出力する",
       "managedOnly": "ai-memory経由で起動する",
-      "orManaged": "またはマネージドで起動する。どちらも自動で接続される"
+      "orManaged": "またはマネージドで起動する。どちらも自動で接続される",
+      "print": "エージェント自身の設定に貼り付けるフックのブロックを出力する"
     },
     "dryRun": "--applyを外すと、書き込まずに変更内容だけを出力します。",
     "community": "ai-memoryはこのエージェント用のインストーラーを同梱していません。サーバーはそのフックイベントを認識し、プラグインはコミュニティがメンテナンスしています。インストールする前に中身を確認してください：<a class=\"underline font-semibold text-text\" href=\"{href}\">GitHubのai-memory-hermes-plugin</a>。",

@@ -40,7 +40,7 @@
     },
     "native-windows": {
       "name": "Windows נייטיב",
-      "note": "קובץ zip של הגרסה עם ai-memory.exe, ה-wrapper ל-Docker Desktop, או build מקוד מקור."
+      "note": "קובץ zip של הגרסה עם ai-memory.exe, ה-wrapper ל-Docker Desktop, או build מקוד מקור. קובץ ה-zip משדרג את עצמו עם ai-memory upgrade."
     }
   },
   "harnesses": {
@@ -60,10 +60,10 @@
       "note": "MCP מרוחק ופלאגין TypeScript שנוצר אוטומטית."
     },
     "opencode2": {
-      "note": "פלאגין ל-API של הבטא. צפויים שינויים תכופים ב-upstream."
+      "note": "פלאגין ל-event API מגרסה 2.0.10 ואילך, נבדק מול 2.0.14. כל תור שמסתיים מרענן את הסיכום ואת ההעברה."
     },
     "grok": {
-      "note": "הלכידה עובדת. העברות נאספות דרך MCP."
+      "note": "הלכידה עובדת. ההעברה מגיעה עם קריאת הכלי הראשונה."
     },
     "devin": {
       "note": "Hooks ו-MCP, כולל לכידה אחרי compaction."
@@ -72,13 +72,13 @@
       "note": "עשרה אירועי hook. העברות מוזרקות בפרומפט הראשון."
     },
     "kiro-cli": {
-      "note": "גם מנוע v2 וגם מנוע v3."
+      "note": "גם מנוע v2 וגם מנוע v3. נסגר ביציאה תחת ai-memory run."
     },
     "command-code": {
-      "note": "MCP וארבעה אירועי hook, עם resume נייטיב."
+      "note": "MCP וארבעה אירועי hook, עם resume נייטיב. נסגר ביציאה תחת ai-memory run."
     },
     "antigravity-cli": {
-      "note": "סשנים נסגרים עם finalize-session."
+      "note": "תחת ai-memory run הסשן נסגר ביציאה. אחרת, עם finalize-session."
     },
     "pi": {
       "note": "הרחבה שנוצרת אוטומטית נותנת לכידה וגשר ל-MCP."
@@ -117,11 +117,12 @@
       "note": "הגדרות MCP ברמת המשתמש."
     },
     "hermes": {
-      "note": "פלאגין קהילתי של MrLuciano."
+      "note": "מתקין ה-hooks מדפיס קטע להדבקה בקובץ ~/.hermes/config.yaml. שליפה והעברות מגיעות מהפלאגין הקהילתי."
     }
   },
   "llmProviders": [
     "Anthropic",
+    "Anthropic OAuth (מנוי Claude)",
     "OpenAI",
     "OpenAI OAuth / התחברות דרך Codex CLI",
     "GitHub Copilot",
@@ -130,7 +131,7 @@
     "Ollama",
     "LM Studio",
     "vLLM",
-    "כל endpoint תואם OpenAI"
+    "OpenRouter וכל endpoint תואם OpenAI"
   ],
   "embeddingProviders": [
     "מקומי, בתוך התהליך (ברירת המחדל)",

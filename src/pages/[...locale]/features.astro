@@ -100,6 +100,11 @@ const next = withText([
     <FeatureGrid items={raw<Item[]>('browse.items').map((p) => ({ ...p, hue: 'teal' as const }))} cols={3} />
   </Section>
 
+  <Section id="operate" title={t('operate.title')} lede={t('operate.lede')} hue="rose" tint>
+    <Figure name="features-launcher" alt={t('operate.figureAlt')} caption={t('operate.figureCaption')} />
+    <FeatureGrid items={raw<(Item & { link?: string })[]>('operate.items').map((p, i) => ({ ...p, hue: 'rose' as const, href: i === 1 ? site.aiJail : undefined }))} cols={3} />
+  </Section>
+
   <Faq items={faq} hue="violet" />
   <NextPages links={next.map((n) => ({ ...n }))} />
   <CtaBand />

@@ -160,7 +160,7 @@
     },
     "deletion": {
       "title": "O que um purge remove",
-      "text": "O purge é uma deleção lógica, com escopo definido de modo que o projeto A nunca consiga remover arquivos do projeto B. Os dados não expiram, a não ser que uma página defina um prazo.",
+      "text": "O purge é uma deleção lógica, com escopo definido de modo que o projeto A nunca consiga remover arquivos do projeto B. Os dados não expiram, a não ser que uma página defina um prazo. Sem <code>--confirm</code>, o purge só mostra uma prévia do que seria removido.",
       "codeTitle": "purge",
       "commentSession": "Remover uma sessão",
       "commentProject": "Remover um projeto inteiro"

@@ -203,5 +203,12 @@
     "A test that breaks it": "Teste que tenta quebrar",
     "A gate on every pull request": "Gate por pull request",
     "A person decides": "Uma pessoa decide"
+  },
+  "features-launcher": {
+    "ai-memory run": "ai-memory run",
+    "Sandbox offer": "Oferta de sandbox",
+    "Self-upgrade": "Autoatualização",
+    "Closes on exit": "Fecha ao sair",
+    "Web sign-in": "Login na web"
   }
 }

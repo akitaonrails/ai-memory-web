@@ -40,7 +40,7 @@
     },
     "native-windows": {
       "name": "ネイティブWindows",
-      "note": "ai-memory.exe入りのリリースzip、Docker Desktop用ラッパー、またはソースからのビルド。"
+      "note": "ai-memory.exe入りのリリースzip、Docker Desktop用ラッパー、またはソースからのビルド。zip版はai-memory upgradeで自己更新します。"
     }
   },
   "harnesses": {
@@ -60,10 +60,10 @@
       "note": "リモートMCPと、生成されるTypeScriptプラグイン。"
     },
     "opencode2": {
-      "note": "ベータAPI向けのプラグイン。上流の変更が頻繁にあります。"
+      "note": "2.0.10以降のイベントAPI向けプラグインで、2.0.14で動作確認済みです。ターンが完了するたびに、要約と引き継ぎが更新されます。"
     },
     "grok": {
-      "note": "キャプチャは動作します。引き継ぎはMCP経由で受け取ります。"
+      "note": "キャプチャは動作します。引き継ぎは最初のツール呼び出しとともに届きます。"
     },
     "devin": {
       "note": "フックとMCP。コンパクション後のキャプチャにも対応。"
@@ -72,13 +72,13 @@
       "note": "フックイベントは10種。引き継ぎは最初のプロンプトで注入されます。"
     },
     "kiro-cli": {
-      "note": "v2とv3の両エンジンに対応。"
+      "note": "v2とv3の両エンジンに対応。ai-memory run経由なら、終了時にセッションが閉じます。"
     },
     "command-code": {
-      "note": "MCPと4種のフックイベント。ネイティブのresumeに対応。"
+      "note": "MCPと4種のフックイベント。ネイティブのresumeに対応。ai-memory run経由なら、終了時にセッションが閉じます。"
     },
     "antigravity-cli": {
-      "note": "セッションはfinalize-sessionで閉じます。"
+      "note": "ai-memory run経由なら、終了時にセッションが閉じます。それ以外はfinalize-sessionを使います。"
     },
     "pi": {
       "note": "生成される拡張機能が、キャプチャとMCPブリッジを提供します。"
@@ -117,11 +117,12 @@
       "note": "ユーザー単位のMCP設定。"
     },
     "hermes": {
-      "note": "MrLuciano氏によるコミュニティプラグイン。"
+      "note": "フックのインストーラーが~/.hermes/config.yaml用のブロックを出力します。想起と引き継ぎはコミュニティプラグインによるものです。"
     }
   },
   "llmProviders": [
     "Anthropic",
+    "Anthropic OAuth（Claudeのサブスクリプション）",
     "OpenAI",
     "OpenAI OAuth / Codex CLIログイン",
     "GitHub Copilot",
@@ -130,7 +131,7 @@
     "Ollama",
     "LM Studio",
     "vLLM",
-    "OpenAI互換の任意のエンドポイント"
+    "OpenRouterと任意のOpenAI互換エンドポイント"
   ],
   "embeddingProviders": [
     "ローカル、インプロセス（デフォルト）",

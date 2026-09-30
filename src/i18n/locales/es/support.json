@@ -40,7 +40,7 @@
     },
     "native-windows": {
       "name": "Windows nativo",
-      "note": "Zip de la versión con ai-memory.exe, el wrapper para Docker Desktop o una compilación desde el código fuente."
+      "note": "Zip de la versión con ai-memory.exe, el wrapper para Docker Desktop o una compilación desde el código fuente. El zip se actualiza solo con ai-memory upgrade."
     }
   },
   "harnesses": {
@@ -60,10 +60,10 @@
       "note": "MCP remoto y un plugin de TypeScript generado."
     },
     "opencode2": {
-      "note": "Plugin para la API beta. Espera cambios frecuentes en upstream."
+      "note": "Plugin para la API de eventos 2.0.10+, probado contra la 2.0.14. Cada turno terminado actualiza el resumen y el traspaso."
     },
     "grok": {
-      "note": "La captura funciona. Los traspasos se recogen por MCP."
+      "note": "La captura funciona. El traspaso llega con la primera llamada a una herramienta."
     },
     "devin": {
       "note": "Hooks y MCP, incluida la captura tras la compactación."
@@ -72,13 +72,13 @@
       "note": "Diez eventos de hook. Los traspasos se inyectan en el primer prompt."
     },
     "kiro-cli": {
-      "note": "Los motores v2 y v3."
+      "note": "Los motores v2 y v3. Se cierra al salir bajo ai-memory run."
     },
     "command-code": {
-      "note": "MCP y cuatro eventos de hook, con resume nativo."
+      "note": "MCP y cuatro eventos de hook, con resume nativo. Se cierra al salir bajo ai-memory run."
     },
     "antigravity-cli": {
-      "note": "Las sesiones se cierran con finalize-session."
+      "note": "Bajo ai-memory run la sesión se cierra al salir. Si no, con finalize-session."
     },
     "pi": {
       "note": "Una extensión generada aporta la captura y un puente MCP."
@@ -117,11 +117,12 @@
       "note": "Configuración de MCP a nivel de usuario."
     },
     "hermes": {
-      "note": "Plugin de la comunidad, por MrLuciano."
+      "note": "El instalador de hooks imprime un bloque para ~/.hermes/config.yaml. La recuperación y los traspasos vienen del plugin de la comunidad."
     }
   },
   "llmProviders": [
     "Anthropic",
+    "Anthropic OAuth (una suscripción a Claude)",
     "OpenAI",
     "OpenAI OAuth / login de Codex CLI",
     "GitHub Copilot",
@@ -130,7 +131,7 @@
     "Ollama",
     "LM Studio",
     "vLLM",
-    "Cualquier endpoint compatible con OpenAI"
+    "OpenRouter y cualquier endpoint compatible con OpenAI"
   ],
   "embeddingProviders": [
     "Local, en el mismo proceso (por defecto)",

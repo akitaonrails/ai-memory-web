@@ -18,12 +18,14 @@
     "after": "압축을 푼 뒤 <a class=\"underline font-semibold text-text\" href=\"{href}\">빠른 설치</a>를 따라 하세요. 명령어 세 줄이면 됩니다.",
     "linux": { "note": "압축을 풀고 ./ai-memory init을 실행한 다음 serve를 실행합니다." },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "launchd 에이전트가 포함되어 있습니다. 브라우저로 받았다면 먼저 quarantine 플래그를 제거하세요." },
-    "win": { "note": "실험적 지원입니다. 공식 지원 경로는 WSL2에서 Linux 빌드를 쓰는 것입니다." }
+    "win": { "note": "실험적 지원입니다. 공식 지원 경로는 WSL2에서 Linux 빌드를 쓰는 것입니다." },
+    "upgrade": "나중에 쓰기 가능한 위치에 설치된 바이너리(Linux, macOS, Windows zip)는 <code>ai-memory upgrade</code>로 스스로 업데이트합니다. 일치하는 릴리스를 내려받아 체크섬을 검증하고 훅을 새로 고칩니다. 패키지는 각자의 패키지 매니저로 업데이트합니다."
   },
   "channels": {
     "title": "패키지 매니저와 컨테이너",
     "mise": { "title": "mise", "note": "Linux와 macOS. 체크섬을 대신 검증해 줍니다. 새 릴리스가 올라오기까지 하루 정도 걸릴 수 있습니다." },
     "aur": { "title": "Arch Linux (AUR)", "prebuilt": "사전 빌드", "source": "소스 빌드", "note": "사용자 서비스 또는 시스템 서비스용 systemd 유닛을 설치합니다." },
+    "rpm": { "title": "Fedora (RPM)", "note": "x86_64와 aarch64 패키지에 바이너리, 훅 소스, systemd 유닛이 들어 있습니다. 이후 사용자 서비스 또는 시스템 서비스 단계를 따르세요." },
     "docker": { "title": "Docker 또는 Podman", "note": "멀티 아키텍처: linux/amd64와 linux/arm64를 제공하므로 Apple Silicon에서도 에뮬레이션이 필요 없습니다." },
     "src": { "title": "소스에서 빌드", "note": "rust-toolchain.toml에 고정된 Rust 툴체인이 필요합니다." },
     "clients": "원격 서버로 훅만 보내는 클라이언트 컴퓨터에는 전체 바이너리가 필요 없습니다. 릴리스에는 <code>ai-memory-install-hooks</code>와 Linux, macOS, Windows용 Docker 래퍼 스크립트도 들어 있습니다. 목록은 <a class=\"underline font-semibold text-text\" href=\"{href}\">릴리스 페이지</a>에 있습니다."

@@ -177,6 +177,52 @@
     ],
     "skillsLink": "Read the audit checklists"
   },
+  "experiment": {
+    "title": "Two models, one audit checklist",
+    "lede": "A small experiment on ai-jail, the sandbox a --yolo run can be handed to. The same security-audit checklist, run by two models on the same commit, then compared.",
+    "setup": [
+      {
+        "title": "The target",
+        "text": "ai-jail runs a coding agent inside an OS sandbox: bubblewrap with Landlock and seccomp on Linux, sandbox-exec on macOS. It is a layer, not a substitute for a disposable machine when the code is hostile.",
+        "link": "aijail.io"
+      },
+      {
+        "title": "The first run",
+        "text": "Genesys Pi, driven through OpenCode, first did ordinary implementation work on ai-jail and landed it. Then it ran the security-audit skill from the public skills repository against v2.3.0.",
+        "link": "The post about the skills"
+      },
+      {
+        "title": "The second run",
+        "text": "Claude Fable 5.1 ran the same skill on the same commit without reading the first report. Once its list was fixed, it re-derived every shared lead from source and wrote the comparison."
+      }
+    ],
+    "chart": {
+      "title": "Confirmed findings on ai-jail v2.3.0, by who reached them",
+      "both": "Found by both",
+      "genesys": "Only Genesys Pi",
+      "fable": "Only Claude Fable 5.1",
+      "axis": "All severities as each report stated them. Both reports reproduced the same two High findings on their own."
+    },
+    "findings": [
+      {
+        "title": "Same two Highs",
+        "text": "Forged worktree metadata gave read and write on a host directory, and duplicate environment entries slipped past the phantom secret. Each model reproduced both without the other."
+      },
+      {
+        "title": "Genesys Pi went wider",
+        "text": "Eleven findings only it reached, among them the whole macOS surface and the proxy’s resource limits, with sharper severity calls. Fable had rejected one real bug and left two others unresolved until the cross-check."
+      },
+      {
+        "title": "Fable found the sharpest miss",
+        "text": "Two test-only escape hatches in the release binary, read from the environment, sat on the exact path the phantom credentials protect. It also ran the exploits where the other report reasoned about them."
+      }
+    ],
+    "disclaimer": {
+      "title": "What this does not prove",
+      "text": "Asking a model to find vulnerabilities guarantees nothing. Neither report was complete, and the union of the two is the list that got fixed. Read it as better than nothing: run more than one, and keep a person on the reconciliation."
+    },
+    "reports": "The three reports, in the ai-jail repository"
+  },
   "map": {
     "title": "A map of the codebase",
     "lede": "Ten crates ship in the binary. Each has one responsibility and a typed API, and there are no circular dependencies.",

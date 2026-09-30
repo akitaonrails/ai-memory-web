@@ -119,7 +119,7 @@
     },
     "deletion": {
       "title": "Qué elimina un purge",
-      "text": "El purge es un borrado lógico, acotado de modo que el proyecto A nunca pueda eliminar archivos del proyecto B. Los datos no caducan salvo que una página fije una caducidad.",
+      "text": "El purge es un borrado lógico, acotado de modo que el proyecto A nunca pueda eliminar archivos del proyecto B. Los datos no caducan salvo que una página fije una caducidad. Sin <code>--confirm</code>, un purge solo previsualiza lo que eliminaría.",
       "codeTitle": "purge",
       "commentSession": "Elimina una sesión",
       "commentProject": "Elimina un proyecto entero"

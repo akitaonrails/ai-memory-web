@@ -27,8 +27,9 @@ const launcher: Record<string, string> = {
 const commandsFor = (h: (typeof harnesses)[number]) => {
   const id = h.id!;
   const lines: string[] = [];
-  if (h.status === 'Supported' || h.status === 'MCP-only') lines.push(`# ${t('agents.commands.mcp')}`, `ai-memory install-mcp --client ${id} --apply`);
-  if (h.status === 'Supported') lines.push(`# ${t('agents.commands.hooks')}`, `ai-memory install-hooks --agent ${id} --apply`);
+  if (h.print) lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-hooks --agent ${id} --server-url http://127.0.0.1:49374`);
+  else if (h.status === 'Supported' || h.status === 'MCP-only') lines.push(`# ${t('agents.commands.mcp')}`, `ai-memory install-mcp --client ${id} --apply`);
+  if (h.status === 'Supported' && !h.print) lines.push(`# ${t('agents.commands.hooks')}`, `ai-memory install-hooks --agent ${id} --apply`);
   if (h.status === 'Hooks-only') lines.push(`# ${t('agents.commands.hooksOnly')}`, `ai-memory install-hooks --agent ${id} --apply`);
   if (h.run && launcher[h.id!]) lines.push(`# ${t(h.status === 'Managed-only' ? 'agents.commands.managedOnly' : 'agents.commands.orManaged')}`, `ai-memory run ${launcher[h.id!]}`);
   return lines.join('\n');

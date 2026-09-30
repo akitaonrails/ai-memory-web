@@ -18,12 +18,14 @@
     "after": "אחרי החילוץ, עוברים אל <a class=\"underline font-semibold text-text\" href=\"{href}\">ההתקנה המהירה</a>. היא לוקחת שלוש פקודות.",
     "linux": { "note": "מחלצים, מריצים ./ai-memory init ואז serve." },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "כולל launchd agent. אם ההורדה נעשתה בדפדפן, צריך קודם להסיר את דגל ה-quarantine." },
-    "win": { "note": "ניסיוני. המסלול הנתמך הוא WSL2 עם ה-build של Linux." }
+    "win": { "note": "ניסיוני. המסלול הנתמך הוא WSL2 עם ה-build של Linux." },
+    "upgrade": "בהמשך, קובץ בינארי תחת prefix הניתן לכתיבה (Linux, macOS, קובץ ה-zip ל-Windows) מתעדכן בעצמו עם <code>ai-memory upgrade</code>: הוא מוריד את הגרסה המתאימה, מאמת את ה-checksum ומרענן את ה-hooks. חבילות מתעדכנות דרך מנהל החבילות שלהן."
   },
   "channels": {
     "title": "מנהלי חבילות וקונטיינרים",
     "mise": { "title": "mise", "note": "Linux ו-macOS. מאמת את ה-checksum בשבילך. גרסאות חדשות יכולות להופיע באיחור של יום בערך." },
     "aur": { "title": "Arch Linux (AUR)", "prebuilt": "בנוי מראש", "source": "מקוד מקור", "note": "מתקין יחידות systemd לשירות משתמש או לשירות מערכת." },
+    "rpm": { "title": "Fedora (RPM)", "note": "חבילות ל-x86_64 ול-aarch64 עם הקובץ הבינארי, מקורות ה-hooks ויחידות systemd. אחר כך ממשיכים לפי הצעדים של שירות המשתמש או שירות המערכת." },
     "docker": { "title": "Docker או Podman", "note": "Multi-arch: linux/amd64 ו-linux/arm64, כך ש-Apple Silicon לא צריך אמולציה." },
     "src": { "title": "מקוד מקור", "note": "דורש את ה-toolchain של Rust בגרסה שמקובעת ב-rust-toolchain.toml." },
     "clients": "מחשבי לקוח שרק שולחים hooks לשרת מרוחק לא צריכים את הקובץ הבינארי המלא. הגרסה כוללת גם את <code>ai-memory-install-hooks</code> וסקריפטי wrapper ל-Docker ב-Linux, macOS ו-Windows. כולם מופיעים ב<a class=\"underline font-semibold text-text\" href=\"{href}\">דף הגרסה</a>."

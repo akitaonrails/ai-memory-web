@@ -40,7 +40,7 @@
     },
     "native-windows": {
       "name": "Windows nativo",
-      "note": "Zip da release com ai-memory.exe, o wrapper para Docker Desktop ou build a partir do código-fonte."
+      "note": "Zip da release com ai-memory.exe, o wrapper para Docker Desktop ou build a partir do código-fonte. O zip se atualiza sozinho com ai-memory upgrade."
     }
   },
   "harnesses": {
@@ -60,10 +60,10 @@
       "note": "MCP remoto e um plugin TypeScript gerado."
     },
     "opencode2": {
-      "note": "Plugin para a API beta. Espere mudanças frequentes no upstream."
+      "note": "Plugin para a API de eventos 2.0.10+, testado com a 2.0.14. Cada turno concluído atualiza o resumo e o handoff."
     },
     "grok": {
-      "note": "A captura funciona. Os handoffs chegam via MCP."
+      "note": "A captura funciona. O handoff chega na primeira chamada de ferramenta."
     },
     "devin": {
       "note": "Hooks e MCP, incluindo captura pós-compactação."
@@ -72,13 +72,13 @@
       "note": "Dez eventos de hook. Handoffs entram no primeiro prompt."
     },
     "kiro-cli": {
-      "note": "Tanto a engine v2 quanto a v3."
+      "note": "Tanto a engine v2 quanto a v3. Fecha ao sair, com ai-memory run."
     },
     "command-code": {
-      "note": "MCP e quatro eventos de hook, com resume nativo."
+      "note": "MCP e quatro eventos de hook, com resume nativo. Fecha ao sair, com ai-memory run."
     },
     "antigravity-cli": {
-      "note": "As sessões fecham com finalize-session."
+      "note": "Com ai-memory run, a sessão fecha ao sair. Fora disso, finalize-session."
     },
     "pi": {
       "note": "Uma extensão gerada faz a captura e a ponte com MCP."
@@ -117,11 +117,12 @@
       "note": "Config de MCP por usuário."
     },
     "hermes": {
-      "note": "Plugin da comunidade, por MrLuciano."
+      "note": "O instalador de hooks imprime um bloco para ~/.hermes/config.yaml. Recall e handoffs vêm do plugin da comunidade."
     }
   },
   "llmProviders": [
     "Anthropic",
+    "Anthropic OAuth (assinatura do Claude)",
     "OpenAI",
     "OpenAI OAuth / login do Codex CLI",
     "GitHub Copilot",
@@ -130,7 +131,7 @@
     "Ollama",
     "LM Studio",
     "vLLM",
-    "Qualquer endpoint compatível com OpenAI"
+    "OpenRouter e qualquer endpoint compatível com OpenAI"
   ],
   "embeddingProviders": [
     "Local, in-process (o padrão)",

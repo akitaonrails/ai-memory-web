@@ -232,7 +232,7 @@
         },
         {
           "title": "A local reranker",
-          "text": "A cross-encoder that runs in process with no LLM. It waits on the harness above to prove its worth."
+          "text": "A cross-encoder that runs in process with no LLM. In a contributor’s 102-question set, a documented adapter to a local judge model already matched the hosted reranker at a fraction of the latency."
         },
         {
           "title": "Defaults backed by numbers",

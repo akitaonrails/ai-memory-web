@@ -33,7 +33,8 @@
       "hooks": "automatic capture, through lifecycle hooks",
       "hooksOnly": "stages the hook scripts and prints a snippet to paste into the agent’s settings",
       "managedOnly": "launch it through ai-memory",
-      "orManaged": "or launch it managed; both wire themselves"
+      "orManaged": "or launch it managed; both wire themselves",
+      "print": "prints a hooks block to paste into the agent’s own config"
     },
     "dryRun": "Leave out --apply to print the change without writing it.",
     "community": "ai-memory ships no installer for this one. The server recognizes its hook events, and the plugin is maintained by the community. Review it before you install it: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin on GitHub</a>.",

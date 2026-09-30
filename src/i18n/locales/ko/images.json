@@ -203,5 +203,12 @@
     "A test that breaks it": "규칙을 깨는 테스트",
     "A gate on every pull request": "모든 풀 리퀘스트의 게이트",
     "A person decides": "사람이 결정"
+  },
+  "features-launcher": {
+    "ai-memory run": "ai-memory run",
+    "Sandbox offer": "샌드박스 제안",
+    "Self-upgrade": "자체 업그레이드",
+    "Closes on exit": "종료 시 닫힘",
+    "Web sign-in": "웹 로그인"
   }
 }

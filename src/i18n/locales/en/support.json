@@ -40,7 +40,7 @@
     },
     "native-windows": {
       "name": "Native Windows",
-      "note": "Release zip with ai-memory.exe, the Docker Desktop wrapper, or a source build."
+      "note": "Release zip with ai-memory.exe, the Docker Desktop wrapper, or a source build. The zip upgrades itself with ai-memory upgrade."
     }
   },
   "harnesses": {
@@ -60,10 +60,10 @@
       "note": "Remote MCP and a generated TypeScript plugin."
     },
     "opencode2": {
-      "note": "Plugin for the beta API. Expect churn upstream."
+      "note": "Plugin for the 2.0.10+ event API, checked against 2.0.14. Every finished turn refreshes the summary and the handoff."
     },
     "grok": {
-      "note": "Capture works. Handoffs are picked up through MCP."
+      "note": "Capture works. The handoff arrives with the first tool call."
     },
     "devin": {
       "note": "Hooks and MCP, including post-compaction capture."
@@ -72,13 +72,13 @@
       "note": "Ten hook events. Handoffs inject on the first prompt."
     },
     "kiro-cli": {
-      "note": "Both the v2 and v3 engines."
+      "note": "Both the v2 and v3 engines. Closes on exit under ai-memory run."
     },
     "command-code": {
-      "note": "MCP and four hook events, with native resume."
+      "note": "MCP and four hook events, with native resume. Closes on exit under ai-memory run."
     },
     "antigravity-cli": {
-      "note": "Sessions close with finalize-session."
+      "note": "Under ai-memory run the session closes on exit. Otherwise, finalize-session."
     },
     "pi": {
       "note": "A generated extension gives capture and an MCP bridge."
@@ -117,11 +117,12 @@
       "note": "User-level MCP settings."
     },
     "hermes": {
-      "note": "Community plugin by MrLuciano."
+      "note": "The hook installer prints a block for ~/.hermes/config.yaml. Recall and handoffs come from the community plugin."
     }
   },
   "llmProviders": [
     "Anthropic",
+    "Anthropic OAuth (a Claude subscription)",
     "OpenAI",
     "OpenAI OAuth / Codex CLI login",
     "GitHub Copilot",
@@ -130,7 +131,7 @@
     "Ollama",
     "LM Studio",
     "vLLM",
-    "Any OpenAI-compatible endpoint"
+    "OpenRouter and any OpenAI-compatible endpoint"
   ],
   "embeddingProviders": [
     "Local, in-process (the default)",

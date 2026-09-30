@@ -18,12 +18,14 @@
     "after": "展開したら<a class=\"underline font-semibold text-text\" href=\"{href}\">クイックセットアップ</a>に進んでください。コマンド3つで終わります。",
     "linux": { "note": "展開して./ai-memory initを実行し、続けてserveを実行します。" },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "launchdエージェントが付属します。ブラウザでダウンロードした場合は、先にquarantineフラグを外してください。" },
-    "win": { "note": "実験的です。サポート対象はWSL2上でLinuxビルドを使う方法です。" }
+    "win": { "note": "実験的です。サポート対象はWSL2上でLinuxビルドを使う方法です。" },
+    "upgrade": "あとで、書き込み可能な場所に置かれたバイナリ（Linux、macOS、Windowsのzip）は<code>ai-memory upgrade</code>で自己更新できます。対応するリリースをダウンロードし、チェックサムを検証し、フックを更新し直します。パッケージ版はそれぞれのパッケージマネージャー経由で更新します。"
   },
   "channels": {
     "title": "パッケージマネージャーとコンテナ",
     "mise": { "title": "mise", "note": "LinuxとmacOS。チェックサムは自動で検証されます。新しいリリースが反映されるまで1日ほどかかることがあります。" },
     "aur": { "title": "Arch Linux (AUR)", "prebuilt": "ビルド済み", "source": "ソースから", "note": "ユーザーサービスまたはシステムサービス用のsystemdユニットをインストールします。" },
+    "rpm": { "title": "Fedora (RPM)", "note": "x86_64とaarch64向けのパッケージで、バイナリ、フックのソース、systemdユニットが入っています。続けてユーザーサービスまたはシステムサービスの手順に従ってください。" },
     "docker": { "title": "DockerまたはPodman", "note": "マルチアーキテクチャ対応。linux/amd64とlinux/arm64があるので、Apple Siliconでもエミュレーションは不要です。" },
     "src": { "title": "ソースから", "note": "rust-toolchain.tomlで固定されたRustツールチェーンが必要です。" },
     "clients": "リモートサーバーにフックを送るだけのクライアントマシンには、フルバイナリは要りません。リリースには<code>ai-memory-install-hooks</code>と、Linux、macOS、Windows向けのDocker用ラッパースクリプトも含まれます。一覧は<a class=\"underline font-semibold text-text\" href=\"{href}\">リリースページ</a>にあります。"

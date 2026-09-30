@@ -55,6 +55,15 @@ ai-memory --data-dir ~/.local/share/ai-memory \\
   'ai-memory run claude',
 ]);
 
+const rpm = steps('solo.rpm', [
+  'sudo dnf install ./ai-memory-*.rpm',
+  `mkdir -p ~/.config/ai-memory ~/.local/share/ai-memory
+ai-memory --data-dir ~/.local/share/ai-memory \\
+  --config ~/.config/ai-memory/config.toml init`,
+  'systemctl --user enable --now ai-memory.service',
+  'ai-memory run claude',
+]);
+
 const macos = steps('solo.macos', [
   `mkdir -p ~/Applications/ai-memory && cd ~/Applications/ai-memory
 curl -fsSL -O https://github.com/akitaonrails/ai-memory/releases/latest/download/ai-memory-macos-aarch64.tar.gz
@@ -132,9 +141,10 @@ const howTo = {
     <div class="tabs-wrap"><Tabs id="platform" labels={raw<string[]>('solo.tabs')}>
       <div slot="0"><Steps steps={mise} /></div>
       <div slot="1"><Steps steps={aur} /></div>
-      <div slot="2"><Steps steps={macos} /></div>
-      <div slot="3"><Steps steps={docker} /></div>
-      <div slot="4"><Steps steps={windows} /></div>
+      <div slot="2"><Steps steps={rpm} /></div>
+      <div slot="3"><Steps steps={macos} /></div>
+      <div slot="4"><Steps steps={docker} /></div>
+      <div slot="5"><Steps steps={windows} /></div>
     </Tabs></div>
     <div class="mt-12">
       <Callout title={t('solo.existing.title')} hue="green">

@@ -130,3 +130,11 @@
 | expiring notes | notas que expiram |
 | agent messaging | mensagens entre agentes |
 | self-contained (message body) | autocontido |
+| server profile (routing) | perfil ("as raízes do perfil") |
+| judge model (LLM-as-judge) | modelo juiz |
+| launcher | launcher (mantido em inglês) |
+| guard rails (agent permission prompts) | travas de segurança |
+| disarm (safety prompts) | desativar |
+| self-upgrade | autoatualização (título de diagrama) / "se atualiza sozinho", "se substitui sozinho" (corpo de texto) |
+| checkout (git) | checkout |
+| remote (git) | remote |

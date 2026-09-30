@@ -196,6 +196,11 @@
         "stopComment": "Pare o servidor primeiro.",
         "restoreComment": "Restaure (o sysinfo recusa se o container ainda estiver rodando).",
         "startComment": "Suba de novo."
+      },
+      "remote": {
+        "title": "Um espelho remoto em git",
+        "text": "Para uma instalação de um usuário só, o guia de backup mostra como enviar a wiki e o diretório de dados para um repositório git privado por temporizador, o que deixar de fora (o índice derivado, o cache de modelos, logs, segredos) e quando um arquivo criptografado é a escolha melhor.",
+        "link": "Leia o guia de backup"
       }
     },
     "oneServer": {
@@ -214,11 +219,11 @@
     "lede": "Um servidor compartilhado precisa responder duas perguntas: a qual projeto esta sessão pertence, e quem está pedindo.",
     "marker": {
       "title": "O arquivo marcador",
-      "text": "Por padrão, o projeto é o nome do diretório atual, num workspace chamado <code>default</code>. Para mudar isso, coloque um <code>.ai-memory.toml</code> em qualquer diretório ancestral. Os hooks sobem a partir do diretório de trabalho e usam o primeiro marcador que encontram.",
+      "text": "Por padrão, um checkout com um remote git é arquivado por esse remote, então dois clones de um mesmo repositório compartilham uma memória, e dois repositórios diferentes chamados <code>api</code> não. Um checkout sem remote usa o nome do diretório, num workspace chamado <code>default</code>. Para mudar isso, coloque um <code>.ai-memory.toml</code> em qualquer diretório ancestral. Os hooks sobem a partir do diretório de trabalho e usam o primeiro marcador que encontram.",
       "items": [
         {
           "title": "Trabalho e pessoal",
-          "text": "Um marcador por diretório pai. Todo repositório abaixo dele cai nesse workspace, com o nome do diretório como projeto."
+          "text": "Um marcador por diretório pai. Todo repositório abaixo dele cai nesse workspace, com o repositório como projeto."
         },
         {
           "title": "Mono-repo",
@@ -227,6 +232,10 @@
         {
           "title": "Git worktrees",
           "text": "Worktrees vinculados e subdiretórios resolvem para o repositório principal, mesmo quando o worktree fica fora dele."
+        },
+        {
+          "title": "O servidor de outro time",
+          "text": "Registre cada servidor uma vez com <code>ai-memory server add</code> e depois nomeie ele no marcador. O marcador nunca guarda uma URL nem um token, e um marcador fora das raízes do perfil não consegue selecioná-lo."
         }
       ],
       "capture": "O mesmo arquivo guarda as regras de <code>[capture]</code> com <code>ignore_paths</code>, e <code>ai-memory install-hooks --apply --capture-mode allowlist</code> transforma o marcador em opt-in: um repositório sem ele não emite evento nenhum. Os hooks nativos aplicam as duas coisas. Os hooks de shell do wrapper Docker não. <a class=\"link\" href=\"{href}\">Leia a referência do arquivo marcador</a>."
@@ -302,6 +311,7 @@
     "upgrading": {
       "title": "Atualização",
       "notes": [
+        "Um binário de release sob um prefixo com permissão de escrita (Linux, macOS, o zip do Windows) se substitui sozinho: o comando baixa o arquivo correspondente, verifica o arquivo <code>.sha256</code> e roda de novo o <code>install-hooks --apply</code> para os agentes já configurados. Instalações via Homebrew, AUR e RPM são atualizadas pelo próprio gerenciador de pacotes.",
         "Com o wrapper Docker, isto verifica e substitui o wrapper, baixa a imagem e reinstala os scripts de hook. Um servidor em outro host é atualizado à parte.",
         "As migrações de schema e da wiki rodam na inicialização. Elas só andam para frente: um binário mais antigo se recusa a abrir um diretório migrado, então rode <code>ai-memory backup</code> antes se existe chance de rollback."
       ],

@@ -135,6 +135,9 @@ project = "pe-portais"`,
   `# ~/projects/.ai-memory.toml
 workspace = "oss"
 project_strategy = "repo-root"`,
+  `# ~/work/team-b/.ai-memory.toml
+workspace = "team-b"
+server = "team-b"`,
 ];
 const markers = raw<{ title: string; text: string }[]>('routing.marker.items').map((m, i) => ({ ...m, code: markerCode[i] }));
 const autoScope = ['per_actor', 'per_session', 'single'].map((mode) => ({ mode, when: t(`routing.autoScope.modes.${mode}`) }));
@@ -284,6 +287,9 @@ const faq = faqPage(faqItems);
         <div class="mt-4"><CodeBlock code={restoreCmd} /></div>
       </div>
     </div>
+    <h4 class="text-xl mt-12">{t('data.backup.remote.title')}</h4>
+    <p class="mt-2 text-muted max-w-[44em]">{t('data.backup.remote.text')}</p>
+    <p class="mt-3"><a class="link" href={doc('backup.md')}>{t('data.backup.remote.link')}</a></p>
     <div class="mt-12 grid gap-6 lg:grid-cols-2">
       <Callout title={t('data.oneServer.title')} hue="amber">
         <p set:html={t('data.oneServer.text')} />
@@ -298,11 +304,11 @@ const faq = faqPage(faqItems);
   <Section id="routing" hue="violet" title={t('routing.title')} lede={t('routing.lede')}>
     <h3 class="text-2xl">{t('routing.marker.title')}</h3>
     <p class="mt-3 text-muted max-w-[40em]" set:html={t('routing.marker.text')} />
-    <div class="mt-8 grid gap-8 lg:grid-cols-3">
+    <div class="mt-8 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
       {markers.map((m) => (
         <div class="min-w-0">
           <h4 class="text-xl">{m.title}</h4>
-          <p class="mt-2 text-muted">{m.text}</p>
+          <p class="mt-2 text-muted" set:html={m.text} />
           <div class="mt-4"><CodeBlock title=".ai-memory.toml" code={m.code} /></div>
         </div>
       ))}

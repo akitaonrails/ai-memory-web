@@ -18,12 +18,14 @@
     "after": "Después de descomprimir, sigue la <a class=\"underline font-semibold text-text\" href=\"{href}\">instalación rápida</a>. Son tres comandos.",
     "linux": { "note": "Descomprime, ejecuta ./ai-memory init y luego serve." },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Incluye un agente de launchd. Si lo descargas con un navegador, quita antes la marca de cuarentena." },
-    "win": { "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux." }
+    "win": { "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux." },
+    "upgrade": "Más adelante, un binario bajo un prefijo con permiso de escritura (Linux, macOS, el zip de Windows) se actualiza solo con <code>ai-memory upgrade</code>: descarga la versión correspondiente, verifica el checksum y renueva los hooks. Los paquetes se actualizan con su propio gestor de paquetes."
   },
   "channels": {
     "title": "Gestores de paquetes y contenedores",
     "mise": { "title": "mise", "note": "Linux y macOS. Verifica el checksum por ti. Las versiones nuevas pueden tardar cerca de un día en aparecer." },
     "aur": { "title": "Arch Linux (AUR)", "prebuilt": "precompilado", "source": "desde el código fuente", "note": "Instala unidades de systemd para un servicio de usuario o de sistema." },
+    "rpm": { "title": "Fedora (RPM)", "note": "Paquetes x86_64 y aarch64 con el binario, las fuentes de los hooks y las unidades de systemd. Sigue luego los pasos del servicio de usuario o de sistema." },
     "docker": { "title": "Docker o Podman", "note": "Multiarquitectura: linux/amd64 y linux/arm64, así que Apple Silicon no necesita emulación." },
     "src": { "title": "Desde el código fuente", "note": "Necesita el toolchain de Rust fijado en rust-toolchain.toml." },
     "clients": "Las máquinas cliente que solo envían hooks a un servidor remoto no necesitan el binario completo. La versión también incluye <code>ai-memory-install-hooks</code> y scripts wrapper para Docker en Linux, macOS y Windows. Están listados en la <a class=\"underline font-semibold text-text\" href=\"{href}\">página de la versión</a>."

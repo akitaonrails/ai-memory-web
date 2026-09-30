@@ -203,5 +203,12 @@
     "A test that breaks it": "壊すテスト",
     "A gate on every pull request": "PRのゲート",
     "A person decides": "人が判断"
+  },
+  "features-launcher": {
+    "ai-memory run": "ai-memory run",
+    "Sandbox offer": "サンドボックス案",
+    "Self-upgrade": "自己更新",
+    "Closes on exit": "セッション終了",
+    "Web sign-in": "Webサインイン"
   }
 }

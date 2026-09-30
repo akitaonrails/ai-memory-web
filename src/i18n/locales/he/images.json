@@ -203,5 +203,12 @@
     "A test that breaks it": "טסט ששובר אותו",
     "A gate on every pull request": "שער על כל pull request",
     "A person decides": "אדם מחליט"
+  },
+  "features-launcher": {
+    "ai-memory run": "ai-memory run",
+    "Sandbox offer": "הצעת ארגז חול",
+    "Self-upgrade": "שדרוג עצמי",
+    "Closes on exit": "סגירה ביציאה",
+    "Web sign-in": "כניסה לאתר"
   }
 }

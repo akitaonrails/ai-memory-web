@@ -17,6 +17,7 @@
     "tabs": [
       "Linux or macOS (mise)",
       "Arch Linux (AUR)",
+      "Fedora (RPM)",
       "macOS binary",
       "Docker or Podman",
       "Windows"
@@ -41,6 +42,22 @@
         "text": "The <code>-bin</code> package is a prebuilt x86_64 or aarch64 binary. Both packages ship a user unit and a system unit for systemd.",
         "prebuilt": "prebuilt Linux x86_64/aarch64 binary",
         "source": "builds from source"
+      },
+      {
+        "title": "Create the data directory"
+      },
+      {
+        "title": "Start the user service",
+        "text": "It needs no sudo, and all state stays in your home directory. The <a href=\"{services}\">services section</a> covers the system unit and running after logout."
+      },
+      {
+        "title": "Launch your agent through it"
+      }
+    ],
+    "rpm": [
+      {
+        "title": "Install the package",
+        "text": "Download the x86_64 or aarch64 RPM from the release page. It carries the binary, the hook sources and the systemd units."
       },
       {
         "title": "Create the data directory"

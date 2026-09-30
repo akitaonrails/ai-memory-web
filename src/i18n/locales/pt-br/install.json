@@ -17,6 +17,7 @@
     "tabs": [
       "Linux ou macOS (mise)",
       "Arch Linux (AUR)",
+      "Fedora (RPM)",
       "Binário para macOS",
       "Docker ou Podman",
       "Windows"
@@ -41,6 +42,22 @@
         "text": "O pacote <code>-bin</code> é um binário pré-compilado para x86_64 ou aarch64. Os dois pacotes trazem uma unit de usuário e uma unit de sistema para o systemd.",
         "prebuilt": "binário pré-compilado para Linux x86_64/aarch64",
         "source": "compila a partir do código-fonte"
+      },
+      {
+        "title": "Crie o diretório de dados"
+      },
+      {
+        "title": "Inicie o serviço de usuário",
+        "text": "Não precisa de sudo, e todo o estado fica no seu diretório home. A <a href=\"{services}\">seção de serviços</a> cobre a unit de sistema e como continuar rodando depois do logout."
+      },
+      {
+        "title": "Abra seu agente por ele"
+      }
+    ],
+    "rpm": [
+      {
+        "title": "Instale o pacote",
+        "text": "Baixe o RPM x86_64 ou aarch64 na página da release. Ele traz o binário, os hooks de origem e as units do systemd."
       },
       {
         "title": "Crie o diretório de dados"

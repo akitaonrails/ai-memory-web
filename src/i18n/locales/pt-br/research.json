@@ -232,7 +232,7 @@
         },
         {
           "title": "Um reranker local",
-          "text": "Um cross-encoder que roda dentro do processo, sem LLM. Ele espera o harness acima para provar que vale a pena."
+          "text": "Um cross-encoder que roda dentro do processo, sem LLM. No conjunto de 102 perguntas de um contribuidor, um adapter documentado para um modelo juiz local já igualou o reranker hospedado por uma fração da latência."
         },
         {
           "title": "Padrões sustentados por números",

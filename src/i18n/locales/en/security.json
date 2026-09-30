@@ -160,7 +160,7 @@
     },
     "deletion": {
       "title": "What a purge removes",
-      "text": "Purge is a logical delete, scoped so that project A can never remove files from project B. Data has no expiry unless a page sets one.",
+      "text": "Purge is a logical delete, scoped so that project A can never remove files from project B. Data has no expiry unless a page sets one. Without <code>--confirm</code>, a purge only previews what it would remove.",
       "codeTitle": "purge",
       "commentSession": "Remove one session",
       "commentProject": "Remove a whole project"

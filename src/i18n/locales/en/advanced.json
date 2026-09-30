@@ -196,6 +196,11 @@
         "stopComment": "Stop the server first.",
         "restoreComment": "Restore (sysinfo refuses if the container is still running).",
         "startComment": "Start back up."
+      },
+      "remote": {
+        "title": "A remote git mirror",
+        "text": "For a single-user install, the backup guide shows how to push the wiki and the data directory to a private git repository on a timer, what to leave out (the derived index, the models cache, logs, secrets) and when an encrypted archive is the better choice.",
+        "link": "Read the backup guide"
       }
     },
     "oneServer": {
@@ -214,11 +219,11 @@
     "lede": "A shared server has to answer two questions: which project does this session belong to, and who is asking.",
     "marker": {
       "title": "The marker file",
-      "text": "By default the project is the name of the current directory, in a workspace called <code>default</code>. Drop a <code>.ai-memory.toml</code> in any ancestor directory to change that. Hooks walk up from the working directory and use the first marker they find.",
+      "text": "By default a checkout with a git remote is filed by that remote, so two clones of one repository share one memory and two unrelated repositories called <code>api</code> do not. A checkout without a remote uses its directory name, in a workspace called <code>default</code>. Drop a <code>.ai-memory.toml</code> in any ancestor directory to change that. Hooks walk up from the working directory and use the first marker they find.",
       "items": [
         {
           "title": "Work and personal",
-          "text": "One marker per parent directory. Every repository below it lands in that workspace, with the directory name as the project."
+          "text": "One marker per parent directory. Every repository below it lands in that workspace, with the repository as the project."
         },
         {
           "title": "Mono-repo",
@@ -227,6 +232,10 @@
         {
           "title": "Git worktrees",
           "text": "Linked worktrees and subdirectories resolve to the main repository, even when the worktree lives outside it."
+        },
+        {
+          "title": "Another team’s server",
+          "text": "Register each server once with <code>ai-memory server add</code>, then name it in the marker. The marker never holds a URL or a token, and a marker outside the profile’s roots cannot select it."
         }
       ],
       "capture": "The same file holds <code>[capture]</code> rules with <code>ignore_paths</code>, and <code>ai-memory install-hooks --apply --capture-mode allowlist</code> turns the marker into an opt-in: a repository without one emits no events. Native hooks enforce both. The Docker wrapper’s shell hooks do not. <a class=\"link\" href=\"{href}\">Read the marker file reference</a>."
@@ -302,6 +311,7 @@
     "upgrading": {
       "title": "Upgrading",
       "notes": [
+        "A release binary under a writable prefix (Linux, macOS, the Windows zip) replaces itself: the command downloads the matching archive, verifies the <code>.sha256</code> file and re-runs <code>install-hooks --apply</code> for staged agents. Homebrew, AUR and RPM installs upgrade through their package manager.",
         "With the Docker wrapper, this verifies and replaces the wrapper, pulls the image and restages hook scripts. A server on another host is upgraded separately.",
         "Schema and wiki migrations run on start. They are forward-only: an older binary refuses to open a migrated directory, so run <code>ai-memory backup</code> first if you might roll back."
       ],
