@@ -86,7 +86,9 @@ ai-memory run claude`;
       </div>
     </div>
 
-    <div class="marquee" aria-label={t('hero.marquee', { n: harnesses.length, names: harnesses.slice(0, 6).map((h) => h.name).join(', ') })}>
+    <div class="marquee">
+      {/* Same sentence the aria-label carried, as text a screen reader can read: aria-label is prohibited on a plain div. */}
+      <p class="sr-only">{t('hero.marquee', { n: harnesses.length, names: harnesses.slice(0, 6).map((h) => h.name).join(', ') })}</p>
       <div class="track" aria-hidden="true" dir="ltr">
         {[...harnesses, ...harnesses].map((h) => <span>{h.name}</span>)}
       </div>

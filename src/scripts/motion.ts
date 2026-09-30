@@ -23,8 +23,9 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     const words = 'Segmenter' in Intl && /^(ja|zh|th)/.test(lang)
       ? [...new Intl.Segmenter(lang, { granularity: 'word' }).segment(text)].map((s) => s.segment)
       : text.split(/(?<= )/);
-    el.setAttribute('aria-label', text);
-    el.innerHTML = words.map((w) => `<span aria-hidden="true" style="opacity:.16">${w}</span>`).join('');
+    // The word spans stay in the accessibility tree: aria-label is prohibited on a
+    // paragraph, and hiding the words would leave the sentence unread.
+    el.innerHTML = words.map((w) => `<span style="opacity:.16">${w}</span>`).join('');
     gsap.to(el.children, {
       opacity: 1, stagger: 0.1, ease: 'none',
       scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 45%', scrub: 0.4 },
