@@ -60,6 +60,7 @@ Rules:
 | `Section` | A band with an h2. Props: `title`, `lede`, `hue`, `id`, `tint`, `narrow`, `fill` (scroll-lit lede). |
 | `FeatureGrid` | Two to six short points. Props: `items[{title,text,hue,href,link}]`, `cols`. |
 | `Steps` | A numbered procedure with terminal blocks. Props: `steps[{title,text,code,codeTitle}]`. `text` accepts inline HTML. |
+| `Transcript` | A terminal session as the reader sees it: a typed command, log lines, a warning, questions with answers. Props: `title`, `lines[{kind,text,answer}]`, `hue`. |
 | `CodeBlock` | A terminal with a copy button. Props: `code`, `title`. Lines starting with `#` dim as comments. |
 | `Tabs` | Props: `id`, `labels[]`. Panels are slots named `"0"`, `"1"`... |
 | `Figure` | A generated diagram. Props: `name` (file name in `src/assets/img/gen/`; the translated copy is used when one exists), or `src` for a screenshot, `alt` (describe what the diagram says), `caption`, `zoom`. |
@@ -72,7 +73,7 @@ Rules:
 | `NextPages` | Two or three onward links at the bottom of a detail page. |
 | `CtaBand` | The closing call to action. Props: `title`, `text`. |
 
-CSS classes, all in `src/styles/global.css`: `btn btn-primary`, `btn btn-ghost`, `card`, `lede`, `badge` (with `data-hue`), `table-wrap` + `table-site`, `prose-site`, `spectrum-rule`, `ticks` (list with a short bar), `dotlist` (list with a dot), `gain` (amber marker), `pick` (pill toggle for tabs and filters), `link` (links inside catalog messages). Inline `<code>` in running text is styled globally, including text injected with `set:html`. A page's own `<style>` is for what only that page has.
+CSS classes, all in `src/styles/global.css`: `btn btn-primary`, `btn btn-ghost`, `card`, `lede`, `badge` (with `data-hue`), `table-wrap` + `table-site`, `prose-site`, `spectrum-rule`, `ticks` (list with a short bar), `dotlist` (list with a dot), `gain` (amber marker), `pick` (pill toggle for tabs and filters), `kicker` (small hue label above a heading), `link` (links inside catalog messages). Inline `<code>` in running text is styled globally, including text injected with `set:html`. A page's own `<style>` is for what only that page has.
 
 Helpers:
 

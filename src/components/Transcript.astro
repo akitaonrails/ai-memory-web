@@ -1,0 +1,32 @@
+---
+// A terminal session as the reader would see it: a typed command, log lines, a warning, and questions with their answers.
+// Lines come from the catalog. Kinds: cmd (what the person typed), info (log line), warn (a warning), ask (a question
+// followed by the answer the person typed). The last line gets a blinking cursor.
+export type TranscriptKind = 'cmd' | 'info' | 'warn' | 'ask';
+export interface TranscriptLine { kind: TranscriptKind; text: string; answer?: string }
+interface Props { title: string; lines: TranscriptLine[]; hue?: string }
+const { title, lines, hue = 'rose' } = Astro.props;
+---
+<figure class="tty" data-hue={hue} dir="ltr">
+  <figcaption><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>{title}</span></figcaption>
+  {/* One line of markup per transcript line: whitespace inside <pre> is content. */}
+  <pre tabindex="0">{lines.map((l, i) => <span class:list={['ln', l.kind]}>{l.kind === 'cmd' && <b aria-hidden="true">❯ </b>}{l.kind === 'warn' && <b aria-hidden="true">⚠  </b>}{l.kind === 'info' && <em>INFO </em>}{l.text}{l.answer && <i class="ans"> {l.answer}</i>}{i === lines.length - 1 && <span class="cur" aria-hidden="true"></span>}</span>)}</pre>
+</figure>
+<style>
+  /* Dark in both themes, like the real thing. The hue lights the frame; amber is what the person typed. */
+  .tty { background: var(--ink); color: oklch(0.9 0.015 285); border-radius: 1.1rem; overflow: hidden; border: 1px solid oklch(0.33 0.045 282); box-shadow: var(--shadow), 0 0 0 1px color-mix(in oklch, var(--hue-vivid) 35%, transparent), 0 0 60px -20px var(--hue-vivid); }
+  figcaption { display: flex; align-items: center; gap: .75rem; padding: .6rem 1rem; border-bottom: 1px solid oklch(0.28 0.04 282); font-family: var(--font-mono); font-size: .8rem; color: oklch(0.74 0.03 285); }
+  .dots { display: flex; gap: .35rem; }
+  .dots i { width: .6rem; height: .6rem; border-radius: 50%; background: oklch(0.36 0.045 282); }
+  pre { margin: 0; padding: 1.1rem 1.2rem 1.2rem; font-size: .84rem; line-height: 1.7; white-space: normal; }
+  .ln { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cmd { color: oklch(0.87 0.15 85); font-weight: 600; }
+  .cmd b { color: var(--v-green); }
+  .info { color: oklch(0.6 0.03 285); }
+  .info em { font-style: normal; color: var(--v-green); }
+  .warn { color: oklch(0.9 0.09 70); padding-block: .35rem; }
+  .ask .ans { font-style: normal; color: var(--v-green); font-weight: 700; }
+  .cur { display: inline-block; width: .55em; height: 1.05em; margin-inline-start: .2em; vertical-align: text-bottom; background: oklch(0.9 0.015 285); animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .cur { animation: none; } }
+</style>

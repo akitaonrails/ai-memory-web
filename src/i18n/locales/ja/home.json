@@ -14,6 +14,56 @@
     "marquee": "{names}など、{n}種のコーディングエージェントに対応"
   },
   "statement": "コーディングエージェントはすでにメモを取っています。ただ、そのメモは1台のマシンの中にあり、1つのエージェントだけのものです。ツールを替えれば消え、チームメンバーの目に触れることもありません。ai-memoryはその壁の向こう側にあります。",
+  "yolo": {
+    "kicker": "無人運転、柵の中で",
+    "title": "Claude Codeをサンドボックスの中で放っておく",
+    "text": "--dangerously-skip-permissionsを付けても、Claude Codeは確認を求め続けるので、誰かがそばについて答えることになります。確認をすべてオフにするのは、本当のリスクです。ai-memory run --yoloは、これから解除しようとしている確認の内容を示し、--true-yoloはClaude Codeがまだ出す確認を黙らせます。ai-jailがインストールされていれば、セッションをその中で再実行するかどうかを尋ねます。",
+    "points": [
+      {
+        "title": "警告は何が変わるかを示す",
+        "text": "確認がないということは、エージェントがファイルを削除し、どんなコマンドでも実行し、ネットワークにも届くということです。はいと答える前に、その内容を読みます。"
+      },
+      {
+        "title": "ai-jailがセッションを囲い込む",
+        "text": "Linuxは、Landlockとseccompを使うbubblewrap。macOSはsandbox-exec。「いいえ」を選んでも、セッションは箱の外でそのまま動き続けます。"
+      },
+      {
+        "title": "尋ねる相手は人だけ",
+        "text": "確認は、実際のターミナルにだけ表示されます。フック、CI、デタッチやパイプでの実行が止められることはなく、すでにai-jailの中にあるセッションに二度尋ねることもありません。"
+      }
+    ],
+    "primary": "ランチャーの仕組み",
+    "secondary": "ai-jailについて",
+    "terminal": {
+      "title": "あなたのターミナル",
+      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
+      "lines": [
+        {
+          "kind": "cmd",
+          "text": "ai-memory run --yolo --true-yolo claude"
+        },
+        {
+          "kind": "info",
+          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
+        },
+        {
+          "kind": "warn",
+          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
+        },
+        {
+          "kind": "ask",
+          "text": "Proceed? [Y/n]",
+          "answer": "y"
+        },
+        {
+          "kind": "ask",
+          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
+          "answer": "y"
+        }
+      ],
+      "caption": "LinuxまたはmacOSで、ai-jailをインストール済みの場合。--true-yoloが変えるのはClaude Codeだけで、他のエージェントは無視します。"
+    }
+  },
   "continuity": {
     "label": "すべてが変わっても残るもの",
     "title": "すべてを替えても、知識は残る。",

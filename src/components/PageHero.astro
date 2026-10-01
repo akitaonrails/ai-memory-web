@@ -17,6 +17,4 @@ const { hue, kicker, title, lede } = Astro.props;
   .page-hero { position: relative; overflow: clip; }
   .glow { position: absolute; inset-block-start: -30%; inset-inline-end: -10%; width: 70vw; height: 70vw; max-width: 60rem; max-height: 60rem; background: radial-gradient(closest-side, color-mix(in oklch, var(--hue-vivid) 34%, transparent), transparent); filter: blur(20px); opacity: .55; pointer-events: none; }
   :global([data-theme='light']) .glow { opacity: .4; }
-  .kicker { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; color: var(--hue); }
-  .kicker::before { content: ''; width: 1.75rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
 </style>

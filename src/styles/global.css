@@ -217,6 +217,9 @@
 }
 
 @layer components {
+  /* A small label above a heading, in the subject's hue: the nav group on a page hero, a theme on a homepage band. */
+  .kicker { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; color: var(--hue); }
+  .kicker::before { content: ''; width: 1.75rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
   .wrap {
     width: min(100% - 2.5rem, 76rem);
     margin-inline: auto;

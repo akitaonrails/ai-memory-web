@@ -14,6 +14,56 @@
     "marquee": "עובד עם {n} סוכני קוד, בהם {names}"
   },
   "statement": "סוכן הקוד שלך כבר רושם הערות. הן יושבות על מחשב אחד ושייכות לסוכן אחד. מחליפים כלי והן נעלמות, ושאר הצוות בכלל לא רואה אותן. ai-memory הוא מה שנמצא מעבר לקירות האלה.",
+  "yolo": {
+    "kicker": "ללא השגחה, עם גדר",
+    "title": "להריץ את Claude Code לבד, בתוך ארגז חול",
+    "text": "גם עם --dangerously-skip-permissions, Claude Code ממשיך לשאול, אז מישהו צריך לשבת ולענות לכל בקשת אישור. לכבות את כל בקשות האישור זה סיכון ממשי. ai-memory run --yolo קורא בשם למה שהוא עומד לנטרל, --true-yolo משתיק את בקשות האישור ש-Claude Code עדיין מציג, וכשמותקן ai-jail הוא מציע להריץ מחדש את הסשן בתוכו.",
+    "points": [
+      {
+        "title": "האזהרה אומרת מה משתנה",
+        "text": "ללא בקשת אישור, הסוכן יכול למחוק קבצים, להריץ כל פקודה ולהגיע לרשת. קוראים את זה לפני שעונים כן."
+      },
+      {
+        "title": "ai-jail מגדר את הסשן",
+        "text": "bubblewrap עם Landlock ו-seccomp ב-Linux, sandbox-exec ב-macOS. עונים לא, והסשן עדיין רץ, מחוץ לגדר."
+      },
+      {
+        "title": "שואלים רק בן אדם",
+        "text": "השאלות מופיעות רק בטרמינל אמיתי. ריצות hooks, CI וריצות detached או piped אף פעם לא מופרעות, וסשן שכבר בתוך ai-jail לא נשאל פעמיים."
+      }
+    ],
+    "primary": "איך ה-launcher עובד",
+    "secondary": "על ai-jail",
+    "terminal": {
+      "title": "הטרמינל שלך",
+      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
+      "lines": [
+        {
+          "kind": "cmd",
+          "text": "ai-memory run --yolo --true-yolo claude"
+        },
+        {
+          "kind": "info",
+          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
+        },
+        {
+          "kind": "warn",
+          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
+        },
+        {
+          "kind": "ask",
+          "text": "Proceed? [Y/n]",
+          "answer": "y"
+        },
+        {
+          "kind": "ask",
+          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
+          "answer": "y"
+        }
+      ],
+      "caption": "Linux או macOS עם ai-jail מותקן. --true-yolo משנה רק את Claude Code; סוכנים אחרים מתעלמים ממנו."
+    }
+  },
   "continuity": {
     "label": "מה נשאר כשכל השאר משתנה",
     "title": "מחליפים הכול. הידע נשאר.",
