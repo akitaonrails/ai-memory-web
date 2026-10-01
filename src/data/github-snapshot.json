@@ -1,14 +1,24 @@
 {
-  "fetchedAt": "2026-09-30T22:40:12.566Z",
-  "stars": 8672,
+  "fetchedAt": "2026-10-01T07:41:54.035Z",
+  "stars": 8683,
   "forks": 595,
   "openIssues": 21,
   "license": "MIT",
-  "contributors": 121,
-  "commits": 2440,
-  "mergedPRs": 575,
-  "closedIssues": 334,
+  "contributors": 122,
+  "commits": 2481,
+  "mergedPRs": 584,
+  "closedIssues": 336,
   "changelog": [
+    {
+      "version": "2.5.2",
+      "date": "2026-10-01",
+      "body": "### Added\n- Added `ai-memory run --jail[=TOGGLES]` and `--no-jail`, and an interactive\n  checklist after the `--yolo` ai-jail offer, to choose which ai-jail\n  credentials and capabilities the jailed session gets. Bare `--jail` re-runs\n  inside ai-jail without asking, using smart defaults: every credential present\n  on the host (`~/.config/gh`, `~/.aws`, `~/.kube`, `~/.config/gcloud`,\n  `~/.docker/config.json`), SSH when `origin` is an SSH remote, and worktree\n  metadata in a linked worktree; host capabilities (`docker`, `gpu`,\n  `display`, `pictures`, `tailscale`) stay off, and anything else is left to\n  the user's own ai-jail config. `--jail=github,aws,no-mise` is exact: it\n  passes every checklist row it does not name as `--no-X`, so a global\n  `~/.ai-jail` cannot add to it (`all` and `none` also work); the checklist\n  likewise passes unchecked rows as `--no-X`. `--jail` works without `--yolo`\n  and in scripts, and fails instead of running unjailed when ai-jail is not\n  usable. Only toggles the installed ai-jail advertises in its\n  `--help` are offered or passed; the credential mounts need ai-jail 2.5.0.\n  ai-jail's security switches (`seccomp`, `landlock`, `private-home`, …) are\n  never accepted. `--no-jail` skips the offer while keeping the `--yolo`\n  warning. A project `.ai-jail` in the launch directory replaces the checklist\n  and the bare-`--jail` defaults (ai-jail loads it under its own trust rules;\n  `--jail=…` still applies on top), and every jailed re-run now passes\n  `--no-save-config`, so ai-jail no longer writes ai-memory's `--network` /\n  `--agent-state` / credential flags into the repository's `.ai-jail`.\n\n### Fixed\n- Fixed the shell and PowerShell session-start hooks for Claude Code, Codex,\n  Cursor, Gemini CLI, OpenCode, Command Code, Devin, and Antigravity CLI not\n  sending the marker's `[briefing]` keys (`briefing`, `briefing_budget`) on the\n  handoff request, so a repository with `inject_on_session_start = true` got\n  the handoff without its compiled brief on script installs (Docker wrapper,\n  `setup-agent`). Only the native `ai-memory hook` command and the Kiro CLI and\n  Kimi Code scripts sent them; all now match `docs/marker-file.md`. (#998)\n- Fixed a wiki checkpoint leaving `.git/index` behind the commit it made. A\n  path-scoped checkpoint wrote the index file only once every 50 commits, so\n  between writes `HEAD` and the working tree held the new page while the index\n  still named the old blob, and `git status` from outside the server showed\n  every checkpointed page as `MM`; a checkpoint with nothing to commit left a\n  stale index the same way. The history itself was always correct. Not specific\n  to Windows. (#983, #1006)\n- Fixed a wiki checkpoint failing instead of retrying when a full walk listed a\n  file that was gone by the time it was read (libgit2's `Os`-class \"failed to\n  read file into stream\", e.g. an atomic writer's temp file renamed away\n  mid-walk). It now takes the same bounded racy-read retry as a file changed\n  mid-write; unrelated I/O errors still fail fast. This was also the source of\n  an intermittent `concurrent_commits_queue_instead_of_failing` CI failure.\n\n### Security\n- Fixed GHSA-gf78-hf8g-vffm: `memory_read_page` with `include_related` returning pages from\n  projects the caller cannot read under per-project authorization, and walking\n  through them to reach others: in multi-user mode an authenticated user without\n  a grant saw the paths, titles, kinds, and project names of pages in a\n  `restricted` project up to three hops away (never their bodies). `page_links`\n  and the graph already hid them; the multi-hop related walk now filters every\n  hop the same way. Installs without authorization, and root, are unchanged.\n  (#999)\n- Fixed CLI `ai-memory message send` (`POST /admin/messages/send`) bypassing\n  `message_send` admission: it inserted the message without consulting a\n  configured webhook's reject policy or notifying observers, while the MCP\n  send path enforced both. It now runs admission at the recipient scope before\n  the insert — a rejection returns 403 and stores nothing — and notifies\n  observers only after a successful commit, without waiting on nonblocking\n  ones. (#756)"
+    },
+    {
+      "version": "2.5.1",
+      "date": "2026-10-01",
+      "body": "### Fixed\n- Fixed `ai-memory run --yolo`'s ai-jail re-exec aborting when the wrapped\n  command carried a flag that ai-jail also defines: `run claude --yolo --env\n  GH_TOKEN=…` failed with \"flag --env after command would be passed to the\n  child\". The invocation now separates ai-jail's sandbox flags from the\n  wrapped command with `--`; forwarding such a flag also needs ai-jail 2.4.2 or\n  later, whose guard honors the separator.\n- Fixed the `--yolo` ai-jail offer appearing when accepting it could not\n  work. It is now shown only on Linux/macOS when both ai-jail and its sandbox\n  backend (`bwrap` / `sandbox-exec`) are present — never on Windows, even with a\n  file named `ai-jail` on `PATH` — and otherwise the run proceeds without the\n  question. The re-exec runs the exact binary that was found, so a\n  `~/.local/bin`-only ai-jail no longer fails to exec after the user accepted.\n- Fixed `--true-yolo`. It now implies `--yolo` (the warning, the ai-jail\n  offer, and each harness's dangerous mode), so passing it alone no longer\n  bypassed Claude's permissions with no warning; it is interchangeable with\n  `--yolo` for non-Claude harnesses instead of printing \"ignoring it\"; and it is\n  recognized after native arguments (`run claude --model opus --true-yolo`)\n  instead of being passed to Claude as an unknown option. The `claude_true_yolo`\n  config key now\n  only upgrades an explicit `--yolo`/`--true-yolo` launch, as documented,\n  rather than applying `bypassPermissions` to every managed Claude run.\n- Fixed relaunching right after an interrupted `ai-memory run` failing with\n  \"workstream is already active: owned by … until …\" when the previous\n  launcher could not release its lease (killed, terminal closed, or an\n  ai-jail sandbox torn down). An interactive launch now names the holder and\n  waits for that lease to lapse (at most one ~90-second lease; Ctrl-C aborts),\n  then starts by itself. A holder that renews the lease meanwhile is reported\n  as a launcher still running — never displaced — and non-interactive launches\n  keep the short retry window.\n- Fixed `--true-yolo` claiming protections it never provided. It set three\n  `CLAUDE_CODE_DISABLE_*RM*` environment variables that Claude Code does not\n  read, and passed an empty `permissions.ask` array that cannot clear `ask`\n  rules from other settings scopes (Claude Code unions them). Both were\n  removed; true-yolo now forces only `bypassPermissions`, and the docs state\n  that Claude still honors your own `ask` rules and command-safety checks in\n  every mode.\n\n### Security\n- Fixed GHSA-vh98: a capture-exclusion candidate or shell argument spelled\n  with a leading `//` (e.g. `//repo/secret/token.txt`) self-classified as a\n  Windows UNC path regardless of the actual host, so it matched zero POSIX\n  `ignore_paths` patterns (a flavor mismatch) and was captured instead of\n  dropped. Path flavor for an untrusted candidate is now derived from the\n  host (the cwd) rather than the candidate string alone, both in the native\n  hook (`ai-memory-hooks` `capture_policy.rs`) and the generated\n  OpenCode/OMP/Pi/OpenClaw TypeScript integrations\n  (`ai-memory-cli` `render_shared.rs`); a genuine Windows/UNC host's UNC\n  candidates are unaffected."
+    },
     {
       "version": "2.5.0",
       "date": "2026-09-30",
@@ -58,16 +68,6 @@
       "version": "2.2.0",
       "date": "2026-09-12",
       "body": "### Added\n- Retrieval `explain` now names the **typed edge** a graph-stream neighbour\n  was reached by: `memory_query(explain=true)` reports `graph_via.edge` =\n  `causes` / `fixes` / `contradicts` (omitted for a plain `references` link), so\n  it is visible *why* a page surfaced through the link graph. Retrieval ranking\n  is unchanged — this is explanation only; typed-edge weighting and `contradicts`\n  capping are deferred behind the eval harness (docs/design-hindsight-borrowings.md P3).\n- Page-grain ingestion windows (`pages.valid_from` / `valid_to`, V62) and\n  a second `as_of` stream: `memory_query(as_of=T)` now fuses the entity\n  timeline with version-filtered full-text search over the page versions\n  alive at T, using the default path's RRF (k=60) plus the same bounded\n  authority adjustment — current-index relevance over knowledge valid at T. This\n  answers entity-less pages and paraphrased audit questions (\"which\n  database were we on during the outage?\") that the entity-only lookup\n  missed. `explain=true` reports both streams (`streams_active:\n  [\"entity\", \"fts\"]`) with per-stream ranks and RRF contributions.\n  Vector, graph, and the raw-observation fallback stay out of audit mode;\n  the default (no `as_of`) path is unchanged. Every retire path\n  (supersede, decay, reorg graveyard, move-regenerate) closes both grains\n  in the same transaction, and the V62 backfill closes successor-less\n  retirements at the decay marker, existing entity-link close, or\n  `updated_at` fallback, preserving recorded reorg/move history.\n  Phase B world-time stays deferred. (#656)\n- `[retrieval]` section with two opt-in ranking signals, both off by default\n  so unconfigured stores rank exactly as before. `query_intent` routes\n  lexically session-recall queries (\"上次 / 之前那次…的会话 / last time /\n  yesterday …\") past the default session-page authority penalty\n  (×0.77 combined kind/tier), with `session_recall_bonus` (default 0.25)\n  sizing the lift; `abstract_vectors` adds a fifth RRF stream over the new\n  `page_abstract_embeddings` table (V61) — the L0 layer: a page's\n  frontmatter `abstract:` line is embedded on its own, at write time when an\n  embedder is attached and by the same backfill as the body otherwise\n  (a one-line summary embeds far more sharply than a\n  multi-thousand-character body). Measured on a 138-query golden set over a\n  production two-year wiki (FTS5 + entity + vector + graph, mis-tei\n  Qwen3-Embedding-8B): hit@1 0.609 → 0.746 (+22%), NDCG@10 0.782 → 0.879\n  (+12%) with both enabled; every unrouted category keeps its exact\n  baseline ordering. Cross-checked on an independently built 99-query\n  golden set against the same store: hit@1 0.556 → 0.626, NDCG@10\n  0.712 → 0.779 (+9.4%). Both signals are visible per hit in\n  `memory_query(explain=true)` (`intent`, `intent_boost`,\n  `abstract_rank`, `rrf.abstract`). (#672)\n- `memory_handoff_list` lets no-stdout and MCP-only clients inspect open\n  project handoffs without claiming or expiring them, then\n  `memory_handoff_accept` can claim that exact `handoff_id` once. Grok,\n  Zero, and other clients that discard SessionStart stdout no longer have\n  to recover a baton by blindly accepting the latest row. Listing is\n  owner-filtered like accept (own plus shared; root-only `any_owner`);\n  it is not a second claim path, and Grok SessionStart still does not\n  fetch `/handoff`. (#664)\n- `install-instructions --compact` writes a slimmer managed routing block for\n  projects that already have the detailed ai-memory Agent Skills installed. The\n  compact block keeps the same start/end markers (so refresh/uninstall still\n  find it), the untrusted-history security scaffold, and the cross-harness\n  memory-of-record guidance; `full_block` and the default remain unchanged.\n  (#675)\n- `memory_install_self_routing` accepts `compact: Option<bool>` so agent-driven\n  refreshes of a compact-installed file preserve the compact routing block\n  instead of rewriting it back to full. (#685)\n- The `openai-compat` provider now sends OpenRouter's app-attribution\n  headers (`HTTP-Referer`, `X-Title`) by default when its base URL points\n  at `openrouter.ai`, so ai-memory's usage shows up on OpenRouter's app\n  leaderboard. An explicit `AI_MEMORY_LLM_HEADERS` entry for either header\n  still wins, and a non-OpenRouter compat endpoint (Ollama, vLLM, LM\n  Studio) never receives them. (#686)\n- `ai-memory run` now accepts any `claude*`-prefixed harness name\n  (`claude-corp`, `claude-personal`, ...), all resolving to the same\n  `ManagedHarness::Claude`/`AgentKind::ClaudeCode` — no new session store,\n  migration, or agent kind. This is for callers juggling more than one\n  Claude account (e.g. Corporate and Personal): name each account's `PATH`\n  wrapper script `claude-<account>` and pair it with `--executable\n  claude-<account>` (bare names already resolve through `PATH`) so\n  `ai-memory run claude-corp --executable claude-corp` and `ai-memory run\n  claude-personal --executable claude-personal` each launch the right\n  binary while reading clearly in shell history (#687).\n- `install-mcp --client muse` registers ai-memory with Meta's Muse Code,\n  merging a native streamable-HTTP entry with bearer `headers` into the\n  snake_case `mcp_servers` map of `~/.config/muse/settings.json` and\n  preserving sibling servers. The writer adds the mandatory\n  `\"schema_version\": 1` when it is absent — without that key every `muse`\n  command fails at startup with `malformed settings file` — and never\n  rewrites an existing value, so a future schema is not downgraded. The entry\n  sets `\"mode\": \"optional\"` because Muse defaults it to `required`, which\n  aborts the whole run when the memory server is unreachable. MCP-only:\n  Muse documents a lifecycle hook surface, but the output contract of its\n  `SessionStart` event is not specified, so capture and managed workstreams\n  are not claimed. Skills need no extra step — Muse reads `~/.agents/skills`,\n  which `install-skills` already writes (#659).\n- Belief-strength evidence substrate (P2, `docs/design-hindsight-borrowings.md`\n  §3): a new append-only `page_evidence` table (V63,\n  `(page_id, source_kind, source_id, created_at)`, `source_kind` one of\n  `session`/`observation`/`feedback`/`reconsolidation`) records what\n  produced or reaffirmed each page version, written in the same\n  transaction as the page upsert. Rule-based and zero-LLM — the\n  consolidator cites the session(s) it drew on for both the single-page\n  and batch write paths, so the substrate populates on the default path\n  with no provider configured. `hybrid_search_explained` (and therefore\n  `memory_query(explain=true)`) now reports `evidence_count` per hit,\n  batch-fetched once after fusion; the default (non-explained) path and\n  ranking are unchanged — evidence is inert data and an explain field\n  this release, not a ranking input. The confidence-into-`PageAuthority`\n  step described in the design doc is deferred behind the planned R2\n  retrieval eval.\n- Standing-answer boot surfacing (P4, `docs/design-hindsight-borrowings.md`\n  §5): `memory_briefing` accepts an opt-in `settled_first: bool` (default\n  `false`, unchanged briefing shape). When `true`, the snapshot's new\n  `settled` array leads with the project's highest-standing `rule`/`decision`\n  pages — up to 8, ordered by `page_evidence` count (P2) then recency — so an\n  agent can boot from settled answers instead of re-deriving them. Pure SQL,\n  no LLM call; every other briefing field, and the default `settled_first:\n  false` path, are byte-for-byte unchanged.\n\n### Changed\n- The privacy sanitizer now redacts to a **typed marker** — `[REDACTED:<kind>]`\n  (e.g. `[REDACTED:github_token]`, `[REDACTED:jwt]`, `[REDACTED:env_secret]`,\n  `[REDACTED:custom]` for operator patterns) — instead of a bare `[REDACTED]`,\n  so a later reader knows *what kind* of secret was present without it leaking.\n  Redaction stays complete and idempotent; the trust boundary is unchanged.\n  Note: this changes the durable sanitized string, so pages written before the\n  upgrade keep `[REDACTED]` while new writes carry the label (see\n  `docs/design-hindsight-borrowings.md` P1).\n\n### Fixed\n- Preserved recorded entity-link retirement timestamps when backfilling\n  page ingestion windows for historical reorg/move-regenerate pages,\n  preventing empty page windows when `updated_at` still held creation\n  time. Clarified current-index ranking and snapshot-based rollback. (#682)"
-    },
-    {
-      "version": "2.1.2",
-      "date": "2026-09-11",
-      "body": "### Changed\n- The managed routing snippet distinguishes a reviewed decision record kept in\n  the repository (an ADR directory, a Keep the Why `context/` tree) from a\n  harness-local memory store: decisions go into the repo's record under its\n  convention, ai-memory keeps recall, handoffs and session history and does not\n  duplicate the record as a page. `docs/usage.md` (\"Repo-native decision\n  records\") and `docs/marker-file.md` say to list such a directory in\n  `[capture] ignore_paths`, and why (#700).\n- The managed routing snippet now states that Claude Code loads `CLAUDE.md` and\n  does not read `AGENTS.md`: a project whose canonical instruction file is\n  `AGENTS.md` needs a bare `@AGENTS.md` import line in `CLAUDE.md`, or the rules\n  written there are absent from context at session start and reach the agent only\n  if it opens the file. `docs/install.md` and `docs/usage.md` carry the same note\n  beside the `--target AGENTS.md` guidance, and this repository's own `CLAUDE.md`\n  now uses the import instead of a prose pointer (#680).\n\n### Fixed\n- A `purge-session` whose page-file cleanup failed was undone by the next\n  watcher pass. The cleanup failure is reported in `files_failed` and leaves\n  the database rows deleted while `sessions/<id>.md` is still on disk; nothing\n  on the reindex path consulted the `purged_sessions` tombstone, so the\n  reconcile tick 30 seconds later indexed the leftover file and the purged\n  session's body was searchable again. The wiki reindex now skips a page whose\n  session is tombstoned, the way it already skips a tombstoned scope, loading\n  the tombstones once per directory per pass rather than once per page. The\n  pass reports them as `skipped_purged_sessions` (#701).\n- The Docker wrapper (`bin/ai-memory`) now forwards `GEMINI_API_KEY` and\n  `GOOGLE_API_KEY` into the container. Every other provider credential was on\n  the `-e` forwarding allowlist, but these two were missing, so\n  `AI_MEMORY_LLM_PROVIDER=gemini` (or the gemini embedder) reached the server\n  while its key did not — the process then failed with `provider not\n  configured: GEMINI_API_KEY or GOOGLE_API_KEY` even though the operator had\n  exported it (#698).\n- `serve` no longer re-archives the whole data directory on every boot once the\n  pre-migration backup receipt's archive has been deleted and auto-improve\n  `_pending/` sidecars exist. The OKF conformance scan that feeds the backup\n  gate flagged those staging sidecars (which carry no frontmatter and are never\n  migrated — SQLite owns their approval state) as nonconformant, so it kept\n  falling through to a full archive. The scan now skips the project-root\n  `_pending/` subtree — a nested `notes/_pending/` page still migrates — matching\n  the watcher indexer and the existing ledger skip (#695, same class as #669).\n- A bare `LLM_BASE_URL` in the environment no longer redirects providers that\n  talk to a fixed vendor endpoint. The variable is a cross-tool convention an\n  operator exports once for a local Ollama, and ai-memory fed it to every\n  provider: a `gemini` server then POSTed to\n  `http://localhost:11434/v1beta/models/<model>:generateContent` and got Ollama's\n  plain-text `404 page not found`, surfacing as\n  `502 Bad Gateway: {\"error\":\"provider error 404: 404 page not found\"}` on\n  bootstrap and consolidation. It now reaches only the dialects whose endpoint\n  the operator supplies anyway — `openai-compat`, which has none without it, and\n  `opencode`, whose Zen catalogue is an override — and is ignored elsewhere with\n  a startup `warn!` naming the provider and the URL. An explicit `llm_base_url`\n  (or `AI_MEMORY_LLM_BASE_URL`) still configures any provider, so proxying a\n  vendor endpoint on purpose is unchanged. `ai-memory llm-test` resolves the base\n  URL the same way, so it reproduces what `serve` will do instead of inheriting\n  the same ambient override (#691).\n- Admin requests that fail for a reason the server owns are now logged\n  server-side instead of existing only in the response body. `POST\n  /admin/bootstrap` and the auto-improve routes serialized the error into JSON\n  and told the log nothing, so an upstream provider failure could break every\n  bootstrap while the log showed only the run starting — and a scheduled\n  auto-improve tick, which has no client to print the body, failed with no\n  operator-visible trace at all. A 5xx now emits a `warn!` naming the status,\n  the operation, and the error. A 4xx stays quiet: the caller was told and the\n  caller was at fault, so logging those would let any client fill the log at\n  will (#692).\n- `purge-session` took the wiki mutation guard only for the file cleanup, after\n  the database deletion had already committed. A watcher reindex could reinsert\n  the still-present page in that gap and keep only the row, and a concurrent page\n  write could lose its file to the cleanup. The purge now holds the guard across\n  both steps, so reindexes, page writes and wiki moves finish before it starts\n  and wait until it is done (#696, follow-up to #653).\n- Fixed empty native Codex tool observations by recognizing its top-level\n  tool fields and preserving safe tool-family/call-ID metadata plus bounded,\n  sanitized responses for recognized tools. Unknown tools and capture-excluded\n  file operations retained their existing content restrictions; buffering,\n  retry idempotency, and Stop/SessionEnd semantics were preserved. Corrected\n  the install guide's outdated claim that Codex lacks native SessionEnd (#697).\n- Reads no longer report an empty project after the daemon restarts\n  mid-session. The active-project pointer lives in process memory, so a\n  restart — the one the packages' own post-upgrade note tells you to run —\n  dropped it, and `memory_status`, `memory_briefing`, and every other\n  unscoped read then resolved through the baked default scope and answered\n  zero counts through the success path, with nothing in the log to\n  distinguish \"scope unresolved\" from \"project genuinely empty\". `serve` now\n  seeds a read-side fallback at startup from the most recently active project\n  recorded in the database, bounded by the same TTL as a per-key entry, so a\n  keyed miss right after a restart degrades to real data. The seed serves\n  reads only: keyed per-actor entries are never reconstructed, an unscoped\n  write resolves exactly where it did before, and the first hook event\n  supersedes the seed — so pre-publish and eviction reads keep degrading\n  exactly as they do today (#678).\n- The from-source AUR `PKGBUILD` now builds and tests on constrained AUR\n  builders. Release LTO was disabled (`options=('!debug' '!lto')`) so the\n  final link no longer gets OOM-killed on low-memory build hosts, and the\n  `check()` step pins `CARGO_HOME` to the registry `build()` already\n  populated before it repoints `HOME` at an empty test home, so the\n  `--frozen` test run can resolve the packages it fetched instead of\n  failing offline (#677).\n- CLI server errors now name the request. A non-2xx response from the\n  configured server printed only `server returned 404 Not Found: <body>`,\n  so a failure gave no clue which endpoint answered. The message now leads\n  with the request method and path: `GET /admin/open-sessions: server\n  returned 404 Not Found: <body>`. The error keeps the path only, so a\n  token in the URL userinfo or query string never reaches a log line. (#679)\n- Wiki auto-commits stage what the wiki wrote instead of walking the\n  whole tree, keep the repository open between commits, and no longer\n  drop the commit when another session is writing a file at the same\n  time. A session end now costs what it wrote, not the size of the wiki,\n  and the git history no longer silently misses snapshots under\n  concurrent sessions (#674).\n- The generated pi/omp and OpenClaw TypeScript integrations registered their\n  session-end lifecycle event (`session_shutdown` for pi/omp, `session_end`\n  for OpenClaw) with a synchronous, fire-and-forget handler. The host tears\n  down the runtime as soon as a synchronous handler returns, killing the\n  in-flight `session-end` POST before it completes, so the server never\n  learned the session had ended: `sessions.ended_at` stayed `NULL`, and no\n  summary or handoff was produced. The handlers are now `async` and await a\n  bounded (2s) drain of the pending request(s) before returning, mirroring\n  the joinable dispose-drain already used by the OpenCode integration (#676).\n- The `bin/ai-memory` container wrapper now matches multi-architecture image\n  manifests against the host's platform architecture, eliminating a\n  false-positive \"a newer image is available on Docker Hub\" warning on x86_64\n  and Podman. Additionally, `emit_docker_run_script` now preserves volume mount\n  modes (such as `:Z` on SELinux/Podman environments) and filters transient\n  runtime environment variables (`HOSTNAME`, `container=podman`). (#673)\n- `ai-memory serve` now stops on Ctrl-C and on SIGTERM, on both transports.\n  The stdio transport listened for no signal at all, and the HTTP transport\n  listened for SIGINT alone — so SIGTERM, what `docker stop`, `docker compose\n  down` and `systemctl stop` send, reached no handler on either. What that\n  cost depended on whether the server was PID 1. In the container it is (the\n  image's ENTRYPOINT is exec form, with no init shim), and for PID 1 the\n  kernel discards a signal whose handler is not installed: the signal was not\n  merely unhandled, it was invisible, so `docker stop` sat out its whole grace\n  period and ended in SIGKILL, `docker kill` was the only way out, and Ctrl-C\n  on stdio did nothing at all. Everywhere else — under the native systemd\n  unit, or a plain `ai-memory serve` in a terminal — the process is not PID 1,\n  so the same signal fell through to the kernel's default disposition and\n  killed it instantly instead, with no drain at all: the durable SessionEnd\n  consolidation worker was cut off mid-flight rather than drained. Both\n  transports now listen for SIGINT and SIGTERM, log which one arrived, and\n  bound the drain at five seconds so a stateful or SSE MCP client holding a\n  connection open cannot stall the exit — a stop that used to be instant and\n  unclean now takes up to those five seconds and drains. The listeners are\n  installed before the transport starts, so a signal arriving during a slow\n  boot — migrations, the pre-migration archive — is handled rather than lost,\n  and no container init shim (`tini`, `docker run --init`) is needed for the\n  server to stop as PID 1 (#699)."
-    },
-    {
-      "version": "2.1.1",
-      "date": "2026-09-07",
-      "body": "### Changed\n- The managed routing snippet now states that ai-memory is the cross-harness\n  memory of record: when the surrounding harness has its own local memory\n  feature, durable project facts should be captured in ai-memory rather than\n  duplicated in a harness-local store that other agents cannot see (#671).\n\n### Fixed\n- A nested `.ai-memory.toml` marker whose only content is a `[capture]`\n  section (e.g. one that just sets `ignore_paths`) no longer resets scope\n  resolution to `default` / basename. The native binary, the POSIX shell\n  hooks, and the generated TypeScript integrations all used to resolve\n  `workspace`/`project` and the other forwarded root-level settings\n  (`project_strategy`, `drop_subagent_captures`, `[recall] default_global`,\n  `[briefing]` keys) from the single nearest marker — the same one that\n  decided `[capture]`/`ignore_paths` — so a capture-only marker in a\n  subdirectory silently shadowed an ancestor marker's declared\n  workspace/project and captures landed in the wrong scope. Scope and the\n  other forwarded settings now resolve from the nearest marker that\n  declares more than `[capture]`, while `[capture]`/`ignore_paths` keeps\n  reading the nearest marker unchanged — a marker that declares nothing\n  else is scope/settings-transparent. Applies to the native `ai-memory`\n  binary, the POSIX shell hooks (`hooks/_lib.sh`), and the generated\n  TypeScript integrations for every adapter that resolves scope client-side\n  (OpenCode, OpenCode2, pi, OMP, OpenClaw); outputs remain byte-identical\n  otherwise. (#668)\n- Wiki auto-commits no longer re-hash the whole tree. Since the #594 guard,\n  every commit cleared the git index and re-read every page, so a session\n  end cost the size of the wiki and grew with it; the LongMemEval harness\n  saw its ingest rate fall from 141 to 50 session ends a minute as the tree\n  grew. Staging now goes through libgit2's stat cache and re-hashes the tree\n  only when the tree write fails, which is the #594 case and is now covered\n  by a test that removes a blob from the object store. Commits on one wiki\n  are also serialized: two session ends at once used to collide on the index\n  lock, and the losing snapshot was dropped with a warning. (#665)\n- Preserved typed relation edges in multi-page consolidation. Batch updates\n  now include the same closed `causes` / `fixes` / `contradicts` schema as\n  single-page consolidation and carry non-empty relations into wiki\n  frontmatter and the link index, instead of silently discarding them. (#667)\n- OKF-conformed event ledgers are skipped by the indexer again, so a migrated\n  store stops growing without bound. The reserved-file check treated any\n  `log.md` / `log-YYYY-MM.md` carrying YAML frontmatter as an ordinary page,\n  but the OKF v0.2 migration stamps frontmatter on every `.md` under `wiki/`,\n  ledgers included. A migrated store therefore indexed its ledgers, and each\n  hook `append_event` superseded them: one `pages` row per appended line,\n  holding the whole multi-megabyte ledger body. One affected store reached\n  6,539 page versions and 14 GB from 101 live pages within four days of\n  migrating. The check now reads past the frontmatter fence and classifies on\n  the first body line, so a real page that happens to be named `log.md` is\n  still indexed. (#660)\n- `install-hooks --apply --capture-mode allowlist` no longer captures\n  repositories with no `.ai-memory.toml` marker on the five generated\n  TypeScript integrations (`pi`, `omp`, `opencode`, `opencode2`,\n  `openclaw`). The native `ai-memory hook` path already gated every\n  lifecycle event on marker presence before spooling or sending anything\n  (`repository_admits_capture` in `ai-memory-hooks::capture_policy`), but\n  the generated adapters POST to `<server>/hook` directly and had only\n  ported the `ignore_paths` denylist logic into their shared\n  `capturePolicy` — never the allowlist admit gate — so an unmarked\n  repository was still fully captured while the CLI printed that the\n  protection was active. The shared template now bakes the selected\n  `--capture-mode` into a `CAPTURE_MODE` constant and gates on\n  marker *presence* (not on marker configuration state, so a marker with\n  an empty `[capture]` section still opts a repository in) before any\n  per-event disposition runs. The install-time \"enforced\"/\"NOT in force\"\n  messaging is corrected to match: a script-fallback install is now the\n  only path flagged as unenforced. (#661)\n- A UTF-8 BOM on a hand-edited wiki page that has no frontmatter no longer\n  rides into the page body. `markdown::parse` stripped the mark before looking\n  for the frontmatter fence, but the no-frontmatter path returned the untouched\n  input as the body, so the mark stayed in front of the first line. Two things\n  followed from that: `derive_title` no longer read the leading `# ` as a\n  heading, so the page was indexed under its filename instead of its title, and\n  the OKF v0.2 file pass (which conforms frontmatter and leaves the body alone)\n  re-emitted the mark after the closing `---` fence, where it is a stray\n  zero-width no-break space rather than a byte-order mark. Both paths now drop\n  the leading BOM, which is what the frontmatter path already did. (#663)\n- `serve` no longer re-archives the whole data dir on every start once a\n  monthly log ledger exists. The OKF conformance migration's\n  `nonconformant_files` scan flagged every frontmatter-less `log-YYYY-MM.md`\n  / `log.md` event ledger as a pre-OKF page (`okf::is_conformant` requires a\n  `type` key and a ledger has none), so the pre-migration backup gate saw a\n  non-empty pending list and took a full `tar.gz` snapshot on every boot —\n  the flip side of #660, which taught only the watcher's indexer to skip\n  ledgers by content. The migration scan now shares that same content-gated\n  check (a reserved-looking filename is excluded only when its first body\n  line is a hook log entry), moved into a shared `ledger` module so both\n  call sites stay in sync; a page literally named `log-2026-09.md` whose\n  body is prose is still migrated. (#669)\n- SessionEnd no longer writes an ephemeral `sessions/<id>.md` page for a\n  session that logged no real work. `is_lifecycle_only_session` treated a\n  session as skippable only when every observation was `SessionStart` or\n  `SessionEnd`, so a single `Stop` observation — which OpenCode fires for\n  purely internal work like branch-naming, alongside `session.created` +\n  `session.idle` with no user prompt and no tool use — was enough to make\n  the session look substantive and get a wiki page synthesized for it,\n  flooding the wiki with no-op session pages. \"Substantive\" is now defined\n  positively instead of negatively: a session counts as real work only if\n  it contains a `UserPrompt`, `PreToolUse`, or `PostToolUse` observation\n  (`is_ephemeral_session` in `ai-memory-hooks`). The atomic store-side\n  check (`end_lifecycle_only_session_in_tx` in `ai-memory-store`) moved to\n  the same positive `kind IN ('user-prompt', 'pre-tool-use',\n  'post-tool-use')` test so the two stay in agreement, and the\n  PreCompact/PostCompaction checkpoint path gates on the same test rather\n  than only `observations.is_empty()`. Provider-agnostic: this fixes the\n  class for any harness that fires lifecycle-only `Stop`/`Notification`\n  events, not just OpenCode. (#662)"
     }
   ],
   "people": [
@@ -75,7 +75,7 @@
       "login": "akitaonrails",
       "avatar": "https://avatars.githubusercontent.com/u/2840?v=4",
       "url": "https://github.com/akitaonrails",
-      "contributions": 1656
+      "contributions": 1685
     },
     {
       "login": "djalmajr",
@@ -126,22 +126,34 @@
       "contributions": 21
     },
     {
+      "login": "felipe-NR",
+      "avatar": "https://avatars.githubusercontent.com/u/74023958?v=4",
+      "url": "https://github.com/felipe-NR",
+      "contributions": 16
+    },
+    {
       "login": "rubenlr",
       "avatar": "https://avatars.githubusercontent.com/u/424044?v=4",
       "url": "https://github.com/rubenlr",
       "contributions": 16
     },
     {
-      "login": "felipe-NR",
-      "avatar": "https://avatars.githubusercontent.com/u/74023958?v=4",
-      "url": "https://github.com/felipe-NR",
-      "contributions": 15
-    },
-    {
       "login": "maxeinstein-dev",
       "avatar": "https://avatars.githubusercontent.com/u/75791888?v=4",
       "url": "https://github.com/maxeinstein-dev",
-      "contributions": 14
+      "contributions": 15
+    },
+    {
+      "login": "luisfnicolau",
+      "avatar": "https://avatars.githubusercontent.com/u/11979178?v=4",
+      "url": "https://github.com/luisfnicolau",
+      "contributions": 13
+    },
+    {
+      "login": "rafaelkenedy",
+      "avatar": "https://avatars.githubusercontent.com/u/35613507?v=4",
+      "url": "https://github.com/rafaelkenedy",
+      "contributions": 13
     },
     {
       "login": "JohnC0de",
@@ -165,18 +177,6 @@
       "login": "gabrielscharb",
       "avatar": "https://avatars.githubusercontent.com/u/149729098?v=4",
       "url": "https://github.com/gabrielscharb",
-      "contributions": 11
-    },
-    {
-      "login": "rafaelkenedy",
-      "avatar": "https://avatars.githubusercontent.com/u/35613507?v=4",
-      "url": "https://github.com/rafaelkenedy",
-      "contributions": 11
-    },
-    {
-      "login": "luisfnicolau",
-      "avatar": "https://avatars.githubusercontent.com/u/11979178?v=4",
-      "url": "https://github.com/luisfnicolau",
       "contributions": 11
     },
     {
@@ -428,6 +428,312 @@
   ],
   "releases": [
     {
+      "tag": "v2.5.2",
+      "name": "v2.5.2",
+      "date": "2026-10-01T07:40:18Z",
+      "url": "https://github.com/akitaonrails/ai-memory/releases/tag/v2.5.2",
+      "prerelease": false,
+      "assets": [
+        {
+          "name": "ai-memory-2.5.2-1.aarch64.rpm",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-2.5.2-1.aarch64.rpm",
+          "size": 15812642,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-2.5.2-1.aarch64.rpm.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-2.5.2-1.aarch64.rpm.sha256",
+          "size": 96,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-2.5.2-1.x86_64.rpm",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-2.5.2-1.x86_64.rpm",
+          "size": 16734692,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-2.5.2-1.x86_64.rpm.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-2.5.2-1.x86_64.rpm.sha256",
+          "size": 95,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-hooks.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-hooks.tar.gz",
+          "size": 31836,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-hooks.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-hooks.tar.gz.sha256",
+          "size": 89,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-install-hooks",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-install-hooks",
+          "size": 7151,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-install-hooks.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-install-hooks.sha256",
+          "size": 90,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-linux-aarch64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-linux-aarch64.tar.gz",
+          "size": 15819066,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-linux-aarch64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-linux-aarch64.tar.gz.sha256",
+          "size": 97,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-linux-x86_64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-linux-x86_64.tar.gz",
+          "size": 16842453,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-linux-x86_64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-linux-x86_64.tar.gz.sha256",
+          "size": 96,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-macos-aarch64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-macos-aarch64.tar.gz",
+          "size": 15112158,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-macos-aarch64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-macos-aarch64.tar.gz.sha256",
+          "size": 97,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-macos-x86_64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-macos-x86_64.tar.gz",
+          "size": 16397466,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-macos-x86_64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-macos-x86_64.tar.gz.sha256",
+          "size": 96,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-windows-x86_64.zip",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-windows-x86_64.zip",
+          "size": 18609685,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-windows-x86_64.zip.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-windows-x86_64.zip.sha256",
+          "size": 95,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-wrapper",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-wrapper",
+          "size": 39551,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-wrapper.cmd",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-wrapper.cmd",
+          "size": 120,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-wrapper.cmd.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-wrapper.cmd.sha256",
+          "size": 88,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-wrapper.ps1",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-wrapper.ps1",
+          "size": 8605,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-wrapper.ps1.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-wrapper.ps1.sha256",
+          "size": 88,
+          "downloads": 0
+        },
+        {
+          "name": "ai-memory-wrapper.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.2/ai-memory-wrapper.sha256",
+          "size": 84,
+          "downloads": 0
+        }
+      ]
+    },
+    {
+      "tag": "v2.5.1",
+      "name": "v2.5.1",
+      "date": "2026-10-01T06:04:28Z",
+      "url": "https://github.com/akitaonrails/ai-memory/releases/tag/v2.5.1",
+      "prerelease": false,
+      "assets": [
+        {
+          "name": "ai-memory-2.5.1-1.aarch64.rpm",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-2.5.1-1.aarch64.rpm",
+          "size": 15786100,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-2.5.1-1.aarch64.rpm.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-2.5.1-1.aarch64.rpm.sha256",
+          "size": 96,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-2.5.1-1.x86_64.rpm",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-2.5.1-1.x86_64.rpm",
+          "size": 16707516,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-2.5.1-1.x86_64.rpm.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-2.5.1-1.x86_64.rpm.sha256",
+          "size": 95,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-hooks.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-hooks.tar.gz",
+          "size": 31758,
+          "downloads": 3
+        },
+        {
+          "name": "ai-memory-hooks.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-hooks.tar.gz.sha256",
+          "size": 89,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-install-hooks",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-install-hooks",
+          "size": 7151,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-install-hooks.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-install-hooks.sha256",
+          "size": 90,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-linux-aarch64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-linux-aarch64.tar.gz",
+          "size": 15789210,
+          "downloads": 7
+        },
+        {
+          "name": "ai-memory-linux-aarch64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-linux-aarch64.tar.gz.sha256",
+          "size": 97,
+          "downloads": 3
+        },
+        {
+          "name": "ai-memory-linux-x86_64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-linux-x86_64.tar.gz",
+          "size": 16811054,
+          "downloads": 14
+        },
+        {
+          "name": "ai-memory-linux-x86_64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-linux-x86_64.tar.gz.sha256",
+          "size": 96,
+          "downloads": 8
+        },
+        {
+          "name": "ai-memory-macos-aarch64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-macos-aarch64.tar.gz",
+          "size": 15087472,
+          "downloads": 5
+        },
+        {
+          "name": "ai-memory-macos-aarch64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-macos-aarch64.tar.gz.sha256",
+          "size": 97,
+          "downloads": 2
+        },
+        {
+          "name": "ai-memory-macos-x86_64.tar.gz",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-macos-x86_64.tar.gz",
+          "size": 16359955,
+          "downloads": 2
+        },
+        {
+          "name": "ai-memory-macos-x86_64.tar.gz.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-macos-x86_64.tar.gz.sha256",
+          "size": 96,
+          "downloads": 2
+        },
+        {
+          "name": "ai-memory-windows-x86_64.zip",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-windows-x86_64.zip",
+          "size": 18566849,
+          "downloads": 2
+        },
+        {
+          "name": "ai-memory-windows-x86_64.zip.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-windows-x86_64.zip.sha256",
+          "size": 95,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-wrapper",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-wrapper",
+          "size": 39551,
+          "downloads": 4
+        },
+        {
+          "name": "ai-memory-wrapper.cmd",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-wrapper.cmd",
+          "size": 120,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-wrapper.cmd.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-wrapper.cmd.sha256",
+          "size": 88,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-wrapper.ps1",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-wrapper.ps1",
+          "size": 8605,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-wrapper.ps1.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-wrapper.ps1.sha256",
+          "size": 88,
+          "downloads": 1
+        },
+        {
+          "name": "ai-memory-wrapper.sha256",
+          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.1/ai-memory-wrapper.sha256",
+          "size": 84,
+          "downloads": 4
+        }
+      ]
+    },
+    {
       "tag": "v2.5.0",
       "name": "v2.5.0",
       "date": "2026-09-30T20:31:52Z",
@@ -438,145 +744,145 @@
           "name": "ai-memory-2.5.0-1.aarch64.rpm",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-2.5.0-1.aarch64.rpm",
           "size": 15782805,
-          "downloads": 1
+          "downloads": 2
         },
         {
           "name": "ai-memory-2.5.0-1.aarch64.rpm.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-2.5.0-1.aarch64.rpm.sha256",
           "size": 96,
-          "downloads": 1
+          "downloads": 3
         },
         {
           "name": "ai-memory-2.5.0-1.x86_64.rpm",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-2.5.0-1.x86_64.rpm",
           "size": 16697813,
-          "downloads": 2
+          "downloads": 4
         },
         {
           "name": "ai-memory-2.5.0-1.x86_64.rpm.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-2.5.0-1.x86_64.rpm.sha256",
           "size": 95,
-          "downloads": 1
+          "downloads": 3
         },
         {
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-hooks.tar.gz",
           "size": 31758,
-          "downloads": 2
+          "downloads": 8
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-hooks.tar.gz.sha256",
           "size": 89,
-          "downloads": 2
+          "downloads": 4
         },
         {
           "name": "ai-memory-install-hooks",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-install-hooks",
           "size": 7151,
-          "downloads": 1
+          "downloads": 4
         },
         {
           "name": "ai-memory-install-hooks.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-install-hooks.sha256",
           "size": 90,
-          "downloads": 1
+          "downloads": 3
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-linux-aarch64.tar.gz",
           "size": 15788076,
-          "downloads": 1
+          "downloads": 9
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-linux-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 2
+          "downloads": 8
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-linux-x86_64.tar.gz",
           "size": 16802809,
-          "downloads": 19
+          "downloads": 55
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 17
+          "downloads": 44
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-macos-aarch64.tar.gz",
           "size": 15082676,
-          "downloads": 6
+          "downloads": 30
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 5
+          "downloads": 24
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-macos-x86_64.tar.gz",
           "size": 16353993,
-          "downloads": 1
+          "downloads": 3
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-macos-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 2
+          "downloads": 4
         },
         {
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-windows-x86_64.zip",
           "size": 18563775,
-          "downloads": 8
+          "downloads": 24
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-windows-x86_64.zip.sha256",
           "size": 95,
-          "downloads": 6
+          "downloads": 15
         },
         {
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-wrapper",
           "size": 39551,
-          "downloads": 7
+          "downloads": 17
         },
         {
           "name": "ai-memory-wrapper.cmd",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-wrapper.cmd",
           "size": 120,
-          "downloads": 1
+          "downloads": 4
         },
         {
           "name": "ai-memory-wrapper.cmd.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-wrapper.cmd.sha256",
           "size": 88,
-          "downloads": 1
+          "downloads": 4
         },
         {
           "name": "ai-memory-wrapper.ps1",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-wrapper.ps1",
           "size": 8605,
-          "downloads": 1
+          "downloads": 4
         },
         {
           "name": "ai-memory-wrapper.ps1.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-wrapper.ps1.sha256",
           "size": 88,
-          "downloads": 1
+          "downloads": 4
         },
         {
           "name": "ai-memory-wrapper.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.5.0/ai-memory-wrapper.sha256",
           "size": 84,
-          "downloads": 7
+          "downloads": 17
         }
       ]
     },
@@ -591,7 +897,7 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-hooks.tar.gz",
           "size": 26093,
-          "downloads": 16
+          "downloads": 17
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
@@ -615,7 +921,7 @@
           "name": "ai-memory-linux-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-linux-aarch64.tar.gz",
           "size": 15140267,
-          "downloads": 16
+          "downloads": 17
         },
         {
           "name": "ai-memory-linux-aarch64.tar.gz.sha256",
@@ -627,19 +933,19 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-linux-x86_64.tar.gz",
           "size": 16096931,
-          "downloads": 392
+          "downloads": 415
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 183
+          "downloads": 189
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-macos-aarch64.tar.gz",
           "size": 14469681,
-          "downloads": 115
+          "downloads": 116
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
@@ -663,19 +969,19 @@
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-windows-x86_64.zip",
           "size": 17777924,
-          "downloads": 91
+          "downloads": 92
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-windows-x86_64.zip.sha256",
           "size": 95,
-          "downloads": 57
+          "downloads": 58
         },
         {
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.2/ai-memory-wrapper",
           "size": 38971,
-          "downloads": 70
+          "downloads": 71
         },
         {
           "name": "ai-memory-wrapper.cmd",
@@ -720,7 +1026,7 @@
           "name": "ai-memory-hooks.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.1/ai-memory-hooks.tar.gz",
           "size": 26095,
-          "downloads": 44
+          "downloads": 45
         },
         {
           "name": "ai-memory-hooks.tar.gz.sha256",
@@ -756,19 +1062,19 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.1/ai-memory-linux-x86_64.tar.gz",
           "size": 16026020,
-          "downloads": 1600
+          "downloads": 1680
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.1/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 410
+          "downloads": 411
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.1/ai-memory-macos-aarch64.tar.gz",
           "size": 14405375,
-          "downloads": 268
+          "downloads": 269
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
@@ -792,13 +1098,13 @@
           "name": "ai-memory-windows-x86_64.zip",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.1/ai-memory-windows-x86_64.zip",
           "size": 17711941,
-          "downloads": 276
+          "downloads": 279
         },
         {
           "name": "ai-memory-windows-x86_64.zip.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.1/ai-memory-windows-x86_64.zip.sha256",
           "size": 95,
-          "downloads": 125
+          "downloads": 127
         },
         {
           "name": "ai-memory-wrapper",
@@ -897,7 +1203,7 @@
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.4.0/ai-memory-macos-aarch64.tar.gz",
           "size": 14351437,
-          "downloads": 484
+          "downloads": 490
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
@@ -1026,7 +1332,7 @@
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.3.2/ai-memory-macos-aarch64.tar.gz",
           "size": 14026898,
-          "downloads": 4087
+          "downloads": 4285
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
@@ -1413,25 +1719,25 @@
           "name": "ai-memory-macos-aarch64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-aarch64.tar.gz",
           "size": 13757527,
-          "downloads": 136
+          "downloads": 137
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-aarch64.tar.gz.sha256",
           "size": 97,
-          "downloads": 67
+          "downloads": 68
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-x86_64.tar.gz",
           "size": 14891202,
-          "downloads": 22
+          "downloads": 23
         },
         {
           "name": "ai-memory-macos-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.2.2/ai-memory-macos-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 18
+          "downloads": 19
         },
         {
           "name": "ai-memory-windows-x86_64.zip",
@@ -1917,13 +2223,13 @@
           "name": "ai-memory-linux-x86_64.tar.gz",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-linux-x86_64.tar.gz",
           "size": 15172732,
-          "downloads": 676
+          "downloads": 707
         },
         {
           "name": "ai-memory-linux-x86_64.tar.gz.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-linux-x86_64.tar.gz.sha256",
           "size": 96,
-          "downloads": 392
+          "downloads": 423
         },
         {
           "name": "ai-memory-macos-aarch64.tar.gz",
@@ -1965,7 +2271,7 @@
           "name": "ai-memory-wrapper",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-wrapper",
           "size": 35404,
-          "downloads": 248
+          "downloads": 249
         },
         {
           "name": "ai-memory-wrapper.cmd",
@@ -1995,7 +2301,7 @@
           "name": "ai-memory-wrapper.sha256",
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.1/ai-memory-wrapper.sha256",
           "size": 84,
-          "downloads": 205
+          "downloads": 206
         }
       ]
     },
@@ -2125,264 +2431,6 @@
           "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.1.0/ai-memory-wrapper.sha256",
           "size": 84,
           "downloads": 94
-        }
-      ]
-    },
-    {
-      "tag": "v2.0.3",
-      "name": "v2.0.3",
-      "date": "2026-09-04T20:20:27Z",
-      "url": "https://github.com/akitaonrails/ai-memory/releases/tag/v2.0.3",
-      "prerelease": false,
-      "assets": [
-        {
-          "name": "ai-memory-hooks.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-hooks.tar.gz",
-          "size": 21715,
-          "downloads": 29
-        },
-        {
-          "name": "ai-memory-hooks.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-hooks.tar.gz.sha256",
-          "size": 89,
-          "downloads": 17
-        },
-        {
-          "name": "ai-memory-install-hooks",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-install-hooks",
-          "size": 6649,
-          "downloads": 11
-        },
-        {
-          "name": "ai-memory-install-hooks.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-install-hooks.sha256",
-          "size": 90,
-          "downloads": 7
-        },
-        {
-          "name": "ai-memory-linux-aarch64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-aarch64.tar.gz",
-          "size": 13862018,
-          "downloads": 44
-        },
-        {
-          "name": "ai-memory-linux-aarch64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-aarch64.tar.gz.sha256",
-          "size": 97,
-          "downloads": 20
-        },
-        {
-          "name": "ai-memory-linux-x86_64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-x86_64.tar.gz",
-          "size": 14726401,
-          "downloads": 312
-        },
-        {
-          "name": "ai-memory-linux-x86_64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-linux-x86_64.tar.gz.sha256",
-          "size": 96,
-          "downloads": 143
-        },
-        {
-          "name": "ai-memory-macos-aarch64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-macos-aarch64.tar.gz",
-          "size": 13214892,
-          "downloads": 140
-        },
-        {
-          "name": "ai-memory-macos-aarch64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-macos-aarch64.tar.gz.sha256",
-          "size": 97,
-          "downloads": 68
-        },
-        {
-          "name": "ai-memory-macos-x86_64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-macos-x86_64.tar.gz",
-          "size": 14295148,
-          "downloads": 18
-        },
-        {
-          "name": "ai-memory-macos-x86_64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-macos-x86_64.tar.gz.sha256",
-          "size": 96,
-          "downloads": 11
-        },
-        {
-          "name": "ai-memory-windows-x86_64.zip",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-windows-x86_64.zip",
-          "size": 16270107,
-          "downloads": 125
-        },
-        {
-          "name": "ai-memory-windows-x86_64.zip.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-windows-x86_64.zip.sha256",
-          "size": 96,
-          "downloads": 44
-        },
-        {
-          "name": "ai-memory-wrapper",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-wrapper",
-          "size": 34947,
-          "downloads": 114
-        },
-        {
-          "name": "ai-memory-wrapper.cmd",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-wrapper.cmd",
-          "size": 120,
-          "downloads": 18
-        },
-        {
-          "name": "ai-memory-wrapper.cmd.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-wrapper.cmd.sha256",
-          "size": 88,
-          "downloads": 13
-        },
-        {
-          "name": "ai-memory-wrapper.ps1",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-wrapper.ps1",
-          "size": 7139,
-          "downloads": 18
-        },
-        {
-          "name": "ai-memory-wrapper.ps1.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-wrapper.ps1.sha256",
-          "size": 88,
-          "downloads": 14
-        },
-        {
-          "name": "ai-memory-wrapper.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.3/ai-memory-wrapper.sha256",
-          "size": 84,
-          "downloads": 93
-        }
-      ]
-    },
-    {
-      "tag": "v2.0.2",
-      "name": "v2.0.2",
-      "date": "2026-09-03T17:15:11Z",
-      "url": "https://github.com/akitaonrails/ai-memory/releases/tag/v2.0.2",
-      "prerelease": false,
-      "assets": [
-        {
-          "name": "ai-memory-hooks.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-hooks.tar.gz",
-          "size": 21714,
-          "downloads": 31
-        },
-        {
-          "name": "ai-memory-hooks.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-hooks.tar.gz.sha256",
-          "size": 89,
-          "downloads": 10
-        },
-        {
-          "name": "ai-memory-install-hooks",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-install-hooks",
-          "size": 6649,
-          "downloads": 17
-        },
-        {
-          "name": "ai-memory-install-hooks.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-install-hooks.sha256",
-          "size": 90,
-          "downloads": 8
-        },
-        {
-          "name": "ai-memory-linux-aarch64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-linux-aarch64.tar.gz",
-          "size": 13854456,
-          "downloads": 19
-        },
-        {
-          "name": "ai-memory-linux-aarch64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-linux-aarch64.tar.gz.sha256",
-          "size": 97,
-          "downloads": 11
-        },
-        {
-          "name": "ai-memory-linux-x86_64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-linux-x86_64.tar.gz",
-          "size": 14720337,
-          "downloads": 298
-        },
-        {
-          "name": "ai-memory-linux-x86_64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-linux-x86_64.tar.gz.sha256",
-          "size": 96,
-          "downloads": 144
-        },
-        {
-          "name": "ai-memory-macos-aarch64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-macos-aarch64.tar.gz",
-          "size": 13206321,
-          "downloads": 120
-        },
-        {
-          "name": "ai-memory-macos-aarch64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-macos-aarch64.tar.gz.sha256",
-          "size": 97,
-          "downloads": 68
-        },
-        {
-          "name": "ai-memory-macos-x86_64.tar.gz",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-macos-x86_64.tar.gz",
-          "size": 14288899,
-          "downloads": 9
-        },
-        {
-          "name": "ai-memory-macos-x86_64.tar.gz.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-macos-x86_64.tar.gz.sha256",
-          "size": 96,
-          "downloads": 7
-        },
-        {
-          "name": "ai-memory-windows-x86_64.zip",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-windows-x86_64.zip",
-          "size": 16264990,
-          "downloads": 121
-        },
-        {
-          "name": "ai-memory-windows-x86_64.zip.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-windows-x86_64.zip.sha256",
-          "size": 96,
-          "downloads": 55
-        },
-        {
-          "name": "ai-memory-wrapper",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-wrapper",
-          "size": 34947,
-          "downloads": 133
-        },
-        {
-          "name": "ai-memory-wrapper.cmd",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-wrapper.cmd",
-          "size": 120,
-          "downloads": 21
-        },
-        {
-          "name": "ai-memory-wrapper.cmd.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-wrapper.cmd.sha256",
-          "size": 88,
-          "downloads": 18
-        },
-        {
-          "name": "ai-memory-wrapper.ps1",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-wrapper.ps1",
-          "size": 7139,
-          "downloads": 22
-        },
-        {
-          "name": "ai-memory-wrapper.ps1.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-wrapper.ps1.sha256",
-          "size": 88,
-          "downloads": 18
-        },
-        {
-          "name": "ai-memory-wrapper.sha256",
-          "url": "https://github.com/akitaonrails/ai-memory/releases/download/v2.0.2/ai-memory-wrapper.sha256",
-          "size": 84,
-          "downloads": 120
         }
       ]
     }
