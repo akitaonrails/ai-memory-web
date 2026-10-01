@@ -17,7 +17,7 @@
   "yolo": {
     "kicker": "無人運転、柵の中で",
     "title": "Claude Codeをサンドボックスの中で放っておく",
-    "text": "--dangerously-skip-permissionsを付けても、Claude Codeは確認を求め続けるので、誰かがそばについて答えることになります。確認をすべてオフにするのは、本当のリスクです。ai-memory run --yoloは、これから解除しようとしている確認の内容を示し、--true-yoloはClaude Codeがまだ出す確認を黙らせます。ai-jailがインストールされていれば、セッションをその中で再実行するかどうかを尋ねます。",
+    "text": "--dangerously-skip-permissionsを付けても、Claude Codeは確認を求め続けるので、誰かがそばについて答えることになります。確認をすべてオフにするのは、本当のリスクです。ai-memory run --yoloは、これから解除しようとしている確認の内容を示します。ai-jailが使える場合は、セッションをその中で再実行するかどうかを尋ねます。--true-yoloはこれにClaude Codeの確認なしモードを重ねますが、すべてを黙らせるわけではありません。自分のaskルールと、Claude Codeのコマンド安全チェックはそのまま働きます。",
     "points": [
       {
         "title": "警告は何が変わるかを示す",
@@ -25,7 +25,7 @@
       },
       {
         "title": "ai-jailがセッションを囲い込む",
-        "text": "Linuxは、Landlockとseccompを使うbubblewrap。macOSはsandbox-exec。「いいえ」を選んでも、セッションは箱の外でそのまま動き続けます。"
+        "text": "Linuxは、Landlockとseccompを使うbubblewrap。macOSはsandbox-exec。「はい」を選ぶと、チェックリストでホストのどの認証情報をjailに渡すか選べます。「いいえ」を選んでも、セッションは箱の外でそのまま動き続けます。"
       },
       {
         "title": "尋ねる相手は人だけ",
@@ -61,7 +61,7 @@
           "answer": "y"
         }
       ],
-      "caption": "LinuxまたはmacOSで、ai-jailをインストール済みの場合。--true-yoloが変えるのはClaude Codeだけで、他のエージェントは無視します。"
+      "caption": "LinuxまたはmacOSで、ai-jailをインストール済みの場合。--jailは妥当なデフォルトのままjailへ直接入り、--yoloは不要です。--no-jailは警告を残しつつ、この提案はスキップします。"
     }
   },
   "continuity": {

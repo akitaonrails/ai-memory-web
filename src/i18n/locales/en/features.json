@@ -159,7 +159,7 @@
       },
       {
         "title": "A warning before the guard rails come off",
-        "text": "<code>ai-memory run --yolo</code> says what it is about to disarm and, on Linux and macOS with ai-jail installed, offers to re-run the session inside the sandbox.",
+        "text": "<code>ai-memory run --yolo</code> says what it is about to disarm and, on Linux and macOS with ai-jail usable, offers to re-run the session inside the sandbox with a checklist of what the jail may see. <code>--jail</code> goes straight in with sensible defaults.",
         "link": "ai-jail on GitHub"
       },
       {

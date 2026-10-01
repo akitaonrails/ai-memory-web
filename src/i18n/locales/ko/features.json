@@ -159,7 +159,7 @@
       },
       {
         "title": "가드레일이 풀리기 전의 경고",
-        "text": "<code>ai-memory run --yolo</code>는 무엇을 해제하려는지 미리 알려주고, Linux와 macOS에서 ai-jail이 설치되어 있으면 세션을 샌드박스 안에서 다시 실행할지 제안합니다.",
+        "text": "<code>ai-memory run --yolo</code>는 무엇을 해제하려는지 알려주고, Linux와 macOS에서 ai-jail을 쓸 수 있으면 ai-jail이 무엇을 볼 수 있는지 체크리스트로 보여주며 세션을 샌드박스 안에서 다시 실행할지 제안합니다. <code>--jail</code>은 합리적인 기본값으로 곧바로 들어갑니다.",
         "link": "GitHub의 ai-jail"
       },
       {

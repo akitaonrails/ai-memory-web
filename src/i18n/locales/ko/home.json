@@ -17,7 +17,7 @@
   "yolo": {
     "kicker": "감독 없이, 울타리 안에서",
     "title": "Claude Code를 샌드박스 안에서 혼자 실행하기",
-    "text": "--dangerously-skip-permissions를 써도 Claude Code는 계속 질문을 띄우므로, 누군가 자리를 지키고 앉아 하나하나 답해야 합니다. 모든 질문을 한꺼번에 꺼버리는 것은 실제로 위험한 선택입니다. ai-memory run --yolo는 무엇을 해제하려는지 미리 알려주고, --true-yolo는 Claude Code가 그래도 띄우는 질문까지 모두 잠재우며, ai-jail이 설치되어 있으면 세션을 그 안에서 다시 실행할지 물어봅니다.",
+    "text": "--dangerously-skip-permissions를 써도 Claude Code는 계속 질문을 띄우므로, 누군가 자리를 지키고 앉아 하나하나 답해야 합니다. 모든 질문을 한꺼번에 꺼버리는 것은 실제로 위험한 선택입니다. ai-memory run --yolo는 무엇을 해제하려는지 미리 알려주고, ai-jail을 쓸 수 있으면 세션을 그 안에서 다시 실행할지 물어봅니다. --true-yolo는 여기에 Claude Code의 권한 우회 모드를 더하는 것으로, 직접 설정한 ask 규칙과 Claude Code의 명령어 안전성 검사는 그대로 적용됩니다.",
     "points": [
       {
         "title": "경고가 바뀌는 점을 알려줍니다",
@@ -25,7 +25,7 @@
       },
       {
         "title": "ai-jail이 세션을 가둡니다",
-        "text": "Linux에서는 Landlock과 seccomp를 적용한 bubblewrap을, macOS에서는 sandbox-exec를 사용합니다. 거부해도 세션은 그대로 실행되지만, 울타리 밖에서 실행됩니다."
+        "text": "Linux에서는 Landlock과 seccomp를 적용한 bubblewrap을, macOS에서는 sandbox-exec를 사용합니다. 예라고 답하면 체크리스트로 호스트의 어떤 자격 증명을 ai-jail에 넘길지 고를 수 있고, 아니요라고 답하면 세션은 울타리 밖에서 그대로 실행됩니다."
       },
       {
         "title": "사람에게만 묻습니다",
@@ -61,7 +61,7 @@
           "answer": "y"
         }
       ],
-      "caption": "ai-jail이 설치된 Linux 또는 macOS. --true-yolo는 Claude Code에만 영향을 주며, 다른 에이전트는 무시합니다."
+      "caption": "ai-jail이 설치된 Linux 또는 macOS. --jail은 합리적인 기본값으로 곧바로 들어가며 --yolo가 필요 없고, --no-jail은 경고는 유지하되 제안은 건너뜁니다."
     }
   },
   "continuity": {

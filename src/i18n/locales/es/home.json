@@ -17,7 +17,7 @@
   "yolo": {
     "kicker": "Sin supervisión, con valla",
     "title": "Deja que Claude Code se ejecute solo, dentro de un sandbox",
-    "text": "Incluso con --dangerously-skip-permissions, Claude Code sigue preguntando, así que alguien tiene que quedarse pendiente de él. Desactivar todos los avisos es un riesgo real. ai-memory run --yolo dice qué está a punto de desarmar, --true-yolo silencia los avisos que Claude Code todavía muestra, y si ai-jail está instalado, ofrece volver a ejecutar la sesión dentro del sandbox.",
+    "text": "Incluso con --dangerously-skip-permissions, Claude Code sigue preguntando, así que alguien tiene que quedarse vigilándolo. Desactivar todos los avisos es un riesgo real. ai-memory run --yolo dice qué está a punto de desarmar, y cuando ai-jail está disponible, ofrece volver a ejecutar la sesión dentro de él. --true-yolo añade encima el modo bypass de Claude Code; tus propias reglas «ask» y sus comprobaciones de seguridad de comandos se siguen aplicando.",
     "points": [
       {
         "title": "El aviso dice qué cambia",
@@ -25,7 +25,7 @@
       },
       {
         "title": "ai-jail encierra la sesión",
-        "text": "bubblewrap con Landlock y seccomp en Linux, sandbox-exec en macOS. Si dices que no, la sesión se ejecuta igual, fuera de esa caja."
+        "text": "bubblewrap con Landlock y seccomp en Linux, sandbox-exec en macOS. Si dices que sí, un checklist elige qué credenciales del equipo anfitrión puede ver el jail. Si dices que no, la sesión se ejecuta igual, fuera de esa caja."
       },
       {
         "title": "Solo se pregunta a una persona",
@@ -61,7 +61,7 @@
           "answer": "y"
         }
       ],
-      "caption": "Linux o macOS con ai-jail instalado. --true-yolo solo afecta a Claude Code; otros agentes lo ignoran."
+      "caption": "Linux o macOS con ai-jail instalado. --jail entra directamente con valores predeterminados razonables y no necesita --yolo; --no-jail conserva el aviso pero omite la oferta."
     }
   },
   "continuity": {

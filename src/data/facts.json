@@ -144,9 +144,9 @@
     "directives": 68,
     "directivesNote": "List items in the six rule sections of AGENTS.md: build and test commands, code style, cross-cutting invariants, testing, security, maintenance.",
     "invariants": 16,
-    "docs": 74,
-    "unitTests": 3479,
-    "integrationTests": 740,
+    "docs": 75,
+    "unitTests": 3520,
+    "integrationTests": 755,
     "testsNote": "#[test], #[tokio::test], #[rstest] and similar attributes under crates/*/src (unit) and crates/*/tests (integration). A cargo run reports more because parameterised tests expand into several cases."
   }
 }

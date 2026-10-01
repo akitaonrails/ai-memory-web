@@ -159,7 +159,7 @@
       },
       {
         "title": "Un aviso antes de quitar los guardarraíles",
-        "text": "<code>ai-memory run --yolo</code> dice qué está a punto de desarmar y, en Linux y macOS con ai-jail instalado, ofrece volver a ejecutar la sesión dentro del sandbox.",
+        "text": "<code>ai-memory run --yolo</code> dice qué está a punto de desarmar y, en Linux y macOS con ai-jail disponible, ofrece volver a ejecutar la sesión dentro del sandbox con un checklist de lo que el jail puede ver. <code>--jail</code> entra directo con valores predeterminados razonables.",
         "link": "ai-jail en GitHub"
       },
       {

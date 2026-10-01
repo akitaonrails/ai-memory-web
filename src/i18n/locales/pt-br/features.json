@@ -159,7 +159,7 @@
       },
       {
         "title": "Um aviso antes de tirar as travas de segurança",
-        "text": "<code>ai-memory run --yolo</code> avisa o que está prestes a desativar e, no Linux e no macOS com o ai-jail instalado, oferece para rodar a sessão de novo dentro do sandbox.",
+        "text": "<code>ai-memory run --yolo</code> avisa o que está prestes a desativar e, no Linux e no macOS com o ai-jail disponível, oferece para rodar a sessão de novo dentro do sandbox, com um checklist do que o jail pode ver. <code>--jail</code> entra direto, com valores padrão sensatos.",
         "link": "ai-jail no GitHub"
       },
       {

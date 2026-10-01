@@ -17,7 +17,7 @@
   "yolo": {
     "kicker": "Sem supervisão, com cerca",
     "title": "Deixe o Claude Code rodar sozinho, dentro de um sandbox",
-    "text": "Mesmo com --dangerously-skip-permissions, o Claude Code continua perguntando, e alguém precisa ficar no teclado respondendo. Desligar todas as perguntas de uma vez é um risco real. O ai-memory run --yolo diz exatamente o que está prestes a desativar, o --true-yolo silencia os prompts que o Claude Code ainda mostra, e quando o ai-jail está instalado ele oferece para rodar a sessão de novo dentro dele.",
+    "text": "Mesmo com --dangerously-skip-permissions, o Claude Code continua perguntando, e alguém precisa ficar no teclado respondendo. Desligar todas as perguntas de uma vez é um risco real. O ai-memory run --yolo diz exatamente o que está prestes a desativar, e quando o ai-jail está disponível ele oferece para rodar a sessão de novo dentro dele. O --true-yolo soma o modo bypass do Claude Code por cima; suas próprias regras de ask e as checagens de segurança de comandos dele continuam valendo.",
     "points": [
       {
         "title": "O aviso diz o que muda",
@@ -25,7 +25,7 @@
       },
       {
         "title": "ai-jail cerca a sessão",
-        "text": "bubblewrap com Landlock e seccomp no Linux, sandbox-exec no macOS. Diga não e a sessão roda do mesmo jeito, só que fora da cerca."
+        "text": "bubblewrap com Landlock e seccomp no Linux, sandbox-exec no macOS. Diga sim e um checklist deixa você escolher quais credenciais do host (GitHub, AWS, SSH etc.) a sessão dentro do ai-jail pode ver. Diga não e a sessão roda do mesmo jeito, fora da cerca."
       },
       {
         "title": "Quem responde é sempre uma pessoa",
@@ -61,7 +61,7 @@
           "answer": "y"
         }
       ],
-      "caption": "Linux ou macOS com o ai-jail instalado. O --true-yolo só muda o comportamento do Claude Code; outros agentes ignoram essa flag."
+      "caption": "Linux ou macOS com o ai-jail disponível. O --jail entra direto, com valores padrão sensatos, sem precisar do --yolo; o --no-jail mantém o aviso mas pula a oferta."
     }
   },
   "continuity": {

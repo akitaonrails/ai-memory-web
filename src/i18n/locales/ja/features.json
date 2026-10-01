@@ -159,7 +159,7 @@
       },
       {
         "title": "ガードレールを外す前に警告",
-        "text": "<code>ai-memory run --yolo</code>は、これから無効化する内容を伝えます。LinuxとmacOSでai-jailがインストールされていれば、サンドボックス内でセッションを実行し直すことも提案します。",
+        "text": "<code>ai-memory run --yolo</code>は、これから無効化する内容を伝えます。LinuxとmacOSでai-jailが使える場合は、jailに何を見せるかのチェックリストとともに、サンドボックス内でセッションを実行し直すことも提案します。<code>--jail</code>は妥当なデフォルトのまま直接jailへ入ります。",
         "link": "GitHubのai-jail"
       },
       {

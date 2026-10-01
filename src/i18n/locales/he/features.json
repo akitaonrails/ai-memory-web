@@ -159,7 +159,7 @@
       },
       {
         "title": "אזהרה לפני שההגנות יורדות",
-        "text": "<code>ai-memory run --yolo</code> אומר מה הוא עומד לנטרל, וב-Linux וב-macOS עם ai-jail מותקן, מציע להריץ מחדש את הסשן בתוך ה-sandbox.",
+        "text": "<code>ai-memory run --yolo</code> אומר מה הוא עומד לנטרל, וב-Linux וב-macOS עם ai-jail זמין, מציע להריץ מחדש את הסשן בתוך ה-sandbox עם checklist של מה שהסשן המגודר יכול לראות. <code>--jail</code> נכנס ישר פנימה עם ברירות מחדל סבירות.",
         "link": "ai-jail ב-GitHub"
       },
       {
