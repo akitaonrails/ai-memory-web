@@ -14,56 +14,6 @@
     "marquee": "Works with {n} coding agents, including {names}"
   },
   "statement": "Your coding agent already takes notes. They live on one machine and belong to one agent. Switch tools and they are gone, and your teammates never see them at all. ai-memory is what is on the other side of those walls.",
-  "yolo": {
-    "kicker": "Unattended, with a fence",
-    "title": "Let Claude Code run alone, inside a sandbox",
-    "text": "Even with --dangerously-skip-permissions, Claude Code keeps asking, so someone sits and babysits it. Switching every prompt off is a real risk. ai-memory run --yolo names what it is about to disarm, and when ai-jail is usable it offers to re-run the session inside it. --true-yolo adds Claude Code’s bypass mode on top; your own ask rules and its command-safety checks still apply.",
-    "points": [
-      {
-        "title": "The warning says what changes",
-        "text": "No prompt means the agent can delete files, run any command and reach the network. You read that before you say yes."
-      },
-      {
-        "title": "ai-jail boxes the session in",
-        "text": "bubblewrap with Landlock and seccomp on Linux, sandbox-exec on macOS. Say yes and a checklist picks which host credentials the jail gets. Say no and the session still runs, outside the box."
-      },
-      {
-        "title": "Only a person is asked",
-        "text": "The questions appear on a real terminal. Hooks, CI, detached and piped runs are never interrupted, and a session already inside ai-jail is not asked twice."
-      }
-    ],
-    "primary": "How the launcher works",
-    "secondary": "About ai-jail",
-    "terminal": {
-      "title": "your terminal",
-      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
-      "lines": [
-        {
-          "kind": "cmd",
-          "text": "ai-memory run --true-yolo claude"
-        },
-        {
-          "kind": "info",
-          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
-        },
-        {
-          "kind": "warn",
-          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
-        },
-        {
-          "kind": "ask",
-          "text": "Proceed? [Y/n]",
-          "answer": "y"
-        },
-        {
-          "kind": "ask",
-          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
-          "answer": "y"
-        }
-      ],
-      "caption": "Linux or macOS with ai-jail installed. --jail goes straight in with sensible defaults and needs no --yolo; --no-jail keeps the warning and skips the offer."
-    }
-  },
   "continuity": {
     "label": "What stays when everything else changes",
     "title": "Change everything. Keep what you know.",

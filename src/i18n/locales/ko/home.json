@@ -14,56 +14,6 @@
     "marquee": "{names} 등 코딩 에이전트 {n}종과 함께 동작합니다"
   },
   "statement": "코딩 에이전트는 이미 메모를 남깁니다. 다만 그 메모는 컴퓨터 한 대, 에이전트 하나에 묶여 있습니다. 도구를 바꾸면 사라지고, 팀원들은 아예 볼 수도 없습니다. ai-memory는 그 벽 너머까지 이어지는 기억입니다.",
-  "yolo": {
-    "kicker": "감독 없이, 울타리 안에서",
-    "title": "Claude Code를 샌드박스 안에서 혼자 실행하기",
-    "text": "--dangerously-skip-permissions를 써도 Claude Code는 계속 질문을 띄우므로, 누군가 자리를 지키고 앉아 하나하나 답해야 합니다. 모든 질문을 한꺼번에 꺼버리는 것은 실제로 위험한 선택입니다. ai-memory run --yolo는 무엇을 해제하려는지 미리 알려주고, ai-jail을 쓸 수 있으면 세션을 그 안에서 다시 실행할지 물어봅니다. --true-yolo는 여기에 Claude Code의 권한 우회 모드를 더하는 것으로, 직접 설정한 ask 규칙과 Claude Code의 명령어 안전성 검사는 그대로 적용됩니다.",
-    "points": [
-      {
-        "title": "경고가 바뀌는 점을 알려줍니다",
-        "text": "질문이 없으면 에이전트가 파일을 삭제하고, 어떤 명령이든 실행하고, 네트워크에도 접근할 수 있습니다. 동의하기 전에 그 내용을 먼저 읽습니다."
-      },
-      {
-        "title": "ai-jail이 세션을 가둡니다",
-        "text": "Linux에서는 Landlock과 seccomp를 적용한 bubblewrap을, macOS에서는 sandbox-exec를 사용합니다. 예라고 답하면 체크리스트로 호스트의 어떤 자격 증명을 ai-jail에 넘길지 고를 수 있고, 아니요라고 답하면 세션은 울타리 밖에서 그대로 실행됩니다."
-      },
-      {
-        "title": "사람에게만 묻습니다",
-        "text": "질문은 실제 터미널에서만 나타납니다. 훅, CI, 터미널이 없는 분리 실행이나 파이프 실행은 중단되지 않으며, 이미 ai-jail 안에 있는 세션에는 같은 질문을 다시 하지 않습니다."
-      }
-    ],
-    "primary": "런처 작동 방식",
-    "secondary": "ai-jail 소개",
-    "terminal": {
-      "title": "내 터미널",
-      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
-      "lines": [
-        {
-          "kind": "cmd",
-          "text": "ai-memory run --true-yolo claude"
-        },
-        {
-          "kind": "info",
-          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
-        },
-        {
-          "kind": "warn",
-          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
-        },
-        {
-          "kind": "ask",
-          "text": "Proceed? [Y/n]",
-          "answer": "y"
-        },
-        {
-          "kind": "ask",
-          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
-          "answer": "y"
-        }
-      ],
-      "caption": "ai-jail이 설치된 Linux 또는 macOS. --jail은 합리적인 기본값으로 곧바로 들어가며 --yolo가 필요 없고, --no-jail은 경고는 유지하되 제안은 건너뜁니다."
-    }
-  },
   "continuity": {
     "label": "다른 것이 다 바뀌어도 남는 것",
     "title": "전부 바꿔도 아는 것은 그대로.",

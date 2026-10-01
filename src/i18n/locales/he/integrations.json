@@ -51,6 +51,55 @@
     "managedTitle": "מה מוסיף \"מנוהל\"",
     "managedText": "<code>ai-memory run &lt;agent&gt;</code> מפעיל את הסוכן כשה-hooks וה-MCP כבר מחוברים, וממשיך את אותה עבודה כשעוברים בין סוכנים מנוהלים. סוכנים שמסומנים \"הפעלה ישירה\" עובדים בדרך הרגילה: מתקינים פעם אחת, ואז מפעילים אותם כמו תמיד."
   },
+  "yolo": {
+    "title": "להריץ את Claude Code לבד, בתוך ארגז חול",
+    "text": "גם עם --dangerously-skip-permissions, Claude Code ממשיך לשאול, אז מישהו צריך לשבת ולענות לכל בקשת אישור. לכבות את כל בקשות האישור זה סיכון ממשי. ai-memory run --yolo קורא בשם למה שהוא עומד לנטרל, וכש-ai-jail זמין הוא מציע להריץ מחדש את הסשן בתוכו. --true-yolo מוסיף על כך את מצב ה-bypass permissions של Claude Code; כללי ה-ask שהגדרתם ובדיקות בטיחות הפקודות שלו עדיין חלים.",
+    "points": [
+      {
+        "title": "האזהרה אומרת מה משתנה",
+        "text": "ללא בקשת אישור, הסוכן יכול למחוק קבצים, להריץ כל פקודה ולהגיע לרשת. קוראים את זה לפני שעונים כן."
+      },
+      {
+        "title": "ai-jail מגדר את הסשן",
+        "text": "bubblewrap עם Landlock ו-seccomp ב-Linux, sandbox-exec ב-macOS. עונים כן, וה-checklist קובע אילו פרטי גישה של המארח (GitHub, AWS, SSH ועוד) הסשן המגודר מקבל. עונים לא, והסשן עדיין רץ, מחוץ לגדר."
+      },
+      {
+        "title": "שואלים רק בן אדם",
+        "text": "השאלות מופיעות רק בטרמינל אמיתי. ריצות hooks, CI וריצות detached או piped אף פעם לא מופרעות, וסשן שכבר בתוך ai-jail לא נשאל פעמיים."
+      }
+    ],
+    "primary": "איך ה-launcher עובד",
+    "secondary": "על ai-jail",
+    "terminal": {
+      "title": "הטרמינל שלך",
+      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
+      "lines": [
+        {
+          "kind": "cmd",
+          "text": "ai-memory run --true-yolo claude"
+        },
+        {
+          "kind": "info",
+          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
+        },
+        {
+          "kind": "warn",
+          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
+        },
+        {
+          "kind": "ask",
+          "text": "Proceed? [Y/n]",
+          "answer": "y"
+        },
+        {
+          "kind": "ask",
+          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
+          "answer": "y"
+        }
+      ],
+      "caption": "Linux או macOS עם ai-jail מותקן. --jail נכנס ישר לארגז החול עם ברירות מחדל סבירות, ולא דורש --yolo; --no-jail משאיר את האזהרה ומדלג על ההצעה."
+    }
+  },
   "os": {
     "title": "מערכות הפעלה",
     "lede": "קובץ בינארי אחד ב-Rust לכל פלטפורמה. ב-Windows, המסלול הנתמך הוא WSL2, וה-build הנייטיב ניסיוני.",

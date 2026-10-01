@@ -14,56 +14,6 @@
     "marquee": "Funciona con {n} agentes de programación, entre ellos {names}"
   },
   "statement": "Tu agente de programación ya toma notas. Viven en una sola máquina y pertenecen a un solo agente. Cambia de herramienta y desaparecen, y tu equipo nunca llega a verlas. ai-memory es lo que hay al otro lado de esos muros.",
-  "yolo": {
-    "kicker": "Sin supervisión, con valla",
-    "title": "Deja que Claude Code se ejecute solo, dentro de un sandbox",
-    "text": "Incluso con --dangerously-skip-permissions, Claude Code sigue preguntando, así que alguien tiene que quedarse vigilándolo. Desactivar todos los avisos es un riesgo real. ai-memory run --yolo dice qué está a punto de desarmar, y cuando ai-jail está disponible, ofrece volver a ejecutar la sesión dentro de él. --true-yolo añade encima el modo bypass de Claude Code; tus propias reglas «ask» y sus comprobaciones de seguridad de comandos se siguen aplicando.",
-    "points": [
-      {
-        "title": "El aviso dice qué cambia",
-        "text": "Sin aviso, el agente puede borrar archivos, ejecutar cualquier comando y acceder a la red. Lees eso antes de decir que sí."
-      },
-      {
-        "title": "ai-jail encierra la sesión",
-        "text": "bubblewrap con Landlock y seccomp en Linux, sandbox-exec en macOS. Si dices que sí, un checklist elige qué credenciales del equipo anfitrión puede ver el jail. Si dices que no, la sesión se ejecuta igual, fuera de esa caja."
-      },
-      {
-        "title": "Solo se pregunta a una persona",
-        "text": "Las preguntas aparecen en una terminal real. Los hooks, la CI y las ejecuciones sin terminal real nunca se interrumpen, y a una sesión que ya está dentro de ai-jail no se le pregunta dos veces."
-      }
-    ],
-    "primary": "Cómo funciona el lanzador",
-    "secondary": "Sobre ai-jail",
-    "terminal": {
-      "title": "tu terminal",
-      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
-      "lines": [
-        {
-          "kind": "cmd",
-          "text": "ai-memory run --true-yolo claude"
-        },
-        {
-          "kind": "info",
-          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
-        },
-        {
-          "kind": "warn",
-          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
-        },
-        {
-          "kind": "ask",
-          "text": "Proceed? [Y/n]",
-          "answer": "y"
-        },
-        {
-          "kind": "ask",
-          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
-          "answer": "y"
-        }
-      ],
-      "caption": "Linux o macOS con ai-jail instalado. --jail entra directamente con valores predeterminados razonables y no necesita --yolo; --no-jail conserva el aviso pero omite la oferta."
-    }
-  },
   "continuity": {
     "label": "Lo que queda cuando todo lo demás cambia",
     "title": "Cámbialo todo. Conserva lo que sabes.",

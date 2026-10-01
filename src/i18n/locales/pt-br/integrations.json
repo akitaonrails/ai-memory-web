@@ -51,6 +51,55 @@
     "managedTitle": "O que o “gerenciado” acrescenta",
     "managedText": "<code>ai-memory run &lt;agent&gt;</code> abre o agente com hooks e MCP já configurados, e retoma o mesmo trabalho quando você troca entre agentes gerenciados. Agentes marcados como “abertura direta” funcionam do jeito normal: instale uma vez e depois abra como sempre."
   },
+  "yolo": {
+    "title": "Deixe o Claude Code rodar sozinho, dentro de um sandbox",
+    "text": "Mesmo com --dangerously-skip-permissions, o Claude Code continua perguntando, e alguém precisa ficar no teclado respondendo. Desligar todas as perguntas de uma vez é um risco real. O ai-memory run --yolo diz exatamente o que está prestes a desativar, e quando o ai-jail está disponível ele oferece para rodar a sessão de novo dentro dele. O --true-yolo soma o modo bypass do Claude Code por cima; suas próprias regras de ask e as checagens de segurança de comandos dele continuam valendo.",
+    "points": [
+      {
+        "title": "O aviso diz o que muda",
+        "text": "Sem prompt, o agente pode apagar arquivos, rodar qualquer comando e acessar a rede. Você lê isso antes de dizer sim."
+      },
+      {
+        "title": "ai-jail cerca a sessão",
+        "text": "bubblewrap com Landlock e seccomp no Linux, sandbox-exec no macOS. Diga sim e um checklist deixa você escolher quais credenciais do host (GitHub, AWS, SSH etc.) a sessão dentro do ai-jail pode ver. Diga não e a sessão roda do mesmo jeito, fora da cerca."
+      },
+      {
+        "title": "Quem responde é sempre uma pessoa",
+        "text": "As perguntas aparecem num terminal de verdade. Hooks, CI e execuções detached ou via pipe nunca são interrompidos, e uma sessão que já está dentro do ai-jail não é perguntada de novo."
+      }
+    ],
+    "primary": "Como o launcher funciona",
+    "secondary": "Sobre o ai-jail",
+    "terminal": {
+      "title": "seu terminal",
+      "note": "Product output. The lines below are what the binary prints and stay in English in every language.",
+      "lines": [
+        {
+          "kind": "cmd",
+          "text": "ai-memory run --true-yolo claude"
+        },
+        {
+          "kind": "info",
+          "text": "ai_memory_cli: ai-memory starting version=\"{version}\" bind=127.0.0.1:49374"
+        },
+        {
+          "kind": "warn",
+          "text": "--yolo runs every tool call with no confirmation. An agent can delete files, run any command, and reach the network unsupervised."
+        },
+        {
+          "kind": "ask",
+          "text": "Proceed? [Y/n]",
+          "answer": "y"
+        },
+        {
+          "kind": "ask",
+          "text": "ai-jail is installed. Re-run this session inside it? [Y/n]",
+          "answer": "y"
+        }
+      ],
+      "caption": "Linux ou macOS com o ai-jail disponível. O --jail entra direto, com valores padrão sensatos, sem precisar do --yolo; o --no-jail mantém o aviso mas pula a oferta."
+    }
+  },
   "os": {
     "title": "Sistemas operacionais",
     "lede": "Um binário Rust por plataforma. No Windows, o WSL2 é o caminho suportado e a build nativa é experimental.",

@@ -4,7 +4,6 @@ export const getStaticPaths = localePaths;
 import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import Continuity from '@/components/Continuity.astro';
-import Transcript, { type TranscriptLine } from '@/components/Transcript.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
 import Tabs from '@/components/Tabs.astro';
 import GithubStats from '@/components/GithubStats.astro';
@@ -20,8 +19,6 @@ const { t, raw, href } = useI18n(Astro, 'home', 'competitors');
 const gh = await getGithub();
 const latest = await getLatestRelease();
 
-// The terminal card: product output as the binary prints it, with the live version number.
-const transcript = raw<TranscriptLine[]>('yolo.terminal.lines').map((l) => ({ ...l, text: l.text.replace('{version}', latest.tag.replace(/^v/, '')) }));
 const featured = competitors.filter((c) => c.featured).map((c) => ({ id: c.id, ...raw<CompetitorText>(`items.${c.id}`) }));
 
 // Structure here, words in src/i18n/locales/<locale>/home.json.
@@ -103,33 +100,6 @@ ai-memory run claude`;
   <section class="band">
     <div class="wrap">
       <p class="statement" data-fill>{t('statement')}</p>
-    </div>
-  </section>
-
-  <!-- Unattended Claude Code, inside ai-jail -->
-  <section class="band !pt-0" id="yolo" data-hue="rose">
-    <div class="wrap grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-x-14 gap-y-10 items-center">
-      <div>
-        <p class="kicker">{t('yolo.kicker')}</p>
-        <h2 class="text-3xl mt-3">{t('yolo.title')}</h2>
-        <p class="mt-5 text-muted max-w-[40em]">{t('yolo.text')}</p>
-        <ul class="mt-8 space-y-5">
-          {raw<{ title: string; text: string }[]>('yolo.points').map((p) => (
-            <li>
-              <p class="font-semibold">{p.title}</p>
-              <p class="text-muted mt-1">{p.text}</p>
-            </li>
-          ))}
-        </ul>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={href('/features/#operate')} class="btn btn-primary">{t('yolo.primary')}</a>
-          <a href={site.aiJailSite} class="btn btn-ghost">{t('yolo.secondary')}</a>
-        </div>
-      </div>
-      <div class="min-w-0">
-        <Transcript title={t('yolo.terminal.title')} lines={transcript} />
-        <p class="mt-4 text-sm text-muted max-w-[44em]">{t('yolo.terminal.caption')}</p>
-      </div>
     </div>
   </section>
 

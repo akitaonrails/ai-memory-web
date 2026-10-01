@@ -7,14 +7,20 @@ import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
+import Transcript, { type TranscriptLine } from '@/components/Transcript.astro';
 import Figure from '@/components/Figure.astro';
 import Callout from '@/components/Callout.astro';
 import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
 import { platforms, harnesses, statusHue, slug, type Status } from '@/data/support';
+import { getLatestRelease } from '@/data/github';
 
 const { t, raw, href } = useI18n(Astro, 'integrations', 'support');
+const latest = await getLatestRelease();
+
+// The terminal card: product output as the binary prints it, with the live version number.
+const transcript = raw<TranscriptLine[]>('yolo.terminal.lines').map((l) => ({ ...l, text: l.text.replace('{version}', latest.tag.replace(/^v/, '')) }));
 
 // Structure here, words in src/i18n/locales/<locale>/integrations.json and support.json.
 // Launcher names documented for `ai-memory run` in docs/managed-workstreams.md and docs/support-matrix.md.
@@ -144,7 +150,31 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
     </div>
   </Section>
 
-  <Section id="platforms" title={t('os.title')} lede={t('os.lede')} hue="azure" tint>
+  <!-- Unattended Claude Code, inside ai-jail -->
+  <Section id="yolo" title={t('yolo.title')} lede={t('yolo.text')} hue="rose" tint>
+    <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-x-14 gap-y-10 items-start">
+      <div>
+        <ul class="space-y-5">
+          {raw<{ title: string; text: string }[]>('yolo.points').map((p) => (
+            <li>
+              <p class="font-semibold">{p.title}</p>
+              <p class="text-muted mt-1">{p.text}</p>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={href('/features/#operate')} class="btn btn-primary">{t('yolo.primary')}</a>
+          <a href={site.aiJailSite} class="btn btn-ghost">{t('yolo.secondary')}</a>
+        </div>
+      </div>
+      <div class="min-w-0">
+        <Transcript title={t('yolo.terminal.title')} lines={transcript} />
+        <p class="mt-4 text-sm text-muted max-w-[44em]">{t('yolo.terminal.caption')}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="platforms" title={t('os.title')} lede={t('os.lede')} hue="azure">
     <div class="table-wrap">
       <table class="table-site plat">
         <caption class="sr-only">{t('os.caption')}</caption>
@@ -167,7 +197,7 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
     </p>
   </Section>
 
-  <Section id="providers" title={t('providers.title')} lede={t('providers.lede')} hue="green">
+  <Section id="providers" title={t('providers.title')} lede={t('providers.lede')} hue="green" tint>
     <div class="grid lg:grid-cols-2 gap-x-14 gap-y-14">
       <div>
         <h3 class="text-xl">{t('providers.embeddings.title')}</h3>
@@ -185,7 +215,7 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
     <p class="mt-12 text-muted max-w-[40em]" set:html={t('providers.after', { llm: `${site.docs}/llm-providers.md`, embeddings: `${site.docs}/local-embeddings.md` })} />
   </Section>
 
-  <Section id="not-listed" title={t('notListed.title')} lede={t('notListed.lede')} hue="teal" tint>
+  <Section id="not-listed" title={t('notListed.title')} lede={t('notListed.lede')} hue="teal">
     <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-x-14 gap-y-10">
       <div class="prose-site text-muted">
         <p>{t('notListed.register')}</p>
