@@ -133,7 +133,8 @@
   "code": {
     "terminal": "טרמינל",
     "copy": "העתקה",
-    "copied": "הועתק"
+    "copied": "הועתק",
+    "thenLaunch": "ואז מפעילים כרגיל"
   },
   "next": {
     "title": "להמשך קריאה"

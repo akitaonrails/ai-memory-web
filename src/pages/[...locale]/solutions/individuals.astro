@@ -50,7 +50,10 @@ const clientCode = `# ${t('machines.comment')}
 export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
 export AI_MEMORY_AUTH_TOKEN="$TOKEN"
 ai-memory install-mcp   --client claude-code --apply
-ai-memory install-hooks --agent  claude-code --apply`;
+ai-memory install-hooks --agent  claude-code --apply
+
+# ${t('code.thenLaunch')}
+ai-memory run claude`;
 
 const webCode = `ai-memory serve --transport http --bind 127.0.0.1:49374 --enable-web
 # ${t('defaults.web.comment', { url: webUrl })}`;

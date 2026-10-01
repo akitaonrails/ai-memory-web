@@ -29,11 +29,11 @@
     "managed": "Gestionado",
     "direct": "Lanzamiento directo",
     "commands": {
+      "launch": "lánzalo a través de ai-memory; el primer lanzamiento instala sus hooks y la entrada de MCP",
+      "byHand": "o conéctalo a mano, para un harness que nunca lanzas así",
       "mcp": "las herramientas de memoria, por MCP",
       "hooks": "captura automática, mediante hooks de ciclo de vida",
       "hooksOnly": "prepara los scripts de los hooks e imprime un fragmento para pegar en la configuración del agente",
-      "managedOnly": "lánzalo a través de ai-memory",
-      "orManaged": "o lánzalo gestionado; las dos formas se conectan solas",
       "print": "imprime un bloque de hooks para pegar en la propia configuración del agente"
     },
     "dryRun": "Omite --apply para imprimir el cambio sin escribirlo.",

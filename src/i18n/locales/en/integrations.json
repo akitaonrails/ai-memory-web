@@ -29,11 +29,11 @@
     "managed": "Managed",
     "direct": "Direct launch",
     "commands": {
+      "launch": "launch it through ai-memory; the first launch installs its hooks and MCP entry",
+      "byHand": "or wire it by hand, for a harness you never launch this way",
       "mcp": "the memory tools, over MCP",
       "hooks": "automatic capture, through lifecycle hooks",
       "hooksOnly": "stages the hook scripts and prints a snippet to paste into the agent’s settings",
-      "managedOnly": "launch it through ai-memory",
-      "orManaged": "or launch it managed; both wire themselves",
       "print": "prints a hooks block to paste into the agent’s own config"
     },
     "dryRun": "Leave out --apply to print the change without writing it.",

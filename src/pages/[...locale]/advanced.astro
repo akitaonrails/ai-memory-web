@@ -67,7 +67,10 @@ AI_MEMORY_BIND=0.0.0.0:49374`;
 const tlsClient = `ai-memory install-mcp   --client claude-code --apply \\
     --server-url "https://memory.example.com/mcp" --auth-token "$AI_MEMORY_AUTH_TOKEN"
 ai-memory install-hooks --agent  claude-code --apply \\
-    --server-url "https://memory.example.com" --auth-token "$AI_MEMORY_AUTH_TOKEN"`;
+    --server-url "https://memory.example.com" --auth-token "$AI_MEMORY_AUTH_TOKEN"
+
+# ${t('code.thenLaunch')}
+ai-memory run claude`;
 
 // docs/install.md (AUR), docs/macos.md, docs/windows.md.
 const systemdUser = `systemctl --user daemon-reload

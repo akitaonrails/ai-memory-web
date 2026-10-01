@@ -35,9 +35,6 @@ const steps = (key: string, code: (string | undefined | ((s: StepText) => string
     return { title: s.title, text: fill(s.text), codeTitle: s.codeTitle, code: typeof c === 'function' ? c(s) : c };
   });
 
-const wire = `ai-memory install-mcp   --client claude-code --apply
-ai-memory install-hooks --agent  claude-code --apply`;
-
 const mise = steps('solo.mise', [
   'mise use -g github:akitaonrails/ai-memory',
   `ai-memory init
@@ -71,8 +68,7 @@ tar -xzf ai-memory-macos-aarch64.tar.gz`,
   `./ai-memory init
 ./ai-memory serve --transport http --bind 127.0.0.1:49374`,
   `cd ~/Applications/ai-memory
-./ai-memory install-hooks --agent claude-code --apply
-./ai-memory install-mcp --client claude-code --apply`,
+./ai-memory run claude`,
 ]);
 
 const docker = steps('solo.docker', [
@@ -82,7 +78,7 @@ const docker = steps('solo.docker', [
     -p 127.0.0.1:49374:49374 \\
     -v ai-memory-data:/data \\
     docker.io/akitaonrails/ai-memory:latest`,
-  wire,
+  'ai-memory run claude',
 ]);
 
 const windows = steps('solo.windows', [
@@ -92,8 +88,7 @@ const windows = steps('solo.windows', [
     -p 127.0.0.1:49374:49374 \\
     -v ai-memory-data:/data \\
     akitaonrails/ai-memory:latest`,
-  `ai-memory install-mcp --client claude-code --apply
-ai-memory install-hooks --agent claude-code --apply`,
+  'ai-memory run claude',
 ]);
 
 const team = steps('team.steps', [
@@ -113,7 +108,10 @@ export AI_MEMORY_AUTH_TOKEN="$TOKEN"
 
 ai-memory install-mcp   --client claude-code --apply
 ai-memory install-hooks --apply --agent claude-code \\
-    --as-user alice --auth-token aim_XGq...<secret>`,
+    --as-user alice --auth-token aim_XGq...<secret>
+
+# ${t('code.thenLaunch')}
+ai-memory run claude`,
   undefined,
 ]);
 
@@ -181,8 +179,7 @@ const howTo = {
       <div class="min-w-0">
         <h3 class="text-xl">{t('next.agent.title')}</h3>
         <p class="mt-2 text-muted">{t('next.agent.text')}</p>
-        <div class="mt-4"><CodeBlock code={`ai-memory install-mcp   --client codex --apply
-ai-memory install-hooks --agent  codex --apply`} /></div>
+        <div class="mt-4"><CodeBlock code="ai-memory run codex" /></div>
         <p class="mt-4"><a class="link" href={href('/integrations/#agents')}>{t('next.agent.link')}</a></p>
       </div>
       <div class="min-w-0">

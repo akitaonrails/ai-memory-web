@@ -133,7 +133,8 @@
   "code": {
     "terminal": "Terminal",
     "copy": "Copiar",
-    "copied": "Copiado"
+    "copied": "Copiado",
+    "thenLaunch": "depois abra como sempre"
   },
   "next": {
     "title": "Continue lendo"

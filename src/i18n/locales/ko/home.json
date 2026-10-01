@@ -40,7 +40,7 @@
       "lines": [
         {
           "kind": "cmd",
-          "text": "ai-memory run --yolo --true-yolo claude"
+          "text": "ai-memory run --true-yolo claude"
         },
         {
           "kind": "info",

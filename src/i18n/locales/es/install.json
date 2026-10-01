@@ -80,8 +80,8 @@
         "text": "Deja <code>serve</code> corriendo en esta terminal. Como alternativa, el <a href=\"{services}\">agente de launchd</a> lo arranca al iniciar sesión."
       },
       {
-        "title": "Conecta tu agente desde una segunda terminal",
-        "text": "Deja el binario descomprimido donde está, porque los comandos de los hooks apuntan a esa ruta."
+        "title": "Lanza tu agente a través de él",
+        "text": "Deja el binario descomprimido donde está, porque los hooks que instala el primer lanzamiento apuntan a esa ruta."
       }
     ],
     "docker": [
@@ -94,8 +94,8 @@
         "text": "La imagen cubre <code>linux/amd64</code> y <code>linux/arm64</code>. En un host con Podman, cambia <code>docker</code> por <code>podman</code>. El wrapper usa Podman rootless por su cuenta cuando Docker no está instalado."
       },
       {
-        "title": "Conecta tu agente",
-        "text": "Después de esto, arranca Claude Code como siempre. Esta ruta tiene un límite: los hooks de shell del wrapper no aplican las reglas de captura <code>ignore_paths</code> por repositorio. El binario nativo sí."
+        "title": "Lanza tu agente a través de él",
+        "text": "El primer lanzamiento instala los hooks y la entrada de MCP. Esta ruta tiene un límite: los hooks de shell del wrapper no aplican las reglas de captura <code>ignore_paths</code> por repositorio. El binario nativo sí."
       }
     ],
     "windows": [
@@ -107,7 +107,7 @@
         "title": "Arranca el servidor dentro de WSL2"
       },
       {
-        "title": "Conecta tu agente, también dentro de WSL2",
+        "title": "Lanza tu agente, también dentro de WSL2",
         "text": "Windows nativo es experimental. Tiene un zip de la versión con <code>ai-memory.exe</code>, un wrapper de Docker en PowerShell y una receta de servicio con WinSW. <a href=\"{windowsDoc}\">La guía de Windows tiene los tres</a>."
       }
     ],
@@ -115,7 +115,7 @@
       "alt": "La instalación individual en tres etapas sobre un portátil: instalar el binario, arrancar el servidor en 127.0.0.1:49374 y ejecutar tu agente, que se conecta al servidor mediante hooks y MCP. Nada sale del portátil.",
       "caption": "Toda la ruta individual. El servidor se queda en loopback, y tu agente llega a él de dos formas: los hooks capturan la sesión y MCP le permite al agente buscar en ella."
     },
-    "runNote": "<code>ai-memory run</code> es el lanzador recomendado y es opcional. Conecta un harness en el primer lanzamiento y añade la reanudación nativa de sesiones entre harness. Los hooks por sí solos ya llevan el traspaso, así que lanzar tu agente directamente sigue funcionando. <a class=\"link\" href=\"{href}\">Lee cómo funcionan los lanzamientos gestionados</a>.",
+    "runNote": "<code>ai-memory run</code> es la forma de iniciar un agente. Conecta el harness en el primer lanzamiento, elige el scope de proyecto correcto y añade la reanudación de sesiones entre harnesses. Un agente iniciado directamente también captura mediante sus hooks, pero no te olvidas de nada si pasas por el lanzador. <a class=\"link\" href=\"{href}\">Lee cómo funcionan los lanzamientos gestionados</a>.",
     "existing": {
       "title": "¿Ya llevas meses en un proyecto?",
       "text": "No tienes que empezar de cero. La primera sesión en un proyecto que todavía no tiene memoria importa las sesiones de agentes que ya están en esta máquina, de todos los agentes compatibles, una sola vez y en segundo plano. Toma las 25 sesiones más recientes, y todo pasa por la misma limpieza de privacidad que la captura en vivo.",
@@ -148,7 +148,7 @@
     "lede": "Las tres cosas son opcionales. Hazlas cuando las necesites.",
     "agent": {
       "title": "Añade otro agente",
-      "text": "Ejecuta los mismos dos comandos con otro nombre. A partir de ahí, los dos agentes comparten una misma memoria del proyecto.",
+      "text": "Lánzalo una vez a través de ai-memory y queda conectado. A partir de ahí, los dos agentes comparten una misma memoria del proyecto.",
       "link": "Mira todos los agentes con soporte y su nombre"
     },
     "llm": {

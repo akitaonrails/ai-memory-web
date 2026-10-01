@@ -133,7 +133,8 @@
   "code": {
     "terminal": "ターミナル",
     "copy": "コピー",
-    "copied": "コピーしました"
+    "copied": "コピーしました",
+    "thenLaunch": "あとはいつもどおり起動する"
   },
   "next": {
     "title": "続けて読む"

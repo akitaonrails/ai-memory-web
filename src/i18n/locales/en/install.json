@@ -80,8 +80,8 @@
         "text": "Leave <code>serve</code> running in this terminal. The <a href=\"{services}\">launchd agent</a> starts it at login instead."
       },
       {
-        "title": "Wire your agent from a second terminal",
-        "text": "Keep the extracted binary where it is, because the hook commands point at that path."
+        "title": "Launch your agent through it",
+        "text": "Keep the extracted binary where it is, because the hooks the first launch installs point at that path."
       }
     ],
     "docker": [
@@ -94,8 +94,8 @@
         "text": "The image covers <code>linux/amd64</code> and <code>linux/arm64</code>. On a Podman host, replace <code>docker</code> with <code>podman</code>. The wrapper uses rootless Podman on its own when Docker is not installed."
       },
       {
-        "title": "Wire your agent",
-        "text": "After this, start Claude Code as usual. This path has one limit: the wrapper’s shell hooks do not enforce per-repository <code>ignore_paths</code> capture rules. The native binary does."
+        "title": "Launch your agent through it",
+        "text": "The first launch installs the hooks and the MCP entry. This path has one limit: the wrapper’s shell hooks do not enforce per-repository <code>ignore_paths</code> capture rules. The native binary does."
       }
     ],
     "windows": [
@@ -107,7 +107,7 @@
         "title": "Start the server inside WSL2"
       },
       {
-        "title": "Wire your agent, also inside WSL2",
+        "title": "Launch your agent, also inside WSL2",
         "text": "Native Windows is experimental. It has a release zip with <code>ai-memory.exe</code>, a PowerShell Docker wrapper and a WinSW service recipe. <a href=\"{windowsDoc}\">The Windows guide has all three</a>."
       }
     ],
@@ -115,7 +115,7 @@
       "alt": "The solo install in three stages on one laptop: install the binary, start the server on 127.0.0.1:49374, then run your agent, which connects to the server through hooks and MCP. Nothing leaves the laptop.",
       "caption": "The whole solo path. The server stays on loopback, and your agent reaches it two ways: hooks capture the session, MCP lets the agent search it."
     },
-    "runNote": "<code>ai-memory run</code> is the recommended launcher and it is optional. It wires a harness on first launch and adds native session resume across harnesses. Hooks alone already carry the handoff, so launching your agent directly keeps working. <a class=\"link\" href=\"{href}\">Read how managed launches work</a>.",
+    "runNote": "<code>ai-memory run</code> is the way to start an agent. It wires the harness on first launch, picks the right project scope and adds session resume across harnesses. An agent started directly still captures through its hooks, but you forget nothing by going through the launcher. <a class=\"link\" href=\"{href}\">Read how managed launches work</a>.",
     "existing": {
       "title": "Already months into a project?",
       "text": "You do not have to start from scratch. The first session in a project that has no memory yet imports the agent sessions already on this machine, from every supported agent, once and in the background. It takes the newest 25 sessions, and everything passes the same privacy strip as live capture.",
@@ -148,7 +148,7 @@
     "lede": "All three are optional. Do them when you need them.",
     "agent": {
       "title": "Add another agent",
-      "text": "Run the same two commands with a different name. Both agents then share one project memory.",
+      "text": "Launch it once through ai-memory and it is wired. Both agents then share one project memory.",
       "link": "See every supported agent and its name"
     },
     "llm": {

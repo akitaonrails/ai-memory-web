@@ -133,7 +133,8 @@
   "code": {
     "terminal": "터미널",
     "copy": "복사",
-    "copied": "복사됨"
+    "copied": "복사됨",
+    "thenLaunch": "그다음 평소처럼 실행"
   },
   "next": {
     "title": "이어서 읽기"
