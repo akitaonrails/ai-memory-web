@@ -41,6 +41,10 @@
     "native-windows": {
       "name": "Windows nativo",
       "note": "Zip da release com ai-memory.exe, o wrapper para Docker Desktop ou build a partir do código-fonte. O zip se atualiza sozinho com ai-memory upgrade."
+    },
+    "nixos": {
+      "name": "NixOS",
+      "note": "Pacote flake e um módulo NixOS com uma unit do systemd reforçada. Segredos via agenix, sops-nix ou um arquivo de ambiente."
     }
   },
   "harnesses": {
@@ -57,13 +61,16 @@
       "note": "Config de MCP e hooks de ciclo de vida."
     },
     "opencode": {
-      "note": "MCP remoto e um plugin TypeScript gerado."
+      "note": "V1 ou V2, detectada a partir do executável."
     },
     "opencode2": {
-      "note": "Plugin para a API de eventos 2.0.10+, testado com a 2.0.14. Cada turno concluído atualiza o resumo e o handoff."
+      "note": "Força a V2 quando você não quer a detecção. Cada turno concluído atualiza o resumo e o handoff."
     },
     "grok": {
       "note": "A captura funciona. O handoff chega na primeira chamada de ferramenta."
+    },
+    "copilot-cli": {
+      "note": "Dez eventos de hook e MCP. O handoff chega no contexto adicional do Copilot na abertura da sessão."
     },
     "devin": {
       "note": "Hooks e MCP, incluindo captura pós-compactação."
@@ -94,6 +101,9 @@
     },
     "zcode": {
       "note": "Seis triggers. A injeção de handoff funciona."
+    },
+    "grizzybot": {
+      "note": "Um app de agente nativo para macOS, com a própria ponte para o ai-memory. Nada para instalar."
     },
     "crush": {
       "note": "Abra com ai-memory run crush."

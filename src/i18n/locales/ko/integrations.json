@@ -34,7 +34,8 @@
       "mcp": "메모리 도구, MCP로 제공",
       "hooks": "자동 캡처, 라이프사이클 훅으로 동작",
       "hooksOnly": "훅 스크립트를 준비하고, 에이전트 설정에 붙여 넣을 스니펫을 출력합니다",
-      "print": "에이전트 자체 설정에 붙여 넣을 훅 블록을 출력합니다"
+      "print": "에이전트 자체 설정에 붙여 넣을 훅 블록을 출력합니다",
+      "none": "설치할 것이 없음: /hook과 /mcp를 직접 호출합니다"
     },
     "dryRun": "--apply를 빼면 변경 내용을 쓰지 않고 출력만 합니다.",
     "community": "ai-memory는 이 에이전트용 인스톨러를 제공하지 않습니다. 서버는 이 에이전트의 훅 이벤트를 인식하며, 플러그인은 커뮤니티가 유지 관리합니다. 설치하기 전에 직접 검토하세요. <a class=\"underline font-semibold text-text\" href=\"{href}\">GitHub의 ai-memory-hermes-plugin</a>.",
@@ -111,10 +112,11 @@
       "notes": "비고"
     },
     "how": {
-      "linux": "릴리스 tarball, Docker 또는 Podman 이미지, 또는 AUR 패키지",
+      "linux": "릴리스 tarball, Docker 또는 Podman 이미지, AUR 패키지, 또는 Fedora RPM",
       "macos": "launchd 에이전트가 포함된 릴리스 tarball, Docker, 또는 소스에서 빌드한 메뉴 막대 앱",
       "windows-via-wsl2": "WSL2 안에서 Linux 바이너리 사용",
-      "native-windows": "릴리스 zip, Docker Desktop 래퍼, 또는 소스 빌드"
+      "native-windows": "릴리스 zip, Docker Desktop 래퍼, 또는 소스 빌드",
+      "nixos": "Flake 패키지, 또는 시스템 서비스로 쓰는 NixOS 모듈"
     },
     "download": "최신 릴리스 다운로드",
     "windowsGuide": "Windows 가이드 읽기"

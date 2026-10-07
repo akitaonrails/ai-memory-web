@@ -34,7 +34,8 @@
       "mcp": "MCP経由のメモリツール",
       "hooks": "ライフサイクルフックによる自動キャプチャ",
       "hooksOnly": "フックスクリプトを配置し、エージェントの設定に貼り付けるスニペットを出力する",
-      "print": "エージェント自身の設定に貼り付けるフックのブロックを出力する"
+      "print": "エージェント自身の設定に貼り付けるフックのブロックを出力する",
+      "none": "インストールするものはなし。/hookと/mcpには自分で接続する"
     },
     "dryRun": "--applyを外すと、書き込まずに変更内容だけを出力します。",
     "community": "ai-memoryはこのエージェント用のインストーラーを同梱していません。サーバーはそのフックイベントを認識し、プラグインはコミュニティがメンテナンスしています。インストールする前に中身を確認してください：<a class=\"underline font-semibold text-text\" href=\"{href}\">GitHubのai-memory-hermes-plugin</a>。",
@@ -111,10 +112,11 @@
       "notes": "備考"
     },
     "how": {
-      "linux": "リリースのtarball、DockerまたはPodmanのイメージ、またはAURパッケージ",
+      "linux": "リリースのtarball、DockerまたはPodmanのイメージ、AURパッケージ、またはFedoraのRPM",
       "macos": "launchdエージェント付きのリリースtarball、Docker、またはソースからビルドしたメニューバーアプリ",
       "windows-via-wsl2": "WSL2の中でLinux用バイナリを使用",
-      "native-windows": "リリースのzip、Docker Desktop用ラッパー、またはソースからのビルド"
+      "native-windows": "リリースのzip、Docker Desktop用ラッパー、またはソースからのビルド",
+      "nixos": "flakeパッケージ、またはシステムサービスとしてのNixOSモジュール"
     },
     "download": "最新リリースをダウンロード",
     "windowsGuide": "Windowsガイドを読む"

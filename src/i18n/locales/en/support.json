@@ -41,6 +41,10 @@
     "native-windows": {
       "name": "Native Windows",
       "note": "Release zip with ai-memory.exe, the Docker Desktop wrapper, or a source build. The zip upgrades itself with ai-memory upgrade."
+    },
+    "nixos": {
+      "name": "NixOS",
+      "note": "Flake package and a NixOS module with a hardened systemd unit. Secrets through agenix, sops-nix or an environment file."
     }
   },
   "harnesses": {
@@ -57,13 +61,16 @@
       "note": "MCP config and lifecycle hooks."
     },
     "opencode": {
-      "note": "Remote MCP and a generated TypeScript plugin."
+      "note": "V1 or V2, detected from the executable."
     },
     "opencode2": {
-      "note": "Plugin for the 2.0.10+ event API, checked against 2.0.14. Every finished turn refreshes the summary and the handoff."
+      "note": "Forces V2 when you do not want detection. Every finished turn refreshes the summary and the handoff."
     },
     "grok": {
       "note": "Capture works. The handoff arrives with the first tool call."
+    },
+    "copilot-cli": {
+      "note": "Ten hook events and MCP. The handoff arrives in Copilot’s additional context at session start."
     },
     "devin": {
       "note": "Hooks and MCP, including post-compaction capture."
@@ -94,6 +101,9 @@
     },
     "zcode": {
       "note": "Six triggers. Handoff injection works."
+    },
+    "grizzybot": {
+      "note": "A native macOS agent app with its own ai-memory bridge. Nothing to install."
     },
     "crush": {
       "note": "Launch it with ai-memory run crush."

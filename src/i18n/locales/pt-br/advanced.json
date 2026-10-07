@@ -201,6 +201,13 @@
         "title": "Um espelho remoto em git",
         "text": "Para uma instalação de um usuário só, o guia de backup mostra como enviar a wiki e o diretório de dados para um repositório git privado por temporizador, o que deixar de fora (o índice derivado, o cache de modelos, logs, segredos) e quando um arquivo criptografado é a escolha melhor.",
         "link": "Leia o guia de backup"
+      },
+      "agents": {
+        "title": "Também a configuração dos seus agentes",
+        "text": "<code>ai-memory backup-agents</code> arquiva as configurações de agentes do host, skills, plugins e instruções de projeto em um único tarball, com o texto da config MCP sanitizado por padrão. <code>restore-agents</code> é um dry run até você adicionar <code>--apply</code>, e guarda cada arquivo que sobrescreve como backup com timestamp.",
+        "codeTitle": "configurações dos agentes",
+        "commentBackup": "arquiva a configuração de cada agente instalado",
+        "commentRestore": "mostra o que uma restauração mudaria, depois aplica"
       }
     },
     "oneServer": {

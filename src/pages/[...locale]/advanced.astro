@@ -293,6 +293,15 @@ const faq = faqPage(faqItems);
     <h4 class="text-xl mt-12">{t('data.backup.remote.title')}</h4>
     <p class="mt-2 text-muted max-w-[44em]">{t('data.backup.remote.text')}</p>
     <p class="mt-3"><a class="link" href={doc('backup.md')}>{t('data.backup.remote.link')}</a></p>
+    <h4 class="text-xl mt-12">{t('data.backup.agents.title')}</h4>
+    <div class="mt-2 grid lg:grid-cols-2 gap-8 items-start">
+      <p class="text-muted max-w-[40em]" set:html={t('data.backup.agents.text')} />
+      <div class="min-w-0"><CodeBlock title={t('data.backup.agents.codeTitle')} code={`# ${t('data.backup.agents.commentBackup')}
+ai-memory backup-agents -o agent-assets.tar.gz
+# ${t('data.backup.agents.commentRestore')}
+ai-memory restore-agents -i agent-assets.tar.gz
+ai-memory restore-agents -i agent-assets.tar.gz --apply`} /></div>
+    </div>
     <div class="mt-12 grid gap-6 lg:grid-cols-2">
       <Callout title={t('data.oneServer.title')} hue="amber">
         <p set:html={t('data.oneServer.text')} />

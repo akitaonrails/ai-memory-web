@@ -201,6 +201,13 @@
         "title": "Un espejo remoto en git",
         "text": "Para una instalación de un solo usuario, la guía de copias de seguridad muestra cómo empujar la wiki y el directorio de datos a un repositorio de git privado con un temporizador, qué dejar fuera (el índice derivado, la caché de modelos, los logs, los secretos) y cuándo conviene más un archivo cifrado.",
         "link": "Lee la guía de copias de seguridad"
+      },
+      "agents": {
+        "title": "También la configuración de tus agentes",
+        "text": "<code>ai-memory backup-agents</code> archiva en un solo tarball las configuraciones de agentes del equipo, sus skills, plugins e instrucciones de proyecto, con el texto de la configuración MCP saneado por defecto. <code>restore-agents</code> es una simulación hasta que añades <code>--apply</code>, y conserva cada archivo que sobrescribe como copia de seguridad con marca de tiempo.",
+        "codeTitle": "configuración de agentes",
+        "commentBackup": "archiva la configuración de cada agente instalado",
+        "commentRestore": "muestra qué cambiaría una restauración y luego la aplica"
       }
     },
     "oneServer": {

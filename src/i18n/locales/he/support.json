@@ -41,6 +41,10 @@
     "native-windows": {
       "name": "Windows נייטיב",
       "note": "קובץ zip של הגרסה עם ai-memory.exe, ה-wrapper ל-Docker Desktop, או build מקוד מקור. קובץ ה-zip משדרג את עצמו עם ai-memory upgrade."
+    },
+    "nixos": {
+      "name": "NixOS",
+      "note": "חבילת flake ומודול NixOS עם יחידת systemd מוקשחת. סודות דרך agenix, sops-nix או קובץ משתני סביבה."
     }
   },
   "harnesses": {
@@ -57,13 +61,16 @@
       "note": "קונפיגורציית MCP ו-hooks של מחזור החיים."
     },
     "opencode": {
-      "note": "MCP מרוחק ופלאגין TypeScript שנוצר אוטומטית."
+      "note": "V1 או V2, מזוהה לפי קובץ ההרצה."
     },
     "opencode2": {
-      "note": "פלאגין ל-event API מגרסה 2.0.10 ואילך, נבדק מול 2.0.14. כל תור שמסתיים מרענן את הסיכום ואת ההעברה."
+      "note": "מכריח V2 כשלא רוצים זיהוי אוטומטי. כל תור שמסתיים מרענן את הסיכום ואת ההעברה."
     },
     "grok": {
       "note": "הלכידה עובדת. ההעברה מגיעה עם קריאת הכלי הראשונה."
+    },
+    "copilot-cli": {
+      "note": "עשרה אירועי hook ו-MCP. ההעברה מגיעה בהקשר הנוסף של Copilot בתחילת הסשן."
     },
     "devin": {
       "note": "Hooks ו-MCP, כולל לכידה אחרי compaction."
@@ -94,6 +101,9 @@
     },
     "zcode": {
       "note": "שישה טריגרים. הזרקת העברות עובדת."
+    },
+    "grizzybot": {
+      "note": "אפליקציית סוכן נייטיב ל-macOS עם גשר משלה ל-ai-memory. אין מה להתקין."
     },
     "crush": {
       "note": "מריצים אותו עם ai-memory run crush."

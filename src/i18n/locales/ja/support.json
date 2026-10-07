@@ -41,6 +41,10 @@
     "native-windows": {
       "name": "ネイティブWindows",
       "note": "ai-memory.exe入りのリリースzip、Docker Desktop用ラッパー、またはソースからのビルド。zip版はai-memory upgradeで自己更新します。"
+    },
+    "nixos": {
+      "name": "NixOS",
+      "note": "flakeパッケージと、堅牢化したsystemdユニットを持つNixOSモジュール。シークレットはagenix、sops-nix、または環境ファイルで渡します。"
     }
   },
   "harnesses": {
@@ -57,13 +61,16 @@
       "note": "MCP設定とライフサイクルフック。"
     },
     "opencode": {
-      "note": "リモートMCPと、生成されるTypeScriptプラグイン。"
+      "note": "V1かV2かは、インストールされている実行ファイルから判定します。"
     },
     "opencode2": {
-      "note": "2.0.10以降のイベントAPI向けプラグインで、2.0.14で動作確認済みです。ターンが完了するたびに、要約と引き継ぎが更新されます。"
+      "note": "自動判定を使いたくない場合にV2を強制します。ターンが完了するたびに、要約と引き継ぎが更新されます。"
     },
     "grok": {
       "note": "キャプチャは動作します。引き継ぎは最初のツール呼び出しとともに届きます。"
+    },
+    "copilot-cli": {
+      "note": "フックイベントは10種で、MCPにも対応します。引き継ぎは、セッション開始時にCopilotの追加コンテキストとして届きます。"
     },
     "devin": {
       "note": "フックとMCP。コンパクション後のキャプチャにも対応。"
@@ -94,6 +101,9 @@
     },
     "zcode": {
       "note": "トリガーは6種。引き継ぎの注入も動作します。"
+    },
+    "grizzybot": {
+      "note": "ai-memoryへの接続機能を自前で持つ、macOSネイティブのエージェントアプリです。インストールするものはありません。"
     },
     "crush": {
       "note": "ai-memory run crushで起動します。"

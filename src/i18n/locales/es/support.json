@@ -41,6 +41,10 @@
     "native-windows": {
       "name": "Windows nativo",
       "note": "Zip de la versión con ai-memory.exe, el wrapper para Docker Desktop o una compilación desde el código fuente. El zip se actualiza solo con ai-memory upgrade."
+    },
+    "nixos": {
+      "name": "NixOS",
+      "note": "Paquete de flake y un módulo de NixOS con una unidad de systemd reforzada. Los secretos van con agenix, sops-nix o un archivo de entorno."
     }
   },
   "harnesses": {
@@ -57,13 +61,16 @@
       "note": "Configuración de MCP y hooks de ciclo de vida."
     },
     "opencode": {
-      "note": "MCP remoto y un plugin de TypeScript generado."
+      "note": "V1 o V2, detectado a partir del ejecutable."
     },
     "opencode2": {
-      "note": "Plugin para la API de eventos 2.0.10+, probado contra la 2.0.14. Cada turno terminado actualiza el resumen y el traspaso."
+      "note": "Fuerza V2 cuando no quieres la detección. Cada turno terminado actualiza el resumen y el traspaso."
     },
     "grok": {
       "note": "La captura funciona. El traspaso llega con la primera llamada a una herramienta."
+    },
+    "copilot-cli": {
+      "note": "Diez eventos de hook y MCP. El traspaso llega en el contexto adicional de Copilot al iniciar la sesión."
     },
     "devin": {
       "note": "Hooks y MCP, incluida la captura tras la compactación."
@@ -94,6 +101,9 @@
     },
     "zcode": {
       "note": "Seis triggers. La inyección de traspasos funciona."
+    },
+    "grizzybot": {
+      "note": "Una app de agente nativa de macOS con su propio puente a ai-memory. No hay nada que instalar."
     },
     "crush": {
       "note": "Lánzalo con ai-memory run crush."

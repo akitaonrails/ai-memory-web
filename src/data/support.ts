@@ -8,14 +8,16 @@ export const statusHue: Record<Status, string> = {
 };
 export const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-export interface Row { name: string; status: Status; id?: string; run?: boolean; print?: boolean }
+export interface Row { name: string; status: Status; id?: string; run?: boolean; print?: boolean; none?: boolean }
 // `print`: the hook installer prints a block to paste (no `--apply`) and there is no `install-mcp` client.
+// `none`: the agent ships its own bridge to /hook and /mcp, so there is nothing to install.
 
 export const platforms: Row[] = [
   { name: 'Linux', status: 'Supported' },
   { name: 'macOS', status: 'Supported' },
   { name: 'Windows via WSL2', status: 'Supported' },
   { name: 'Native Windows', status: 'Experimental' },
+  { name: 'NixOS', status: 'Supported' },
 ];
 
 export const harnesses: Row[] = [
@@ -24,8 +26,9 @@ export const harnesses: Row[] = [
   { name: 'Cursor', id: 'cursor', status: 'Supported' },
   { name: 'Gemini CLI', id: 'gemini-cli', status: 'Supported' },
   { name: 'OpenCode', id: 'opencode', status: 'Supported', run: true },
-  { name: 'OpenCode 2 beta', id: 'opencode2', status: 'Supported', run: true },
+  { name: 'OpenCode 2', id: 'opencode2', status: 'Supported', run: true },
   { name: 'Grok Build CLI', id: 'grok', status: 'Supported', run: true },
+  { name: 'GitHub Copilot CLI', id: 'copilot-cli', status: 'Supported' },
   { name: 'Devin CLI', id: 'devin', status: 'Supported' },
   { name: 'Kimi Code', id: 'kimi-code', status: 'Supported', run: true },
   { name: 'Kiro CLI', id: 'kiro-cli', status: 'Supported', run: true },
@@ -36,6 +39,7 @@ export const harnesses: Row[] = [
   { name: 'OpenClaw', id: 'openclaw', status: 'Supported' },
   { name: 'Zero', id: 'zero', status: 'Supported' },
   { name: 'ZCode', id: 'zcode', status: 'Supported' },
+  { name: 'GrizzyBot', id: 'grizzybot', status: 'Supported', none: true },
   { name: 'Crush', id: 'crush', status: 'Managed-only', run: true },
   { name: 'Pool', id: 'pool', status: 'Hooks-only' },
   { name: 'Claude Desktop', id: 'claude-desktop', status: 'MCP-only' },

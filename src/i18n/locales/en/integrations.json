@@ -34,7 +34,8 @@
       "mcp": "the memory tools, over MCP",
       "hooks": "automatic capture, through lifecycle hooks",
       "hooksOnly": "stages the hook scripts and prints a snippet to paste into the agent’s settings",
-      "print": "prints a hooks block to paste into the agent’s own config"
+      "print": "prints a hooks block to paste into the agent’s own config",
+      "none": "nothing to install: it talks to /hook and /mcp itself"
     },
     "dryRun": "Leave out --apply to print the change without writing it.",
     "community": "ai-memory ships no installer for this one. The server recognizes its hook events, and the plugin is maintained by the community. Review it before you install it: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin on GitHub</a>.",
@@ -111,10 +112,11 @@
       "notes": "Notes"
     },
     "how": {
-      "linux": "Release tarball, Docker or Podman image, or an AUR package",
+      "linux": "Release tarball, Docker or Podman image, an AUR package or a Fedora RPM",
       "macos": "Release tarball with a launchd agent, Docker, or the menu bar app built from source",
       "windows-via-wsl2": "The Linux binary, inside WSL2",
-      "native-windows": "Release zip, Docker Desktop wrapper, or a source build"
+      "native-windows": "Release zip, Docker Desktop wrapper, or a source build",
+      "nixos": "Flake package, or the NixOS module as a system service"
     },
     "download": "Download the latest release",
     "windowsGuide": "Read the Windows guide"

@@ -34,7 +34,8 @@
       "mcp": "כלי הזיכרון, דרך MCP",
       "hooks": "לכידה אוטומטית, דרך hooks של מחזור החיים",
       "hooksOnly": "מכין את סקריפטי ה-hooks ומדפיס קטע להדבקה בהגדרות של הסוכן",
-      "print": "מדפיס קטע hooks להדבקה בקונפיגורציה של הסוכן עצמו"
+      "print": "מדפיס קטע hooks להדבקה בקונפיגורציה של הסוכן עצמו",
+      "none": "אין מה להתקין: הוא מדבר עם /hook ו-/mcp בעצמו"
     },
     "dryRun": "משמיטים את --apply כדי להדפיס את השינוי בלי לכתוב אותו.",
     "community": "ai-memory לא מגיע עם מתקין לסוכן הזה. השרת מזהה את אירועי ה-hooks שלו, והפלאגין מתוחזק על ידי הקהילה. כדאי לעבור עליו לפני שמתקינים: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin ב-GitHub</a>.",
@@ -111,10 +112,11 @@
       "notes": "הערות"
     },
     "how": {
-      "linux": "tarball של הגרסה, image של Docker או Podman, או חבילת AUR",
+      "linux": "tarball של הגרסה, image של Docker או Podman, חבילת AUR או RPM של Fedora",
       "macos": "tarball של הגרסה עם launchd agent, Docker, או אפליקציית שורת התפריטים שנבנית מקוד המקור",
       "windows-via-wsl2": "הקובץ הבינארי של Linux, בתוך WSL2",
-      "native-windows": "zip של הגרסה, wrapper ל-Docker Desktop, או build מקוד המקור"
+      "native-windows": "zip של הגרסה, wrapper ל-Docker Desktop, או build מקוד המקור",
+      "nixos": "חבילת flake, או מודול NixOS כשירות מערכת"
     },
     "download": "הורדת הגרסה האחרונה",
     "windowsGuide": "למדריך ל-Windows"

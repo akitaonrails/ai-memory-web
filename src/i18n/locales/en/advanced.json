@@ -201,6 +201,13 @@
         "title": "A remote git mirror",
         "text": "For a single-user install, the backup guide shows how to push the wiki and the data directory to a private git repository on a timer, what to leave out (the derived index, the models cache, logs, secrets) and when an encrypted archive is the better choice.",
         "link": "Read the backup guide"
+      },
+      "agents": {
+        "title": "Your agents’ setups too",
+        "text": "<code>ai-memory backup-agents</code> archives the host’s agent configurations, skills, plugins and project instructions into one tarball, with MCP config text sanitized by default. <code>restore-agents</code> is a dry run until you add <code>--apply</code>, and keeps every file it overwrites as a timestamped backup.",
+        "codeTitle": "agent setups",
+        "commentBackup": "archive every installed agent’s setup",
+        "commentRestore": "show what a restore would change, then apply"
       }
     },
     "oneServer": {

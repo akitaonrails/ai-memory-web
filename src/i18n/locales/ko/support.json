@@ -41,6 +41,10 @@
     "native-windows": {
       "name": "네이티브 Windows",
       "note": "ai-memory.exe가 들어 있는 릴리스 zip, Docker Desktop 래퍼, 또는 소스 빌드. zip은 ai-memory upgrade로 스스로 업그레이드됩니다."
+    },
+    "nixos": {
+      "name": "NixOS",
+      "note": "Flake 패키지와, 보안을 강화한 systemd 유닛을 갖춘 NixOS 모듈. 시크릿은 agenix, sops-nix 또는 환경 변수 파일로 다룹니다."
     }
   },
   "harnesses": {
@@ -57,13 +61,16 @@
       "note": "MCP 설정과 라이프사이클 훅."
     },
     "opencode": {
-      "note": "원격 MCP와 자동 생성되는 TypeScript 플러그인."
+      "note": "V1과 V2를 실행 파일로 감지합니다."
     },
     "opencode2": {
-      "note": "2.0.10 이상 이벤트 API용 플러그인이며, 2.0.14 기준으로 확인했습니다. 턴이 끝날 때마다 요약과 인수인계를 새로 고칩니다."
+      "note": "감지에 맡기고 싶지 않을 때 V2를 강제합니다. 턴이 끝날 때마다 요약과 인수인계를 새로 고칩니다."
     },
     "grok": {
       "note": "캡처가 동작합니다. 인수인계는 첫 도구 호출과 함께 도착합니다."
+    },
+    "copilot-cli": {
+      "note": "훅 이벤트 10종과 MCP. 인수인계는 세션 시작 때 Copilot의 추가 컨텍스트(additional context)로 도착합니다."
     },
     "devin": {
       "note": "훅과 MCP. 컴팩션 이후 캡처도 포함합니다."
@@ -94,6 +101,9 @@
     },
     "zcode": {
       "note": "트리거 6종. 인수인계 주입이 동작합니다."
+    },
+    "grizzybot": {
+      "note": "자체 ai-memory 브리지를 갖춘 네이티브 macOS 에이전트 앱입니다. 설치할 것이 없습니다."
     },
     "crush": {
       "note": "ai-memory run crush로 실행하세요."
