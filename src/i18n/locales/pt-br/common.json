@@ -32,6 +32,7 @@
     "contribute": "Contribua",
     "download": "Download",
     "aging": "Envelhecimento da memória",
+    "profile": "Memória entre projetos",
     "features": "O que mais dá para fazer"
   },
   "nav": {
@@ -46,6 +47,10 @@
       "aging": {
         "label": "Como a memória envelhece",
         "note": "Decaimento, compactação e a passada de sonho"
+      },
+      "profile": {
+        "label": "Memória entre projetos",
+        "note": "Como você trabalha, entregue a cada projeto novo"
       },
       "features": {
         "label": "O que mais dá para fazer",

@@ -1,0 +1,7 @@
+A wide horizontal pipeline diagram with four stages connected by amber-gold arrows, reading left to right.
+Stage 1, labelled "Your words": a speech bubble with a quotation mark and two short lines. Green.
+Stage 2, labelled "Seen in 2 projects": two folder icons side by side with a check mark between them. Teal.
+Stage 3, labelled "One entry": a single notebook page with a title line and a small magnifier footnote icon. Azure.
+Stage 4, labelled "Every session start": a terminal window with a short highlighted block at its top and a small compass icon beside it. Violet.
+Below stage 2, a dimmed branch with a dotted arrow to one lone folder with a dotted outline, labelled "Not yet". Rose, dimmed.
+Exactly these five labels and no other text anywhere in the image.

@@ -1,0 +1,110 @@
+---
+import { useI18n, localePaths, withText } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Figure from '@/components/Figure.astro';
+import CodeBlock from '@/components/CodeBlock.astro';
+import Callout from '@/components/Callout.astro';
+import Faq from '@/components/Faq.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { faqPage, type Faq as FaqItem } from '@/lib/schema';
+import { site } from '@/data/site';
+
+const { t, raw } = useI18n(Astro, 'profile');
+type Item = { title: string; text: string };
+const doc = (f: string) => `${site.docs}/${f}`;
+
+// Product output and commands come from docs/cross-project-profile.md; only the comments are translated.
+const digest = `> 🧭 ai-memory: your usual choices (cross-project profile)
+> Your usual choices from other projects. Use them as defaults when this
+> project's rules and the user say nothing; say which default you applied.
+- [javascript] Use pnpm, not npm. (profile/tools/pnpm.md)
+- Keep integration tests in tests/suite. (profile/testing/layout.md)`;
+
+const applyCode = `# ${t('newProject.comments.dry')}
+ai-memory profile apply --dry-run
+# ${t('newProject.comments.write')}
+ai-memory profile apply
+# ${t('newProject.comments.remove')}
+ai-memory profile apply --remove`;
+
+const markerCode = `# ${t('control.codeComment')}
+[profile]
+contribute = false
+consume = false`;
+
+const serverCode = `# ${t('teams.codeComment')}
+[profile]
+enabled = true
+share = "auto"
+min_projects = 2`;
+
+const faq = raw<FaqItem[]>('faq');
+const next = withText([
+  { href: '/features/', hue: 'violet' },
+  { href: '/aging/', hue: 'teal' },
+  { href: '/solutions/teams/', hue: 'teal' },
+] as const, raw<Item[]>('next'));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faqPage(faq)]}>
+  <PageHero hue="amber" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href="#learning" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href="#control" class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  <Section id="axes" title={t('axes.title')} lede={t('axes.lede')} hue="amber">
+    <Figure name="profile-two-axes" alt={t('axes.figureAlt')} caption={t('axes.figureCaption')} />
+  </Section>
+
+  <Section id="digest" title={t('digest.title')} lede={t('digest.lede')} hue="violet" tint>
+    <div class="grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-14 gap-y-10 items-start">
+      <div class="min-w-0"><CodeBlock title={t('digest.codeTitle')} code={digest} /></div>
+      <div>
+        <h3 class="text-xl">{t('digest.order.title')}</h3>
+        <ol class="mt-5 space-y-3 order">
+          {raw<string[]>('digest.order.items').map((s, i) => <li><span class="n" aria-hidden="true">{i + 1}</span><span>{s}</span></li>)}
+        </ol>
+        <p class="mt-6 text-muted">{t('digest.order.after')}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="learning" title={t('learning.title')} lede={t('learning.lede')} hue="green">
+    <Figure name="profile-learning" alt={t('learning.figureAlt')} caption={t('learning.figureCaption')} />
+    <FeatureGrid items={raw<Item[]>('learning.steps').map((p) => ({ ...p, hue: 'green' as const }))} cols={4} />
+  </Section>
+
+  <Section id="new-project" title={t('newProject.title')} lede={t('newProject.lede')} hue="amber" tint>
+    <div class="grid lg:grid-cols-2 gap-x-14 gap-y-8 items-start">
+      <p class="text-muted max-w-[40em]" set:html={t('newProject.text')} />
+      <div class="min-w-0"><CodeBlock title={t('newProject.codeTitle')} code={applyCode} /></div>
+    </div>
+  </Section>
+
+  <Section id="control" title={t('control.title')} lede={t('control.lede')} hue="rose">
+    <FeatureGrid items={raw<Item[]>('control.items').map((p) => ({ ...p, hue: 'rose' as const }))} cols={2} />
+    <div class="mt-10 max-w-[36rem]"><CodeBlock title={t('control.codeTitle')} code={markerCode} /></div>
+  </Section>
+
+  <Section id="teams" title={t('teams.title')} lede={t('teams.lede')} hue="teal" tint>
+    <FeatureGrid items={raw<Item[]>('teams.items').map((p) => ({ ...p, hue: 'teal' as const }))} cols={3} />
+    <div class="mt-10 grid lg:grid-cols-2 gap-8 items-start">
+      <div class="min-w-0"><CodeBlock title={t('teams.codeTitle')} code={serverCode} /></div>
+      <Callout title={t('limits.title')} hue="amber"><p>{t('limits.text')}</p></Callout>
+    </div>
+    <p class="mt-8"><a class="link" href={doc('cross-project-profile.md')}>{t('docs')}</a></p>
+  </Section>
+
+  <Faq items={faq} hue="amber" />
+  <NextPages links={next.map((n) => ({ ...n }))} />
+  <CtaBand />
+</Base>
+
+<style>
+  .order li { display: flex; gap: .9rem; align-items: baseline; }
+  .order .n { flex: none; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: color-mix(in oklch, var(--hue-vivid) 25%, transparent); color: var(--hue); font-weight: 700; font-size: .85rem; }
+</style>

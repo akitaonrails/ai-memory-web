@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "title": "Memória entre projetos: um perfil que acompanha você",
+    "description": "O ai-memory aprende como você trabalha e passa isso a cada projeto novo no início da sessão, abaixo das regras do repositório. Privado por operador."
+  },
+  "hero": {
+    "title": "Seus hábitos seguem você para o próximo projeto",
+    "lede": "Cada projeto guarda a própria memória, então você troca de agente sem explicar tudo de novo. O perfil leva a outra metade: como você costuma trabalhar, aprendido nos seus projetos e entregue a cada projeto novo no início da sessão.",
+    "primary": "Como ele aprende",
+    "secondary": "Fique no controle"
+  },
+  "axes": {
+    "title": "Dois movimentos, uma memória",
+    "lede": "Para o lado, de um agente para outro, a memória do projeto fica. Para a frente, de um projeto para o próximo, o perfil vai com você.",
+    "figureAlt": "Diagrama: Claude Code, Codex e OpenCode, lado a lado, compartilham um projeto pelo chip de memória. Três projetos alimentam o chip, que guarda o perfil, e uma seta leva dele a um projeto novo.",
+    "figureCaption": "As páginas do projeto ficam no projeto. Só preferências permanentes, vistas em vários projetos, chegam ao perfil."
+  },
+  "digest": {
+    "title": "O que uma sessão nova ouve primeiro",
+    "lede": "Depois do resumo do projeto vem um bloco curto delimitado: uma linha por entrada, cada uma indicando a página de origem, filtrada pela stack que o projeto usa. Ele fica idêntico byte a byte entre sessões, então cabe no prompt em cache do harness.",
+    "codeTitle": "no início da sessão",
+    "order": {
+      "title": "Primeiro as regras, a memória como reserva",
+      "items": [
+        "Suas instruções na conversa",
+        "O arquivo de regras do repositório: AGENTS.md, CLAUDE.md ou o próprio do harness",
+        "A memória do projeto: páginas, regras e decisões",
+        "O perfil: o que você costuma fazer entre projetos"
+      ],
+      "after": "Quando o arquivo de regras diz npm, um perfil que diz pnpm não vale. Quando nada diz, o agente usa o perfil em vez de perguntar de novo, e informa qual padrão aplicou."
+    }
+  },
+  "learning": {
+    "title": "Como ele aprende, sem LLM",
+    "lede": "Uma passada do servidor roda depois do fim de cada sessão e uma vez por hora. Ela lê só o que é novo.",
+    "figureAlt": "Diagrama: suas próprias palavras passam por uma verificação de que apareceram em dois projetos, viram uma entrada com a evidência dela e chegam ao início de toda sessão. Um hábito visto em um projeto só fica marcado como ainda não.",
+    "figureCaption": "Um hábito visto em um projeto só continua sendo assunto desse projeto até que um segundo projeto o mostre, ou até você declará-lo como regra geral.",
+    "steps": [
+      {
+        "title": "Suas próprias palavras",
+        "text": "Prompts que soam como preferência: sempre, nunca, prefiro X a Y, a partir de agora, por padrão, e as formas equivalentes em inglês. Perguntas, blocos de código e qualquer coisa que uma ferramenta imprimiu nunca são lidos."
+      },
+      {
+        "title": "Páginas curadas e a stack",
+        "text": "As regras, decisões, gotchas e procedimentos do projeto também contam, e as linguagens que a atividade mostra viram entradas de stack."
+      },
+      {
+        "title": "Dois projetos, ou uma afirmação geral",
+        "text": "Uma escolha entra no perfil quando aparece em pelo menos dois projetos, ou quando você diz que vale para todos. A decisão mais recente vence, e a antiga fica no histórico da página."
+      },
+      {
+        "title": "Evidência em cada entrada",
+        "text": "Cada entrada registra os projetos e as datas de onde veio, as suas palavras, quantos projetos a sustentam e a confiança. Com um LLM configurado, a passada classifica e reescreve as entradas por chamadas validadas por schema e volta às listas de palavras em qualquer erro."
+      }
+    ]
+  },
+  "newProject": {
+    "title": "Um projeto novo já começa à frente",
+    "lede": "Um repositório sem memória ainda recebe uma base maior, e um comando transforma suas escolhas de sempre em regras que todos veem.",
+    "text": "<code>ai-memory profile apply</code> escreve as entradas que servem ao repositório em um bloco gerenciado do arquivo de regras, entre dois marcadores, e não toca em nada fora deles. Rode de novo e só o bloco muda. É o único comando que escreve no seu repositório, e só roda quando você o executa.",
+    "codeTitle": "dentro do repositório novo",
+    "comments": {
+      "dry": "ver o bloco e o arquivo para onde ele iria",
+      "write": "escrever o bloco",
+      "remove": "tirar o bloco de novo"
+    }
+  },
+  "control": {
+    "title": "Você fica no controle",
+    "lede": "As entradas são páginas de wiki comuns: markdown no git, versionadas a cada mudança.",
+    "items": [
+      {
+        "title": "Esqueceu, fica esquecido",
+        "text": "<code>ai-memory profile forget</code> remove uma entrada, e a passada não a recria a partir da mesma evidência. Ela só volta se você disser de novo."
+      },
+      {
+        "title": "Suas edições valem",
+        "text": "Uma entrada que você edita à mão passa a ser sua. A passada nunca reescreve uma página que não escreveu, nem uma que mudou depois."
+      },
+      {
+        "title": "Trabalho de cliente e NDA fica de fora",
+        "text": "O marcador de um projeto pode definir <code>contribute = false</code> para que nada seja aprendido dele, e <code>consume = false</code> para que ele nunca receba o resumo."
+      },
+      {
+        "title": "Revisar e reconstruir",
+        "text": "<code>profile review</code> mostra cada entrada com a evidência e os hábitos que ainda não chegaram ao limite. <code>profile rebuild</code> relê todos os projetos desde o início sem mexer no que você editou ou removeu."
+      }
+    ],
+    "codeTitle": ".ai-memory.toml no repositório de um cliente",
+    "codeComment": "este projeto não ensina nem recebe o perfil"
+  },
+  "teams": {
+    "title": "Uma pessoa, um perfil. Um time, com consentimento.",
+    "lede": "Em um servidor de um só operador, o perfil fica ligado e é compartilhado por todos os workspaces. Em um servidor multiusuário, fica desligado até você habilitar.",
+    "items": [
+      {
+        "title": "Privado por operador",
+        "text": "Habilitado em um servidor compartilhado, cada pessoa recebe um perfil restrito que só ela e o root podem ler. Nada que os agentes de uma pessoa aprendem chega aos de outra."
+      },
+      {
+        "title": "Um perfil de time pede duas vozes",
+        "text": "<code>share = \"global\"</code> ou <code>\"workspace\"</code> cria um perfil que todos recebem. Um hábito só entra nele com evidência de pelo menos dois operadores, e o resumo recebe o cabeçalho de padrões do time, para o agente saber que são compartilhados."
+      },
+      {
+        "title": "Trabalho e vida pessoal separados",
+        "text": "<code>share = \"workspace\"</code> mantém um perfil por workspace, para dois clientes ou para trabalho e casa."
+      }
+    ],
+    "codeTitle": "config do servidor",
+    "codeComment": "servidor compartilhado: um perfil privado por operador"
+  },
+  "limits": {
+    "title": "O que ele é e o que não é",
+    "text": "Uma entrada de perfil é uma preferência usada como padrão e, como toda memória guardada, é dado, não comando. Ela pode escolher uma ferramenta, uma estrutura de pastas ou uma convenção. Não pode autorizar nada que suas instruções atuais não autorizariam. Nenhuma avaliação mediu o efeito dela ainda; o projeto entrega o mecanismo e não afirma número nenhum."
+  },
+  "docs": "Leia o guia completo do perfil",
+  "faq": [
+    {
+      "q": "O perfil sobrescreve as regras do meu projeto?",
+      "a": "Não. Suas instruções vêm primeiro, depois o arquivo de regras do repositório, depois a memória do projeto. O perfil é a última reserva, usado só quando nada mais específico fala, e o agente informa qual padrão aplicou."
+    },
+    {
+      "q": "Precisa de LLM?",
+      "a": "Não. Coletar e convergir funcionam com listas de palavras e a afirmação mais recente. Com um provedor configurado, a passada o usa para classificar e reescrever entradas por chamadas validadas por schema, e volta ao caminho sem LLM em qualquer erro. Defina llm = false para manter tudo offline."
+    },
+    {
+      "q": "Ele pode aprender algo do código de um cliente?",
+      "a": "Ele lê os seus prompts e as páginas curadas do projeto, nunca a saída de ferramentas, então um texto que o agente só viu não vira preferência. Um projeto com contribute = false no marcador fica totalmente de fora, inclusive a evidência colhida antes."
+    },
+    {
+      "q": "O que acontece em um servidor compartilhado?",
+      "a": "O perfil fica desligado até um operador habilitar. Depois, cada pessoa recebe um perfil privado que só ela e o root podem ler. Um perfil de time é outra escolha, e só admite um hábito com evidência de dois operadores."
+    },
+    {
+      "q": "Dá para desligar?",
+      "a": "Dá. enabled = false ou share = \"off\" na config do servidor remove o perfil por completo. inject_on_session_start = false tira o resumo do início da sessão, e o perfil continua respondendo a consultas."
+    }
+  ],
+  "next": [
+    {
+      "title": "O que mais dá para fazer",
+      "text": "Mensagens, escopos, regras e o launcher."
+    },
+    {
+      "title": "Como a memória envelhece",
+      "text": "O que acontece com as páginas antigas de um projeto."
+    },
+    {
+      "title": "Para times",
+      "text": "Um servidor, várias pessoas, páginas compartilhadas e bastões com dono."
+    }
+  ]
+}

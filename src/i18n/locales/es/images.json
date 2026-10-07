@@ -180,6 +180,24 @@
     "Activity cancels": "La actividad cancela",
     "git history": "historial de git"
   },
+  "profile-two-axes": {
+    "Same project, any agent": "Mismo proyecto, cualquier agente",
+    "Claude Code": "Claude Code",
+    "Codex": "Codex",
+    "OpenCode": "OpenCode",
+    "Profile": "Perfil",
+    "Project A": "Proyecto A",
+    "Project B": "Proyecto B",
+    "Project C": "Proyecto C",
+    "New project": "Proyecto nuevo"
+  },
+  "profile-learning": {
+    "Your words": "Tus palabras",
+    "Seen in 2 projects": "Visto en 2 proyectos",
+    "One entry": "Una entrada",
+    "Every session start": "Cada inicio de sesión",
+    "Not yet": "Todavía no"
+  },
   "features-messaging": {
     "Project A": "Proyecto A",
     "send": "send",

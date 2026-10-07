@@ -210,5 +210,23 @@
     "Self-upgrade": "自己更新",
     "Closes on exit": "セッション終了",
     "Web sign-in": "Webサインイン"
+  },
+  "profile-two-axes": {
+    "Same project, any agent": "同じプロジェクト、どのエージェントでも",
+    "Claude Code": "Claude Code",
+    "Codex": "Codex",
+    "OpenCode": "OpenCode",
+    "Profile": "プロフィール",
+    "Project A": "プロジェクトA",
+    "Project B": "プロジェクトB",
+    "Project C": "プロジェクトC",
+    "New project": "新規プロジェクト"
+  },
+  "profile-learning": {
+    "Your words": "あなたの言葉",
+    "Seen in 2 projects": "2プロジェクトで確認",
+    "One entry": "1つのエントリ",
+    "Every session start": "毎回のセッション開始",
+    "Not yet": "まだ"
   }
 }

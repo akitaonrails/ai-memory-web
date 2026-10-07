@@ -210,5 +210,23 @@
     "Self-upgrade": "שדרוג עצמי",
     "Closes on exit": "סגירה ביציאה",
     "Web sign-in": "כניסה לאתר"
+  },
+  "profile-two-axes": {
+    "Same project, any agent": "אותו פרויקט, כל סוכן",
+    "Claude Code": "Claude Code",
+    "Codex": "Codex",
+    "OpenCode": "OpenCode",
+    "Profile": "פרופיל",
+    "Project A": "פרויקט A",
+    "Project B": "פרויקט B",
+    "Project C": "פרויקט C",
+    "New project": "פרויקט חדש"
+  },
+  "profile-learning": {
+    "Your words": "המילים שלכם",
+    "Seen in 2 projects": "נראה ב-2 פרויקטים",
+    "One entry": "רשומה אחת",
+    "Every session start": "כל תחילת סשן",
+    "Not yet": "עוד לא"
   }
 }

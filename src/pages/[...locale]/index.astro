@@ -151,6 +151,16 @@ ai-memory run claude`;
     </div>
   </section>
 
+  <!-- Memory across projects -->
+  <section class="band !pt-0" data-hue="amber">
+    <div class="wrap">
+      <h2 class="text-3xl max-w-[18ch]">{t('profile.title')}</h2>
+      <p class="lede mt-5">{t('profile.text')}</p>
+      <Figure name="profile-two-axes" alt={t('profile.figureAlt')} />
+      <p><a href={href('/profile/')} class="btn btn-ghost">{t('profile.cta')}</a></p>
+    </div>
+  </section>
+
   <!-- Compare -->
   <section class="band bg-tint">
     <div class="wrap grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-12">

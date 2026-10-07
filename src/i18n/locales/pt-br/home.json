@@ -196,5 +196,11 @@
     "text": "As páginas de sessão se acumulam por meses. O ai-memory dá uma pontuação a elas, mantém as que você ainda lê e pode compactar ou mesclar o resto sem LLM. Uma passada de sonho opcional põe o seu LLM para mesclar páginas frias enquanto você está fora, e toda reescrita pode ser restaurada.",
     "cta": "Como a memória envelhece",
     "figureAlt": "Diagrama: ler uma página reforça a pontuação de retenção dela. O forget sweep encontra as páginas frias, que são descartadas por padrão ou, quando habilitado, compactadas ou mescladas em uma única sobrevivente. Páginas compactadas e mescladas podem ser restauradas a partir do histórico git."
+  },
+  "profile": {
+    "title": "Seus hábitos seguem você para o próximo projeto.",
+    "text": "Cada projeto guarda a própria memória. O perfil leva como você costuma trabalhar, aprendido sozinho nos seus projetos, e entrega isso a cada projeto novo no início da sessão, abaixo das regras do repositório. Comece um repositório novo e o agente já conhece a sua base.",
+    "cta": "Memória entre projetos",
+    "figureAlt": "Diagrama: Claude Code, Codex e OpenCode compartilham um projeto pelo chip de memória. Três projetos alimentam o chip, que guarda o perfil, e uma seta leva dele a um projeto novo."
   }
 }

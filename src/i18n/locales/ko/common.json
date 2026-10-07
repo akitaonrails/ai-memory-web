@@ -32,6 +32,7 @@
     "contribute": "기여하기",
     "download": "다운로드",
     "aging": "기억 노화",
+    "profile": "프로젝트를 넘는 기억",
     "features": "더 할 수 있는 일"
   },
   "nav": {
@@ -46,6 +47,10 @@
       "aging": {
         "label": "기억이 나이 드는 방식",
         "note": "감쇠, 압축, 꿈 패스"
+      },
+      "profile": {
+        "label": "프로젝트를 넘는 기억",
+        "note": "내 작업 방식을 모든 새 프로젝트에 전달"
       },
       "features": {
         "label": "더 할 수 있는 일",

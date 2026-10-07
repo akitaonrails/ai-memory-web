@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "title": "Memory across projects: a profile that follows you",
+    "description": "ai-memory learns how you usually work from your projects and hands it to every new one at session start, below the repository’s rules. On by default for one person, private per operator on a shared server."
+  },
+  "hero": {
+    "title": "Your habits follow you to the next project",
+    "lede": "Each project keeps its own memory, so you switch agents without re-explaining anything. The profile carries the other half: how you usually work, learned from your projects and handed to every new one at session start.",
+    "primary": "How it learns",
+    "secondary": "Stay in control"
+  },
+  "axes": {
+    "title": "Two moves, one memory",
+    "lede": "Sideways, from one agent to another, the project’s memory stays. Forward, from one project to the next, the profile goes with you.",
+    "figureAlt": "Diagram: Claude Code, Codex and OpenCode in a row share one project through the memory chip. Three projects feed the chip, which holds the profile, and one arrow leads from it to a new project.",
+    "figureCaption": "Project pages stay in their project. Only standing preferences, seen across projects, reach the profile."
+  },
+  "digest": {
+    "title": "What a new session hears first",
+    "lede": "After the project brief comes a short fenced block: one line per entry, each naming the page it came from, filtered by the stack the project uses. It stays byte-identical between sessions, so it sits in the harness’s cached prompt.",
+    "codeTitle": "at session start",
+    "order": {
+      "title": "Rules first, memory as the fallback",
+      "items": [
+        "Your instructions in the conversation",
+        "The repository’s rules file: AGENTS.md, CLAUDE.md or the harness’s own",
+        "The project’s memory: its pages, rules and decisions",
+        "The profile: what you usually do across projects"
+      ],
+      "after": "When a rules file says npm, a profile that says pnpm does not apply. When nothing says, the agent uses the profile instead of asking again, and says which default it applied."
+    }
+  },
+  "learning": {
+    "title": "How it learns, with no LLM",
+    "lede": "A server pass runs after each session ends and once an hour. It reads what is new and nothing else.",
+    "figureAlt": "Diagram: your own words go through a check that they were seen in two projects, become one entry with its evidence, and reach every session start. A habit seen in one project only is marked not yet.",
+    "figureCaption": "A habit seen in one project stays that project’s business until a second project shows it, or you state it as a general rule.",
+    "steps": [
+      {
+        "title": "Your own words",
+        "text": "Prompts that read as a preference: always, never, prefer X over Y, from now on, by default, and the Portuguese forms. Questions, code blocks and anything a tool printed are never read."
+      },
+      {
+        "title": "Curated pages and the stack",
+        "text": "The project’s rules, decisions, gotchas and procedures count too, and the languages its activity shows become stack entries."
+      },
+      {
+        "title": "Two projects, or one general statement",
+        "text": "A choice joins the profile when it shows up in at least two projects, or when you say it applies everywhere. The newest ruling wins, and the old one stays in page history."
+      },
+      {
+        "title": "Evidence on every entry",
+        "text": "Each entry records the projects and dates it came from, your words, how many projects back it and its confidence. With an LLM configured, the pass classifies and restates entries through schema-checked calls and falls back to the word lists on any error."
+      }
+    ]
+  },
+  "newProject": {
+    "title": "A new project starts ahead",
+    "lede": "A repository with no memory yet gets a larger baseline, and one command turns your usual choices into rules everyone sees.",
+    "text": "<code>ai-memory profile apply</code> writes the entries that fit the repository into a managed block of its rules file, between two markers, and touches nothing outside them. Run it again and only the block changes. It is the only command that writes into your repository, and it runs only when you run it.",
+    "codeTitle": "inside the new repository",
+    "comments": {
+      "dry": "see the block and the file it would go to",
+      "write": "write it",
+      "remove": "take it out again"
+    }
+  },
+  "control": {
+    "title": "You stay in control",
+    "lede": "Entries are ordinary wiki pages: markdown in git, versioned on every change.",
+    "items": [
+      {
+        "title": "Forget, and it stays forgotten",
+        "text": "<code>ai-memory profile forget</code> removes an entry, and the pass will not recreate it from the same evidence. It comes back only if you say it again."
+      },
+      {
+        "title": "Your edits win",
+        "text": "An entry you edit by hand is yours from then on. The pass never rewrites a page it did not write, or one that changed since."
+      },
+      {
+        "title": "Client and NDA work stays out",
+        "text": "A project’s marker can set <code>contribute = false</code> so nothing is learned from it, and <code>consume = false</code> so it never receives the digest."
+      },
+      {
+        "title": "Review and rebuild",
+        "text": "<code>profile review</code> shows each entry with its evidence and the habits still short of the bar. <code>profile rebuild</code> re-reads every project from the start without touching what you edited or removed."
+      }
+    ],
+    "codeTitle": ".ai-memory.toml in a client’s repository",
+    "codeComment": "this project neither teaches nor receives the profile"
+  },
+  "teams": {
+    "title": "One person, one profile. A team, by consent.",
+    "lede": "On a single-operator server the profile is on and shared by every workspace. On a multi-user server it stays off until you enable it.",
+    "items": [
+      {
+        "title": "Private per operator",
+        "text": "Enabled on a shared server, each person gets a restricted profile that only they and root can read. Nothing one person’s agents learn reaches another’s."
+      },
+      {
+        "title": "A team profile needs two voices",
+        "text": "<code>share = \"global\"</code> or <code>\"workspace\"</code> makes a profile everyone receives. A habit joins it only on evidence from at least two operators, and the digest is headed team defaults, so the agent knows they are shared."
+      },
+      {
+        "title": "Work and personal apart",
+        "text": "<code>share = \"workspace\"</code> keeps one profile per workspace, for two clients or for work and home."
+      }
+    ],
+    "codeTitle": "server config",
+    "codeComment": "a shared server: one private profile per operator"
+  },
+  "limits": {
+    "title": "What it is, and what it is not",
+    "text": "A profile entry is a preference used as a default, and like all stored memory it is data, not a command. It can pick a tool, a layout or a convention. It cannot authorize anything your current instructions would not. No evaluation has measured its effect yet; the project ships the mechanism and claims no number."
+  },
+  "docs": "Read the full profile guide",
+  "faq": [
+    {
+      "q": "Does the profile override my project’s rules?",
+      "a": "No. Your instructions come first, then the repository’s rules file, then the project’s memory. The profile is the last fallback, used only when nothing more specific speaks, and the agent says which default it applied."
+    },
+    {
+      "q": "Does it need an LLM?",
+      "a": "No. Harvesting and converging work on word lists and the newest statement. With a provider configured, the pass uses it to classify and restate entries through schema-checked calls, and falls back to the zero-LLM path on any error. Set llm = false to keep it fully offline."
+    },
+    {
+      "q": "Can it learn something from a client’s code?",
+      "a": "It reads your own prompts and the project’s curated pages, never tool output, so text an agent merely saw cannot become a preference. A project with contribute = false in its marker is left out entirely, including evidence gathered before."
+    },
+    {
+      "q": "What happens on a shared server?",
+      "a": "The profile is off until an operator enables it. Then each person gets a private profile only they and root can read. A team profile is a separate choice, and it admits a habit only on evidence from two operators."
+    },
+    {
+      "q": "Can I turn it off?",
+      "a": "Yes. enabled = false or share = \"off\" in the server config removes it entirely. inject_on_session_start = false keeps the digest out of session start while the profile still answers queries."
+    }
+  ],
+  "next": [
+    {
+      "title": "More you can do",
+      "text": "Messaging, scopes, rules and the launcher."
+    },
+    {
+      "title": "How memory ages",
+      "text": "What happens to a project’s old pages."
+    },
+    {
+      "title": "For teams",
+      "text": "One server, many people, pages shared and batons owned."
+    }
+  ]
+}

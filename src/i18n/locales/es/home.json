@@ -196,5 +196,11 @@
     "text": "Las páginas de sesión se acumulan durante meses. ai-memory las puntúa, conserva las que sigues leyendo y puede compactar o fusionar el resto sin LLM. Una pasada de sueño opcional hace que tu LLM fusione las páginas frías mientras no estás, y toda reescritura se puede restaurar.",
     "cta": "Cómo envejece la memoria",
     "figureAlt": "Diagrama: leer una página refuerza su puntuación de retención. El barrido de olvido encuentra las páginas frías, que se desalojan por defecto o, si lo activas, se compactan o se fusionan en una sola superviviente. Las páginas compactadas y fusionadas se pueden restaurar desde el historial de git."
+  },
+  "profile": {
+    "title": "Tus hábitos te siguen al próximo proyecto.",
+    "text": "Cada proyecto guarda su propia memoria. El perfil lleva cómo sueles trabajar, aprendido por sí solo de tus proyectos, y se lo entrega a cada proyecto nuevo al empezar la sesión, por debajo de las reglas del repositorio. Empieza un repositorio nuevo y el agente ya conoce tu base.",
+    "cta": "Memoria entre proyectos",
+    "figureAlt": "Diagrama: Claude Code, Codex y OpenCode comparten un proyecto a través del chip de memoria. Tres proyectos alimentan el chip, que contiene el perfil, y una flecha lleva de él a un proyecto nuevo."
   }
 }

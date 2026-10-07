@@ -210,5 +210,23 @@
     "Self-upgrade": "자체 업그레이드",
     "Closes on exit": "종료 시 닫힘",
     "Web sign-in": "웹 로그인"
+  },
+  "profile-two-axes": {
+    "Same project, any agent": "같은 프로젝트, 모든 에이전트",
+    "Claude Code": "Claude Code",
+    "Codex": "Codex",
+    "OpenCode": "OpenCode",
+    "Profile": "프로필",
+    "Project A": "프로젝트 A",
+    "Project B": "프로젝트 B",
+    "Project C": "프로젝트 C",
+    "New project": "새 프로젝트"
+  },
+  "profile-learning": {
+    "Your words": "내가 쓴 말",
+    "Seen in 2 projects": "2개 프로젝트에서 확인",
+    "One entry": "항목 하나",
+    "Every session start": "모든 세션 시작",
+    "Not yet": "아직 아님"
   }
 }

@@ -1,0 +1,5 @@
+A wide diagram with one amber copper memory chip in the center, carrying a small open notebook icon and the label "Profile".
+Top row, reading left to right: three small terminal windows labelled "Claude Code", "Codex", "OpenCode", joined by amber arrows that run through the top of the chip. A small label above the row reads "Same project, any agent". Green to azure.
+Right column, reading top to bottom: three folder icons labelled "Project A", "Project B", "Project C", each with a thin amber arrow pointing left into the chip. Violet.
+Bottom center: one thick amber arrow from the chip pointing down to a fourth folder with a sparkle, labelled "New project". Rose.
+Exactly these eight labels and no other text anywhere in the image.

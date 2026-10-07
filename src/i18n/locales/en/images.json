@@ -210,5 +210,23 @@
     "Self-upgrade": "Self-upgrade",
     "Closes on exit": "Closes on exit",
     "Web sign-in": "Web sign-in"
+  },
+  "profile-two-axes": {
+    "Same project, any agent": "Same project, any agent",
+    "Claude Code": "Claude Code",
+    "Codex": "Codex",
+    "OpenCode": "OpenCode",
+    "Profile": "Profile",
+    "Project A": "Project A",
+    "Project B": "Project B",
+    "Project C": "Project C",
+    "New project": "New project"
+  },
+  "profile-learning": {
+    "Your words": "Your words",
+    "Seen in 2 projects": "Seen in 2 projects",
+    "One entry": "One entry",
+    "Every session start": "Every session start",
+    "Not yet": "Not yet"
   }
 }
