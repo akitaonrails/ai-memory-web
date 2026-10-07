@@ -36,7 +36,7 @@ export function parseChangelog(md, limit = 12) {
 export async function fetchGithub() {
   const [repo, contributors, commits, mergedPRs, closedIssues, people, releases] = await Promise.all([
     gh(`/repos/${REPO}`).then((r) => r.json()),
-    countVia(`/repos/${REPO}/contributors`),
+    countVia(`/repos/${REPO}/contributors?anon=1`), // anonymous authors too, the number GitHub's own page shows
     countVia(`/repos/${REPO}/commits`),
     searchCount('is:pr is:merged'),
     searchCount('is:issue is:closed'),
