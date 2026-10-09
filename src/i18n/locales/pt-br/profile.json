@@ -17,7 +17,7 @@
   },
   "digest": {
     "title": "O que uma sessão nova ouve primeiro",
-    "lede": "Depois do resumo do projeto vem um bloco curto delimitado: uma linha por entrada, cada uma indicando a página de origem, filtrada pela stack que o projeto usa. Ele fica idêntico byte a byte entre sessões, então cabe no prompt em cache do harness.",
+    "lede": "A sessão começa com um bloco curto delimitado, antes do handoff e do resumo do projeto: uma linha por entrada, cada uma indicando a página de origem, filtrada pela stack que o projeto usa. Ele fica idêntico byte a byte entre sessões, então cabe no prompt em cache do harness.",
     "codeTitle": "no início da sessão",
     "order": {
       "title": "Primeiro as regras, a memória como reserva",
@@ -46,7 +46,7 @@
       },
       {
         "title": "Dois projetos, ou uma afirmação geral",
-        "text": "Uma escolha entra no perfil quando aparece em pelo menos dois projetos, ou quando você diz que vale para todos. A decisão mais recente vence, e a antiga fica no histórico da página."
+        "text": "Uma escolha entra no perfil quando aparece em pelo menos dois projetos, ou quando você mesmo o estende além do projeto, como em “em todos os meus projetos”. A decisão mais recente vence, e a antiga fica no histórico da página."
       },
       {
         "title": "Evidência em cada entrada",
@@ -83,7 +83,7 @@
       },
       {
         "title": "Revisar e reconstruir",
-        "text": "<code>profile review</code> mostra cada entrada com a evidência e os hábitos que ainda não chegaram ao limite. <code>profile rebuild</code> relê todos os projetos desde o início sem mexer no que você editou ou removeu."
+        "text": "<code>profile review</code> mostra cada entrada com a evidência e os hábitos que ainda não chegaram ao limite. <code>profile rebuild</code> relê todos os projetos desde o início, nunca remove uma entrada e deixa em paz o que você editou ou removeu."
       }
     ],
     "codeTitle": ".ai-memory.toml no repositório de um cliente",

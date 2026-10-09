@@ -17,7 +17,7 @@
   },
   "digest": {
     "title": "What a new session hears first",
-    "lede": "After the project brief comes a short fenced block: one line per entry, each naming the page it came from, filtered by the stack the project uses. It stays byte-identical between sessions, so it sits in the harness’s cached prompt.",
+    "lede": "A session starts with a short fenced block, ahead of the handoff and the project brief: one line per entry, each naming the page it came from, filtered by the stack the project uses. It stays byte-identical between sessions, so it sits in the harness’s cached prompt.",
     "codeTitle": "at session start",
     "order": {
       "title": "Rules first, memory as the fallback",
@@ -46,7 +46,7 @@
       },
       {
         "title": "Two projects, or one general statement",
-        "text": "A choice joins the profile when it shows up in at least two projects, or when you say it applies everywhere. The newest ruling wins, and the old one stays in page history."
+        "text": "A choice joins the profile when it shows up in at least two projects, or when you scope it beyond the project yourself, as in “in all my projects”. The newest ruling wins, and the old one stays in page history."
       },
       {
         "title": "Evidence on every entry",
@@ -83,7 +83,7 @@
       },
       {
         "title": "Review and rebuild",
-        "text": "<code>profile review</code> shows each entry with its evidence and the habits still short of the bar. <code>profile rebuild</code> re-reads every project from the start without touching what you edited or removed."
+        "text": "<code>profile review</code> shows each entry with its evidence and the habits still short of the bar. <code>profile rebuild</code> re-reads every project from the start, never removes an entry, and leaves what you edited or removed alone."
       }
     ],
     "codeTitle": ".ai-memory.toml in a client’s repository",

@@ -17,7 +17,7 @@
   },
   "digest": {
     "title": "Lo primero que oye una sesión nueva",
-    "lede": "Después del resumen del proyecto viene un bloque corto y delimitado: una línea por entrada, cada una con la página de la que viene, filtrada por el stack que usa el proyecto. Es idéntico byte a byte entre sesiones, así que cabe en el prompt en caché del harness.",
+    "lede": "La sesión empieza con un bloque corto y delimitado, antes del traspaso y del resumen del proyecto: una línea por entrada, cada una con la página de la que viene, filtrada por el stack que usa el proyecto. Es idéntico byte a byte entre sesiones, así que cabe en el prompt en caché del harness.",
     "codeTitle": "al empezar la sesión",
     "order": {
       "title": "Primero las reglas, la memoria como respaldo",
@@ -46,7 +46,7 @@
       },
       {
         "title": "Dos proyectos, o una declaración general",
-        "text": "Una elección entra en el perfil cuando aparece en al menos dos proyectos, o cuando dices que vale en todas partes. Gana la decisión más reciente, y la anterior queda en el historial de la página."
+        "text": "Una elección entra en el perfil cuando aparece en al menos dos proyectos, o cuando tú mismo lo extiendes más allá del proyecto, por ejemplo con «en todos mis proyectos». Gana la decisión más reciente, y la anterior queda en el historial de la página."
       },
       {
         "title": "Evidencia en cada entrada",
@@ -83,7 +83,7 @@
       },
       {
         "title": "Revisar y reconstruir",
-        "text": "<code>profile review</code> muestra cada entrada con su evidencia y los hábitos que aún no llegan al umbral. <code>profile rebuild</code> vuelve a leer cada proyecto desde el principio sin tocar lo que editaste o eliminaste."
+        "text": "<code>profile review</code> muestra cada entrada con su evidencia y los hábitos que aún no llegan al umbral. <code>profile rebuild</code> vuelve a leer cada proyecto desde el principio, nunca elimina una entrada y deja intacto lo que editaste o eliminaste."
       }
     ],
     "codeTitle": ".ai-memory.toml en el repositorio de un cliente",
