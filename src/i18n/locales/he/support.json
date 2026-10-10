@@ -97,7 +97,7 @@
       "note": "קונפיגורציית MCP ו-hooks נייטיב של פלאגין."
     },
     "zero": {
-      "note": "הלכידה כוללת אירועים של subagents."
+      "note": "הלכידה כוללת אירועים של תת-סוכנים. בהגדרות הגלובליות של ה-sandbox ב-Zero, יש לאפשר גישה לרשת וכתיבה לתיקיית הנתונים של ai-memory, או לשלוח אירועים ממתינים עם ai-memory hook-drain מטרמינל רגיל."
     },
     "zcode": {
       "note": "שישה טריגרים. הזרקת העברות עובדת."
@@ -112,7 +112,7 @@
       "note": "מדביקים בהגדרות שלו קטע hooks שנוצר אוטומטית."
     },
     "claude-desktop": {
-      "note": "מתחבר דרך mcp-remote."
+      "note": "Chat משתמש ב-mcp-remote ב-macOS, ב-Windows וב-Linux (בטא). סשנים מקומיים בלשונית Code משתמשים ב-hooks של Claude Code; מתקינים אותם עם ai-memory install-hooks --agent claude-code --apply. הלכידה ב-Cowork לא אומתה."
     },
     "vscode-copilot": {
       "note": "Copilot עדיין לא חושף hooks של מחזור החיים."
@@ -132,7 +132,7 @@
   },
   "llmProviders": [
     "Anthropic",
-    "Anthropic OAuth (מנוי Claude)",
+    "Anthropic OAuth (טוקנים של מנוי Claude נדחים כרגע באפליקציות צד שלישי)",
     "OpenAI",
     "OpenAI OAuth / התחברות דרך Codex CLI",
     "GitHub Copilot",

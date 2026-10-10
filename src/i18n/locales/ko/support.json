@@ -97,7 +97,7 @@
       "note": "MCP 설정과 네이티브 플러그인 훅."
     },
     "zero": {
-      "note": "서브에이전트 이벤트까지 캡처합니다."
+      "note": "하위 에이전트 이벤트도 캡처합니다. Zero의 전역 샌드박스 설정에서 네트워크와 ai-memory 데이터 디렉터리 쓰기를 허용하거나, 일반 셸에서 ai-memory hook-drain을 실행해 대기 중인 이벤트를 전송합니다."
     },
     "zcode": {
       "note": "트리거 6종. 인수인계 주입이 동작합니다."
@@ -112,7 +112,7 @@
       "note": "생성된 훅 스니펫을 설정에 붙여 넣으세요."
     },
     "claude-desktop": {
-      "note": "mcp-remote를 통해 연결합니다."
+      "note": "Chat은 macOS, Windows, Linux(베타)에서 mcp-remote를 사용합니다. Code 탭의 로컬 세션은 Claude Code 훅을 사용합니다. ai-memory install-hooks --agent claude-code --apply로 설치합니다. Cowork의 캡처는 검증되지 않았습니다."
     },
     "vscode-copilot": {
       "note": "Copilot은 아직 라이프사이클 훅을 제공하지 않습니다."
@@ -132,7 +132,7 @@
   },
   "llmProviders": [
     "Anthropic",
-    "Anthropic OAuth (Claude 구독)",
+    "Anthropic OAuth(Claude 구독 토큰은 현재 타사 앱에서 거부됨)",
     "OpenAI",
     "OpenAI OAuth / Codex CLI 로그인",
     "GitHub Copilot",

@@ -97,7 +97,7 @@
       "note": "Config de MCP e hooks nativos de plugin."
     },
     "zero": {
-      "note": "A captura inclui eventos de subagentes."
+      "note": "A captura inclui eventos de subagentes. Nas configurações globais do sandbox do Zero, permita rede e escrita no diretório de dados do ai-memory, ou envie os eventos pendentes com ai-memory hook-drain em um terminal comum."
     },
     "zcode": {
       "note": "Seis triggers. A injeção de handoff funciona."
@@ -112,7 +112,7 @@
       "note": "Cole nas configurações dele um snippet de hooks gerado."
     },
     "claude-desktop": {
-      "note": "Conecta via mcp-remote."
+      "note": "O Chat usa mcp-remote no macOS, Windows e Linux (beta). Sessões locais da aba Code usam os hooks do Claude Code; instale com ai-memory install-hooks --agent claude-code --apply. A captura no Cowork não foi verificada."
     },
     "vscode-copilot": {
       "note": "O Copilot ainda não expõe hooks de ciclo de vida."
@@ -132,7 +132,7 @@
   },
   "llmProviders": [
     "Anthropic",
-    "Anthropic OAuth (assinatura do Claude)",
+    "Anthropic OAuth (tokens de assinatura Claude atualmente recusados em aplicativos de terceiros)",
     "OpenAI",
     "OpenAI OAuth / login do Codex CLI",
     "GitHub Copilot",

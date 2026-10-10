@@ -97,7 +97,7 @@
       "note": "MCP設定とネイティブのプラグインフック。"
     },
     "zero": {
-      "note": "サブエージェントのイベントもキャプチャします。"
+      "note": "サブエージェントのイベントもキャプチャします。Zeroのグローバルなサンドボックス設定でネットワークとai-memoryのデータディレクトリへの書き込みを許可するか、通常のシェルからai-memory hook-drainを実行して保留中のイベントを送信してください。"
     },
     "zcode": {
       "note": "トリガーは6種。引き継ぎの注入も動作します。"
@@ -112,7 +112,7 @@
       "note": "生成されたフックのスニペットを設定に貼り付けます。"
     },
     "claude-desktop": {
-      "note": "mcp-remote経由で接続します。"
+      "note": "ChatはmacOS、Windows、Linux（ベータ）でmcp-remoteを使います。CodeタブのローカルセッションはClaude Codeのフックを使います。ai-memory install-hooks --agent claude-code --applyでインストールしてください。Coworkのキャプチャは未検証です。"
     },
     "vscode-copilot": {
       "note": "Copilotはまだライフサイクルフックを公開していません。"
@@ -132,7 +132,7 @@
   },
   "llmProviders": [
     "Anthropic",
-    "Anthropic OAuth（Claudeのサブスクリプション）",
+    "Anthropic OAuth（Claudeサブスクリプションのトークンは現在サードパーティアプリでは拒否されます）",
     "OpenAI",
     "OpenAI OAuth / Codex CLIログイン",
     "GitHub Copilot",
