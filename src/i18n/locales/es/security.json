@@ -41,8 +41,9 @@
         "Un bloque <code>[capture]</code> en <code>.ai-memory.toml</code> lista las rutas a ignorar. Los eventos que coinciden se descartan en tu máquina, antes de la cola local, de la red y de los logs.",
         "El modo allowlist lo invierte: un repositorio sin el archivo no emite ningún evento.",
         "Un conjunto de reglas inválido cae a solo metadatos. Nunca aplica media política.",
-        "La coincidencia es léxica. Los symlinks no se resuelven, y los prompts y los comandos de shell no se pueden asociar a una ruta. Esto es una frontera de captura. No es un DLP completo.",
-        "La salida del asistente nunca se guarda por defecto. Hacen falta un flag en el servidor y otro en el cliente, los dos a la vez."
+        "Las rutas de archivos y los argumentos de shell reconocidos se analizan léxicamente. Los enlaces simbólicos, las variables de shell y los scripts leídos de archivos pueden eludir el filtro; los prompts no se filtran por ruta. El filtro de captura tiene límites y no ofrece DLP completo.",
+        "La salida del asistente nunca se guarda por defecto. Hacen falta un flag en el servidor y otro en el cliente, los dos a la vez.",
+        "El backfill y las importaciones de workstreams gestionados aplican las mismas reglas de captura a las llamadas de herramientas y sus resultados. Las llamadas excluidas se omiten; si la política no puede comprobar que una llamada es segura, solo conserva metadatos de la familia de herramientas."
       ],
       "codeTitle": "reglas de captura por repositorio",
       "commentFile": ".ai-memory.toml en el repositorio",
@@ -60,7 +61,7 @@
       {
         "when": "Una persona, una máquina",
         "title": "Loopback, sin autenticación",
-        "text": "La configuración por defecto. No hay nada que configurar, porque nada más puede conectarse."
+        "text": "Loopback no requiere configuración. Sin autenticación, las rutas de máquina y de administración rechazan peticiones de otros sitios y navegaciones del navegador. Usa un bearer token con navegadores antiguos que no envían metadatos de fetch."
       },
       {
         "when": "Un equipo de homelab o una segunda máquina",

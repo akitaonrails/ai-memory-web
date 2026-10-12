@@ -42,7 +42,7 @@
       },
       {
         "title": "Páginas curadas y el stack",
-        "text": "También cuentan las reglas, decisiones, gotchas y procedimientos del proyecto, y los lenguajes que muestra su actividad pasan a ser entradas del stack."
+        "text": "También cuentan las reglas, decisiones, gotchas y procedimientos curados del proyecto, y sus lenguajes pasan a ser entradas del stack. Se omiten las páginas que el planificador aprueba automáticamente; las aprobadas por una persona siguen contando."
       },
       {
         "title": "Dos proyectos, o una declaración general",

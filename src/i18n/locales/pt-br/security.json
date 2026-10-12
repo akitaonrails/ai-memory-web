@@ -65,8 +65,9 @@
         "Um bloco <code>[capture]</code> no <code>.ai-memory.toml</code> lista os caminhos a ignorar. Os eventos que casam são descartados na sua máquina, antes do spool, da rede e dos logs.",
         "O modo allowlist inverte a lógica: um repositório sem o arquivo não emite evento nenhum.",
         "Um conjunto de regras inválido cai para só metadados. Ele nunca aplica meia política.",
-        "O matching é léxico. Symlinks não são resolvidos, e prompts e comandos de shell não têm como ser amarrados a um caminho. Isto é uma fronteira de captura. Não é DLP completo.",
-        "A saída do assistente nunca é gravada por padrão. Para isso é preciso uma flag no servidor e outra no cliente, juntas."
+        "Caminhos de arquivos e argumentos de shell reconhecidos passam por análise lexical. Links simbólicos, variáveis de shell e scripts lidos de arquivos podem escapar; prompts não são filtrados por caminho. O filtro de captura tem limites e não oferece DLP completo.",
+        "A saída do assistente nunca é gravada por padrão. Para isso é preciso uma flag no servidor e outra no cliente, juntas.",
+        "O backfill e as importações de workstreams gerenciados aplicam as mesmas regras de captura a chamadas de ferramentas e seus resultados. Chamadas excluídas são omitidas; quando a política não consegue comprovar a segurança, só ficam metadados da família da ferramenta."
       ],
       "codeTitle": "regras de captura por repositório",
       "commentFile": ".ai-memory.toml no repositório",
@@ -84,7 +85,7 @@
       {
         "when": "Uma pessoa, uma máquina",
         "title": "Loopback, sem autenticação",
-        "text": "O padrão. Nada para configurar, porque nada mais consegue se conectar."
+        "text": "Loopback não exige configuração. Sem autenticação, as rotas de máquina e de administração rejeitam requisições de outros sites e navegações do navegador. Use um bearer token com navegadores antigos que não enviam metadados de fetch."
       },
       {
         "when": "Uma máquina de homelab ou uma segunda máquina",

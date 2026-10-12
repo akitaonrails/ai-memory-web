@@ -42,7 +42,7 @@
       },
       {
         "title": "Curated pages and the stack",
-        "text": "The project’s rules, decisions, gotchas and procedures count too, and the languages its activity shows become stack entries."
+        "text": "The project’s curated rules, decisions, gotchas and procedures count too, and its languages become stack entries. Pages auto-approved by the scheduler are skipped; human-approved pages still count."
       },
       {
         "title": "Two projects, or one general statement",

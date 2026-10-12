@@ -320,7 +320,8 @@
       "notes": [
         "A release binary under a writable prefix (Linux, macOS, the Windows zip) replaces itself: the command downloads the matching archive, verifies the <code>.sha256</code> file and re-runs <code>install-hooks --apply</code> for staged agents. Homebrew, AUR and RPM installs upgrade through their package manager.",
         "With the Docker wrapper, this verifies and replaces the wrapper, pulls the image and restages hook scripts. A server on another host is upgraded separately.",
-        "Schema and wiki migrations run on start. They are forward-only: an older binary refuses to open a migrated directory, so run <code>ai-memory backup</code> first if you might roll back."
+        "Schema and wiki migrations run on start. They are forward-only: an older binary refuses to open a migrated directory, so run <code>ai-memory backup</code> first if you might roll back.",
+        "For 2.6.5, upgrade the server before the clients. On an unauthenticated server reached through a LAN hostname or proxy, refresh staged hooks with <code>ai-memory install-hooks --apply</code> or <code>ai-memory upgrade</code> so session-start handoffs keep working."
       ],
       "from1x": {
         "title": "Coming from 1.x",

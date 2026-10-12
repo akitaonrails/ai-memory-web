@@ -320,7 +320,8 @@
       "notes": [
         "Un binario de la versión bajo un prefijo con permiso de escritura (Linux, macOS, el zip de Windows) se reemplaza a sí mismo: el comando descarga el archivo correspondiente, verifica el archivo <code>.sha256</code> y vuelve a ejecutar <code>install-hooks --apply</code> para los agentes ya preparados. Las instalaciones de Homebrew, AUR y RPM se actualizan con su propio gestor de paquetes.",
         "Con el wrapper de Docker, esto verifica y reemplaza el wrapper, descarga la imagen y vuelve a preparar los scripts de hooks. Un servidor en otro host se actualiza aparte.",
-        "Las migraciones del esquema y de la wiki corren al arrancar. Solo van hacia delante: un binario más antiguo se niega a abrir un directorio migrado, así que ejecuta antes <code>ai-memory backup</code> si cabe la posibilidad de volver atrás."
+        "Las migraciones del esquema y de la wiki corren al arrancar. Solo van hacia delante: un binario más antiguo se niega a abrir un directorio migrado, así que ejecuta antes <code>ai-memory backup</code> si cabe la posibilidad de volver atrás.",
+        "Para 2.6.5, actualiza el servidor antes que los clientes. Si accedes a un servidor sin autenticación mediante un hostname de la LAN o un proxy, renueva los hooks instalados con <code>ai-memory install-hooks --apply</code> o <code>ai-memory upgrade</code> para mantener los traspasos al inicio de sesión."
       ],
       "from1x": {
         "title": "Si vienes de la 1.x",

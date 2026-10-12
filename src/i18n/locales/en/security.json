@@ -65,8 +65,9 @@
         "A <code>[capture]</code> block in <code>.ai-memory.toml</code> lists paths to ignore. Matching events are dropped on your machine, before the spool, the network and the logs.",
         "Allowlist mode inverts it: a repository without the file emits no events at all.",
         "An invalid rule set falls back to metadata only. It never applies half a policy.",
-        "Matching is lexical. Symlinks are not resolved, and prompts and shell commands cannot be tied to a path. This is a capture boundary. It is not complete DLP.",
-        "Assistant output is never stored by default. It takes a server flag and a client flag together."
+        "File paths and recognized shell arguments are checked lexically. Symlinks, shell variables and scripts read from files can evade matching; prompts are not path-filtered. This is best-effort capture filtering, not complete DLP.",
+        "Assistant output is never stored by default. It takes a server flag and a client flag together.",
+        "Backfill and managed-workstream imports apply the same capture rules to tool calls and results. Excluded calls are omitted; calls the policy cannot prove safe keep only tool-family metadata."
       ],
       "codeTitle": "per-repository capture rules",
       "commentFile": ".ai-memory.toml in the repository",
@@ -84,7 +85,7 @@
       {
         "when": "One person, one machine",
         "title": "Loopback, no auth",
-        "text": "The default. Nothing to configure, because nothing else can connect."
+        "text": "Loopback needs no setup. With auth off, machine and admin routes reject cross-site browser requests and browser navigation. Use a bearer token with older browsers that lack fetch metadata."
       },
       {
         "when": "A homelab box or a second machine",
