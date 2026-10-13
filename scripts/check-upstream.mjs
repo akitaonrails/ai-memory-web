@@ -91,7 +91,7 @@ section('2. Hard facts');
 // Support matrix: README table vs src/data/support.ts
 {
   const norm = (s) => s.toLowerCase().replace(/\(.*?\)|`/g, '').split(' / ')[0].replace(/beta|cli$/g, '').replace(/[^a-z0-9]/g, '');
-  const alias = { ohmypi: 'ohmypi', pool: 'pool', opencode2: 'opencodev2compatibilityaliases', nixos: 'nixosmodule' };
+  const alias = { ohmypi: 'ohmypi', pool: 'pool', opencode2: 'opencodev2compatibilityaliases', nixos: 'nixosmodule', deepseekharness: 'deepseekharness' };
   const upstream = new Map();
   for (const m of up('README.md').matchAll(/^\| ([^|]+?) \| (Supported|Experimental|MCP-only|Hooks-only|Managed-only|Community|Opt-in) \|$/gm)) upstream.set(norm(m[1]), { name: m[1].trim(), status: m[2] });
   const ours = [...here('src/data/support.ts').matchAll(/\{ name: '([^']+)'(?:, id: '[^']+')?, status: '([^']+)'/g)].map((m) => ({ name: m[1], status: m[2] }));
@@ -119,9 +119,10 @@ section('2. Hard facts');
   for (const v of ours) if (!rows.some((r) => r.hit5 === v)) bad(`benchmark hit@5 ${v} is on the site but not in docs/benchmarks/README.md`);
   for (const r of rows.filter((x) => x.date === latestDate)) if (!ours.includes(r.hit5)) bad(`benchmark: newest upstream baseline (${r.date}) has hit@5 ${r.hit5}, which the site does not show`);
   if (latestDate && latestDate !== facts.benchmark.date) bad(`benchmark date: site says ${facts.benchmark.date}, newest upstream baseline is ${latestDate}`);
-  const abText = upFiles.includes('docs/benchmarks/retrieval-ab-r2.md') ? up('docs/benchmarks/retrieval-ab-r2.md') : '';
-  for (const v of facts.benchmark.variance?.runs ?? []) if (!abText.includes(String(v))) bad(`benchmark run ${v} is not in docs/benchmarks/retrieval-ab-r2.md`);
-  for (const r of facts.benchmark.ab?.rows ?? []) for (const v of [r.fts, r.local, r.delta]) if (!abText.includes(String(v))) bad(`benchmark A/B value ${v} (${r.id}) is not in docs/benchmarks/retrieval-ab-r2.md`);
+  const streamDoc = 'docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md';
+  const streamText = upFiles.includes(streamDoc) ? up(streamDoc) : '';
+  for (const r of facts.benchmark.stream?.rows ?? []) for (const v of [...r.fts, ...r.local]) if (!streamText.includes(String(v))) bad(`benchmark stream value ${v} (${r.id}) is not in ${streamDoc}`);
+  for (const v of Object.values(facts.benchmark.capCheck ?? {}).filter((x) => typeof x === 'number')) if (!streamText.includes(String(v))) bad(`benchmark cap check value ${v} is not in ${streamDoc}`);
   for (const [name, values] of Object.entries(facts.benchmark.metrics)) {
     for (const v of values) if (!text.includes(String(v)) && !upFiles.filter((f) => f.startsWith('docs/benchmarks/')).some((f) => up(f).includes(String(v)))) note(`benchmark ${name} ${v} is not quoted anywhere under docs/benchmarks (check it)`);
   }

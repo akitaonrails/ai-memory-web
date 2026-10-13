@@ -15,7 +15,12 @@
     "toggleTheme": "Switch between light and dark theme",
     "language": "Language",
     "starOnGithub": "Star ai-memory on GitHub, {n} stars",
-    "chooseOne": "Choose one"
+    "chooseOne": "Choose one",
+    "carousel": "Highlights",
+    "slideOf": "{n} of {total}",
+    "slides": "Choose a slide",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide"
   },
   "crumbs": {
     "home": "Home",

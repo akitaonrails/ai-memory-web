@@ -13,7 +13,7 @@
     "title": "Por defecto, todo es local.",
     "lede": "Instálalo, ejecútalo, y lo único que puede hablar con él es tu propia máquina.",
     "items": [
-      { "title": "Solo loopback", "text": "El servidor escucha en 127.0.0.1:49374. Ningún proceso de fuera de la máquina puede llegar a él, y por eso la configuración por defecto no necesita contraseña." },
+      { "title": "Solo loopback", "text": "El servidor escucha en 127.0.0.1:49374. Ningún proceso de fuera de la máquina puede llegar a él. Una instalación nueva igualmente genera un bearer token en un archivo accesible solo para su dueño, que leen los hooks y la CLI, así que nada queda abierto ni siquiera en loopback." },
       { "title": "Sin telemetría", "text": "El binario no tiene analítica, reporte de fallos ni seguimiento de uso. La captura y la búsqueda hacen cero llamadas de red." },
       { "title": "Un directorio que es tuyo", "text": "Las páginas de la wiki y el archivo SQLite viven en un solo directorio de datos. En Unix, los directorios nuevos se crean con 0700 y los archivos nuevos con 0600." },
       { "title": "Sin cifrado en reposo", "text": "La versión 1 se apoya en los permisos del sistema de archivos. A las instalaciones existentes no se les hace chmod por ti. Usa cifrado de disco si el portátil lo necesita." }
@@ -60,8 +60,8 @@
     "ladder": [
       {
         "when": "Una persona, una máquina",
-        "title": "Loopback, sin autenticación",
-        "text": "Loopback no requiere configuración. Sin autenticación, las rutas de máquina y de administración rechazan peticiones de otros sitios y navegaciones del navegador. Usa un bearer token con navegadores antiguos que no envían metadatos de fetch."
+        "title": "Loopback, un token en un archivo",
+        "text": "<code>ai-memory init</code> crea el token en <code>&lt;data_dir&gt;/auth-tokens/default</code> y los hooks, la CLI y el puente MCP lo leen de ahí. Una instalación anterior a la 3.0 sigue funcionando sin autenticación hasta que ejecutes <code>ai-memory auth enable</code>, que genera el token y vuelve a registrar cada cliente."
       },
       {
         "when": "Un equipo de homelab o una segunda máquina",

@@ -72,6 +72,9 @@
     "copilot-cli": {
       "note": "Ten hook events and MCP. The handoff arrives in Copilot’s additional context at session start."
     },
+    "droid": {
+      "note": "MCP and seven hook events in Droid’s own files. Droid closes the session itself."
+    },
     "devin": {
       "note": "Hooks and MCP, including post-compaction capture."
     },
@@ -102,6 +105,12 @@
     "zcode": {
       "note": "Six triggers. Handoff injection works."
     },
+    "prime-agent": {
+      "note": "MCP only. Prime Agent lists the server to the model only with AI_MEMORY_AUTH_TOKEN exported."
+    },
+    "dsh": {
+      "note": "MCP only. Prints a Cordis patch fragment to merge, since DSH has no fixed config file."
+    },
     "grizzybot": {
       "note": "A native macOS agent app with its own ai-memory bridge. Nothing to install."
     },
@@ -124,7 +133,7 @@
       "note": "Project-level MCP config."
     },
     "muse": {
-      "note": "User-level MCP settings."
+      "note": "Eight hook events and a session-aware MCP bridge, merged into Muse’s own settings file."
     },
     "hermes": {
       "note": "The hook installer prints a block for ~/.hermes/config.yaml. Recall and handoffs come from the community plugin."
@@ -136,6 +145,7 @@
     "OpenAI",
     "OpenAI OAuth / Codex CLI login",
     "GitHub Copilot",
+    "Cursor (a Cursor subscription, through its agent CLI)",
     "Google Gemini",
     "OpenCode Go and Zen",
     "Ollama",

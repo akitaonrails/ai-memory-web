@@ -34,13 +34,19 @@
       "mcp": "כלי הזיכרון, דרך MCP",
       "hooks": "לכידה אוטומטית, דרך hooks של מחזור החיים",
       "hooksOnly": "מכין את סקריפטי ה-hooks ומדפיס קטע להדבקה בהגדרות של הסוכן",
-      "print": "מדפיס קטע hooks להדבקה בקונפיגורציה של הסוכן עצמו",
+      "print": "מדפיס קטע להדבקה בקונפיגורציה של הסוכן עצמו",
       "none": "אין מה להתקין: הוא מדבר עם /hook ו-/mcp בעצמו"
     },
     "dryRun": "משמיטים את --apply כדי להדפיס את השינוי בלי לכתוב אותו.",
     "community": "ai-memory לא מגיע עם מתקין לסוכן הזה. השרת מזהה את אירועי ה-hooks שלו, והפלאגין מתוחזק על ידי הקהילה. כדאי לעבור עליו לפני שמתקינים: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin ב-GitHub</a>.",
     "statusTitle": "מה כל סטטוס אומר",
     "after": "פרטים לכל סוכן, מיקומי קובצי הקונפיגורציה ומוזרויות ידועות מופיעים ב<a class=\"underline font-semibold text-text\" href=\"{matrix}\">מטריצת התמיכה</a> וב<a class=\"underline font-semibold text-text\" href=\"{mcp}\">מדריך התקנת ה-MCP</a>."
+  },
+  "plugins": {
+    "title": "Claude Code ו-Codex: פלאגין ב-marketplace",
+    "lede": "אותם hooks, כלי MCP ו-skills מגיעים גם כפלאגין. הקובץ הבינארי עדיין מותקן קודם, והפלאגין רק מחבר אותו.",
+    "note": "Codex מבקש לאשר את ה-hooks ב-<code>/hooks</code> פעם אחת, והאישור שורד שדרוגים. כשמותקנים גם פלאגין וגם hooks בקובץ ההגדרות, ה-hooks שבקובץ ההגדרות גוברים.",
+    "codeTitle": "אחרי התקנת הקובץ הבינארי"
   },
   "lanes": {
     "title": "ה-hooks לוכדים, MCP עונה",
@@ -142,7 +148,8 @@
     "register": "רושמים שרת MCP מרוחק על HTTP בכתובת הזאת בהגדרות של הסוכן. חיפוש, קריאה וכתיבה של דפים והעברות עובדים כולם. לכידה אוטומטית צריכה hooks של מחזור החיים, אז בלעדיהם הסוכן זוכר רק את מה שהוא כותב.",
     "contribute": "רוצים תמיכה מלאה בו? <a href=\"{guide}\">מדריך התרומה ל-harness מנוהל</a> מתאר מה מתאם צריך להוכיח, ו<a href=\"{contribute}\">דף התרומה לפרויקט</a> אומר לאן מגיעים issues ו-pull requests.",
     "codeTitle": "MCP endpoint",
-    "codeComment": "השרת המקומי של ברירת המחדל"
+    "codeComment": "השרת המקומי של ברירת המחדל",
+    "documented": "עבור Warp, Cline, Kilo Code, Goose, Qwen Code ו-OpenHuman יש במדריך ההתקנה מתכון כתוב שנגזר מהתיעוד של כל לקוח. אף אחד מהם עוד לא הורץ מקצה לקצה."
   },
   "faq": [
     {

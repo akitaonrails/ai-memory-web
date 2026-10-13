@@ -11,7 +11,54 @@
       "Un solo binario, markdown plano",
       "Funciona sin clave de API"
     ],
-    "marquee": "Funciona con {n} agentes de programación, entre ellos {names}"
+    "marquee": "Funciona con {n} agentes de programación, entre ellos {names}",
+    "cards": [
+      {
+        "kicker": "Para qué sirve la memoria",
+        "title": "Tu agente olvida al final de cada sesión",
+        "text": "ai-memory escribe lo que aprendió en una wiki de páginas markdown planas y le da a la siguiente sesión un resumen breve, para que dejes de volver a explicar tu propio proyecto.",
+        "cta": "Cómo funciona"
+      },
+      {
+        "kicker": "Entre proyectos",
+        "title": "Tus hábitos te siguen al siguiente proyecto",
+        "text": "Un perfil de cómo trabajas, aprendido de tus proyectos, llega a cada proyecto nuevo al empezar la sesión, por debajo de las reglas propias de ese proyecto.",
+        "cta": "Memoria entre proyectos"
+      },
+      {
+        "kicker": "Cualquier agente",
+        "title": "{n} agentes de programación, una sola memoria",
+        "text": "Claude Code, Codex, Cursor, Gemini CLI, OpenCode y más comparten un servidor. Lo que uno aprendió esta mañana lo tiene el siguiente esta tarde.",
+        "cta": "Agentes y editores"
+      },
+      {
+        "kicker": "Instalación",
+        "title": "Dos comandos, sin cuenta, sin clave de API",
+        "text": "Un script con checksum verificado y ai-memory setup. El servidor solo escucha en tu máquina, y tu memoria es markdown en una carpeta tuya.",
+        "cta": "Instalación rápida"
+      },
+      {
+        "kicker": "La memoria envejece",
+        "title": "La memoria vieja se encoge y lo que usas se queda",
+        "text": "Las páginas de sesión se puntúan, se conservan mientras las sigues leyendo y pueden encogerse o fusionarse sin LLM. Cada reescritura se puede restaurar.",
+        "cta": "Cómo envejece la memoria"
+      },
+      {
+        "kicker": "Medido",
+        "title": "{score} de hit@5 en LongMemEval-S, con sus salvedades",
+        "text": "La recuperación se evalúa con un harness que viene en el repositorio, paso de captura incluido. La cifra no dice nada sobre la precisión de las respuestas.",
+        "cta": "Qué se midió"
+      }
+    ],
+    "cardLabels": [
+      "ai-memory",
+      "Para qué sirve la memoria",
+      "Entre proyectos",
+      "Cualquier agente",
+      "Instalación",
+      "La memoria envejece",
+      "Medido"
+    ]
   },
   "statement": "Tu agente de programación ya toma notas. Viven en una sola máquina y pertenecen a un solo agente. Cambia de herramienta y desaparecen, y tu equipo nunca llega a verlas. ai-memory es lo que hay al otro lado de esos muros.",
   "continuity": {
@@ -106,7 +153,7 @@
       {
         "who": "Trabajo solo",
         "title": "Deja de volver a explicar tu proyecto",
-        "text": "Tres comandos para instalar. No necesitas cuenta ni clave de API.",
+        "text": "Dos comandos para instalar. No necesitas cuenta ni clave de API.",
         "cta": "ai-memory para uso individual"
       },
       {
@@ -144,7 +191,7 @@
       },
       {
         "title": "Recuerda",
-        "text": "La siguiente sesión recibe un resumen breve y puede buscar en todo: texto completo, entidades, enlaces y vectores, fusionados en un solo ranking."
+        "text": "La siguiente sesión recibe un resumen breve y puede buscar en todo: texto completo, entidades, enlaces, vectores y las observaciones en bruto, fusionados en un solo ranking."
       },
       {
         "title": "Traspasa",
@@ -163,7 +210,7 @@
     "gain": "Qué ganas"
   },
   "quickstart": {
-    "title": "En marcha con tres comandos.",
+    "title": "En marcha con dos comandos.",
     "text": "No hay registro. La instalación por defecto solo escucha en tu máquina, así que nada más puede llegar a ella. Puedes añadirlo a un proyecto que ya está en marcha: la primera sesión importa el historial de agentes que tienes en disco.",
     "links": {
       "install": "Todas las rutas de instalación, paso a paso",
@@ -177,9 +224,9 @@
     "soloTitle": "una máquina",
     "teamTitle": "un servidor, muchas máquinas",
     "solo": {
-      "c1": "1. Instala el binario (o bájalo de la página de descargas)",
-      "c2": "2. Arranca el servidor. Solo escucha en esta máquina.",
-      "c3": "3. Lanza tu agente a través de él. Los hooks y MCP se conectan solos."
+      "c1": "1. Instala el binario: descargado, checksum verificado, sin root",
+      "c2": "2. Crea el directorio de datos, arranca el servicio y conecta cada agente que encuentre",
+      "c3": "3. Lanza tu agente a través de él"
     },
     "team": {
       "c1": "En el servidor: un equipo del homelab o cualquier host de la LAN",

@@ -34,13 +34,19 @@
       "mcp": "the memory tools, over MCP",
       "hooks": "automatic capture, through lifecycle hooks",
       "hooksOnly": "stages the hook scripts and prints a snippet to paste into the agent’s settings",
-      "print": "prints a hooks block to paste into the agent’s own config",
+      "print": "prints a block to paste into the agent’s own config",
       "none": "nothing to install: it talks to /hook and /mcp itself"
     },
     "dryRun": "Leave out --apply to print the change without writing it.",
     "community": "ai-memory ships no installer for this one. The server recognizes its hook events, and the plugin is maintained by the community. Review it before you install it: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin on GitHub</a>.",
     "statusTitle": "What each status means",
     "after": "Per-agent details, config file locations and known quirks are in <a class=\"underline font-semibold text-text\" href=\"{matrix}\">the support matrix</a> and <a class=\"underline font-semibold text-text\" href=\"{mcp}\">the MCP install guide</a>."
+  },
+  "plugins": {
+    "title": "Claude Code and Codex: a marketplace plugin",
+    "lede": "The same hooks, MCP tools and skills also ship as a plugin. The binary is still installed first; the plugin only wires it.",
+    "note": "Codex asks you to trust the hooks in <code>/hooks</code> once, and the trust survives upgrades. With both a plugin and settings-file hooks installed, the settings hooks win.",
+    "codeTitle": "after installing the binary"
   },
   "lanes": {
     "title": "Hooks capture, MCP answers",
@@ -142,7 +148,8 @@
     "register": "Register a remote HTTP MCP server at this address in your agent’s settings. Search, page reads and writes, and handoffs all work. Automatic capture needs lifecycle hooks, so without them the agent only remembers what it writes.",
     "contribute": "Want full support for it? <a href=\"{guide}\">The managed-harness contribution guide</a> describes what an adapter has to prove, and <a href=\"{contribute}\">the contribute page</a> says where issues and pull requests go.",
     "codeTitle": "MCP endpoint",
-    "codeComment": "the default local server"
+    "codeComment": "the default local server",
+    "documented": "For Warp, Cline, Kilo Code, Goose, Qwen Code and OpenHuman the install guide has a written recipe that follows each client’s own documentation; none has been run end to end yet."
   },
   "faq": [
     {

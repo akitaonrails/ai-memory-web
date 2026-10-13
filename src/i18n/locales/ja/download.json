@@ -15,7 +15,7 @@
     "yours": "お使いのシステムのようです",
     "checksum": "SHA-256チェックサム",
     "verifyTitle": "ダウンロードを検証",
-    "after": "展開したら<a class=\"underline font-semibold text-text\" href=\"{href}\">クイックセットアップ</a>に進んでください。コマンド3つで終わります。",
+    "after": "展開したら<a class=\"underline font-semibold text-text\" href=\"{href}\">クイックセットアップ</a>に進んでください。LinuxとmacOSでは、<code>install.sh</code>と<code>ai-memory setup</code>の2コマンドで終わります。",
     "linux": { "note": "展開して./ai-memory initを実行し、続けてserveを実行します。" },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "launchdエージェントが付属します。ブラウザでダウンロードした場合は、先にquarantineフラグを外してください。" },
     "win": { "note": "実験的です。サポート対象はWSL2上でLinuxビルドを使う方法です。" },
@@ -36,10 +36,10 @@
     "kinds": { "Added": "追加{n}件", "Changed": "変更{n}件", "Fixed": "修正{n}件", "Security": "セキュリティ{n}件", "Removed": "削除{n}件", "Deprecated": "非推奨{n}件" },
     "full": "GitHubで変更履歴の全文を見る",
     "releases": "すべてのリリース",
-    "upgrading": "1.xからのアップグレード"
+    "upgrading": "3.0へのアップグレード"
   },
   "next": [
-    { "title": "クイックセットアップ", "text": "バイナリから動く記憶まで、コマンド3つ。" },
+    { "title": "クイックセットアップ", "text": "バイナリから動く記憶まで、コマンド2つ。" },
     { "title": "連携", "text": "お使いのエージェントとOSを確認できます。" },
     { "title": "詳細セットアップ", "text": "サービス化、TLS、バックアップ、アップグレード。" }
   ]

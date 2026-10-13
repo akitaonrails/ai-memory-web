@@ -160,64 +160,68 @@
   },
   "measured": {
     "title": "Qué se midió",
-    "lede": "El stack de recuperación se evalúa con LongMemEval-S: 470 preguntas sobre historiales de chat largos, pasadas por la ruta real de hooks y la búsqueda real. El harness de evaluación está en el repositorio.",
+    "lede": "El stack de recuperación se evalúa con LongMemEval-S: 470 preguntas sobre historiales de chat largos, reproducidas por la ruta real de hooks y la búsqueda real. El harness está en el repositorio, y cada cifra de aquí es el sistema distribuido de punta a punta.",
     "chart": {
       "title": "hit@5 en LongMemEval-S",
       "subtitle": "Porcentaje de las 470 preguntas con una sesión de evidencia entre los cinco primeros resultados. Más alto es mejor.",
       "bars": [
         "Solo texto completo, antes de la 2.0",
         "Texto completo con stopwords filtradas",
-        "Más embeddings locales (la opción por defecto)"
+        "Más embeddings locales",
+        "3.0: texto completo, con el flujo de observaciones",
+        "3.0: embeddings locales, con el flujo de observaciones"
       ]
     },
     "steps": {
       "title": "Qué fue cada paso",
-      "stopwords": "Quitar las stopwords de las consultas de texto completo sumó {hit5} puntos de hit@5 y {hit1} de hit@1.",
-      "embeddings": "El modelo de embeddings dentro del proceso sumó el resto. Acertar con el masked-mean pooling valió por sí solo unos {points} puntos.",
+      "stopwords": "Quitar las stopwords de las consultas de texto completo sumó {hit5} puntos de hit@5.",
+      "embeddings": "El modelo de embeddings dentro del proceso sumó más, sin clave de API.",
+      "observations": "El flujo de observaciones, activado por defecto desde la 3.0, deja que las observaciones en bruto de una sesión voten por su página. Subió el texto completo de {from} a {to}.",
       "noKey": "En ninguna fila intervienen una clave de API ni un LLM."
     },
     "table": {
       "metric": "Métrica",
       "before": "Antes de la 2.0",
       "filtered": "Texto completo filtrado",
-      "local": "Embeddings locales"
+      "local": "Embeddings locales",
+      "fts3": "3.0, texto completo",
+      "local3": "3.0, embeddings locales"
     },
     "retrievalOnly": {
       "title": "Recuperación, no respuestas",
       "text": "hit@5 pregunta si se encontró la sesión correcta. Ningún modelo escribe ni califica una respuesta, así que esta cifra no se puede comparar con las de precisión que publican otras herramientas. El dataset es historial de chat, y todavía no existe un benchmark de sesiones de programación."
     },
     "privacyCap": {
-      "title": "El tope de privacidad cuesta puntos a propósito",
-      "text": "Los extractos de herramientas se cortan a 2 KB antes de guardarse. La evidencia que está muy dentro de un turno largo nunca llega al índice. El benchmark evalúa el sistema tal como se distribuye, tope incluido."
+      "title": "El tope de privacidad no es donde se pierden los puntos",
+      "text": "Los extractos de herramientas se cortan a 2 KB antes de guardarse. El informe de descomposición comprobó el coste: las páginas que contienen exactamente el texto capturado puntúan {captured} frente a {whole} de las sesiones completas. La diferencia estaba en que la página de sesión guardaba solo un extracto corto de cada turno, algo que el flujo de observaciones cierra."
     },
     "reproduce": {
       "title": "Ejecútalo tú mismo",
-      "text": "Añade <code>--candidate-embeddings local</code> al segundo comando para ejecutar texto completo y embeddings locales lado a lado. La ejecución publicada es del {date}, en un Ryzen 9 7950X3D.",
+      "text": "Añade <code>--candidate-embeddings local</code> al segundo comando para ejecutar texto completo y embeddings locales lado a lado. Las ejecuciones publicadas son del {date}, en un Ryzen 9 7950X3D.",
       "codeTitle": "reproducir el benchmark",
       "full": "Resultados completos, por tipo de pregunta"
     },
     "throughputNote": "También se midió el rendimiento de escritura. <a class=\"link\" href=\"{href}\">Los números están en la página de arquitectura</a>.",
-    "ab": {
-      "title": "Qué aportan los embeddings locales, y qué cuestan",
-      "text": "Las mismas 470 preguntas, ejecutadas dos veces: primero solo con texto completo y luego con el modelo local de embeddings por defecto. Los embeddings encuentran la evidencia entre los diez primeros resultados con mucha más frecuencia, y añaden unos {ms} ms a cada consulta.",
+    "stream": {
+      "title": "Qué recuperó el flujo de observaciones",
+      "text": "Una página de sesión guarda solo un extracto corto de cada turno, así que el detalle por el que pregunta una pregunta a menudo vive solo en las observaciones de la sesión. Con el flujo activado, cada sesión que coincide vota una sola vez, a través de su mejor observación, por su propia página. Las mismas 470 preguntas, la misma build, con el flujo desactivado y luego activado.",
       "columns": {
         "metric": "Métrica",
         "fts": "Texto completo, sin LLM",
-        "local": "Embeddings locales",
-        "delta": "Cambio"
+        "local": "Embeddings locales"
       },
       "rows": {
         "hit1": "hit@1",
         "hit5": "hit@5",
         "hit10": "hit@10",
-        "recall10": "recall@10",
-        "p50": "Tiempo de consulta, mediana",
+        "recall5": "recall@5",
         "p95": "Tiempo de consulta, percentil 95",
-        "tokens": "Tokens de contexto por consulta, media"
+        "tokens": "Tokens de contexto, cinco primeros resultados"
       },
       "ms": "{n} ms",
-      "stable": "Dos ejecuciones completas sobre el mismo commit obtuvieron {runA} y {runB}, así que conviene leer hit@5 como aproximadamente {readAs}, más o menos {plusMinus}. La ejecución anterior, del {prevDate}, obtuvo {prevLocal}, que es el mismo resultado. El envejecimiento de la memoria viene desactivado por defecto, así que la búsqueda por defecto no cambió.",
-      "determinism": "Dentro de una misma ejecución el harness es determinista: ejecutar una configuración dos veces da una precisión y un número de tokens idénticos. Entre ejecuciones separadas, los tipos de pregunta más pequeños se mueven hasta 0,03 en cualquier dirección, así que una caída en uno de ellos en una sola ejecución significa poco."
+      "ftsAhead": "Con el flujo activado, el texto completo por sí solo puntúa un poco por encima de los embeddings locales. El vector de la página, igual que su fila de texto completo, sigue viendo solo un cuerpo que contiene únicamente el título.",
+      "determinism": "Dentro de una misma ejecución el harness es determinista. Entre ejecuciones separadas, los tipos de pregunta más pequeños se mueven hasta 0,03 en cualquier dirección, así que una caída en uno de ellos en una sola ejecución significa poco.",
+      "comparable": "Las cifras que otras herramientas publican sobre este dataset salen de sus propios harnesses, que a menudo indexan sesiones en bruto completas sin paso de captura. No son comparables punto por punto, y no se afirma ningún ranking entre herramientas."
     }
   },
   "next": {
@@ -251,7 +255,7 @@
     },
     "behind": {
       "title": "Dónde va por detrás hoy",
-      "text": "La puntuación bruta de recuperación queda por debajo de las herramientas que hacen rerank, y el envejecimiento de la memoria todavía no tiene ningún resultado medido. <a class=\"link\" href=\"{href}\">La lista completa está en la página de comparación</a>."
+      "text": "Todavía no hay un reranker local, y el envejecimiento de la memoria no tiene ningún resultado medido. <a class=\"link\" href=\"{href}\">La lista completa está en la página de comparación</a>."
     }
   },
   "nextPages": [
@@ -283,7 +287,7 @@
     },
     {
       "q": "¿Qué mide el benchmark LongMemEval-S en ai-memory?",
-      "a": "Solo recuperación: si una sesión que contiene la evidencia aparece entre los primeros resultados, sobre 470 preguntas. hit@5 es {hybrid} con los embeddings locales por defecto y {fts} con solo texto completo. No mide la precisión de las respuestas."
+      "a": "Solo recuperación: si una sesión que contiene la evidencia aparece entre los primeros resultados, sobre 470 preguntas. hit@5 es {fts} con texto completo y el flujo de observaciones, y {hybrid} con embeddings locales. No mide la precisión de las respuestas."
     }
   ]
 }

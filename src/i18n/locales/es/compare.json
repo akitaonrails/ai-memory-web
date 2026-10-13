@@ -73,7 +73,7 @@
   },
   "benchmark": {
     "title": "El benchmark, con sus salvedades",
-    "lede": "ai-memory publica una sola cifra, medida en LongMemEval-S con un harness que viene en el repositorio. Los sistemas que hacen rerank puntúan más alto.",
+    "lede": "ai-memory publica sus cifras, medidas en LongMemEval-S con un harness que viene en el repositorio, paso de captura incluido.",
     "chartLabel": "Gráfico de barras de hit at 5 en LongMemEval-S. {bars}",
     "chartBar": "{label}: {value}.",
     "ours": [
@@ -82,29 +82,34 @@
         "note": "Solo texto completo"
       },
       {
-        "label": "ai-memory, solo texto completo",
+        "label": "ai-memory 2.4, texto completo",
         "note": "Con filtrado de stopwords"
       },
       {
-        "label": "ai-memory por defecto",
-        "note": "Embeddings locales, sin clave de API"
+        "label": "ai-memory 2.4, embeddings locales",
+        "note": "Sin clave de API"
+      },
+      {
+        "label": "ai-memory 3.0, texto completo",
+        "note": "Con el flujo de observaciones, sin embeddings"
+      },
+      {
+        "label": "ai-memory 3.0, embeddings locales",
+        "note": "Con el flujo de observaciones, la instalación por defecto"
       }
     ],
     "theirs": [
       {
         "note": "Cifra del proveedor, a nivel de sesión"
-      },
-      {
-        "note": "Cifra del proveedor, con rerank"
       }
     ],
-    "axis": "hit@5, de 0 a 1. Las barras sólidas las midió este proyecto. Las barras rayadas son cifras de los propios proveedores y no se reprodujeron aquí.",
+    "axis": "hit@5, de 0 a 1. Las barras sólidas las midió este proyecto. La barra rayada es la cifra del propio proveedor y no se reprodujo aquí.",
     "caveats": [
       "hit@5 pregunta si una sesión que contiene la evidencia está entre los cinco primeros resultados. Mide la recuperación. No dice nada sobre la precisión de las respuestas.",
-      "Se puntúan 470 de las 500 preguntas. Las 30 preguntas de abstención quedan excluidas. La ejecución es del {date}. Una segunda ejecución sobre el mismo commit obtuvo {runB}, así que conviene leer la puntuación por defecto como aproximadamente {readAs}.",
-      "{local} usa el modelo de embeddings por defecto, dentro del proceso, sin clave de API y sin LLM. {fts} es solo texto completo, entidades y enlaces.",
-      "No existe ninguna ejecución cara a cara contra ningún competidor. Las cifras de precisión, como el 91,4% de Hindsight, son otra métrica y no se comparan con hit@5.",
-      "Los extractos guardados se limitan a 2 KB por privacidad, así que la evidencia que está muy adentro de un turno largo no se puede encontrar. El benchmark mide el sistema tal como se distribuye.",
+      "Se puntúan 470 de las 500 preguntas. Las 30 preguntas de abstención quedan excluidas. Las ejecuciones son del {date}.",
+      "{fts} es texto completo, entidades, enlaces y las observaciones de la propia sesión, sin clave de API y sin LLM. {local} añade el modelo de embeddings por defecto, dentro del proceso.",
+      "No existe ninguna ejecución cara a cara contra ningún competidor. Las cifras de proveedores sobre el mismo dataset salen de harnesses distintos, a menudo sin paso de captura, y las cifras de precisión, como el 91,4% de Hindsight, son otra métrica.",
+      "Los extractos guardados se limitan a 2 KB por privacidad. Las páginas que contienen exactamente el texto capturado puntúan a menos de medio punto de las sesiones completas, así que el tope cuesta poco.",
       "LongMemEval es historial de asistentes de chat. Hay planeado un benchmark de sesiones de programación, y todavía no existe."
     ],
     "reproduce": "Reprodúcelo desde un checkout. Las <a class=\"underline font-semibold text-text\" href=\"{href}\">notas del benchmark</a> tienen el hash del dataset y los resultados por segmento.",
@@ -121,7 +126,7 @@
     "items": [
       {
         "title": "Sin reranker local",
-        "text": "Las puntuaciones de recuperación quedan por debajo de los sistemas que hacen rerank. El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas también necesitan un LLM, y su precisión no se ha evaluado. Un adaptador documentado puede cubrir ese tramo con un modelo juez local pequeño."
+        "text": "El único reranker es un LLM, y viene desactivado por defecto. Las respuestas con citas también necesitan un LLM, y su precisión no se ha evaluado. Un adaptador documentado puede cubrir ese tramo con un modelo juez local pequeño."
       },
       {
         "title": "Los tipos de enlace no mueven el ranking",
@@ -192,7 +197,7 @@
       },
       {
         "q": "¿Puedo importar mis datos de Mem0, Zep o cognee?",
-        "a": "Directamente, no. El importador complementario lee wikis markdown de oh-my-claudecode y un formato JSON genérico de conversaciones. Los adaptadores para productos concretos viven fuera del repositorio. Para un código que ya existe, ai-memory bootstrap siembra la wiki a partir del historial de git y la documentación."
+        "a": "Desde Mem0, Zep o cognee, no. El importador complementario lee wikis markdown de oh-my-claudecode, archivos de vault y de exportación de agentmemory, y un formato JSON genérico de conversaciones. Para un código que ya existe, ai-memory bootstrap siembra la wiki a partir del historial de git y la documentación."
       },
       {
         "q": "¿Puedo ejecutar ai-memory junto a mi herramienta de memoria actual?",
@@ -200,7 +205,7 @@
       },
       {
         "q": "¿Cómo queda su puntuación de recuperación frente a las demás?",
-        "a": "En LongMemEval-S obtiene {local} de hit@5 con los embeddings locales por defecto y {fts} solo con texto completo. Esa cifra mide la recuperación y no dice nada sobre la precisión de las respuestas. Los sistemas que hacen rerank puntúan más alto: agentmemory reporta 0,952 y mcp-memory-service reporta 0,860 a nivel de sesión."
+        "a": "En LongMemEval-S obtiene {fts} de hit@5 con texto completo y el flujo de observaciones, y {local} con embeddings locales. Eso mide la recuperación y no dice nada sobre la precisión de las respuestas. Las cifras que publican otras herramientas salen de sus propios harnesses, así que no se afirma ningún ranking entre herramientas."
       },
       {
         "q": "¿Sincroniza la memoria entre máquinas?",
@@ -211,7 +216,7 @@
   "next": [
     {
       "title": "Instalación rápida",
-      "text": "Tres comandos para una máquina, cinco pasos para un equipo."
+      "text": "Dos comandos para una máquina, cinco pasos para un equipo."
     },
     {
       "title": "Investigación y fundamentos",

@@ -9,18 +9,33 @@
   },
   "hero": {
     "title": "Instalación rápida",
-    "lede": "Elige tu ruta y copia los comandos. Una máquina son tres pasos, sin cuenta. Un servidor compartido para un equipo son cinco."
+    "lede": "Elige tu ruta y copia los comandos. Una máquina son dos comandos, sin cuenta. Un servidor compartido para un equipo son cinco pasos."
   },
   "solo": {
     "title": "Solo yo",
-    "lede": "Instala un binario, arranca un servidor local y lanza tu agente. El servidor se enlaza a 127.0.0.1:49374, así que nada fuera de esta máquina puede llegar a él y no necesita token.",
+    "lede": "Instala un binario, deja que arranque un servidor local y lanza tu agente. El servidor se enlaza a 127.0.0.1:49374, así que nada fuera de esta máquina puede llegar a él. Una instalación nueva guarda su token en un archivo accesible solo para su dueño, que leen los hooks y la CLI, así que no escribes ninguno.",
     "tabs": [
+      "Linux o macOS",
       "Linux o macOS (mise)",
       "Arch Linux (AUR)",
       "Fedora (RPM)",
       "Binario de macOS",
       "Docker o Podman",
       "Windows"
+    ],
+    "native": [
+      {
+        "title": "Instala el binario",
+        "text": "El script descarga la versión para tu sistema y tu chip, la verifica contra el archivo <code>.sha256</code> publicado y se niega a instalar si no coincide. Enlaza <code>~/.local/bin/ai-memory</code> y no necesita root."
+      },
+      {
+        "title": "Configúralo",
+        "text": "<code>setup</code> crea el directorio de datos con su token, arranca un servicio de usuario (systemd o launchd) y conecta hooks, MCP y skills para cada agente que encuentre. Muestra el plan y pregunta antes; una segunda ejecución no cambia nada."
+      },
+      {
+        "title": "Lanza tu agente a través de él",
+        "text": "Reinicia tus agentes una vez. Lanzar <code>claude</code> directamente sigue funcionando después."
+      }
     ],
     "mise": [
       {
@@ -29,7 +44,7 @@
       },
       {
         "title": "Crea el directorio de datos y arranca el servidor",
-        "text": "<code>init</code> solo crea el directorio de datos. <code>serve</code> tiene que seguir corriendo, así que dale su propia terminal. Solo escucha en esta máquina y no necesita token."
+        "text": "<code>init</code> crea el directorio de datos y su archivo de token. <code>serve</code> tiene que seguir corriendo, así que dale su propia terminal. Solo escucha en esta máquina, y los hooks y la CLI leen el token del directorio de datos."
       },
       {
         "title": "Lanza tu agente a través de él",

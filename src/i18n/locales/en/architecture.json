@@ -93,8 +93,8 @@
     }
   },
   "retrieval": {
-    "title": "Retrieval: four streams, one ranking.",
-    "figureAlt": "Diagram: a query fans out into four lanes labelled FTS5, Entities, Graph and Vectors, with the vector lane dashed as optional. The lanes merge in a node labelled RRF k=60, pass through an Authority scale, and end as a ranked list of results.",
+    "title": "Retrieval: five streams, one ranking.",
+    "figureAlt": "Diagram: a query fans out into five lanes labelled FTS5, Entities, Graph, Observations and Vectors, with the vector lane dashed as optional. The lanes merge in a node labelled RRF k=60, pass through an Authority scale, and end as a ranked list of results.",
     "figureCaption": "The vector lane is dashed because search works without it.",
     "streams": [
       {
@@ -110,6 +110,10 @@
         "text": "One hop over the links table: wikilinks, markdown links, typed edges and cross-project links. Plain SQL, no graph database."
       },
       {
+        "title": "Observations",
+        "text": "Full text over the project’s raw observations. Each matching session votes once, through its best observation, for its own session page, so detail that never made it into the page still finds it. On by default since 3.0."
+      },
+      {
         "title": "Vectors, optional",
         "text": "Cosine similarity over embeddings from the in-process local model. On by default since 2.0, never required, and brute force on purpose."
       }
@@ -119,7 +123,7 @@
       "points": [
         "Reciprocal Rank Fusion with k=60 merges the streams by rank, so no stream needs score calibration.",
         "A bounded authority multiplier then nudges close contests toward maintained rules, decisions, procedures and gotchas. Episodic and historical pages stay searchable, and nothing is excluded outright.",
-        "Optional LLM rerank: one call per query over up to 30 titles and snippets. Any failure keeps the local order. There is no local reranker yet, which is the project’s most cited gap.",
+        "Optional LLM rerank: one call per query over up to 30 titles and snippets. Any failure keeps the local order. There is no local reranker yet.",
         "If compiled pages miss entirely, a bounded search over raw observations returns raw_hits.",
         "Pass explain=true to see per-stream ranks, RRF contributions and the multiplier for every hit."
       ]

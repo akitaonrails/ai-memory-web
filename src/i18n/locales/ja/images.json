@@ -40,7 +40,8 @@
     "Graph": "グラフ",
     "Vectors": "ベクトル",
     "Authority": "権威度",
-    "Results": "結果"
+    "Results": "結果",
+    "Observations": "観測"
   },
   "compare-side-by-side": {
     "Git history": "Git履歴",

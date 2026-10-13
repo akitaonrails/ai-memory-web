@@ -15,7 +15,12 @@
     "toggleTheme": "Cambiar entre tema claro y oscuro",
     "language": "Idioma",
     "starOnGithub": "Dale una estrella a ai-memory en GitHub, {n} estrellas",
-    "chooseOne": "Elige una opción"
+    "chooseOne": "Elige una opción",
+    "carousel": "Destacados",
+    "slideOf": "{n} de {total}",
+    "slides": "Elige una diapositiva",
+    "previousSlide": "Diapositiva anterior",
+    "nextSlide": "Diapositiva siguiente"
   },
   "crumbs": {
     "home": "Inicio",

@@ -40,7 +40,8 @@
     "Graph": "그래프",
     "Vectors": "벡터",
     "Authority": "권위도",
-    "Results": "결과"
+    "Results": "결과",
+    "Observations": "관찰 기록"
   },
   "compare-side-by-side": {
     "Git history": "Git 히스토리",

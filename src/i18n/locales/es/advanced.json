@@ -320,14 +320,13 @@
       "notes": [
         "Un binario de la versión bajo un prefijo con permiso de escritura (Linux, macOS, el zip de Windows) se reemplaza a sí mismo: el comando descarga el archivo correspondiente, verifica el archivo <code>.sha256</code> y vuelve a ejecutar <code>install-hooks --apply</code> para los agentes ya preparados. Las instalaciones de Homebrew, AUR y RPM se actualizan con su propio gestor de paquetes.",
         "Con el wrapper de Docker, esto verifica y reemplaza el wrapper, descarga la imagen y vuelve a preparar los scripts de hooks. Un servidor en otro host se actualiza aparte.",
-        "Las migraciones del esquema y de la wiki corren al arrancar. Solo van hacia delante: un binario más antiguo se niega a abrir un directorio migrado, así que ejecuta antes <code>ai-memory backup</code> si cabe la posibilidad de volver atrás.",
-        "Para 2.6.5, actualiza el servidor antes que los clientes. Si accedes a un servidor sin autenticación mediante un hostname de la LAN o un proxy, renueva los hooks instalados con <code>ai-memory install-hooks --apply</code> o <code>ai-memory upgrade</code> para mantener los traspasos al inicio de sesión."
+        "Las migraciones del esquema y de la wiki corren al arrancar. Solo van hacia delante: un binario más antiguo se niega a abrir un directorio migrado, así que ejecuta antes <code>ai-memory backup</code> si cabe la posibilidad de volver atrás."
       ],
-      "from1x": {
-        "title": "Si vienes de la 1.x",
-        "text": "El primer arranque de la 2.0 reescribe la wiki a Open Knowledge Format v0.2. Antes de tocar nada, archiva todo el directorio de datos en <code>~/ai-memory-backup-okf-v0.2-&lt;date&gt;.tar.gz</code> (<code>/data/backups/</code> en un contenedor) y verifica el archivo. Si la copia no se puede escribir o verificar, la migración se aborta y el servidor se niega a arrancar, con tus datos intactos."
-      },
-      "link": "Lee la guía de migración a la 2.0, con el camino de vuelta incluido"
+      "link": "Lee la guía de actualización a la 3.0, con el camino de vuelta incluido",
+      "from2x": {
+        "title": "Si vienes de la 2.x",
+        "text": "Haz primero una copia de seguridad y actualiza el servidor antes que los clientes. Las instalaciones nuevas exigen un token, y las existentes no cambian hasta que ejecutes <code>ai-memory auth enable</code>. Los comandos de token de la 1.x ya no existen; los tokens que emitieron siguen funcionando como claves de API. La búsqueda ahora lee por defecto las observaciones de la sesión, y <code>[retrieval] observation_stream = false</code> restaura el ranking anterior. Para volver atrás, restaura la copia de seguridad con el binario 2.x."
+      }
     }
   },
   "faq": [
@@ -349,7 +348,7 @@
     }
   ],
   "nextPages": {
-    "install": "El camino corto: una máquina en tres pasos, un equipo en cinco.",
+    "install": "El camino corto: una máquina en dos comandos, un equipo en cinco.",
     "security": "La escalera de endurecimiento, la frontera de privacidad y qué significa borrar.",
     "architecture": "Un solo binario, archivos markdown y un índice derivado."
   },

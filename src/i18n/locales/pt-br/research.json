@@ -160,64 +160,68 @@
   },
   "measured": {
     "title": "O que foi medido",
-    "lede": "A pilha de recuperação é avaliada no LongMemEval-S: 470 perguntas sobre históricos longos de chat, passando pelo caminho real dos hooks e pela busca real. O harness está no repositório.",
+    "lede": "A pilha de recuperação é avaliada no LongMemEval-S: 470 perguntas sobre históricos longos de chat, reproduzidas pelo caminho real dos hooks e pela busca real. O harness está no repositório, e cada número aqui é o sistema distribuído de ponta a ponta.",
     "chart": {
       "title": "hit@5 no LongMemEval-S",
       "subtitle": "Parcela das 470 perguntas com uma sessão de evidência entre os cinco primeiros. Quanto maior, melhor.",
       "bars": [
         "Só full-text, antes da 2.0",
         "Full-text com filtro de stopwords",
-        "Mais embeddings locais (o padrão)"
+        "Mais embeddings locais",
+        "3.0: full-text, com o fluxo de observações",
+        "3.0: embeddings locais, com o fluxo de observações"
       ]
     },
     "steps": {
       "title": "O que foi cada passo",
-      "stopwords": "Tirar as stopwords das consultas full-text somou {hit5} pontos de hit@5 e {hit1} de hit@1.",
-      "embeddings": "O modelo de embeddings dentro do processo somou o resto. Acertar o masked-mean pooling valeu, sozinho, cerca de {points} pontos.",
+      "stopwords": "Tirar as stopwords das consultas full-text somou {hit5} pontos de hit@5.",
+      "embeddings": "O modelo de embeddings dentro do processo somou mais, sem chave de API.",
+      "observations": "O fluxo de observações, ligado por padrão desde a 3.0, deixa as observações brutas de uma sessão votarem na página dela. Ele levou o full-text de {from} para {to}.",
       "noKey": "Nenhuma linha envolve chave de API ou LLM."
     },
     "table": {
       "metric": "Métrica",
       "before": "Antes da 2.0",
       "filtered": "Full-text filtrado",
-      "local": "Embeddings locais"
+      "local": "Embeddings locais",
+      "fts3": "3.0, full-text",
+      "local3": "3.0, embeddings locais"
     },
     "retrievalOnly": {
       "title": "Recuperação, não respostas",
       "text": "O hit@5 pergunta se a sessão certa foi encontrada. Nenhum modelo escreve ou avalia uma resposta, então este número não pode ser comparado com as acurácias que outras ferramentas publicam. O dataset é histórico de chat, e ainda não existe um benchmark de sessões de código."
     },
     "privacyCap": {
-      "title": "O limite de privacidade custa pontos de propósito",
-      "text": "Os trechos de ferramentas são cortados em 2 KB antes de gravar. Evidência enterrada no meio de um turno longo nunca chega ao índice. O benchmark avalia o sistema do jeito que ele é distribuído, com o limite incluído."
+      "title": "O limite de privacidade não é onde os pontos se perdem",
+      "text": "Os trechos de ferramentas são cortados em 2 KB antes de gravar. O relatório de decomposição conferiu o custo: páginas com exatamente o texto capturado marcam {captured} contra {whole} das sessões inteiras. A diferença estava na página de sessão guardar só um trecho curto de cada turno, o que o fluxo de observações fecha."
     },
     "reproduce": {
       "title": "Rode você mesmo",
-      "text": "Acrescente <code>--candidate-embeddings local</code> ao segundo comando para rodar full-text e embeddings locais lado a lado. A execução publicada é de {date}, num Ryzen 9 7950X3D.",
+      "text": "Acrescente <code>--candidate-embeddings local</code> ao segundo comando para rodar full-text e embeddings locais lado a lado. As execuções publicadas são de {date}, num Ryzen 9 7950X3D.",
       "codeTitle": "reproduzir o benchmark",
       "full": "Resultados completos, por tipo de pergunta"
     },
     "throughputNote": "A vazão de escrita também foi medida. <a class=\"link\" href=\"{href}\">Os números estão na página de arquitetura</a>.",
-    "ab": {
-      "title": "O que os embeddings locais entregam, e quanto custam",
-      "text": "As mesmas 470 perguntas, rodadas duas vezes: primeiro só com full-text, depois com o modelo de embeddings local padrão. Com embeddings, a evidência aparece entre os dez primeiros com muito mais frequência, e cada consulta fica cerca de {ms} ms mais lenta.",
+    "stream": {
+      "title": "O que o fluxo de observações recuperou",
+      "text": "Uma página de sessão guarda só um trecho curto de cada turno, então o detalhe que a pergunta procura muitas vezes só existe nas observações da sessão. Com o fluxo ligado, cada sessão que casa vota uma vez, pela melhor observação, na própria página. As mesmas 470 perguntas, o mesmo build, com o fluxo desligado e depois ligado.",
       "columns": {
         "metric": "Métrica",
         "fts": "Full-text, sem LLM",
-        "local": "Embeddings locais",
-        "delta": "Variação"
+        "local": "Embeddings locais"
       },
       "rows": {
         "hit1": "hit@1",
         "hit5": "hit@5",
         "hit10": "hit@10",
-        "recall10": "recall@10",
-        "p50": "Tempo de consulta, mediana",
+        "recall5": "recall@5",
         "p95": "Tempo de consulta, percentil 95",
-        "tokens": "Tokens de contexto por consulta, média"
+        "tokens": "Tokens de contexto, cinco primeiros resultados"
       },
       "ms": "{n} ms",
-      "stable": "Duas execuções completas no mesmo commit marcaram {runA} e {runB}, então leia o hit@5 como cerca de {readAs}, com {plusMinus} para mais ou para menos. A execução anterior, de {prevDate}, marcou {prevLocal}, que é o mesmo resultado. O envelhecimento da memória sai desligado por padrão, então a busca padrão não mudou.",
-      "determinism": "Dentro de uma execução o harness é determinístico: rodar a mesma configuração duas vezes dá acurácia e contagem de tokens idênticas. Entre execuções separadas, os tipos de pergunta menores variam até 0,03 para cima ou para baixo, então uma queda em um deles vista em uma única execução quer dizer pouco."
+      "ftsAhead": "Com o fluxo ligado, o full-text sozinho marca um pouco acima dos embeddings locais. O vetor da página, como a linha full-text dela, ainda enxerga só o corpo que tem apenas o título.",
+      "determinism": "Dentro de uma execução o harness é determinístico. Entre execuções separadas, os tipos de pergunta menores variam até 0,03 para cima ou para baixo, então uma queda em um deles vista em uma única execução quer dizer pouco.",
+      "comparable": "Os números que outras ferramentas publicam neste dataset vêm dos harnesses delas, muitas vezes indexando sessões brutas inteiras, sem etapa de captura. Não são comparáveis diretamente, e nenhum ranking entre ferramentas é afirmado."
     }
   },
   "next": {
@@ -251,7 +255,7 @@
     },
     "behind": {
       "title": "Onde ele está atrás hoje",
-      "text": "A pontuação bruta de recuperação fica abaixo das ferramentas que fazem rerank, e o envelhecimento da memória ainda não tem resultado medido. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
+      "text": "Ainda não existe reranker local, e o envelhecimento da memória não tem resultado medido. <a class=\"link\" href=\"{href}\">A lista completa está na página de comparação</a>."
     }
   },
   "nextPages": [
@@ -283,7 +287,7 @@
     },
     {
       "q": "O que o benchmark LongMemEval-S mede no ai-memory?",
-      "a": "Só recuperação: se uma sessão que contém a evidência aparece entre os primeiros resultados, em 470 perguntas. O hit@5 é {hybrid} com os embeddings locais padrão e {fts} só com full-text. Ele não mede a acurácia das respostas."
+      "a": "Só recuperação: se uma sessão que contém a evidência aparece entre os primeiros resultados, em 470 perguntas. O hit@5 é {fts} com full-text e o fluxo de observações, e {hybrid} com embeddings locais. Ele não mede a acurácia das respostas."
     }
   ]
 }

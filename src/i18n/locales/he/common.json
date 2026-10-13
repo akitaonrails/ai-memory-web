@@ -15,7 +15,12 @@
     "toggleTheme": "מעבר בין ערכת נושא בהירה לכהה",
     "language": "שפה",
     "starOnGithub": "כוכב ל-ai-memory ב-GitHub, {n} כוכבים",
-    "chooseOne": "בחירת אפשרות אחת"
+    "chooseOne": "בחירת אפשרות אחת",
+    "carousel": "דגשים",
+    "slideOf": "{n} מתוך {total}",
+    "slides": "בחירת שקף",
+    "previousSlide": "השקף הקודם",
+    "nextSlide": "השקף הבא"
   },
   "crumbs": {
     "home": "בית",

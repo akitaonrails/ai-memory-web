@@ -126,7 +126,7 @@
         "Índices SQL reales, confirmados en una sola transacción",
         "Archivos como fuente de verdad, paridad en Windows y autenticación más completa"
       ],
-      "theyWin": "Unos 13 puntos de recuperación bruta: reporta 0,952 en LongMemEval-S frente a aproximadamente 0,82, porque hace rerank. También tiene sincronización peer-to-peer.",
+      "theyWin": "Sincronización peer-to-peer entre máquinas y un reranker incluido.",
       "verdict": "Cámbiate por la operabilidad y por ser dueño de tus datos."
     },
     "letta": {

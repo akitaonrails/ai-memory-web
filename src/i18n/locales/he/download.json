@@ -15,7 +15,7 @@
     "yours": "נראה שזו המערכת שלך",
     "checksum": "checksum מסוג SHA-256",
     "verifyTitle": "אימות הורדה",
-    "after": "אחרי החילוץ, עוברים אל <a class=\"underline font-semibold text-text\" href=\"{href}\">ההתקנה המהירה</a>. היא לוקחת שלוש פקודות.",
+    "after": "אחרי החילוץ, עוברים אל <a class=\"underline font-semibold text-text\" href=\"{href}\">ההתקנה המהירה</a>. ב-Linux וב-macOS, <code>install.sh</code> ו-<code>ai-memory setup</code> עושים את זה בשתי פקודות.",
     "linux": { "note": "מחלצים, מריצים ./ai-memory init ואז serve." },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "כולל launchd agent. אם ההורדה נעשתה בדפדפן, צריך קודם להסיר את דגל ה-quarantine." },
     "win": { "note": "ניסיוני. המסלול הנתמך הוא WSL2 עם ה-build של Linux." },
@@ -36,10 +36,10 @@
     "kinds": { "Added": "{n} נוספו", "Changed": "{n} שונו", "Fixed": "{n} תוקנו", "Security": "{n} אבטחה", "Removed": "{n} הוסרו", "Deprecated": "{n} הוצאו משימוש" },
     "full": "יומן השינויים המלא ב-GitHub",
     "releases": "כל הגרסאות",
-    "upgrading": "שדרוג מ-1.x"
+    "upgrading": "שדרוג ל-3.0"
   },
   "next": [
-    { "title": "התקנה מהירה", "text": "מקובץ בינארי לזיכרון עובד בשלוש פקודות." },
+    { "title": "התקנה מהירה", "text": "מקובץ בינארי לזיכרון עובד בשתי פקודות." },
     { "title": "אינטגרציות", "text": "בדיקת הסוכן ומערכת ההפעלה." },
     { "title": "התקנה מתקדמת", "text": "שירותים, TLS, גיבויים ושדרוגים." }
   ]

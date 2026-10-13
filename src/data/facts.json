@@ -1,102 +1,121 @@
 {
   "$comment": "Hard numbers the site quotes, each with its source in the ai-memory repository. Pages read them from here; prose that repeats a number lives in the catalogs, and `npm run check:upstream` lists every sentence that does.",
   "benchmark": {
-    "source": "docs/benchmarks/README.md and docs/benchmarks/retrieval-ab-r2.md",
+    "source": "docs/benchmarks/README.md and docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md",
     "dataset": "LongMemEval-S",
-    "date": "2026-09-21",
+    "date": "2026-10-13",
     "questionsScored": 470,
     "questionsTotal": 500,
     "columns": [
       "before 2.0 (full text, 2026-09-01 run)",
-      "full text, stopword filtered",
-      "local embeddings (default)"
+      "full text, stopword filtered (2.4)",
+      "local embeddings (2.4)",
+      "full text plus the observation stream (3.0, default)",
+      "local embeddings plus the observation stream (3.0)"
     ],
     "metrics": {
-      "hit@1": [
-        0.449,
-        0.532,
-        0.536
-      ],
       "hit@5": [
         0.617,
         0.666,
-        0.815
+        0.815,
+        0.951,
+        0.936
+      ],
+      "hit@1": [
+        0.449,
+        0.532,
+        0.536,
+        0.857,
+        0.757
       ],
       "recall@5": [
         0.472,
         0.536,
-        0.677
+        0.677,
+        0.893,
+        0.871
       ]
     },
-    "previous": {
-      "date": "2026-09-01",
-      "hit@5": {
-        "fts": 0.668,
-        "local": 0.823
-      }
-    },
-    "ab": {
-      "comment": "Same 470 questions, full text only vs local embeddings. Latency is the memory_query round trip in ms; tokens are chars/4 over returned titles and snippets. Deltas are the published ones, computed upstream before rounding.",
+    "stream": {
+      "comment": "docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md, 'What the observation stream recovered': stream off then on, same build, all 470 questions. p95 in ms; tokens are the mean context tokens of the top five hits. The two runs shared a host, so latencies are indicative only.",
       "rows": [
         {
-          "id": "hit1",
-          "fts": 0.532,
-          "local": 0.536,
-          "delta": 0.004
+          "id": "hit5",
+          "fts": [
+            0.662,
+            0.951
+          ],
+          "local": [
+            0.796,
+            0.936
+          ]
         },
         {
-          "id": "hit5",
-          "fts": 0.666,
-          "local": 0.815,
-          "delta": 0.149
+          "id": "hit1",
+          "fts": [
+            0.511,
+            0.857
+          ],
+          "local": [
+            0.536,
+            0.757
+          ]
         },
         {
           "id": "hit10",
-          "fts": 0.694,
-          "local": 0.891,
-          "delta": 0.198
+          "fts": [
+            0.687,
+            0.972
+          ],
+          "local": [
+            0.881,
+            0.97
+          ]
         },
         {
-          "id": "recall10",
-          "fts": 0.564,
-          "local": 0.817,
-          "delta": 0.254
-        },
-        {
-          "id": "p50",
-          "fts": 5,
-          "local": 94,
-          "unit": "ms",
-          "delta": 89
+          "id": "recall5",
+          "fts": [
+            0.533,
+            0.893
+          ],
+          "local": [
+            0.657,
+            0.871
+          ]
         },
         {
           "id": "p95",
-          "fts": 40,
-          "local": 162,
-          "unit": "ms",
-          "delta": 122
+          "fts": [
+            90,
+            112
+          ],
+          "local": [
+            264,
+            234
+          ],
+          "unit": "ms"
         },
         {
           "id": "tokens",
-          "fts": 350.3,
-          "local": 415.7,
-          "unit": "tokens",
-          "delta": 65.4
+          "fts": [
+            256.3,
+            266.1
+          ],
+          "local": [
+            225.7,
+            264.1
+          ],
+          "unit": "tokens"
         }
       ]
     },
-    "variance": {
-      "comment": "Two full local-embeddings runs on the same commit. Upstream: treat overall hit@5 as about 0.82 +/- 0.005.",
-      "runs": [
-        0.815,
-        0.821
-      ],
-      "readAs": 0.82,
-      "plusMinus": 0.005
+    "capCheck": {
+      "comment": "Same report: pages holding exactly the captured text against whole raw sessions, component numbers.",
+      "captured": 0.968,
+      "whole": 0.972
     },
     "vendorReported": {
-      "mcp-memory-service": 0.86,
-      "agentmemory": 0.952
+      "mcp-memory-service": 0.86
     }
   },
   "throughput": {

@@ -34,13 +34,19 @@
       "mcp": "las herramientas de memoria, por MCP",
       "hooks": "captura automática, mediante hooks de ciclo de vida",
       "hooksOnly": "prepara los scripts de los hooks e imprime un fragmento para pegar en la configuración del agente",
-      "print": "imprime un bloque de hooks para pegar en la propia configuración del agente",
+      "print": "imprime un bloque para pegar en la propia configuración del agente",
       "none": "nada que instalar: habla con /hook y /mcp por sí mismo"
     },
     "dryRun": "Omite --apply para imprimir el cambio sin escribirlo.",
     "community": "ai-memory no trae instalador para este. El servidor reconoce sus eventos de hooks, y el plugin lo mantiene la comunidad. Revísalo antes de instalarlo: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin en GitHub</a>.",
     "statusTitle": "Qué significa cada estado",
     "after": "Los detalles por agente, la ubicación de los archivos de configuración y las rarezas conocidas están en <a class=\"underline font-semibold text-text\" href=\"{matrix}\">la matriz de soporte</a> y en <a class=\"underline font-semibold text-text\" href=\"{mcp}\">la guía de instalación de MCP</a>."
+  },
+  "plugins": {
+    "title": "Claude Code y Codex: un plugin del marketplace",
+    "lede": "Los mismos hooks, herramientas MCP y skills también se distribuyen como plugin. El binario se instala primero; el plugin solo lo conecta.",
+    "note": "Codex te pide confiar una vez en los hooks desde <code>/hooks</code>, y esa confianza se mantiene tras las actualizaciones. Si hay a la vez un plugin y hooks en el archivo de configuración, ganan los hooks del archivo de configuración.",
+    "codeTitle": "tras instalar el binario"
   },
   "lanes": {
     "title": "Los hooks capturan, MCP responde",
@@ -142,7 +148,8 @@
     "register": "Registra un servidor MCP remoto por HTTP con esta dirección en la configuración de tu agente. La búsqueda, la lectura y escritura de páginas y los traspasos funcionan. La captura automática necesita hooks de ciclo de vida, así que sin ellos el agente solo recuerda lo que escribe.",
     "contribute": "¿Quieres soporte completo para él? <a href=\"{guide}\">La guía de contribución de harness gestionados</a> describe lo que tiene que demostrar un adaptador, y <a href=\"{contribute}\">la página de contribución</a> dice adónde van los issues y los pull requests.",
     "codeTitle": "Endpoint MCP",
-    "codeComment": "el servidor local por defecto"
+    "codeComment": "el servidor local por defecto",
+    "documented": "Para Warp, Cline, Kilo Code, Goose, Qwen Code y OpenHuman, la guía de instalación trae una receta escrita que sigue la documentación de cada cliente; ninguna se ha ejecutado todavía de principio a fin."
   },
   "faq": [
     {

@@ -135,7 +135,11 @@
     "items": [
       {
         "title": "Uma interface web somente leitura",
-        "text": "Suba o servidor com <code>--enable-web</code> e as páginas de todos os projetos ficam navegáveis, agrupadas em conceitos, decisões, gotchas e sessões, com uma API JSON em <code>/api/v1</code>."
+        "text": "Suba o servidor com <code>--enable-web</code> e as páginas de todos os projetos ficam navegáveis, com um índice, backlinks e as páginas que cada uma cita, uma busca que ranqueia como o <code>memory_query</code> e consegue explicar o ranking, e uma API JSON em <code>/api/v1</code>."
+      },
+      {
+        "title": "Histórico e replay",
+        "text": "Toda página linka para suas versões, com um diff entre quaisquer duas, e toda sessão abre uma timeline das observações na ordem da captura. O root vê uma página de saúde com os contadores dos hooks e a correção para o que estiver falhando."
       },
       {
         "title": "Um formato aberto",

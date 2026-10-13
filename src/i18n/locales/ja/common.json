@@ -15,7 +15,12 @@
     "toggleTheme": "ライトテーマとダークテーマを切り替える",
     "language": "言語",
     "starOnGithub": "GitHubでai-memoryにスターを付ける、現在{n}スター",
-    "chooseOne": "1つ選択"
+    "chooseOne": "1つ選択",
+    "carousel": "ハイライト",
+    "slideOf": "{total}枚中{n}枚目",
+    "slides": "スライドを選択",
+    "previousSlide": "前のスライド",
+    "nextSlide": "次のスライド"
   },
   "crumbs": {
     "home": "ホーム",
