@@ -1,6 +1,6 @@
 # The domain: aimemory.sh
 
-The site is served by Netlify and reached at `https://aimemory.sh`. The DNS for the domain answers from Cloudflare with the proxy on, and `www.aimemory.sh` redirects to the apex (`netlify.toml`). The `.netlify.app` address redirects there too, so there is one public URL and one canonical.
+The site is served by Netlify and reached at `https://aimemory.sh`. The DNS for the domain answers from Cloudflare with the proxy on, and `www.aimemory.sh` redirects to the apex (`netlify.toml`). The `.netlify.app` address redirects there once `aimemory.sh` is set as the primary domain in Netlify's Domain management (a redirect rule in `netlify.toml` cannot do it); until then both answer, and the canonical tag on every page already names the domain.
 
 `aimemory.io` was the first choice and never completed its transfer. It does not resolve; nothing on the site refers to it.
 
