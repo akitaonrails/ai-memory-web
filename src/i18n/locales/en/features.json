@@ -149,7 +149,8 @@
         "title": "Skills for your agent",
         "text": "<code>ai-memory install-mcp</code> also installs a short routing snippet and managed Agent Skills, so the agent knows which tool answers “have we discussed this?” and which sends mail."
       }
-    ]
+    ],
+    "link": "See the web UI"
   },
   "operate": {
     "title": "Chores the launcher takes on",

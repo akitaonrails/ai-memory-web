@@ -38,7 +38,8 @@ Read each changed doc with `git -C ~/Projects/ai-memory diff <last>..<tag> -- <f
 | Crate added or removed | `src/data/facts.json`, crate tables in `architecture` and `contribute` catalogs, `contribute-crates` diagram |
 | Memory aging: decay, compaction, dedup, dream pass, confidence | `aging.json` and the `aging-*` diagrams; the homepage teaser in `home.json` |
 | Cross-project profile: digest, harvesting, `profile` commands, share modes, opt-outs | `profile.json` and the `profile-*` diagrams; the homepage teaser in `home.json` |
-| Messaging, marker file, rules, expiring notes, feedback, web UI, OKF export | `features.json` and the `features-*` diagrams |
+| Messaging, marker file, rules, expiring notes, feedback, OKF export | `features.json` and the `features-*` diagrams |
+| The web UI: views, history, replay, health, search | `browse.json` and the screenshots in `src/assets/img/screens/` (retake them from a running server) |
 | Security model, data handling, auth | `security.json`, `advanced.json` (tls, routing, sso) |
 | Team and multi-user behaviour, limits | `teams.json`, the limits callouts in `install.json`, `security.json`, `compare.json` |
 | A gap closed or a new gap ("where it is behind") | `compare.json` `behind`, `competitors.json` `theyWin`/`gain`, `research.json` `next` |

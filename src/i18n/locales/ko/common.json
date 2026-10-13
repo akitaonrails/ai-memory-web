@@ -38,6 +38,7 @@
     "download": "다운로드",
     "aging": "기억 노화",
     "profile": "프로젝트를 넘는 기억",
+    "browse": "기억 둘러보기",
     "features": "더 할 수 있는 일"
   },
   "nav": {
@@ -60,6 +61,10 @@
       "features": {
         "label": "더 할 수 있는 일",
         "note": "에이전트 메시징, 스코프, 규칙, 만료 메모"
+      },
+      "browse": {
+        "label": "기억 둘러보기",
+        "note": "읽기 전용 웹 UI: 페이지, 백링크, 메일, 히스토리"
       },
       "architecture": {
         "label": "아키텍처",

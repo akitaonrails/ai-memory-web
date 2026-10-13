@@ -1,0 +1,60 @@
+---
+import { useI18n, localePaths, withText } from '@/i18n';
+export const getStaticPaths = localePaths;
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import Figure from '@/components/Figure.astro';
+import Callout from '@/components/Callout.astro';
+import Faq from '@/components/Faq.astro';
+import NextPages from '@/components/NextPages.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { faqPage, type Faq as FaqItem } from '@/lib/schema';
+import shotHome from '@/assets/img/screens/web-home.webp';
+import shotProject from '@/assets/img/screens/web-project.webp';
+import shotPage from '@/assets/img/screens/web-page.webp';
+import shotSearch from '@/assets/img/screens/web-search.webp';
+
+const { t, raw } = useI18n(Astro, 'browse');
+type Item = { title: string; text: string };
+
+// Screenshots are the real web UI on demo data, from the pull requests that built each view. The UI speaks English.
+const views = [
+  { id: 'home', shot: shotHome, hue: 'green' },
+  { id: 'project', shot: shotProject, hue: 'teal' },
+  { id: 'page', shot: shotPage, hue: 'azure' },
+  { id: 'search', shot: shotSearch, hue: 'violet' },
+] as const;
+
+const faq = raw<FaqItem[]>('faq');
+const next = withText([
+  { href: '/features/', hue: 'violet' },
+  { href: '/architecture/', hue: 'azure' },
+  { href: '/security/', hue: 'rose' },
+] as const, raw<Item[]>('next'));
+---
+<Base title={t('meta.title')} description={t('meta.description')} schema={[faqPage(faq)]}>
+  <PageHero hue="green" kicker={t('nav.product.label')} title={t('hero.title')} lede={t('hero.lede')}>
+    <a href="#home" class="btn btn-primary">{t('hero.primary')}</a>
+    <a href="#search" class="btn btn-ghost">{t('hero.secondary')}</a>
+  </PageHero>
+
+  {views.map((v, i) => (
+    <Section id={v.id} title={t(`${v.id}.title`)} lede={t(`${v.id}.lede`)} hue={v.hue} tint={i % 2 === 1}>
+      <Figure src={v.shot} alt={t(`${v.id}.shotAlt`)} caption={t(`${v.id}.shotCaption`)} />
+    </Section>
+  ))}
+
+  <Section id="history" title={t('history.title')} lede={t('history.lede')} hue="amber">
+    <FeatureGrid items={raw<Item[]>('history.items').map((p) => ({ ...p, hue: 'amber' as const }))} cols={3} />
+    <div class="mt-12 grid lg:grid-cols-2 gap-8 items-start">
+      <Callout title={t('readonly.title')} hue="rose"><p>{t('readonly.text')}</p></Callout>
+      <p class="text-muted max-w-[40em]" set:html={t('readonly.api')} />
+    </div>
+  </Section>
+
+  <Faq items={faq} hue="green" />
+  <NextPages links={next.map((n) => ({ ...n }))} />
+  <CtaBand />
+</Base>

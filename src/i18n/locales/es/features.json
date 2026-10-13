@@ -149,7 +149,8 @@
         "title": "Skills para tu agente",
         "text": "<code>ai-memory install-mcp</code> instala también un fragmento corto de enrutamiento y Agent Skills gestionadas, para que el agente sepa qué herramienta responde a “¿hemos hablado de esto?” y cuál envía mensajes."
       }
-    ]
+    ],
+    "link": "Ver la interfaz web"
   },
   "operate": {
     "title": "Tareas que asume el lanzador",

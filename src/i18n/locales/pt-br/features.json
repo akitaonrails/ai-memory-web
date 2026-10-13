@@ -149,7 +149,8 @@
         "title": "Skills para o seu agente",
         "text": "O <code>ai-memory install-mcp</code> também instala um trecho curto de roteamento e Agent Skills gerenciadas, então o agente sabe qual ferramenta responde “a gente já discutiu isso?” e qual manda mensagem."
       }
-    ]
+    ],
+    "link": "Conhecer a interface web"
   },
   "operate": {
     "title": "Tarefas que o launcher assume",

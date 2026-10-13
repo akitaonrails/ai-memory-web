@@ -149,7 +149,8 @@
         "title": "Skills לסוכן שלכם",
         "text": "<code>ai-memory install-mcp</code> מתקין גם קטע ניתוב קצר ו-Agent Skills מנוהלים, כך שהסוכן יודע איזה כלי עונה על \"דיברנו כבר על זה?\" ואיזה שולח הודעות."
       }
-    ]
+    ],
+    "link": "לממשק ה-web"
   },
   "operate": {
     "title": "המטלות שה-launcher לוקח על עצמו",

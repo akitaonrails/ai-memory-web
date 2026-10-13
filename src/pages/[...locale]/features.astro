@@ -97,7 +97,8 @@ const next = withText([
   </Section>
 
   <Section id="browse" title={t('browse.title')} hue="teal">
-    <FeatureGrid items={raw<Item[]>('browse.items').map((p) => ({ ...p, hue: 'teal' as const }))} cols={3} />
+    <FeatureGrid items={raw<Item[]>('browse.items').map((p) => ({ ...p, hue: 'teal' as const }))} cols={4} />
+    <p class="mt-8"><a class="link" href={href('/browse/')}>{t('browse.link')}</a></p>
   </Section>
 
   <Section id="operate" title={t('operate.title')} lede={t('operate.lede')} hue="rose" tint>
