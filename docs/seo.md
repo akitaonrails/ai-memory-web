@@ -20,7 +20,7 @@
 
 ## What you have to do after launch
 
-1. **Google Search Console.** Add `aimemory.io` as a Domain property. It gives you a TXT record to add where your DNS lives (Netlify DNS or GoDaddy, see [domain-godaddy.md](domain-godaddy.md)). Then submit `https://aimemory.io/sitemap-index.xml`.
+1. **Google Search Console.** Add `aimemory.sh` as a Domain property. It gives you a TXT record to add where your DNS lives (Netlify DNS or GoDaddy, see [domain-godaddy.md](domain-godaddy.md)). Then submit `https://aimemory.sh/sitemap-index.xml`.
 2. **Bing Webmaster Tools.** Import the site from Search Console. Bing's index also feeds DuckDuckGo and ChatGPT search.
 3. **Link to the site from places that already rank.** This matters more than anything on the page:
    - the GitHub repository's "Website" field and the top of its README

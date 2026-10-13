@@ -25,7 +25,7 @@ In both modes `.github/workflows/deploy.yml` runs on every push and pull request
 ```bash
 git add -A
 git commit -m "Initial site"
-gh repo create akitaonrails/aimemory.io --private --source=. --push
+gh repo create akitaonrails/aimemory.sh --private --source=. --push
 ```
 
 Public or private both work. The name is up to you.
@@ -51,7 +51,7 @@ The build asks the GitHub API for stars, contributors, releases and the changelo
 To make it reliable:
 
 1. GitHub, your avatar, Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token.
-2. Name it `aimemory.io build`. Repository access: "Public repositories (read-only)". No other permissions. Pick an expiry and put a reminder in your calendar.
+2. Name it `aimemory.sh build`. Repository access: "Public repositories (read-only)". No other permissions. Pick an expiry and put a reminder in your calendar.
 3. Netlify, Project configuration, Environment variables, Add a variable. Key `GITHUB_TOKEN`, value the token, scope "Builds", and mark it as secret.
 
 ### Recommended: the daily refresh
@@ -92,7 +92,7 @@ You do not create `GITHUB_TOKEN` in this mode. GitHub provides it to every run a
 
 ## After the first deploy
 
-Follow [domain-godaddy.md](domain-godaddy.md) to attach `aimemory.io`, then [seo.md](seo.md).
+Follow [domain.md](domain.md) to attach `aimemory.sh`, then [seo.md](seo.md).
 
 ## Settings that live in the repo
 

@@ -1,4 +1,4 @@
-# ai-memory tech-docs brief (for aimemory.io)
+# ai-memory tech-docs brief (for aimemory.sh)
 
 Source repo: `/home/akitaonrails/Projects/ai-memory` (read-only). All paths below are under `docs/` unless noted.
 Repo state at research time: `Cargo.toml` workspace version **2.3.1** (released 2026-09-17), branch `main`, CHANGELOG has an `[Unreleased]` section. 2.0.0 was released **2026-09-02**.

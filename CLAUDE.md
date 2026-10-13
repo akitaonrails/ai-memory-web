@@ -1,4 +1,4 @@
-# aimemory.io
+# aimemory.sh
 
 Marketing site for ai-memory. Astro, Tailwind 4, GSAP, six languages. Read `docs/design-system.md` and `docs/i18n.md` before changing pages.
 

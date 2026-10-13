@@ -4,7 +4,7 @@ export const REPO = 'akitaonrails/ai-memory';
 const API = 'https://api.github.com';
 
 async function gh(path) {
-  const headers = { Accept: 'application/vnd.github+json', 'User-Agent': 'aimemory.io-build' };
+  const headers = { Accept: 'application/vnd.github+json', 'User-Agent': 'aimemory.sh-build' };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   const res = await fetch(`${API}${path}`, { headers, signal: AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error(`${res.status} ${path}`);

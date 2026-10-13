@@ -1,4 +1,4 @@
-# aimemory.io
+# aimemory.sh
 
 The marketing site for [ai-memory](https://github.com/akitaonrails/ai-memory). Static, built with Astro, deployed to Netlify.
 
@@ -52,7 +52,7 @@ docs/               how to deploy, set up the domain, and the design studies
 ## Docs
 
 - [docs/deploy.md](docs/deploy.md): Netlify through its GitHub integration or through GitHub Actions, and the tokens each needs
-- [docs/domain-godaddy.md](docs/domain-godaddy.md): pointing aimemory.io from GoDaddy to Netlify
+- [docs/domain.md](docs/domain.md): the domain, what sits in front of Netlify, and what to check
 - [docs/seo.md](docs/seo.md): what is in place and what to do after launch
 - [docs/release-sync.md](docs/release-sync.md): reviewing the site after each ai-memory release
 - [docs/i18n.md](docs/i18n.md): the five languages, how detection works, changing text, translating diagrams

@@ -41,7 +41,7 @@ const languageRedirects = () => ({
 });
 
 export default defineConfig({
-  site: 'https://aimemory.io',
+  site: 'https://aimemory.sh',
   trailingSlash: 'always',
   i18n: { defaultLocale, locales: Object.keys(languages), routing: { prefixDefaultLocale: false } },
   integrations: [

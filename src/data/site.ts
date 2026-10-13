@@ -1,6 +1,6 @@
 export const site = {
   name: 'ai-memory',
-  domain: 'aimemory.io',
+  domain: 'aimemory.sh',
   repo: 'https://github.com/akitaonrails/ai-memory',
   repoSlug: 'akitaonrails/ai-memory',
   docs: 'https://github.com/akitaonrails/ai-memory/blob/main/docs',

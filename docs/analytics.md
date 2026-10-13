@@ -4,8 +4,8 @@ The site supports Google Analytics 4. It is off until you set one build variable
 
 ## Turn it on
 
-1. In https://analytics.google.com: Admin, Create, Property. Name it `aimemory.io`. Use a new property, separate from your blog, so the numbers do not mix.
-2. Add a data stream: Web, URL `https://aimemory.io`. Leave "Enhanced measurement" on. It records scrolls, outbound clicks and file downloads for you.
+1. In https://analytics.google.com: Admin, Create, Property. Name it `aimemory.sh`. Use a new property, separate from your blog, so the numbers do not mix.
+2. Add a data stream: Web, URL `https://aimemory.sh`. Leave "Enhanced measurement" on. It records scrolls, outbound clicks and file downloads for you.
 3. Copy the Measurement ID. It looks like `G-XXXXXXXXXX`.
 4. Give it to the build:
    - **Netlify builds the site (mode A):** Project configuration, Environment variables, Add a variable. Key `PUBLIC_GA_ID`, value the ID, scope "Builds". Under deploy contexts, set it for Production only, so deploy previews do not count as traffic. It is not a secret. It is visible in the page source of any site that uses GA.

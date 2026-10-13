@@ -1,4 +1,4 @@
-# Brief for building a detail page on aimemory.io
+# Brief for building a detail page on aimemory.sh
 
 You are building pages for the marketing site of ai-memory (open source long-term memory for AI coding agents, https://github.com/akitaonrails/ai-memory). The project lives at /mnt/data/Projects/ai-memory-web (Astro 7, Tailwind 4, GSAP). The homepage, layout, nav, design tokens and shared components already exist. Your job is only the pages assigned to you.
 

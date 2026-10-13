@@ -1,4 +1,4 @@
-# Brief: translate catalogs for aimemory.io
+# Brief: translate catalogs for aimemory.sh
 
 You translate the English message catalogs in `/mnt/data/Projects/ai-memory-web/src/i18n/locales/en/` into ONE target language, writing files with the same names and the same JSON structure under `src/i18n/locales/<locale>/`. The site sells ai-memory, an open source long-term memory server for AI coding agents, to software developers. Read `docs/design-system.md` (section "Writing") for the voice: short, plain, direct, honest, no hype.
 

@@ -20,10 +20,16 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://avatars.githubusercontent.com https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://api.github.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
 
-# www -> apex
+# www and the netlify.app address -> the domain
 [[redirects]]
-  from = "https://www.aimemory.io/*"
-  to = "https://aimemory.io/:splat"
+  from = "https://www.aimemory.sh/*"
+  to = "https://aimemory.sh/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://aimemorybr.netlify.app/*"
+  to = "https://aimemory.sh/:splat"
   status = 301
   force = true
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aimemory.io/sitemap-index.xml
+Sitemap: https://aimemory.sh/sitemap-index.xml

@@ -1,4 +1,4 @@
-# ai-memory — user-docs content brief (for aimemory.io)
+# ai-memory — user-docs content brief (for aimemory.sh)
 
 Source repo: `/home/akitaonrails/Projects/ai-memory` (read-only). Researched 2026-09-19.
 Everything in backticks/quotes is verbatim from the cited doc. Items marked **FLAG** are contradictions or unclear points — do not paper over them on the site.

@@ -1,6 +1,6 @@
 ---
 name: sync-release
-description: Bring aimemory.io up to date after a new ai-memory release. Use when the user says they released, tagged or published a new ai-memory version, asks to "update the site for X.Y.Z", "sync the website", or asks whether the site is stale. Compares the site with the release tag, updates facts and copy in all six languages, verifies, and publishes when the user confirms.
+description: Bring aimemory.sh up to date after a new ai-memory release. Use when the user says they released, tagged or published a new ai-memory version, asks to "update the site for X.Y.Z", "sync the website", or asks whether the site is stale. Compares the site with the release tag, updates facts and copy in all six languages, verifies, and publishes when the user confirms.
 ---
 
 # Sync the site with an ai-memory release

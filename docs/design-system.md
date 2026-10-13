@@ -1,6 +1,6 @@
 # Design system
 
-How pages on aimemory.io are put together. Read this before adding or changing a page.
+How pages on aimemory.sh are put together. Read this before adding or changing a page.
 
 ## The idea
 

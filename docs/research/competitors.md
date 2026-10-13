@@ -1,4 +1,4 @@
-# Competitor marketing-site research (for aimemory.io)
+# Competitor marketing-site research (for aimemory.sh)
 
 Visited 2026-09-19 with agent-browser at 1440x900. Screenshots in
 `../competitors/` (`<site>-hero.png`, `<site>-full.png`, and half-scale slices `<site>-part-N.png`;
@@ -236,7 +236,7 @@ Novel device: **"Don't take our word for it."** — a prefilled prompt ("I'm eva
 9. **Docs on a separate subdomain**; footer with comparison / "alternative" / "migrating from" SEO pages (Zep and Cognee both do this and name each other).
 10. **An open-source core feeding a commercial cloud** — every one of these sites is ultimately a funnel to a hosted or enterprise product.
 
-### 4.2 Gaps aimemory.io can exploit
+### 4.2 Gaps aimemory.sh can exploit
 1. **No funnel, no account.** All three push a hosted service, API key, demo call, or sign-up within the first screen. A site whose only CTAs are "Install" and "GitHub" — and that says "no account, no API key, no cloud" out loud — is instantly different.
 2. **No infrastructure.** Graphiti needs Neo4j/FalkorDB/Neptune + an LLM; OpenViking needs a server + embedding model + VLM (Doubao recommended) or a Beijing-hosted service; Cognee needs an LLM for graph extraction. If ai-memory runs locally without a graph DB and without a mandatory LLM on ingest, put that in the hero or directly below it as a checklist ("No graph DB. No vector service. No LLM bill. Your data stays in plain files on your disk.") — verify each claim against the repo first.
 3. **Coding agents specifically.** All three say "agents" generically and drift toward enterprise knowledge ("company brain", "Context Lake", "Sales Agent", "Video production"). Nobody owns "memory for your coding agent across sessions and across tools". Speak to one person: the developer in a terminal with Claude Code / Codex / Cursor.
