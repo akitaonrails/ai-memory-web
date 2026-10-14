@@ -219,6 +219,7 @@
         "tokens": "Tokens de contexto, cinco primeiros resultados"
       },
       "ms": "{n} ms",
+      "releaseRun": "A execução da release do mesmo ranking mediu {local} para embeddings locais. A diferença em relação a esta tabela é a variância normal entre execuções na ingestão de embeddings locais.",
       "ftsAhead": "Com o fluxo ligado, o full-text sozinho marca um pouco acima dos embeddings locais. O vetor da página, como a linha full-text dela, ainda enxerga só o corpo que tem apenas o título.",
       "determinism": "Dentro de uma execução o harness é determinístico. Entre execuções separadas, os tipos de pergunta menores variam até 0,03 para cima ou para baixo, então uma queda em um deles vista em uma única execução quer dizer pouco.",
       "comparable": "Os números que outras ferramentas publicam neste dataset vêm dos harnesses delas, muitas vezes indexando sessões brutas inteiras, sem etapa de captura. Não são comparáveis diretamente, e nenhum ranking entre ferramentas é afirmado."

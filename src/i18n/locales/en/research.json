@@ -221,7 +221,8 @@
       "ms": "{n} ms",
       "ftsAhead": "With the stream on, full text alone scores a little above local embeddings. The page’s vector, like its full-text row, still sees only the title-only body.",
       "determinism": "Within one run the harness is deterministic. Across separate runs the smaller question types move by up to 0.03 either way, so a dip in one of them from a single run means little.",
-      "comparable": "Numbers other tools publish on this dataset come from their own harnesses, often indexing whole raw sessions with no capture step. They are not like for like, and no ranking between tools is claimed."
+      "comparable": "Numbers other tools publish on this dataset come from their own harnesses, often indexing whole raw sessions with no capture step. They are not like for like, and no ranking between tools is claimed.",
+      "releaseRun": "The release run of the same ranking measured {local} for local embeddings. The difference from this table is run-to-run variance in local embedding ingestion."
     }
   },
   "next": {
