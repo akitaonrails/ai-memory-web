@@ -15,7 +15,7 @@ The site is published in en, pt-br, es, he, ja and ko. Whenever you add, reword 
 
 ## After an ai-memory release
 
-When the owner says a new ai-memory version is out, use the `sync-release` skill (`.claude/skills/sync-release/SKILL.md`). It starts with `npm run check:upstream`, which compares the site with the release tag and lists what changed since the last reviewed release. Hard numbers live in `src/data/facts.json`. Finish with `npm run check:upstream -- --record`.
+When the owner says a new ai-memory version is out, use the `sync-release` skill (`.claude/skills/sync-release/SKILL.md`). It starts with `npm run check:upstream`, which compares the site with the release tag and lists what changed since the last reviewed release. Hard numbers live in `src/data/facts.json`. Every release also gets a written summary on the download page: rewrite `changelog.highlights` in `download.json` (four to seven plain-language cards about what is new; bug fixes and internals stay in the counts) in all six languages and set `facts.release.highlightsFor`. The page never renders the raw changelog; details stay on GitHub. Finish with `npm run check:upstream -- --record`.
 
 ## Pull requests from outside contributors
 
