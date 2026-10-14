@@ -72,6 +72,9 @@
     "copilot-cli": {
       "note": "훅 이벤트 10종과 MCP. 인수인계는 세션 시작 때 Copilot의 추가 컨텍스트(additional context)로 도착합니다."
     },
+    "droid": {
+      "note": "MCP와 훅 이벤트 7개를 Droid 자체 파일에 설정합니다. 세션은 Droid가 직접 닫습니다."
+    },
     "devin": {
       "note": "훅과 MCP. 컴팩션 이후 캡처도 포함합니다."
     },
@@ -102,6 +105,12 @@
     "zcode": {
       "note": "트리거 6종. 인수인계 주입이 동작합니다."
     },
+    "prime-agent": {
+      "note": "MCP 전용. Prime Agent는 AI_MEMORY_AUTH_TOKEN을 export해야만 서버를 모델에 노출합니다."
+    },
+    "dsh": {
+      "note": "MCP 전용. DSH에는 고정된 설정 파일이 없으므로 병합할 Cordis 패치 조각을 출력합니다."
+    },
     "grizzybot": {
       "note": "자체 ai-memory 브리지를 갖춘 네이티브 macOS 에이전트 앱입니다. 설치할 것이 없습니다."
     },
@@ -124,7 +133,7 @@
       "note": "프로젝트 단위 MCP 설정."
     },
     "muse": {
-      "note": "사용자 단위 MCP 설정."
+      "note": "훅 이벤트 8개와 세션을 인식하는 MCP 브리지를 Muse 자체 설정 파일에 병합합니다."
     },
     "hermes": {
       "note": "훅 설치 프로그램이 ~/.hermes/config.yaml에 붙여넣을 블록을 출력합니다. 회상과 인수인계는 커뮤니티 플러그인이 제공합니다."
@@ -136,6 +145,7 @@
     "OpenAI",
     "OpenAI OAuth / Codex CLI 로그인",
     "GitHub Copilot",
+    "Cursor(Cursor 구독, 에이전트 CLI 경유)",
     "Google Gemini",
     "OpenCode Go와 Zen",
     "Ollama",

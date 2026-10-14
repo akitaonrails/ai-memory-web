@@ -15,7 +15,12 @@
     "toggleTheme": "Switch between light and dark theme",
     "language": "Language",
     "starOnGithub": "Star ai-memory on GitHub, {n} stars",
-    "chooseOne": "Choose one"
+    "chooseOne": "Choose one",
+    "carousel": "Highlights",
+    "slideOf": "{n} of {total}",
+    "slides": "Choose a slide",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide"
   },
   "crumbs": {
     "home": "Home",
@@ -33,6 +38,7 @@
     "download": "Download",
     "aging": "Memory aging",
     "profile": "Memory across projects",
+    "browse": "Browse your memory",
     "features": "More you can do"
   },
   "nav": {
@@ -55,6 +61,10 @@
       "features": {
         "label": "More you can do",
         "note": "Agent messaging, scopes, rules, expiring notes"
+      },
+      "browse": {
+        "label": "Browse your memory",
+        "note": "The read-only web UI: pages, backlinks, mail, history"
       },
       "architecture": {
         "label": "Architecture",

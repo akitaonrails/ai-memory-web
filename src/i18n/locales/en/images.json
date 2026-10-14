@@ -40,7 +40,8 @@
     "Graph": "Graph",
     "Vectors": "Vectors",
     "Authority": "Authority",
-    "Results": "Results"
+    "Results": "Results",
+    "Observations": "Observations"
   },
   "compare-side-by-side": {
     "Git history": "Git history",

@@ -135,7 +135,11 @@
     "items": [
       {
         "title": "읽기 전용 웹 UI",
-        "text": "<code>--enable-web</code>으로 서버를 시작하면 모든 프로젝트의 페이지를 concepts, decisions, gotchas, sessions로 묶어 둘러볼 수 있고, <code>/api/v1</code> 아래에 JSON API가 열립니다."
+        "text": "<code>--enable-web</code>으로 서버를 시작하면 모든 프로젝트의 페이지를 둘러볼 수 있습니다. 개요, 백링크, 각 페이지가 인용하는 페이지가 보이고, <code>memory_query</code>와 같은 방식으로 순위를 매기며 그 순위의 근거도 설명해 주는 검색이 있고, <code>/api/v1</code> 아래에 JSON API가 열립니다."
+      },
+      {
+        "title": "히스토리와 재생",
+        "text": "모든 페이지에서 버전 목록으로 이동할 수 있고 두 버전 사이의 diff를 볼 수 있습니다. 모든 세션은 캡처된 순서대로 관찰 기록의 타임라인을 엽니다. root는 훅 카운터와 실패한 항목의 해결 방법이 담긴 상태 페이지를 볼 수 있습니다."
       },
       {
         "title": "열린 포맷",
@@ -145,7 +149,8 @@
         "title": "에이전트를 위한 스킬",
         "text": "<code>ai-memory install-mcp</code>는 짧은 라우팅 스니펫과 관리형 Agent Skills도 함께 설치하므로, 에이전트가 \"이거 전에 얘기했었나?\"에 어느 도구가 답하는지, 메시지는 어느 도구로 보내는지 알게 됩니다."
       }
-    ]
+    ],
+    "link": "웹 UI 보기"
   },
   "operate": {
     "title": "런처가 알아서 처리하는 일들",

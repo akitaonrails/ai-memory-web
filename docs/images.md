@@ -36,3 +36,7 @@ Every request gets two things added:
 If it fails, change the prompt and run it again. If it fails three times, remove labels. The prompts are committed so any image can be reproduced or restyled later.
 
 Generation costs a few cents per image and is not part of the build. Netlify and GitHub Actions never need the key.
+
+## Screenshots
+
+`src/assets/img/screens/` holds real screenshots of the web UI on demo data, taken from the pull requests that built each view (webp, version footer cropped). The UI speaks English in every language of the site. Replace them from a running server when a view changes.

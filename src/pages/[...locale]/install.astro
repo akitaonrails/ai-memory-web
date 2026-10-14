@@ -35,6 +35,12 @@ const steps = (key: string, code: (string | undefined | ((s: StepText) => string
     return { title: s.title, text: fill(s.text), codeTitle: s.codeTitle, code: typeof c === 'function' ? c(s) : c };
   });
 
+const native = steps('solo.native', [
+  'curl -fsSL https://github.com/akitaonrails/ai-memory/releases/latest/download/install.sh | sh',
+  'ai-memory setup',
+  'ai-memory run claude',
+]);
+
 const mise = steps('solo.mise', [
   'mise use -g github:akitaonrails/ai-memory',
   `ai-memory init
@@ -119,8 +125,8 @@ const howTo = {
   '@type': 'HowTo',
   name: t('howTo.name'),
   description: t('howTo.description'),
-  tool: [{ '@type': 'HowToTool', name: 'mise' }],
-  step: mise.map((s, i) => ({
+  tool: [{ '@type': 'HowToTool', name: 'install.sh' }],
+  step: native.map((s, i) => ({
     '@type': 'HowToStep',
     position: i + 1,
     name: s.title,
@@ -137,12 +143,13 @@ const howTo = {
 
   <Section id="solo" hue="amber" title={t('solo.title')} lede={t('solo.lede')}>
     <div class="tabs-wrap"><Tabs id="platform" labels={raw<string[]>('solo.tabs')}>
-      <div slot="0"><Steps steps={mise} /></div>
-      <div slot="1"><Steps steps={aur} /></div>
-      <div slot="2"><Steps steps={rpm} /></div>
-      <div slot="3"><Steps steps={macos} /></div>
-      <div slot="4"><Steps steps={docker} /></div>
-      <div slot="5"><Steps steps={windows} /></div>
+      <div slot="0"><Steps steps={native} /></div>
+      <div slot="1"><Steps steps={mise} /></div>
+      <div slot="2"><Steps steps={aur} /></div>
+      <div slot="3"><Steps steps={rpm} /></div>
+      <div slot="4"><Steps steps={macos} /></div>
+      <div slot="5"><Steps steps={docker} /></div>
+      <div slot="6"><Steps steps={windows} /></div>
     </Tabs></div>
     <div class="mt-12">
       <Callout title={t('solo.existing.title')} hue="green">

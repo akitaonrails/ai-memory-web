@@ -34,13 +34,19 @@
       "mcp": "as ferramentas de memória, via MCP",
       "hooks": "captura automática, pelos hooks de ciclo de vida",
       "hooksOnly": "prepara os scripts de hook e imprime um trecho para colar nas configurações do agente",
-      "print": "imprime um bloco de hooks para colar na própria config do agente",
+      "print": "imprime um bloco para colar na própria config do agente",
       "none": "nada para instalar: ele fala sozinho com /hook e /mcp"
     },
     "dryRun": "Tire o --apply para imprimir a mudança sem gravar.",
     "community": "O ai-memory não traz instalador para este. O servidor reconhece os eventos de hook dele, e o plugin é mantido pela comunidade. Revise antes de instalar: <a class=\"underline font-semibold text-text\" href=\"{href}\">ai-memory-hermes-plugin no GitHub</a>.",
     "statusTitle": "O que cada status significa",
     "after": "Detalhes por agente, locais dos arquivos de configuração e peculiaridades conhecidas estão na <a class=\"underline font-semibold text-text\" href=\"{matrix}\">matriz de suporte</a> e no <a class=\"underline font-semibold text-text\" href=\"{mcp}\">guia de instalação do MCP</a>."
+  },
+  "plugins": {
+    "title": "Claude Code e Codex: um plugin de marketplace",
+    "lede": "Os mesmos hooks, ferramentas MCP e skills também saem como plugin. O binário continua sendo instalado primeiro; o plugin só o configura.",
+    "note": "O Codex pede uma vez que você confie nos hooks em <code>/hooks</code>, e a confiança sobrevive às atualizações. Com um plugin e hooks no arquivo de configurações instalados ao mesmo tempo, os hooks das configurações prevalecem.",
+    "codeTitle": "depois de instalar o binário"
   },
   "lanes": {
     "title": "Hooks capturam, MCP responde",
@@ -142,7 +148,8 @@
     "register": "Registre um servidor MCP HTTP remoto neste endereço nas configurações do seu agente. Busca, leitura e escrita de páginas e handoffs funcionam. A captura automática precisa dos hooks de ciclo de vida, então sem eles o agente só lembra do que ele mesmo escreve.",
     "contribute": "Quer suporte completo para ele? <a href=\"{guide}\">O guia de contribuição de harness gerenciado</a> descreve o que um adapter precisa provar, e <a href=\"{contribute}\">a página de contribuição</a> diz para onde vão issues e pull requests.",
     "codeTitle": "endpoint MCP",
-    "codeComment": "o servidor local padrão"
+    "codeComment": "o servidor local padrão",
+    "documented": "Para Warp, Cline, Kilo Code, Goose, Qwen Code e OpenHuman, o guia de instalação traz uma receita escrita que segue a documentação de cada cliente; nenhuma foi rodada de ponta a ponta ainda."
   },
   "faq": [
     {

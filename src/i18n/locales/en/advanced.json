@@ -320,14 +320,13 @@
       "notes": [
         "A release binary under a writable prefix (Linux, macOS, the Windows zip) replaces itself: the command downloads the matching archive, verifies the <code>.sha256</code> file and re-runs <code>install-hooks --apply</code> for staged agents. Homebrew, AUR and RPM installs upgrade through their package manager.",
         "With the Docker wrapper, this verifies and replaces the wrapper, pulls the image and restages hook scripts. A server on another host is upgraded separately.",
-        "Schema and wiki migrations run on start. They are forward-only: an older binary refuses to open a migrated directory, so run <code>ai-memory backup</code> first if you might roll back.",
-        "For 2.6.5, upgrade the server before the clients. On an unauthenticated server reached through a LAN hostname or proxy, refresh staged hooks with <code>ai-memory install-hooks --apply</code> or <code>ai-memory upgrade</code> so session-start handoffs keep working."
+        "Schema and wiki migrations run on start. They are forward-only: an older binary refuses to open a migrated directory, so run <code>ai-memory backup</code> first if you might roll back."
       ],
-      "from1x": {
-        "title": "Coming from 1.x",
-        "text": "The first 2.0 start rewrites the wiki to Open Knowledge Format v0.2. Before touching anything it archives the whole data directory to <code>~/ai-memory-backup-okf-v0.2-&lt;date&gt;.tar.gz</code> (<code>/data/backups/</code> in a container) and verifies the archive. If the backup cannot be written or verified, the migration aborts and the server refuses to start, with your data untouched."
-      },
-      "link": "Read the 2.0 migration guide, including how to go back"
+      "link": "Read the 3.0 upgrade guide, including how to roll back",
+      "from2x": {
+        "title": "Coming from 2.x",
+        "text": "Back up first, then upgrade the server before the clients. New installs require a token and existing ones do not change until you run <code>ai-memory auth enable</code>. The 1.x token commands are gone; tokens they issued keep working as API keys. Search now reads the session’s observations by default, and <code>[retrieval] observation_stream = false</code> restores the old ranking. To roll back, restore the backup with the 2.x binary."
+      }
     }
   },
   "faq": [
@@ -349,7 +348,7 @@
     }
   ],
   "nextPages": {
-    "install": "The short path: one machine in three steps, a team in five.",
+    "install": "The short path: one machine in two commands, a team in five steps.",
     "security": "The hardening ladder, the privacy boundary and what deletion means.",
     "architecture": "One binary, markdown files and a derived index."
   },

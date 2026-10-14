@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "Explora tu memoria en el navegador: interfaz web",
+    "description": "Con --enable-web, cada proyecto se abre en el navegador: páginas, backlinks, mensajes pendientes, historial, replay de sesiones y búsqueda como la del agente."
+  },
+  "hero": {
+    "title": "Mira lo que recuerda tu agente",
+    "lede": "Arranca el servidor con --enable-web y cada proyecto se abre en el navegador: sus páginas, quién las cita, los mensajes que esperan a un agente y una búsqueda que ordena igual que la del agente. Es de solo lectura a propósito.",
+    "primary": "Todos los proyectos de un vistazo",
+    "secondary": "Busca como el agente"
+  },
+  "home": {
+    "title": "Todos los proyectos de un vistazo",
+    "lede": "Workspaces y proyectos en tarjetas, con el número de páginas y la hora del último cambio. Una insignia ámbar indica que hay mensajes esperando a un agente en ese proyecto.",
+    "shotAlt": "Captura de la página de inicio de la interfaz web: una cuadrícula de tarjetas de proyecto bajo un workspace de demostración, tres con una insignia ámbar «inbox», y un aviso que explica que las páginas son memoria compilada para un agente y no documentación.",
+    "shotCaption": "El aviso lo dice claro: estas páginas están pensadas para la recuperación del agente, y el navegador sirve para ver lo que se guardó."
+  },
+  "project": {
+    "title": "Un proyecto: sus páginas, sus decisiones, sus mensajes",
+    "lede": "La barra lateral lista las carpetas, concepts, decisions, gotchas y sessions, con las páginas más recientes de cada una. El buzón muestra los mensajes que enviaron otros proyectos y que nadie ha recogido todavía.",
+    "shotAlt": "Captura de la página de un proyecto: una barra lateral con páginas de concepts, decisions y gotchas, un buzón con dos mensajes Pending de otros proyectos y una lista de actividad reciente.",
+    "shotCaption": "Los mensajes se listan, nunca se sacan: un agente del proyecto los lee con memory_message_pop, y el navegador solo muestra que están esperando."
+  },
+  "page": {
+    "title": "Una página y lo que apunta a ella",
+    "lede": "Cada página muestra su esquema, las páginas que la citan y las páginas que cita, de modo que una decisión se puede rastrear hasta el gotcha que la causó. Un enlace History lista todas las versiones guardadas.",
+    "shotAlt": "Captura de una página wiki sobre rate limiting con una columna lateral: un esquema de sus encabezados, una lista de páginas que la citan y una lista de páginas que cita.",
+    "shotCaption": "Diez enlaces por grupo y luego «y N más». Una página de otro proyecto lleva el nombre de su workspace y de su proyecto."
+  },
+  "search": {
+    "title": "Una búsqueda que ordena como el agente",
+    "lede": "Una búsqueda dentro de un proyecto usa el mismo ranker que memory_query: texto completo, entidades, enlaces, observaciones y vectores, fusionados en un solo orden. Marca «Explain ranking» y cada resultado muestra lo que aportó cada flujo.",
+    "shotAlt": "Captura de una búsqueda acotada de «rate limit» dentro de un proyecto, con un selector Search in, una casilla Explain ranking y ocho resultados ordenados con sus rutas.",
+    "shotCaption": "Una búsqueda sin proyecto es la búsqueda de texto completo entre proyectos, lo mismo que hace memory_query con global activado."
+  },
+  "history": {
+    "title": "Historial, reproducción y estado",
+    "lede": "Tres vistas para la pregunta «¿qué pasó aquí?».",
+    "items": [
+      {
+        "title": "Historial de página",
+        "text": "Todas las versiones guardadas de una página, de la más nueva a la más antigua, incluidas las reemplazadas, con un diff entre dos cualesquiera. Una versión que una escritura concurrente sustituyó sigue visible."
+      },
+      {
+        "title": "Reproducción de sesiones",
+        "text": "Un proyecto lista sus sesiones recientes y cada una abre una línea de tiempo con sus observaciones en orden de captura. Con JavaScript, un control deslizante y las teclas j y k avanzan de una en una."
+      },
+      {
+        "title": "Una página de estado para root",
+        "text": "Contadores de hooks desde que arrancó el servidor, la cola del escritor, la cola local, la cola de consolidación, el embedder y los dos proveedores. Todo lo que falla aparece con el comando que lo arregla."
+      }
+    ]
+  },
+  "readonly": {
+    "title": "Solo lectura a propósito",
+    "text": "El crate web no tiene ninguna ruta de escritura y su lint hace fallar la compilación si aparece una. Los cambios se hacen con las herramientas del agente o con la CLI. Cada vista sigue la regla de lectura por proyecto: en un servidor compartido, un proyecto restringido devuelve un 403 a quien no tenga un grant, y una página con sesión iniciada muestra la versión del servidor en el pie.",
+    "api": "Los mismos datos están disponibles como JSON en <code>/api/v1</code>, y <code>serve --enable-api</code> monta la API sin la interfaz del navegador."
+  },
+  "faq": [
+    {
+      "q": "¿La interfaz web viene activada por defecto?",
+      "a": "No. Arranca el servidor con --enable-web o actívala en la configuración. La instalación por defecto incluye solo el servidor MCP y los hooks."
+    },
+    {
+      "q": "¿Puedo editar una página en el navegador?",
+      "a": "No. La interfaz web es de solo lectura por diseño y el crate que la sirve no tiene ruta de escritura. Edita el archivo markdown o deja que el agente escriba con memory_write_page."
+    },
+    {
+      "q": "¿Quién puede ver qué en un servidor compartido?",
+      "a": "La misma regla que las herramientas: un proyecto restringido solo lo leen quienes tienen un grant, la línea de tiempo de sesión de otro operador está oculta, y las páginas de estado y Pending son solo para root."
+    },
+    {
+      "q": "¿Necesita JavaScript?",
+      "a": "No. Todas las vistas se muestran sin él. JavaScript solo añade el control deslizante de reproducción y el avance con el teclado."
+    }
+  ],
+  "next": [
+    {
+      "title": "Más cosas que puedes hacer",
+      "text": "Mensajería, scopes, reglas y el lanzador."
+    },
+    {
+      "title": "Arquitectura",
+      "text": "Dónde viven las páginas y el índice."
+    },
+    {
+      "title": "Seguridad",
+      "text": "Qué se guarda y quién puede leerlo."
+    }
+  ]
+}

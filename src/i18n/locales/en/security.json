@@ -15,7 +15,7 @@
     "items": [
       {
         "title": "Loopback only",
-        "text": "The server binds 127.0.0.1:49374. No process outside the machine can reach it, which is why the default needs no password."
+        "text": "The server binds 127.0.0.1:49374. No process outside the machine can reach it. A fresh install still mints a bearer token into an owner-only file, which the hooks and the CLI read, so nothing is open even on loopback."
       },
       {
         "title": "No telemetry",
@@ -84,8 +84,8 @@
     "ladder": [
       {
         "when": "One person, one machine",
-        "title": "Loopback, no auth",
-        "text": "Loopback needs no setup. With auth off, machine and admin routes reject cross-site browser requests and browser navigation. Use a bearer token with older browsers that lack fetch metadata."
+        "title": "Loopback, a token in a file",
+        "text": "<code>ai-memory init</code> creates the token at <code>&lt;data_dir&gt;/auth-tokens/default</code> and the hooks, the CLI and the MCP bridge read it from there. An install from before 3.0 keeps running without auth until you run <code>ai-memory auth enable</code>, which mints the token and re-registers every client."
       },
       {
         "when": "A homelab box or a second machine",

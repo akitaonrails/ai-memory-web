@@ -60,6 +60,7 @@ Rules:
 | `Section` | A band with an h2. Props: `title`, `lede`, `hue`, `id`, `tint`, `narrow`, `fill` (scroll-lit lede). |
 | `FeatureGrid` | Two to six short points. Props: `items[{title,text,hue,href,link}]`, `cols`. |
 | `Steps` | A numbered procedure with terminal blocks. Props: `steps[{title,text,code,codeTitle}]`. `text` accepts inline HTML. |
+| `Carousel` + `CarouselSlide` | A strip of equal-width slides: scroll-snap without JavaScript, arrows, dots, arrow keys and a slow auto-advance with it. Props: `id`, `labels[]` (one per slide, for the dots), `interval`. One per site, on the homepage hero. |
 | `Transcript` | A terminal session as the reader sees it: a typed command, log lines, a warning, questions with answers. Props: `title`, `lines[{kind,text,answer}]`, `hue`. |
 | `CodeBlock` | A terminal with a copy button. Props: `code`, `title`. Lines starting with `#` dim as comments. |
 | `Tabs` | Props: `id`, `labels[]`. Panels are slots named `"0"`, `"1"`... |

@@ -11,7 +11,54 @@
       "One binary, plain markdown",
       "Works with no API key"
     ],
-    "marquee": "Works with {n} coding agents, including {names}"
+    "marquee": "Works with {n} coding agents, including {names}",
+    "cards": [
+      {
+        "kicker": "What memory is for",
+        "title": "Your agent forgets at the end of every session",
+        "text": "ai-memory writes what it learned into a wiki of plain markdown pages and hands the next session a short brief, so you stop re-explaining your own project.",
+        "cta": "How it works"
+      },
+      {
+        "kicker": "Across projects",
+        "title": "Your habits follow you to the next project",
+        "text": "A profile of how you work, learned from your projects, reaches every new one at session start, below that project’s own rules.",
+        "cta": "Memory across projects"
+      },
+      {
+        "kicker": "Any agent",
+        "title": "{n} coding agents, one memory",
+        "text": "Claude Code, Codex, Cursor, Gemini CLI, OpenCode and more share one server. What one learned this morning is there for the next one this afternoon.",
+        "cta": "Agents and editors"
+      },
+      {
+        "kicker": "Install",
+        "title": "Two commands, no account, no API key",
+        "text": "A checksum-verified script and ai-memory setup. The server listens on your machine only, and your memory is markdown in a folder you own.",
+        "cta": "Quick setup"
+      },
+      {
+        "kicker": "Memory ages",
+        "title": "Old memory shrinks, and what you use stays",
+        "text": "Session pages are scored, kept while you still read them, and can shrink or merge with no LLM. Every rewrite can be restored.",
+        "cta": "How memory ages"
+      },
+      {
+        "kicker": "Measured",
+        "title": "{score} hit@5 on LongMemEval-S, caveats included",
+        "text": "Retrieval is scored with a harness that ships in the repository, capture step included. The number says nothing about answer accuracy.",
+        "cta": "What was measured"
+      }
+    ],
+    "cardLabels": [
+      "ai-memory",
+      "What memory is for",
+      "Across projects",
+      "Any agent",
+      "Install",
+      "Memory ages",
+      "Measured"
+    ]
   },
   "statement": "Your coding agent already takes notes. They live on one machine and belong to one agent. Switch tools and they are gone, and your teammates never see them at all. ai-memory is what is on the other side of those walls.",
   "continuity": {
@@ -106,7 +153,7 @@
       {
         "who": "I work alone",
         "title": "Stop re-explaining your project",
-        "text": "Three commands to install. You need no account and no API key.",
+        "text": "Two commands to install. You need no account and no API key.",
         "cta": "ai-memory for individuals"
       },
       {
@@ -144,7 +191,7 @@
       },
       {
         "title": "Recall",
-        "text": "The next session gets a short brief and can search everything: full text, entities, links and vectors, fused into one ranking."
+        "text": "The next session gets a short brief and can search everything: full text, entities, links, vectors and the raw observations, fused into one ranking."
       },
       {
         "title": "Hand off",
@@ -163,7 +210,7 @@
     "gain": "What you gain"
   },
   "quickstart": {
-    "title": "Up and running in three commands.",
+    "title": "Up and running in two commands.",
     "text": "There is no sign-up. The default install listens on your machine only, so nothing else can reach it. You can add it to a project that is already under way: the first session imports the agent history you have on disk.",
     "links": {
       "install": "Every install path, step by step",
@@ -177,9 +224,9 @@
     "soloTitle": "one machine",
     "teamTitle": "one server, many machines",
     "solo": {
-      "c1": "1. Install the binary (or grab it from the downloads page)",
-      "c2": "2. Start the server. It listens on this machine only.",
-      "c3": "3. Launch your agent through it. Hooks and MCP wire themselves."
+      "c1": "1. Install the binary: downloaded, checksum verified, no root",
+      "c2": "2. Create the data directory, start the service, wire every agent it finds",
+      "c3": "3. Launch your agent through it"
     },
     "team": {
       "c1": "On the server: a homelab box or any LAN host",

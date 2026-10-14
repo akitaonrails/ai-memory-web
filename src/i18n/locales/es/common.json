@@ -15,7 +15,12 @@
     "toggleTheme": "Cambiar entre tema claro y oscuro",
     "language": "Idioma",
     "starOnGithub": "Dale una estrella a ai-memory en GitHub, {n} estrellas",
-    "chooseOne": "Elige una opción"
+    "chooseOne": "Elige una opción",
+    "carousel": "Destacados",
+    "slideOf": "{n} de {total}",
+    "slides": "Elige una diapositiva",
+    "previousSlide": "Diapositiva anterior",
+    "nextSlide": "Diapositiva siguiente"
   },
   "crumbs": {
     "home": "Inicio",
@@ -33,6 +38,7 @@
     "download": "Descarga",
     "aging": "Envejecimiento de la memoria",
     "profile": "Memoria entre proyectos",
+    "browse": "Explora tu memoria",
     "features": "Más cosas que puedes hacer"
   },
   "nav": {
@@ -55,6 +61,10 @@
       "features": {
         "label": "Más cosas que puedes hacer",
         "note": "Mensajería entre agentes, scopes, reglas, notas que caducan"
+      },
+      "browse": {
+        "label": "Explora tu memoria",
+        "note": "La interfaz web de solo lectura: páginas, backlinks, mensajes, historial"
       },
       "architecture": {
         "label": "Arquitectura",

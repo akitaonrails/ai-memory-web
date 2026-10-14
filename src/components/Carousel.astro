@@ -1,0 +1,97 @@
+---
+// A horizontal carousel of equal-width slides. The default slot holds one `CarouselSlide` per entry in `labels`.
+// Without JavaScript it is a scroll-snap strip the reader can swipe or scroll. The script adds previous/next
+// buttons, dots, arrow keys, and a slow auto-advance that stops at the first touch and never runs under
+// prefers-reduced-motion. `labels` name the dots for assistive tech.
+import { useI18n } from '@/i18n';
+interface Props { id: string; labels: string[]; interval?: number }
+const { id, labels, interval = 9000 } = Astro.props;
+const { t } = useI18n(Astro);
+---
+<section class="carousel" data-carousel data-interval={interval} aria-roledescription="carousel" aria-label={t('a11y.carousel')}>
+  <div class="track" tabindex="0">
+    <slot />
+  </div>
+  <div class="controls wrap">
+    <button type="button" class="arrow" data-prev aria-label={t('a11y.previousSlide')}><svg class="flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <div class="dots" role="tablist" aria-label={t('a11y.slides')}>
+      {labels.map((label, i) => (
+        <button type="button" role="tab" data-dot={i} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`${id}-s${i}`} aria-label={label}><span></span></button>
+      ))}
+    </div>
+    <button type="button" class="arrow" data-next aria-label={t('a11y.nextSlide')}><svg class="flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.track')!;
+    const slides = [...track.children] as HTMLElement[];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0;
+    let timer = 0;
+    let touched = false;
+
+    const go = (i: number, smooth = true) => {
+      current = (i + slides.length) % slides.length;
+      track.scrollTo({ left: slides[current].offsetLeft - track.offsetLeft, behavior: smooth && !reduced ? 'smooth' : 'auto' });
+    };
+    const paint = () => {
+      dots.forEach((d, i) => d.setAttribute('aria-selected', String(i === current)));
+      slides.forEach((s, i) => s.toggleAttribute('data-active', i === current));
+    };
+    const stop = () => { clearInterval(timer); timer = 0; };
+    const start = () => {
+      if (reduced || touched || timer || document.hidden) return;
+      timer = window.setInterval(() => go(current + 1), Number(root.dataset.interval) || 9000);
+    };
+    const hand = () => { touched = true; stop(); };
+
+    // The slide nearest the start edge is the current one, whatever moved the strip.
+    let raf = 0;
+    track.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        // offsetLeft and scrollLeft share a sign convention in both directions (negative under RTL in every engine since 2023).
+        const x = track.scrollLeft;
+        let best = 0, dist = Infinity;
+        slides.forEach((s, i) => { const d = Math.abs(s.offsetLeft - track.offsetLeft - x); if (d < dist) { dist = d; best = i; } });
+        current = best; paint();
+      });
+    }, { passive: true });
+
+    root.querySelector('[data-prev]')!.addEventListener('click', () => { hand(); go(current - 1); });
+    root.querySelector('[data-next]')!.addEventListener('click', () => { hand(); go(current + 1); });
+    dots.forEach((d, i) => d.addEventListener('click', () => { hand(); go(i); }));
+    track.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const rtl = getComputedStyle(track).direction === 'rtl';
+      hand(); go(current + ((e.key === 'ArrowRight') !== rtl ? 1 : -1)); e.preventDefault();
+    });
+    ['pointerdown', 'touchstart', 'wheel'].forEach((ev) => track.addEventListener(ev, hand, { passive: true }));
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+
+    paint();
+    start();
+  });
+</script>
+
+<style>
+  .carousel { position: relative; }
+  .track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; outline: none; }
+  .track::-webkit-scrollbar { display: none; }
+  .track:focus-visible { box-shadow: inset 0 0 0 2px var(--amber); }
+  .track > :global(.slide) { scroll-snap-align: start; scroll-snap-stop: always; min-width: 0; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 1rem; padding-block: .5rem 1.5rem; }
+  .arrow { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--line); color: var(--muted); transition: color .2s, border-color .2s; }
+  .arrow:hover { color: var(--text); border-color: var(--amber); }
+  .dots { display: flex; gap: .5rem; }
+  .dots button { padding: .4rem; }
+  .dots button span { display: block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--line); transition: background .3s, width .3s; }
+  .dots button[aria-selected='true'] span { width: 1.5rem; background: var(--amber); }
+</style>

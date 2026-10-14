@@ -9,18 +9,33 @@
   },
   "hero": {
     "title": "Quick setup",
-    "lede": "Pick your track and copy the commands. One machine takes three steps and no account. A shared server for a team takes five."
+    "lede": "Pick your track and copy the commands. One machine takes two commands and no account. A shared server for a team takes five steps."
   },
   "solo": {
     "title": "Just me",
-    "lede": "Install one binary, start one local server, then launch your agent. The server binds to 127.0.0.1:49374, so nothing outside this machine can reach it and it needs no token.",
+    "lede": "Install one binary, let it start one local server, then launch your agent. The server binds to 127.0.0.1:49374, so nothing outside this machine can reach it. A fresh install keeps its token in an owner-only file that the hooks and the CLI read, so you type none.",
     "tabs": [
+      "Linux or macOS",
       "Linux or macOS (mise)",
       "Arch Linux (AUR)",
       "Fedora (RPM)",
       "macOS binary",
       "Docker or Podman",
       "Windows"
+    ],
+    "native": [
+      {
+        "title": "Install the binary",
+        "text": "The script downloads the release for your OS and chip, checks it against the published <code>.sha256</code> file and refuses to install without a match. It links <code>~/.local/bin/ai-memory</code> and needs no root."
+      },
+      {
+        "title": "Set it up",
+        "text": "<code>setup</code> creates the data directory with its token, starts a per-user service (systemd or launchd) and wires hooks, MCP and skills for every agent it finds. It shows the plan and asks first; a second run changes nothing."
+      },
+      {
+        "title": "Launch your agent through it",
+        "text": "Restart your agents once. Launching <code>claude</code> directly keeps working afterwards."
+      }
     ],
     "mise": [
       {
@@ -29,7 +44,7 @@
       },
       {
         "title": "Create the data directory and start the server",
-        "text": "<code>init</code> only creates the data directory. <code>serve</code> has to stay running, so give it its own terminal. It listens on this machine only and needs no token."
+        "text": "<code>init</code> creates the data directory and its token file. <code>serve</code> has to stay running, so give it its own terminal. It listens on this machine only, and the hooks and the CLI read the token from the data directory."
       },
       {
         "title": "Launch your agent through it",

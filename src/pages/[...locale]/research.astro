@@ -57,8 +57,8 @@ const shoulders = [
   { id: 'honcho', name: 'Honcho', href: 'https://github.com/plastic-labs/honcho' },
 ].map((s) => ({ ...s, gave: t(`priorArt.gave.${s.id}`) }));
 
-// Columns: before 2.0, filtered full text, local embeddings.
-const metrics = Object.entries(facts.benchmark.metrics).map(([name, values]) => [name, ...values] as [string, number, number, number]);
+// Columns: before 2.0, filtered full text, local embeddings, then 3.0 full text and local embeddings with the observation stream.
+const metrics = Object.entries(facts.benchmark.metrics).map(([name, values]) => [name, ...values] as [string, ...number[]]);
 const hit5 = facts.benchmark.metrics['hit@5'];
 const bench = raw<string[]>('measured.chart.bars').map((label, i) => ({ label, v: hit5[i] }));
 
@@ -75,12 +75,13 @@ const nextMeta: { href: string; hue: Hue }[] = [
 ];
 const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i) => ({ ...n, ...nextMeta[i] }));
 
-// Full text only against local embeddings, same questions. Ratios get three decimals, times whole milliseconds, tokens one decimal.
-const ab = facts.benchmark.ab.rows as { id: string; fts: number; local: number; delta: number; unit?: string }[];
-const abValue = (r: { unit?: string }, v: number) =>
-  r.unit === 'ms' ? t('measured.ab.ms', { n: number(Math.round(v)) }) : r.unit === 'tokens' ? number(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : score(v);
-const variance = facts.benchmark.variance;
-const faqParams = { hybrid: score(hit5[2]), fts: score(hit5[1]) };
+// The observation stream, off then on, for full text and for local embeddings. Ratios get three decimals, times whole milliseconds, tokens one decimal.
+const stream = facts.benchmark.stream.rows as { id: string; fts: number[]; local: number[]; unit?: string }[];
+const streamValue = (r: { unit?: string }, v: number) =>
+  r.unit === 'ms' ? t('measured.stream.ms', { n: number(Math.round(v)) }) : r.unit === 'tokens' ? number(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : score(v);
+const offOn = (r: { unit?: string }, pair: number[]) => `${streamValue(r, pair[0])} \u2192 ${streamValue(r, pair[1])}`;
+const streamHit5 = stream.find((r) => r.id === 'hit5')!;
+const faqParams = { hybrid: score(hit5[4]), fts: score(hit5[3]) };
 const faqItems = raw<Faq[]>('faq').map((f) => ({ q: f.q, a: f.a.replace(/\{(\w+)\}/g, (m, k: keyof typeof faqParams) => faqParams[k] ?? m) }));
 const faq = faqPage(faqItems);
 ---
@@ -206,8 +207,9 @@ const faq = faqPage(faqItems);
       <div>
         <h3 class="text-xl">{t('measured.steps.title')}</h3>
         <ul class="mt-4 space-y-3 text-muted ticks">
-          <li>{t('measured.steps.stopwords', { hit5: number(5.1), hit1: number(8.5) })}</li>
-          <li>{t('measured.steps.embeddings', { points: number(6.6) })}</li>
+          <li>{t('measured.steps.stopwords', { hit5: number(Math.round((hit5[1] - hit5[0]) * 1000) / 10) })}</li>
+          <li>{t('measured.steps.embeddings')}</li>
+          <li>{t('measured.steps.observations', { from: score(streamHit5.fts[0]), to: score(streamHit5.fts[1]) })}</li>
           <li>{t('measured.steps.noKey')}</li>
         </ul>
       </div>
@@ -215,7 +217,7 @@ const faq = faqPage(faqItems);
 
     <div class="table-wrap mt-12">
       <table class="table-site">
-        <thead><tr><th>{t('measured.table.metric')}</th><th>{t('measured.table.before')}</th><th>{t('measured.table.filtered')}</th><th>{t('measured.table.local')}</th></tr></thead>
+        <thead><tr><th>{t('measured.table.metric')}</th><th>{t('measured.table.before')}</th><th>{t('measured.table.filtered')}</th><th>{t('measured.table.local')}</th><th>{t('measured.table.fts3')}</th><th>{t('measured.table.local3')}</th></tr></thead>
         <tbody>{metrics.map(([name, ...vals]) => <tr><td class="tabular-nums">{name}</td>{vals.map((v) => <td class="tabular-nums">{score(v)}</td>)}</tr>)}</tbody>
       </table>
     </div>
@@ -225,7 +227,7 @@ const faq = faqPage(faqItems);
         <p>{t('measured.retrievalOnly.text')}</p>
       </Callout>
       <Callout title={t('measured.privacyCap.title')} hue="rose">
-        <p>{t('measured.privacyCap.text')}</p>
+        <p>{t('measured.privacyCap.text', { captured: score(facts.benchmark.capCheck.captured), whole: score(facts.benchmark.capCheck.whole) })}</p>
       </Callout>
     </div>
 
@@ -241,18 +243,17 @@ const faq = faqPage(faqItems);
 
     <div class="mt-16 grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-x-16 gap-y-10 items-start">
       <div class="min-w-0">
-        <h3 class="text-xl">{t('measured.ab.title')}</h3>
-        <p class="mt-2 text-muted max-w-[40em]">{t('measured.ab.text', { ms: number(Math.round(ab.find((r) => r.id === 'p50')!.delta / 10) * 10) })}</p>
+        <h3 class="text-xl">{t('measured.stream.title')}</h3>
+        <p class="mt-2 text-muted max-w-[40em]">{t('measured.stream.text')}</p>
         <div class="table-wrap mt-5">
           <table class="table-site">
-            <thead><tr><th>{t('measured.ab.columns.metric')}</th><th>{t('measured.ab.columns.fts')}</th><th>{t('measured.ab.columns.local')}</th><th>{t('measured.ab.columns.delta')}</th></tr></thead>
+            <thead><tr><th>{t('measured.stream.columns.metric')}</th><th>{t('measured.stream.columns.fts')}</th><th>{t('measured.stream.columns.local')}</th></tr></thead>
             <tbody>
-              {ab.map((r) => (
+              {stream.map((r) => (
                 <tr>
-                  <td>{t(`measured.ab.rows.${r.id}`)}</td>
-                  <td class="tabular-nums">{abValue(r, r.fts)}</td>
-                  <td class="tabular-nums">{abValue(r, r.local)}</td>
-                  <td class="tabular-nums" dir="ltr">+{abValue(r, r.delta)}</td>
+                  <td>{t(`measured.stream.rows.${r.id}`)}</td>
+                  <td class="tabular-nums" dir="ltr">{offOn(r, r.fts)}</td>
+                  <td class="tabular-nums" dir="ltr">{offOn(r, r.local)}</td>
                 </tr>
               ))}
             </tbody>
@@ -260,8 +261,9 @@ const faq = faqPage(faqItems);
         </div>
       </div>
       <ul class="dotlist text-muted space-y-4 lg:mt-12">
-        <li>{t('measured.ab.stable', { runA: score(variance.runs[0]), runB: score(variance.runs[1]), readAs: number(variance.readAs, { minimumFractionDigits: 2 }), plusMinus: score(variance.plusMinus), prevDate: date(facts.benchmark.previous.date), prevLocal: score(facts.benchmark.previous['hit@5'].local) })}</li>
-        <li>{t('measured.ab.determinism')}</li>
+        <li>{t('measured.stream.ftsAhead')}</li>
+        <li>{t('measured.stream.determinism')}</li>
+        <li>{t('measured.stream.comparable')}</li>
       </ul>
     </div>
   </Section>

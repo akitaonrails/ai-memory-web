@@ -93,8 +93,8 @@
     }
   },
   "retrieval": {
-    "title": "Recuperação: quatro fluxos, um ranking.",
-    "figureAlt": "Diagrama: uma consulta se abre em quatro faixas chamadas FTS5, Entidades, Grafo e Vetores, com a faixa de vetores tracejada por ser opcional. As faixas se juntam num nó chamado RRF k=60, passam por uma balança de Autoridade e terminam numa lista ranqueada de resultados.",
+    "title": "Recuperação: cinco fluxos, um ranking.",
+    "figureAlt": "Diagrama: uma consulta se abre em cinco faixas chamadas FTS5, Entidades, Grafo, Observações e Vetores, com a faixa de vetores tracejada por ser opcional. As faixas se juntam num nó chamado RRF k=60, passam por uma balança de Autoridade e terminam numa lista ranqueada de resultados.",
     "figureCaption": "A faixa de vetores é tracejada porque a busca funciona sem ela.",
     "streams": [
       {
@@ -110,6 +110,10 @@
         "text": "Um salto pela tabela de links: wikilinks, links markdown, arestas tipadas e links entre projetos. SQL puro, sem banco de grafos."
       },
       {
+        "title": "Observações",
+        "text": "Full-text sobre as observações brutas do projeto. Cada sessão que casa vota uma vez, pela melhor observação, na própria página de sessão, então o detalhe que nunca chegou à página ainda a encontra. Ligado por padrão desde a 3.0."
+      },
+      {
         "title": "Vetores, opcionais",
         "text": "Similaridade de cosseno sobre embeddings do modelo local que roda dentro do processo. Ligado por padrão desde a 2.0, nunca obrigatório, e força bruta de propósito."
       }
@@ -119,7 +123,7 @@
       "points": [
         "Reciprocal Rank Fusion com k=60 junta os fluxos pela posição no ranking, então nenhum fluxo precisa de calibração de score.",
         "Um multiplicador de autoridade com limite empurra então as disputas apertadas para o lado de regras, decisões, procedimentos e gotchas mantidos. Páginas episódicas e históricas continuam aparecendo na busca, e nada é excluído de cara.",
-        "Rerank opcional por LLM: uma chamada por consulta sobre até 30 títulos e trechos. Qualquer falha mantém a ordem local. Ainda não existe um reranker local, e essa é a lacuna mais citada do projeto.",
+        "Rerank opcional por LLM: uma chamada por consulta sobre até 30 títulos e trechos. Qualquer falha mantém a ordem local. Ainda não existe um reranker local.",
         "Se as páginas compiladas não trouxerem nada, uma busca limitada nas observações brutas devolve raw_hits.",
         "Passe explain=true para ver, em cada resultado, as posições por fluxo, as contribuições do RRF e o multiplicador."
       ]

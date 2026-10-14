@@ -9,6 +9,9 @@ import Tabs from '@/components/Tabs.astro';
 import GithubStats from '@/components/GithubStats.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Figure from '@/components/Figure.astro';
+import Carousel from '@/components/Carousel.astro';
+import CarouselSlide from '@/components/CarouselSlide.astro';
+import factsData from '@/data/facts.json';
 import logo from '@/assets/img/logo.png';
 import { site } from '@/data/site';
 import { harnesses } from '@/data/support';
@@ -31,15 +34,29 @@ const pathMeta = [
 const paths = raw<{ who: string; title: string; text: string; cta: string }[]>('paths.items').map((p, i) => ({ ...p, ...pathMeta[i] }));
 const steps = raw<{ title: string; text: string }[]>('how.steps');
 const facts = raw<string[]>('hero.facts');
+
+// The hero carousel: the logo first, then one card per thing worth a page. Structure here, words in home.json.
+const cardMeta = [
+  { href: '/#how', image: 'how-it-works', hue: 'green' },
+  { href: '/profile/', image: 'profile-two-axes', hue: 'amber' },
+  { href: '/integrations/', image: 'integrations-hub', hue: 'violet' },
+  { href: '/install/', image: 'install-solo-path', hue: 'teal' },
+  { href: '/aging/', image: 'aging-decay-path', hue: 'teal' },
+  { href: '/research/#measured', image: 'architecture-retrieval', hue: 'violet' },
+] as const;
+const cardParams = { n: String(harnesses.length), score: factsData.benchmark.metrics['hit@5'][3].toFixed(3) };
+const cards = raw<{ kicker: string; title: string; text: string; cta: string }[]>('hero.cards').map((c, i) => ({
+  ...c, ...cardMeta[i], title: c.title.replace(/\{(\w+)\}/g, (m, k: keyof typeof cardParams) => cardParams[k] ?? m),
+}));
+const cardLabels = raw<string[]>('hero.cardLabels');
 const tabs = raw<string[]>('quickstart.tabs');
 
 // Commands never change with the language. Only the comments do.
 const solo = `# ${t('quickstart.solo.c1')}
-mise use -g github:akitaonrails/ai-memory
+curl -fsSL https://github.com/akitaonrails/ai-memory/releases/latest/download/install.sh | sh
 
 # ${t('quickstart.solo.c2')}
-ai-memory init
-ai-memory serve --transport http --bind 127.0.0.1:49374
+ai-memory setup
 
 # ${t('quickstart.solo.c3')}
 ai-memory run claude`;
@@ -61,31 +78,48 @@ ai-memory run claude`;
   <!-- Hero -->
   <section class="hero">
     <div class="hero-aura" aria-hidden="true"></div>
-    <div class="wrap relative grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center pt-32 pb-16 md:pt-40 lg:pt-44 lg:pb-24">
-      <div>
-        <a href={href('/download/')} class="release-pill">
-          <span class="dot" aria-hidden="true"></span>
-          {t('hero.releaseOut', { tag: latest.tag })}
-          <span class="text-muted">{t('hero.releaseLink')}</span>
-        </a>
-        <h1 class="mt-7 text-4xl spectrum-text pb-2">{t('hero.title')}</h1>
-        <p class="lede mt-6">{t('hero.lede')}</p>
-        <div class="mt-9 flex flex-wrap gap-3">
-          <a href={href('/install/')} class="btn btn-primary">{t('hero.primary')}</a>
-          <a href={site.repo} class="btn btn-ghost">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--amber)" aria-hidden="true"><path d="m8 .9 2.2 4.6 5 .7-3.6 3.5.9 5L8 12.3l-4.5 2.4.9-5L.8 6.2l5-.7z"/></svg>
-            {t('hero.star')}
-            <span data-gh="stars" class="tabular-nums text-muted">{compact(gh.stars)}</span>
+    <Carousel id="hero" labels={cardLabels}>
+      <CarouselSlide id="hero" index={0} total={cardLabels.length}>
+      <div class="wrap relative grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center slide-pad">
+        <div>
+          <a href={href('/download/')} class="release-pill">
+            <span class="dot" aria-hidden="true"></span>
+            {t('hero.releaseOut', { tag: latest.tag })}
+            <span class="text-muted">{t('hero.releaseLink')}</span>
           </a>
+          <h1 class="mt-7 text-4xl spectrum-text pb-2">{t('hero.title')}</h1>
+          <p class="lede mt-6">{t('hero.lede')}</p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <a href={href('/install/')} class="btn btn-primary">{t('hero.primary')}</a>
+            <a href={site.repo} class="btn btn-ghost">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--amber)" aria-hidden="true"><path d="m8 .9 2.2 4.6 5 .7-3.6 3.5.9 5L8 12.3l-4.5 2.4.9-5L.8 6.2l5-.7z"/></svg>
+              {t('hero.star')}
+              <span data-gh="stars" class="tabular-nums text-muted">{compact(gh.stars)}</span>
+            </a>
+          </div>
+          <ul class="facts mt-9">
+            {facts.map((f) => <li>{f}</li>)}
+          </ul>
         </div>
-        <ul class="facts mt-9">
-          {facts.map((f) => <li>{f}</li>)}
-        </ul>
+        <div class="hero-mark" aria-hidden="true">
+          <div data-parallax="0.12"><Image src={logo} alt="" widths={[360, 480, 720, 960, 1440]} sizes="(min-width: 1024px) 30rem, min(30rem, 90vw)" loading="eager" fetchpriority="high" class="w-full h-auto" /></div>
+        </div>
       </div>
-      <div class="hero-mark" aria-hidden="true">
-        <div data-parallax="0.12"><Image src={logo} alt="" widths={[360, 480, 720, 960, 1440]} sizes="(min-width: 1024px) 30rem, min(30rem, 90vw)" loading="eager" fetchpriority="high" class="w-full h-auto" /></div>
-      </div>
-    </div>
+      </CarouselSlide>
+      {cards.map((c, i) => (
+        <CarouselSlide id="hero" index={i + 1} total={cardLabels.length}>
+        <div class="wrap relative grid lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] gap-10 items-center slide-pad" data-hue={c.hue}>
+          <div>
+            <p class="kicker">{c.kicker}</p>
+            <h2 class="mt-4 text-3xl max-w-[18ch]">{c.title}</h2>
+            <p class="lede mt-6">{c.text}</p>
+            <p class="mt-9"><a href={href(c.href)} class="btn btn-primary">{c.cta}</a></p>
+          </div>
+          <div class="card-art"><Figure name={c.image} alt="" zoom={false} /></div>
+        </div>
+        </CarouselSlide>
+      ))}
+    </Carousel>
 
     <div class="marquee">
       {/* Same sentence the aria-label carried, as text a screen reader can read: aria-label is prohibited on a plain div. */}
@@ -239,6 +273,13 @@ ai-memory run claude`;
 
 <style>
   .hero { position: relative; overflow: clip; }
+  .slide-pad { padding-top: 8rem; padding-bottom: 3rem; }
+  @media (min-width: 48rem) { .slide-pad { padding-top: 10rem; } }
+  @media (min-width: 64rem) { .slide-pad { padding-top: 11rem; padding-bottom: 5rem; } }
+  .card-art { max-width: 34rem; margin-inline: auto; width: 100%; }
+  @media (min-width: 64rem) { .hero-mark { max-width: 30rem; } }
+  .card-art :global(.fig) { margin-block: 0; }
+  .card-art :global(figcaption) { display: none; }
   .hero-aura { position: absolute; inset-block: -20% 0; inset-inline: 35% -10%; background: conic-gradient(from 210deg at 60% 45% in oklch, var(--v-green), var(--v-teal), var(--v-azure), var(--v-violet), var(--v-rose), var(--v-green)); filter: blur(110px); opacity: .28; pointer-events: none; }
   :global([data-theme='light']) .hero-aura { opacity: .2; }
   .release-pill { display: inline-flex; align-items: center; gap: .6rem; padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in oklch, var(--surface) 70%, transparent); font-size: .9rem; font-weight: 600; }
@@ -247,7 +288,7 @@ ai-memory run claude`;
   .facts { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; color: var(--muted); font-size: .95rem; }
   .facts li { display: flex; align-items: center; gap: .5rem; }
   .facts li::before { content: ''; width: .9rem; height: .5rem; border-left: 2px solid var(--green); border-bottom: 2px solid var(--green); rotate: -45deg; translate: 0 -2px; }
-  .hero-mark { max-width: 30rem; margin-inline: auto; width: 100%; filter: drop-shadow(0 30px 80px color-mix(in oklch, var(--v-violet) 40%, transparent)); animation: mark-in 1.4s var(--ease-out-quint) both; }
+  .hero-mark { max-width: 22rem; margin-inline: auto; width: 100%; filter: drop-shadow(0 30px 80px color-mix(in oklch, var(--v-violet) 40%, transparent)); animation: mark-in 1.4s var(--ease-out-quint) both; }
   @keyframes mark-in { from { opacity: 0; transform: scale(.82) rotate(-6deg); filter: blur(12px); } }
 
   .marquee { position: relative; overflow: hidden; border-block: 1px solid var(--line); padding-block: 1.1rem; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }

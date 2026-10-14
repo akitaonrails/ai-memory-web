@@ -73,7 +73,7 @@
   },
   "benchmark": {
     "title": "O benchmark, com as ressalvas",
-    "lede": "O ai-memory publica um número, medido no LongMemEval-S com um harness que vem no repositório. Sistemas que fazem reranking pontuam mais.",
+    "lede": "O ai-memory publica seus números, medidos no LongMemEval-S com um harness que vem no repositório, etapa de captura incluída.",
     "chartLabel": "Gráfico de barras do hit at 5 no LongMemEval-S. {bars}",
     "chartBar": "{label}: {value}.",
     "ours": [
@@ -82,29 +82,34 @@
         "note": "Só full-text"
       },
       {
-        "label": "ai-memory, só full-text",
+        "label": "ai-memory 2.4, full-text",
         "note": "Filtro de stopwords adicionado"
       },
       {
-        "label": "ai-memory padrão",
-        "note": "Embeddings locais, sem chave de API"
+        "label": "ai-memory 2.4, embeddings locais",
+        "note": "Sem chave de API"
+      },
+      {
+        "label": "ai-memory 3.0, full-text",
+        "note": "Com o fluxo de observações, sem embeddings"
+      },
+      {
+        "label": "ai-memory 3.0, embeddings locais",
+        "note": "Com o fluxo de observações, a instalação padrão"
       }
     ],
     "theirs": [
       {
         "note": "Reportado pelo fornecedor, por sessão"
-      },
-      {
-        "note": "Reportado pelo fornecedor, com reranking"
       }
     ],
-    "axis": "hit@5, de 0 a 1. As barras sólidas foram medidas por este projeto. As hachuradas são números dos próprios fornecedores e não foram reproduzidas aqui.",
+    "axis": "hit@5, de 0 a 1. As barras sólidas foram medidas por este projeto. A barra hachurada é o número do próprio fornecedor e não foi reproduzido aqui.",
     "caveats": [
       "O hit@5 pergunta se uma sessão que contém a evidência está entre os cinco primeiros resultados. Ele mede recuperação. Não diz nada sobre a acurácia das respostas.",
-      "470 das 500 perguntas são pontuadas. As 30 perguntas de abstenção ficam de fora. A execução é de {date}. Uma segunda execução no mesmo commit marcou {runB}, então leia a nota padrão como cerca de {readAs}.",
-      "{local} usa o modelo de embeddings in-process padrão, sem chave de API e sem LLM. {fts} é só full-text, entidades e links.",
-      "Não existe nenhuma execução lado a lado contra qualquer concorrente. Números de acurácia, como os 91,4% do Hindsight, são outra métrica e não se comparam com hit@5.",
-      "Os trechos armazenados são limitados a 2 KB por privacidade, então uma evidência no fundo de um turno longo não é encontrada. O benchmark mede o sistema como ele é distribuído.",
+      "470 das 500 perguntas são pontuadas. As 30 perguntas de abstenção ficam de fora. As execuções são de {date}.",
+      "{fts} é full-text, entidades, links e as observações da própria sessão, sem chave de API e sem LLM. {local} acrescenta o modelo de embeddings in-process padrão.",
+      "Não existe nenhuma execução lado a lado contra qualquer concorrente. Os números de fornecedores no mesmo dataset vêm de harnesses diferentes, muitas vezes sem etapa de captura, e números de acurácia, como os 91,4% do Hindsight, são outra métrica.",
+      "Os trechos armazenados são limitados a 2 KB por privacidade. Páginas com exatamente o texto capturado pontuam a menos de meio ponto das sessões inteiras, então o limite custa pouco.",
       "O LongMemEval é histórico de assistente de chat. Um benchmark de sessões de código está planejado e ainda não existe."
     ],
     "reproduce": "Reproduza a partir de um checkout. As <a class=\"underline font-semibold text-text\" href=\"{href}\">notas do benchmark</a> têm o hash do dataset e os resultados por fatia.",
@@ -121,7 +126,7 @@
     "items": [
       {
         "title": "Sem reranker local",
-        "text": "As pontuações de recuperação ficam abaixo das dos sistemas que fazem reranking. O único reranker é um LLM, e ele vem desligado por padrão. As respostas com citações também precisam de um LLM, e a acurácia delas não foi avaliada. Um adapter documentado consegue cobrir essa etapa com um modelo juiz local pequeno."
+        "text": "O único reranker é um LLM, e ele vem desligado por padrão. As respostas com citações também precisam de um LLM, e a acurácia delas não foi avaliada. Um adapter documentado consegue cobrir essa etapa com um modelo juiz local pequeno."
       },
       {
         "title": "Tipos de link não mexem no ranking",
@@ -192,7 +197,7 @@
       },
       {
         "q": "Consigo importar meus dados do Mem0, Zep ou cognee?",
-        "a": "Direto, não. O importador companion lê wikis markdown do oh-my-claudecode e um formato JSON genérico de conversas. Adaptadores para produtos específicos ficam fora do repositório. Para uma base de código existente, o ai-memory bootstrap popula a wiki a partir do histórico do git e da documentação."
+        "a": "Do Mem0, do Zep ou do cognee, não. O importador companion lê wikis markdown do oh-my-claudecode, arquivos de vault e de export do agentmemory e um formato JSON genérico de conversas. Para uma base de código existente, o ai-memory bootstrap popula a wiki a partir do histórico do git e da documentação."
       },
       {
         "q": "Posso rodar o ai-memory ao lado da minha ferramenta de memória atual?",
@@ -200,7 +205,7 @@
       },
       {
         "q": "Como fica a pontuação de recuperação dele na comparação?",
-        "a": "No LongMemEval-S ele marca {local} de hit@5 com os embeddings locais padrão e {fts} só com full-text. Esse número mede recuperação e não diz nada sobre a acurácia das respostas. Sistemas que fazem reranking pontuam mais: o agentmemory reporta 0,952 e o mcp-memory-service reporta 0,860 por sessão."
+        "a": "No LongMemEval-S ele marca {fts} de hit@5 com full-text e o fluxo de observações, e {local} com embeddings locais. Isso mede recuperação e não diz nada sobre a acurácia das respostas. Os números que outras ferramentas publicam vêm dos harnesses delas, então nenhum ranking entre ferramentas é afirmado."
       },
       {
         "q": "Ele sincroniza a memória entre máquinas?",
@@ -211,7 +216,7 @@
   "next": [
     {
       "title": "Instalação rápida",
-      "text": "Três comandos para uma máquina, cinco passos para um time."
+      "text": "Dois comandos para uma máquina, cinco passos para um time."
     },
     {
       "title": "Pesquisa e fundamentos",

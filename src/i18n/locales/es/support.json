@@ -72,6 +72,9 @@
     "copilot-cli": {
       "note": "Diez eventos de hook y MCP. El traspaso llega en el contexto adicional de Copilot al iniciar la sesión."
     },
+    "droid": {
+      "note": "MCP y siete eventos de hook en los archivos propios de Droid. Droid cierra la sesión por sí mismo."
+    },
     "devin": {
       "note": "Hooks y MCP, incluida la captura tras la compactación."
     },
@@ -102,6 +105,12 @@
     "zcode": {
       "note": "Seis triggers. La inyección de traspasos funciona."
     },
+    "prime-agent": {
+      "note": "Solo MCP. Prime Agent solo muestra el servidor al modelo si AI_MEMORY_AUTH_TOKEN está exportado."
+    },
+    "dsh": {
+      "note": "Solo MCP. Imprime un fragmento de parche de Cordis para fusionar, porque DSH no tiene un archivo de configuración fijo."
+    },
     "grizzybot": {
       "note": "Una app de agente nativa de macOS con su propio puente a ai-memory. No hay nada que instalar."
     },
@@ -124,7 +133,7 @@
       "note": "Configuración de MCP a nivel de proyecto."
     },
     "muse": {
-      "note": "Configuración de MCP a nivel de usuario."
+      "note": "Ocho eventos de hook y un puente MCP con reconocimiento de sesión, fusionados en el archivo de configuración propio de Muse."
     },
     "hermes": {
       "note": "El instalador de hooks imprime un bloque para ~/.hermes/config.yaml. La recuperación y los traspasos vienen del plugin de la comunidad."
@@ -136,6 +145,7 @@
     "OpenAI",
     "OpenAI OAuth / login de Codex CLI",
     "GitHub Copilot",
+    "Cursor (una suscripción de Cursor, a través de su CLI de agente)",
     "Google Gemini",
     "OpenCode Go y Zen",
     "Ollama",

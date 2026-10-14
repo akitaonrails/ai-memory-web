@@ -15,7 +15,12 @@
     "toggleTheme": "מעבר בין ערכת נושא בהירה לכהה",
     "language": "שפה",
     "starOnGithub": "כוכב ל-ai-memory ב-GitHub, {n} כוכבים",
-    "chooseOne": "בחירת אפשרות אחת"
+    "chooseOne": "בחירת אפשרות אחת",
+    "carousel": "דגשים",
+    "slideOf": "{n} מתוך {total}",
+    "slides": "בחירת שקף",
+    "previousSlide": "השקף הקודם",
+    "nextSlide": "השקף הבא"
   },
   "crumbs": {
     "home": "בית",
@@ -33,6 +38,7 @@
     "download": "הורדה",
     "aging": "התיישנות הזיכרון",
     "profile": "זיכרון בין פרויקטים",
+    "browse": "דפדוף בזיכרון",
     "features": "עוד דברים שאפשר לעשות"
   },
   "nav": {
@@ -55,6 +61,10 @@
       "features": {
         "label": "עוד דברים שאפשר לעשות",
         "note": "הודעות בין סוכנים, workspaces, כללים, פתקים עם תפוגה"
+      },
+      "browse": {
+        "label": "דפדוף בזיכרון",
+        "note": "ממשק ה-web לקריאה בלבד: דפים, קישורים נכנסים, הודעות, היסטוריה"
       },
       "architecture": {
         "label": "ארכיטקטורה",

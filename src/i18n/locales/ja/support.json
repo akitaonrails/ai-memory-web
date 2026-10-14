@@ -72,6 +72,9 @@
     "copilot-cli": {
       "note": "フックイベントは10種で、MCPにも対応します。引き継ぎは、セッション開始時にCopilotの追加コンテキストとして届きます。"
     },
+    "droid": {
+      "note": "MCPと、Droid自身のファイルに置くフックイベント7種。Droidはセッションを自分で閉じます。"
+    },
     "devin": {
       "note": "フックとMCP。コンパクション後のキャプチャにも対応。"
     },
@@ -102,6 +105,12 @@
     "zcode": {
       "note": "トリガーは6種。引き継ぎの注入も動作します。"
     },
+    "prime-agent": {
+      "note": "MCPのみ。Prime Agentは、AI_MEMORY_AUTH_TOKENをexportしたときだけ、このサーバーをモデルに提示します。"
+    },
+    "dsh": {
+      "note": "MCPのみ。DSHには固定の設定ファイルがないので、マージするCordisのパッチ断片を出力します。"
+    },
     "grizzybot": {
       "note": "ai-memoryへの接続機能を自前で持つ、macOSネイティブのエージェントアプリです。インストールするものはありません。"
     },
@@ -124,7 +133,7 @@
       "note": "プロジェクト単位のMCP設定。"
     },
     "muse": {
-      "note": "ユーザー単位のMCP設定。"
+      "note": "フックイベント8種と、セッションを認識するMCPブリッジを、Museの設定ファイルにマージします。"
     },
     "hermes": {
       "note": "フックのインストーラーが~/.hermes/config.yaml用のブロックを出力します。想起と引き継ぎはコミュニティプラグインによるものです。"
@@ -136,6 +145,7 @@
     "OpenAI",
     "OpenAI OAuth / Codex CLIログイン",
     "GitHub Copilot",
+    "Cursor（Cursorのサブスクリプション。エージェントCLI経由）",
     "Google Gemini",
     "OpenCode GoとZen",
     "Ollama",

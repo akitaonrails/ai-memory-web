@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "Navegue pela memória no navegador: interface web",
+    "description": "Com --enable-web, cada projeto abre no navegador: páginas, backlinks, mensagens pendentes, histórico, replay de sessão e busca que ranqueia como a do agente."
+  },
+  "hero": {
+    "title": "Veja o que o seu agente lembra",
+    "lede": "Suba o servidor com --enable-web e cada projeto abre no navegador: as páginas, quem as cita, as mensagens esperando por um agente e uma busca que ranqueia do jeito que a do agente ranqueia. Somente leitura, de propósito.",
+    "primary": "Todos os projetos de relance",
+    "secondary": "Busque como o agente"
+  },
+  "home": {
+    "title": "Todos os projetos de relance",
+    "lede": "Workspaces e projetos em cards, com o número de páginas e a hora da última mudança. Um badge âmbar indica que há mensagens esperando por um agente ali.",
+    "shotAlt": "Screenshot da home da interface web: uma grade de cards de projetos dentro de um workspace de demonstração, três com o badge âmbar \"inbox\", e um banner explicando que as páginas são memória compilada para um agente, não documentação.",
+    "shotCaption": "O banner diz com clareza: essas páginas são feitas para a recuperação do agente, e o navegador serve para ver o que foi parar ali."
+  },
+  "project": {
+    "title": "Um projeto: páginas, decisões e mensagens",
+    "lede": "A barra lateral lista as pastas, concepts, decisions, gotchas e sessions, com as páginas mais novas de cada uma. A caixa de mensagens mostra o que outros projetos enviaram e ninguém pegou ainda.",
+    "shotAlt": "Screenshot da página de um projeto: uma barra lateral com páginas de concepts, decisions e gotchas, uma caixa de mensagens com duas mensagens Pending de outros projetos e uma lista de atividade recente.",
+    "shotCaption": "As mensagens são listadas, nunca consumidas: um agente do projeto lê com memory_message_pop, e o navegador só mostra que elas estão esperando."
+  },
+  "page": {
+    "title": "Uma página e quem aponta para ela",
+    "lede": "Cada página traz seu outline, as páginas que a citam e as páginas que ela cita, então dá para rastrear uma decisão até o gotcha que a causou. Um link de History lista todas as versões guardadas.",
+    "shotAlt": "Screenshot de uma página da wiki sobre rate limiting com uma coluna lateral: o outline dos seus títulos, a lista de páginas que a citam e a lista de páginas que ela cita.",
+    "shotCaption": "Dez links por grupo, depois \"e mais N\". Uma página de outro projeto mostra o nome do workspace e do projeto."
+  },
+  "search": {
+    "title": "Uma busca que ranqueia como a do agente",
+    "lede": "A busca dentro de um projeto roda o mesmo ranker do memory_query: full text, entidades, links, observações e vetores, fundidos em uma ordem só. Marque \"Explain ranking\" e cada resultado mostra o que cada fluxo contribuiu.",
+    "shotAlt": "Screenshot de uma busca por \"rate limit\" dentro de um projeto, com o seletor Search in, o checkbox Explain ranking e oito resultados ranqueados com seus caminhos.",
+    "shotCaption": "A busca sem projeto é a busca full-text entre projetos, a mesma coisa que o memory_query faz com global ativado."
+  },
+  "history": {
+    "title": "Histórico, replay e saúde",
+    "lede": "Três telas para a pergunta \"o que aconteceu aqui?\"",
+    "items": [
+      {
+        "title": "Histórico da página",
+        "text": "Todas as versões guardadas de uma página, da mais nova para a mais antiga, inclusive as substituídas, com um diff entre quaisquer duas. Uma versão que uma escrita concorrente substituiu continua visível."
+      },
+      {
+        "title": "Replay de sessão",
+        "text": "Cada projeto lista suas sessões recentes, e cada uma abre uma timeline das observações na ordem da captura. Com JavaScript, um slider e as teclas j e k avançam um passo por vez."
+      },
+      {
+        "title": "Uma página de saúde para o root",
+        "text": "Contadores dos hooks desde que o servidor subiu, a fila do writer, o spool, a fila de consolidação, o embedder e os dois providers. Tudo que estiver falhando aparece com o comando que corrige."
+      }
+    ]
+  },
+  "readonly": {
+    "title": "Somente leitura, de propósito",
+    "text": "O crate web não tem rota de escrita, e o lint dele quebra o build se aparecer alguma. As mudanças passam pelas ferramentas do agente ou pela CLI. Cada tela segue a regra de leitura por projeto: num servidor compartilhado, um projeto restrito devolve 403 para quem não tem grant, e uma página com login mostra a versão do servidor no rodapé.",
+    "api": "Os mesmos dados saem como JSON em <code>/api/v1</code>, e o <code>serve --enable-api</code> monta a API sem a interface no navegador."
+  },
+  "faq": [
+    {
+      "q": "A interface web vem ligada por padrão?",
+      "a": "Não. Suba o servidor com --enable-web ou ative na configuração. A instalação padrão tem só o servidor MCP e os hooks."
+    },
+    {
+      "q": "Dá para editar uma página no navegador?",
+      "a": "Não. A interface web é somente leitura por design, e o crate que a serve não tem rota de escrita. Edite o arquivo markdown ou deixe o agente escrever com memory_write_page."
+    },
+    {
+      "q": "Quem vê o quê num servidor compartilhado?",
+      "a": "A mesma regra das ferramentas: um projeto restrito só é legível por quem tem grant, a timeline de sessão de outro operador fica oculta, e as páginas de saúde e de pendências são só para o root."
+    },
+    {
+      "q": "Precisa de JavaScript?",
+      "a": "Não. Todas as telas renderizam sem ele. O JavaScript só acrescenta o slider do replay e a navegação pelo teclado."
+    }
+  ],
+  "next": [
+    {
+      "title": "O que mais dá para fazer",
+      "text": "Mensagens, escopos, regras e o launcher."
+    },
+    {
+      "title": "Arquitetura",
+      "text": "Onde ficam as páginas e o índice."
+    },
+    {
+      "title": "Segurança",
+      "text": "O que é guardado e quem pode ler."
+    }
+  ]
+}

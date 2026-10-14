@@ -135,7 +135,11 @@
     "items": [
       {
         "title": "Una interfaz web de solo lectura",
-        "text": "Arranca el servidor con <code>--enable-web</code> y las páginas de todos los proyectos se pueden navegar, agrupadas en conceptos, decisiones, gotchas y sesiones, con una API JSON en <code>/api/v1</code>."
+        "text": "Arranca el servidor con <code>--enable-web</code> y las páginas de todos los proyectos se pueden navegar, con un esquema, backlinks y las páginas que cada una cita, una búsqueda que ordena como <code>memory_query</code> y puede explicar su ranking, y una API JSON en <code>/api/v1</code>."
+      },
+      {
+        "title": "Historial y reproducción",
+        "text": "Cada página enlaza con sus versiones, con un diff entre dos cualesquiera, y cada sesión abre una línea de tiempo de sus observaciones en orden de captura. Root ve una página de estado con los contadores de hooks y la solución para lo que falle."
       },
       {
         "title": "Un formato abierto",
@@ -145,7 +149,8 @@
         "title": "Skills para tu agente",
         "text": "<code>ai-memory install-mcp</code> instala también un fragmento corto de enrutamiento y Agent Skills gestionadas, para que el agente sepa qué herramienta responde a “¿hemos hablado de esto?” y cuál envía mensajes."
       }
-    ]
+    ],
+    "link": "Ver la interfaz web"
   },
   "operate": {
     "title": "Tareas que asume el lanzador",

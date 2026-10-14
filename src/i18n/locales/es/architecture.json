@@ -57,13 +57,14 @@
     }
   },
   "retrieval": {
-    "title": "Recuperación: cuatro flujos, un ranking.",
-    "figureAlt": "Diagrama: una consulta se reparte en cuatro carriles con las etiquetas FTS5, Entidades, Grafo y Vectores, con el carril de vectores en línea discontinua por ser opcional. Los carriles se unen en un nodo con la etiqueta RRF k=60, pasan por una balanza de Autoridad y terminan en una lista ordenada de resultados.",
+    "title": "Recuperación: cinco flujos, un ranking.",
+    "figureAlt": "Diagrama: una consulta se reparte en cinco carriles con las etiquetas FTS5, Entidades, Grafo, Observaciones y Vectores, con el carril de vectores en línea discontinua por ser opcional. Los carriles se unen en un nodo con la etiqueta RRF k=60, pasan por una balanza de Autoridad y terminan en una lista ordenada de resultados.",
     "figureCaption": "El carril de vectores va en línea discontinua porque la búsqueda funciona sin él.",
     "streams": [
       { "title": "Texto completo", "text": "SQLite FTS5 sobre los títulos y los cuerpos de las páginas, con las stopwords filtradas en las consultas sin operadores." },
       { "title": "Coincidencia de entidades", "text": "Un índice léxico de nombres sacados de las entidades y los tags del frontmatter, ponderado por frecuencia inversa de página." },
       { "title": "Vecinos en el grafo", "text": "Un salto sobre la tabla de enlaces: wikilinks, enlaces markdown, aristas tipadas y enlaces entre proyectos. SQL plano, sin base de datos de grafos." },
+      { "title": "Observaciones", "text": "Texto completo sobre las observaciones en bruto del proyecto. Cada sesión que coincide vota una sola vez, a través de su mejor observación, por su propia página de sesión, así que el detalle que nunca llegó a la página también la encuentra. Activado por defecto desde la 3.0." },
       { "title": "Vectores, opcionales", "text": "Similitud coseno sobre embeddings del modelo local que corre dentro del proceso. Activados por defecto desde la 2.0, nunca obligatorios, y por fuerza bruta a propósito." }
     ],
     "afterFusion": {
@@ -71,7 +72,7 @@
       "points": [
         "Reciprocal Rank Fusion con k=60 fusiona los flujos por posición, así que ningún flujo necesita calibrar sus puntuaciones.",
         "Después, un multiplicador de autoridad acotado inclina los empates ajustados hacia reglas, decisiones, procedimientos y gotchas que se mantienen al día. Las páginas episódicas e históricas siguen apareciendo en las búsquedas, y nada se excluye del todo.",
-        "Rerank opcional con LLM: una llamada por consulta sobre hasta 30 títulos y fragmentos. Ante cualquier fallo se conserva el orden local. Todavía no hay un reranker local, y es la carencia más citada del proyecto.",
+        "Rerank opcional con LLM: una llamada por consulta sobre hasta 30 títulos y fragmentos. Ante cualquier fallo se conserva el orden local. Todavía no hay un reranker local.",
         "Si las páginas compiladas no dan ningún resultado, una búsqueda acotada sobre las observaciones en bruto devuelve raw_hits.",
         "Pasa explain=true para ver las posiciones por flujo, las contribuciones de RRF y el multiplicador de cada resultado."
       ]

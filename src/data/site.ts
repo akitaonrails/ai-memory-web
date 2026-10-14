@@ -28,6 +28,7 @@ export const nav: NavGroup[] = [
       { id: 'aging', href: '/aging/', hue: 'teal' },
       { id: 'profile', href: '/profile/', hue: 'amber' },
       { id: 'features', href: '/features/', hue: 'violet' },
+      { id: 'browse', href: '/browse/', hue: 'green' },
       { id: 'architecture', href: '/architecture/', hue: 'azure' },
       { id: 'security', href: '/security/', hue: 'rose' },
       { id: 'research', href: '/research/', hue: 'violet' },

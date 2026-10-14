@@ -15,7 +15,12 @@
     "toggleTheme": "라이트/다크 테마 전환",
     "language": "언어",
     "starOnGithub": "GitHub에서 ai-memory에 스타 주기, 현재 스타 {n}개",
-    "chooseOne": "하나를 선택하세요"
+    "chooseOne": "하나를 선택하세요",
+    "carousel": "주요 내용",
+    "slideOf": "{n} / {total}",
+    "slides": "슬라이드 선택",
+    "previousSlide": "이전 슬라이드",
+    "nextSlide": "다음 슬라이드"
   },
   "crumbs": {
     "home": "홈",
@@ -33,6 +38,7 @@
     "download": "다운로드",
     "aging": "기억 노화",
     "profile": "프로젝트를 넘는 기억",
+    "browse": "기억 둘러보기",
     "features": "더 할 수 있는 일"
   },
   "nav": {
@@ -55,6 +61,10 @@
       "features": {
         "label": "더 할 수 있는 일",
         "note": "에이전트 메시징, 스코프, 규칙, 만료 메모"
+      },
+      "browse": {
+        "label": "기억 둘러보기",
+        "note": "읽기 전용 웹 UI: 페이지, 백링크, 메일, 히스토리"
       },
       "architecture": {
         "label": "아키텍처",

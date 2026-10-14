@@ -15,7 +15,7 @@
     "yours": "Parece tu sistema",
     "checksum": "Checksum SHA-256",
     "verifyTitle": "verificar una descarga",
-    "after": "Después de descomprimir, sigue la <a class=\"underline font-semibold text-text\" href=\"{href}\">instalación rápida</a>. Son tres comandos.",
+    "after": "Después de descomprimir, sigue la <a class=\"underline font-semibold text-text\" href=\"{href}\">instalación rápida</a>. En Linux y macOS, <code>install.sh</code> y <code>ai-memory setup</code> lo hacen en dos comandos.",
     "linux": { "note": "Descomprime, ejecuta ./ai-memory init y luego serve." },
     "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Incluye un agente de launchd. Si lo descargas con un navegador, quita antes la marca de cuarentena." },
     "win": { "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux." },
@@ -36,10 +36,10 @@
     "kinds": { "Added": "{n} añadidos", "Changed": "{n} cambios", "Fixed": "{n} correcciones", "Security": "{n} de seguridad", "Removed": "{n} eliminados", "Deprecated": "{n} obsoletos" },
     "full": "Changelog completo en GitHub",
     "releases": "Todas las versiones",
-    "upgrading": "Actualizar desde 1.x"
+    "upgrading": "Actualizar a la 3.0"
   },
   "next": [
-    { "title": "Instalación rápida", "text": "De un binario a una memoria funcionando en tres comandos." },
+    { "title": "Instalación rápida", "text": "De un binario a una memoria funcionando en dos comandos." },
     { "title": "Integraciones", "text": "Comprueba tu agente y tu sistema operativo." },
     { "title": "Instalación avanzada", "text": "Servicios, TLS, copias de seguridad y actualizaciones." }
   ]

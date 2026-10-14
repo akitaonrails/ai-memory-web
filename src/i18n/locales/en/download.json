@@ -15,7 +15,7 @@
     "yours": "Looks like your system",
     "checksum": "SHA-256 checksum",
     "verifyTitle": "verify a download",
-    "after": "After unpacking, follow the <a class=\"underline font-semibold text-text\" href=\"{href}\">quick setup</a>. It takes three commands.",
+    "after": "After unpacking, follow the <a class=\"underline font-semibold text-text\" href=\"{href}\">quick setup</a>. On Linux and macOS, <code>install.sh</code> and <code>ai-memory setup</code> do it in two commands.",
     "linux": {
       "note": "Unpack, run ./ai-memory init, then serve."
     },
@@ -68,12 +68,12 @@
     },
     "full": "Full changelog on GitHub",
     "releases": "All releases",
-    "upgrading": "Upgrading from 1.x"
+    "upgrading": "Upgrading to 3.0"
   },
   "next": [
     {
       "title": "Quick setup",
-      "text": "From a binary to a working memory in three commands."
+      "text": "From a download to a working memory in two commands."
     },
     {
       "title": "Integrations",

@@ -73,7 +73,7 @@
   },
   "benchmark": {
     "title": "The benchmark, with its caveats",
-    "lede": "ai-memory publishes one number, measured on LongMemEval-S with a harness that ships in the repository. Systems that rerank score higher.",
+    "lede": "ai-memory publishes its numbers, measured on LongMemEval-S with a harness that ships in the repository, capture step included.",
     "chartLabel": "Bar chart of LongMemEval-S hit at 5. {bars}",
     "chartBar": "{label}: {value}.",
     "ours": [
@@ -82,29 +82,34 @@
         "note": "Full text only"
       },
       {
-        "label": "ai-memory, full text only",
+        "label": "ai-memory 2.4, full text",
         "note": "Stopword filtering added"
       },
       {
-        "label": "ai-memory default",
-        "note": "Local embeddings, no API key"
+        "label": "ai-memory 2.4, local embeddings",
+        "note": "No API key"
+      },
+      {
+        "label": "ai-memory 3.0, full text",
+        "note": "With the observation stream, no embeddings"
+      },
+      {
+        "label": "ai-memory 3.0, local embeddings",
+        "note": "With the observation stream, the default install"
       }
     ],
     "theirs": [
       {
         "note": "Vendor reported, session level"
-      },
-      {
-        "note": "Vendor reported, with reranking"
       }
     ],
-    "axis": "hit@5, from 0 to 1. Solid bars were measured by this project. Hatched bars are the vendors’ own numbers and were not reproduced here.",
+    "axis": "hit@5, from 0 to 1. Solid bars were measured by this project. The hatched bar is the vendor’s own number and was not reproduced here.",
     "caveats": [
       "hit@5 asks whether a session holding the evidence is in the top five results. It measures retrieval. It says nothing about answer accuracy.",
-      "470 of the 500 questions are scored. The 30 abstention questions are excluded. The run is from {date}. A second run on the same commit scored {runB}, so read the default score as about {readAs}.",
-      "{local} uses the default in-process embedding model, with no API key and no LLM. {fts} is full text, entities and links only.",
-      "No head-to-head run against any competitor exists. Accuracy figures such as Hindsight’s 91.4% are a different metric and do not compare with hit@5.",
-      "Stored excerpts are capped at 2 KB for privacy, so evidence deep inside one long turn cannot be found. The benchmark measures the shipped system.",
+      "470 of the 500 questions are scored. The 30 abstention questions are excluded. The runs are from {date}.",
+      "{fts} is full text, entities, links and the session’s own observations, with no API key and no LLM. {local} adds the default in-process embedding model.",
+      "No head-to-head run against any competitor exists. Vendor numbers on the same dataset come from different harnesses, often with no capture step, and accuracy figures such as Hindsight’s 91.4% are a different metric.",
+      "Stored excerpts are capped at 2 KB for privacy. Pages holding exactly the captured text score within half a point of whole sessions, so the cap costs little.",
       "LongMemEval is chat-assistant history. A coding-session benchmark is planned and does not exist yet."
     ],
     "reproduce": "Reproduce it from a checkout. The <a class=\"underline font-semibold text-text\" href=\"{href}\">benchmark notes</a> have the dataset hash and the per-slice results.",
@@ -121,7 +126,7 @@
     "items": [
       {
         "title": "No local reranker",
-        "text": "Retrieval scores sit below the systems that rerank. The only reranker is an LLM, and it is off by default. Cited answers need an LLM too, and their accuracy has not been evaluated. A documented adapter can serve that leg from a small local judge model."
+        "text": "The only reranker is an LLM, and it is off by default. Cited answers need an LLM too, and their accuracy has not been evaluated. A documented adapter can serve that leg from a small local judge model."
       },
       {
         "title": "Link types do not move ranking",
@@ -192,7 +197,7 @@
       },
       {
         "q": "Can I import my data from Mem0, Zep or cognee?",
-        "a": "Not directly. The companion importer reads oh-my-claudecode markdown wikis and a generic conversation JSON format. Adapters for specific products live outside the repository. For an existing codebase, ai-memory bootstrap seeds the wiki from git history and docs."
+        "a": "Not from Mem0, Zep or cognee. The companion importer reads oh-my-claudecode markdown wikis, agentmemory vault and export files, and a generic conversation JSON format. For an existing codebase, ai-memory bootstrap seeds the wiki from git history and docs."
       },
       {
         "q": "Can I run ai-memory next to my current memory tool?",
@@ -200,7 +205,7 @@
       },
       {
         "q": "How does its retrieval score compare?",
-        "a": "On LongMemEval-S it scores {local} hit@5 with the default local embeddings and {fts} with full text only. That number measures retrieval and says nothing about answer accuracy. Systems that rerank score higher: agentmemory reports 0.952 and mcp-memory-service reports 0.860 at session level."
+        "a": "On LongMemEval-S it scores {fts} hit@5 with full text and the observation stream, and {local} with local embeddings. That measures retrieval and says nothing about answer accuracy. Numbers other tools publish come from their own harnesses, so no ranking between tools is claimed."
       },
       {
         "q": "Does it sync memory between machines?",
@@ -211,7 +216,7 @@
   "next": [
     {
       "title": "Quick setup",
-      "text": "Three commands for one machine, five steps for a team."
+      "text": "Two commands for one machine, five steps for a team."
     },
     {
       "title": "Research and rationale",

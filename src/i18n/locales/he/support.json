@@ -72,6 +72,9 @@
     "copilot-cli": {
       "note": "עשרה אירועי hook ו-MCP. ההעברה מגיעה בהקשר הנוסף של Copilot בתחילת הסשן."
     },
+    "droid": {
+      "note": "MCP ושבעה אירועי hooks בקבצים של Droid עצמו. Droid סוגר את הסשן בעצמו."
+    },
     "devin": {
       "note": "Hooks ו-MCP, כולל לכידה אחרי compaction."
     },
@@ -102,6 +105,12 @@
     "zcode": {
       "note": "שישה טריגרים. הזרקת העברות עובדת."
     },
+    "prime-agent": {
+      "note": "MCP בלבד. Prime Agent מציג את השרת למודל רק כש-AI_MEMORY_AUTH_TOKEN מיוצא."
+    },
+    "dsh": {
+      "note": "MCP בלבד. מדפיס קטע patch של Cordis למיזוג, כי ל-DSH אין קובץ קונפיגורציה קבוע."
+    },
     "grizzybot": {
       "note": "אפליקציית סוכן נייטיב ל-macOS עם גשר משלה ל-ai-memory. אין מה להתקין."
     },
@@ -124,7 +133,7 @@
       "note": "קונפיגורציית MCP ברמת הפרויקט."
     },
     "muse": {
-      "note": "הגדרות MCP ברמת המשתמש."
+      "note": "שמונה אירועי hooks וגשר MCP שמודע לסשן, משולבים בקובץ ההגדרות של Muse עצמו."
     },
     "hermes": {
       "note": "מתקין ה-hooks מדפיס קטע להדבקה בקובץ ~/.hermes/config.yaml. שליפה והעברות מגיעות מהפלאגין הקהילתי."
@@ -136,6 +145,7 @@
     "OpenAI",
     "OpenAI OAuth / התחברות דרך Codex CLI",
     "GitHub Copilot",
+    "Cursor (מנוי Cursor, דרך ה-CLI של הסוכן שלו)",
     "Google Gemini",
     "OpenCode Go ו-Zen",
     "Ollama",

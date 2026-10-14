@@ -26,7 +26,7 @@ const transcript = raw<TranscriptLine[]>('yolo.terminal.lines').map((l) => ({ ..
 // Launcher names documented for `ai-memory run` in docs/managed-workstreams.md and docs/support-matrix.md.
 const launcher: Record<string, string> = {
   'claude-code': 'claude', codex: 'codex', opencode: 'opencode', opencode2: 'opencode2', grok: 'grok',
-  'kimi-code': 'kimi', 'kiro-cli': 'kiro', 'command-code': 'command-code', 'antigravity-cli': 'antigravity', crush: 'crush',
+  'kimi-code': 'kimi', 'kiro-cli': 'kiro', 'command-code': 'command-code', 'antigravity-cli': 'antigravity', crush: 'crush', 'copilot-cli': 'copilot',
 };
 
 // Commands never change with the language. Only the comments do.
@@ -36,6 +36,7 @@ const commandsFor = (h: (typeof harnesses)[number]) => {
   const run = h.run && launcher[id] ? `ai-memory run ${launcher[id]}` : undefined;
   if (run) lines.push(`# ${t('agents.commands.launch')}`, run);
   if (h.none) lines.push(`# ${t('agents.commands.none')}`);
+  else if (h.print && h.status === 'MCP-only') lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-mcp --client ${id}`);
   else if (h.print) lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-hooks --agent ${id} --server-url http://127.0.0.1:49374`);
   else if (h.status === 'Hooks-only') lines.push(`# ${t('agents.commands.hooksOnly')}`, `ai-memory install-hooks --agent ${id} --apply`);
   else if (h.status === 'Supported' || h.status === 'MCP-only') {
@@ -132,6 +133,14 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
     <p class="mt-10 text-muted max-w-[40em]" set:html={t('agents.after', { matrix: `${site.docs}/support-matrix.md`, mcp: `${site.docs}/mcp-install.md` })} />
   </Section>
 
+  <Section id="plugins" title={t('plugins.title')} lede={t('plugins.lede')} hue="green">
+    <div class="grid lg:grid-cols-2 gap-x-14 gap-y-8 items-start">
+      <div class="min-w-0"><CodeBlock title={t('plugins.codeTitle')} code={`claude plugin marketplace add akitaonrails/ai-memory && claude plugin install ai-memory@ai-memory
+codex plugin marketplace add akitaonrails/ai-memory && codex plugin add ai-memory@ai-memory`} /></div>
+      <p class="text-muted max-w-[40em]" set:html={t('plugins.note')} />
+    </div>
+  </Section>
+
   <Section title={t('lanes.title')} lede={t('lanes.lede')} hue="violet">
     <Figure name="integrations-hooks-vs-mcp" alt={t('lanes.figureAlt')} />
     <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
@@ -220,7 +229,8 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
     <div class="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-x-14 gap-y-10">
       <div class="prose-site text-muted">
         <p>{t('notListed.register')}</p>
-        <p set:html={t('notListed.contribute', { guide: `${site.docs}/managed-harness-contributions.md`, contribute: href('/contribute/') })} />
+        <p class="mt-4">{t('notListed.documented')}</p>
+      <p set:html={t('notListed.contribute', { guide: `${site.docs}/managed-harness-contributions.md`, contribute: href('/contribute/') })} />
       </div>
       <div class="min-w-0"><CodeBlock title={t('notListed.codeTitle')} code={`# ${t('notListed.codeComment')}\nhttp://127.0.0.1:49374/mcp`} /></div>
     </div>

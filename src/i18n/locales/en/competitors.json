@@ -126,7 +126,7 @@
         "Real SQL indexes committed in one transaction",
         "Files as the source of truth, Windows parity, fuller auth"
       ],
-      "theyWin": "About 13 points of raw retrieval: it reports 0.952 on LongMemEval-S against about 0.82, because it reranks. It also has peer-to-peer sync.",
+      "theyWin": "Peer-to-peer sync between machines, and a reranker in the box.",
       "verdict": "Move for operability and data ownership."
     },
     "letta": {

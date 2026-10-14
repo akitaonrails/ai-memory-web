@@ -135,7 +135,11 @@
     "items": [
       {
         "title": "A read-only web UI",
-        "text": "Start the server with <code>--enable-web</code> and every project’s pages are browsable, grouped into concepts, decisions, gotchas and sessions, with a JSON API under <code>/api/v1</code>."
+        "text": "Start the server with <code>--enable-web</code> and every project’s pages are browsable, with an outline, backlinks and the pages each one cites, a search that ranks like <code>memory_query</code> and can explain its ranking, and a JSON API under <code>/api/v1</code>."
+      },
+      {
+        "title": "History and replay",
+        "text": "Every page links to its versions, with a diff between any two, and every session opens a timeline of its observations in capture order. Root sees a health page with the hook counters and the fix for anything failing."
       },
       {
         "title": "An open format",
@@ -145,7 +149,8 @@
         "title": "Skills for your agent",
         "text": "<code>ai-memory install-mcp</code> also installs a short routing snippet and managed Agent Skills, so the agent knows which tool answers “have we discussed this?” and which sends mail."
       }
-    ]
+    ],
+    "link": "See the web UI"
   },
   "operate": {
     "title": "Chores the launcher takes on",

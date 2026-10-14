@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "Browse your memory in a browser: the read-only web UI",
+    "description": "Start the server with --enable-web and every project opens in a browser: pages, backlinks, waiting mail, page history, session replay and a search that ranks like the agent’s. Read-only."
+  },
+  "hero": {
+    "title": "See what your agent remembers",
+    "lede": "Start the server with --enable-web and every project opens in a browser: its pages, who cites them, the mail waiting for an agent, and a search that ranks the way the agent’s search does. It is read-only on purpose.",
+    "primary": "Every project at a glance",
+    "secondary": "Search like the agent"
+  },
+  "home": {
+    "title": "Every project at a glance",
+    "lede": "Workspaces and projects as cards, with a page count and the time of the last change. An amber badge means mail is waiting for an agent there.",
+    "shotAlt": "Screenshot of the web UI home: a grid of project cards under a demo workspace, three with an amber inbox badge, and a banner explaining that the pages are memory compiled for an agent rather than documentation.",
+    "shotCaption": "The banner says it plainly: these pages are shaped for an agent’s retrieval, and the browser is for looking at what landed."
+  },
+  "project": {
+    "title": "A project: its pages, its decisions, its mail",
+    "lede": "The sidebar lists the folders, concepts, decisions, gotchas and sessions, with the newest pages in each. The mailbox shows messages other projects sent and nobody has picked up yet.",
+    "shotAlt": "Screenshot of a project page: a sidebar with concept, decision and gotcha pages, a mailbox with two pending messages from other projects, and a recent activity list.",
+    "shotCaption": "Mail is listed, never popped: an agent in the project reads it with memory_message_pop, and the browser only shows that it is waiting."
+  },
+  "page": {
+    "title": "A page, and what points at it",
+    "lede": "Each page carries its outline, the pages that cite it and the pages it cites, so a decision can be traced to the gotcha that caused it. A History link lists every stored version.",
+    "shotAlt": "Screenshot of a wiki page about rate limiting with a side column: an outline of its headings, a list of pages that cite it, and a list of pages it cites.",
+    "shotCaption": "Ten links per group, then “and N more”. A page in another project carries its workspace and project name."
+  },
+  "search": {
+    "title": "Search that ranks like the agent",
+    "lede": "A search inside a project runs the same ranker as memory_query: full text, entities, links, observations and vectors, fused into one order. Tick “Explain ranking” and every hit shows what each stream contributed.",
+    "shotAlt": "Screenshot of a scoped search for “rate limit” inside one project, with a project selector, an Explain ranking checkbox and eight ranked results with their paths.",
+    "shotCaption": "A search with no project is the cross-project full-text search, the same thing memory_query does with global set."
+  },
+  "history": {
+    "title": "History, replay and health",
+    "lede": "Three views for the question “what happened here?”",
+    "items": [
+      {
+        "title": "Page history",
+        "text": "Every stored version of a page, newest first, superseded ones included, with a diff between any two. A version a concurrent write replaced stays visible."
+      },
+      {
+        "title": "Session replay",
+        "text": "A project lists its recent sessions, and each opens a timeline of its observations in capture order. With JavaScript, a slider and the j and k keys step one at a time."
+      },
+      {
+        "title": "A health page for root",
+        "text": "Hook counters since the server started, the writer queue, the spool, the consolidation queue, the embedder and both providers. Anything failing is listed with the command that fixes it."
+      }
+    ]
+  },
+  "readonly": {
+    "title": "Read-only on purpose",
+    "text": "The web crate has no write route, and its lint fails the build if one appears. Changes happen through the agent’s tools or the CLI. Each view follows the per-project read rule, so on a shared server a restricted project is a 403 for anyone without a grant, and a signed-in page shows the server version in its footer.",
+    "api": "The same data is available as JSON under <code>/api/v1</code>, and <code>serve --enable-api</code> mounts the API without the browser UI."
+  },
+  "faq": [
+    {
+      "q": "Is the web UI on by default?",
+      "a": "No. Start the server with --enable-web, or set it in the config. The default install is the MCP server and the hooks only."
+    },
+    {
+      "q": "Can I edit a page in the browser?",
+      "a": "No. The web UI is read-only by design and the crate that serves it has no write route. Edit the markdown file, or let the agent write through memory_write_page."
+    },
+    {
+      "q": "Who can see what on a shared server?",
+      "a": "The same rule as the tools: a restricted project is readable only by its grantees, another operator’s session timeline is hidden, and the health and pending pages are root only."
+    },
+    {
+      "q": "Does it need JavaScript?",
+      "a": "No. Every view renders without it. JavaScript only adds the replay slider and keyboard stepping."
+    }
+  ],
+  "next": [
+    {
+      "title": "More you can do",
+      "text": "Messaging, scopes, rules and the launcher."
+    },
+    {
+      "title": "Architecture",
+      "text": "Where the pages and the index live."
+    },
+    {
+      "title": "Security",
+      "text": "What is stored, and who can read it."
+    }
+  ]
+}

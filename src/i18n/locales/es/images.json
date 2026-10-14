@@ -40,7 +40,8 @@
     "Graph": "Grafo",
     "Vectors": "Vectores",
     "Authority": "Autoridad",
-    "Results": "Resultados"
+    "Results": "Resultados",
+    "Observations": "Observaciones"
   },
   "compare-side-by-side": {
     "Git history": "Historial de git",

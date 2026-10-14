@@ -160,64 +160,68 @@
   },
   "measured": {
     "title": "What was measured",
-    "lede": "The retrieval stack is scored on LongMemEval-S: 470 questions about long chat histories, run through the real hook path and the real search. The harness is in the repository.",
+    "lede": "The retrieval stack is scored on LongMemEval-S: 470 questions about long chat histories, replayed through the real hook path and the real search. The harness is in the repository, and every number here is the shipped system end to end.",
     "chart": {
       "title": "hit@5 on LongMemEval-S",
       "subtitle": "Share of 470 questions with an evidence session in the top five. Higher is better.",
       "bars": [
         "Full text only, before 2.0",
         "Stopword-filtered full text",
-        "Plus local embeddings (the default)"
+        "Plus local embeddings",
+        "3.0: full text, with the observation stream",
+        "3.0: local embeddings, with the observation stream"
       ]
     },
     "steps": {
       "title": "What each step was",
-      "stopwords": "Dropping stopwords from full-text queries added {hit5} points of hit@5 and {hit1} of hit@1.",
-      "embeddings": "The in-process embedding model added the rest. Getting masked-mean pooling right was worth about {points} points on its own.",
+      "stopwords": "Dropping stopwords from full-text queries added {hit5} points of hit@5.",
+      "embeddings": "The in-process embedding model added more, with no API key.",
+      "observations": "The observation stream, on by default since 3.0, lets a session’s raw observations vote for its page. It took full text from {from} to {to}.",
       "noKey": "No API key and no LLM are involved in any row."
     },
     "table": {
       "metric": "Metric",
       "before": "Before 2.0",
       "filtered": "Filtered full text",
-      "local": "Local embeddings"
+      "local": "Local embeddings",
+      "fts3": "3.0, full text",
+      "local3": "3.0, local embeddings"
     },
     "retrievalOnly": {
       "title": "Retrieval, not answers",
       "text": "hit@5 asks whether the right session was found. No model writes or grades an answer, so this number cannot be compared with the accuracy figures other tools publish. The dataset is chat history, and a coding-session benchmark does not exist yet."
     },
     "privacyCap": {
-      "title": "The privacy cap costs points on purpose",
-      "text": "Tool excerpts are cut at 2 KB before storage. Evidence deep inside one long turn never reaches the index. The benchmark scores the system as shipped, cap included."
+      "title": "The privacy cap is not where points go",
+      "text": "Tool excerpts are cut at 2 KB before storage. The decomposition report checked the cost: pages holding exactly the captured text score {captured} against {whole} for whole sessions. The gap was the session page keeping only a short excerpt of each turn, which the observation stream closes."
     },
     "reproduce": {
       "title": "Run it yourself",
-      "text": "Add <code>--candidate-embeddings local</code> to the second command to run full text and local embeddings side by side. The published run is dated {date}, on a Ryzen 9 7950X3D.",
+      "text": "Add <code>--candidate-embeddings local</code> to the second command to run full text and local embeddings side by side. The published runs are dated {date}, on a Ryzen 9 7950X3D.",
       "codeTitle": "reproduce the benchmark",
       "full": "Full results, per question type"
     },
     "throughputNote": "Write throughput was measured too. <a class=\"link\" href=\"{href}\">The numbers are on the architecture page</a>.",
-    "ab": {
-      "title": "What local embeddings buy, and what they cost",
-      "text": "The same 470 questions, run twice: with full text only, then with the default local embedding model. Embeddings find the evidence far more often in the top ten, and add about {ms} ms to a query.",
+    "stream": {
+      "title": "What the observation stream recovered",
+      "text": "A session page keeps only a short excerpt of each turn, so the detail a question asks about often lives only in the session’s observations. With the stream on, each matching session votes once, through its best observation, for its own page. Same 470 questions, same build, stream off and then on.",
       "columns": {
         "metric": "Metric",
         "fts": "Full text, no LLM",
-        "local": "Local embeddings",
-        "delta": "Change"
+        "local": "Local embeddings"
       },
       "rows": {
         "hit1": "hit@1",
         "hit5": "hit@5",
         "hit10": "hit@10",
-        "recall10": "recall@10",
-        "p50": "Query time, median",
+        "recall5": "recall@5",
         "p95": "Query time, 95th percentile",
-        "tokens": "Context tokens per query, mean"
+        "tokens": "Context tokens, top five hits"
       },
       "ms": "{n} ms",
-      "stable": "Two full runs on the same commit scored {runA} and {runB}, so read hit@5 as about {readAs}, give or take {plusMinus}. The earlier run, from {prevDate}, scored {prevLocal}, which is the same result. Memory aging is off by default, so default search did not change.",
-      "determinism": "Within one run the harness is deterministic: running one configuration twice gives identical accuracy and token counts. Across separate runs, the smaller question types move by up to 0.03 in either direction, so a dip in one of them from a single run means little."
+      "ftsAhead": "With the stream on, full text alone scores a little above local embeddings. The page’s vector, like its full-text row, still sees only the title-only body.",
+      "determinism": "Within one run the harness is deterministic. Across separate runs the smaller question types move by up to 0.03 either way, so a dip in one of them from a single run means little.",
+      "comparable": "Numbers other tools publish on this dataset come from their own harnesses, often indexing whole raw sessions with no capture step. They are not like for like, and no ranking between tools is claimed."
     }
   },
   "next": {
@@ -251,7 +255,7 @@
     },
     "behind": {
       "title": "Behind today",
-      "text": "Raw retrieval scores sit below the tools that rerank, and memory aging has no measured result yet. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
+      "text": "There is no local reranker yet, and memory aging has no measured result. <a class=\"link\" href=\"{href}\">The full list is on the comparison page</a>."
     }
   },
   "nextPages": [
@@ -283,7 +287,7 @@
     },
     {
       "q": "What does the LongMemEval-S benchmark measure for ai-memory?",
-      "a": "Retrieval only: whether a session holding the evidence appears in the top results, over 470 questions. hit@5 is {hybrid} with the default local embeddings and {fts} with full text only. It does not measure answer accuracy."
+      "a": "Retrieval only: whether a session holding the evidence appears in the top results, over 470 questions. hit@5 is {fts} with full text and the observation stream, and {hybrid} with local embeddings. It does not measure answer accuracy."
     }
   ]
 }

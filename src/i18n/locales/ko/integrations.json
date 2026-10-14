@@ -34,13 +34,19 @@
       "mcp": "메모리 도구, MCP로 제공",
       "hooks": "자동 캡처, 라이프사이클 훅으로 동작",
       "hooksOnly": "훅 스크립트를 준비하고, 에이전트 설정에 붙여 넣을 스니펫을 출력합니다",
-      "print": "에이전트 자체 설정에 붙여 넣을 훅 블록을 출력합니다",
+      "print": "에이전트 자체 설정에 붙여 넣을 블록을 출력합니다",
       "none": "설치할 것이 없음: /hook과 /mcp를 직접 호출합니다"
     },
     "dryRun": "--apply를 빼면 변경 내용을 쓰지 않고 출력만 합니다.",
     "community": "ai-memory는 이 에이전트용 인스톨러를 제공하지 않습니다. 서버는 이 에이전트의 훅 이벤트를 인식하며, 플러그인은 커뮤니티가 유지 관리합니다. 설치하기 전에 직접 검토하세요. <a class=\"underline font-semibold text-text\" href=\"{href}\">GitHub의 ai-memory-hermes-plugin</a>.",
     "statusTitle": "각 상태의 의미",
     "after": "에이전트별 세부 사항, 설정 파일 위치, 알려진 특이 사항은 <a class=\"underline font-semibold text-text\" href=\"{matrix}\">지원 매트릭스</a>와 <a class=\"underline font-semibold text-text\" href=\"{mcp}\">MCP 설치 가이드</a>에 있습니다."
+  },
+  "plugins": {
+    "title": "Claude Code와 Codex: 마켓플레이스 플러그인",
+    "lede": "같은 훅, MCP 도구, 스킬을 플러그인으로도 받을 수 있습니다. 바이너리는 여전히 먼저 설치하며, 플러그인은 그것을 연결하기만 합니다.",
+    "note": "Codex는 <code>/hooks</code>에서 훅을 한 번 신뢰하도록 요청하며, 이 신뢰는 업그레이드 후에도 유지됩니다. 플러그인과 설정 파일 훅이 모두 설치되어 있으면 설정 파일의 훅이 우선합니다.",
+    "codeTitle": "바이너리를 설치한 뒤"
   },
   "lanes": {
     "title": "훅은 캡처하고, MCP는 답합니다",
@@ -142,7 +148,8 @@
     "register": "에이전트 설정에서 이 주소로 원격 HTTP MCP 서버를 등록하세요. 검색, 페이지 읽기와 쓰기, 인수인계가 모두 동작합니다. 자동 캡처에는 라이프사이클 훅이 필요하므로, 훅이 없으면 에이전트는 자기가 쓴 것만 기억합니다.",
     "contribute": "완전한 지원을 원하시나요? <a href=\"{guide}\">관리형 하네스 기여 가이드</a>에 어댑터가 증명해야 할 것이 설명되어 있고, <a href=\"{contribute}\">기여하기 페이지</a>에 이슈와 풀 리퀘스트를 어디에 올리는지 나와 있습니다.",
     "codeTitle": "MCP 엔드포인트",
-    "codeComment": "기본 로컬 서버"
+    "codeComment": "기본 로컬 서버",
+    "documented": "Warp, Cline, Kilo Code, Goose, Qwen Code, OpenHuman은 각 클라이언트의 공식 문서에 따라 작성한 설치 레시피가 설치 가이드에 있습니다. 아직 끝까지 실행해 본 곳은 없습니다."
   },
   "faq": [
     {

@@ -396,11 +396,11 @@ ai-memory restore-agents -i agent-assets.tar.gz --apply`} /></div>
             {raw<string[]>('ops.upgrading.notes').map((item) => <li set:html={item} />)}
           </ul>
         </div>
-        <Callout title={t('ops.upgrading.from1x.title')} hue="green">
-          <p set:html={t('ops.upgrading.from1x.text')} />
+        <Callout title={t('ops.upgrading.from2x.title')} hue="green">
+          <p set:html={t('ops.upgrading.from2x.text')} />
         </Callout>
       </div>
-      <p class="mt-6"><a class="link" href={doc('MIGRATION-2.0.md')}>{t('ops.upgrading.link')}</a></p>
+      <p class="mt-6"><a class="link" href={doc('upgrading-to-3.0.md')}>{t('ops.upgrading.link')}</a></p>
     </div>
   </Section>
 

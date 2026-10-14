@@ -15,7 +15,7 @@
     "items": [
       {
         "title": "Só loopback",
-        "text": "O servidor faz bind em 127.0.0.1:49374. Nenhum processo de fora da máquina chega nele, e é por isso que o padrão não pede senha."
+        "text": "O servidor faz bind em 127.0.0.1:49374. Nenhum processo de fora da máquina chega nele. Uma instalação nova ainda gera um bearer token num arquivo só do dono, que os hooks e a CLI leem, então nada fica aberto nem no loopback."
       },
       {
         "title": "Sem telemetria",
@@ -84,8 +84,8 @@
     "ladder": [
       {
         "when": "Uma pessoa, uma máquina",
-        "title": "Loopback, sem autenticação",
-        "text": "Loopback não exige configuração. Sem autenticação, as rotas de máquina e de administração rejeitam requisições de outros sites e navegações do navegador. Use um bearer token com navegadores antigos que não enviam metadados de fetch."
+        "title": "Loopback, token num arquivo",
+        "text": "O <code>ai-memory init</code> cria o token em <code>&lt;data_dir&gt;/auth-tokens/default</code>, e os hooks, a CLI e a ponte MCP leem dele. Uma instalação anterior à 3.0 continua rodando sem autenticação até você rodar <code>ai-memory auth enable</code>, que gera o token e registra de novo todos os clientes."
       },
       {
         "when": "Uma máquina de homelab ou uma segunda máquina",
