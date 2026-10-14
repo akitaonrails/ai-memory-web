@@ -56,8 +56,11 @@
     "clients": "Client machines that only send hooks to a remote server do not need the full binary. The release also ships <code>ai-memory-install-hooks</code> and wrapper scripts for Docker on Linux, macOS and Windows. They are listed on the <a class=\"underline font-semibold text-text\" href=\"{href}\">release page</a>."
   },
   "changelog": {
-    "title": "Changelog",
-    "lede": "The last {n} releases. The project follows semantic versioning since 2.0.",
+    "title": "What changed",
+    "lede": "A short summary of the newest release, then the counts for the ones before it. The full changelog on GitHub has every entry.",
+    "latest": "New in {tag}",
+    "stale": "The summary for {tag} is being written. The counts below cover it, and the full changelog has every entry.",
+    "also": "Also in this release:",
     "kinds": {
       "Added": "{n} added",
       "Changed": "{n} changed",
@@ -66,9 +69,37 @@
       "Removed": "{n} removed",
       "Deprecated": "{n} deprecated"
     },
+    "earlier": "Earlier releases",
+    "entry": "Changelog entry",
     "full": "Full changelog on GitHub",
     "releases": "All releases",
-    "upgrading": "Upgrading to 3.0"
+    "upgrading": "Upgrading to 3.0",
+    "highlights": [
+      {
+        "title": "Search finds the right session far more often",
+        "text": "A session page keeps only an excerpt of each turn, so the answer often lived only in the raw observations. They now vote in ranking. On LongMemEval-S, hit@5 went from 0.82 to 0.95 with the default install, with no LLM. One config flag restores the old ranking."
+      },
+      {
+        "title": "Two commands to install",
+        "text": "<code>install.sh</code> downloads the release, verifies the checksum and links the binary with no root. <code>ai-memory setup</code> creates the data directory, starts a per-user service and wires every agent it finds. Claude Code and Codex can use a marketplace plugin instead."
+      },
+      {
+        "title": "A token by default",
+        "text": "A fresh install mints a bearer token into an owner-only file that the hooks, the CLI and the MCP bridge read. Older installs keep working and switch with <code>ai-memory auth enable</code>. The 1.x token commands are gone; tokens they issued keep working as API keys."
+      },
+      {
+        "title": "The web UI grew up",
+        "text": "Page history with a diff between any two versions, a session timeline you can replay, backlinks and an outline on every page, a search that ranks like the agent’s with an explain mode, mail badges, a health page for root, and a sign-in. Still read-only."
+      },
+      {
+        "title": "More agents",
+        "text": "Factory Droid and Meta Muse Code with full hooks, GitHub Copilot CLI through the launcher, Prime Agent and DeepSeek Harness over MCP, written recipes for six more clients, and a Cursor subscription as an LLM provider."
+      },
+      {
+        "title": "Recovery and sync",
+        "text": "<code>ai-memory recover</code> replays what hooks spooled while the server was down. Page writes can carry a precondition so two writers never clobber each other, which the team-wiki sync and a new importer build on. A TypeScript SDK covers programs that are not coding agents."
+      }
+    ]
   },
   "next": [
     {

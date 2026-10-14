@@ -47,7 +47,17 @@ export async function fetchGithub() {
   // branch before that branch is merged into main. Falls back to main.
   const newestTag = releases.find((r) => !r.draft)?.tag_name;
   const rawChangelog = (ref) => fetch(`https://raw.githubusercontent.com/${REPO}/${ref}/CHANGELOG.md`, { signal: AbortSignal.timeout(15000) }).then((r) => (r.ok ? r.text() : ''));
-  const changelogMd = (newestTag && (await rawChangelog(newestTag))) || (await rawChangelog('main'));
+  const ref = newestTag || 'main';
+  const changelogMd = (await rawChangelog(ref)) || (await rawChangelog('main'));
+  // Since 3.0 the changelog holds one major line; earlier lines live in docs/changelog/<major>.x.md. Each entry
+  // remembers its file so the site can link to the right section on GitHub.
+  const rawFile = (path) => fetch(`https://raw.githubusercontent.com/${REPO}/${ref}/${path}`, { signal: AbortSignal.timeout(15000) }).then((r) => (r.ok ? r.text() : ''));
+  const sources = [['CHANGELOG.md', changelogMd]];
+  for (const major of ['2.x', '1.x']) {
+    if (sources.reduce((n, [, md]) => n + parseChangelog(md, 40).length, 0) >= 12) break;
+    const md = await rawFile(`docs/changelog/${major}.md`);
+    if (md) sources.push([`docs/changelog/${major}.md`, md]);
+  }
   const published = new Set(releases.map((r) => r.tag_name.replace(/^v/, '')));
   return {
     fetchedAt: new Date().toISOString(),
@@ -60,7 +70,7 @@ export async function fetchGithub() {
     mergedPRs,
     closedIssues,
     // Only versions that have a published release; main may already describe the next one.
-    changelog: parseChangelog(changelogMd, 40).filter((e) => published.has(e.version)).slice(0, 12),
+    changelog: sources.flatMap(([file, md]) => parseChangelog(md, 40).map((e) => ({ ...e, file }))).filter((e) => published.has(e.version)).slice(0, 12),
     people: people
       .filter((p) => p.type === 'User')
       .map((p) => ({ login: p.login, avatar: p.avatar_url, url: p.html_url, contributions: p.contributions })),

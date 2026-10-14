@@ -129,6 +129,14 @@ section('2. Hard facts');
   if (before === problems) ok(`benchmark: hit@5 ${facts.benchmark.metrics['hit@5'].join(' -> ')} (${facts.benchmark.date}) matches`);
 }
 
+// Release highlights on /download/ must describe the newest release
+{
+  const want = version;
+  const have = facts.release?.highlightsFor;
+  if (have !== want) bad(`download highlights describe ${have}, the newest release is ${want}: rewrite download.json changelog.highlights in six languages and set facts.release.highlightsFor`);
+  else ok(`download highlights describe ${have}`);
+}
+
 // Throughput: docs/deploy.md table vs facts.json
 {
   const before = problems;

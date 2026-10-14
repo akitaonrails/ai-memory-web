@@ -31,12 +31,50 @@
     "clients": "Máquinas cliente que só enviam hooks para um servidor remoto não precisam do binário completo. A release também traz o <code>ai-memory-install-hooks</code> e scripts wrapper para Docker no Linux, macOS e Windows. Eles estão listados na <a class=\"underline font-semibold text-text\" href=\"{href}\">página da release</a>."
   },
   "changelog": {
-    "title": "Changelog",
-    "lede": "As últimas {n} releases. O projeto segue versionamento semântico desde a 2.0.",
-    "kinds": { "Added": "adições: {n}", "Changed": "mudanças: {n}", "Fixed": "correções: {n}", "Security": "segurança: {n}", "Removed": "remoções: {n}", "Deprecated": "depreciações: {n}" },
+    "title": "O que mudou",
+    "lede": "Um resumo curto da release mais recente e, depois, as contagens das anteriores. O changelog completo no GitHub tem todas as entradas.",
+    "latest": "Novidades da {tag}",
+    "stale": "O resumo da {tag} ainda está sendo escrito. As contagens abaixo já a incluem, e o changelog completo tem todas as entradas.",
+    "also": "Também nesta release:",
+    "kinds": {
+      "Added": "adições: {n}",
+      "Changed": "mudanças: {n}",
+      "Fixed": "correções: {n}",
+      "Security": "segurança: {n}",
+      "Removed": "remoções: {n}",
+      "Deprecated": "depreciações: {n}"
+    },
+    "earlier": "Releases anteriores",
+    "entry": "Entrada do changelog",
     "full": "Changelog completo no GitHub",
     "releases": "Todas as releases",
-    "upgrading": "Atualizando para a 3.0"
+    "upgrading": "Atualizando para a 3.0",
+    "highlights": [
+      {
+        "title": "A busca acha a sessão certa com muito mais frequência",
+        "text": "Uma página de sessão guarda só um trecho de cada turno, então a resposta muitas vezes existia apenas nas observações brutas. Agora elas votam no ranking. No LongMemEval-S, o hit@5 subiu de 0,82 para 0,95 com a instalação padrão, sem LLM. Uma flag de configuração restaura o ranking antigo."
+      },
+      {
+        "title": "Dois comandos para instalar",
+        "text": "O <code>install.sh</code> baixa a release, verifica o checksum e linka o binário sem precisar de root. O <code>ai-memory setup</code> cria o diretório de dados, sobe um serviço por usuário e configura todos os agentes que encontrar. Claude Code e Codex podem usar um plugin de marketplace no lugar."
+      },
+      {
+        "title": "Token por padrão",
+        "text": "Uma instalação nova gera um bearer token em um arquivo só do dono, lido pelos hooks, pela CLI e pela ponte MCP. Instalações antigas continuam funcionando e migram com <code>ai-memory auth enable</code>. Os comandos de token da 1.x foram removidos, e os tokens emitidos por eles seguem valendo como chaves de API."
+      },
+      {
+        "title": "A interface web amadureceu",
+        "text": "Histórico de página com diff entre quaisquer duas versões, timeline de sessão que dá para reproduzir, backlinks e sumário em toda página, uma busca que ranqueia como a do agente e tem modo explain, badges de mensagens, uma página de saúde para o root e login. Continua somente leitura."
+      },
+      {
+        "title": "Mais agentes",
+        "text": "Factory Droid e Meta Muse Code com hooks completos, GitHub Copilot CLI pelo launcher, Prime Agent e DeepSeek Harness via MCP, receitas escritas para mais seis clientes e uma assinatura do Cursor como provedor de LLM."
+      },
+      {
+        "title": "Recuperação e sincronização",
+        "text": "O <code>ai-memory recover</code> reaplica o que os hooks guardaram no spool enquanto o servidor estava fora do ar. Escritas de página podem levar uma precondição, para que dois writers nunca sobrescrevam um ao outro, e a sincronização da wiki do time e um novo importador se apoiam nisso. Um SDK em TypeScript atende programas que não são agentes de código."
+      }
+    ]
   },
   "next": [
     { "title": "Instalação rápida", "text": "De um binário a uma memória funcionando em dois comandos." },

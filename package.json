@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Marketing site for ai-memory \u2014 https://aimemory.sh",
+  "description": "Marketing site for ai-memory — https://aimemory.sh",
   "author": "Fabio Akita",
   "license": "UNLICENSED",
   "scripts": {
@@ -28,7 +28,6 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.3",
     "gsap": "^3.15.0",
-    "marked": "^18.0.13",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
   },

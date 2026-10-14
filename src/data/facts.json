@@ -160,5 +160,9 @@
     "unitTests": 4645,
     "integrationTests": 1111,
     "testsNote": "#[test], #[tokio::test], #[rstest] and similar attributes under crates/*/src (unit) and crates/*/tests (integration). A cargo run reports more because parameterised tests expand into several cases."
+  },
+  "release": {
+    "comment": "The version the written highlights in download.json describe. check:upstream fails when a newer release exists, so the summary is rewritten at every sync.",
+    "highlightsFor": "3.0.0"
   }
 }

@@ -67,6 +67,10 @@ npm run check:colors && npm run build
 
 Preview the pages you touched with `npm run preview` (restart it after a build; a long-running dev server can serve stale modules). Check one right-to-left page (`/he/...`) if layout changed.
 
+## 4b. Write the release summary for /download/
+
+The download page does not render the changelog. It shows written highlights for the newest release and only counts for the rest. For every release, rewrite `download.json` `changelog.highlights` (four to seven short cards: what is new, in plain words, numbers only when they change what the reader does; bug fixes and internals stay in the counts) in all six languages, then set `facts.release.highlightsFor` to the new version. `check:upstream` reports a MISMATCH until both are done. A purely bug-fix release gets two or three cards that say so.
+
 ## 5. Record and publish
 
 ```bash

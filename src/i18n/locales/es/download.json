@@ -31,12 +31,50 @@
     "clients": "Las máquinas cliente que solo envían hooks a un servidor remoto no necesitan el binario completo. La versión también incluye <code>ai-memory-install-hooks</code> y scripts wrapper para Docker en Linux, macOS y Windows. Están listados en la <a class=\"underline font-semibold text-text\" href=\"{href}\">página de la versión</a>."
   },
   "changelog": {
-    "title": "Changelog",
-    "lede": "Las últimas {n} versiones. El proyecto sigue versionado semántico desde la 2.0.",
-    "kinds": { "Added": "{n} añadidos", "Changed": "{n} cambios", "Fixed": "{n} correcciones", "Security": "{n} de seguridad", "Removed": "{n} eliminados", "Deprecated": "{n} obsoletos" },
+    "title": "Qué cambió",
+    "lede": "Un resumen breve de la versión más reciente y después los recuentos de las anteriores. El changelog completo en GitHub tiene cada entrada.",
+    "latest": "Nuevo en la {tag}",
+    "stale": "El resumen de la {tag} se está escribiendo. Los recuentos de abajo la incluyen y el changelog completo tiene cada entrada.",
+    "also": "También en esta versión:",
+    "kinds": {
+      "Added": "{n} añadidos",
+      "Changed": "{n} cambios",
+      "Fixed": "{n} correcciones",
+      "Security": "{n} de seguridad",
+      "Removed": "{n} eliminados",
+      "Deprecated": "{n} obsoletos"
+    },
+    "earlier": "Versiones anteriores",
+    "entry": "Entrada del changelog",
     "full": "Changelog completo en GitHub",
     "releases": "Todas las versiones",
-    "upgrading": "Actualizar a la 3.0"
+    "upgrading": "Actualizar a la 3.0",
+    "highlights": [
+      {
+        "title": "La búsqueda encuentra la sesión correcta mucho más a menudo",
+        "text": "Una página de sesión guarda solo un extracto de cada turno, así que la respuesta a menudo vivía solo en las observaciones en bruto. Ahora esas observaciones votan en el ranking. En LongMemEval-S, hit@5 pasó de 0,82 a 0,95 con la instalación por defecto, sin LLM. Un flag de configuración restaura el ranking anterior."
+      },
+      {
+        "title": "Dos comandos para instalar",
+        "text": "<code>install.sh</code> descarga la versión, verifica el checksum y enlaza el binario sin necesitar root. <code>ai-memory setup</code> crea el directorio de datos, inicia un servicio por usuario y conecta todos los agentes que encuentra. Claude Code y Codex pueden usar un plugin del marketplace en su lugar."
+      },
+      {
+        "title": "Un token por defecto",
+        "text": "Una instalación nueva genera un bearer token en un archivo legible solo por su propietario, que leen los hooks, la CLI y el puente MCP. Las instalaciones anteriores siguen funcionando y se pasan al nuevo modo con <code>ai-memory auth enable</code>. Los comandos de token de la 1.x ya no existen; los tokens que emitieron siguen funcionando como claves de API."
+      },
+      {
+        "title": "La interfaz web da un salto",
+        "text": "Historial de páginas con diff entre dos versiones cualesquiera, una línea de tiempo de sesiones que se puede reproducir, backlinks y un índice en cada página, una búsqueda que ordena igual que la del agente con modo explain, insignias de correo, una página de salud para root y un inicio de sesión. Sigue siendo de solo lectura."
+      },
+      {
+        "title": "Más agentes",
+        "text": "Factory Droid y Meta Muse Code con hooks completos, GitHub Copilot CLI a través del lanzador, Prime Agent y DeepSeek Harness por MCP, recetas escritas para seis clientes más y una suscripción de Cursor como proveedor de LLM."
+      },
+      {
+        "title": "Recuperación y sincronización",
+        "text": "<code>ai-memory recover</code> reproduce lo que los hooks pusieron en la cola local mientras el servidor estaba caído. Las escrituras de páginas pueden llevar una precondición para que dos escritores nunca se pisen, y sobre ella se apoyan la sincronización del wiki de equipo y un nuevo importador. Un SDK de TypeScript cubre los programas que no son agentes de programación."
+      }
+    ]
   },
   "next": [
     { "title": "Instalación rápida", "text": "De un binario a una memoria funcionando en dos comandos." },
