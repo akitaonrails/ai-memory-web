@@ -50,15 +50,6 @@
         "cta": "What was measured"
       }
     ],
-    "cardLabels": [
-      "ai-memory",
-      "What memory is for",
-      "Across projects",
-      "Any agent",
-      "Install",
-      "Memory ages",
-      "Measured"
-    ],
     "secondary": "How it works"
   },
   "statement": "Notes saved by one coding tool are not always available to another. ai-memory keeps project context in a shared store that your agents can search.",

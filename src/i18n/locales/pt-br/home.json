@@ -50,15 +50,6 @@
         "cta": "O que foi medido"
       }
     ],
-    "cardLabels": [
-      "ai-memory",
-      "Para que serve memória",
-      "Entre projetos",
-      "Qualquer agente",
-      "Instalação",
-      "A memória envelhece",
-      "Medido"
-    ],
     "secondary": "Como funciona"
   },
   "statement": "Notas salvas por uma ferramenta de código nem sempre estão disponíveis para outra. O ai-memory guarda o contexto do projeto em um armazenamento compartilhado que seus agentes podem pesquisar.",
