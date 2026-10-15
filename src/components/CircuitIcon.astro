@@ -16,7 +16,7 @@ const paths: Record<CircuitKind, string> = {
   clock: 'M106 60a46 46 0 1 1-92 0 46 46 0 0 1 92 0M60 29v33l22 16',
 };
 ---
-<svg class:list={['circuit-icon', { 'is-chip': kind === 'chip' }]} viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="square" aria-hidden="true">
+<svg class:list={['circuit-icon', `is-${kind}`]} viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="square" aria-hidden="true">
   <path d={paths[kind]} />
   {kind === 'chip' && <path class="chip-page" d="M45 42h20l10 10v27H45zM65 42v11h10M52 62h15M52 70h15" />}
 </svg>

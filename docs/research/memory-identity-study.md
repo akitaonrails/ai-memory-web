@@ -1,6 +1,6 @@
 # ai-memory identity studies
 
-15 October 2026. Three disposable homepage prototypes in `prototypes/memory-identity/`. Open `index.html` through a static server from the repository root. These are English art-direction studies, following the ai-jail-web precedent, not production pages or a localization migration. All files can be removed together; no production files or packages were changed.
+15 October 2026. Historical record of the three initial English art-direction studies. The disposable prototypes, generators and screenshots were removed after the later Memory Archive direction was approved. See [the final implementation record](2026-10-15-memory-archive-implementation.md) for the current design.
 
 ## Brief
 
@@ -53,13 +53,12 @@ The original logo is referenced directly, with no filters or new generated effec
 
 Check 1440px and 360px layouts, image loading, horizontal overflow, keyboard focus, font loading, and essential text contrast. Keep decorative diagram details out of the accessibility tree when they have no meaning. No automatic animation; reduced-motion preference disables smooth anchor scrolling.
 
-Next step is choosing a direction. Only then adapt the chosen system to six languages, both production themes, all real components, and the existing information architecture. No deployment is part of this study.
+The initial study preceded implementation across six languages and both themes. Its findings are retained below as historical context.
 
 ## Result
 
-All three directions passed Chromium checks at 1440px and 360px: no page overflow, missing images, or broken local anchors; web fonts loaded. Essential foreground/background token pairs pass 4.5:1 contrast. Browser inspection caught and fixed an overflowing rotated orbit in C; B's phone layout was reordered so the product explanation and installation action precede the large brain. Desktop and mobile comparison sheets, plus full-page captures, are stored beside the prototypes.
+All three directions passed Chromium checks at 1440px and 360px: no page overflow, missing images, or broken local anchors; web fonts loaded. Essential foreground/background token pairs pass 4.5:1 contrast. Browser inspection caught and fixed an overflowing rotated orbit in C; B's phone layout was reordered so the product explanation and installation action precede the large brain. Desktop and mobile comparison sheets and full-page captures were reviewed during the study and removed with the disposable prototypes.
 
-Run locally from the repo root: `python3 -m http.server 4387 --bind 127.0.0.1`, then open `http://127.0.0.1:4387/docs/research/prototypes/memory-identity/`. Rebuild the HTML with `python3 docs/research/prototypes/memory-identity/build.py`; rerun the checks with `python3 docs/research/prototypes/memory-identity/check.py` (requires Pillow and the installed mise agent-browser 0.38.2). No production build is needed.
 
 ## Selected direction: C (15 October 2026)
 
@@ -69,11 +68,11 @@ The owner prefers Signal Bureau and flagged small typography. Refined C accordin
 
 Replaced the generic outline boxes with agent terminals and a copper memory chip, borrowing the chip and handoff color from the existing brain logo. The dark diagram field, solid copper arrows, connection ports and packet markers separate the flow from page structure. The session handoff now uses connected-device shapes and a contrasting memory node. On phones, the diagram stacks vertically without shrinking its labels or requiring horizontal scrolling. Desktop and 360px mobile renders checked; new diagram text colors exceed 4.5:1 contrast.
 
-## Production implementation
+## Initial production implementation (superseded by Memory Archive)
 
 Direction C now supplies the shared website styles, self-hosted Chakra Petch/Manrope/IBM Plex Mono fonts, slate panels and copper connections. The brain logo is unchanged. The hero is fixed; former carousel content is an always-visible feature directory. Continuity examples are static and readable without scroll pinning.
 
-Production diagrams now use typed topology, native SVG symbols and the existing translated HTML labels. Original screenshots remain images. Existing raster diagrams and prototypes remain available as references. The approved headline is translated in all six catalogs.
+Production diagrams now use typed topology, native SVG symbols and the existing translated HTML labels. Original screenshots remain images. Existing raster diagrams remain as historical references; the disposable prototypes were subsequently removed. The approved headline is translated in all six catalogs.
 
 Validation: color checks and translation checks pass; Astro builds 102 pages. The agent-browser sweep passes 408 combinations (102 pages × desktop/360px phone × light/dark), checking overflow, broken images, diagram overlap, minimum 14px text and one H1 per page. Internal links and anchors resolve. Keyboard menus/tabs, mobile drawer scroll lock and expanded state, persistent theme selection and same-page Hebrew switching were exercised. Representative English, Hebrew and Japanese screenshots were reviewed, including reduced-motion rendering. Browser automation uses Chromium; no separate Safari/Firefox pass was performed. No production deployment was made.
 

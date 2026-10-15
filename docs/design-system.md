@@ -2,19 +2,21 @@
 
 How pages on aimemory.sh are put together. Read this before adding or changing a page.
 
-## The idea: Signal Bureau
+## The idea: Memory Archive
 
-Direction C was selected on 15 October 2026. The unchanged brain logo supplies the copper chip, handoff arrows and neural connections. The surrounding interface uses mineral blue-grey enamel and dark slate, squared controls, fine structural rules and occasional clipped panel corners. Copper identifies memory and movement. No ambient rainbow gradients, neon glows, floating cards or scrolling marquees.
+The atmospheric Archive Terminal refinement was approved on 15 October 2026. The original brain remains the central mark. Graphite architecture, smoked glass and copper conduits give the homepage its technological atmosphere; open circuit traces connect the brain to capture and recall rails. Avoid neon washes, CRT effects, ambient glows and rainbow headlines.
 
-The default follows the system theme and keeps the existing theme switcher. Light mode uses a mineral ground with dark diagram and hero panels; dark mode uses the same panels against a deeper slate ground. Colors live in `src/styles/global.css`; `npm run check:colors` checks both themes, including the fixed dark panels.
+The homepage uses the generated archive environment at full strength behind a dark readability overlay. Detail-page headers reuse it at low opacity. Reading sections use open layouts and solid surfaces, so long pages stay quiet. `ArchiveBackdrop` owns the responsive, decorative image; `MemoryApparatus` owns the homepage circuit framing. Both use local Astro assets, with optimized WebP variants and no runtime image service.
+
+The default follows the system theme and keeps the existing theme switcher. Light mode uses mineral paper; dark mode uses graphite. The hero and technical panels retain a dark ground in both modes. Colors live in `src/styles/global.css`; `npm run check:colors` checks both themes and the fixed dark panels.
 
 ## Subject hues
 
-The existing `data-hue` API remains: green for knowledge, teal for teams, azure for infrastructure, violet for agents, rose for security and amber for actions. These are subdued slate-compatible tints, not the saturated spectrum. Use `--hue` for text, `--hue-soft` for fills and `--hue-vivid` for decoration. Dark panels use `--panel-text`, `--panel-muted`, `--panel-line` and `--amber` regardless of theme.
+The existing `data-hue` API remains: green for knowledge, teal for teams, azure for infrastructure, violet for agents, rose for security and amber for actions. Teal marks capture and inputs, violet marks recall and agents, and copper marks memory and actions. Other subject hues remain for security and navigation; keep colored fills local to rails, borders and small markers. Use `--hue` for text, `--hue-soft` for fills and `--hue-vivid` for decoration. Dark panels use `--panel-text`, `--panel-muted`, `--panel-line` and `--amber` regardless of theme.
 
 ## Type
 
-Fonts are self-hosted through Fontsource. Chakra Petch (500/600) supplies angular headings; Manrope is the reading face; IBM Plex Mono is for code and short technical labels. Hebrew retains Rubik/Heebo; Japanese and Korean retain their Noto faces, loaded only for those languages.
+Fonts are self-hosted through Fontsource. Chakra Petch (500/600) supplies angular headings; IBM Plex Sans is the reading face; JetBrains Mono is for code and short technical labels. Hebrew retains Rubik/Heebo; Japanese and Korean retain their Noto faces, loaded only for those languages.
 
 Body text is 18px. Navigation and controls are at least 16px; secondary labels are at least 14px. Diagram labels are 20px with 16px notes and reflow vertically on small screens instead of shrinking. Headings are fluid; translated headings can wrap. Do not lower text opacity for scroll effects.
 
@@ -24,7 +26,7 @@ Sentence case, no spectrum-filled headlines. Keep paragraphs around 40em. Use an
 
 - `.wrap` is the 76rem page column. `.wrap-narrow` is 52rem for reading.
 - `.band` is the vertical rhythm between sections. Add `bg-tint` for an alternate ground. Do not alternate every section; use it to mark a change of subject.
-- Content is left aligned. Nothing is centered except the CTA band.
+- Content is left aligned. The circuit apparatus and diagram nodes may be centered; reading sections and the closing CTA stay left aligned.
 - Prefer open layouts (a rule on top, whitespace) over boxes. Cards are for things you click.
 - Mobile first. Every grid collapses to one column. Tables scroll sideways inside `.table-wrap`.
 - Test at 360px wide, in the longest languages (Portuguese, Spanish) and in Japanese. The page must never scroll sideways: `document.documentElement.scrollWidth` has to equal the viewport width. Buttons wrap, grid and flex children can shrink (`min-width: 0` is set globally), and long commands scroll inside their code block.
@@ -38,7 +40,7 @@ Sentence case, no spectrum-filled headlines. Keep paragraphs around 40em. Use an
 | `Section` | A band with an h2. Props: `title`, `lede`, `hue`, `id`, `tint`, `narrow`, `fill` (scroll-lit lede). |
 | `FeatureGrid` | Two to six short points. Props: `items[{title,text,hue,href,link}]`, `cols`. |
 | `Steps` | A numbered procedure with terminal blocks. Props: `steps[{title,text,code,codeTitle}]`. `text` accepts inline HTML. |
-| Homepage | A fixed brain hero, introductory workflow and controls, audience paths, then setup. The compact directory links to agent support and evidence without repeating the detailed sections. No auto-advancing content. |
+| Homepage | An atmospheric archive hero with the original brain and translated capture/recall rails, introductory workflow and controls, audience paths, then setup. The compact directory links to agent support and evidence without repeating the detailed sections. No auto-advancing content. |
 | `Transcript` | A terminal session as the reader sees it: a typed command, log lines, a warning, questions with answers. Props: `title`, `lines[{kind,text,answer}]`, `hue`. |
 | `CodeBlock` | A terminal with a copy button. Props: `code`, `title`. Lines starting with `#` dim as comments. |
 | `Tabs` | Props: `id`, `labels[]`. Panels are slots named `"0"`, `"1"`... |

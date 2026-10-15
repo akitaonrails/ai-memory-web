@@ -2,7 +2,7 @@
   "hero": {
     "releaseOut": "{tag} 릴리스",
     "releaseLink": "변경 사항 보기",
-    "title": "에이전트는 달라도, 기억은 하나.",
+    "title": "에이전트는 달라도, <em>기억은 하나.</em>",
     "lede": "ai-memory는 Claude Code와 Codex 같은 AI 코딩 도구의 프로젝트 메모를 저장합니다. 다음 세션을 시작하면 저장된 맥락과 이전 작업을 검색할 도구를 제공해 프로젝트를 다시 설명하는 시간을 줄입니다.",
     "primary": "지금 설치하기",
     "star": "GitHub에서 스타 주기",

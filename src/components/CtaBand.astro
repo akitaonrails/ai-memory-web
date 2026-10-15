@@ -18,7 +18,7 @@ const { title = t('cta.title'), text = t('cta.text') } = Astro.props;
   </div>
 </section>
 <style>
-  .cta { position: relative; padding: clamp(2rem, 6vw, 5rem); border-top: 3px solid var(--amber); clip-path: polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,0 100%); }
+  .cta { position: relative; padding: clamp(2rem, 6vw, 5rem); border-top: 3px solid var(--amber); border-inline-end: 1px solid var(--panel-line); background-image: linear-gradient(120deg,#20474055,transparent 55%,#3d2b5066); }
   .cta-ghost { border: 1px solid var(--panel-line); color: var(--panel-text); }
   .cta-ghost:hover { border-color: currentColor; }
 </style>

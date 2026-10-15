@@ -1,7 +1,8 @@
 ---
 import { useI18n, localePaths } from '@/i18n';
 export const getStaticPaths = localePaths;
-import { Image } from 'astro:assets';
+import ArchiveBackdrop from '@/components/ArchiveBackdrop.astro';
+import MemoryApparatus from '@/components/MemoryApparatus.astro';
 import Base from '@/layouts/Base.astro';
 import Continuity from '@/components/Continuity.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
@@ -10,7 +11,6 @@ import GithubStats from '@/components/GithubStats.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Figure from '@/components/Figure.astro';
 import factsData from '@/data/facts.json';
-import logo from '@/assets/img/logo.png';
 import { harnesses } from '@/data/support';
 import { competitors, type CompetitorText } from '@/data/competitors';
 import { getGithub, getLatestRelease } from '@/data/github';
@@ -63,14 +63,16 @@ ai-memory run claude`;
 <Base>
   <!-- Hero -->
   <section class="hero">
-      <div class="wrap signal-panel hero-panel grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center">
+    <div class="hero-environment signal-panel">
+      <ArchiveBackdrop />
+      <div class="wrap hero-panel grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center">
         <div>
           <a href={href('/download/')} class="release-pill">
             <span class="dot" aria-hidden="true"></span>
             {t('hero.releaseOut', { tag: latest.tag })}
             <span class="text-muted">{t('hero.releaseLink')}</span>
           </a>
-          <h1 class="mt-7 text-4xl pb-2">{t('hero.title')}</h1>
+          <h1 class="mt-7 text-4xl pb-2" set:html={t('hero.title')} />
           <p class="lede mt-6">{t('hero.lede')}</p>
           <div class="mt-9 flex flex-wrap gap-3">
             <a href={href('/install/')} class="btn btn-primary">{t('hero.primary')}</a>
@@ -80,10 +82,9 @@ ai-memory run claude`;
             {facts.map((f) => <li>{f}</li>)}
           </ul>
         </div>
-        <div class="hero-mark" aria-hidden="true">
-          <div class="brain-orbits"><Image src={logo} alt="" widths={[360, 480, 720, 960, 1440]} sizes="(min-width: 1024px) 30rem, min(30rem, 90vw)" loading="eager" fetchpriority="high" class="w-full h-auto" /></div>
-        </div>
+        <MemoryApparatus />
       </div>
+    </div>
     <div class="marquee">
       {/* Same sentence the aria-label carried, as text a screen reader can read: aria-label is prohibited on a plain div. */}
       <p class="sr-only">{t('hero.marquee', { n: harnesses.length, names: harnesses.slice(0, 6).map((h) => h.name).join(', ') })}</p>
@@ -101,7 +102,7 @@ ai-memory run claude`;
       <Figure name="how-it-works" alt={t('how.figureAlt')} />
       <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
         {steps.map((s, i) => (
-          <li data-hue={['green', 'teal', 'azure', 'violet'][i]} class="how-step">
+          <li data-hue={['teal', 'amber', 'violet', 'violet'][i]} class="how-step">
             <span class="n">{i + 1}</span>
             <h3 class="text-xl mt-3">{s.title}</h3>
             <p class="mt-2 text-muted">{s.text}</p>
@@ -261,19 +262,17 @@ ai-memory run claude`;
 
 
 <style>
-  .hero { padding-block-start: 7rem; }
-  .hero-panel { padding: clamp(1.5rem, 4vw, 3.5rem); position: relative; clip-path: polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%); }
-  h1 { font-size: clamp(2.875rem, 5.3vw, 5rem); line-height: 1.08; max-width: 14ch; }
+  .hero { padding-block-start: 4rem; }
+  .hero-environment { position: relative; isolation: isolate; border-bottom: 1px solid var(--panel-line); }
+  .hero-panel { position: relative; padding-block: clamp(3.5rem, 7vw, 7rem); min-height: 46rem; }
+  h1 { font-size: clamp(2.875rem, 5.3vw, 5rem); line-height: 1.04; max-width: 15ch; font-weight: 600; letter-spacing: -.035em; }
+  h1 :global(em) { display: block; font-style: normal; color: var(--amber); }
+  .hero-panel .lede { font-size: 1.125rem; max-width: 49ch; }
   .release-pill { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .6rem; font: .875rem/1.6 var(--font-mono); color: var(--panel-text); }
-  .release-pill .dot { width: .5rem; height: .5rem; background: var(--amber); }
+  .release-pill .dot { width: .5rem; height: .5rem; background: var(--capture); }
   .release-pill:hover { text-decoration: underline; }
   .facts { display: grid; gap: .65rem; color: var(--panel-muted); font: .875rem/1.6 var(--font-mono); }
   .facts li::before { content: '+'; margin-inline-end: .75rem; color: var(--amber); }
-  .hero-mark { max-width: 32rem; margin-inline: auto; width: 100%; overflow: hidden; }
-  .brain-orbits { position: relative; padding: 1rem; }
-  .brain-orbits::before, .brain-orbits::after { content: ''; position: absolute; inset: 7% 1%; border: 1px solid var(--panel-line); border-radius: 50%; transform: rotate(-30deg); }
-  .brain-orbits::after { inset: 1% 15%; border-color: var(--amber); transform: rotate(35deg); }
-  .brain-orbits img { position: relative; z-index: 1; }
   .marquee { margin-top: 1.5rem; }
   .agent-list { display: flex; flex-wrap: wrap; gap: .8rem 2rem; padding-block: 1.5rem; border-bottom: 2px solid var(--line); font-family: var(--font-display); color: var(--muted); }
   .guide-panel a { display: inline-block; padding-block: .25rem; }
@@ -289,5 +288,5 @@ ai-memory run claude`;
   .path .who { font: .875rem/1.6 var(--font-mono); color: var(--hue); }
   .path .go { margin-top: auto; padding-top: 2rem; display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: var(--hue); }
   .how-step .n { font: 1rem var(--font-mono); color: var(--hue); border-bottom: 2px solid var(--hue); padding-bottom: .5rem; display: block; }
-  @media(max-width:767px) { .feature-directory { grid-template-columns: 1fr; gap: 1rem; } .hero-mark { max-width: 22rem; } }
+  @media(max-width:767px) { .feature-directory { grid-template-columns: 1fr; gap: 1rem; } }
 </style>

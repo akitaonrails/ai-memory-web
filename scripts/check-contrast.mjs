@@ -29,6 +29,8 @@ for (const [name, t] of Object.entries(themes)) {
     ['on-amber', 'amber', 7], ['on-amber', 'amber-hi', 7],
     ['line', 'bg', 1.2],
     ['panel-text', 'ink', 7], ['panel-muted', 'ink', 4.5], ['amber', 'ink', 4.5],
+    ['capture', 'ink', 4.5], ['recall', 'ink', 4.5],
+    ['capture', 'panel-surface', 4.5], ['recall', 'panel-surface', 4.5],
     ['panel-text', 'panel-surface', 7], ['panel-muted', 'panel-surface', 4.5],
   ];
   console.log(md ? `\n### ${name}\n\n| Foreground | Background | Ratio | Target | |\n|---|---|---|---|---|` : `\n== ${name} ==`);

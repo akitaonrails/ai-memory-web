@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/img/logo.png';
+import { useI18n } from '@/i18n';
+const { raw, dir } = useI18n(Astro, 'home');
+const { raw: imageText } = useI18n(Astro, 'images');
+const steps = raw<{ title: string }[]>('how.steps');
+const pipeline = imageText<Record<string,string>>('architecture-pipeline');
+---
+<div class="memory-apparatus" dir="ltr">
+  <div class="apparatus-rail capture" dir={dir}><span>{steps[0].title}</span><span>{pipeline.Observations}</span></div>
+  <svg aria-hidden="true" class="apparatus-traces" fill="none" viewBox="0 0 440 440">
+    <path d="M80 1v65l38 38v45M360 1v65l-38 38v45M80 439v-65l38-38v-45M360 439v-65l-38-38v-45" />
+    <path class="capture-trace" d="M1 190h63l24 24h34M439 250h-63l-24-24h-34" />
+    <path class="trace-faint" d="M40 120h-20v220h60M400 320h20V100h-60" />
+    <circle class="capture-trace" cx="80" cy="66" r="4" />
+    <circle class="recall-trace" cx="360" cy="374" r="4" />
+    <path class="recall-trace trace-faint" d="M220 82l138 138-138 138L82 220Z" />
+  </svg>
+  <Image src={logo} alt="" widths={[330,660,990]} sizes="(min-width: 1024px) 330px, 260px" loading="eager" class="apparatus-brain" />
+  <span class="apparatus-tag">ai-memory</span>
+  <div class="apparatus-rail recall" dir={dir}><span>{steps[2].title}</span><span>{pipeline.Briefing}</span></div>
+</div>
+<style>
+  .memory-apparatus { position: relative; width: 100%; max-width: 33rem; margin-inline: auto; min-height: 29rem; display: flex; align-items: center; justify-content: center; isolation: isolate; }
+  .apparatus-traces { position: absolute; inset: 0; width: 100%; height: 100%; stroke: var(--amber); stroke-width: 1.5; }
+  .trace-faint { stroke: var(--panel-line); opacity: .65; }
+  .capture-trace { stroke: var(--capture); }
+  .recall-trace { stroke: var(--recall); }
+  circle.capture-trace { fill: var(--capture); }
+  circle.recall-trace { fill: var(--recall); }
+  .apparatus-brain { width: 72%; max-width: 330px; height: auto; position: relative; filter: drop-shadow(0 18px 25px #0008); }
+  .apparatus-rail { position: absolute; inset-inline: 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; font: .875rem/1.6 var(--font-mono); padding: .75rem 1rem; border-inline-start: 3px solid; }
+  .apparatus-rail span + span { color: var(--panel-muted); }
+  .capture { top: 0; color: #a1e5d6; border-color: var(--capture); background: linear-gradient(90deg,#204740ed,#101d24e8 80%); }
+  .recall { bottom: 0; color: #d5b9f4; border-color: var(--recall); background: linear-gradient(90deg,#3d2b50ed,#101d24e8 80%); }
+  .apparatus-tag { position: absolute; bottom: 4.5rem; padding: .5rem 1rem; font: 1rem/1.6 var(--font-mono); background: #101d24e6; border-bottom: 1px solid var(--recall); color: var(--amber); }
+  @media(max-width: 1023px) { .memory-apparatus { max-width: 28rem; min-height: 26rem; } }
+</style>

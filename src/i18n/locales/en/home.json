@@ -2,7 +2,7 @@
   "hero": {
     "releaseOut": "{tag} is out",
     "releaseLink": "See what changed",
-    "title": "Different agents. One memory.",
+    "title": "Different agents. <em>One memory.</em>",
     "lede": "ai-memory saves project notes for AI coding tools such as Claude Code and Codex. When you start another session, it supplies saved context and tools to search earlier work, so you spend less time re-explaining your project.",
     "primary": "Install now",
     "star": "Star on GitHub",

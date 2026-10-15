@@ -1,93 +1,101 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/manrope/wght.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
 @import '@fontsource/chakra-petch/500.css';
 @import '@fontsource/chakra-petch/600.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
-/* Signal Bureau: mineral enamel, slate, and copper drawn from the brain logo.
+/* Memory Archive: graphite architecture and restrained pigments from the brain logo.
    Subject aliases remain stable for existing pages; contrast is checked in both themes. */
 :root {
-  --bg: #e4ebed;
-  --surface: #f0f4f5;
-  --tint: #d7e2e5;
-  --line: #9eafb7;
-  --text: #172f3b;
-  --muted: #405865;
-  --green: #315d58;
-  --teal: #295568;
-  --azure: #295568;
-  --violet: #46546d;
+  --bg: #e4e7e3;
+  --surface: #f0f1ec;
+  --tint: #d6ded9;
+  --line: #a7b3b3;
+  --text: #202e33;
+  --muted: #45565b;
+  --green: #28685f;
+  --teal: #28685f;
+  --azure: #28685f;
+  --violet: #685184;
   --rose: #774b50;
-  --amber-ink: #88502c;
+  --amber-ink: #795034;
   --green-soft: #dae6e3;
-  --teal-soft: #d7e2e5;
-  --azure-soft: #d7e2e5;
+  --teal-soft: #d6ded9;
+  --azure-soft: #d6ded9;
   --violet-soft: #dfe2e8;
   --rose-soft: #e9dfe0;
   --amber-soft: #ecdfd2;
-  --shadow: 0 8px 24px #172f3b14;
+  --shadow: 0 8px 24px #202e3314;
   color-scheme: light;
 }
 [data-theme='dark'] {
-  --bg: #10232d;
-  --surface: #172f3b;
-  --tint: #1e3946;
-  --line: #496370;
-  --text: #edf3f4;
-  --muted: #b8cdd3;
-  --green: #b1d0c5;
-  --teal: #b8d1d8;
-  --azure: #b8d1d8;
-  --violet: #c4cadb;
+  --bg: #11181b;
+  --surface: #192226;
+  --tint: #202d30;
+  --line: #435054;
+  --text: #e5e9e8;
+  --muted: #b4bfc0;
+  --green: #7cd9c6;
+  --teal: #7cd9c6;
+  --azure: #7cd9c6;
+  --violet: #c3a2ed;
   --rose: #dfbfc3;
-  --amber-ink: #dca574;
-  --green-soft: #233e3b;
-  --teal-soft: #1e3946;
-  --azure-soft: #1e3946;
-  --violet-soft: #303849;
+  --amber-ink: #dbad82;
+  --green-soft: #203b35;
+  --teal-soft: #202d30;
+  --azure-soft: #202d30;
+  --violet-soft: #30273f;
   --rose-soft: #40323c;
   --amber-soft: #40372e;
   --shadow: 0 8px 24px #00000026;
   color-scheme: dark;
 }
 :root {
-  --v-green: #7ca696;
-  --v-teal: #80a6ad;
-  --v-azure: #89aebf;
-  --v-violet: #a4acc0;
+  --v-green: #7cd9c6;
+  --v-teal: #7cd9c6;
+  --v-azure: #92bccb;
+  --v-violet: #bd99e8;
   --v-rose: #bd969d;
-  --amber: #dca574;
-  --amber-hi: #edbb8d;
-  --on-amber: #10212b;
-  --ink: #172f3b;
+  --amber: #dbad82;
+  --amber-hi: #edc49e;
+  --on-amber: #18242a;
+  --ink: #10191e;
   --panel-text: #f0f4f3;
-  --panel-muted: #b8cdd3;
-  --panel-line: #718d98;
-  --panel-surface: #294552;
+  --panel-muted: #b4bfc0;
+  --panel-line: #72878d;
+  --panel-surface: #26383f;
+  --capture: #7cd9c6;
+  --recall: #c3a2ed;
   --spectrum: linear-gradient(90deg, var(--amber), var(--v-azure));
 }
 
 /* Font stacks per language. Latin text uses the brand faces everywhere. Hebrew and Japanese glyphs come from
    faces loaded only on those locales (src/styles/fonts-he.css, fonts-ja.css), so other visitors never download them. */
 :root {
-  --ff-display: 'Chakra Petch', 'Manrope Variable', system-ui, sans-serif;
-  --ff-sans: 'Manrope Variable', system-ui, sans-serif;
+  --ff-display: 'Chakra Petch', 'IBM Plex Sans', system-ui, sans-serif;
+  --ff-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ff-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 :root:lang(he) {
+  --ff-mono: 'JetBrains Mono', 'Heebo Variable', monospace;
   --ff-display: 'Chakra Petch', 'Rubik Variable', system-ui, sans-serif;
-  --ff-sans: 'Manrope Variable', 'Heebo Variable', system-ui, sans-serif;
+  --ff-sans: 'IBM Plex Sans', 'Heebo Variable', system-ui, sans-serif;
 }
 :root:lang(ja) {
+  --ff-mono: 'JetBrains Mono', 'Noto Sans JP Variable', monospace;
   --ff-display: 'Chakra Petch', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  --ff-sans: 'Manrope Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --ff-sans: 'IBM Plex Sans', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
 }
 
 :root:lang(ko) {
+  --ff-mono: 'JetBrains Mono', 'Noto Sans KR Variable', monospace;
   --ff-display: 'Chakra Petch', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --ff-sans: 'Manrope Variable', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --ff-sans: 'IBM Plex Sans', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 }
 
 @theme inline {
@@ -116,9 +124,9 @@
 
   --font-display: var(--ff-display);
   --font-sans: var(--ff-sans);
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-mono: var(--ff-mono);
 
-  /* Type scale: a 4:5 major third from a 17px base, rounded to the pixel.
+  /* Type scale: readable 18px body with 14px minimum secondary labels.
      Display sizes are fluid between a 360px and a 1280px viewport. */
   --text-xs: 0.875rem;
   --text-sm: 1rem;
@@ -186,7 +194,7 @@
   :focus-visible {
     outline: 2px solid var(--amber);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 2px;
   }
   ::selection {
     background: var(--amber);
@@ -520,8 +528,9 @@
 /* Responsive diagrams: real translated text and symbols, never reduced raster labels. */
 .memory-diagram {
   padding: clamp(1.5rem,3vw,2.5rem);
+  border: 1px solid var(--panel-line);
   border-block-start: 3px solid var(--amber);
-  clip-path: polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,0 100%);
+  background-image: linear-gradient(135deg, #203b352e, transparent 45%, #30273f45);
 }
 .circuit-lane + .circuit-lane { border-top: 1px solid var(--panel-line); padding-top: 1.75rem; margin-top: 1.75rem; }
 .circuit-title { color: var(--amber); font: 500 1rem/1.6 var(--font-mono); margin-bottom: 1.5rem; }
@@ -530,6 +539,8 @@
 .circuit-nodes { display: grid; gap: 1.5rem; }
 .circuit-node { text-align: center; min-width: 0; }
 .circuit-icon { display: block; width: 6rem; height: 6rem; margin-inline: auto; color: var(--panel-muted); }
+.circuit-icon.is-terminal, .circuit-icon.is-folder { color: var(--capture); }
+.circuit-icon.is-search, .circuit-icon.is-branch { color: var(--recall); }
 .circuit-icon.is-chip { color: var(--amber); }
 .circuit-icon.is-chip > path:first-child { fill: var(--amber); }
 .circuit-icon .chip-page { stroke: var(--ink); }

@@ -2,7 +2,7 @@
   "hero": {
     "releaseOut": "A {tag} saiu",
     "releaseLink": "Veja o que mudou",
-    "title": "Agentes diferentes. Uma só memória.",
+    "title": "Agentes diferentes. <em>Uma só memória.</em>",
     "lede": "O ai-memory salva notas de projeto para ferramentas de código com IA como Claude Code e Codex. Ao iniciar outra sessão, ele fornece o contexto salvo e ferramentas para buscar trabalhos anteriores, para você gastar menos tempo reexplicando o projeto.",
     "primary": "Instalar agora",
     "star": "Estrela no GitHub",

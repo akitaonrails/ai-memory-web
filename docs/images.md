@@ -1,12 +1,18 @@
-# Signal Bureau diagrams
+# Memory Archive artwork and diagrams
 
 Production diagrams now render through `Figure.astro` → `Diagram.astro`, with typed topology in `src/data/diagrams.ts` and SVG symbols in `CircuitIcon.astro`. Labels come directly from all six existing `images.json` catalogs. The brain logo and actual product screenshots retain their original pixels.
 
 Each diagram is a set of lanes. Stages within a lane connect in order; nodes within one stage are parallel. Independent comparisons use no connectors. Optional paths use dashed outlines. Labels prefixed with `=` are technical identifiers that remain identical across languages (commands, filenames, product names). Every other label must exist in the catalog; missing labels fail the build.
 
-Use dark slate panels, copper connections and memory chips, pale outlined terminal/folder/server symbols. Labels stay at 20px, notes at 16px; narrow screens stack stages and rotate connectors. Diagram topology stays left to right; each label uses the locale's own text direction.
+Use graphite panels, copper connections and memory chips, teal terminal/folder symbols, violet retrieval/history symbols, and pale outlines for the remaining infrastructure. Labels stay at 20px, notes at 16px; narrow screens stack stages and rotate connectors. Diagram topology stays left to right; each label uses the locale's own text direction.
 
 Check topology against the relevant product page and source before editing. Inspect desktop and mobile in light/dark themes, including Hebrew and Japanese. Run `npm run check:colors && npm run check:i18n && npm run build && npm run check:ui`.
+
+## Archive environment
+
+`src/assets/img/memory-archive-environment.png` is the approved generated architectural background from the disposable Stitch identity study (15 October 2026). It depicts worn graphite archive towers, smoked glass, copper conduits and sparse tungsten lighting, with negative space for the heading. It is decorative and contains no product claims or diagram labels.
+
+`ArchiveBackdrop.astro` renders it with empty alt text and an accessibility-hidden wrapper. Astro builds responsive WebP sizes; the largest candidate is about 64 KB. Keep the dark overlay behind copy, mirror the composition for Hebrew, and use the lower-opacity variant in detail headers. The brain logo is a separate unchanged asset, never baked into the background.
 
 The historical raster workflow below is retained for reference. It no longer drives production diagrams. Do not regenerate raster translations for native diagram text changes.
 
