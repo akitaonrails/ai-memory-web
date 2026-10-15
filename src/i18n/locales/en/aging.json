@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "How memory ages",
-    "lede": "A project collects session pages for months, and most of them stop being useful. ai-memory scores each one, keeps what you still read, and can shrink or merge the rest. The default path calls no LLM, and every feature that rewrites a page is off until you turn it on.",
+    "lede": "Unused session pages lose retention weight and can be removed. Cold-page compaction, deduplication and the dream pass are off by default. With an LLM configured, a separate auto-improvement scheduler can edit the wiki automatically.",
     "primary": "The path with no LLM",
     "secondary": "The dream pass"
   },
@@ -124,12 +124,12 @@
         "text": "<code>ai-memory restore-page</code> can recover a page from a retained git checkpoint while its project still exists. It does not restore sessions, observations or handoffs stored only in the database."
       },
       {
-        "title": "An upgrade changes nothing",
-        "text": "Compaction, dedup and the dream pass are off by default. An upgrade changes no score and evicts nothing, and the server archives the data directory before it migrates."
+        "title": "Review defaults before upgrading",
+        "text": "Compaction, deduplication and the dream pass remain opt-in. Existing retention and expiry rules still apply. Take a full backup before an upgrade; automatic wiki migration archives do not replace your database backup."
       },
       {
         "title": "Pin what must stay",
-        "text": "A pinned page is never swept. Semantic and procedural pages do not decay."
+        "text": "Pinning protects a page from decay-based removal. Semantic and procedural pages do not decay. An explicit expiry date still allows deletion, even for a pinned page."
       }
     ],
     "deleted": {
@@ -187,7 +187,7 @@
     },
     {
       "q": "Will an upgrade change my existing memory?",
-      "a": "No. Compaction, dedup and the dream pass are off by default, so an upgrade changes no score and evicts nothing. The server archives the data directory before it migrates."
+      "a": "Compaction, deduplication and the dream pass remain opt-in. Existing retention and expiry rules still apply. Take a full backup before an upgrade; automatic wiki migration archives do not replace your database backup."
     },
     {
       "q": "Do these features improve retrieval scores?",

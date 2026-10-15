@@ -10,7 +10,7 @@
       "same": "La comodidad de \"recuerda mi proyecto\", en markdown.",
       "gain": [
         "La misma memoria en Codex, Cursor, Gemini CLI y 20 más",
-        "Sincronizada entre tus máquinas",
+        "Un servidor accesible desde tus máquinas",
         "Compartida con tu equipo",
         "Búsqueda de verdad, y captura de lo que las herramientas hicieron realmente"
       ],
@@ -40,7 +40,7 @@
         "Neo4j, FalkorDB o Neptune",
         "Un LLM"
       ],
-      "same": "Los hechos se reemplazan, nunca se borran. Puedes preguntar qué era cierto en un momento dado.",
+      "same": "Las versiones de páginas permiten consultas históricas. ai-memory registra cuándo aprendió o sustituyó un hecho; la retención y la purga aún pueden eliminar datos.",
       "gain": [
         "Consultas a un punto en el tiempo y enlaces tipados en un solo binario con SQLite",
         "Ninguna base de datos de grafos que mantener",
@@ -179,7 +179,7 @@
   "moat": [
     {
       "title": "Cero llamadas a un LLM por defecto",
-      "text": "La captura, la búsqueda y los traspasos funcionan sin clave de API."
+      "text": "La captura, la búsqueda y los traspasos no necesitan clave API de proveedor de modelos."
     },
     {
       "title": "Los archivos son la fuente de verdad",

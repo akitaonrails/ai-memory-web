@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Memory across coding agents, for solo developers",
-    "description": "Switch between Claude Code, Codex and other coding agents mid-task, on a PC or a notebook, without re-explaining your project. No API key, plain markdown."
+    "description": "Share project memory across coding agents and machines connected to one server. Plain Markdown, with no model-provider key for default memory features."
   },
   "hero": {
     "title": "Stop re-explaining your project",
-    "lede": "You quit one agent, open another, and it already knows the architecture, the approaches that failed and what is still open. It works the same from your PC and your notebook, and it needs no API key.",
+    "lede": "Save decisions, failed approaches and unfinished work for your next agent session. A PC and notebook can share that memory when both reach the same server. Default memory features need no model-provider API key.",
     "secondary": "Check your agent"
   },
   "handoff": {
@@ -55,7 +55,7 @@
       },
       {
         "say": "“That page is out of date.”",
-        "does": "Records feedback that lowers the page in future rankings. Feedback never deletes anything."
+        "does": "Records feedback for retention and lint. It does not change search ranking or directly delete the page."
       }
     ],
     "more": "The <a class=\"underline font-semibold text-text\" href=\"{href}\">usage guide on GitHub</a> has the full list of phrases and the MCP tool behind each one."
@@ -101,7 +101,7 @@
       "Put the server on a homelab box, or on whichever machine stays on. It is one binary or one container.",
       "When the notebook is offline, hook events go to a local spool and drain when the server is reachable again. Each entry has an idempotency key, so nothing is stored twice.",
       "<code>ai-memory status</code> shows how many events are pending and how old the oldest is.",
-      "A server that listens beyond loopback requires a bearer token. The token does not encrypt traffic, so add TLS before leaving your LAN."
+      "Remote access needs a bearer token and TLS, even within your LAN. Configure both before connecting another machine."
     ],
     "codeTitle": "point a machine at the server",
     "comment": "On the PC and on the notebook",
@@ -111,7 +111,7 @@
     }
   },
   "defaults": {
-    "title": "No API key, and files you can read",
+    "title": "Local memory and readable files",
     "lede": "The default install costs nothing to run and stores everything as markdown in a git repository.",
     "items": [
       {
@@ -131,13 +131,13 @@
     "figureCaption": "Edit a page in Obsidian or vim and a file watcher updates the search index.",
     "files": {
       "title": "Take the files anywhere",
-      "text": "The SQLite index is derived from the files and can be rebuilt from them. Back up with <code>ai-memory backup</code>, rsync, or a git push to your own remote.",
+      "text": "You can read and edit the Markdown pages. Reindex rebuilds their search index, but sessions, handoffs and accounts also need the database. Use <code>ai-memory backup</code>; a git push of the wiki alone is not a full backup.",
       "codeTitle": "the wiki is a git repo",
       "commentCopy": "Copy the wiki out of the container and open it in Obsidian",
       "commentHistory": "Or read its history"
     },
     "web": {
-      "title": "Or browse it in a read-only web UI",
+      "title": "A browser for your memory",
       "text": "One flag adds a browser view with the project list, the page tree, rendered markdown, search and clickable wiki links. It cannot edit anything.",
       "codeTitle": "enable the web UI",
       "comment": "then open {url}",
@@ -180,7 +180,7 @@
     },
     {
       "q": "Where is my memory stored?",
-      "a": "In a git-versioned folder of plain markdown files in the ai-memory data directory. SQLite holds a search index that can be rebuilt from the files."
+      "a": "Reindex rebuilds pages, links and full-text search from Markdown. It cannot recover database-only sessions, observations, handoffs, users, keys or audit records."
     }
   ],
   "next": {
@@ -192,6 +192,6 @@
     "teams": "The same server, shared by a few people and all of their agents."
   },
   "cta": {
-    "text": "Free and open source. You need no account and no API key, and the files stay yours."
+    "text": "Free and open source. Default memory features need no model-provider key, and you own the data."
   }
 }

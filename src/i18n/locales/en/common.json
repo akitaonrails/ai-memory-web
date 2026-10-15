@@ -59,7 +59,7 @@
       },
       "browse": {
         "label": "Browse your memory",
-        "note": "The read-only web UI: pages, backlinks, mail, history"
+        "note": "Pages, backlinks, mail, history and review"
       },
       "architecture": {
         "label": "Architecture",

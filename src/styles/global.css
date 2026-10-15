@@ -24,6 +24,7 @@
   --violet: #685184;
   --rose: #774b50;
   --amber-ink: #795034;
+  --focus: #795034;
   --green-soft: #dae6e3;
   --teal-soft: #d6ded9;
   --azure-soft: #d6ded9;
@@ -46,6 +47,7 @@
   --violet: #c3a2ed;
   --rose: #dfbfc3;
   --amber-ink: #dbad82;
+  --focus: #edc49e;
   --green-soft: #203b35;
   --teal-soft: #202d30;
   --azure-soft: #202d30;
@@ -192,7 +194,7 @@
     font-size: max(.875rem, .9em);
   }
   :focus-visible {
-    outline: 2px solid var(--amber);
+    outline: 2px solid var(--focus);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -516,7 +518,7 @@
 .signal-panel {
   background: var(--ink); color: var(--panel-text);
   --text: var(--panel-text); --muted: var(--panel-muted);
-  --line: var(--panel-line); --surface: var(--panel-surface);
+  --line: var(--panel-line); --surface: var(--panel-surface); --focus: var(--panel-text);
 }
 .signal-panel .kicker { color: var(--amber); }
 .signal-panel .btn-ghost { background: transparent; color: var(--panel-text); }
@@ -564,3 +566,15 @@
 }
 
 pre code { font-size: inherit; }
+
+/* Data records retain table semantics and show every field on narrow screens. */
+.record-label { display: none; }
+@media(max-width:767px) {
+  .record-table table, .record-table tbody, .record-table tr, .record-table td { display: block; width: 100%; }
+  .record-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .record-table tr { padding: 1rem; border-bottom: 2px solid var(--line); }
+  .record-table tr:last-child { border-bottom: 0; }
+  .record-table td { border: 0; padding: .65rem 0; overflow-wrap: anywhere; }
+  .record-table td:first-child { font-size: 1.125rem; }
+  .record-label { display: block; font: 500 .875rem/1.6 var(--font-mono); color: var(--muted); margin-block-end: .35rem; }
+}

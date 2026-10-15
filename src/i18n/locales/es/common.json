@@ -59,7 +59,7 @@
       },
       "browse": {
         "label": "Explora tu memoria",
-        "note": "La interfaz web de solo lectura: páginas, backlinks, mensajes, historial"
+        "note": "Páginas, enlaces entrantes, correo, historial y revisión"
       },
       "architecture": {
         "label": "Arquitectura",

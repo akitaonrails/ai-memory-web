@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "Cómo envejece la memoria",
-    "lede": "Un proyecto acumula páginas de sesión durante meses, y la mayoría deja de ser útil. ai-memory puntúa cada una, conserva las que sigues leyendo y puede reducir o fusionar el resto. La ruta por defecto no llama a ningún LLM, y toda función que reescribe una página viene desactivada hasta que la actives.",
+    "lede": "Las páginas de sesión sin uso pierden peso de retención y pueden eliminarse. La compactación de páginas frías, la deduplicación y el dream pass están desactivados por defecto. Con un LLM configurado, un programador separado de automejora puede editar la wiki automáticamente.",
     "primary": "La ruta sin LLM",
     "secondary": "La pasada de sueño"
   },
@@ -124,12 +124,12 @@
         "text": "<code>ai-memory restore-page</code> puede recuperar una página de un checkpoint git conservado mientras exista su proyecto. No restaura sesiones, observaciones ni traspasos almacenados solo en la base de datos."
       },
       {
-        "title": "Actualizar no cambia nada",
-        "text": "La compactación, el dedup y la pasada de sueño vienen desactivados por defecto. Una actualización no cambia ninguna puntuación ni desaloja nada, y el servidor archiva el directorio de datos antes de migrar."
+        "title": "Revisa los valores por defecto antes de actualizar",
+        "text": "La compactación, la deduplicación y el dream pass siguen siendo opcionales. Las reglas existentes de retención y caducidad siguen vigentes. Haz una copia completa antes de actualizar; los archivos automáticos de migración de la wiki no sustituyen la copia de la base."
       },
       {
         "title": "Fija lo que debe quedarse",
-        "text": "El barrido nunca toca una página fijada. Las páginas semánticas y procedimentales no decaen."
+        "text": "Fijar una página la protege de la eliminación por decaimiento. Las páginas semánticas y procedimentales no decaen. Una fecha de caducidad explícita sigue permitiendo su eliminación, aunque esté fijada."
       }
     ],
     "deleted": {
@@ -187,7 +187,7 @@
     },
     {
       "q": "¿Una actualización cambia mi memoria existente?",
-      "a": "No. La compactación, el dedup y la pasada de sueño vienen desactivados por defecto, así que una actualización no cambia ninguna puntuación ni desaloja nada. El servidor archiva el directorio de datos antes de migrar."
+      "a": "La compactación, la deduplicación y el dream pass siguen siendo opcionales. Las reglas existentes de retención y caducidad siguen vigentes. Haz una copia completa antes de actualizar; los archivos automáticos de migración de la wiki no sustituyen la copia de la base."
     },
     {
       "q": "¿Estas funciones mejoran las puntuaciones de recuperación?",

@@ -9,7 +9,7 @@
   },
   "hero": {
     "title": "Quick setup",
-    "lede": "Pick your track and copy the commands. One machine takes two commands and no account. A shared server for a team takes five steps."
+    "lede": "Install, set up, then launch your agent. Choose a local install for one machine or follow the shared-server steps for a team."
   },
   "solo": {
     "title": "Just me",
@@ -110,13 +110,13 @@
       },
       {
         "title": "Launch your agent through it",
-        "text": "The first launch installs the hooks and the MCP entry. This path has one limit: the wrapper’s shell hooks do not enforce per-repository <code>ignore_paths</code> capture rules. The native binary does."
+        "text": "The first launch wires hooks and MCP. On Linux/macOS the wrapper uses a verified native host client for normal hook installation. Explicit legacy shell-script hooks do not enforce per-repository capture exclusions."
       }
     ],
     "windows": [
       {
         "title": "Decide where your agent runs",
-        "text": "An agent launched inside WSL2 needs ai-memory inside WSL2. That path is supported and is the same as the Docker tab: <a href=\"{readme}\">install the wrapper from the README</a> in your WSL2 shell. With Docker Desktop, enable WSL integration for the distro first."
+        "text": "For an agent inside WSL2, use the Linux install steps inside that distro; Docker is optional. The commands below show the WSL2 Docker path using <a href=\"{readme}\">the wrapper</a>. For a native Windows agent, use the experimental zip in the <a href=\"{windowsDoc}\">Windows guide</a>. Native <code>setup</code> wires agents but does not start a service."
       },
       {
         "title": "Start the server inside WSL2"
@@ -127,7 +127,7 @@
       }
     ],
     "figure": {
-      "alt": "The solo install in three stages on one laptop: install the binary, start the server on 127.0.0.1:49374, then run your agent, which connects to the server through hooks and MCP. Nothing leaves the laptop.",
+      "alt": "Three stages on one laptop: install the binary, start the loopback server, then launch the agent with hooks and MCP. Optional remote servers and providers change where data goes.",
       "caption": "The whole solo path. The server stays on loopback, and your agent reaches it two ways: hooks capture the session, MCP lets the agent search it."
     },
     "runNote": "<code>ai-memory run</code> is the way to start an agent. It wires the harness on first launch, picks the right project scope and adds session resume across harnesses. An agent started directly still captures through its hooks, but you forget nothing by going through the launcher. <a class=\"link\" href=\"{href}\">Read how managed launches work</a>.",
@@ -146,7 +146,7 @@
     "lede": "Three checks, from the network up to the agent.",
     "server": {
       "title": "The server answers",
-      "text": "A JSON-RPC error is the right answer. It means the port is reachable and the server is responding."
+      "text": "On a fresh authenticated install, this unauthenticated request should return HTTP 401 with “auth required”. That proves reachability only. The next check tests authenticated CLI access."
     },
     "cli": {
       "title": "The CLI reaches it",
@@ -168,7 +168,7 @@
     },
     "llm": {
       "title": "Optional: better summaries with an LLM",
-      "text": "Without a provider, capture, search and rule-based summaries all work at no cost. A provider rewrites session pages as readable narratives. Set these two variables in the server’s environment (<code>-e</code> flags for Docker, <code>~/.config/ai-memory/env</code> for the systemd user service) and restart it.",
+      "text": "Capture, search and rule-based summaries work without a provider. Adding one enables richer summaries and scheduled auto-improvement, which auto-applies validated edits by default. On shared servers set <code>[auto_improve] require_approval = true</code>. Set the variables below in the server environment and restart.",
       "codeTitle": "server environment",
       "link": "Compare providers, including subscriptions and local models"
     },
@@ -186,13 +186,13 @@
     },
     "steps": [
       {
-        "title": "Start the shared server with a token",
-        "text": "Pick a homelab box or any LAN host. A server bound beyond loopback needs both a bearer token and a host allowlist. The allowlist holds every name or IP your machines use to reach it.",
+        "title": "Start the server behind a local proxy",
+        "text": "Install the native CLI on the server host first. These commands publish Docker only on loopback and set root credentials for the CLI in this shell. Replace <code>memory.example.com</code> with your domain. Keep the root token private; laptops get individual keys later.",
         "codeTitle": "on the server"
       },
       {
         "title": "Create the people",
-        "text": "Run this with the root token exported. The temporary password prints once, and the person changes it at first login. It does not issue an API key. <a href=\"{usersDoc}\">The users guide</a> covers the root identity in <code>[auth]</code>."
+        "text": "Use the server shell where the root environment variables are still exported. The temporary password prints once and must be changed at first login. This command does not issue an API key. The <a href=\"{usersDoc}\">users guide</a> covers root identity and browser login setup."
       },
       {
         "title": "Give each person an API key",
@@ -200,13 +200,13 @@
       },
       {
         "title": "Point each machine at the server",
-        "text": "Each person uses their own key as the token. It is stored in a <code>0600</code> file in the data directory and stays off the hook command line. <code>--as-user</code> only labels the install.",
+        "text": "Install the CLI on each laptop. Replace the domain and key below with your HTTPS endpoint and this person’s issued key. The hook installer stores the token in an owner-only file on Unix; generated hook commands do not contain it. <code>--as-user</code> labels the install and grants no permissions.",
         "codeTitle": "on every laptop",
-        "tokenComment": "TOKEN here is this person's aim_ key, not the root token"
+        "tokenComment": "Replace the placeholder with this person’s issued aim_ key; never use ROOT_TOKEN"
       },
       {
-        "title": "Use TLS for remote connections",
-        "text": "A bearer token authenticates a request and does not encrypt it. Keys and web cookies travel in the clear over plain HTTP, so <a href=\"{tls}\">put Caddy, nginx or a Cloudflare Tunnel in front</a> once accounts exist or the server is reachable beyond your desk."
+        "title": "Configure and verify TLS before connecting clients",
+        "text": "Put a reverse proxy on the same host, forwarding HTTPS for your domain to <code>127.0.0.1:49374</code>. Follow the <a href=\"{tls}\">TLS setup</a> and verify the certificate from a laptop before sending keys. A bearer token authenticates; it does not encrypt traffic."
       }
     ],
     "oneServer": {

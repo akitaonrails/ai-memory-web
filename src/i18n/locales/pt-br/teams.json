@@ -46,7 +46,7 @@
         "text": "As páginas são compiladas a partir das sessões e moldadas para os agentes recuperarem. Mantenha seu README e seus documentos de arquitetura escritos à mão, e deixe a wiki guardar os porquês e os becos sem saída."
       }
     ],
-    "digest": "O resumo sai em prosa quando o servidor tem um provedor de LLM e em dados estruturados quando não tem. Com <code>--enable-web</code>, dá para navegar pela mesma wiki em uma interface web somente leitura."
+    "digest": "O digest é texto corrido com um provedor LLM e dados estruturados sem ele. Com <code>--enable-web</code>, as pessoas podem consultar a wiki no navegador; o root também pode revisar propostas de edição pendentes."
   },
   "ownership": {
     "title": "Conhecimento compartilhado, handoffs pessoais",
@@ -95,7 +95,7 @@
     "limits": {
       "title": "Conheça os limites antes de colocar em uso",
       "items": [
-        "Por padrão, os projetos ficam abertos a usuários autenticados. Para contas de usuários do banco de dados, root pode restringir um projeto ao criador e a usuários com permissões de leitura ou escrita.",
+        "Projetos são abertos a usuários autenticados por padrão. Para contas de usuários do banco, o administrador do servidor (root) pode restringir um projeto ao criador e a usuários com permissão de leitura ou escrita.",
         "Permissões de projeto não criam ambientes separados por tenant. Use servidores e diretórios de dados separados para times que precisam de isolamento independente.",
         "As permissões valem para projetos inteiros, não para páginas individuais. Root pode acessar todos os projetos. Identidades de proxy confiável dependem da autorização do proxy, em vez das permissões de usuários do banco.",
         "É um serviço single-tenant de homelab e não foi projetado para ficar exposto direto na internet aberta.",

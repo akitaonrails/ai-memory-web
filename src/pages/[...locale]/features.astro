@@ -107,6 +107,21 @@ const next = withText([
   </Section>
 
   <Faq items={faq} hue="violet" />
+  <Section id="extensions" title={t('extensions.title')} hue="teal" tint>
+    <div class="grid gap-8 md:grid-cols-2">
+      {[
+        { key: 'sdk', url: doc('programmatic-memory.md') },
+        { key: 'sync', url: `${site.repo}/tree/main/companions/ai-memory-wikisync` },
+      ].map(({ key, url }) => (
+        <article class="min-w-0">
+          <h3 class="text-xl">{t(`extensions.${key}.title`)}</h3>
+          <p class="mt-3 text-muted">{t(`extensions.${key}.text`)}</p>
+          <p class="mt-4"><a class="link" href={url}>{t(`extensions.${key}.link`)}</a></p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
   <NextPages links={next.map((n) => ({ ...n }))} />
   <CtaBand />
 </Base>

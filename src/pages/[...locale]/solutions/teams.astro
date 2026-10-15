@@ -42,6 +42,14 @@ const schema = [faqPage(faq)];
   <Section title={t('suitability.title')} lede={t('suitability.text')} hue="amber">
     <p class="text-muted max-w-[40em]">{t('suitability.cost')}</p>
     <p class="mt-6"><a href={href('/advanced/')} class="btn btn-ghost">{t('suitability.link')}</a></p>
+    <div class="mt-8" id="sharing-limits">
+      <Callout title={t('included.limits.title')} hue="rose">
+        <ul class="ticks space-y-2 list-none ps-0">
+          {raw<string[]>('included.limits.items').map((item) => <li>{item}</li>)}
+        </ul>
+        <p set:html={t('included.limits.more', { security: href('/security/'), advanced: href('/advanced/') })} />
+      </Callout>
+    </div>
   </Section>
 
   <Section title={t('server.title')} lede={t('server.lede')} hue="teal" fill>
@@ -74,14 +82,6 @@ const schema = [faqPage(faq)];
     <FeatureGrid items={included} cols={4} />
     <p class="mt-10 text-muted max-w-[40em]" set:html={t('included.audit', { href: site.docs + '/users.md' })} />
 
-    <div class="mt-12">
-      <Callout title={t('included.limits.title')} hue="rose">
-        <ul class="ticks space-y-2 list-none ps-0">
-          {raw<string[]>('included.limits.items').map((item) => <li>{item}</li>)}
-        </ul>
-        <p set:html={t('included.limits.more', { security: href('/security/'), advanced: href('/advanced/') })} />
-      </Callout>
-    </div>
     <p class="mt-10 text-muted max-w-[44em]" set:html={t('capacityNote', { href: href('/architecture/#concurrency') })} />
   </Section>
 

@@ -46,7 +46,7 @@
         "text": "Las páginas se compilan a partir de las sesiones y están pensadas para que las recuperen los agentes. Conserva tu README y tu documentación de arquitectura escritos a mano, y deja que la wiki guarde los porqués y los callejones sin salida."
       }
     ],
-    "digest": "El resumen es prosa cuando el servidor tiene un proveedor de LLM y datos estructurados cuando no lo tiene. Con <code>--enable-web</code>, la misma wiki se puede navegar en una interfaz web de solo lectura."
+    "digest": "El resumen es prosa con un proveedor LLM y datos estructurados sin él. Con <code>--enable-web</code>, las personas pueden consultar la wiki en el navegador; root también puede revisar propuestas de edición pendientes."
   },
   "ownership": {
     "title": "Conocimiento compartido, traspasos personales",
@@ -95,7 +95,7 @@
     "limits": {
       "title": "Conoce los límites antes de desplegarlo",
       "items": [
-        "Los proyectos están abiertos a usuarios autenticados por defecto. Para cuentas de usuarios de la base de datos, root puede restringir un proyecto a su creador y a usuarios con permisos de lectura o escritura.",
+        "Los proyectos están abiertos a usuarios autenticados por defecto. Para cuentas de la base, el administrador del servidor (root) puede restringir un proyecto a su creador y a usuarios con permisos de lectura o escritura.",
         "Los permisos de proyecto no crean entornos separados por tenant. Usa servidores y directorios de datos separados para equipos que necesiten aislamiento independiente.",
         "Los permisos se aplican a proyectos enteros, no a páginas individuales. Root puede acceder a todos los proyectos. Las identidades de proxy de confianza dependen de la autorización del proxy en lugar de los permisos de usuarios de la base de datos.",
         "Es un servicio de homelab de un solo tenant y no está diseñado para exponerse directamente a internet.",

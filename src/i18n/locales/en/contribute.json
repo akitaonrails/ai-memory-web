@@ -241,7 +241,7 @@
       "hooks": "Hook payload schemas, the sanitizer and the /hook endpoint.",
       "llm": "The provider auth boundary and the LLM and embedder traits.",
       "consolidate": "Ingest, lint, sweep and the auto-improve pipeline.",
-      "web": "The read-only /web browser and the /api/v1 JSON routes.",
+      "web": "Browser views and the read-only JSON API. Account and approval actions call authenticated routes.",
       "workstream": "Read-only native transcript readers and the launch adapters behind ai-memory run.",
       "cli": "The ai-memory binary and its thin HTTP subcommands."
     },

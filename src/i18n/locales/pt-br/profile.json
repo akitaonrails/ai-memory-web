@@ -57,7 +57,7 @@
   "newProject": {
     "title": "Um projeto novo já começa à frente",
     "lede": "Um repositório sem memória ainda recebe uma base maior, e um comando transforma suas escolhas de sempre em regras que todos veem.",
-    "text": "<code>ai-memory profile apply</code> escreve as entradas que servem ao repositório em um bloco gerenciado do arquivo de regras, entre dois marcadores, e não toca em nada fora deles. Rode de novo e só o bloco muda. É o único comando que escreve no seu repositório, e só roda quando você o executa.",
+    "text": "<code>ai-memory profile apply</code> escreve entradas adequadas em um bloco gerenciado do arquivo de regras do repositório. Só roda quando você o chama e preserva o texto fora do bloco. Outros comandos locais de configuração e agentes também podem editar arquivos do repositório.",
     "codeTitle": "dentro do repositório novo",
     "comments": {
       "dry": "ver o bloco e o arquivo para onde ele iria",
@@ -70,15 +70,15 @@
     "lede": "As entradas são páginas de wiki comuns: markdown no git, versionadas a cada mudança.",
     "items": [
       {
-        "title": "Esqueceu, fica esquecido",
-        "text": "<code>ai-memory profile forget</code> remove uma entrada, e a passada não a recria a partir da mesma evidência. Ela só volta se você disser de novo."
+        "title": "Remova uma entrada do perfil",
+        "text": "<code>ai-memory profile forget</code> remove uma entrada e impede reaprendê-la a partir da mesma evidência. Novas evidências podem recriá-la. O histórico git e backups anteriores podem manter cópias."
       },
       {
         "title": "Suas edições valem",
         "text": "Uma entrada que você edita à mão passa a ser sua. A passada nunca reescreve uma página que não escreveu, nem uma que mudou depois."
       },
       {
-        "title": "Trabalho de cliente e NDA fica de fora",
+        "title": "Exclua um projeto do perfil",
         "text": "O marcador de um projeto pode definir <code>contribute = false</code> para que nada seja aprendido dele, e <code>consume = false</code> para que ele nunca receba o resumo."
       },
       {
@@ -87,7 +87,8 @@
       }
     ],
     "codeTitle": ".ai-memory.toml no repositório de um cliente",
-    "codeComment": "este projeto não ensina nem recebe o perfil"
+    "codeComment": "este projeto não ensina nem recebe o perfil",
+    "historyLink": "O que a exclusão remove e o que o histórico pode manter"
   },
   "teams": {
     "title": "Uma pessoa, um perfil. Um time, com consentimento.",

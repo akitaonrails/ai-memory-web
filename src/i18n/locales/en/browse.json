@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Browse your memory in a browser: the read-only web UI",
-    "description": "Start the server with --enable-web and every project opens in a browser: pages, backlinks, waiting mail, page history, session replay and a search that ranks like the agent’s. Read-only."
+    "title": "Browse your memory: pages, history and search",
+    "description": "Inspect memory pages, backlinks, mail, history and session replay in a browser. Account controls and root proposal review are also available."
   },
   "hero": {
     "title": "See what your agent remembers",
-    "lede": "Start the server with --enable-web and every project opens in a browser: its pages, who cites them, the mail waiting for an agent, and a search that ranks the way the agent’s search does. It is read-only on purpose.",
+    "lede": "Start the server with --enable-web to browse the projects you can access: pages, links, waiting mail and search. There is no page editor; account actions and root approval of proposed edits are available.",
     "primary": "Every project at a glance",
     "secondary": "Search like the agent"
   },
@@ -52,8 +52,8 @@
     ]
   },
   "readonly": {
-    "title": "Read-only on purpose",
-    "text": "The web UI has no content-editing route. Change pages through the agent’s tools, the CLI or the markdown files. For database-user accounts, project views enforce read access; root and trusted-proxy identities use their respective authorization rules. Signed-in pages show the server version in the footer.",
+    "title": "Browse pages and review proposals",
+    "text": "Edit content through agent tools, the CLI or Markdown files. The browser also supports sign-in, password changes and root-only approval or rejection of pending edits. Database-user project grants govern page access; trusted proxies enforce their own authorization.",
     "api": "The same data is available as JSON under <code>/api/v1</code>, and <code>serve --enable-api</code> mounts the API without the browser UI."
   },
   "faq": [
@@ -63,7 +63,7 @@
     },
     {
       "q": "Can I edit a page in the browser?",
-      "a": "No. The web UI is read-only by design and the crate that serves it has no write route. Edit the markdown file, or let the agent write through memory_write_page."
+      "a": "There is no page editor. Use memory_write_page, the CLI or the Markdown file. Root can approve or reject pending edit proposals in the browser."
     },
     {
       "q": "Who can see what on a shared server?",
@@ -71,7 +71,7 @@
     },
     {
       "q": "Does it need JavaScript?",
-      "a": "No. Every view renders without it. JavaScript only adds the replay slider and keyboard stepping."
+      "a": "Page content renders without JavaScript. Sign-in, password changes and proposal approval use JavaScript, as do replay controls and theme switching."
     }
   ],
   "next": [

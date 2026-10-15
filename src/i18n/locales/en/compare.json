@@ -87,7 +87,7 @@
       },
       {
         "label": "ai-memory 2.4, local embeddings",
-        "note": "No API key"
+        "note": "No model-provider key"
       },
       {
         "label": "ai-memory 3.0, full text",
@@ -107,7 +107,7 @@
     "caveats": [
       "hit@5 asks whether a session holding the evidence is in the top five results. It measures retrieval. It says nothing about answer accuracy.",
       "470 of the 500 questions are scored. The 30 abstention questions are excluded. The runs are from {date}.",
-      "{fts} is full text, entities, links and the session’s own observations, with no API key and no LLM. {local} adds the default in-process embedding model.",
+      "{fts} uses full text, entities, links and session observations without an LLM or model-provider key. {local} adds the default in-process embedding model.",
       "No head-to-head run against any competitor exists. Vendor numbers on the same dataset come from different harnesses, often with no capture step, and accuracy figures such as Hindsight’s 91.4% are a different metric.",
       "Stored excerpts are capped at 2 KB for privacy. Pages holding exactly the captured text score within half a point of whole sessions, so the cap costs little.",
       "LongMemEval is chat-assistant history. A coding-session benchmark is planned and does not exist yet."
@@ -174,7 +174,7 @@
       },
       {
         "title": "Bring old notes and conversations, if the importer reads them",
-        "text": "The standalone importer under <code>companions/ai-memory-importer</code> reads two things today: oh-my-claudecode (OMC) markdown wiki folders, and conversations in a small generic JSON envelope. It has no Mem0, Zep or cognee adapter, so exports from those need converting to the envelope first. It defaults to a dry run and never deletes.",
+        "text": "The optional <code>companions/ai-memory-importer</code> supports OMC Markdown, generic conversation JSON, and agentmemory vault or ExportData exports. It defaults to a dry run. Mem0, Zep and cognee exports still need conversion; there are no dedicated adapters.",
         "codeTitle": "dry run, from a checkout of the repo"
       },
       {
@@ -216,7 +216,7 @@
   "next": [
     {
       "title": "Quick setup",
-      "text": "Two commands for one machine, five steps for a team."
+      "text": "Install, set up and launch locally, or configure a shared server."
     },
     {
       "title": "Research and rationale",
@@ -229,6 +229,6 @@
   ],
   "cta": {
     "title": "Try it next to the tool you have.",
-    "text": "It installs beside your current setup and needs no account and no API key."
+    "text": "Install beside your existing tools. Default memory features need no model-provider API key."
   }
 }

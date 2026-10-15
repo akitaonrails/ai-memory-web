@@ -46,7 +46,7 @@
       {
         "kicker": "Medido",
         "title": "{score} de hit@5 en LongMemEval-S, con sus salvedades",
-        "text": "La recuperación se evalúa con un harness que viene en el repositorio, paso de captura incluido. La cifra no dice nada sobre la precisión de las respuestas.",
+        "text": "hit@5 mide si alguna sesión con la evidencia aparece entre los cinco primeros resultados. La prueba publicada incluye la captura. Mide recuperación, no precisión de las respuestas.",
         "cta": "Qué se midió"
       }
     ],
@@ -79,7 +79,7 @@
       },
       "machines": {
         "title": "Cambia de máquina.",
-        "text": "La memoria vive en un servidor pequeño que ejecutas tú: en tu portátil, en un equipo del homelab, donde quieras. El proyecto que dejaste en el equipo de escritorio es el mismo que retomas en el portátil.",
+        "text": "Ejecuta un servidor y conecta ambas máquinas a él. La memoria está disponible mientras ese servidor sea accesible. Los eventos de hooks sin conexión esperan localmente su envío; dos servidores no se replican.",
         "link": "Un servidor, muchas máquinas",
         "inLabel": "escritorio, oficina",
         "in": [
@@ -87,7 +87,7 @@
           "● 41 observaciones capturadas",
           "● sesión guardada en la wiki"
         ],
-        "outLabel": "portátil, en el tren",
+        "outLabel": "portátil, conectado al servidor",
         "out": [
           "~/app $ ai-memory run claude",
           "> ¿dónde lo dejamos?",
@@ -145,7 +145,7 @@
       {
         "who": "Trabajo solo",
         "title": "Deja de volver a explicar tu proyecto",
-        "text": "Dos comandos para instalar. No necesitas cuenta ni clave de API.",
+        "text": "Instala, configura e inicia. Las funciones predeterminadas de memoria no necesitan una clave API de proveedor de modelos.",
         "cta": "ai-memory para uso individual"
       },
       {

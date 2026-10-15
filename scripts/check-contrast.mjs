@@ -28,6 +28,7 @@ for (const [name, t] of Object.entries(themes)) {
     ...hues.flatMap((h) => [[h, 'bg', 4.5], [h, 'surface', 4.5], [h, `${h.replace('-ink', '')}-soft`, 4.5]]),
     ['on-amber', 'amber', 7], ['on-amber', 'amber-hi', 7],
     ['line', 'bg', 1.2],
+    ...['bg', 'surface', 'tint', ...hues.map(h => `${h.replace('-ink', '')}-soft`)].map(bg => ['focus', bg, 3]),
     ['panel-text', 'ink', 7], ['panel-muted', 'ink', 4.5], ['amber', 'ink', 4.5],
     ['capture', 'ink', 4.5], ['recall', 'ink', 4.5],
     ['capture', 'panel-surface', 4.5], ['recall', 'panel-surface', 4.5],

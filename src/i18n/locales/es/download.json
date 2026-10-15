@@ -15,19 +15,45 @@
     "yours": "Parece tu sistema",
     "checksum": "Checksum SHA-256",
     "verifyTitle": "verificar una descarga",
-    "after": "Después de descomprimir, sigue la <a class=\"underline font-semibold text-text\" href=\"{href}\">instalación rápida</a>. En Linux y macOS, <code>install.sh</code> y <code>ai-memory setup</code> lo hacen en dos comandos.",
-    "linux": { "note": "Descomprime, ejecuta ./ai-memory init y luego serve." },
-    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "Incluye un agente de launchd. Si lo descargas con un navegador, quita antes la marca de cuarentena." },
-    "win": { "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux." },
-    "upgrade": "Más adelante, un binario bajo un prefijo con permiso de escritura (Linux, macOS, el zip de Windows) se actualiza solo con <code>ai-memory upgrade</code>: descarga la versión correspondiente, verifica el checksum y renueva los hooks. Los paquetes se actualizan con su propio gestor de paquetes."
+    "after": "Tras descomprimir, sigue la <a class=\"underline font-semibold text-text\" href=\"{href}\">guía de configuración</a>: instala el binario, configura el servidor e inicia tu agente.",
+    "linux": {
+      "note": "Descomprime, ejecuta ./ai-memory init y luego serve."
+    },
+    "mac": {
+      "apple": "Apple Silicon",
+      "intel": "Intel",
+      "note": "Incluye un agente de launchd. Si lo descargas con un navegador, quita antes la marca de cuarentena."
+    },
+    "win": {
+      "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux."
+    },
+    "upgrade": "Más adelante, un binario bajo un prefijo con permiso de escritura (Linux, macOS, el zip de Windows) se actualiza solo con <code>ai-memory upgrade</code>: descarga la versión correspondiente, verifica el checksum y renueva los hooks. Los paquetes se actualizan con su propio gestor de paquetes.",
+    "upgradeNote": "¿Vienes de 2.x? Copia la wiki y la base antes de actualizar el servidor y después los clientes. Las migraciones solo avanzan; volver atrás necesita el binario antiguo y la copia. <a class=\"link\" href=\"{href}\">Lee los pasos de actualización a 3.0</a>."
   },
   "channels": {
     "title": "Gestores de paquetes y contenedores",
-    "mise": { "title": "mise", "note": "Linux y macOS. Verifica el checksum por ti. Las versiones nuevas pueden tardar cerca de un día en aparecer." },
-    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "precompilado", "source": "desde el código fuente", "note": "Instala unidades de systemd para un servicio de usuario o de sistema." },
-    "rpm": { "title": "Fedora (RPM)", "note": "Paquetes x86_64 y aarch64 con el binario, las fuentes de los hooks y las unidades de systemd. Sigue luego los pasos del servicio de usuario o de sistema." },
-    "docker": { "title": "Docker o Podman", "note": "Multiarquitectura: linux/amd64 y linux/arm64, así que Apple Silicon no necesita emulación." },
-    "src": { "title": "Desde el código fuente", "note": "Necesita el toolchain de Rust fijado en rust-toolchain.toml." },
+    "mise": {
+      "title": "mise",
+      "note": "Linux y macOS. Verifica el checksum por ti. Las versiones nuevas pueden tardar cerca de un día en aparecer."
+    },
+    "aur": {
+      "title": "Arch Linux (AUR)",
+      "prebuilt": "precompilado",
+      "source": "desde el código fuente",
+      "note": "Instala unidades de systemd para un servicio de usuario o de sistema."
+    },
+    "rpm": {
+      "title": "Fedora (RPM)",
+      "note": "Paquetes x86_64 y aarch64 con el binario, las fuentes de los hooks y las unidades de systemd. Sigue luego los pasos del servicio de usuario o de sistema."
+    },
+    "docker": {
+      "title": "Docker o Podman",
+      "note": "Multiarquitectura: linux/amd64 y linux/arm64, así que Apple Silicon no necesita emulación."
+    },
+    "src": {
+      "title": "Desde el código fuente",
+      "note": "Necesita el toolchain de Rust fijado en rust-toolchain.toml."
+    },
     "clients": "Las máquinas cliente que solo envían hooks a un servidor remoto no necesitan el binario completo. La versión también incluye <code>ai-memory-install-hooks</code> y scripts wrapper para Docker en Linux, macOS y Windows. Están listados en la <a class=\"underline font-semibold text-text\" href=\"{href}\">página de la versión</a>."
   },
   "changelog": {
@@ -55,7 +81,7 @@
         "text": "Una página de sesión guarda solo un extracto de cada turno, así que la respuesta a menudo vivía solo en las observaciones en bruto. Ahora esas observaciones votan en el ranking. En LongMemEval-S, hit@5 pasó de 0,82 a 0,95 con la instalación por defecto, sin LLM. Un flag de configuración restaura el ranking anterior."
       },
       {
-        "title": "Dos comandos para instalar",
+        "title": "Instalador nativo y comando de configuración",
         "text": "<code>install.sh</code> descarga la versión, verifica el checksum y enlaza el binario sin necesitar root. <code>ai-memory setup</code> crea el directorio de datos, inicia un servicio por usuario y conecta todos los agentes que encuentra. Claude Code y Codex pueden usar un plugin del marketplace en su lugar."
       },
       {
@@ -64,7 +90,7 @@
       },
       {
         "title": "La interfaz web da un salto",
-        "text": "Historial de páginas con diff entre dos versiones cualesquiera, una línea de tiempo de sesiones que se puede reproducir, backlinks y un índice en cada página, una búsqueda que ordena igual que la del agente con modo explain, insignias de correo, una página de salud para root y un inicio de sesión. Sigue siendo de solo lectura."
+        "text": "Historial y diferencias de páginas, reproducción de sesiones, enlaces entrantes, explicaciones de búsqueda, avisos de correo y salud para root. Hay controles de cuenta y aprobación de cambios pendientes por root; no hay editor de páginas."
       },
       {
         "title": "Más agentes",
@@ -77,8 +103,17 @@
     ]
   },
   "next": [
-    { "title": "Instalación rápida", "text": "De un binario a una memoria funcionando en dos comandos." },
-    { "title": "Integraciones", "text": "Comprueba tu agente y tu sistema operativo." },
-    { "title": "Instalación avanzada", "text": "Servicios, TLS, copias de seguridad y actualizaciones." }
+    {
+      "title": "Instalación rápida",
+      "text": "Desde la descarga y la configuración hasta tu primera sesión con el agente."
+    },
+    {
+      "title": "Integraciones",
+      "text": "Comprueba tu agente y tu sistema operativo."
+    },
+    {
+      "title": "Instalación avanzada",
+      "text": "Servicios, TLS, copias de seguridad y actualizaciones."
+    }
   ]
 }

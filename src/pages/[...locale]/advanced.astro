@@ -100,19 +100,6 @@ sed -e "s|__AI_MEMORY_BIN__|$AI_MEMORY_BIN|" \\
 
 launchctl bootstrap gui/$(id -u) \\
     ~/Library/LaunchAgents/com.github.akitaonrails.ai-memory.plist`;
-const winsw = `<service>
-  <id>ai-memory</id>
-  <name>ai-memory MCP server</name>
-  <description>Long-term memory server for AI coding agents.</description>
-  <executable>C:\\Users\\you\\AppData\\Local\\ai-memory\\ai-memory.exe</executable>
-  <arguments>--data-dir "C:\\Users\\you\\AppData\\Local\\ai-memory" serve --transport http --bind 127.0.0.1:49374</arguments>
-  <startmode>Automatic</startmode>
-  <onfailure action="restart" delay="5 sec"/>
-  <log mode="roll"/>
-</service>`;
-const winswRun = `& "$Dest\\ai-memory-service.exe" install
-& "$Dest\\ai-memory-service.exe" start
-& "$Dest\\ai-memory-service.exe" status`;
 
 const dataDirs = ['wiki', 'raw', 'db', 'models', 'logs'].map((d) => ({ dir: `${d}/`, ...raw<{ holds: string; kind: string; backup: string }>(`data.dirs.${d}`) }));
 
@@ -251,8 +238,7 @@ const faq = faqPage(faqItems);
       </div>
       <div slot="3" class="stack">
         <p class="text-muted max-w-[40em]" set:html={t('services.winsw')} />
-        <CodeBlock title="ai-memory-service.xml" code={winsw} />
-        <CodeBlock title="PowerShell" code={winswRun} />
+        <a class="link" href={doc('windows.md')}>{t('services.links.winsw')}</a>
       </div>
     </Tabs></div>
     <p class="mt-8 flex flex-wrap gap-x-6 gap-y-2">

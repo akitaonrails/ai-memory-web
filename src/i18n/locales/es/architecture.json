@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "Un solo binario, archivos markdown y un índice derivado",
-    "lede": "Los hooks capturan lo que hace tu agente. El markdown en git guarda lo aprendido. SQLite es un índice de búsqueda que puedes tirar y reconstruir. Esta página recorre el camino desde un hook hasta el resumen de la siguiente sesión, y dice dónde el diseño todavía flojea.",
+    "lede": "Los hooks capturan la actividad del agente. Markdown en git guarda las páginas; SQLite guarda su índice de búsqueda y registros exclusivos de la base, como sesiones, traspasos y cuentas. Haz copia de ambos. Sigue abajo el recorrido desde la captura hasta el próximo informe.",
     "primary": "Lee ARCHITECTURE.md",
     "secondary": "Por qué se hizo así"
   },
@@ -15,7 +15,7 @@
     "treeLabel": "El directorio de datos de ai-memory",
     "tree": {
       "wiki": "Páginas markdown con frontmatter YAML, en un repositorio git. La fuente de verdad.",
-      "db": "El índice derivado: texto completo, entidades, enlaces, embeddings, sesiones, auditoría. Modo WAL.",
+      "db": "Índice de búsqueda y registros exclusivos de la base: sesiones, observaciones, traspasos, cuentas y auditoría. Modo WAL.",
       "raw": "Segmentos JSONL inmutables y saneados de las sesiones gestionadas con ai-memory run.",
       "models": "El modelo local de embeddings, all-MiniLM-L6-v2, de unos 87 MB y con SHA-256 fijado.",
       "logs": "Logs con rotación diaria.",
@@ -75,8 +75,8 @@
         "text": "Las páginas son markdown con frontmatter YAML bajo wiki/<workspace>/<project>/. Ábrelas en Obsidian, pásales grep, súbelas a un remoto."
       },
       {
-        "title": "SQLite es derivado",
-        "text": "Todo lo que hay en memory.sqlite que describe una página se puede reconstruir desde los archivos con ai-memory reindex. Un índice corrupto se recupera."
+        "title": "El índice de páginas es derivado",
+        "text": "Reindex reconstruye páginas, enlaces y búsqueda de texto desde Markdown. No recupera sesiones, observaciones, traspasos, usuarios, claves ni auditoría que solo existen en la base."
       },
       {
         "title": "Las escrituras son del servidor",
@@ -208,7 +208,7 @@
       "consolidate": "Ingesta, lint, sweep y el pipeline de auto-improve.",
       "workstream": "Adaptadores de solo lectura para transcripciones nativas y lanzamientos.",
       "cli": "El binario ai-memory y sus subcomandos HTTP, que son finos.",
-      "web": "Vistas de navegador de solo lectura y la API JSON."
+      "web": "Vistas web y API JSON de solo lectura. Las acciones de cuenta y aprobación llaman a rutas autenticadas."
     },
     "tools": {
       "title": "{n} herramientas MCP, pocas a propósito",
@@ -234,7 +234,7 @@
     },
     {
       "q": "¿Qué pasa si el índice SQLite se pierde o se corrompe?",
-      "a": "Los archivos markdown son la fuente de verdad. ai-memory reindex reconstruye el índice de páginas a partir de ellos. No hay una transacción que abarque el sistema de archivos y SQLite, y reindex también es la forma de resolver las ventanas que deja una caída."
+      "a": "Reindex reconstruye páginas, enlaces y búsqueda de texto desde Markdown. No recupera sesiones, observaciones, traspasos, usuarios, claves ni auditoría que solo existen en la base."
     },
     {
       "q": "¿Cómo ordena los resultados la recuperación?",

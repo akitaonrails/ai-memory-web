@@ -109,7 +109,7 @@
     "items": [
       {
         "chose": "Markdown in git as the truth",
-        "because": "<strong>because</strong> backing up or moving is a git clone or an rsync. The database can be rebuilt from the files, so corruption is recoverable, and any tool that reads markdown can read your memory."
+        "because": "<strong>because</strong> ordinary Markdown tools can read the pages. Their search index can be rebuilt, but sessions, handoffs and accounts require a database backup too."
       },
       {
         "chose": "One SQLite file",
@@ -241,11 +241,7 @@
         },
         {
           "title": "Defaults backed by numbers",
-          "text": "The confidence score and the aging features ship switched off. Each one becomes a default only after the harness shows it helps. Link types still carry no ranking weight."
-        },
-        {
-          "title": "A bounded sync command",
-          "text": "Either a plainer description of the one-server model or an ai-memory sync built on the git wiki."
+          "text": "Confidence-based ranking, cold-page compaction, deduplication and the dream pass need explicit settings. Read-based retention already runs by default. Further default changes need measured evidence; typed links still have no extra ranking weight."
         },
         {
           "title": "An easier start for Claude Code users",

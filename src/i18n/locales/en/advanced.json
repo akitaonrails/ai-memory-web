@@ -135,7 +135,7 @@
     },
     "system": "For a shared workstation or a LAN box. Data lives in <code>/var/lib/ai-memory</code>, config in <code>/etc/ai-memory/config.toml</code>, secrets in <code>/etc/ai-memory/env</code>. Do not run both units on the same bind address.",
     "launchd": "The macOS tarballs include a LaunchAgent plist with two placeholders. Run this from the extracted tarball. A LaunchAgent stops at logout, and macOS has no equivalent of lingering. Nothing rotates its two log files.",
-    "winsw": "ai-memory has no Windows Service dispatcher, so <code>sc create</code> pointed at the exe does not work, and a Scheduled Task with <code>Start-Process</code> dies at the next reboot. WinSW wraps it. Use absolute paths: a service runs as LocalSystem, and <code>%LOCALAPPDATA%</code> would expand to the wrong profile.",
+    "winsw": "Native Windows needs a service wrapper such as WinSW. Use absolute paths and choose the owning user when the data directory is in a user profile; LocalSystem resolves a different profile. Follow the Windows service recipe for your WinSW version.",
     "links": {
       "systemd": "systemd units in the install guide",
       "launchd": "launchd in the macOS guide",
@@ -199,7 +199,7 @@
       },
       "remote": {
         "title": "A remote git mirror",
-        "text": "For a single-user install, the backup guide shows how to push the wiki and the data directory to a private git repository on a timer, what to leave out (the derived index, the models cache, logs, secrets) and when an encrypted archive is the better choice.",
+        "text": "A private git mirror preserves wiki pages and their history. Keep a database-inclusive backup alongside it for sessions, handoffs, accounts and audit records. Exclude credentials from the mirror; protect backup archives as sensitive data.",
         "link": "Read the backup guide"
       },
       "agents": {
@@ -245,7 +245,7 @@
           "text": "Register each server once with <code>ai-memory server add</code>, then name it in the marker. The marker never holds a URL or a token, and a marker outside the profile’s roots cannot select it."
         }
       ],
-      "capture": "The same file holds <code>[capture]</code> rules with <code>ignore_paths</code>, and <code>ai-memory install-hooks --apply --capture-mode allowlist</code> turns the marker into an opt-in: a repository without one emits no events. Native hooks enforce both. The Docker wrapper’s shell hooks do not. <a class=\"link\" href=\"{href}\">Read the marker file reference</a>."
+      "capture": "The marker also holds <code>[capture] ignore_paths</code>. Allowlist mode requires repositories to opt in. Native hooks enforce both, including the Linux/macOS Docker wrapper’s normal host-client path. Legacy script hooks do not. <a class=\"link\" href=\"{href}\">Check capture support and refresh instructions</a>."
     },
     "autoScope": {
       "title": "Auto-scope modes",
@@ -255,7 +255,7 @@
         "when": "When to use it"
       },
       "modes": {
-        "per_actor": "The default. Isolates parallel harnesses and separate people on one server.",
+        "per_actor": "Actor-aware routing separates callers. Concurrent sessions by one person still need explicit workspace/project arguments or a client that forwards the hook session ID; static MCP configs cannot always distinguish them.",
         "per_session": "For session-aware clients that forward the hook session id on every MCP request.",
         "single": "The behaviour before v1.39. One slot for the whole process, last write wins. Unsafe on a shared server."
       },
@@ -270,7 +270,7 @@
       "title": "SSO and OIDC",
       "text": "Each developer logs in once with an OIDC device flow against any standards-compliant issuer, such as Keycloak, Okta or Entra ID. The token then authenticates native lifecycle hooks and CLI commands when no static bearer token is set.",
       "calloutTitle": "The server does not validate OIDC tokens",
-      "calloutText": "This is not a login gate for the server. ai-memory does not check OIDC tokens against your identity provider for API access. To put the server behind your IdP you need an OIDC-aware gateway or reverse proxy in front that translates accepted identities into a static bearer or a per-user API key. OIDC hook auth also needs the native hook path. The Docker wrapper’s shell hooks do not use it.",
+      "calloutText": "The server does not validate OIDC tokens itself. Put an OIDC-aware gateway in front to validate identities and forward appropriate server credentials. Hook-side OIDC needs the native client; legacy shell-script hooks do not support it.",
       "link": "Read the SSO and enterprise identity page"
     }
   },
@@ -348,7 +348,7 @@
     }
   ],
   "nextPages": {
-    "install": "The short path: one machine in two commands, a team in five steps.",
+    "install": "Install, set up and launch locally, or configure a shared server.",
     "security": "The hardening ladder, the privacy boundary and what deletion means.",
     "architecture": "One binary, markdown files and a derived index."
   },

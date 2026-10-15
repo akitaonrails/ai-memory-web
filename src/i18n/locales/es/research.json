@@ -109,7 +109,7 @@
     "items": [
       {
         "chose": "Markdown en git como la verdad",
-        "because": "<strong>porque</strong> hacer una copia o mudarse es un git clone o un rsync. La base de datos se puede reconstruir desde los archivos, así que la corrupción tiene arreglo, y cualquier herramienta que lea markdown puede leer tu memoria."
+        "because": "<strong>porque</strong> las herramientas habituales de Markdown pueden leer las páginas. Su índice de búsqueda se reconstruye, pero sesiones, traspasos y cuentas también requieren una copia de la base."
       },
       {
         "chose": "Un solo archivo SQLite",
@@ -241,11 +241,7 @@
         },
         {
           "title": "Valores por defecto respaldados por cifras",
-          "text": "La puntuación de confianza y las funciones de envejecimiento se publican desactivadas. Cada una pasa a ser valor por defecto solo después de que el harness muestre que ayuda. Los tipos de enlace siguen sin peso en el ranking."
-        },
-        {
-          "title": "Un comando de sync acotado",
-          "text": "O una descripción más clara del modelo de un solo servidor, o un ai-memory sync construido sobre la wiki de git."
+          "text": "El ranking por confianza, la compactación de páginas frías, la deduplicación y el dream pass necesitan configuración explícita. La retención basada en lecturas ya funciona por defecto. Otros cambios de valores predeterminados requieren mediciones; los enlaces tipados aún no tienen peso extra en el ranking."
         },
         {
           "title": "Un arranque más fácil para quien usa Claude Code",

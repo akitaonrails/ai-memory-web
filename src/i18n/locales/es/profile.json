@@ -57,7 +57,7 @@
   "newProject": {
     "title": "Un proyecto nuevo arranca con ventaja",
     "lede": "Un repositorio que aún no tiene memoria recibe una base más amplia, y un comando convierte tus elecciones habituales en reglas que ve todo el mundo.",
-    "text": "<code>ai-memory profile apply</code> escribe las entradas que encajan con el repositorio en un bloque gestionado de su archivo de reglas, entre dos marcadores, y no toca nada fuera de ellos. Ejecútalo de nuevo y solo cambia el bloque. Es el único comando que escribe en tu repositorio, y solo se ejecuta cuando tú lo ejecutas.",
+    "text": "<code>ai-memory profile apply</code> escribe las entradas adecuadas en un bloque gestionado del archivo de reglas del repositorio. Se ejecuta cuando lo invocas y conserva el texto fuera del bloque. Otros comandos locales de configuración y agentes también pueden editar archivos del repositorio.",
     "codeTitle": "dentro del repositorio nuevo",
     "comments": {
       "dry": "ver el bloque y el archivo al que iría",
@@ -70,15 +70,15 @@
     "lede": "Las entradas son páginas de wiki normales: markdown en git, con una versión en cada cambio.",
     "items": [
       {
-        "title": "Olvida, y se queda olvidado",
-        "text": "<code>ai-memory profile forget</code> elimina una entrada, y la pasada no la recreará con la misma evidencia. Solo vuelve si lo dices otra vez."
+        "title": "Elimina una entrada del perfil",
+        "text": "<code>ai-memory profile forget</code> elimina una entrada e impide reaprenderla a partir de la misma evidencia. Nuevas evidencias pueden recrearla. El historial git y las copias anteriores pueden conservarla."
       },
       {
         "title": "Tus ediciones mandan",
         "text": "Una entrada que editas a mano es tuya desde ese momento. La pasada nunca reescribe una página que no escribió ella, ni una que cambió después."
       },
       {
-        "title": "El trabajo de clientes y bajo NDA queda fuera",
+        "title": "Excluye un proyecto del perfil",
         "text": "El marcador de un proyecto puede fijar <code>contribute = false</code> para que no se aprenda nada de él, y <code>consume = false</code> para que nunca reciba el digest."
       },
       {
@@ -87,7 +87,8 @@
       }
     ],
     "codeTitle": ".ai-memory.toml en el repositorio de un cliente",
-    "codeComment": "este proyecto ni enseña ni recibe el perfil"
+    "codeComment": "este proyecto ni enseña ni recibe el perfil",
+    "historyLink": "Qué elimina el borrado y qué puede conservar el historial"
   },
   "teams": {
     "title": "Una persona, un perfil. Un equipo, por consentimiento.",

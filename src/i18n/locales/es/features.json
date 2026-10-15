@@ -70,7 +70,7 @@
       },
       {
         "title": "Dos agentes en un proyecto",
-        "text": "El puntero de proyecto actual está aislado por cada llamador, así que Claude Code y Codex pueden correr a la vez en el mismo directorio sin confundirse entre sí."
+        "text": "El enrutamiento por actor separa a los clientes. Las sesiones simultáneas de una misma persona aún necesitan argumentos explícitos de workspace/proyecto o un cliente que reenvíe el ID de sesión del hook; las configuraciones MCP estáticas no siempre las distinguen."
       },
       {
         "title": "Un portátil, dos empleadores",
@@ -103,22 +103,22 @@
       },
       {
         "title": "Los registros de decisiones siguen siendo tuyos",
-        "text": "ai-memory nunca escribe en tu repositorio. Mantén un directorio de ADR y ponlo en <code>[capture] ignore_paths</code> para que la wiki no guarde una copia obsoleta."
+        "text": "El servidor no lee ni escribe archivos de tu repositorio. Los agentes y los comandos locales de configuración sí pueden hacerlo. Conserva los ADR en el repositorio; <code>[capture] ignore_paths</code> reduce su captura por herramientas, pero no filtra prompts ni garantiza su exclusión."
       }
     ],
     "codeTitle": ".ai-memory.toml",
     "codeComment": "Anteponer páginas fijadas, reglas y espacios a cada sesión"
   },
   "notes": {
-    "title": "Notas que caducan y feedback que reordena",
+    "title": "Notas con caducidad y comentarios de retención",
     "items": [
       {
         "title": "Recuerda esto hasta el viernes",
-        "text": "Una página escrita con <code>expires_at</code> sale de la búsqueda después de esa fecha. Sigue ahí para una búsqueda que pida páginas caducadas."
+        "text": "Una página con <code>expires_at</code> deja de aparecer en la búsqueda normal tras esa fecha. Puedes incluir páginas caducadas en una consulta hasta que el barrido de retención las elimine, aunque estén fijadas."
       },
       {
         "title": "Esa página estaba mal",
-        "text": "<code>memory_feedback</code> registra en una página si fue útil, no útil, obsoleta o incorrecta. Obsoleta e incorrecta la bajan en los próximos rankings y aceleran su envejecimiento. El feedback nunca borra nada."
+        "text": "<code>memory_feedback</code> registra útil, no útil, obsoleta o incorrecta. Los comentarios afectan a la retención de páginas de sesión elegibles; obsoleta e incorrecta también marcan páginas para lint. No cambian el orden de búsqueda ni eliminan páginas directamente."
       },
       {
         "title": "Mover una sesión",
@@ -134,7 +134,7 @@
     "title": "Léelo en el navegador, llévatelo a donde quieras",
     "items": [
       {
-        "title": "Una interfaz web de solo lectura",
+        "title": "Un navegador para tu memoria",
         "text": "Arranca el servidor con <code>--enable-web</code> y las páginas de todos los proyectos se pueden navegar, con un esquema, backlinks y las páginas que cada una cita, una búsqueda que ordena como <code>memory_query</code> y puede explicar su ranking, y una API JSON en <code>/api/v1</code>."
       },
       {
@@ -216,5 +216,18 @@
       "title": "Seguridad",
       "text": "Qué se guarda, qué sale, y qué puede y qué no puede hacer un mensaje."
     }
-  ]
+  ],
+  "extensions": {
+    "title": "Conecta tus herramientas y la wiki del equipo",
+    "sdk": {
+      "title": "Memoria para tus propias herramientas",
+      "text": "El SDK opcional de TypeScript usa llamadas MCP con ámbito para guardar, buscar y transferir memoria. Las escrituras condicionales detectan ediciones simultáneas. Compílalo desde el repositorio; no está publicado en npm.",
+      "link": "Usa memoria desde código"
+    },
+    "sync": {
+      "title": "Revisa páginas compartidas en tu repositorio",
+      "text": "El componente opcional ai-memory-wikisync sincroniza familias seleccionadas de páginas compartidas con Markdown del repositorio. Informa de conflictos, usa escrituras condicionales y exige activar las eliminaciones. No replica servidores ni historiales privados de sesiones.",
+      "link": "Guía de sincronización de la wiki del equipo"
+    }
+  }
 }

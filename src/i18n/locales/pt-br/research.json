@@ -109,7 +109,7 @@
     "items": [
       {
         "chose": "Markdown em git como a verdade",
-        "because": "<strong>porque</strong> fazer backup ou mudar de lugar é um git clone ou um rsync. O banco pode ser reconstruído a partir dos arquivos, então corrupção tem conserto, e qualquer ferramenta que lê markdown consegue ler a sua memória."
+        "because": "<strong>porque</strong> ferramentas comuns de Markdown leem as páginas. Seu índice de busca pode ser reconstruído, mas sessões, handoffs e contas também exigem backup do banco."
       },
       {
         "chose": "Um arquivo SQLite só",
@@ -241,11 +241,7 @@
         },
         {
           "title": "Padrões sustentados por números",
-          "text": "A pontuação de confiança e os recursos de envelhecimento saem desligados. Cada um só vira padrão depois que o harness mostrar que ajuda. Os tipos de link continuam sem peso no ranking."
-        },
-        {
-          "title": "Um comando de sync limitado",
-          "text": "Ou uma descrição mais clara do modelo de um servidor só, ou um ai-memory sync construído em cima da wiki em git."
+          "text": "Ranking por confiança, compactação de páginas frias, deduplicação e dream pass exigem configuração explícita. Retenção baseada em leituras já funciona por padrão. Outras mudanças de padrão precisam de evidência medida; links tipados ainda não têm peso extra no ranking."
         },
         {
           "title": "Um começo mais fácil para quem usa Claude Code",

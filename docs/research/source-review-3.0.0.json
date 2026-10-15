@@ -1,0 +1,570 @@
+{
+  "reviewedOn": "2026-10-15",
+  "release": "v3.0.0",
+  "releaseCommit": "dbe928e3b64414c619435df887ed344ff83887a5",
+  "comparedSourceHead": "403e9c9d4a8e09709e1437982fca9b69cdeeed7c",
+  "scope": "Inventory of released root/docs Markdown; topic-level comparison of current website claims, focused implementation checks for contradictions, and inspection of post-release doc changes. Historical experiments were not independently reproduced.",
+  "summary": "persona-review.md#source-documentation-sweep",
+  "additionalReleasedSources": [
+    "companions/ai-memory-ts/README.md",
+    "companions/ai-memory-wikisync/README.md",
+    "companions/ai-memory-importer/README.md",
+    "bin/ai-memory",
+    "crates/ai-memory-cli/src/config.rs",
+    "crates/ai-memory-mcp/src/auth.rs",
+    "crates/ai-memory-mcp/src/server.rs",
+    "crates/ai-memory-consolidate/src/sweep.rs",
+    "crates/ai-memory-web/templates/login.html",
+    "crates/ai-memory-web/templates/pending.html"
+  ],
+  "notReleasedAtBaseline": [
+    "Structured cross-project message decisions described in post-release docs/agent-messaging.md and docs/design-message-decisions.md"
+  ],
+  "inventory": [
+    {
+      "path": "AGENTS.md",
+      "topic": "contributor and migration contracts",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "CHANGELOG.md",
+      "topic": "release history",
+      "disposition": "Release baseline and changelog context; no old behavior presented as current."
+    },
+    {
+      "path": "CLAUDE.md",
+      "topic": "contributor and migration contracts",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "topic": "contributor and migration contracts",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "DATA_HANDLING.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "INSTALL_FOR_AGENTS.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "README.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "SECURITY.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/MIGRATION-2.0.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/ROADMAP-2.0.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/admission-webhooks.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/agent-messaging.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/airgapped-install.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/auto-improve-eval-gates.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/auto-improvement-loop.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/auto-scope.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/backup.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/benchmarks/README.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/benchmarks/longmemeval-s-2026-09-01-fts.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/benchmarks/longmemeval-s-2026-09-01-local.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/benchmarks/longmemeval-s-2026-09-01.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/benchmarks/longmemeval-s-3.0.0-release.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/benchmarks/retrieval-ab-r2.md",
+      "topic": "benchmark evidence",
+      "disposition": "Published measurement provenance; structured values checked by check:upstream, no benchmarks rerun."
+    },
+    {
+      "path": "docs/changelog/0.x.md",
+      "topic": "release history",
+      "disposition": "Release baseline and changelog context; no old behavior presented as current."
+    },
+    {
+      "path": "docs/changelog/1.x.md",
+      "topic": "release history",
+      "disposition": "Release baseline and changelog context; no old behavior presented as current."
+    },
+    {
+      "path": "docs/changelog/2.x.md",
+      "topic": "release history",
+      "disposition": "Release baseline and changelog context; no old behavior presented as current."
+    },
+    {
+      "path": "docs/companion-crates.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/comparison.md",
+      "topic": "competitive and empirical evidence",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/competitive-parity.md",
+      "topic": "competitive and empirical evidence",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/cookbook.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/cross-project-profile.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/deploy.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/design-backup-agent-assets.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-boot-backfill.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-client-sdk.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-cross-project-profile.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-decisions.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-handoff-offer-not-claim.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-hindsight-borrowings.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-marketplace-plugins.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-memory-aging.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-page-ingestion-windows.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-per-project-authz.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-rules-promotion.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-verbatim-residue.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-windows-ci.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/design-yolo-safety-ai-jail.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/desktop/antigravity.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/capture-and-dedup.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/chatgpt-desktop.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/claude-desktop.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/codex-desktop.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/cursor.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/desktop-landscape.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/extensions.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/grok-desktop.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/installer-and-coexistence.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/plan.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/verification-2026-10.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/desktop/zed.md",
+      "topic": "desktop investigations",
+      "disposition": "Research and per-app caveats; support claims remain bounded by released support matrix."
+    },
+    {
+      "path": "docs/examples/auto-improve-eval/README.md",
+      "topic": "operator examples",
+      "disposition": "Implementation examples linked from upstream guides; no extra website section."
+    },
+    {
+      "path": "docs/examples/backup/README.md",
+      "topic": "operator examples",
+      "disposition": "Implementation examples linked from upstream guides; no extra website section."
+    },
+    {
+      "path": "docs/experience.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/external-lifecycle.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/frontend-api.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/https-via-proxy.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/install.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/issues-agentmemory.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/issues-basic-memory.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/issues-cognee.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/issues-mempalace.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/jev-reranker-adapter.md",
+      "topic": "competitive and empirical evidence",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/lifecycle-ops.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/llm-provider-comparison.md",
+      "topic": "competitive and empirical evidence",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/llm-provider-fallback.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/llm-providers.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/local-embeddings.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/macos.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/managed-harness-contributions.md",
+      "topic": "contributor and migration contracts",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/managed-workstreams.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/marker-file.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/mcp-install.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/okf.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/prior-art-implementation-findings.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/programmatic-memory.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/research-2026-landscape.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-agentmemory.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-basic-memory.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-codebase-memory-mcp.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-cognee.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-ecc.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-hindsight.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/research-karpathy-llm-wiki.md",
+      "topic": "historical design and research",
+      "disposition": "Context and implementation references; a design proposal alone does not establish shipped behavior."
+    },
+    {
+      "path": "docs/security-boundaries.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/security.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/shell-completions.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/sso.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/support-matrix.md",
+      "topic": "interfaces and integrations",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/temporal.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/typed-edges.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/upgrading-to-3.0.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/usage.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/use-cases.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/users.md",
+      "topic": "security, identity and privacy",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/vector-backend-policy.md",
+      "topic": "memory behavior and retrieval",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/wiki-migrations.md",
+      "topic": "contributor and migration contracts",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    },
+    {
+      "path": "docs/windows.md",
+      "topic": "installation and operation",
+      "disposition": "Compare current website claims and defaults; keep detailed procedures in upstream docs."
+    }
+  ]
+}

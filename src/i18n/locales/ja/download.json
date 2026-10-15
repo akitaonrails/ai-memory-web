@@ -15,19 +15,45 @@
     "yours": "お使いのシステムのようです",
     "checksum": "SHA-256チェックサム",
     "verifyTitle": "ダウンロードを検証",
-    "after": "展開したら<a class=\"underline font-semibold text-text\" href=\"{href}\">クイックセットアップ</a>に進んでください。LinuxとmacOSでは、<code>install.sh</code>と<code>ai-memory setup</code>の2コマンドで終わります。",
-    "linux": { "note": "展開して./ai-memory initを実行し、続けてserveを実行します。" },
-    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "launchdエージェントが付属します。ブラウザでダウンロードした場合は、先にquarantineフラグを外してください。" },
-    "win": { "note": "実験的です。サポート対象はWSL2上でLinuxビルドを使う方法です。" },
-    "upgrade": "あとで、書き込み可能な場所に置かれたバイナリ（Linux、macOS、Windowsのzip）は<code>ai-memory upgrade</code>で自己更新できます。対応するリリースをダウンロードし、チェックサムを検証し、フックを更新し直します。パッケージ版はそれぞれのパッケージマネージャー経由で更新します。"
+    "after": "展開したら<a class=\"underline font-semibold text-text\" href=\"{href}\">設定ガイド</a>に従って、バイナリのインストール、サーバーの設定、エージェントの起動を進めてください。",
+    "linux": {
+      "note": "展開して./ai-memory initを実行し、続けてserveを実行します。"
+    },
+    "mac": {
+      "apple": "Apple Silicon",
+      "intel": "Intel",
+      "note": "launchdエージェントが付属します。ブラウザでダウンロードした場合は、先にquarantineフラグを外してください。"
+    },
+    "win": {
+      "note": "実験的です。サポート対象はWSL2上でLinuxビルドを使う方法です。"
+    },
+    "upgrade": "あとで、書き込み可能な場所に置かれたバイナリ（Linux、macOS、Windowsのzip）は<code>ai-memory upgrade</code>で自己更新できます。対応するリリースをダウンロードし、チェックサムを検証し、フックを更新し直します。パッケージ版はそれぞれのパッケージマネージャー経由で更新します。",
+    "upgradeNote": "2.x からの更新ですか？ wiki とデータベースをバックアップしてからサーバーを更新し、その後クライアントを更新します。移行は一方向で、戻すには旧バイナリとバックアップが必要です。<a class=\"link\" href=\"{href}\">3.0 への更新手順を読む</a>。"
   },
   "channels": {
     "title": "パッケージマネージャーとコンテナ",
-    "mise": { "title": "mise", "note": "LinuxとmacOS。チェックサムは自動で検証されます。新しいリリースが反映されるまで1日ほどかかることがあります。" },
-    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "ビルド済み", "source": "ソースから", "note": "ユーザーサービスまたはシステムサービス用のsystemdユニットをインストールします。" },
-    "rpm": { "title": "Fedora (RPM)", "note": "x86_64とaarch64向けのパッケージで、バイナリ、フックのソース、systemdユニットが入っています。続けてユーザーサービスまたはシステムサービスの手順に従ってください。" },
-    "docker": { "title": "DockerまたはPodman", "note": "マルチアーキテクチャ対応。linux/amd64とlinux/arm64があるので、Apple Siliconでもエミュレーションは不要です。" },
-    "src": { "title": "ソースから", "note": "rust-toolchain.tomlで固定されたRustツールチェーンが必要です。" },
+    "mise": {
+      "title": "mise",
+      "note": "LinuxとmacOS。チェックサムは自動で検証されます。新しいリリースが反映されるまで1日ほどかかることがあります。"
+    },
+    "aur": {
+      "title": "Arch Linux (AUR)",
+      "prebuilt": "ビルド済み",
+      "source": "ソースから",
+      "note": "ユーザーサービスまたはシステムサービス用のsystemdユニットをインストールします。"
+    },
+    "rpm": {
+      "title": "Fedora (RPM)",
+      "note": "x86_64とaarch64向けのパッケージで、バイナリ、フックのソース、systemdユニットが入っています。続けてユーザーサービスまたはシステムサービスの手順に従ってください。"
+    },
+    "docker": {
+      "title": "DockerまたはPodman",
+      "note": "マルチアーキテクチャ対応。linux/amd64とlinux/arm64があるので、Apple Siliconでもエミュレーションは不要です。"
+    },
+    "src": {
+      "title": "ソースから",
+      "note": "rust-toolchain.tomlで固定されたRustツールチェーンが必要です。"
+    },
     "clients": "リモートサーバーにフックを送るだけのクライアントマシンには、フルバイナリは要りません。リリースには<code>ai-memory-install-hooks</code>と、Linux、macOS、Windows向けのDocker用ラッパースクリプトも含まれます。一覧は<a class=\"underline font-semibold text-text\" href=\"{href}\">リリースページ</a>にあります。"
   },
   "changelog": {
@@ -55,7 +81,7 @@
         "text": "セッションページに残るのは各ターンの抜粋だけなので、答えが生のオブザベーションにしかないことがよくありました。オブザベーションもランキングに投票するようになりました。LongMemEval-Sでは、デフォルトのインストールでLLMなしのまま、hit@5が0.82から0.95に上がりました。設定フラグを1つ切り替えれば、従来のランキングに戻せます。"
       },
       {
-        "title": "インストールは2コマンド",
+        "title": "ネイティブインストーラーと設定コマンド",
         "text": "<code>install.sh</code>はリリースをダウンロードしてチェックサムを検証し、root権限なしでバイナリをリンクします。<code>ai-memory setup</code>はデータディレクトリを作成し、ユーザー単位のサービスを起動して、見つかったすべてのエージェントを接続します。Claude CodeとCodexでは、代わりにマーケットプレイスのプラグインも使えます。"
       },
       {
@@ -64,7 +90,7 @@
       },
       {
         "title": "Web UIが大幅に強化",
-        "text": "任意の2バージョン間のdiffを見られるページ履歴、再生できるセッションのタイムライン、全ページのバックリンクとアウトライン、エージェントと同じランキングで検索できて説明モードもある検索、メールのバッジ、root向けのヘルスページ、サインインが加わりました。引き続き読み取り専用です。"
+        "text": "ページの履歴と差分、セッション再生、被リンク、検索の説明、メール通知、root 用の稼働状況画面を追加。アカウント操作と root による保留中の編集の承認も可能です。ページエディターはありません。"
       },
       {
         "title": "対応エージェントが増加",
@@ -77,8 +103,17 @@
     ]
   },
   "next": [
-    { "title": "クイックセットアップ", "text": "バイナリから動く記憶まで、コマンド2つ。" },
-    { "title": "連携", "text": "お使いのエージェントとOSを確認できます。" },
-    { "title": "詳細セットアップ", "text": "サービス化、TLS、バックアップ、アップグレード。" }
+    {
+      "title": "クイックセットアップ",
+      "text": "ダウンロードから設定、最初のエージェントセッションまで。"
+    },
+    {
+      "title": "連携",
+      "text": "お使いのエージェントとOSを確認できます。"
+    },
+    {
+      "title": "詳細セットアップ",
+      "text": "サービス化、TLS、バックアップ、アップグレード。"
+    }
   ]
 }

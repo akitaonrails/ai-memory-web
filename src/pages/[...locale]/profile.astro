@@ -14,7 +14,7 @@ import CtaBand from '@/components/CtaBand.astro';
 import { faqPage, type Faq as FaqItem } from '@/lib/schema';
 import { site } from '@/data/site';
 
-const { t, raw } = useI18n(Astro, 'profile');
+const { t, raw, href } = useI18n(Astro, 'profile');
 type Item = { title: string; text: string };
 const doc = (f: string) => `${site.docs}/${f}`;
 
@@ -87,6 +87,7 @@ const next = withText([
 
   <Section id="control" title={t('control.title')} lede={t('control.lede')} hue="rose">
     <FeatureGrid items={raw<Item[]>('control.items').map((p) => ({ ...p, hue: 'rose' as const }))} cols={2} />
+    <p class="mt-6"><a class="link" href={href('/security/#deletion')}>{t('control.historyLink')}</a></p>
     <div class="mt-10 max-w-[36rem]"><CodeBlock title={t('control.codeTitle')} code={markerCode} /></div>
   </Section>
 

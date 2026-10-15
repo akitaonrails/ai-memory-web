@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Memoria entre agentes de IA para quien programa solo",
-    "description": "Cambia entre Claude Code, Codex y otros agentes de programación a mitad de tarea, en cualquier máquina, sin volver a explicar tu proyecto. Sin clave de API."
+    "description": "Comparte la memoria del proyecto entre agentes y máquinas conectados a un servidor. Markdown simple, sin clave de proveedor de modelos para las funciones predeterminadas de memoria."
   },
   "hero": {
     "title": "Deja de volver a explicar tu proyecto",
-    "lede": "Cierras un agente, abres otro, y ya conoce la arquitectura, los enfoques que fallaron y lo que sigue abierto. Funciona igual desde tu equipo de escritorio y desde tu portátil, y no necesita clave de API.",
+    "lede": "Guarda decisiones, intentos fallidos y trabajo pendiente para la próxima sesión del agente. Un PC y un portátil pueden compartir esa memoria cuando acceden al mismo servidor. Las funciones predeterminadas de memoria no necesitan clave API de proveedor de modelos.",
     "secondary": "Comprueba tu agente"
   },
   "handoff": {
@@ -55,7 +55,7 @@
       },
       {
         "say": "“Esa página está desactualizada.”",
-        "does": "Registra un feedback que baja la página en los próximos rankings. El feedback nunca borra nada."
+        "does": "Registra comentarios para retención y lint. No cambia el orden de búsqueda ni elimina la página directamente."
       }
     ],
     "more": "La <a class=\"underline font-semibold text-text\" href=\"{href}\">guía de uso en GitHub</a> tiene la lista completa de frases y la herramienta MCP que hay detrás de cada una."
@@ -101,7 +101,7 @@
       "Pon el servidor en un equipo del homelab o en la máquina que se quede encendida. Es un solo binario o un solo contenedor.",
       "Cuando el portátil está sin conexión, los eventos de los hooks van a una cola local (spool) y se vuelcan cuando el servidor vuelve a estar accesible. Cada entrada lleva una clave de idempotencia, así que nada se guarda dos veces.",
       "<code>ai-memory status</code> muestra cuántos eventos hay pendientes y la antigüedad del más viejo.",
-      "Un servidor que escucha más allá de loopback exige un bearer token. El token no cifra el tráfico, así que añade TLS antes de salir de tu LAN."
+      "El acceso remoto necesita un token bearer y TLS, incluso dentro de tu LAN. Configura ambos antes de conectar otra máquina."
     ],
     "codeTitle": "apuntar una máquina al servidor",
     "comment": "En el equipo de escritorio y en el portátil",
@@ -111,7 +111,7 @@
     }
   },
   "defaults": {
-    "title": "Sin clave de API, y con archivos que puedes leer",
+    "title": "Memoria local y archivos legibles",
     "lede": "La instalación por defecto no cuesta nada de ejecutar y guarda todo como markdown en un repositorio git.",
     "items": [
       {
@@ -131,13 +131,13 @@
     "figureCaption": "Edita una página en Obsidian o en vim y un file watcher actualiza el índice de búsqueda.",
     "files": {
       "title": "Llévate los archivos adonde quieras",
-      "text": "El índice SQLite se deriva de los archivos y se puede reconstruir a partir de ellos. Haz la copia de seguridad con <code>ai-memory backup</code>, con rsync o con un git push a tu propio remoto.",
+      "text": "Puedes leer y editar las páginas Markdown. Reindex reconstruye su índice de búsqueda, pero las sesiones, traspasos y cuentas también necesitan la base. Usa <code>ai-memory backup</code>; un git push solo de la wiki no es una copia completa.",
       "codeTitle": "la wiki es un repositorio git",
       "commentCopy": "Copia la wiki fuera del contenedor y ábrela en Obsidian",
       "commentHistory": "O lee su historial"
     },
     "web": {
-      "title": "O navégala en una interfaz web de solo lectura",
+      "title": "Un navegador para tu memoria",
       "text": "Un flag añade una vista en el navegador con la lista de proyectos, el árbol de páginas, el markdown renderizado, la búsqueda y enlaces de wiki en los que puedes hacer clic. No puede editar nada.",
       "codeTitle": "activar la interfaz web",
       "comment": "luego abre {url}",
@@ -180,7 +180,7 @@
     },
     {
       "q": "¿Dónde se guarda mi memoria?",
-      "a": "En una carpeta de archivos de markdown plano versionada con git, dentro del directorio de datos de ai-memory. SQLite guarda un índice de búsqueda que se puede reconstruir a partir de los archivos."
+      "a": "Reindex reconstruye páginas, enlaces y búsqueda de texto desde Markdown. No recupera sesiones, observaciones, traspasos, usuarios, claves ni auditoría que solo existen en la base."
     }
   ],
   "next": {
@@ -192,6 +192,6 @@
     "teams": "El mismo servidor, compartido por unas pocas personas y todos sus agentes."
   },
   "cta": {
-    "text": "Gratis y de código abierto. No necesitas cuenta ni clave de API, y los archivos siguen siendo tuyos."
+    "text": "Gratis y de código abierto. Las funciones predeterminadas de memoria no necesitan clave de proveedor de modelos y los datos son tuyos."
   }
 }

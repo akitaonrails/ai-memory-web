@@ -135,7 +135,7 @@
     },
     "system": "공용 워크스테이션이나 LAN 서버에 맞습니다. 데이터는 <code>/var/lib/ai-memory</code>, 설정은 <code>/etc/ai-memory/config.toml</code>, 시크릿은 <code>/etc/ai-memory/env</code>에 둡니다. 두 유닛을 같은 바인드 주소로 동시에 실행하지 마세요.",
     "launchd": "macOS tarball에는 플레이스홀더 두 개가 들어 있는 LaunchAgent plist가 포함됩니다. 압축을 푼 tarball 안에서 아래 명령을 실행하세요. LaunchAgent는 로그아웃할 때 멈추고, macOS에는 lingering에 해당하는 기능이 없습니다. 로그 파일 두 개는 아무도 로테이션하지 않습니다.",
-    "winsw": "ai-memory에는 Windows 서비스 디스패처가 없습니다. 그래서 exe를 가리키는 <code>sc create</code>는 동작하지 않고, <code>Start-Process</code>를 쓰는 예약 작업은 다음 재부팅 때 죽습니다. WinSW로 감싸면 됩니다. 절대 경로를 쓰세요. 서비스는 LocalSystem으로 실행되므로 <code>%LOCALAPPDATA%</code>가 엉뚱한 프로필로 확장됩니다.",
+    "winsw": "네이티브 Windows에는 WinSW 같은 서비스 래퍼가 필요합니다. 절대 경로를 사용하고 데이터가 사용자 프로필 안에 있다면 소유자 계정으로 실행하세요. LocalSystem은 다른 프로필을 사용합니다. 사용 중인 WinSW 버전에 맞는 서비스 설정 절차를 따르세요.",
     "links": {
       "systemd": "설치 가이드의 systemd 유닛",
       "launchd": "macOS 가이드의 launchd",
@@ -199,7 +199,7 @@
       },
       "remote": {
         "title": "원격 git 미러",
-        "text": "1인 설치라면, 백업 가이드에서 위키와 데이터 디렉터리를 타이머로 프라이빗 git 저장소에 푸시하는 방법과, 제외해야 할 것들(파생 인덱스, 모델 캐시, 로그, 시크릿), 그리고 암호화된 아카이브가 더 나은 선택인 경우를 다룹니다.",
+        "text": "비공개 git 미러는 위키 페이지와 이력을 보존합니다. 세션, 인계, 계정, 감사 기록을 위해 데이터베이스를 포함한 백업도 보관하세요. 미러에서 자격 증명을 제외하고, 백업 파일은 민감한 데이터로 보호하세요.",
         "link": "백업 가이드 읽기"
       },
       "agents": {
@@ -245,7 +245,7 @@
           "text": "<code>ai-memory server add</code>로 서버를 한 번 등록한 다음, 마커에 그 이름을 적으세요. 마커에는 URL이나 토큰이 절대 들어가지 않으며, 프로필의 루트 밖에 있는 마커는 그 서버를 선택할 수 없습니다."
         }
       ],
-      "capture": "같은 파일에 <code>ignore_paths</code>를 담은 <code>[capture]</code> 규칙도 들어갑니다. <code>ai-memory install-hooks --apply --capture-mode allowlist</code>를 쓰면 마커가 옵트인 역할을 해서, 마커 없는 저장소는 이벤트를 전혀 내보내지 않습니다. 네이티브 훅은 두 가지를 모두 강제합니다. Docker 래퍼의 셸 훅은 강제하지 않습니다. <a class=\"link\" href=\"{href}\">마커 파일 레퍼런스 읽기</a>."
+      "capture": "마커에는 <code>[capture] ignore_paths</code>도 설정할 수 있습니다. 허용 목록 모드는 저장소마다 명시적으로 활성화해야 합니다. Linux/macOS Docker 래퍼의 일반 호스트 클라이언트 경로를 포함해 네이티브 훅은 둘 다 적용합니다. 기존 스크립트 훅은 적용하지 않습니다. <a class=\"link\" href=\"{href}\">지원 범위와 갱신 방법을 확인하세요</a>."
     },
     "autoScope": {
       "title": "auto-scope 모드",
@@ -255,7 +255,7 @@
         "when": "쓰는 경우"
       },
       "modes": {
-        "per_actor": "기본값입니다. 한 서버에서 병렬로 도는 하네스와 서로 다른 사람을 격리합니다.",
+        "per_actor": "호출자별 라우팅으로 사용자를 구분합니다. 한 사람의 동시 세션에는 명시적인 workspace/project 인수나 훅 세션 ID를 전달하는 클라이언트가 필요합니다. 정적 MCP 설정으로는 항상 구분할 수 있는 것은 아닙니다.",
         "per_session": "모든 MCP 요청에 훅 세션 id를 전달하는 세션 인식 클라이언트용입니다.",
         "single": "v1.39 이전의 동작입니다. 프로세스 전체에 슬롯이 하나이고 마지막 쓰기가 이깁니다. 공유 서버에서는 안전하지 않습니다."
       },
@@ -270,7 +270,7 @@
       "title": "SSO와 OIDC",
       "text": "개발자마다 Keycloak, Okta, Entra ID 같은 표준 준수 issuer에 OIDC 디바이스 플로로 한 번 로그인합니다. 정적 Bearer 토큰이 설정되어 있지 않으면 이 토큰이 네이티브 라이프사이클 훅과 CLI 명령을 인증합니다.",
       "calloutTitle": "서버는 OIDC 토큰을 검증하지 않습니다",
-      "calloutText": "서버의 로그인 게이트 역할을 하지는 않습니다. ai-memory는 API 접근에 대해 OIDC 토큰을 IdP에 확인하지 않습니다. 서버를 IdP 뒤에 두려면 OIDC를 이해하는 게이트웨이나 리버스 프록시를 앞에 두고, 승인된 신원을 정적 Bearer 토큰이나 사용자별 API 키로 변환해야 합니다. OIDC 훅 인증에는 네이티브 훅 경로도 필요합니다. Docker 래퍼의 셸 훅은 이를 사용하지 않습니다.",
+      "calloutText": "서버는 OIDC 토큰을 직접 검증하지 않습니다. 앞단에 OIDC 지원 게이트웨이를 두어 신원을 검증하고 적절한 서버 자격 증명을 전달하세요. 훅 측 OIDC에는 네이티브 클라이언트가 필요하며 기존 셸 스크립트 훅은 지원하지 않습니다.",
       "link": "SSO와 엔터프라이즈 신원 페이지 읽기"
     }
   },
@@ -348,7 +348,7 @@
     }
   ],
   "nextPages": {
-    "install": "짧은 경로: 컴퓨터 한 대는 명령어 두 개, 팀은 다섯 단계.",
+    "install": "로컬에서 설치, 설정, 실행하거나 공유 서버를 구성하세요.",
     "security": "단계별 보안 강화, 프라이버시 경계, 삭제의 실제 의미.",
     "architecture": "단일 바이너리, markdown 파일, 파생 인덱스."
   },

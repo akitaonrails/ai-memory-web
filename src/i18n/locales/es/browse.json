@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Explora tu memoria en el navegador: interfaz web",
-    "description": "Con --enable-web, cada proyecto se abre en el navegador: páginas, backlinks, mensajes pendientes, historial, replay de sesiones y búsqueda como la del agente."
+    "title": "Explora tu memoria: páginas, historial y búsqueda",
+    "description": "Consulta páginas de memoria, enlaces entrantes, mensajes, historial y reproducción de sesiones en el navegador. También hay controles de cuenta y revisión de propuestas para root."
   },
   "hero": {
     "title": "Mira lo que recuerda tu agente",
-    "lede": "Arranca el servidor con --enable-web y cada proyecto se abre en el navegador: sus páginas, quién las cita, los mensajes que esperan a un agente y una búsqueda que ordena igual que la del agente. Es de solo lectura a propósito.",
+    "lede": "Inicia el servidor con --enable-web para explorar los proyectos a los que tienes acceso: páginas, enlaces, correo pendiente y búsqueda. No hay editor de páginas; sí hay acciones de cuenta y aprobación de cambios propuestos por root.",
     "primary": "Todos los proyectos de un vistazo",
     "secondary": "Busca como el agente"
   },
@@ -52,8 +52,8 @@
     ]
   },
   "readonly": {
-    "title": "Solo lectura a propósito",
-    "text": "La interfaz web no tiene rutas para editar contenido. Cambia las páginas mediante las herramientas del agente, la CLI o los archivos markdown. Para cuentas de usuarios de la base de datos, las vistas del proyecto comprueban el acceso de lectura; root y las identidades de proxy de confianza siguen sus respectivas reglas de autorización. Las páginas con sesión iniciada muestran la versión del servidor en el pie.",
+    "title": "Consulta páginas y revisa propuestas",
+    "text": "Edita el contenido con las herramientas del agente, la CLI o los archivos Markdown. El navegador también permite iniciar sesión, cambiar contraseñas y aprobar o rechazar cambios pendientes solo como root. Los permisos de proyecto de usuarios de la base controlan el acceso; los proxies de confianza aplican su propia autorización.",
     "api": "Los mismos datos están disponibles como JSON en <code>/api/v1</code>, y <code>serve --enable-api</code> monta la API sin la interfaz del navegador."
   },
   "faq": [
@@ -63,7 +63,7 @@
     },
     {
       "q": "¿Puedo editar una página en el navegador?",
-      "a": "No. La interfaz web es de solo lectura por diseño y el crate que la sirve no tiene ruta de escritura. Edita el archivo markdown o deja que el agente escriba con memory_write_page."
+      "a": "No hay editor de páginas. Usa memory_write_page, la CLI o el archivo Markdown. Root puede aprobar o rechazar propuestas de edición pendientes en el navegador."
     },
     {
       "q": "¿Quién puede ver qué en un servidor compartido?",
@@ -71,7 +71,7 @@
     },
     {
       "q": "¿Necesita JavaScript?",
-      "a": "No. Todas las vistas se muestran sin él. JavaScript solo añade el control deslizante de reproducción y el avance con el teclado."
+      "a": "El contenido de las páginas se renderiza sin JavaScript. El inicio de sesión, los cambios de contraseña y la aprobación de propuestas usan JavaScript, al igual que los controles de reproducción y el cambio de tema."
     }
   ],
   "next": [

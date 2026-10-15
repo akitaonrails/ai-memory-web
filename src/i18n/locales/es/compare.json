@@ -87,7 +87,7 @@
       },
       {
         "label": "ai-memory 2.4, embeddings locales",
-        "note": "Sin clave de API"
+        "note": "Sin clave de proveedor de modelos"
       },
       {
         "label": "ai-memory 3.0, texto completo",
@@ -107,7 +107,7 @@
     "caveats": [
       "hit@5 pregunta si una sesión que contiene la evidencia está entre los cinco primeros resultados. Mide la recuperación. No dice nada sobre la precisión de las respuestas.",
       "Se puntúan 470 de las 500 preguntas. Las 30 preguntas de abstención quedan excluidas. Las ejecuciones son del {date}.",
-      "{fts} es texto completo, entidades, enlaces y las observaciones de la propia sesión, sin clave de API y sin LLM. {local} añade el modelo de embeddings por defecto, dentro del proceso.",
+      "{fts} usa texto completo, entidades, enlaces y observaciones de sesión sin LLM ni clave de proveedor de modelos. {local} añade el modelo de embeddings predeterminado dentro del proceso.",
       "No existe ninguna ejecución cara a cara contra ningún competidor. Las cifras de proveedores sobre el mismo dataset salen de harnesses distintos, a menudo sin paso de captura, y las cifras de precisión, como el 91,4% de Hindsight, son otra métrica.",
       "Los extractos guardados se limitan a 2 KB por privacidad. Las páginas que contienen exactamente el texto capturado puntúan a menos de medio punto de las sesiones completas, así que el tope cuesta poco.",
       "LongMemEval es historial de asistentes de chat. Hay planeado un benchmark de sesiones de programación, y todavía no existe."
@@ -174,7 +174,7 @@
       },
       {
         "title": "Trae notas y conversaciones viejas, si el importador las lee",
-        "text": "El importador independiente que está en <code>companions/ai-memory-importer</code> lee dos cosas hoy: carpetas de wiki markdown de oh-my-claudecode (OMC) y conversaciones en un envoltorio JSON genérico y pequeño. No tiene adaptador para Mem0, Zep ni cognee, así que sus exportaciones hay que convertirlas antes a ese envoltorio. Por defecto hace una simulación y nunca borra nada.",
+        "text": "El componente opcional <code>companions/ai-memory-importer</code> admite Markdown de OMC, JSON genérico de conversaciones y exportaciones vault o ExportData de agentmemory. Simula por defecto. Las exportaciones de Mem0, Zep y cognee aún necesitan conversión; no hay adaptadores específicos.",
         "codeTitle": "simulación, desde un checkout del repositorio"
       },
       {
@@ -216,7 +216,7 @@
   "next": [
     {
       "title": "Instalación rápida",
-      "text": "Dos comandos para una máquina, cinco pasos para un equipo."
+      "text": "Instala, configura e inicia en local, o configura un servidor compartido."
     },
     {
       "title": "Investigación y fundamentos",
@@ -229,6 +229,6 @@
   ],
   "cta": {
     "title": "Pruébalo junto a la herramienta que ya tienes.",
-    "text": "Se instala al lado de tu configuración actual y no necesita cuenta ni clave de API."
+    "text": "Instálalo junto a tus herramientas. Las funciones predeterminadas de memoria no necesitan clave API de proveedor de modelos."
   }
 }

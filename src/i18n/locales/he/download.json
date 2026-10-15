@@ -15,19 +15,45 @@
     "yours": "נראה שזו המערכת שלך",
     "checksum": "checksum מסוג SHA-256",
     "verifyTitle": "אימות הורדה",
-    "after": "אחרי החילוץ, עוברים אל <a class=\"underline font-semibold text-text\" href=\"{href}\">ההתקנה המהירה</a>. ב-Linux וב-macOS, <code>install.sh</code> ו-<code>ai-memory setup</code> עושים את זה בשתי פקודות.",
-    "linux": { "note": "מחלצים, מריצים ./ai-memory init ואז serve." },
-    "mac": { "apple": "Apple Silicon", "intel": "Intel", "note": "כולל launchd agent. אם ההורדה נעשתה בדפדפן, צריך קודם להסיר את דגל ה-quarantine." },
-    "win": { "note": "ניסיוני. המסלול הנתמך הוא WSL2 עם ה-build של Linux." },
-    "upgrade": "בהמשך, קובץ בינארי תחת prefix הניתן לכתיבה (Linux, macOS, קובץ ה-zip ל-Windows) מתעדכן בעצמו עם <code>ai-memory upgrade</code>: הוא מוריד את הגרסה המתאימה, מאמת את ה-checksum ומרענן את ה-hooks. חבילות מתעדכנות דרך מנהל החבילות שלהן."
+    "after": "לאחר החילוץ, פעל לפי <a class=\"underline font-semibold text-text\" href=\"{href}\">מדריך ההגדרה</a>: התקן את הבינארי, הגדר את השרת והפעל את הסוכן.",
+    "linux": {
+      "note": "מחלצים, מריצים ./ai-memory init ואז serve."
+    },
+    "mac": {
+      "apple": "Apple Silicon",
+      "intel": "Intel",
+      "note": "כולל launchd agent. אם ההורדה נעשתה בדפדפן, צריך קודם להסיר את דגל ה-quarantine."
+    },
+    "win": {
+      "note": "ניסיוני. המסלול הנתמך הוא WSL2 עם ה-build של Linux."
+    },
+    "upgrade": "בהמשך, קובץ בינארי תחת prefix הניתן לכתיבה (Linux, macOS, קובץ ה-zip ל-Windows) מתעדכן בעצמו עם <code>ai-memory upgrade</code>: הוא מוריד את הגרסה המתאימה, מאמת את ה-checksum ומרענן את ה-hooks. חבילות מתעדכנות דרך מנהל החבילות שלהן.",
+    "upgradeNote": "מגיע מ־2.x? גבה את הוויקי ואת המסד לפני שדרוג השרת, ואז עדכן לקוחות. המיגרציות חד־כיווניות; חזרה דורשת את הבינארי הישן ואת הגיבוי. <a class=\"link\" href=\"{href}\">קרא את שלבי השדרוג ל־3.0</a>."
   },
   "channels": {
     "title": "מנהלי חבילות וקונטיינרים",
-    "mise": { "title": "mise", "note": "Linux ו-macOS. מאמת את ה-checksum בשבילך. גרסאות חדשות יכולות להופיע באיחור של יום בערך." },
-    "aur": { "title": "Arch Linux (AUR)", "prebuilt": "בנוי מראש", "source": "מקוד מקור", "note": "מתקין יחידות systemd לשירות משתמש או לשירות מערכת." },
-    "rpm": { "title": "Fedora (RPM)", "note": "חבילות ל-x86_64 ול-aarch64 עם הקובץ הבינארי, מקורות ה-hooks ויחידות systemd. אחר כך ממשיכים לפי הצעדים של שירות המשתמש או שירות המערכת." },
-    "docker": { "title": "Docker או Podman", "note": "Multi-arch: linux/amd64 ו-linux/arm64, כך ש-Apple Silicon לא צריך אמולציה." },
-    "src": { "title": "מקוד מקור", "note": "דורש את ה-toolchain של Rust בגרסה שמקובעת ב-rust-toolchain.toml." },
+    "mise": {
+      "title": "mise",
+      "note": "Linux ו-macOS. מאמת את ה-checksum בשבילך. גרסאות חדשות יכולות להופיע באיחור של יום בערך."
+    },
+    "aur": {
+      "title": "Arch Linux (AUR)",
+      "prebuilt": "בנוי מראש",
+      "source": "מקוד מקור",
+      "note": "מתקין יחידות systemd לשירות משתמש או לשירות מערכת."
+    },
+    "rpm": {
+      "title": "Fedora (RPM)",
+      "note": "חבילות ל-x86_64 ול-aarch64 עם הקובץ הבינארי, מקורות ה-hooks ויחידות systemd. אחר כך ממשיכים לפי הצעדים של שירות המשתמש או שירות המערכת."
+    },
+    "docker": {
+      "title": "Docker או Podman",
+      "note": "Multi-arch: linux/amd64 ו-linux/arm64, כך ש-Apple Silicon לא צריך אמולציה."
+    },
+    "src": {
+      "title": "מקוד מקור",
+      "note": "דורש את ה-toolchain של Rust בגרסה שמקובעת ב-rust-toolchain.toml."
+    },
     "clients": "מחשבי לקוח שרק שולחים hooks לשרת מרוחק לא צריכים את הקובץ הבינארי המלא. הגרסה כוללת גם את <code>ai-memory-install-hooks</code> וסקריפטי wrapper ל-Docker ב-Linux, macOS ו-Windows. כולם מופיעים ב<a class=\"underline font-semibold text-text\" href=\"{href}\">דף הגרסה</a>."
   },
   "changelog": {
@@ -55,7 +81,7 @@
         "text": "דף סשן שומר רק קטע קצר מכל תור, ולכן התשובה נמצאה לעיתים רק בתצפיות הגולמיות. עכשיו הן משתתפות בדירוג. ב-LongMemEval-S, hit@5 עלה מ-0.82 ל-0.95 בהתקנת ברירת המחדל, בלי LLM. דגל קונפיגורציה אחד מחזיר את הדירוג הישן."
       },
       {
-        "title": "שתי פקודות להתקנה",
+        "title": "מתקין מקורי ופקודת הגדרה",
         "text": "<code>install.sh</code> מוריד את הגרסה, מאמת את ה-checksum ומקשר את הקובץ הבינארי בלי הרשאות root. <code>ai-memory setup</code> יוצר את תיקיית הנתונים, מפעיל שירות פר משתמש ומחבר כל סוכן שהוא מוצא. ל-Claude Code ול-Codex אפשר להשתמש בפלאגין מה-marketplace במקום."
       },
       {
@@ -64,7 +90,7 @@
       },
       {
         "title": "ממשק ה-web התבגר",
-        "text": "היסטוריית דפים עם diff בין כל שתי גרסאות, ציר זמן של סשן שאפשר לנגן מחדש, backlinks ותוכן עניינים בכל דף, חיפוש שמדרג כמו הסוכן עם מצב הסבר, תגי דואר, דף בריאות ל-root ומסך כניסה. עדיין לקריאה בלבד."
+        "text": "היסטוריית דפים והשוואות, שחזור סשנים, קישורים נכנסים, הסברי חיפוש, סימוני דואר ודף בריאות ל־root. קיימים ניהול חשבון ואישור עריכות ממתינות בידי root; אין עורך דפים."
       },
       {
         "title": "עוד סוכנים",
@@ -77,8 +103,17 @@
     ]
   },
   "next": [
-    { "title": "התקנה מהירה", "text": "מקובץ בינארי לזיכרון עובד בשתי פקודות." },
-    { "title": "אינטגרציות", "text": "בדיקת הסוכן ומערכת ההפעלה." },
-    { "title": "התקנה מתקדמת", "text": "שירותים, TLS, גיבויים ושדרוגים." }
+    {
+      "title": "התקנה מהירה",
+      "text": "מההורדה דרך ההגדרה ועד לסשן הראשון עם הסוכן."
+    },
+    {
+      "title": "אינטגרציות",
+      "text": "בדיקת הסוכן ומערכת ההפעלה."
+    },
+    {
+      "title": "התקנה מתקדמת",
+      "text": "שירותים, TLS, גיבויים ושדרוגים."
+    }
   ]
 }

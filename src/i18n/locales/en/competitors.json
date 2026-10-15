@@ -10,7 +10,7 @@
       "same": "The \"remember my project\" convenience, in markdown.",
       "gain": [
         "The same memory in Codex, Cursor, Gemini CLI and 20 more",
-        "Synced across your machines",
+        "One reachable server for your machines",
         "Shared with your team",
         "Real search, and capture of what the tools actually did"
       ],
@@ -40,7 +40,7 @@
         "Neo4j, FalkorDB or Neptune",
         "An LLM"
       ],
-      "same": "Facts are superseded, never deleted. You can ask what was true at a point in time.",
+      "same": "Page versions support historical queries. ai-memory tracks when it learned or replaced a fact; retention and purge can still remove data.",
       "gain": [
         "Point-in-time queries and typed links on one binary with SQLite",
         "No graph database to run",
@@ -179,7 +179,7 @@
   "moat": [
     {
       "title": "Zero LLM calls by default",
-      "text": "Capture, search and handoffs work with no API key."
+      "text": "Capture, search and handoffs need no model-provider API key."
     },
     {
       "title": "Files are the source of truth",

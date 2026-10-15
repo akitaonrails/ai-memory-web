@@ -241,7 +241,7 @@
       "hooks": "סכמות ה-payload של ה-hooks, ה-sanitizer וה-endpoint של /hook.",
       "llm": "גבול האימות מול הספקים וה-traits של ה-LLM ושל ה-embedder.",
       "consolidate": "הזנה, lint, sweep וה-pipeline של auto-improve.",
-      "web": "הדפדפן לקריאה בלבד ב-/web ונתיבי ה-JSON של /api/v1.",
+      "web": "תצוגות דפדפן ו־API של JSON לקריאה בלבד. פעולות חשבון ואישור פונות לנתיבים מאומתים.",
       "workstream": "קוראים לקריאה בלבד של תמלילים נייטיב, ומתאמי ההפעלה שמאחורי ai-memory run.",
       "cli": "הקובץ הבינארי ai-memory ותת-הפקודות הדקות שלו מעל HTTP."
     },

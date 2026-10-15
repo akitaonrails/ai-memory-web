@@ -46,7 +46,7 @@
       {
         "kicker": "Measured",
         "title": "{score} hit@5 on LongMemEval-S, caveats included",
-        "text": "Retrieval is scored with a harness that ships in the repository, capture step included. The number says nothing about answer accuracy.",
+        "text": "hit@5 measures whether any session containing the evidence appears in the first five results. The published harness includes capture. This measures retrieval, not answer accuracy.",
         "cta": "What was measured"
       }
     ],
@@ -79,7 +79,7 @@
       },
       "machines": {
         "title": "Switch machines.",
-        "text": "Memory lives in a small server you run: on your laptop, a homelab box, wherever. The project you left on the desktop is the project you resume on the notebook.",
+        "text": "Run one server and connect both machines to it. Memory is available while that server is reachable. Offline hook events wait locally for delivery; two servers do not replicate.",
         "link": "One server, many machines",
         "inLabel": "desktop, office",
         "in": [
@@ -87,7 +87,7 @@
           "● 41 observations captured",
           "● session saved to the wiki"
         ],
-        "outLabel": "notebook, on the train",
+        "outLabel": "notebook, connected to the server",
         "out": [
           "~/app $ ai-memory run claude",
           "> where did we leave off?",
@@ -145,7 +145,7 @@
       {
         "who": "I work alone",
         "title": "Stop re-explaining your project",
-        "text": "Two commands to install. You need no account and no API key.",
+        "text": "Install, set up, launch. Default memory features need no model-provider API key.",
         "cta": "ai-memory for individuals"
       },
       {

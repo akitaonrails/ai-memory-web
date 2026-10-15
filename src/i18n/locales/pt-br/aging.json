@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "Como a memória envelhece",
-    "lede": "Um projeto acumula páginas de sessão por meses, e a maioria delas deixa de ser útil. O ai-memory dá uma pontuação a cada uma, mantém as que você ainda lê e pode encolher ou mesclar o resto. O caminho padrão não chama nenhum LLM, e todo recurso que reescreve página fica desligado até você ligar.",
+    "lede": "Páginas de sessão sem uso perdem peso de retenção e podem ser removidas. Compactação de páginas frias, deduplicação e dream pass vêm desligados. Com um LLM configurado, um agendador separado de autoaperfeiçoamento pode editar a wiki automaticamente.",
     "primary": "O caminho sem LLM",
     "secondary": "A passada de sonho"
   },
@@ -124,12 +124,12 @@
         "text": "<code>ai-memory restore-page</code> pode recuperar uma página de um checkpoint git preservado enquanto seu projeto existir. Não restaura sessões, observações ou handoffs armazenados apenas no banco de dados."
       },
       {
-        "title": "Atualizar não muda nada",
-        "text": "A compactação, o dedup e a passada de sonho vêm desligados por padrão. Uma atualização não muda nenhuma pontuação nem descarta nada, e o servidor arquiva o diretório de dados antes de migrar."
+        "title": "Revise os padrões antes de atualizar",
+        "text": "Compactação, deduplicação e dream pass continuam opcionais. As regras existentes de retenção e validade continuam valendo. Faça um backup completo antes de atualizar; arquivos automáticos de migração da wiki não substituem o backup do banco."
       },
       {
         "title": "Fixe o que tem que ficar",
-        "text": "Uma página fixada nunca entra na varredura. Páginas semânticas e procedurais não decaem."
+        "text": "Fixar protege uma página contra remoção por decaimento. Páginas semânticas e procedurais não decaem. Uma data de validade explícita ainda permite a exclusão, mesmo de uma página fixada."
       }
     ],
     "deleted": {
@@ -187,7 +187,7 @@
     },
     {
       "q": "Uma atualização vai mudar a memória que eu já tenho?",
-      "a": "Não. A compactação, o dedup e a passada de sonho vêm desligados por padrão, então uma atualização não muda nenhuma pontuação nem descarta nada. O servidor arquiva o diretório de dados antes de migrar."
+      "a": "Compactação, deduplicação e dream pass continuam opcionais. As regras existentes de retenção e validade continuam valendo. Faça um backup completo antes de atualizar; arquivos automáticos de migração da wiki não substituem o backup do banco."
     },
     {
       "q": "Esses recursos melhoram as pontuações de recuperação?",

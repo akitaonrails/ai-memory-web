@@ -78,6 +78,10 @@ ai-memory run claude`;
             <a href={href('/install/')} class="btn btn-primary">{t('hero.primary')}</a>
             <a href="#how" class="btn btn-ghost">{t('hero.secondary')}</a>
           </div>
+          <nav class="hero-shortcuts mt-6 flex flex-wrap gap-x-6 gap-y-3" aria-label={t('paths.title')}>
+            <a href="#guide-title">{t('guide.title')}</a>
+            <a href="#paths">{t('paths.title')}</a>
+          </nav>
           <ul class="facts mt-9">
             {facts.map((f) => <li>{f}</li>)}
           </ul>
@@ -88,8 +92,40 @@ ai-memory run claude`;
     <div class="marquee">
       {/* Same sentence the aria-label carried, as text a screen reader can read: aria-label is prohibited on a plain div. */}
       <p class="sr-only">{t('hero.marquee', { n: harnesses.length, names: harnesses.slice(0, 6).map((h) => h.name).join(', ') })}</p>
-      <div class="agent-list wrap" aria-hidden="true" dir="ltr">
-        {harnesses.map((h) => <span>{h.name}</span>)}
+      <div class="agent-list wrap" dir="ltr">
+        {harnesses.slice(0, 6).map((h) => <span>{h.name}</span>)}
+        <a href={href('/integrations/#agents')}>{t('hero.cards.2.cta')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="guide-title">
+    <div class="wrap guide-panel">
+      <h2 id="guide-title" class="text-2xl">{t('guide.title')}</h2>
+      <div class="mt-6 grid lg:grid-cols-2 gap-8">
+        <div class="space-y-4 text-muted"><p>{t('guide.purpose')}</p><p>{t('guide.capture')}</p><p>{t('guide.boundary')}</p></div>
+        <ul class="space-y-5 font-semibold underline">
+          <li><a href={href('/security/#controls')}>{t('guide.controls')}</a></li>
+          <li><a href={href('/profile/')}>{t('guide.profile')}</a></li>
+          <li><a href={href('/solutions/individuals/#need')}>{t('guide.fit')}</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pick a path -->
+  <section class="band !pt-0" id="paths">
+    <div class="wrap">
+      <h2 class="text-3xl">{t('paths.title')}</h2>
+      <div class="mt-12 grid md:grid-cols-2 gap-4" data-reveal="children">
+        {paths.map((p) => (
+          <a href={href(p.href)} class="path" data-hue={p.hue}>
+            <span class="who">{p.who}</span>
+            <h3 class="mt-5 text-2xl max-w-[16ch]">{p.title}</h3>
+            <p class="mt-3 text-muted">{p.text.replace('{n}', String(gh.contributors))}</p>
+            <span class="go">{p.cta}<svg class="flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -110,37 +146,6 @@ ai-memory run claude`;
         ))}
       </ol>
       <p class="mt-12"><a href={href('/architecture/')} class="btn btn-ghost">{t('how.cta')}</a></p>
-    </div>
-  </section>
-
-  <section class="band !pt-0" aria-labelledby="guide-title">
-    <div class="wrap guide-panel">
-      <h2 id="guide-title" class="text-2xl">{t('guide.title')}</h2>
-      <div class="mt-6 grid lg:grid-cols-2 gap-8">
-        <div class="space-y-4 text-muted"><p>{t('guide.purpose')}</p><p>{t('guide.capture')}</p><p>{t('guide.boundary')}</p></div>
-        <ul class="space-y-5 font-semibold underline">
-          <li><a href={href('/security/#controls')}>{t('guide.controls')}</a></li>
-          <li><a href={href('/profile/')}>{t('guide.profile')}</a></li>
-          <li><a href={href('/solutions/individuals/#need')}>{t('guide.fit')}</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pick a path -->
-  <section class="band">
-    <div class="wrap">
-      <h2 class="text-3xl">{t('paths.title')}</h2>
-      <div class="mt-12 grid md:grid-cols-2 gap-4" data-reveal="children">
-        {paths.map((p) => (
-          <a href={href(p.href)} class="path" data-hue={p.hue}>
-            <span class="who">{p.who}</span>
-            <h3 class="mt-5 text-2xl max-w-[16ch]">{p.title}</h3>
-            <p class="mt-3 text-muted">{p.text.replace('{n}', String(gh.contributors))}</p>
-            <span class="go">{p.cta}<svg class="flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-        ))}
-      </div>
     </div>
   </section>
 
@@ -274,6 +279,8 @@ ai-memory run claude`;
   .facts { display: grid; gap: .65rem; color: var(--panel-muted); font: .875rem/1.6 var(--font-mono); }
   .facts li::before { content: '+'; margin-inline-end: .75rem; color: var(--amber); }
   .marquee { margin-top: 1.5rem; }
+  .hero-shortcuts a { font-size: 1rem; text-decoration: underline; padding-block: .25rem; }
+  .agent-list a { color: var(--teal); text-decoration: underline; font-size: 1rem; }
   .agent-list { display: flex; flex-wrap: wrap; gap: .8rem 2rem; padding-block: 1.5rem; border-bottom: 2px solid var(--line); font-family: var(--font-display); color: var(--muted); }
   .guide-panel a { display: inline-block; padding-block: .25rem; }
   .guide-panel { border-inline-start: 3px solid var(--amber-ink); padding-inline-start: clamp(1.5rem, 4vw, 3rem); }
@@ -288,5 +295,5 @@ ai-memory run claude`;
   .path .who { font: .875rem/1.6 var(--font-mono); color: var(--hue); }
   .path .go { margin-top: auto; padding-top: 2rem; display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: var(--hue); }
   .how-step .n { font: 1rem var(--font-mono); color: var(--hue); border-bottom: 2px solid var(--hue); padding-bottom: .5rem; display: block; }
-  @media(max-width:767px) { .feature-directory { grid-template-columns: 1fr; gap: 1rem; } }
+  @media(max-width:767px) { .agent-list { gap: .5rem 1.25rem; font-size: 1rem; } .feature-directory { grid-template-columns: 1fr; gap: 1rem; } }
 </style>

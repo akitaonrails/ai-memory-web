@@ -101,3 +101,51 @@ The prototype directories, raw Stitch responses, generated comparison screenshot
 Cleanup validation: translation stamps reflect only deleted unused keys; `check:i18n`, `check:colors`, the 102-page production build, and `git diff --check` pass. No live content or behavior was changed by cleanup. The reviewed defects remain open; this is a review and cleanup pass, not their implementation.
 
 Raw independent reports are local at `/tmp/persona-engineer-v2.md`, `/tmp/persona-manager-v2.md`, and `/tmp/persona-parent-v2.md`. Findings and recommendations are preserved here so the temporary reports are not required. Limitations: targeted English journeys, Chromium only, no real screen-reader study, no all-page accessibility rerun, no product installation, and no new benchmark or exhaustive security audit.
+
+## Implemented after the repeat review
+
+The approved recommendations were implemented on 15 October 2026, together with the source-documentation sweep requested during implementation.
+
+- Team installation now keeps the Docker port on loopback, exports root credentials for the host CLI, establishes TLS before remote clients, and distinguishes the issued user key from the root token. The individual remote-client example uses HTTPS too. The unauthenticated reachability probe explains the expected 401 separately from the authenticated CLI check.
+- The homepage puts the collection/defaults guide and individual/team paths before the workflow diagram, with direct links from the hero. The agent roster shows six names and a link to the full list. On the 360px English page the guide moved from about 4,364px to 1,617px and the audience paths from about 5,300px to 2,489px. Team limits now sit beside the pilot guidance.
+- Security's egress and deletion tables become labeled records on phones while retaining table headers and roles. The egress settings appear before the diagram. Deletion prose now renders its code markup correctly.
+- Keyboard focus uses separate light/dark contrast tokens, with a light-theme minimum above 5:1 on the checked page surfaces. Dark artwork panels retain their own light focus color. Contrast checks now cover focus on the regular surfaces.
+- Profile controls describe removal and project opt-outs without promising permanent erasure or NDA protection, and link to deletion/history limits. The homepage explains hit@5. Setup wording consistently separates installation, configuration and launch; model-provider keys are distinguished from server credentials.
+
+### Source-documentation sweep
+
+Baseline: released `v3.0.0`, commit `dbe928e3b64414c619435df887ed344ff83887a5`. Compared with source HEAD `403e9c9d4a8e09709e1437982fca9b69cdeeed7c`. The source working tree's existing `install_hooks.rs` modification was left untouched. The release contains 109 root/docs Markdown files in the inventory; companion READMEs were checked separately. The inventory and topic disposition are recorded in `source-review-3.0.0.json`. Inventory coverage is not a claim that every historical research assertion was independently re-benchmarked.
+
+The sweep compared current public guidance and product claims with the released docs, checked conflicting defaults against implementation, and inspected the post-release documentation diff. Historical designs, competitive research and desktop investigations were not treated as unconditional shipped feature promises. In particular, the new structured message-decision protocol in HEAD is not advertised as released.
+
+| Correction | Released evidence | Website coverage |
+|---|---|---|
+| Feedback affects retention/lint, not search ranking | `docs/usage.md` metadata section; MCP `memory_feedback`; `docs/design-memory-aging.md` retention scope | Features, Individuals, Aging consistency |
+| Expired pages can be deleted even when pinned | `crates/ai-memory-consolidate/src/sweep.rs` TTL pass | Features and Aging |
+| Automatic improvement can apply edits once an LLM is configured | `docs/auto-improvement-loop.md`; CLI config defaults `require_approval: false` | Install and Aging; shared-server approval setting explained |
+| The full SQLite database is not rebuildable from Markdown | `docs/lifecycle-ops.md` reindex; `docs/backup.md` recovery limitations | Architecture, Individuals, Advanced, Research |
+| Browser accounts and proposal approvals mutate state; browser forms need JavaScript | released login/password/pending templates; `docs/frontend-api.md` authentication section | Browse, Features, Teams, navigation, crate descriptions, release summary |
+| Docker wrapper's ordinary Linux/macOS hooks use a native host client | released `bin/ai-memory` install-hooks dispatch; `docs/install.md`; marker capability section | Install, Security, Advanced |
+| Same-user concurrent sessions need a session coordinate or explicit scope | `docs/auto-scope.md` client requirements | Features, Advanced |
+| WSL does not require Docker; native Windows setup does not start a service | `docs/windows.md`; released setup behavior | Install; incomplete WinSW snippet removed in favor of full recipe |
+| Migration needs backup and server-first ordering | `docs/upgrading-to-3.0.md` | Download guidance near the binaries; existing Advanced guidance retained |
+| Importer supports agentmemory exports as well as OMC and generic JSON | released importer README and companion guide | Compare |
+| Repository writes are possible through local commands/agents | profile apply, setup/routing snippets, usage ADR guidance | Features and Profile |
+| Historical queries concern learned/replaced time and are subject to deletion | `docs/temporal.md`; lifecycle operations | Zep comparison wording |
+
+Two modest additions earned space on the existing Features page: the unpublished, checkout-built TypeScript SDK, and the optional team-wiki sync companion. The latter is explicitly distinguished from server replication and private session sync. The stale research recommendation for a future sync command was removed. Agentmemory migration support was added to the existing migration paragraph. No new marketing pages were added.
+
+Existing coverage already accounts for messaging, managed launches, session recovery/backfill/bootstrap, scopes/rules/profiles, temporal queries, typed links, retention/dreaming, local embeddings, providers, agent backups, auth/SSO, air-gapped installs, OKF and benchmark caveats. Operator extensions (admission/eval hooks, external capture/relay), provider fallback tuning, shell completions, macOS companion packaging and internal migration/contributor protocols remain linked documentation topics rather than more homepage sections. Desktop research is bounded by the released support matrix. No promise of a generic chat editor, cloud connector, local reranker or multi-server replication was added.
+
+Some upstream prose is itself inconsistent: the released backup table calls the database disposable while its recovery section lists database-only records; older wrapper caveats disagree with the released native-client dispatch; README aging prose is more absolute than the TTL/retention implementation. The website follows the narrower implementation and lifecycle contracts. This task changed the website, not those upstream files.
+
+### Verification of this implementation
+
+- All six catalogs updated together; translation fingerprints stamped after translation, with no missing/stale keys.
+- Build produces 102 routes. Color checks and released-source factual checks pass.
+- Full layout sweep: 408 route/viewport/theme combinations, zero failures.
+- Focused axe-core scan: 44 checks across changed layouts, both themes, 360px and 1440px, including Security in every locale; zero violations.
+- Targeted browser assertions: all six mobile security tables show every field without horizontal overflow; code markup renders; TLS precedes people/keys/clients; early homepage guides and short roster are present; team limits appear early; actual keyboard Tab navigation shows a 2px focus outline in both themes.
+- Menu, Escape, theme persistence, keyboard tabs, mobile drawer and Hebrew same-page language switching pass. Screenshots inspected for English and Hebrew mobile tables, including light/dark styling.
+
+Limits: these are website and source-contract checks, not a fresh installation on every operating system, a full upstream test run, or a human screen-reader study. The locally installed CLI is 2.6.5, so it was not used to claim runtime validation of 3.0 commands. No source checkout or user's running memory service was upgraded.

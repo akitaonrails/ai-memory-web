@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Navegue pela memória no navegador: interface web",
-    "description": "Com --enable-web, cada projeto abre no navegador: páginas, backlinks, mensagens pendentes, histórico, replay de sessão e busca que ranqueia como a do agente."
+    "title": "Explore sua memória: páginas, histórico e busca",
+    "description": "Inspecione páginas de memória, backlinks, mensagens, histórico e replay de sessões no navegador. Também há controles de conta e revisão de propostas pelo root."
   },
   "hero": {
     "title": "Veja o que o seu agente lembra",
-    "lede": "Suba o servidor com --enable-web e cada projeto abre no navegador: as páginas, quem as cita, as mensagens esperando por um agente e uma busca que ranqueia do jeito que a do agente ranqueia. Somente leitura, de propósito.",
+    "lede": "Inicie o servidor com --enable-web para navegar nos projetos a que você tem acesso: páginas, links, mensagens pendentes e busca. Não há editor de páginas; há ações de conta e aprovação de edições propostas pelo root.",
     "primary": "Todos os projetos de relance",
     "secondary": "Busque como o agente"
   },
@@ -52,8 +52,8 @@
     ]
   },
   "readonly": {
-    "title": "Somente leitura, de propósito",
-    "text": "A interface web não tem rota para editar conteúdo. Altere páginas pelas ferramentas do agente, pela CLI ou pelos arquivos markdown. Para contas de usuários do banco de dados, as telas do projeto verificam a permissão de leitura; root e identidades de proxy confiável seguem suas respectivas regras de autorização. Páginas após login mostram a versão do servidor no rodapé.",
+    "title": "Leia páginas e revise propostas",
+    "text": "Edite conteúdo pelas ferramentas do agente, pela CLI ou nos arquivos Markdown. O navegador também permite login, troca de senha e aprovação ou rejeição de edições pendentes só pelo root. Permissões de projeto dos usuários do banco controlam o acesso às páginas; proxies confiáveis aplicam sua própria autorização.",
     "api": "Os mesmos dados saem como JSON em <code>/api/v1</code>, e o <code>serve --enable-api</code> monta a API sem a interface no navegador."
   },
   "faq": [
@@ -63,7 +63,7 @@
     },
     {
       "q": "Dá para editar uma página no navegador?",
-      "a": "Não. A interface web é somente leitura por design, e o crate que a serve não tem rota de escrita. Edite o arquivo markdown ou deixe o agente escrever com memory_write_page."
+      "a": "Não há editor de páginas. Use memory_write_page, a CLI ou o arquivo Markdown. O root pode aprovar ou rejeitar propostas de edição pendentes no navegador."
     },
     {
       "q": "Quem vê o quê num servidor compartilhado?",
@@ -71,7 +71,7 @@
     },
     {
       "q": "Precisa de JavaScript?",
-      "a": "Não. Todas as telas renderizam sem ele. O JavaScript só acrescenta o slider do replay e a navegação pelo teclado."
+      "a": "O conteúdo das páginas é renderizado sem JavaScript. Login, troca de senha e aprovação de propostas usam JavaScript, assim como os controles de replay e a troca de tema."
     }
   ],
   "next": [

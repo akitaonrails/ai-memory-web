@@ -30,12 +30,36 @@
     "title": "Escolha por onde entrar",
     "lede": "Cada item leva para a página exata no GitHub.",
     "items": {
-      "bug": { "title": "Reporte um bug", "text": "O template pede sua versão, SO, agente, transporte e as linhas relevantes do log do servidor.", "link": "Abrir um bug report" },
-      "feature": { "title": "Proponha uma feature", "text": "Propostas são issues; o repositório não tem discussions. O template pergunta que problema ela resolve e se quebraria instalações existentes.", "link": "Abrir um feature request" },
-      "firstIssue": { "title": "Ache uma primeira issue", "text": "O label good first issue marca trabalho adequado para quem está chegando. O help wanted marca o resto.", "link": "Ver as good first issues" },
-      "harness": { "title": "Adicione ou conserte um harness", "text": "O suporte a harness gerenciado tem um protocolo escrito: provar o contrato nativo de sessão, ler os stores em modo somente leitura, entregar o contexto antes de confirmar o recebimento e incluir os testes exigidos.", "link": "Leia o protocolo de harness" },
-      "docs": { "title": "Melhore a documentação", "text": "Os guias ficam em docs/, em markdown. Uma correção de documentação é um pull request normal e dispensa o changelog quando nada muda para o usuário.", "link": "Ver docs/" },
-      "companion": { "title": "Construa em volta", "text": "Importadores, UIs mais ricas e front ends de chat ficam em projetos companion que usam as superfícies públicas de HTTP e MCP.", "link": "Leia as regras de companion" }
+      "bug": {
+        "title": "Reporte um bug",
+        "text": "O template pede sua versão, SO, agente, transporte e as linhas relevantes do log do servidor.",
+        "link": "Abrir um bug report"
+      },
+      "feature": {
+        "title": "Proponha uma feature",
+        "text": "Propostas são issues; o repositório não tem discussions. O template pergunta que problema ela resolve e se quebraria instalações existentes.",
+        "link": "Abrir um feature request"
+      },
+      "firstIssue": {
+        "title": "Ache uma primeira issue",
+        "text": "O label good first issue marca trabalho adequado para quem está chegando. O help wanted marca o resto.",
+        "link": "Ver as good first issues"
+      },
+      "harness": {
+        "title": "Adicione ou conserte um harness",
+        "text": "O suporte a harness gerenciado tem um protocolo escrito: provar o contrato nativo de sessão, ler os stores em modo somente leitura, entregar o contexto antes de confirmar o recebimento e incluir os testes exigidos.",
+        "link": "Leia o protocolo de harness"
+      },
+      "docs": {
+        "title": "Melhore a documentação",
+        "text": "Os guias ficam em docs/, em markdown. Uma correção de documentação é um pull request normal e dispensa o changelog quando nada muda para o usuário.",
+        "link": "Ver docs/"
+      },
+      "companion": {
+        "title": "Construa em volta",
+        "text": "Importadores, UIs mais ricas e front ends de chat ficam em projetos companion que usam as superfícies públicas de HTTP e MCP.",
+        "link": "Leia as regras de companion"
+      }
     },
     "security": {
       "title": "Relatos de segurança nunca vão em uma issue pública",
@@ -50,11 +74,31 @@
     "title": "Faça o build funcionar",
     "lede": "O build é autocontido. Nenhum destes comandos precisa de variável de ambiente.",
     "steps": [
-      { "title": "Clone e compile", "text": "O Rust 1.95 é obrigatório e está fixado no <code>rust-toolchain.toml</code>, com rustfmt e clippy, então o rustup instala a toolchain certa no primeiro build. O SQLite vem embutido e a libgit2 é vendorizada. Você precisa de uma toolchain C padrão e mais nada.", "codeTitle": "setup de dev" },
-      { "title": "Use o loop do dia a dia", "text": "<code>cargo t</code> precisa do nextest: <code>cargo install cargo-nextest --locked</code>. Ele pula os módulos chamados <code>slow</code> ou <code>stress</code>, que o hook de pre-push e o CI rodam mesmo assim.", "codeTitle": "enquanto você trabalha" },
-      { "title": "Instale o hook de pre-push", "text": "Uma vez por clone. Ele só mexe no próprio bloco dentro de <code>.git/hooks/pre-push</code>. Em um branch de trabalho em andamento, <code>git push --no-verify</code> pula o hook.", "codeTitle": "uma vez por clone" },
-      { "title": "Passe nos gates antes do push", "text": "O CI exige os cinco. Sem o nextest, <code>cargo test --workspace --all-targets</code> equivale a <code>cargo tf</code>. Se o último estiver faltando: <code>cargo install cargo-deny cargo-audit</code>.", "codeTitle": "gates obrigatórios" },
-      { "title": "Confira quem seus commits dizem que você é", "text": "Use um email verificado na sua conta do GitHub ou o endereço noreply dela. O histórico da main nunca é reescrito para corrigir autoria.", "codeTitle": "autoria dos commits" }
+      {
+        "title": "Clone e compile",
+        "text": "O Rust 1.95 é obrigatório e está fixado no <code>rust-toolchain.toml</code>, com rustfmt e clippy, então o rustup instala a toolchain certa no primeiro build. O SQLite vem embutido e a libgit2 é vendorizada. Você precisa de uma toolchain C padrão e mais nada.",
+        "codeTitle": "setup de dev"
+      },
+      {
+        "title": "Use o loop do dia a dia",
+        "text": "<code>cargo t</code> precisa do nextest: <code>cargo install cargo-nextest --locked</code>. Ele pula os módulos chamados <code>slow</code> ou <code>stress</code>, que o hook de pre-push e o CI rodam mesmo assim.",
+        "codeTitle": "enquanto você trabalha"
+      },
+      {
+        "title": "Instale o hook de pre-push",
+        "text": "Uma vez por clone. Ele só mexe no próprio bloco dentro de <code>.git/hooks/pre-push</code>. Em um branch de trabalho em andamento, <code>git push --no-verify</code> pula o hook.",
+        "codeTitle": "uma vez por clone"
+      },
+      {
+        "title": "Passe nos gates antes do push",
+        "text": "O CI exige os cinco. Sem o nextest, <code>cargo test --workspace --all-targets</code> equivale a <code>cargo tf</code>. Se o último estiver faltando: <code>cargo install cargo-deny cargo-audit</code>.",
+        "codeTitle": "gates obrigatórios"
+      },
+      {
+        "title": "Confira quem seus commits dizem que você é",
+        "text": "Use um email verificado na sua conta do GitHub ou o endereço noreply dela. O histórico da main nunca é reescrito para corrigir autoria.",
+        "codeTitle": "autoria dos commits"
+      }
     ],
     "comments": {
       "allButSlow": "tudo menos o tier lento, ~20s com cache quente",
@@ -70,11 +114,26 @@
     "landing": {
       "title": "Como se espera que o trabalho chegue",
       "items": [
-        { "title": "O changelog é um gate de merge", "text": "Toda mudança visível para o usuário adiciona uma entrada em [Unreleased] no mesmo pull request. Os revisores tratam entrada faltando como bloqueio. Refactors e mudanças só de teste ficam isentos." },
-        { "title": "Testes antes do “pronto”", "text": "O trabalho conta como pronto quando tem testes, principalmente parsers, derivação de IDs e a matemática de retenção." },
-        { "title": "Sem código morto, sem feature pela metade", "text": "Stubs são documentados no comentário do módulo, com o milestone que vai terminá-los." },
-        { "title": "Fique dentro da mudança", "text": "Não refatore código de que o milestone atual não precisa." },
-        { "title": "Comentários explicam o porquê", "text": "Um comentário que repete a linha de cima é removido." }
+        {
+          "title": "O changelog é um gate de merge",
+          "text": "Toda mudança visível para o usuário adiciona uma entrada em [Unreleased] no mesmo pull request. Os revisores tratam entrada faltando como bloqueio. Refactors e mudanças só de teste ficam isentos."
+        },
+        {
+          "title": "Testes antes do “pronto”",
+          "text": "O trabalho conta como pronto quando tem testes, principalmente parsers, derivação de IDs e a matemática de retenção."
+        },
+        {
+          "title": "Sem código morto, sem feature pela metade",
+          "text": "Stubs são documentados no comentário do módulo, com o milestone que vai terminá-los."
+        },
+        {
+          "title": "Fique dentro da mudança",
+          "text": "Não refatore código de que o milestone atual não precisa."
+        },
+        {
+          "title": "Comentários explicam o porquê",
+          "text": "Um comentário que repete a linha de cima é removido."
+        }
       ]
     },
     "invariants": {
@@ -182,7 +241,7 @@
       "hooks": "Schemas de payload dos hooks, o sanitizador e o endpoint /hook.",
       "llm": "A fronteira de autenticação dos provedores e as traits de LLM e de embedder.",
       "consolidate": "Ingestão, lint, sweep e o pipeline de auto-improve.",
-      "web": "O navegador somente leitura em /web e as rotas JSON de /api/v1.",
+      "web": "Páginas web e API JSON somente leitura. Ações de conta e aprovação chamam rotas autenticadas.",
       "workstream": "Leitores somente leitura de transcripts nativos e os adapters de abertura por trás do ai-memory run.",
       "cli": "O binário ai-memory e seus subcomandos HTTP finos."
     },
@@ -200,19 +259,43 @@
     "title": "Como os pull requests são revisados",
     "lede": "Os reviews seguem o template de pull request, então preencher com honestidade é a maior parte do trabalho.",
     "items": [
-      { "title": "O template é o checklist", "text": "Ele pede o que mudou, por quê, um plano de testes com os gates marcados, autoria dos commits, impacto na release e a entrada do changelog." },
-      { "title": "Diga que tipo de release é", "text": "Marque patch, minor ou major. Uma correção registrada em “Added” pode subir a versão errada, então coloque a entrada do changelog sob o título certo." },
-      { "title": "Breaking changes esperam uma major", "text": "Destaque na descrição. Elas recebem o label breaking-change e são agendadas, então não seguram as releases de patch e minor." },
-      { "title": "O CI é rápido por merge", "text": "Um merge depende dos jobs rápidos de Linux. As etapas de macOS e Windows rodam por label, toda noite ou na mão, e sempre antes de uma release." },
-      { "title": "Correções saem primeiro", "text": "Um bug fix sai na próxima release de patch e não fica esperando trabalho de feature. Um harness ou provedor novo sai na próxima minor." }
+      {
+        "title": "O template é o checklist",
+        "text": "Ele pede o que mudou, por quê, um plano de testes com os gates marcados, autoria dos commits, impacto na release e a entrada do changelog."
+      },
+      {
+        "title": "Diga que tipo de release é",
+        "text": "Marque patch, minor ou major. Uma correção registrada em “Added” pode subir a versão errada, então coloque a entrada do changelog sob o título certo."
+      },
+      {
+        "title": "Breaking changes esperam uma major",
+        "text": "Destaque na descrição. Elas recebem o label breaking-change e são agendadas, então não seguram as releases de patch e minor."
+      },
+      {
+        "title": "O CI é rápido por merge",
+        "text": "Um merge depende dos jobs rápidos de Linux. As etapas de macOS e Windows rodam por label, toda noite ou na mão, e sempre antes de uma release."
+      },
+      {
+        "title": "Correções saem primeiro",
+        "text": "Um bug fix sai na próxima release de patch e não fica esperando trabalho de feature. Um harness ou provedor novo sai na próxima minor."
+      }
     ],
     "harness": "Um pull request de harness roda este gate mais curto, registra a versão da CLI contra a qual foi testado e inclui uma rodada manual contra o harness real.",
     "harnessCodeTitle": "de managed-harness-contributions.md"
   },
   "nextPages": [
-    { "title": "Arquitetura", "text": "O writer actor, a wiki e o índice, antes de você mexer neles." },
-    { "title": "Pesquisa e fundamentos", "text": "Por que cada decisão de design foi tomada, e o que se quer em seguida." },
-    { "title": "Agentes e editores", "text": "Quais harnesses são suportados hoje e em que nível." }
+    {
+      "title": "Arquitetura",
+      "text": "O writer actor, a wiki e o índice, antes de você mexer neles."
+    },
+    {
+      "title": "Pesquisa e fundamentos",
+      "text": "Por que cada decisão de design foi tomada, e o que se quer em seguida."
+    },
+    {
+      "title": "Agentes e editores",
+      "text": "Quais harnesses são suportados hoje e em que nível."
+    }
   ],
   "cta": {
     "title": "Experimente antes de mudar.",

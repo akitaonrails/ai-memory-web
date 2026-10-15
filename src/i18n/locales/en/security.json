@@ -74,13 +74,13 @@
       "commentAllowlist": "Or capture only repositories that opt in"
     },
     "docker": {
-      "title": "The Docker wrapper does not enforce ignore_paths",
-      "text": "Capture rules are enforced by the native <code>ai-memory hook</code> commands and the generated OpenCode, OMP, Pi and OpenClaw integrations. The Docker wrapper installs posix shell hooks, and those shell and PowerShell scripts skip the rules. If you depend on <code>ignore_paths</code> or allowlist mode, install the native binary on the client. The <a href=\"{href}\">marker file reference</a> has the details."
+      "title": "Check which hook path you installed",
+      "text": "Native hooks enforce capture rules. In 3.0, ordinary <code>install-hooks</code> through the Linux/macOS Docker wrapper uses a checksum-verified native host client too. Explicit <code>posix</code>/<code>windows</code> script fallbacks and manual container bundles do not enforce those rules. Check the <a href=\"{href}\">capture-policy reference</a> before relying on exclusions."
     }
   },
   "hardening": {
-    "title": "Add one rung at a time.",
-    "lede": "Each step exists for a specific situation. Stop at the one that matches yours.",
+    "title": "Match protection to your deployment",
+    "lede": "Remote access needs both authentication and TLS, including on a LAN. Apply every requirement that matches your setup before connecting clients.",
     "ladder": [
       {
         "when": "One person, one machine",
@@ -116,7 +116,7 @@
   },
   "egress": {
     "title": "What leaves the machine, and when.",
-    "lede": "Four paths can send data out. All four are off by default.",
+    "lede": "These settings can send memory content to a model provider; they are off by default. Remote-server hooks, configured admission webhooks and your own backup destinations are separate data paths to review.",
     "figureAlt": "Diagram: hooks, the wiki and index, and the local embedder sit inside an enclosure labelled Your machine, joined by solid lines. Dashed lines to cloud embeddings, a cloud LLM and LLM rerank cross the wall through open switches labelled Opt-in, off by default.",
     "figureCaption": "Solid lines stay inside. Dashed lines exist only after you change a setting.",
     "columns": {
@@ -145,7 +145,7 @@
       }
     ],
     "assistantOn": "{server} on the server and {client} on the client",
-    "processor": "With none of these enabled there is no third party in the data path. Once you configure a cloud provider, that provider is your processor under your own agreement with it. <a class=\"underline font-semibold text-text\" href=\"{href}\">DATA_HANDLING.md covers the GDPR framing</a>. It is not legal advice."
+    "processor": "Default local capture and search send no project content to a model provider. If you choose a cloud provider, review its terms and data handling. <a class=\"underline font-semibold text-text\" href=\"{href}\">See the project’s data-handling notes</a>."
   },
   "audit": {
     "title": "Who wrote it, and how to remove it.",

@@ -46,7 +46,7 @@
         "text": "Pages are compiled from sessions and shaped for agents to retrieve. Keep your hand-written README and architecture docs, and let the wiki hold the why and the dead ends."
       }
     ],
-    "digest": "The digest is prose when the server has an LLM provider and structured data when it has none. With <code>--enable-web</code>, the same wiki is browsable in a read-only web UI."
+    "digest": "The digest is prose with an LLM provider and structured data without one. With <code>--enable-web</code>, people can inspect the wiki in a browser; root can also review pending edit proposals."
   },
   "ownership": {
     "title": "Shared knowledge, personal handoffs",
@@ -95,7 +95,7 @@
     "limits": {
       "title": "Know the limits before you roll it out",
       "items": [
-        "Projects are open to authenticated users by default. For database-user accounts, root can restrict a project to its creator and users with read or write grants.",
+        "Projects are open to authenticated users by default. For database-user accounts, the server administrator (root) can restrict a project to its creator and users with read or write grants.",
         "Project grants do not provide separate tenant environments. Use separate servers and data directories for teams that need independent isolation.",
         "Permissions apply to whole projects, not individual pages. Root can access every project. Trusted-proxy identities rely on the proxy’s authorization instead of database-user grants.",
         "It is a single-tenant homelab service and is not designed to face the open internet directly.",

@@ -70,7 +70,7 @@
       },
       {
         "title": "Two agents in one project",
-        "text": "The current-project pointer is isolated per caller, so Claude Code and Codex can run side by side in the same directory without confusing each other."
+        "text": "Actor-aware routing separates callers. Concurrent sessions by one person still need explicit workspace/project arguments or a client that forwards the hook session ID; static MCP configs cannot always distinguish them."
       },
       {
         "title": "One laptop, two employers",
@@ -103,22 +103,22 @@
       },
       {
         "title": "Decision records stay yours",
-        "text": "ai-memory never writes into your repository. Keep an ADR directory, and list it under <code>[capture] ignore_paths</code> so the wiki does not keep a stale copy of it."
+        "text": "The server does not read or write your repository files. Agents and local setup commands can. Keep ADRs in the repository; <code>[capture] ignore_paths</code> reduces tool capture of them, but does not filter prompts or guarantee exclusion."
       }
     ],
     "codeTitle": ".ai-memory.toml",
     "codeComment": "Prepend pinned pages, rules and slots to every session"
   },
   "notes": {
-    "title": "Notes that expire, and feedback that reorders",
+    "title": "Expiring notes and retention feedback",
     "items": [
       {
         "title": "Remember this until Friday",
-        "text": "A page written with <code>expires_at</code> drops out of search after that date. It is still there for a search that asks for expired pages."
+        "text": "A page with <code>expires_at</code> leaves normal search after that date. You can include expired pages in a query until the retention sweep deletes them, even if pinned."
       },
       {
         "title": "That page was wrong",
-        "text": "<code>memory_feedback</code> records helpful, not helpful, stale or wrong on a page. Stale and wrong lower it in future rankings and speed up its aging. Feedback never deletes."
+        "text": "<code>memory_feedback</code> records helpful, not helpful, stale or wrong. Feedback affects retention of eligible session pages; stale and wrong also flag pages for lint. It never changes search ranking or directly deletes a page."
       },
       {
         "title": "Move a session",
@@ -134,7 +134,7 @@
     "title": "Read it in a browser, take it anywhere",
     "items": [
       {
-        "title": "A read-only web UI",
+        "title": "A browser for your memory",
         "text": "Start the server with <code>--enable-web</code> and every project’s pages are browsable, with an outline, backlinks and the pages each one cites, a search that ranks like <code>memory_query</code> and can explain its ranking, and a JSON API under <code>/api/v1</code>."
       },
       {
@@ -216,5 +216,18 @@
       "title": "Security",
       "text": "What is stored, what leaves, and what a message can and cannot do."
     }
-  ]
+  ],
+  "extensions": {
+    "title": "Connect your tools and team wiki",
+    "sdk": {
+      "title": "Memory for your own tools",
+      "text": "The optional TypeScript SDK uses scoped MCP calls to save, search and hand off memory. Conditional writes detect concurrent edits. Build it from the repository; it is not published on npm.",
+      "link": "Use memory from code"
+    },
+    "sync": {
+      "title": "Review shared pages in your repository",
+      "text": "The optional ai-memory-wikisync companion syncs selected shared page families with repository Markdown. It reports conflicting edits, uses conditional writes and keeps deletion opt-in. It does not replicate servers or private session history.",
+      "link": "Team-wiki sync guide"
+    }
+  }
 }

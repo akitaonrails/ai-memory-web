@@ -59,7 +59,7 @@
       },
       "browse": {
         "label": "Navegar pela memória",
-        "note": "A interface web somente leitura: páginas, backlinks, mensagens, histórico"
+        "note": "Páginas, backlinks, mensagens, histórico e revisão"
       },
       "architecture": {
         "label": "Arquitetura",

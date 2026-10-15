@@ -57,7 +57,7 @@
   "newProject": {
     "title": "A new project starts ahead",
     "lede": "A repository with no memory yet gets a larger baseline, and one command turns your usual choices into rules everyone sees.",
-    "text": "<code>ai-memory profile apply</code> writes the entries that fit the repository into a managed block of its rules file, between two markers, and touches nothing outside them. Run it again and only the block changes. It is the only command that writes into your repository, and it runs only when you run it.",
+    "text": "<code>ai-memory profile apply</code> writes suitable entries into a managed block of the repository’s rules file. It runs when you invoke it and preserves text outside the block. Other local setup commands and agents can also edit repository files.",
     "codeTitle": "inside the new repository",
     "comments": {
       "dry": "see the block and the file it would go to",
@@ -70,15 +70,15 @@
     "lede": "Entries are ordinary wiki pages: markdown in git, versioned on every change.",
     "items": [
       {
-        "title": "Forget, and it stays forgotten",
-        "text": "<code>ai-memory profile forget</code> removes an entry, and the pass will not recreate it from the same evidence. It comes back only if you say it again."
+        "title": "Remove a profile entry",
+        "text": "<code>ai-memory profile forget</code> removes an entry and suppresses relearning from the same evidence. New evidence can recreate it. Git history and earlier backups can retain copies."
       },
       {
         "title": "Your edits win",
         "text": "An entry you edit by hand is yours from then on. The pass never rewrites a page it did not write, or one that changed since."
       },
       {
-        "title": "Client and NDA work stays out",
+        "title": "Exclude a project from the profile",
         "text": "A project’s marker can set <code>contribute = false</code> so nothing is learned from it, and <code>consume = false</code> so it never receives the digest."
       },
       {
@@ -87,7 +87,8 @@
       }
     ],
     "codeTitle": ".ai-memory.toml in a client’s repository",
-    "codeComment": "this project neither teaches nor receives the profile"
+    "codeComment": "this project neither teaches nor receives the profile",
+    "historyLink": "What deletion removes, and what history can retain"
   },
   "teams": {
     "title": "One person, one profile. A team, by consent.",

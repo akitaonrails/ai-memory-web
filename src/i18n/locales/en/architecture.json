@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "One binary, markdown files, a derived index",
-    "lede": "Hooks capture what your agent does. Markdown in git holds what was learned. SQLite is a search index you can throw away and rebuild. This page walks the path from a hook to the next session’s briefing, and says where the design is still thin.",
+    "lede": "Hooks capture agent activity. Markdown in git holds the pages; SQLite holds their search index and database-only records such as sessions, handoffs and accounts. Back up both. Follow the path from capture to the next briefing below.",
     "primary": "Read ARCHITECTURE.md",
     "secondary": "Why it was built this way"
   },
@@ -15,7 +15,7 @@
     "treeLabel": "The ai-memory data directory",
     "tree": {
       "wiki": "Markdown pages with YAML frontmatter, in a git repository. The source of truth.",
-      "db": "The derived index: full text, entities, links, embeddings, sessions, audit. WAL mode.",
+      "db": "Search index plus database-only sessions, observations, handoffs, accounts and audit records. WAL mode.",
       "raw": "Immutable, sanitized JSONL segments from managed ai-memory run sessions.",
       "models": "The local embedding model, all-MiniLM-L6-v2, about 87 MB and SHA-256 pinned.",
       "logs": "Rolling daily log output.",
@@ -75,8 +75,8 @@
         "text": "Pages are markdown with YAML frontmatter under wiki/<workspace>/<project>/. Open them in Obsidian, grep them, push them to a remote."
       },
       {
-        "title": "SQLite is derived",
-        "text": "Everything in memory.sqlite that describes a page can be rebuilt from the files with ai-memory reindex. A corrupt index is recoverable."
+        "title": "The page index is derived",
+        "text": "Reindex rebuilds pages, links and full-text search from Markdown. It cannot recover database-only sessions, observations, handoffs, users, keys or audit records."
       },
       {
         "title": "The server owns writes",
@@ -208,7 +208,7 @@
       "consolidate": "Ingest, lint, sweep and the auto-improve pipeline.",
       "workstream": "Read-only native transcript and launch adapters.",
       "cli": "The ai-memory binary and its thin HTTP subcommands.",
-      "web": "Read-only browser views and the JSON API."
+      "web": "Browser views and the read-only JSON API. Account and approval actions call authenticated routes."
     },
     "tools": {
       "title": "{n} MCP tools, narrow on purpose",
@@ -234,7 +234,7 @@
     },
     {
       "q": "What happens if the SQLite index is lost or corrupted?",
-      "a": "The markdown files are the source of truth. ai-memory reindex rebuilds the page index from them. There is no cross-resource transaction between the filesystem and SQLite, and reindex is also how crash windows are resolved."
+      "a": "Reindex rebuilds pages, links and full-text search from Markdown. It cannot recover database-only sessions, observations, handoffs, users, keys or audit records."
     },
     {
       "q": "How does retrieval rank results?",

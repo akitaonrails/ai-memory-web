@@ -70,7 +70,7 @@
       },
       {
         "title": "Dois agentes em um projeto",
-        "text": "O ponteiro de projeto atual é isolado por chamador, então Claude Code e Codex podem rodar lado a lado no mesmo diretório sem confundir um ao outro."
+        "text": "O roteamento por ator separa os chamadores. Sessões simultâneas da mesma pessoa ainda precisam de argumentos explícitos de workspace/projeto ou de um cliente que encaminhe o ID de sessão do hook; configurações MCP estáticas nem sempre as distinguem."
       },
       {
         "title": "Um laptop, dois empregadores",
@@ -103,22 +103,22 @@
       },
       {
         "title": "Os registros de decisão continuam seus",
-        "text": "O ai-memory nunca escreve no seu repositório. Mantenha um diretório de ADRs e liste ele em <code>[capture] ignore_paths</code>, para a wiki não guardar uma cópia desatualizada."
+        "text": "O servidor não lê nem escreve arquivos do seu repositório. Agentes e comandos locais de configuração podem fazê-lo. Mantenha os ADRs no repositório; <code>[capture] ignore_paths</code> reduz sua captura por ferramentas, mas não filtra prompts nem garante a exclusão."
       }
     ],
     "codeTitle": ".ai-memory.toml",
     "codeComment": "Coloca páginas fixadas, regras e slots no início de toda sessão"
   },
   "notes": {
-    "title": "Notas que expiram, e feedback que reordena",
+    "title": "Notas com validade e feedback de retenção",
     "items": [
       {
         "title": "Lembre disso até sexta",
-        "text": "Uma página gravada com <code>expires_at</code> some da busca depois dessa data. Ela continua lá para uma busca que peça páginas expiradas."
+        "text": "Uma página com <code>expires_at</code> sai da busca normal após essa data. Você pode incluir páginas vencidas na consulta até a varredura de retenção apagá-las, mesmo que estejam fixadas."
       },
       {
         "title": "Essa página estava errada",
-        "text": "O <code>memory_feedback</code> registra útil, não útil, desatualizada ou errada em uma página. Desatualizada e errada rebaixam a página nos próximos rankings e aceleram o envelhecimento dela. Feedback nunca apaga nada."
+        "text": "<code>memory_feedback</code> registra útil, não útil, desatualizada ou errada. O feedback afeta a retenção de páginas de sessão elegíveis; desatualizada e errada também sinalizam páginas para o lint. Não muda o ranking da busca nem apaga uma página diretamente."
       },
       {
         "title": "Mova uma sessão",
@@ -134,7 +134,7 @@
     "title": "Leia no navegador, leve para onde quiser",
     "items": [
       {
-        "title": "Uma interface web somente leitura",
+        "title": "Um navegador para sua memória",
         "text": "Suba o servidor com <code>--enable-web</code> e as páginas de todos os projetos ficam navegáveis, com um índice, backlinks e as páginas que cada uma cita, uma busca que ranqueia como o <code>memory_query</code> e consegue explicar o ranking, e uma API JSON em <code>/api/v1</code>."
       },
       {
@@ -216,5 +216,18 @@
       "title": "Segurança",
       "text": "O que fica guardado, o que sai, e o que uma mensagem pode e não pode fazer."
     }
-  ]
+  ],
+  "extensions": {
+    "title": "Conecte suas ferramentas e a wiki da equipe",
+    "sdk": {
+      "title": "Memória para suas ferramentas",
+      "text": "O SDK TypeScript opcional usa chamadas MCP com escopo para salvar, buscar e repassar memória. Escritas condicionais detectam edições simultâneas. Compile a partir do repositório; ele não está publicado no npm.",
+      "link": "Use memória pelo código"
+    },
+    "sync": {
+      "title": "Revise páginas compartilhadas no repositório",
+      "text": "O componente opcional ai-memory-wikisync sincroniza famílias selecionadas de páginas compartilhadas com Markdown no repositório. Relata conflitos, usa escritas condicionais e exige ativar exclusões. Não replica servidores nem histórico privado de sessões.",
+      "link": "Guia de sincronização da wiki da equipe"
+    }
+  }
 }

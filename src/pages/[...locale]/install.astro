@@ -98,28 +98,34 @@ const windows = steps('solo.windows', [
 ]);
 
 const team = steps('team.steps', [
-  `TOKEN=$(ai-memory generate-auth-token)
+  `ROOT_TOKEN=$(ai-memory generate-auth-token)
+export AI_MEMORY_SERVER_URL="http://127.0.0.1:49374"
+export AI_MEMORY_AUTH_TOKEN="$ROOT_TOKEN"
 docker run -d --name ai-memory \\
     --restart unless-stopped \\
-    -p 0.0.0.0:49374:49374 \\
+    -p 127.0.0.1:49374:49374 \\
     -v ai-memory-data:/data \\
-    -e AI_MEMORY_AUTH_TOKEN="$TOKEN" \\
-    -e AI_MEMORY_ALLOWED_HOSTS="<server-ip>,localhost,127.0.0.1" \\
+    -e AI_MEMORY_AUTH_TOKEN="$ROOT_TOKEN" \\
+    -e AI_MEMORY_AUTH__SECURE_COOKIE=true \\
+    -e AI_MEMORY_ALLOWED_HOSTS="memory.example.com,localhost,127.0.0.1" \\
     akitaonrails/ai-memory:latest`,
   'ai-memory user add-human --username alice --email alice@home --name "Alice Smith"',
   'ai-memory api-key add --username alice --label codex-laptop',
   (s) => `# ${s.tokenComment}
-export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
-export AI_MEMORY_AUTH_TOKEN="$TOKEN"
+USER_API_KEY='aim_REPLACE_WITH_ISSUED_KEY'
+export AI_MEMORY_SERVER_URL="https://memory.example.com"
+export AI_MEMORY_AUTH_TOKEN="$USER_API_KEY"
 
 ai-memory install-mcp   --client claude-code --apply
 ai-memory install-hooks --apply --agent claude-code \\
-    --as-user alice --auth-token aim_XGq...<secret>
+    --as-user alice --auth-token "$USER_API_KEY"
 
 # ${t('code.thenLaunch')}
 ai-memory run claude`,
   undefined,
 ]);
+// Establish TLS before creating accounts or configuring remote clients.
+const secureTeamSteps = [team[0], team[4], team[1], team[2], team[3]];
 
 const howTo = {
   '@type': 'HowTo',
@@ -167,7 +173,7 @@ const howTo = {
       <div class="min-w-0">
         <h3 class="text-xl">{t('check.server.title')}</h3>
         <p class="mt-2 text-muted">{t('check.server.text')}</p>
-        <div class="mt-4"><CodeBlock code="curl http://127.0.0.1:49374/mcp" /></div>
+        <div class="mt-4"><CodeBlock code="curl -i http://127.0.0.1:49374/mcp" /></div>
       </div>
       <div class="min-w-0">
         <h3 class="text-xl">{t('check.cli.title')}</h3>
@@ -216,7 +222,7 @@ ANTHROPIC_API_KEY=sk-ant-...`} /></div>
       </Callout>
     </div>
     <Figure name="install-team-topology" alt={t('team.figure.alt')} caption={t('team.figure.caption')} />
-    <div class="steps-wrap"><Steps steps={team} /></div>
+    <div class="steps-wrap"><Steps steps={secureTeamSteps} /></div>
   </Section>
 
   <NextPages links={[

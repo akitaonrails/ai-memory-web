@@ -74,13 +74,13 @@
       "commentAllowlist": "Ou capture só os repositórios que fizerem opt-in"
     },
     "docker": {
-      "title": "O wrapper Docker não aplica o ignore_paths",
-      "text": "As regras de captura são aplicadas pelos comandos nativos <code>ai-memory hook</code> e pelas integrações geradas para OpenCode, OMP, Pi e OpenClaw. O wrapper Docker instala hooks de shell posix, e esses scripts de shell e de PowerShell ignoram as regras. Se você depende de <code>ignore_paths</code> ou do modo allowlist, instale o binário nativo no cliente. A <a href=\"{href}\">referência do arquivo marcador</a> tem os detalhes."
+      "title": "Confira qual caminho de hooks você instalou",
+      "text": "Hooks nativos aplicam as regras de captura. Na versão 3.0, o <code>install-hooks</code> normal pelo wrapper Docker de Linux/macOS também usa um cliente nativo no host com checksum verificado. Fallbacks explícitos de scripts <code>posix</code>/<code>windows</code> e pacotes manuais de contêiner não aplicam essas regras. Confira a <a href=\"{href}\">referência de política de captura</a> antes de depender das exclusões."
     }
   },
   "hardening": {
-    "title": "Suba um degrau de cada vez.",
-    "lede": "Cada passo existe para uma situação específica. Pare no que corresponde à sua.",
+    "title": "Proteja conforme sua implantação",
+    "lede": "Acesso remoto exige autenticação e TLS, inclusive na LAN. Aplique todos os requisitos da sua configuração antes de conectar clientes.",
     "ladder": [
       {
         "when": "Uma pessoa, uma máquina",
@@ -116,7 +116,7 @@
   },
   "egress": {
     "title": "O que sai da máquina, e quando.",
-    "lede": "Quatro caminhos podem mandar dados para fora. Os quatro vêm desligados por padrão.",
+    "lede": "Estas configurações podem enviar conteúdo da memória a um provedor de modelos; vêm desligadas. Hooks para servidor remoto, webhooks de admissão configurados e seus destinos de backup são caminhos separados de dados que também precisam de revisão.",
     "figureAlt": "Diagrama: os hooks, a wiki com o índice e o embedder local ficam dentro de um cercado chamado Sua máquina, ligados por linhas contínuas. Linhas tracejadas até embeddings na nuvem, um LLM na nuvem e o rerank por LLM atravessam a parede por chaves abertas com o rótulo Opt-in, desligado por padrão.",
     "figureCaption": "As linhas contínuas ficam do lado de dentro. As tracejadas só passam a existir depois que você muda uma configuração.",
     "columns": {
@@ -145,7 +145,7 @@
       }
     ],
     "assistantOn": "{server} no servidor e {client} no cliente",
-    "processor": "Com nenhum deles ligado, não existe terceiro no caminho dos dados. Depois que você configura um provedor de nuvem, esse provedor é o seu operador de dados, nos termos do contrato que você tem com ele. <a class=\"underline font-semibold text-text\" href=\"{href}\">O DATA_HANDLING.md cobre o enquadramento na GDPR</a>. Não é aconselhamento jurídico."
+    "processor": "Captura e busca locais padrão não enviam conteúdo do projeto a provedores de modelos. Se escolher um provedor na nuvem, revise seus termos e tratamento de dados. <a class=\"underline font-semibold text-text\" href=\"{href}\">Veja as notas de tratamento de dados do projeto</a>."
   },
   "audit": {
     "title": "Quem escreveu, e como remover.",

@@ -1,0 +1,16 @@
+---
+// Cells contain trusted catalog HTML only, like other localized technical prose.
+interface Props { columns: string[]; rows: string[][] }
+const { columns, rows } = Astro.props;
+---
+<div class="table-wrap record-table" tabindex="0">
+  <table class="table-site" role="table">
+    <thead role="rowgroup"><tr role="row">{columns.map(column => <th scope="col" role="columnheader">{column}</th>)}</tr></thead>
+    <tbody role="rowgroup">
+      {rows.map(row => <tr role="row">{row.map((cell, i) => <td role="cell">
+        <span class="record-label" aria-hidden="true">{columns[i]}</span>
+        <span set:html={cell} />
+      </td>)}</tr>)}
+    </tbody>
+  </table>
+</div>

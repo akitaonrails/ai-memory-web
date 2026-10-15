@@ -9,7 +9,7 @@
   },
   "hero": {
     "title": "Instalação rápida",
-    "lede": "Escolha seu caminho e copie os comandos. Uma máquina leva dois comandos e não precisa de conta. Um servidor compartilhado para um time leva cinco passos."
+    "lede": "Instale, configure e inicie seu agente. Escolha a instalação local para uma máquina ou siga os passos de servidor compartilhado para uma equipe."
   },
   "solo": {
     "title": "Só eu",
@@ -110,13 +110,13 @@
       },
       {
         "title": "Abra seu agente por ele",
-        "text": "A primeira abertura instala os hooks e a entrada MCP. Este caminho tem um limite: os hooks em shell do wrapper não aplicam as regras de captura <code>ignore_paths</code> por repositório. O binário nativo aplica."
+        "text": "A primeira execução configura hooks e MCP. Em Linux/macOS, o wrapper usa um cliente nativo verificado no host para a instalação normal de hooks. Hooks legados de shell escolhidos explicitamente não aplicam exclusões de captura por repositório."
       }
     ],
     "windows": [
       {
         "title": "Decida onde seu agente roda",
-        "text": "Um agente aberto dentro do WSL2 precisa do ai-memory dentro do WSL2. Esse caminho é suportado e é igual ao da aba Docker: <a href=\"{readme}\">instale o wrapper a partir do README</a> no seu shell do WSL2. Com Docker Desktop, habilite antes a integração com WSL para a distro."
+        "text": "Para um agente dentro do WSL2, use os passos de Linux nessa distribuição; Docker é opcional. Os comandos abaixo mostram o caminho Docker no WSL2 usando <a href=\"{readme}\">o wrapper</a>. Para um agente Windows nativo, use o zip experimental do <a href=\"{windowsDoc}\">guia de Windows</a>. O <code>setup</code> nativo configura agentes, mas não inicia um serviço."
       },
       {
         "title": "Suba o servidor dentro do WSL2"
@@ -127,7 +127,7 @@
       }
     ],
     "figure": {
-      "alt": "A instalação solo em três etapas em um laptop: instalar o binário, subir o servidor em 127.0.0.1:49374 e rodar seu agente, que se conecta ao servidor por hooks e MCP. Nada sai do laptop.",
+      "alt": "Três etapas em um laptop: instalar o binário, iniciar o servidor em loopback e abrir o agente com hooks e MCP. Servidores e provedores remotos opcionais mudam o destino dos dados.",
       "caption": "O caminho solo inteiro. O servidor fica em loopback, e seu agente chega nele de dois jeitos: os hooks capturam a sessão, o MCP deixa o agente buscar nela."
     },
     "runNote": "<code>ai-memory run</code> é a forma de abrir um agente. Ele configura o harness na primeira abertura, escolhe o escopo de projeto certo e adiciona retomada de sessão entre harnesses. Um agente aberto direto ainda captura pelos hooks dele, mas você não esquece nada passando pelo launcher. <a class=\"link\" href=\"{href}\">Leia como funciona a abertura gerenciada</a>.",
@@ -146,7 +146,7 @@
     "lede": "Três checagens, da rede até o agente.",
     "server": {
       "title": "O servidor responde",
-      "text": "Um erro JSON-RPC é a resposta certa. Quer dizer que a porta está acessível e o servidor está respondendo."
+      "text": "Em uma instalação nova com autenticação, esta requisição sem credenciais deve retornar HTTP 401 com “auth required”. Isso prova apenas que o servidor está acessível. A próxima verificação testa o acesso autenticado da CLI."
     },
     "cli": {
       "title": "A CLI chega nele",
@@ -168,7 +168,7 @@
     },
     "llm": {
       "title": "Opcional: resumos melhores com um LLM",
-      "text": "Sem provedor, captura, busca e resumos baseados em regras funcionam sem custo nenhum. Um provedor reescreve as páginas de sessão como narrativas legíveis. Defina estas duas variáveis no ambiente do servidor (flags <code>-e</code> no Docker, <code>~/.config/ai-memory/env</code> no serviço de usuário do systemd) e reinicie.",
+      "text": "Captura, busca e resumos por regras funcionam sem provedor. Adicionar um habilita resumos mais ricos e autoaperfeiçoamento agendado, que aplica edições validadas automaticamente por padrão. Em servidores compartilhados, defina <code>[auto_improve] require_approval = true</code>. Configure as variáveis abaixo no ambiente do servidor e reinicie.",
       "codeTitle": "ambiente do servidor",
       "link": "Compare os provedores, incluindo assinaturas e modelos locais"
     },
@@ -186,13 +186,13 @@
     },
     "steps": [
       {
-        "title": "Suba o servidor compartilhado com um token",
-        "text": "Escolha uma máquina do homelab ou qualquer host da LAN. Um servidor que escuta fora do loopback precisa de um bearer token e de uma allowlist de hosts. A allowlist tem todos os nomes ou IPs que suas máquinas usam para chegar nele.",
+        "title": "Inicie o servidor atrás de um proxy local",
+        "text": "Instale primeiro a CLI nativa no host do servidor. Estes comandos publicam o Docker só em loopback e definem as credenciais de root para a CLI neste shell. Troque <code>memory.example.com</code> pelo seu domínio. Mantenha o token root privado; os laptops receberão chaves individuais depois.",
         "codeTitle": "no servidor"
       },
       {
         "title": "Crie as pessoas",
-        "text": "Rode isto com o token de root exportado. A senha temporária é impressa uma vez, e a pessoa troca no primeiro login. Este comando não emite chave de API. <a href=\"{usersDoc}\">O guia de usuários</a> cobre a identidade root em <code>[auth]</code>."
+        "text": "Use o shell do servidor onde as variáveis de root continuam exportadas. A senha temporária aparece uma vez e deve ser trocada no primeiro login. Este comando não emite uma chave de API. O <a href=\"{usersDoc}\">guia de usuários</a> cobre a identidade root e o login pelo navegador."
       },
       {
         "title": "Dê uma chave de API para cada pessoa",
@@ -200,13 +200,13 @@
       },
       {
         "title": "Aponte cada máquina para o servidor",
-        "text": "Cada pessoa usa a própria chave como token. Ela fica em um arquivo <code>0600</code> no diretório de dados e não aparece na linha de comando dos hooks. <code>--as-user</code> só rotula a instalação.",
+        "text": "Instale a CLI em cada laptop. Troque o domínio e a chave abaixo pelo seu endpoint HTTPS e pela chave emitida para essa pessoa. Em Unix, o instalador de hooks guarda o token em um arquivo acessível só ao dono; os comandos gerados não o contêm. <code>--as-user</code> rotula a instalação e não concede permissões.",
         "codeTitle": "em cada laptop",
-        "tokenComment": "TOKEN aqui é a chave aim_ desta pessoa, não o token de root"
+        "tokenComment": "Troque o exemplo pela chave aim_ emitida para esta pessoa; nunca use ROOT_TOKEN"
       },
       {
-        "title": "Use TLS em conexões remotas",
-        "text": "Um bearer token autentica a requisição e não a criptografa. Chaves e cookies da web trafegam em texto puro sobre HTTP simples, então <a href=\"{tls}\">coloque Caddy, nginx ou um Cloudflare Tunnel na frente</a> assim que existirem contas ou o servidor for acessível fora da sua mesa."
+        "title": "Configure e verifique o TLS antes de conectar clientes",
+        "text": "Coloque um proxy reverso no mesmo host, encaminhando HTTPS do seu domínio para <code>127.0.0.1:49374</code>. Siga a <a href=\"{tls}\">configuração de TLS</a> e verifique o certificado em um laptop antes de enviar chaves. Um token bearer autentica; ele não criptografa o tráfego."
       }
     ],
     "oneServer": {

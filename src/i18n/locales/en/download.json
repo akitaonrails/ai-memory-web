@@ -15,7 +15,7 @@
     "yours": "Looks like your system",
     "checksum": "SHA-256 checksum",
     "verifyTitle": "verify a download",
-    "after": "After unpacking, follow the <a class=\"underline font-semibold text-text\" href=\"{href}\">quick setup</a>. On Linux and macOS, <code>install.sh</code> and <code>ai-memory setup</code> do it in two commands.",
+    "after": "After unpacking, follow the <a class=\"underline font-semibold text-text\" href=\"{href}\">setup guide</a>: install the binary, configure the server, then launch your agent.",
     "linux": {
       "note": "Unpack, run ./ai-memory init, then serve."
     },
@@ -27,7 +27,8 @@
     "win": {
       "note": "Experimental. WSL2 with the Linux build is the supported path."
     },
-    "upgrade": "Later, a binary under a writable prefix (Linux, macOS, the Windows zip) updates itself with <code>ai-memory upgrade</code>: it downloads the matching release, verifies the checksum and refreshes the hooks. Packages update through their package manager."
+    "upgrade": "Later, a binary under a writable prefix (Linux, macOS, the Windows zip) updates itself with <code>ai-memory upgrade</code>: it downloads the matching release, verifies the checksum and refreshes the hooks. Packages update through their package manager.",
+    "upgradeNote": "Coming from 2.x? Back up the wiki and database before upgrading the server, then update clients. Migrations are forward-only; rollback needs the old binary and backup. <a class=\"link\" href=\"{href}\">Read the 3.0 upgrade steps</a>."
   },
   "channels": {
     "title": "Package managers and containers",
@@ -80,7 +81,7 @@
         "text": "A session page keeps only an excerpt of each turn, so the answer often lived only in the raw observations. They now vote in ranking. On LongMemEval-S, hit@5 went from 0.82 to 0.95 with the default install, with no LLM. One config flag restores the old ranking."
       },
       {
-        "title": "Two commands to install",
+        "title": "Native installer and setup command",
         "text": "<code>install.sh</code> downloads the release, verifies the checksum and links the binary with no root. <code>ai-memory setup</code> creates the data directory, starts a per-user service and wires every agent it finds. Claude Code and Codex can use a marketplace plugin instead."
       },
       {
@@ -89,7 +90,7 @@
       },
       {
         "title": "The web UI grew up",
-        "text": "Page history with a diff between any two versions, a session timeline you can replay, backlinks and an outline on every page, a search that ranks like the agent’s with an explain mode, mail badges, a health page for root, and a sign-in. Still read-only."
+        "text": "Page history and diffs, session replay, backlinks, search explanations, mail badges and a root health page. Account controls and root approval of pending edits are available; there is no page editor."
       },
       {
         "title": "More agents",
@@ -104,7 +105,7 @@
   "next": [
     {
       "title": "Quick setup",
-      "text": "From a download to a working memory in two commands."
+      "text": "From a download through setup to your first agent session."
     },
     {
       "title": "Integrations",

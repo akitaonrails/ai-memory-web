@@ -135,7 +135,7 @@
     },
     "system": "Para uma workstation compartilhada ou uma máquina na LAN. Os dados ficam em <code>/var/lib/ai-memory</code>, a config em <code>/etc/ai-memory/config.toml</code> e os segredos em <code>/etc/ai-memory/env</code>. Não rode as duas units no mesmo endereço de bind.",
     "launchd": "Os tarballs de macOS incluem um plist de LaunchAgent com dois placeholders. Rode isto a partir do tarball extraído. Um LaunchAgent para no logout, e o macOS não tem nada equivalente ao lingering. Nada rotaciona os dois arquivos de log dele.",
-    "winsw": "O ai-memory não tem dispatcher de Windows Service, então <code>sc create</code> apontando para o exe não funciona, e uma Scheduled Task com <code>Start-Process</code> morre no próximo reboot. O WinSW faz esse papel. Use caminhos absolutos: um serviço roda como LocalSystem, e <code>%LOCALAPPDATA%</code> expandiria para o perfil errado.",
+    "winsw": "Windows nativo exige um wrapper de serviço como WinSW. Use caminhos absolutos e escolha o usuário dono quando os dados estiverem em um perfil de usuário; LocalSystem resolve outro perfil. Siga a receita de serviço para sua versão do WinSW.",
     "links": {
       "systemd": "units do systemd no guia de instalação",
       "launchd": "launchd no guia de macOS",
@@ -199,7 +199,7 @@
       },
       "remote": {
         "title": "Um espelho remoto em git",
-        "text": "Para uma instalação de um usuário só, o guia de backup mostra como enviar a wiki e o diretório de dados para um repositório git privado por temporizador, o que deixar de fora (o índice derivado, o cache de modelos, logs, segredos) e quando um arquivo criptografado é a escolha melhor.",
+        "text": "Um espelho git privado preserva páginas da wiki e seu histórico. Mantenha também um backup que inclua o banco, para sessões, handoffs, contas e auditoria. Exclua credenciais do espelho; proteja os arquivos de backup como dados sensíveis.",
         "link": "Leia o guia de backup"
       },
       "agents": {
@@ -245,7 +245,7 @@
           "text": "Registre cada servidor uma vez com <code>ai-memory server add</code> e depois nomeie ele no marcador. O marcador nunca guarda uma URL nem um token, e um marcador fora das raízes do perfil não consegue selecioná-lo."
         }
       ],
-      "capture": "O mesmo arquivo guarda as regras de <code>[capture]</code> com <code>ignore_paths</code>, e <code>ai-memory install-hooks --apply --capture-mode allowlist</code> transforma o marcador em opt-in: um repositório sem ele não emite evento nenhum. Os hooks nativos aplicam as duas coisas. Os hooks de shell do wrapper Docker não. <a class=\"link\" href=\"{href}\">Leia a referência do arquivo marcador</a>."
+      "capture": "O marcador também guarda <code>[capture] ignore_paths</code>. O modo allowlist exige adesão dos repositórios. Hooks nativos aplicam ambos, inclusive o caminho normal do cliente no host do wrapper Docker em Linux/macOS. Hooks legados de script não aplicam. <a class=\"link\" href=\"{href}\">Confira o suporte e as instruções de atualização</a>."
     },
     "autoScope": {
       "title": "Modos de auto-scope",
@@ -255,7 +255,7 @@
         "when": "Quando usar"
       },
       "modes": {
-        "per_actor": "O padrão. Isola harnesses em paralelo e pessoas diferentes no mesmo servidor.",
+        "per_actor": "O roteamento por ator separa os chamadores. Sessões simultâneas da mesma pessoa ainda precisam de argumentos explícitos de workspace/projeto ou de um cliente que encaminhe o ID de sessão do hook; configurações MCP estáticas nem sempre as distinguem.",
         "per_session": "Para clientes session-aware, que repassam o session id do hook em toda requisição MCP.",
         "single": "O comportamento anterior à v1.39. Um slot para o processo inteiro, a última escrita vence. Inseguro num servidor compartilhado."
       },
@@ -270,7 +270,7 @@
       "title": "SSO e OIDC",
       "text": "Cada desenvolvedor faz login uma vez com um device flow de OIDC em qualquer emissor que siga o padrão, como Keycloak, Okta ou Entra ID. Daí em diante o token autentica os hooks nativos de ciclo de vida e os comandos da CLI quando não há um bearer token estático configurado.",
       "calloutTitle": "O servidor não valida tokens OIDC",
-      "calloutText": "Isto não é uma tela de login para o servidor. O ai-memory não confere tokens OIDC no seu provedor de identidade para liberar acesso à API. Para colocar o servidor atrás do seu IdP, você precisa de um gateway ou proxy reverso que entenda OIDC na frente, traduzindo as identidades aceitas em um bearer estático ou em uma chave de API por usuário. A autenticação OIDC dos hooks também exige o caminho de hooks nativo. Os hooks de shell do wrapper Docker não usam isso.",
+      "calloutText": "O servidor não valida tokens OIDC por conta própria. Coloque um gateway compatível com OIDC à frente para validar identidades e encaminhar as credenciais apropriadas. OIDC nos hooks exige o cliente nativo; hooks legados de shell não o suportam.",
       "link": "Leia a página de SSO e identidade corporativa"
     }
   },
@@ -348,7 +348,7 @@
     }
   ],
   "nextPages": {
-    "install": "O caminho curto: uma máquina em dois comandos, um time em cinco.",
+    "install": "Instale, configure e inicie localmente, ou configure um servidor compartilhado.",
     "security": "A escada de hardening, a fronteira de privacidade e o que deletar significa.",
     "architecture": "Um binário só, arquivos markdown e um índice derivado."
   },

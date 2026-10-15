@@ -47,8 +47,8 @@ ai-memory bootstrap --dry-run
 ai-memory bootstrap`;
 
 const clientCode = `# ${t('machines.comment')}
-export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
-export AI_MEMORY_AUTH_TOKEN="$TOKEN"
+export AI_MEMORY_SERVER_URL="https://memory.example.com"
+export AI_MEMORY_AUTH_TOKEN='REPLACE_WITH_YOUR_SERVER_TOKEN'
 ai-memory install-mcp   --client claude-code --apply
 ai-memory install-hooks --agent  claude-code --apply
 

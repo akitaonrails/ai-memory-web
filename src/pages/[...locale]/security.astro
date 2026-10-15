@@ -9,6 +9,7 @@ import Section from '@/components/Section.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import CodeBlock from '@/components/CodeBlock.astro';
 import Figure from '@/components/Figure.astro';
+import RecordTable from '@/components/RecordTable.astro';
 import Callout from '@/components/Callout.astro';
 import NextPages from '@/components/NextPages.astro';
 import CtaBand from '@/components/CtaBand.astro';
@@ -24,7 +25,8 @@ const advisory = `${site.repo}/security/advisories/new`;
 // Structure here, words in src/i18n/locales/<locale>/security.json.
 const posture = raw<Item[]>('posture.items').map((p) => ({ ...p, hue: 'rose' as const }));
 const boundaryPoints = raw<Item[]>('boundary.items').map((p) => ({ ...p, hue: 'rose' as const }));
-const ladder = raw<{ when: string; title: string; text: string }[]>('hardening.ladder');
+const requirements = raw<{ when: string; title: string; text: string }[]>('hardening.ladder');
+const ladder = [requirements[0], requirements[1], requirements[4], requirements[2], requirements[3]];
 
 const cfg = (code: string) => `<code class="cfg">${code}</code>`;
 const egressOn = [
@@ -127,22 +129,9 @@ const next = withText([
   </Section>
 
   <Section hue="rose" id="egress" tint title={t('egress.title')} lede={t('egress.lede')}>
+    <RecordTable columns={[t('egress.columns.path'), t('egress.columns.sent'), t('egress.columns.on'), t('egress.columns.default')]}
+      rows={egressRows.map(r => [r.path, r.sent, r.on, t('egress.off')])} />
     <Figure name="security-egress" alt={t('egress.figureAlt')} caption={t('egress.figureCaption')} />
-    <div class="table-wrap" tabindex="0">
-      <table class="table-site">
-        <thead><tr><th>{t('egress.columns.path')}</th><th>{t('egress.columns.sent')}</th><th>{t('egress.columns.on')}</th><th>{t('egress.columns.default')}</th></tr></thead>
-        <tbody>
-          {egressRows.map((r) => (
-            <tr>
-              <td class="min-w-[11rem]">{r.path}</td>
-              <td class="min-w-[18rem] text-muted">{r.sent}</td>
-              <td class="min-w-[15rem]" set:html={r.on} />
-              <td><span class="badge" data-hue="green">{t('egress.off')}</span></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
     <p class="mt-6 text-muted max-w-[40em]" set:html={t('egress.processor', { href: dataHandlingMd })} />
   </Section>
 
@@ -156,19 +145,13 @@ const next = withText([
       </div>
       <div class="min-w-0">
         <h3 id="deletion" class="text-xl">{t('audit.deletion.title')}</h3>
-        <p class="mt-4 text-muted max-w-[34em]">{t('audit.deletion.text')}</p>
+        <p class="mt-4 text-muted max-w-[34em]" set:html={t('audit.deletion.text')} />
         <div class="mt-5"><CodeBlock title={t('audit.deletion.codeTitle')} code={purge} /></div>
       </div>
     </div>
-    <div class="table-wrap mt-12" tabindex="0">
-      <table class="table-site">
-        <thead><tr><th>{t('audit.purgeTable.columns.what')}</th><th>{t('audit.purgeTable.columns.default')}</th><th>{t('audit.purgeTable.columns.compact')}</th></tr></thead>
-        <tbody>
-          {purgeRows.map((r) => (
-            <tr><td class="min-w-[15rem]">{r.what}</td><td class="min-w-[9rem] text-muted">{r.default}</td><td class="min-w-[9rem] text-muted">{r.compact}</td></tr>
-          ))}
-        </tbody>
-      </table>
+    <div class="mt-12">
+      <RecordTable columns={[t('audit.purgeTable.columns.what'), t('audit.purgeTable.columns.default'), t('audit.purgeTable.columns.compact')]}
+        rows={purgeRows.map(r => [r.what, r.default, r.compact])} />
     </div>
     <p class="mt-6 text-muted max-w-[40em]" set:html={t('audit.forensic', { href: `${site.docs}/lifecycle-ops.md` })} />
   </Section>
