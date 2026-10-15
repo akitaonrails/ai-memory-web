@@ -1,0 +1,42 @@
+---
+import CircuitIcon from './CircuitIcon.astro';
+import { diagrams } from '@/data/diagrams';
+import { useI18n } from '@/i18n';
+interface Props { name: string }
+const { name } = Astro.props;
+const { raw, dir } = useI18n(Astro, 'images');
+const spec = diagrams[name];
+if (!spec) throw new Error(`Missing diagram: ${name}`);
+const labels = ['contribute-crates','research-lineage'].includes(name) ? {} : raw<Record<string,string>>(name);
+const label = (key?: string) => {
+  if (!key) return '';
+  if (key.startsWith('=')) return key.slice(1);
+  if (!labels[key]) throw new Error(`Missing diagram label: ${name}/${key}`);
+  return labels[key];
+};
+---
+<div class="memory-diagram signal-panel" dir="ltr" data-diagram={name}>
+  {spec.lanes.map(lane => (
+    <div class:list={['circuit-lane', { 'optional-lane': lane.optional }]}>
+      {lane.title && <p class="circuit-title" dir={dir}>{label(lane.title)}</p>}
+      <div class:list={['circuit-stages', { 'unconnected': lane.connector === 'none' }]} style={`--stages:${lane.stages.length}`}>
+        {lane.stages.map((nodes, i) => (
+          <div class="circuit-stage">
+            {i > 0 && lane.connector !== 'none' && <span class="circuit-connector" aria-hidden="true"><i></i>{lane.connector === 'both' ? '↔' : '→'}</span>}
+            <div class:list={['circuit-nodes', { 'parallel-nodes': nodes.length > 1 }]}>
+              {nodes.map(node => (
+                <div class:list={['circuit-node', { optional: node.optional, core: node.icon === 'chip' }]}>
+                  <CircuitIcon kind={node.icon} />
+                  {node.label && <p class="node-label" dir={dir}>{label(node.label)}</p>}
+                  {node.note && <p class="node-note" dir={dir}>{label(node.note)}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      {lane.note && <p class="circuit-note" dir={dir}>{label(lane.note)}</p>}
+    </div>
+  ))}
+  {spec.note && <p class="circuit-footnote" dir={dir}>{label(spec.note)}</p>}
+</div>

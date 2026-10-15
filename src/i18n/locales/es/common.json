@@ -48,18 +48,18 @@
       "label": "Producto",
       "how": {
         "label": "Cómo funciona",
-        "note": "Captura, consolida, recuerda y traspasa"
+        "note": "Notas guardadas, búsqueda y traspasos entre sesiones"
       },
       "aging": {
         "label": "Cómo envejece la memoria",
-        "note": "Decaimiento, compactación y la pasada de sueño"
+        "note": "Cuándo se eliminan, acortan o fusionan notas antiguas"
       },
       "profile": {
         "label": "Memoria entre proyectos",
         "note": "Cómo trabajas, entregado a cada proyecto nuevo"
       },
       "features": {
-        "label": "Más cosas que puedes hacer",
+        "label": "Mensajes y scopes de proyecto",
         "note": "Mensajería entre agentes, scopes, reglas, notas que caducan"
       },
       "browse": {
@@ -90,7 +90,7 @@
         "note": "Una memoria compartida y un onboarding más rápido"
       },
       "compare": {
-        "label": "Migrar desde otra herramienta",
+        "label": "Compara herramientas de memoria",
         "note": "Mem0, Zep, cognee, OpenViking y otras"
       }
     },
@@ -106,7 +106,7 @@
       },
       "providers": {
         "label": "Proveedores de LLM y embeddings",
-        "note": "Opcionales. Todo funciona sin ninguno"
+        "note": "Servicios opcionales de modelos y qué aportan"
       }
     },
     "developers": {
@@ -130,7 +130,7 @@
     }
   },
   "footer": {
-    "motto": "El modelo y el harness son alquilados. La memoria del proyecto es tuya.",
+    "motto": "Las notas de tu proyecto en archivos que puedes inspeccionar y editar.",
     "themeSystem": "Sistema",
     "themeLight": "Claro",
     "themeDark": "Oscuro",
@@ -141,7 +141,7 @@
   },
   "cta": {
     "title": "Dale memoria a tus agentes hoy.",
-    "text": "Gratis y de código abierto bajo la licencia MIT. No necesitas cuenta ni clave de API.",
+    "text": "Gratuito y de código abierto bajo la licencia MIT. Las funciones de memoria por defecto no necesitan una clave de API de modelo; tu agente de programación puede requerir su propia cuenta.",
     "primary": "Instalar ahora",
     "secondary": "Dale una estrella en GitHub"
   },

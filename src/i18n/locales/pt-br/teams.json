@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "Uma memória para os agentes de todo mundo",
-    "lede": "Rode um servidor em uma máquina do homelab ou em qualquer host da LAN. Cada desenvolvedor aponta seus agentes para ele, e o que uma sessão descobre fica lá para a próxima pessoa que perguntar.",
+    "lede": "Rode um servidor de memória em uma máquina administrada pelo seu time de desenvolvimento. Os agentes podem encontrar decisões anteriores nos projetos aos quais seus usuários têm acesso.",
     "primary": "Configurar um time",
     "secondary": "Leia o modelo de segurança"
   },
@@ -15,12 +15,12 @@
     "figureAlt": "Diagrama: quatro estações de trabalho de desenvolvedores, rodando Claude Code, Codex, Cursor e Gemini CLI, se conectam a um único servidor ai-memory, que guarda a wiki de um projeto.",
     "items": [
       {
-        "title": "O que uma sessão aprende, todo agente consegue recuperar",
-        "text": "Uma página escrita em um projeto pode ser lida por todo mundo no servidor. A sessão de Codex de uma pessoa encontra o gotcha em que a sessão de Claude Code de um colega de time esbarrou na semana passada."
+        "title": "Compartilhe conhecimento dentro de um projeto",
+        "text": "Usuários com acesso a um projeto podem ler suas páginas. Uma sessão do Codex pode encontrar um problema que a sessão do Claude Code de um colega registrou na semana passada."
       },
       {
         "title": "Visível na próxima consulta",
-        "text": "A anotação de um colega aparece na próxima busca ou no próximo briefing de sessão de qualquer pessoa. Uma sessão que já está rodando não é interrompida."
+        "text": "Uma nota de um colega pode aparecer na próxima busca ou no briefing de sessão de quem tem acesso ao projeto. Sessões em andamento não são interrompidas."
       },
       {
         "title": "Qualquer combinação de agentes",
@@ -39,7 +39,7 @@
       },
       {
         "title": "A wiki é uma base de conhecimento viva",
-        "text": "Conceitos, decisões e gotchas são escritos enquanto o trabalho acontece, em markdown, com histórico em git. Ninguém precisa lembrar de atualizar."
+        "text": "As sessões adicionam notas automaticamente, em markdown com histórico git. Mantenha documentação revisada como referência para as instruções e confira decisões importantes nas fontes originais."
       },
       {
         "title": "Ela complementa a documentação que você escreve",
@@ -49,8 +49,8 @@
     "digest": "O resumo sai em prosa quando o servidor tem um provedor de LLM e em dados estruturados quando não tem. Com <code>--enable-web</code>, dá para navegar pela mesma wiki em uma interface web somente leitura."
   },
   "ownership": {
-    "title": "O conhecimento é de todos, o bastão tem dono",
-    "lede": "As páginas pertencem ao projeto. Um handoff pertence a quem o deixou.",
+    "title": "Conhecimento compartilhado, handoffs pessoais",
+    "lede": "Um handoff é um resumo salvo do trabalho inacabado. As páginas do projeto são compartilhadas com quem tem acesso; o handoff pertence a quem o deixou.",
     "figureAlt": "Diagrama em dois painéis. À esquerda, o conhecimento é compartilhado: várias sessões de agentes leem e escrevem na mesma pilha de páginas da wiki. À direita, o bastão tem dono: o bastão do handoff passa entre duas sessões da mesma pessoa, e a sessão de um colega de time fica de fora.",
     "points": [
       "Seu handoff pendente vai para a sua próxima sessão. Um colega que abrir um agente no mesmo repositório nunca o recebe nem o consome.",
@@ -95,11 +95,11 @@
     "limits": {
       "title": "Conheça os limites antes de colocar em uso",
       "items": [
-        "Contas não são uma fronteira de tenancy. Todo usuário autenticado vê todas as páginas de todos os projetos do servidor.",
-        "Um time por servidor. Se um segundo time precisar de memória, rode um segundo servidor com seu próprio diretório de dados.",
-        "Não há permissões por página nem por projeto. Qualquer pessoa autenticada pode escrever, e o histórico registra quem escreveu.",
+        "Por padrão, os projetos ficam abertos a usuários autenticados. Para contas de usuários do banco de dados, root pode restringir um projeto ao criador e a usuários com permissões de leitura ou escrita.",
+        "Permissões de projeto não criam ambientes separados por tenant. Use servidores e diretórios de dados separados para times que precisam de isolamento independente.",
+        "As permissões valem para projetos inteiros, não para páginas individuais. Root pode acessar todos os projetos. Identidades de proxy confiável dependem da autorização do proxy, em vez das permissões de usuários do banco.",
         "É um serviço single-tenant de homelab e não foi projetado para ficar exposto direto na internet aberta.",
-        "Um bearer token não criptografa o tráfego. Coloque TLS na frente, com Caddy, nginx ou um Cloudflare Tunnel, para qualquer coisa além da LAN."
+        "Um bearer token não criptografa o tráfego. Use TLS ao conectar outra máquina."
       ],
       "more": "A <a href=\"{security}\">página de segurança</a> tem o modelo completo, e a <a href=\"{advanced}\">configuração avançada</a> tem as receitas de TLS e proxy."
     }
@@ -113,7 +113,7 @@
   "faq": [
     {
       "q": "Vários desenvolvedores podem compartilhar um servidor ai-memory?",
-      "a": "Sim. Um servidor guarda a wiki e todo mundo aponta seus agentes para ele. As páginas são compartilhadas por todos no servidor. Os handoffs ficam com quem os criou, a menos que a pessoa publique um com shared: true."
+      "a": "Sim. Um servidor guarda a wiki e os agentes se conectam a ele. Os projetos são abertos por padrão; contas de usuários do banco de dados podem ser limitadas por permissões de projeto. Handoffs ficam com o autor, a menos que sejam compartilhados explicitamente."
     },
     {
       "q": "O uso em time exige um plano pago?",
@@ -121,7 +121,7 @@
     },
     {
       "q": "Posso restringir um projeto ou uma página a alguns usuários?",
-      "a": "Não. Contas não são uma fronteira de tenancy. Todo usuário autenticado vê todas as páginas de todos os projetos daquele servidor. Rode um servidor por time."
+      "a": "Você pode restringir um projeto inteiro para contas de usuários do banco de dados. Root, o criador e usuários com permissão mantêm o acesso; permissão de escrita inclui leitura. Páginas individuais não têm permissões separadas. Instalações com proxy confiável devem aplicar o controle de acesso no proxy."
     },
     {
       "q": "Quantos desenvolvedores um servidor aguenta?",
@@ -140,5 +140,11 @@
     "title": "Dê uma memória só para os agentes do seu time.",
     "text": "Gratuito e open source. Contas, chaves e o log de auditoria já vêm incluídos."
   },
-  "capacityNote": "Um servidor aguenta cerca de 700 escritas por segundo, o que cobre algumas centenas de agentes ativos. <a class=\"link\" href=\"{href}\">Veja como isso foi medido</a>."
+  "capacityNote": "Um servidor aguenta cerca de 700 escritas por segundo, o que cobre algumas centenas de agentes ativos. <a class=\"link\" href=\"{href}\">Veja como isso foi medido</a>.",
+  "suitability": {
+    "title": "Antes de um piloto com o time",
+    "text": "Comece com um projeto sem dados sensíveis e um operador que cuide do servidor, das contas, das atualizações e dos backups. Confira quem pode ler e escrever no projeto antes de convidar colegas.",
+    "cost": "O software é gratuito. Você fornece a máquina e cuida da administração; provedores opcionais de modelos na nuvem cobram nas suas próprias contas.",
+    "link": "Planeje instalação e backups"
+  }
 }

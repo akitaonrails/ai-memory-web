@@ -1,0 +1,22 @@
+---
+export type CircuitKind = 'terminal' | 'chip' | 'file' | 'search' | 'server' | 'shield' | 'branch' | 'folder' | 'cloud' | 'key' | 'clock';
+interface Props { kind?: CircuitKind }
+const { kind = 'file' } = Astro.props;
+const paths: Record<CircuitKind, string> = {
+  terminal: 'M18 25h64l20 20v54H18zM18 45h84M36 60l13 11-13 11m27 0h18',
+  chip: 'M30 27h60v66H30zM42 10v17m18-17v17m18-17v17M42 93v17m18-17v17m18-17v17M12 40h18M12 60h18M12 80h18m60-40h18M90 60h18M90 80h18',
+  file: 'M33 16h38l20 20v71H33zM71 16v22h20M45 55h33M45 70h33M45 85h24',
+  search: 'M84 83l23 23M91 53a37 37 0 1 1-74 0 37 37 0 0 1 74 0M34 43h39M34 55h39M34 67h24',
+  server: 'M27 15h66v90H27zM27 44h66M27 74h66M39 29h5m-5 30h5m-5 30h5M60 29h21M60 59h21M60 89h21',
+  shield: 'M60 13l39 15v34c0 26-39 45-39 45S21 88 21 62V28zM41 59l13 13 28-29',
+  branch: 'M36 29v62M84 29v16c0 19-48 13-48 33M44 21a8 8 0 1 1-16 0 8 8 0 0 1 16 0M92 21a8 8 0 1 1-16 0 8 8 0 0 1 16 0M44 99a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+  folder: 'M12 35V23h36l12 12h48v63H12zM12 46h96M35 63h50M35 79h35',
+  cloud: 'M32 87h61a20 20 0 0 0 3-40 35 35 0 0 0-67-7 24 24 0 0 0 3 47',
+  key: 'M59 52l45 45m-17-17-12 12m1-23-12 12M66 36a25 25 0 1 1-50 0 25 25 0 0 1 50 0M33 28h1',
+  clock: 'M106 60a46 46 0 1 1-92 0 46 46 0 0 1 92 0M60 29v33l22 16',
+};
+---
+<svg class:list={['circuit-icon', { 'is-chip': kind === 'chip' }]} viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="square" aria-hidden="true">
+  <path d={paths[kind]} />
+  {kind === 'chip' && <path class="chip-page" d="M45 42h20l10 10v27H45zM65 42v11h10M52 62h15M52 70h15" />}
+</svg>

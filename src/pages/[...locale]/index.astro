@@ -9,16 +9,14 @@ import Tabs from '@/components/Tabs.astro';
 import GithubStats from '@/components/GithubStats.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Figure from '@/components/Figure.astro';
-import Carousel from '@/components/Carousel.astro';
-import CarouselSlide from '@/components/CarouselSlide.astro';
 import factsData from '@/data/facts.json';
 import logo from '@/assets/img/logo.png';
-import { site } from '@/data/site';
 import { harnesses } from '@/data/support';
 import { competitors, type CompetitorText } from '@/data/competitors';
-import { getGithub, getLatestRelease, compact } from '@/data/github';
+import { getGithub, getLatestRelease } from '@/data/github';
 
 const { t, raw, href } = useI18n(Astro, 'home', 'competitors');
+const { t: teamText } = useI18n(Astro, 'teams');
 const gh = await getGithub();
 const latest = await getLatestRelease();
 
@@ -35,20 +33,19 @@ const paths = raw<{ who: string; title: string; text: string; cta: string }[]>('
 const steps = raw<{ title: string; text: string }[]>('how.steps');
 const facts = raw<string[]>('hero.facts');
 
-// The hero carousel: the logo first, then one card per thing worth a page. Structure here, words in home.json.
+// Keep agent support and measured evidence here; other features have their own sections. Structure here, words in home.json.
 const cardMeta = [
-  { href: '/#how', image: 'how-it-works', hue: 'green' },
-  { href: '/profile/', image: 'profile-two-axes', hue: 'amber' },
-  { href: '/integrations/', image: 'integrations-hub', hue: 'violet' },
-  { href: '/install/', image: 'install-solo-path', hue: 'teal' },
-  { href: '/aging/', image: 'aging-decay-path', hue: 'teal' },
-  { href: '/research/#measured', image: 'architecture-retrieval', hue: 'violet' },
+  { href: '/#how', hue: 'green' },
+  { href: '/profile/', hue: 'amber' },
+  { href: '/integrations/', hue: 'violet' },
+  { href: '/install/', hue: 'teal' },
+  { href: '/aging/', hue: 'teal' },
+  { href: '/research/#measured', hue: 'violet' },
 ] as const;
 const cardParams = { n: String(harnesses.length), score: factsData.benchmark.metrics['hit@5'][3].toFixed(3) };
 const cards = raw<{ kicker: string; title: string; text: string; cta: string }[]>('hero.cards').map((c, i) => ({
   ...c, ...cardMeta[i], title: c.title.replace(/\{(\w+)\}/g, (m, k: keyof typeof cardParams) => cardParams[k] ?? m),
-}));
-const cardLabels = raw<string[]>('hero.cardLabels');
+})).filter((_, i) => i === 2 || i === 5);
 const tabs = raw<string[]>('quickstart.tabs');
 
 // Commands never change with the language. Only the comments do.
@@ -61,83 +58,73 @@ ai-memory setup
 # ${t('quickstart.solo.c3')}
 ai-memory run claude`;
 
-const team = `# ${t('quickstart.team.c1')}
-TOKEN=$(ai-memory generate-auth-token)
-docker run -d --name ai-memory --restart unless-stopped \\
-  -p 0.0.0.0:49374:49374 -v ai-memory-data:/data \\
-  -e AI_MEMORY_AUTH_TOKEN="$TOKEN" \\
-  -e AI_MEMORY_ALLOWED_HOSTS="<server-ip>,localhost" \\
-  akitaonrails/ai-memory:latest
 
-# ${t('quickstart.team.c2')}
-export AI_MEMORY_SERVER_URL="http://<server-ip>:49374"
-export AI_MEMORY_AUTH_TOKEN="<${t('quickstart.team.theirKey')}>"
-ai-memory run claude`;
 ---
 <Base>
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-aura" aria-hidden="true"></div>
-    <Carousel id="hero" labels={cardLabels}>
-      <CarouselSlide id="hero" index={0} total={cardLabels.length}>
-      <div class="wrap relative grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center slide-pad">
+      <div class="wrap signal-panel hero-panel grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 items-center">
         <div>
           <a href={href('/download/')} class="release-pill">
             <span class="dot" aria-hidden="true"></span>
             {t('hero.releaseOut', { tag: latest.tag })}
             <span class="text-muted">{t('hero.releaseLink')}</span>
           </a>
-          <h1 class="mt-7 text-4xl spectrum-text pb-2">{t('hero.title')}</h1>
+          <h1 class="mt-7 text-4xl pb-2">{t('hero.title')}</h1>
           <p class="lede mt-6">{t('hero.lede')}</p>
           <div class="mt-9 flex flex-wrap gap-3">
             <a href={href('/install/')} class="btn btn-primary">{t('hero.primary')}</a>
-            <a href={site.repo} class="btn btn-ghost">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--amber)" aria-hidden="true"><path d="m8 .9 2.2 4.6 5 .7-3.6 3.5.9 5L8 12.3l-4.5 2.4.9-5L.8 6.2l5-.7z"/></svg>
-              {t('hero.star')}
-              <span data-gh="stars" class="tabular-nums text-muted">{compact(gh.stars)}</span>
-            </a>
+            <a href="#how" class="btn btn-ghost">{t('hero.secondary')}</a>
           </div>
           <ul class="facts mt-9">
             {facts.map((f) => <li>{f}</li>)}
           </ul>
         </div>
         <div class="hero-mark" aria-hidden="true">
-          <div data-parallax="0.12"><Image src={logo} alt="" widths={[360, 480, 720, 960, 1440]} sizes="(min-width: 1024px) 30rem, min(30rem, 90vw)" loading="eager" fetchpriority="high" class="w-full h-auto" /></div>
+          <div class="brain-orbits"><Image src={logo} alt="" widths={[360, 480, 720, 960, 1440]} sizes="(min-width: 1024px) 30rem, min(30rem, 90vw)" loading="eager" fetchpriority="high" class="w-full h-auto" /></div>
         </div>
       </div>
-      </CarouselSlide>
-      {cards.map((c, i) => (
-        <CarouselSlide id="hero" index={i + 1} total={cardLabels.length}>
-        <div class="wrap relative grid lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] gap-10 items-center slide-pad" data-hue={c.hue}>
-          <div>
-            <p class="kicker">{c.kicker}</p>
-            <h2 class="mt-4 text-3xl max-w-[18ch]">{c.title}</h2>
-            <p class="lede mt-6">{c.text}</p>
-            <p class="mt-9"><a href={href(c.href)} class="btn btn-primary">{c.cta}</a></p>
-          </div>
-          <div class="card-art"><Figure name={c.image} alt="" zoom={false} /></div>
-        </div>
-        </CarouselSlide>
-      ))}
-    </Carousel>
-
     <div class="marquee">
       {/* Same sentence the aria-label carried, as text a screen reader can read: aria-label is prohibited on a plain div. */}
       <p class="sr-only">{t('hero.marquee', { n: harnesses.length, names: harnesses.slice(0, 6).map((h) => h.name).join(', ') })}</p>
-      <div class="track" aria-hidden="true" dir="ltr">
-        {[...harnesses, ...harnesses].map((h) => <span>{h.name}</span>)}
+      <div class="agent-list wrap" aria-hidden="true" dir="ltr">
+        {harnesses.map((h) => <span>{h.name}</span>)}
       </div>
     </div>
   </section>
 
-  <!-- The problem, in one breath -->
-  <section class="band">
+  <!-- How it works -->
+  <section class="band" id="how">
     <div class="wrap">
-      <p class="statement" data-fill>{t('statement')}</p>
+      <h2 class="text-3xl max-w-[18ch]">{t('how.title')}</h2>
+      <p class="lede mt-5">{t('how.lede')}</p>
+      <Figure name="how-it-works" alt={t('how.figureAlt')} />
+      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+        {steps.map((s, i) => (
+          <li data-hue={['green', 'teal', 'azure', 'violet'][i]} class="how-step">
+            <span class="n">{i + 1}</span>
+            <h3 class="text-xl mt-3">{s.title}</h3>
+            <p class="mt-2 text-muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-12"><a href={href('/architecture/')} class="btn btn-ghost">{t('how.cta')}</a></p>
     </div>
   </section>
 
-  <Continuity />
+  <section class="band !pt-0" aria-labelledby="guide-title">
+    <div class="wrap guide-panel">
+      <h2 id="guide-title" class="text-2xl">{t('guide.title')}</h2>
+      <div class="mt-6 grid lg:grid-cols-2 gap-8">
+        <div class="space-y-4 text-muted"><p>{t('guide.purpose')}</p><p>{t('guide.capture')}</p><p>{t('guide.boundary')}</p></div>
+        <ul class="space-y-5 font-semibold underline">
+          <li><a href={href('/security/#controls')}>{t('guide.controls')}</a></li>
+          <li><a href={href('/profile/')}>{t('guide.profile')}</a></li>
+          <li><a href={href('/solutions/individuals/#need')}>{t('guide.fit')}</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <!-- Pick a path -->
   <section class="band">
@@ -156,24 +143,47 @@ ai-memory run claude`;
     </div>
   </section>
 
-  <!-- How it works -->
-  <section class="band !pt-0" id="how">
-    <div class="wrap">
-      <h2 class="text-3xl max-w-[18ch]">{t('how.title')}</h2>
-      <p class="lede mt-5">{t('how.lede')}</p>
-      <Figure name="how-it-works" alt={t('how.figureAlt')} />
-      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
-        {steps.map((s, i) => (
-          <li data-hue={['green', 'teal', 'azure', 'violet'][i]} class="how-step">
-            <span class="n">{i + 1}</span>
-            <h3 class="text-xl mt-3">{s.title}</h3>
-            <p class="mt-2 text-muted">{s.text}</p>
-          </li>
-        ))}
-      </ol>
-      <p class="mt-12"><a href={href('/architecture/')} class="btn btn-ghost">{t('how.cta')}</a></p>
+  <!-- Quick start -->
+  <section class="band" id="quickstart">
+    <div class="wrap grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-12">
+      <div>
+        <h2 class="text-3xl">{t('quickstart.title')}</h2>
+        <p class="mt-5 text-muted max-w-[28em]">{t('quickstart.text')}</p>
+        <ul class="mt-8 space-y-3 font-semibold">
+          <li><a class="underline" href={href('/install/')}>{t('quickstart.links.install')}</a></li>
+          <li><a class="underline" href={href('/integrations/')}>{t('quickstart.links.integrations')}</a></li>
+          <li><a class="underline" href={href('/download/')}>{t('quickstart.links.download', { tag: latest.tag })}</a></li>
+        </ul>
+      </div>
+      <div class="min-w-0">
+        <Tabs id="qs" labels={tabs}>
+          <CodeBlock slot="0" title={t('quickstart.soloTitle')} code={solo} />
+          <div slot="1" class="card p-6 md:p-8">
+            <h3 class="text-xl">{teamText('suitability.title')}</h3>
+            <p class="mt-4 text-muted">{teamText('suitability.text')}</p>
+            <p class="mt-4 text-muted">{teamText('suitability.cost')}</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href={href('/install/#team')} class="btn btn-primary">{teamText('hero.primary')}</a>
+              <a href={href('/security/#limits')} class="btn btn-ghost">{teamText('hero.secondary')}</a>
+            </div>
+          </div>
+        </Tabs>
+      </div>
     </div>
   </section>
+
+  <section class="wrap feature-directory" aria-label={t('paths.title')}>
+    {cards.map((c) => (
+      <a href={href(c.href)} class="directory-link" data-hue={c.hue}>
+        <span class="kicker">{c.kicker}</span>
+        <h2>{c.title}</h2>
+        <p>{c.text}</p>
+        <span class="directory-cta">{c.cta}<span aria-hidden="true"> ↗</span></span>
+      </a>
+    ))}
+  </section>
+
+  <Continuity />
 
   <!-- Memory aging -->
   <section class="band !pt-0" data-hue="teal">
@@ -230,27 +240,6 @@ ai-memory run claude`;
     </div>
   </section>
 
-  <!-- Quick start -->
-  <section class="band" id="quickstart">
-    <div class="wrap grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-12">
-      <div>
-        <h2 class="text-3xl">{t('quickstart.title')}</h2>
-        <p class="mt-5 text-muted max-w-[28em]">{t('quickstart.text')}</p>
-        <ul class="mt-8 space-y-3 font-semibold">
-          <li><a class="underline" href={href('/install/')}>{t('quickstart.links.install')}</a></li>
-          <li><a class="underline" href={href('/integrations/')}>{t('quickstart.links.integrations')}</a></li>
-          <li><a class="underline" href={href('/download/')}>{t('quickstart.links.download', { tag: latest.tag })}</a></li>
-        </ul>
-      </div>
-      <div class="min-w-0">
-        <Tabs id="qs" labels={tabs}>
-          <CodeBlock slot="0" title={t('quickstart.soloTitle')} code={solo} />
-          <CodeBlock slot="1" title={t('quickstart.teamTitle')} code={team} />
-        </Tabs>
-      </div>
-    </div>
-  </section>
-
   <!-- Open source -->
   <section class="band !pt-0">
     <div class="wrap">
@@ -272,40 +261,33 @@ ai-memory run claude`;
 
 
 <style>
-  .hero { position: relative; overflow: clip; }
-  .slide-pad { padding-top: 8rem; padding-bottom: 3rem; }
-  @media (min-width: 48rem) { .slide-pad { padding-top: 10rem; } }
-  @media (min-width: 64rem) { .slide-pad { padding-top: 11rem; padding-bottom: 5rem; } }
-  .card-art { max-width: 34rem; margin-inline: auto; width: 100%; }
-  @media (min-width: 64rem) { .hero-mark { max-width: 30rem; } }
-  .card-art :global(.fig) { margin-block: 0; }
-  .card-art :global(figcaption) { display: none; }
-  .hero-aura { position: absolute; inset-block: -20% 0; inset-inline: 35% -10%; background: conic-gradient(from 210deg at 60% 45% in oklch, var(--v-green), var(--v-teal), var(--v-azure), var(--v-violet), var(--v-rose), var(--v-green)); filter: blur(110px); opacity: .28; pointer-events: none; }
-  :global([data-theme='light']) .hero-aura { opacity: .2; }
-  .release-pill { display: inline-flex; align-items: center; gap: .6rem; padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in oklch, var(--surface) 70%, transparent); font-size: .9rem; font-weight: 600; }
-  .release-pill .dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--v-green); box-shadow: 0 0 0 4px color-mix(in oklch, var(--v-green) 25%, transparent); }
-  .release-pill:hover { border-color: var(--text); }
-  .facts { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; color: var(--muted); font-size: .95rem; }
-  .facts li { display: flex; align-items: center; gap: .5rem; }
-  .facts li::before { content: ''; width: .9rem; height: .5rem; border-left: 2px solid var(--green); border-bottom: 2px solid var(--green); rotate: -45deg; translate: 0 -2px; }
-  .hero-mark { max-width: 22rem; margin-inline: auto; width: 100%; filter: drop-shadow(0 30px 80px color-mix(in oklch, var(--v-violet) 40%, transparent)); animation: mark-in 1.4s var(--ease-out-quint) both; }
-  @keyframes mark-in { from { opacity: 0; transform: scale(.82) rotate(-6deg); filter: blur(12px); } }
-
-  .marquee { position: relative; overflow: hidden; border-block: 1px solid var(--line); padding-block: 1.1rem; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-  .track { display: flex; gap: 3rem; width: max-content; animation: slide 70s linear infinite; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--muted); white-space: nowrap; }
-  .marquee:hover .track { animation-play-state: paused; }
-  @keyframes slide { to { transform: translateX(-50%); } }
-
-  .statement { font-family: var(--font-display); font-weight: 600; font-size: var(--text-3xl); line-height: 1.12; letter-spacing: -.012em; max-width: 22em; font-variation-settings: 'opsz' 96, 'wdth' 94; }
-
-  .path { position: relative; display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: 1.5rem; background: var(--hue-soft); overflow: hidden; transition: transform .4s var(--ease-out-quint); }
-  .path:hover { transform: translateY(-4px); }
-  .path .who { align-self: flex-start; padding: .3rem .8rem; border-radius: 999px; background: var(--surface); color: var(--hue); font-weight: 600; font-size: .9rem; }
+  .hero { padding-block-start: 7rem; }
+  .hero-panel { padding: clamp(1.5rem, 4vw, 3.5rem); position: relative; clip-path: polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%); }
+  h1 { font-size: clamp(2.875rem, 5.3vw, 5rem); line-height: 1.08; max-width: 14ch; }
+  .release-pill { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .6rem; font: .875rem/1.6 var(--font-mono); color: var(--panel-text); }
+  .release-pill .dot { width: .5rem; height: .5rem; background: var(--amber); }
+  .release-pill:hover { text-decoration: underline; }
+  .facts { display: grid; gap: .65rem; color: var(--panel-muted); font: .875rem/1.6 var(--font-mono); }
+  .facts li::before { content: '+'; margin-inline-end: .75rem; color: var(--amber); }
+  .hero-mark { max-width: 32rem; margin-inline: auto; width: 100%; overflow: hidden; }
+  .brain-orbits { position: relative; padding: 1rem; }
+  .brain-orbits::before, .brain-orbits::after { content: ''; position: absolute; inset: 7% 1%; border: 1px solid var(--panel-line); border-radius: 50%; transform: rotate(-30deg); }
+  .brain-orbits::after { inset: 1% 15%; border-color: var(--amber); transform: rotate(35deg); }
+  .brain-orbits img { position: relative; z-index: 1; }
+  .marquee { margin-top: 1.5rem; }
+  .agent-list { display: flex; flex-wrap: wrap; gap: .8rem 2rem; padding-block: 1.5rem; border-bottom: 2px solid var(--line); font-family: var(--font-display); color: var(--muted); }
+  .guide-panel a { display: inline-block; padding-block: .25rem; }
+  .guide-panel { border-inline-start: 3px solid var(--amber-ink); padding-inline-start: clamp(1.5rem, 4vw, 3rem); }
+  .feature-directory { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2rem; padding-block: 3.5rem 0; }
+  .directory-link { border-top: 2px solid var(--line); padding-block: 1.3rem; display: flex; flex-direction: column; align-items: start; }
+  .directory-link:hover { border-color: var(--amber-ink); }
+  .directory-link h2 { font-size: 1.6rem; margin-block: 1rem; }
+  .directory-link p { color: var(--muted); font-size: 1rem; }
+  .directory-cta { display: block; margin-top: auto; padding-top: 1.3rem; font-weight: 600; text-decoration: underline; }
+  .path { position: relative; display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.5rem); border-block-start: 3px solid var(--hue); background: var(--surface); }
+  .path:hover { background: var(--hue-soft); }
+  .path .who { font: .875rem/1.6 var(--font-mono); color: var(--hue); }
   .path .go { margin-top: auto; padding-top: 2rem; display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: var(--hue); }
-  .path .go svg { transition: transform .3s var(--ease-out-quint); }
-  .path:hover .go svg { translate: 5px 0; }
-  :global([dir='rtl']) .path:hover .go svg { translate: -5px 0; }
-
-  .how-step .n { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--hue-soft); color: var(--hue); font-family: var(--font-display); font-weight: 700; }
-
+  .how-step .n { font: 1rem var(--font-mono); color: var(--hue); border-bottom: 2px solid var(--hue); padding-bottom: .5rem; display: block; }
+  @media(max-width:767px) { .feature-directory { grid-template-columns: 1fr; gap: 1rem; } .hero-mark { max-width: 22rem; } }
 </style>

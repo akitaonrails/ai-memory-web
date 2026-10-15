@@ -27,18 +27,18 @@ const split = (l: string) => l.split('|') as [string, string];
 
 <style>
   /* Windows stay dark in both themes, like a terminal. --hue-vivid comes from the scene's data-hue. */
-  .sc { border-radius: 1rem; overflow: hidden; border: 1px solid oklch(0.33 0.045 282); background: var(--ink); color: oklch(0.93 0.015 285); box-shadow: var(--shadow), 0 0 0 1px color-mix(in oklch, var(--hue-vivid) 40%, transparent), 0 0 50px -18px var(--hue-vivid); font-family: var(--font-mono); font-size: .74rem; line-height: 1.75; }
-  header { display: flex; align-items: center; gap: .5rem; padding: .5rem .85rem; border-bottom: 1px solid oklch(0.28 0.04 282); color: oklch(0.74 0.03 285); font-size: .75rem; }
+  .sc { border-radius: 2px; overflow: hidden; border: 1px solid var(--panel-line); background: var(--ink); color: var(--panel-text); box-shadow: none; font-family: var(--font-mono); font-size: .875rem; line-height: 1.75; }
+  header { display: flex; align-items: center; gap: .5rem; padding: .5rem .85rem; border-bottom: 1px solid var(--panel-line); color: var(--panel-muted); font-size: .875rem; }
   header::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--hue-vivid); }
   .body { padding: .8rem .95rem 1rem; }
-  .ln { display: block; white-space: pre-wrap; }
-  .ln.p { color: oklch(0.87 0.15 85); }
-  .ln.d { color: oklch(0.72 0.03 285); }
+  .ln { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .ln.p { color: var(--amber); }
+  .ln.d { color: var(--panel-muted); }
   .people .body, .chips .body { font-family: var(--font-sans); font-size: .9rem; line-height: 1.35; }
   .person { display: flex; gap: .7rem; align-items: center; padding: .4rem 0; }
-  .person b { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; border-radius: 50%; background: color-mix(in oklch, var(--hue-vivid) 30%, transparent); font-size: .8rem; }
-  .person span { color: oklch(0.8 0.02 285); }
+  .person b { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; border-radius: 50%; background: color-mix(in oklch, var(--hue-vivid) 30%, transparent); font-size: .875rem; }
+  .person span { color: var(--panel-muted); }
   .chips .body { display: flex; flex-wrap: wrap; gap: .4rem; }
-  .chip { padding: .3rem .6rem; border-radius: .5rem; background: oklch(0.24 0.045 282); font-family: var(--font-mono); font-size: .74rem; }
+  .chip { padding: .3rem .6rem; border-radius: 2px; background: var(--panel-surface); font-family: var(--font-mono); font-size: .875rem; }
   .dir { color: var(--v-green); }
 </style>

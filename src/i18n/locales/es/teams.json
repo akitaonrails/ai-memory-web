@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "Una memoria para los agentes de todos",
-    "lede": "Ejecuta un servidor en un equipo del homelab o en cualquier host de la LAN. Cada desarrollador apunta sus agentes a él, y lo que una sesión descubre queda disponible para la siguiente persona que pregunte.",
+    "lede": "Ejecuta un servidor de memoria en una máquina administrada por tu equipo de desarrollo. Los agentes pueden encontrar decisiones anteriores en los proyectos a los que sus usuarios tienen acceso.",
     "primary": "Configurar un equipo",
     "secondary": "Lee el modelo de seguridad"
   },
@@ -15,12 +15,12 @@
     "figureAlt": "Diagrama: cuatro puestos de trabajo de desarrolladores con Claude Code, Codex, Cursor y Gemini CLI se conectan a un único servidor de ai-memory, que guarda la wiki de un proyecto.",
     "items": [
       {
-        "title": "Lo que aprende una sesión lo recupera cualquier agente",
-        "text": "Una página escrita en un proyecto la puede leer todo el que esté en el servidor. La sesión de Codex de una persona encuentra el gotcha con el que tropezó la semana pasada la sesión de Claude Code de un compañero de equipo."
+        "title": "Comparte conocimiento dentro de un proyecto",
+        "text": "Los usuarios con acceso a un proyecto pueden leer sus páginas. Una sesión de Codex puede encontrar un problema que la sesión de Claude Code de un compañero registró la semana pasada."
       },
       {
         "title": "Visible en la siguiente consulta",
-        "text": "La nota de un compañero aparece en la próxima búsqueda o en el próximo resumen de sesión de cualquiera. Una sesión que ya está en marcha no se interrumpe."
+        "text": "La nota de un compañero puede aparecer en la próxima búsqueda o resumen de sesión de quienes tienen acceso al proyecto. Las sesiones en curso no se interrumpen."
       },
       {
         "title": "Cualquier combinación de agentes",
@@ -39,7 +39,7 @@
       },
       {
         "title": "La wiki es una base de conocimiento viva",
-        "text": "Los conceptos, las decisiones y los gotchas se escriben mientras se hace el trabajo, en markdown y con historial en git. Nadie tiene que acordarse de actualizarla."
+        "text": "Las sesiones añaden notas automáticamente, en markdown con historial git. Mantén documentación revisada como referencia para las instrucciones y contrasta las decisiones importantes con sus fuentes."
       },
       {
         "title": "Complementa tu documentación escrita",
@@ -49,8 +49,8 @@
     "digest": "El resumen es prosa cuando el servidor tiene un proveedor de LLM y datos estructurados cuando no lo tiene. Con <code>--enable-web</code>, la misma wiki se puede navegar en una interfaz web de solo lectura."
   },
   "ownership": {
-    "title": "El conocimiento se comparte, los testigos tienen dueño",
-    "lede": "Las páginas son del proyecto. Un traspaso (handoff) es de la persona que lo dejó.",
+    "title": "Conocimiento compartido, traspasos personales",
+    "lede": "Un traspaso es un resumen guardado del trabajo pendiente. Las páginas del proyecto se comparten con quienes tienen acceso; el traspaso pertenece a quien lo dejó.",
     "figureAlt": "Diagrama de dos paneles. A la izquierda, el conocimiento se comparte: varias sesiones de agentes leen y escriben la misma pila de páginas de la wiki. A la derecha, los testigos tienen dueño: el testigo de un traspaso pasa entre dos sesiones de la misma persona mientras la sesión de un compañero queda fuera.",
     "points": [
       "Tu traspaso pendiente va a tu próxima sesión. Un compañero que arranca un agente en el mismo repositorio nunca lo recibe ni lo consume.",
@@ -95,11 +95,11 @@
     "limits": {
       "title": "Conoce los límites antes de desplegarlo",
       "items": [
-        "Las cuentas no son una barrera de aislamiento (tenancy). Todo usuario autenticado ve todas las páginas de todos los proyectos del servidor.",
-        "Un equipo por servidor. Si un segundo equipo necesita memoria, ejecuta un segundo servidor con su propio directorio de datos.",
-        "No hay permisos por página ni por proyecto. Cualquiera que esté autenticado puede escribir, y el historial registra quién lo hizo.",
+        "Los proyectos están abiertos a usuarios autenticados por defecto. Para cuentas de usuarios de la base de datos, root puede restringir un proyecto a su creador y a usuarios con permisos de lectura o escritura.",
+        "Los permisos de proyecto no crean entornos separados por tenant. Usa servidores y directorios de datos separados para equipos que necesiten aislamiento independiente.",
+        "Los permisos se aplican a proyectos enteros, no a páginas individuales. Root puede acceder a todos los proyectos. Las identidades de proxy de confianza dependen de la autorización del proxy en lugar de los permisos de usuarios de la base de datos.",
         "Es un servicio de homelab de un solo tenant y no está diseñado para exponerse directamente a internet.",
-        "Un bearer token no cifra el tráfico. Pon TLS por delante, con Caddy, nginx o un Cloudflare Tunnel, para cualquier cosa que salga de la LAN."
+        "Un bearer token no cifra el tráfico. Usa TLS al conectarte desde otra máquina."
       ],
       "more": "La <a href=\"{security}\">página de seguridad</a> tiene el modelo completo, y la <a href=\"{advanced}\">instalación avanzada</a> tiene las recetas de TLS y proxy."
     }
@@ -113,7 +113,7 @@
   "faq": [
     {
       "q": "¿Pueden varios desarrolladores compartir un servidor de ai-memory?",
-      "a": "Sí. Un servidor guarda la wiki y todos apuntan sus agentes a él. Las páginas las comparten todos los que están en el servidor. Los traspasos se quedan con la persona que los creó, salvo que publique uno con shared: true."
+      "a": "Sí. Un servidor guarda la wiki y los agentes se conectan a él. Los proyectos están abiertos por defecto; las cuentas de usuarios de la base de datos pueden limitarse con permisos de proyecto. Los traspasos pertenecen a su autor salvo que se compartan explícitamente."
     },
     {
       "q": "¿El uso en equipo requiere un plan de pago?",
@@ -121,7 +121,7 @@
     },
     {
       "q": "¿Puedo restringir un proyecto o una página a algunos usuarios?",
-      "a": "No. Las cuentas no son una barrera de aislamiento. Todo usuario autenticado ve todas las páginas de todos los proyectos de ese servidor. Ejecuta un servidor por equipo."
+      "a": "Puedes restringir un proyecto entero para cuentas de usuarios de la base de datos. Root, su creador y los usuarios con permiso conservan el acceso; el permiso de escritura incluye lectura. Las páginas individuales no tienen permisos separados. Los despliegues con proxy de confianza deben aplicar el control de acceso en el proxy."
     },
     {
       "q": "¿Cuántos desarrolladores aguanta un servidor?",
@@ -140,5 +140,11 @@
     "title": "Dale una sola memoria a los agentes de tu equipo.",
     "text": "Gratis y de código abierto. Las cuentas, las claves y el registro de auditoría van incluidos."
   },
-  "capacityNote": "Un servidor soporta unas 700 escrituras por segundo, suficiente para varios cientos de agentes activos. <a class=\"link\" href=\"{href}\">Mira cómo se midió</a>."
+  "capacityNote": "Un servidor soporta unas 700 escrituras por segundo, suficiente para varios cientos de agentes activos. <a class=\"link\" href=\"{href}\">Mira cómo se midió</a>.",
+  "suitability": {
+    "title": "Antes de una prueba con el equipo",
+    "text": "Empieza con un proyecto sin datos sensibles y un operador que mantenga el servidor, las cuentas, las actualizaciones y las copias de seguridad. Comprueba quién puede leer y escribir en el proyecto antes de invitar a tus compañeros.",
+    "cost": "El software es gratuito. Tú proporcionas la máquina y su administración; los proveedores opcionales de modelos en la nube cobran a tus propias cuentas.",
+    "link": "Planifica despliegue y backups"
+  }
 }

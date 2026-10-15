@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Integraciones",
     "title": "Tus agentes, tu sistema, tus proveedores",
-    "lede": "{n} agentes de programación y editores, cuatro sistemas operativos de destino y una lista de proveedores de LLM y embeddings que puedes ignorar, porque todo funciona sin ninguno.",
+    "lede": "{n} agentes de programación y editores, cuatro plataformas de sistema operativo y proveedores opcionales de modelos. Captura, traspasos y búsqueda funcionan sin un proveedor de modelos en la nube.",
     "primary": "Busca tu agente",
     "secondary": "Ir a la instalación rápida"
   },
@@ -50,11 +50,11 @@
   },
   "lanes": {
     "title": "Los hooks capturan, MCP responde",
-    "lede": "Son dos conexiones separadas, y un agente con soporte completo tiene las dos. Las etiquetas de estado de arriba dicen cuáles recibe tu agente.",
+    "lede": "Los hooks registran eventos de sesión automáticamente. MCP, el Model Context Protocol, da a tu agente herramientas para buscar y usar la memoria. Un agente con soporte completo tiene ambas conexiones.",
     "figureAlt": "Diagrama con dos carriles. Hooks: tu agente envía eventos a la memoria por su cuenta, y eso es la captura automática. MCP: tu agente envía una petición a la memoria y recibe una respuesta, y esas son las herramientas que el agente llama.",
     "hooksTitle": "Hooks",
-    "hooksText": "Los eventos de ciclo de vida del agente disparan un comando pequeño que registra prompts, llamadas a herramientas y límites de sesión. Tú no haces nada, y el agente no gasta tokens en ello. Los secretos se eliminan antes de guardar nada.",
-    "mcpText": "El agente recibe herramientas de memoria que puede llamar cuando la conversación las necesita: buscar, leer una página, escribir una página, aceptar un traspaso. Los agentes con solo MCP pueden usar la memoria por completo, pero no se captura nada salvo que ellos lo escriban.",
+    "hooksText": "Los eventos de sesión activan un pequeño comando que registra prompts y observaciones limitadas de las herramientas. Las credenciales reconocidas se ocultan antes de almacenarlas; el filtrado es best effort.",
+    "mcpText": "Mediante MCP, el agente puede buscar, leer o escribir una página y aceptar un traspaso. Los agentes con solo MCP pueden usar estas herramientas, pero la captura automática de sesiones necesita hooks.",
     "managedTitle": "Qué añade “gestionado”",
     "managedText": "<code>ai-memory run &lt;agent&gt;</code> lanza el agente con los hooks y MCP ya conectados, y retoma el mismo trabajo cuando cambias entre agentes gestionados. Los agentes marcados como “lanzamiento directo” funcionan de la forma normal: los instalas una vez y luego los arrancas como siempre."
   },

@@ -113,11 +113,11 @@ const next = withText([
 
 <style>
   .exchange { display: grid; gap: 1rem; }
-  .exchange li { padding: 1.2rem 1.4rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); transition: opacity .5s, border-color .5s, box-shadow .6s; }
-  .exchange[data-focus-ready] li[data-state='ahead'] { opacity: .55; }
+  .exchange li { padding: 1.2rem 1.4rem; border-radius: 2px; background: var(--surface); border: 1px solid var(--line); transition: opacity .5s, border-color .5s, box-shadow .6s; }
+  .exchange[data-focus-ready] li[data-state='ahead'] { opacity: 1; }
   .exchange li[data-state='active'] { border-color: var(--hue-vivid); box-shadow: var(--shadow), 0 0 0 1px var(--hue-vivid); }
-  .who { font-size: .85rem; font-weight: 600; color: var(--hue); }
+  .who { font-size: .875rem; font-weight: 600; color: var(--hue); }
   .said { margin-top: .5rem; font-family: var(--font-mono); font-size: .9rem; color: var(--text); }
-  .notice { margin-top: .5rem; font-family: var(--font-mono); font-size: .82rem; color: var(--muted); }
+  .notice { margin-top: .5rem; font-family: var(--font-mono); font-size: .875rem; color: var(--muted); }
   .then { margin-top: .6rem; color: var(--muted); font-size: .95rem; }
 </style>

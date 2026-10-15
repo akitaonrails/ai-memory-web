@@ -53,7 +53,7 @@
   },
   "readonly": {
     "title": "Read-only on purpose",
-    "text": "The web crate has no write route, and its lint fails the build if one appears. Changes happen through the agent’s tools or the CLI. Each view follows the per-project read rule, so on a shared server a restricted project is a 403 for anyone without a grant, and a signed-in page shows the server version in its footer.",
+    "text": "The web UI has no content-editing route. Change pages through the agent’s tools, the CLI or the markdown files. For database-user accounts, project views enforce read access; root and trusted-proxy identities use their respective authorization rules. Signed-in pages show the server version in the footer.",
     "api": "The same data is available as JSON under <code>/api/v1</code>, and <code>serve --enable-api</code> mounts the API without the browser UI."
   },
   "faq": [
@@ -67,7 +67,7 @@
     },
     {
       "q": "Who can see what on a shared server?",
-      "a": "The same rule as the tools: a restricted project is readable only by its grantees, another operator’s session timeline is hidden, and the health and pending pages are root only."
+      "a": "With database-user accounts, restricted projects are visible to root, their creator and users with a read or write grant. Another operator’s session timeline stays hidden; health and pending views are root only. Trusted-proxy deployments must enforce access at the proxy."
     },
     {
       "q": "Does it need JavaScript?",

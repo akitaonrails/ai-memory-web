@@ -73,6 +73,18 @@ const schema = [faqPage(faq)];
     <a href={href('/integrations/#agents')} class="btn btn-ghost">{t('hero.secondary')}</a>
   </PageHero>
 
+  <Section id="need" title={t('need.title')} hue="amber" narrow>
+    <Callout title={t('need.callout.title')}>
+      <p>{t('need.callout.stay')}</p>
+      <p>{t('need.callout.stops')}</p>
+      <ul class="ticks space-y-2 list-none ps-0">
+        {raw<string[]>('need.callout.reasons').map((r) => <li>{r}</li>)}
+      </ul>
+      <p set:html={t('need.callout.compare', { href: href('/compare/') })} />
+    </Callout>
+    <p class="mt-10"><a href={href('/install/')} class="btn btn-primary">{t('need.cta')}</a></p>
+  </Section>
+
   <Section title={t('handoff.title')} lede={t('handoff.lede')} hue="violet" fill>
     <Figure name="individuals-handoff" alt={t('handoff.figureAlt')} caption={t('handoff.figureCaption')} />
     <FeatureGrid items={handoff} />
@@ -154,17 +166,7 @@ const schema = [faqPage(faq)];
     <Figure src={webUi} alt={t('defaults.web.shotAlt')} caption={t('defaults.web.shotCaption')} />
   </Section>
 
-  <Section title={t('need.title')} hue="amber" narrow>
-    <Callout title={t('need.callout.title')}>
-      <p>{t('need.callout.stay')}</p>
-      <p>{t('need.callout.stops')}</p>
-      <ul class="ticks space-y-2 list-none ps-0">
-        {raw<string[]>('need.callout.reasons').map((r) => <li>{r}</li>)}
-      </ul>
-      <p set:html={t('need.callout.compare', { href: href('/compare/') })} />
-    </Callout>
-    <p class="mt-10"><a href={href('/install/')} class="btn btn-primary">{t('need.cta')}</a></p>
-  </Section>
+
 
   <Faq items={faq} />
 

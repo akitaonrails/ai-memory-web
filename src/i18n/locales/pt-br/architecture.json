@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Arquitetura: um binário só, markdown e índice derivado",
-    "description": "O ai-memory por dentro: hooks fire and forget, um writer único no SQLite, markdown em git como fonte da verdade e quatro fluxos de busca fundidos com RRF."
+    "description": "Como o ai-memory funciona: hooks de sessão, um writer SQLite, arquivos markdown em git e cinco fluxos de recuperação combinados em um único ranking de busca."
   },
   "hero": {
     "title": "Um binário só, arquivos markdown, um índice derivado",
@@ -193,7 +193,7 @@
   },
   "codebase": {
     "title": "O código, crate por crate.",
-    "lede": "Nove crates, cada um com uma função só e uma API tipada, sem dependências circulares.",
+    "lede": "Dez crates do produto, cada um com uma função e uma API tipada, sem dependências circulares.",
     "columns": {
       "crate": "Crate",
       "job": "Responsabilidade"
@@ -207,7 +207,8 @@
       "llm": "Fronteira de autenticação dos provedores, traits de LLM e de embedder.",
       "consolidate": "Ingestão, lint, sweep e o pipeline de auto-improve.",
       "workstream": "Adapters somente leitura para transcrições nativas e execuções gerenciadas.",
-      "cli": "O binário ai-memory e seus subcomandos HTTP enxutos."
+      "cli": "O binário ai-memory e seus subcomandos HTTP enxutos.",
+      "web": "Telas de navegador somente leitura e a API JSON."
     },
     "tools": {
       "title": "{n} ferramentas MCP, poucas de propósito",
@@ -237,7 +238,7 @@
     },
     {
       "q": "Como a recuperação ranqueia os resultados?",
-      "a": "Quatro fluxos de candidatos (full-text com FTS5, match de entidades, vizinhos no grafo e vetores opcionais) são fundidos com Reciprocal Rank Fusion em k=60 e depois ajustados por um multiplicador limitado de autoridade da fonte. O rerank por LLM é opcional, e as observações brutas servem de fallback."
+      "a": "Cinco fluxos de candidatos são fundidos: busca full-text FTS5, correspondências de entidades, vizinhos no grafo, observações e vetores opcionais. Reciprocal Rank Fusion com k=60 os combina, seguido de um ajuste limitado pela autoridade da fonte. O reranking com LLM é opcional."
     },
     {
       "q": "Quantas escritas por segundo ele aguenta?",

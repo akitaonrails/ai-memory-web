@@ -45,7 +45,7 @@ const throughput = facts.throughput.rows.map((r, i) => ({
 }));
 const chartLabel = t('concurrency.writer.chartLabel', Object.fromEntries(throughput.flatMap((r, i) => [[`r${i}`, number(r.rate)], [`w${i}`, number(r.writers)]])));
 
-const crates = ['core', 'store', 'wiki', 'mcp', 'hooks', 'llm', 'consolidate', 'workstream', 'cli']
+const crates = ['core', 'store', 'wiki', 'mcp', 'web', 'hooks', 'llm', 'consolidate', 'workstream', 'cli']
   .map((id) => ({ name: `ai-memory-${id}`, job: t(`codebase.crates.${id}`) }));
 
 const tools = [
@@ -177,7 +177,7 @@ const next = withText([
 
   <Section hue="azure" id="code" tint title={t('codebase.title')} lede={t('codebase.lede')}>
     <div class="grid lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] gap-x-12 gap-y-14 items-start">
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0">
         <table class="table-site">
           <thead><tr><th>{t('codebase.columns.crate')}</th><th>{t('codebase.columns.job')}</th></tr></thead>
           <tbody>
@@ -239,13 +239,13 @@ const next = withText([
 
   /* Handoff state machine. Also dir="ltr": the arrows point right in every language. */
   .fsm { margin-top: 1.5rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .75rem; max-width: 34rem; }
-  .st { display: inline-block; padding: .5rem 1rem; border-radius: 999px; background: var(--hue-soft); color: var(--hue); font-weight: 600; border: 1.5px solid var(--hue-vivid); text-align: center; }
+  .st { display: inline-block; padding: .5rem 1rem; border-radius: 2px; background: var(--hue-soft); color: var(--hue); font-weight: 600; border: 1.5px solid var(--hue-vivid); text-align: center; }
   .ends, .arrows { display: grid; gap: 1.75rem; }
-  .edge { position: relative; display: block; text-align: center; font-size: .85rem; color: var(--muted); padding-bottom: .5rem; }
+  .edge { position: relative; display: block; text-align: center; font-size: .875rem; color: var(--muted); padding-bottom: .5rem; }
   .edge b { font-weight: 600; }
   .edge i { position: absolute; left: 0; right: .35rem; bottom: 0; height: 2px; background: var(--amber); }
   .edge i::after { content: ''; position: absolute; right: -.35rem; top: -4px; border: 5px solid transparent; border-left-color: var(--amber); border-right: 0; }
 
 
-  .tool { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: .5rem; padding: .15rem .5rem; font-size: .8rem; }
+  .tool { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: .5rem; padding: .15rem .5rem; font-size: .875rem; }
 </style>

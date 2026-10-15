@@ -14,10 +14,10 @@ const languages = languageLinks(Astro.url.pathname);
   <div class="wrap flex h-16 items-center gap-6">
     <a href={href('/')} class="flex items-center gap-2.5 shrink-0" aria-label={t('a11y.home')}>
       <Image src={logo} alt="" width={40} height={40} densities={[1, 2, 3]} class="size-10 -my-1" loading="eager" />
-      <span class="font-display text-[1.35rem] font-semibold tracking-tight" style="font-variation-settings:'opsz' 24,'wdth' 90">ai-memory</span>
+      <span class="font-display text-[1.35rem] font-semibold tracking-tight">ai-memory</span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-1 ms-4" aria-label={t('a11y.mainNav')}>
+    <nav class="hidden xl:flex items-center gap-1 ms-4" aria-label={t('a11y.mainNav')}>
       {nav.map((group) => (
         <div class="nav-group relative" data-nav-group>
           <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">
@@ -101,28 +101,28 @@ const languages = languageLinks(Astro.url.pathname);
 </dialog>
 
 <style>
-  .site-nav { transition: background-color .3s, border-color .3s, backdrop-filter .3s; border-bottom: 1px solid transparent; }
-  .site-nav[data-scrolled] { background: color-mix(in oklch, var(--bg) 78%, transparent); backdrop-filter: saturate(1.6) blur(16px); border-bottom-color: var(--line); }
-  .nav-trigger { display: inline-flex; align-items: center; gap: .4em; padding: .5rem .8rem; border-radius: 999px; font-weight: 550; font-size: .97rem; color: var(--muted); transition: color .2s, background-color .2s; }
+  .site-nav { transition: background-color .3s, border-color .3s, backdrop-filter .3s; border-bottom: 1px solid var(--line); background: var(--bg); }
+  .site-nav[data-scrolled] { background: var(--bg); border-bottom-color: var(--line); }
+  .nav-trigger { display: inline-flex; align-items: center; gap: .4em; padding: .5rem .8rem; border-radius: 2px; font-weight: 550; font-size: 1rem; color: var(--muted); transition: color .2s, background-color .2s; }
   .nav-trigger:hover, .nav-trigger[aria-expanded='true'] { color: var(--text); background: var(--tint); }
   .nav-trigger svg { transition: transform .25s var(--ease-out-quint); }
   .nav-trigger[aria-expanded='true'] svg { transform: rotate(180deg); }
-  .nav-panel { position: absolute; top: calc(100% + .6rem); inset-inline-start: -0.5rem; width: 23rem; padding: .5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 1.1rem; box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.98); transform-origin: top; transition: opacity .18s, transform .25s var(--ease-out-quint), visibility .18s; }
+  .nav-panel { position: absolute; top: calc(100% + .6rem); inset-inline-start: -0.5rem; width: 23rem; padding: .5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 2px; box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.98); transform-origin: top; transition: opacity .18s, transform .25s var(--ease-out-quint), visibility .18s; }
   .nav-group[data-open] .nav-panel { opacity: 1; visibility: visible; transform: none; }
-  .nav-item { display: flex; gap: .85rem; padding: .7rem .8rem; border-radius: .75rem; transition: background-color .15s; }
+  .nav-item { display: flex; gap: .85rem; padding: .7rem .8rem; border-radius: 2px; transition: background-color .15s; }
   .nav-item:hover, .nav-item[aria-current] { background: var(--hue-soft); }
   .nav-dot { flex: none; width: .6rem; height: .6rem; margin-top: .4rem; border-radius: 50%; background: var(--hue-vivid); box-shadow: 0 0 0 4px var(--hue-soft); }
   li .nav-dot { margin-top: 0; }
   .lang-panel { width: 13rem; inset-inline-start: auto; inset-inline-end: -0.5rem; }
   .lang-item { font-weight: 600; padding: .6rem .9rem; }
   .lang-item[aria-current] { background: var(--tint); }
-  .lang-chip { display: inline-block; padding: .5rem .95rem; border-radius: 999px; border: 1.5px solid var(--line); font-weight: 600; }
+  .lang-chip { display: inline-block; padding: .5rem .95rem; border-radius: 2px; border: 1.5px solid var(--line); font-weight: 600; }
   .lang-chip[aria-current] { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .gh-pill { align-items: center; gap: .45rem; height: 2.5rem; padding-inline: .8rem; border: 1.5px solid var(--line); border-radius: 999px; font-size: .92rem; transition: border-color .2s; }
+  .gh-pill { align-items: center; gap: .45rem; height: 2.5rem; padding-inline: .8rem; border: 1.5px solid var(--line); border-radius: 2px; font-size: .92rem; transition: border-color .2s; }
   .gh-pill:hover { border-color: var(--text); }
-  .icon-btn { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; color: var(--text); transition: background-color .2s; }
+  .icon-btn { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 2px; color: var(--text); transition: background-color .2s; }
   .icon-btn:hover { background: var(--tint); }
-  @media (min-width: 64rem) { .drawer-open { display: none; } }
+  @media (min-width: 80rem) { .drawer-open { display: none; } }
   .drawer { margin: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; background: var(--bg); color: var(--text); overflow-y: auto; }
   .drawer::backdrop { background: transparent; }
   body[data-drawer-lock] { position: fixed; inset-inline: 0; top: var(--drawer-lock-y); }
@@ -147,7 +147,11 @@ const languages = languageLinks(Astro.url.pathname);
     let timer = 0;
     g.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { clearTimeout(timer); setOpen(g); } });
     g.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') timer = window.setTimeout(() => g.hasAttribute('data-open') && setOpen(null), 140); });
-    g.querySelector('button')!.addEventListener('click', () => setOpen(g.hasAttribute('data-open') ? null : g));
+    g.querySelector('button')!.addEventListener('click', (e) => {
+      // Mouse hover already opened the panel; clicking must leave its links available.
+      const hoveredMouse = e.detail > 0 && e instanceof PointerEvent && e.pointerType === 'mouse';
+      setOpen(hoveredMouse || !g.hasAttribute('data-open') ? g : null);
+    });
     g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget as Node)) setOpen(null); });
   });
   addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(null));
@@ -168,8 +172,10 @@ const languages = languageLinks(Astro.url.pathname);
     document.body.style.setProperty('--drawer-lock-y', `-${lockedAt}px`);
     document.body.setAttribute('data-drawer-lock', '');
     drawer.showModal();
+    document.querySelector('[data-drawer-open]')!.setAttribute('aria-expanded', 'true');
   });
   drawer.addEventListener('close', () => {
+    document.querySelector('[data-drawer-open]')!.setAttribute('aria-expanded', 'false');
     document.body.removeAttribute('data-drawer-lock');
     document.body.style.removeProperty('--drawer-lock-y');
     scrollTo(0, lockedAt);

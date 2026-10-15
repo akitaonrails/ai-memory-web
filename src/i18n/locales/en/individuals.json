@@ -20,7 +20,7 @@
       },
       {
         "title": "Claimed exactly once",
-        "text": "The first session that starts in that directory takes the baton. A second one asking for it gets nothing, so two agents never resume the same work."
+        "text": "The first eligible session claims the handoff. A second request cannot claim the same one. This prevents duplicate delivery of that handoff, not two agents independently choosing similar work."
       },
       {
         "title": "Automatic, with a manual override",
@@ -95,7 +95,7 @@
   },
   "machines": {
     "title": "The same memory on your PC and your notebook",
-    "lede": "Run one small server and point every machine at it. A project is identified by its checkout name, so different paths on each machine land in the same memory.",
+    "lede": "Run one server and point your machines at it. By default, project identity comes from the Git remote; folders without a valid remote use their directory name. Marker files can override this, so check the resolved project when connecting a second machine.",
     "figureAlt": "Diagram: a PC and a notebook both connect to one ai-memory server. The notebook is offline, so its events wait in a local spool and drain to the server later. There is only one server.",
     "points": [
       "Put the server on a homelab box, or on whichever machine stays on. It is one binary or one container.",

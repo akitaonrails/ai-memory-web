@@ -95,7 +95,7 @@
     "items": [
       {
         "title": "Private per operator",
-        "text": "Enabled on a shared server, each person gets a restricted profile that only they and root can read. Nothing one person’s agents learn reaches another’s."
+        "text": "When enabled for database-user accounts, each person gets a restricted profile readable by that person and root. Trusted-proxy identities do not get this database-user permission boundary; authorization is the proxy’s responsibility."
       },
       {
         "title": "A team profile needs two voices",
@@ -111,7 +111,7 @@
   },
   "limits": {
     "title": "What it is, and what it is not",
-    "text": "A profile entry is a preference used as a default, and like all stored memory it is data, not a command. It can pick a tool, a layout or a convention. It cannot authorize anything your current instructions would not. No evaluation has measured its effect yet; the project ships the mechanism and claims no number."
+    "text": "A profile entry records a preference to use when current instructions and project rules leave a choice open. Stored text does not grant permission to act. The instructions tell the agent to treat it as untrusted history, but cannot guarantee that a model will ignore hostile or mistaken content. No evaluation has measured the profile’s effect yet."
   },
   "docs": "Read the full profile guide",
   "faq": [
@@ -129,7 +129,7 @@
     },
     {
       "q": "What happens on a shared server?",
-      "a": "The profile is off until an operator enables it. Then each person gets a private profile only they and root can read. A team profile is a separate choice, and it admits a habit only on evidence from two operators."
+      "a": "The profile is off until enabled. Database-user accounts then get private profiles readable by the person and root. A shared team profile is a separate choice and requires evidence from two operators. Trusted-proxy identities rely on the proxy’s authorization."
     },
     {
       "q": "Can I turn it off?",

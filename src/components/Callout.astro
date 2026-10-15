@@ -3,11 +3,11 @@
 interface Props { title: string; hue?: string }
 const { title, hue = 'amber' } = Astro.props;
 ---
-<aside class="callout" data-hue={hue}>
+<aside class="callout" data-hue={hue} aria-label={title}>
   <h3 class="text-lg">{title}</h3>
   <div class="mt-2 text-muted prose-site"><slot /></div>
 </aside>
 <style>
-  .callout { border-inline-start: 4px solid var(--hue-vivid); background: var(--hue-soft); border-start-end-radius: 1rem; border-end-end-radius: 1rem; padding: 1.4rem 1.6rem; max-width: 48rem; }
+  .callout { border-inline-start: 4px solid var(--hue-vivid); background: var(--hue-soft); border-start-end-radius: 2px; border-end-end-radius: 2px; padding: 1.4rem 1.6rem; max-width: 48rem; }
   .callout h3 { color: var(--hue); }
 </style>

@@ -20,7 +20,7 @@
       },
       {
         "title": "Assumido uma vez só",
-        "text": "A primeira sessão que inicia naquele diretório pega o bastão. Uma segunda que pedir não recebe nada, então dois agentes nunca retomam o mesmo trabalho."
+        "text": "A primeira sessão elegível assume o handoff. Uma segunda solicitação não consegue assumir o mesmo. Isso evita a entrega duplicada desse handoff, mas não impede dois agentes de escolherem trabalhos parecidos por conta própria."
       },
       {
         "title": "Automático, e você pode sobrescrever",
@@ -95,7 +95,7 @@
   },
   "machines": {
     "title": "A mesma memória no PC e no notebook",
-    "lede": "Rode um servidor pequeno e aponte todas as máquinas para ele. O projeto é identificado pelo nome do checkout, então caminhos diferentes em cada máquina caem na mesma memória.",
+    "lede": "Rode um servidor e conecte suas máquinas a ele. Por padrão, a identidade do projeto vem do remoto Git; pastas sem um remoto válido usam o nome do diretório. Arquivos marcadores podem mudar isso, então confira o projeto resolvido ao conectar uma segunda máquina.",
     "figureAlt": "Diagrama: um PC e um notebook se conectam a um único servidor ai-memory. O notebook está offline, então os eventos dele esperam em um spool local e são enviados ao servidor depois. Só existe um servidor.",
     "points": [
       "Coloque o servidor em uma máquina do homelab, ou na que ficar sempre ligada. É um binário só ou um container só.",

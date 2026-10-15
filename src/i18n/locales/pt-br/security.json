@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "O que ele guarda e o que sai da sua máquina",
-    "lede": "Uma instalação padrão escuta só na sua máquina, remove segredos antes de gravar qualquer coisa e não tem telemetria. Todo caminho que manda dados para fora fica desligado até você ligar. Esta página também lista contra o que o projeto não protege.",
+    "lede": "Uma instalação padrão escuta só na sua máquina e não tem telemetria. Credenciais reconhecidas são ocultadas antes de armazenar o texto capturado, mas o filtro pode deixar passar informações sensíveis. Servidores remotos e provedores opcionais na nuvem mudam o destino dos dados.",
     "primary": "Leia o SECURITY.md",
     "secondary": "Tratamento de dados para revisores"
   },
@@ -19,7 +19,7 @@
       },
       {
         "title": "Sem telemetria",
-        "text": "O binário não tem analytics, relatório de crash nem rastreamento de uso. Captura e busca fazem zero chamadas de rede."
+        "text": "O binário do ai-memory não tem analytics, envio de relatórios de falha nem rastreamento de uso. A captura e a busca locais padrão não enviam conteúdo do projeto a provedores externos de modelos."
       },
       {
         "title": "Um diretório que é seu",
@@ -27,18 +27,18 @@
       },
       {
         "title": "Sem criptografia em repouso",
-        "text": "A versão 1 conta com as permissões do filesystem. Instalações já existentes não recebem chmod automático. Use criptografia de disco se o laptop precisar."
+        "text": "Os dados armazenados dependem das permissões do sistema de arquivos. Instalações existentes não recebem chmod automaticamente. Use criptografia de disco se precisar de proteção com a máquina desligada."
       }
     ],
     "download": {
-      "title": "A única requisição de saída numa instalação padrão",
+      "title": "O download do modelo local",
       "what": "Desde a 2.0 o embedder padrão roda dentro do processo. Na primeira inicialização ele baixa do Hugging Face o modelo all-MiniLM-L6-v2, de cerca de 87 MB, e confere com um SHA-256 fixado. Nenhum dado de usuário é enviado.",
       "avoid": "Para evitar o download, defina <code>embedding_provider = \"none\"</code> ou copie os três arquivos do modelo para <code>&lt;data_dir&gt;/models/</code>. O <a href=\"{href}\">guia de instalação air-gapped</a> tem o passo a passo."
     }
   },
   "boundary": {
-    "title": "Nada é gravado antes de ser sanitizado.",
-    "lede": "Payloads de hook são texto não confiável. Eles chegam ao store por uma única função, e quem garante isso é o sistema de tipos.",
+    "title": "O texto capturado é filtrado antes de ser armazenado.",
+    "lede": "Payloads de hooks são texto não confiável. Eles passam por um sanitizador que oculta credenciais reconhecidas e limita seu tamanho. Ele pode deixar passar informações sensíveis.",
     "figureAlt": "Diagrama: um payload bruto de hook, com chaves e senhas, entra por um único portão chamado sanitize(). Os segredos caem para fora embaixo do portão. Do outro lado sai uma observação menor, com tamanho limitado, que é gravada.",
     "figureCaption": "O sanitizador é o único caminho de um payload de hook até o store.",
     "items": [
@@ -161,7 +161,7 @@
     },
     "deletion": {
       "title": "O que um purge remove",
-      "text": "O purge é uma deleção lógica, com escopo definido de modo que o projeto A nunca consiga remover arquivos do projeto B. Os dados não expiram, a não ser que uma página defina um prazo. Sem <code>--confirm</code>, o purge só mostra uma prévia do que seria removido.",
+      "text": "O purge faz a deleção lógica de dados do projeto selecionado. O histórico e backups anteriores podem manter cópias. Separadamente, regras de retenção podem remover páginas de sessões sem uso, e datas explícitas de expiração podem remover outras páginas. Sem <code>--confirm</code>, o purge só mostra o que removeria.",
       "codeTitle": "purge",
       "commentSession": "Remover uma sessão",
       "commentProject": "Remover um projeto inteiro"
@@ -212,8 +212,8 @@
     "calloutTitle": "Limites que devem entrar no seu planejamento",
     "points": [
       "É um serviço single-tenant para workstation e homelab.",
-      "Contas não são uma fronteira de tenancy. Todo usuário enxerga todos os projetos daquele servidor, então rode um servidor por time.",
-      "Não existem listas de acesso por usuário nem por projeto.",
+      "Os projetos são abertos por padrão. Para contas de usuários do banco de dados, root pode restringir o acesso ao criador do projeto e a usuários com permissões de leitura ou escrita.",
+      "As permissões cobrem projetos inteiros, não páginas individuais. Root ignora essas verificações. Identidades de proxy confiável dependem da autorização do proxy; use servidores separados quando precisar de isolamento independente.",
       "A memória que um agente recupera é dado histórico não confiável. Handoffs, briefings e prompts de LLM marcam isso, e nenhum filtro de texto consegue provar que um modelo vai ignorar um trecho hostil.",
       "Ele não foi feito para ficar exposto direto à internet aberta.",
       "Se você faz push da wiki para um remote git, proteger esse remote é com você."
@@ -232,11 +232,11 @@
   "faq": [
     {
       "q": "O ai-memory manda meu código ou meus prompts para algum lugar?",
-      "a": "Não. Não existe telemetria, e captura e busca não fazem chamadas de rede. Os dados só saem da máquina se você ligar embeddings remotos, captura da saída do assistente com um LLM na nuvem, rerank por LLM ou um provedor de LLM na nuvem para a consolidação. Tudo isso vem desligado por padrão."
+      "a": "Por padrão, o ai-memory mantém o conteúdo capturado do projeto na sua máquina. Se você conectar um servidor compartilhado, ele envia esse conteúdo para lá. Embeddings na nuvem ou recursos opcionais de modelos de linguagem enviam dados aos provedores configurados. Seu agente de código tem suas próprias configurações de dados e conexões com provedores."
     },
     {
-      "q": "Uma instalação padrão faz alguma requisição de rede?",
-      "a": "Uma. Desde a 2.0 o embedder local padrão baixa do Hugging Face, na primeira inicialização, o modelo all-MiniLM-L6-v2, de cerca de 87 MB. Nenhum dado de usuário é enviado. Para evitar, defina embedding_provider = \"none\" ou coloque você mesmo os arquivos do modelo."
+      "q": "O embedder local precisa de rede?",
+      "a": "Na primeira inicialização, o embedder local baixa cerca de 87 MB de arquivos do modelo do Hugging Face e verifica seus checksums. Nenhum conteúdo do projeto é enviado nesse download. Defina embedding_provider = \"none\" ou forneça os arquivos do modelo para evitá-lo."
     },
     {
       "q": "Segredos ficam gravados?",
@@ -248,7 +248,7 @@
     },
     {
       "q": "O ai-memory é multi-tenant?",
-      "a": "Não. É um serviço single-tenant. As contas dão autoria, e todo usuário autenticado consegue ler todos os projetos daquele servidor. Rode servidores separados para pessoas que não podem ver os dados umas das outras."
+      "a": "Não. Permissões por projeto podem restringir contas de usuários do banco de dados, mas o serviço continua single-tenant. Root tem acesso a todos os projetos, e instalações com proxy confiável aplicam o controle de acesso no proxy. Use servidores separados para times que precisam de isolamento independente."
     }
   ],
   "next": [
@@ -267,6 +267,6 @@
   ],
   "ctaBand": {
     "title": "Teste primeiro em loopback.",
-    "text": "Sem conta e sem chave de API. Só a sua própria máquina chega nele."
+    "text": "Comece com um projeto local sem dados sensíveis. Revise o que é capturado antes de conectar um servidor compartilhado ou um provedor na nuvem."
   }
 }

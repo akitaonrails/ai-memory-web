@@ -20,7 +20,7 @@
       },
       {
         "title": "Se reclama una sola vez",
-        "text": "La primera sesión que arranca en ese directorio se lleva el testigo. Una segunda que lo pida no recibe nada, así que dos agentes nunca retoman el mismo trabajo."
+        "text": "La primera sesión apta reclama el traspaso. Una segunda solicitud no puede reclamar el mismo. Esto evita entregar dos veces ese traspaso, pero no impide que dos agentes elijan trabajos similares por su cuenta."
       },
       {
         "title": "Automático, y puedes imponer el tuyo",
@@ -95,7 +95,7 @@
   },
   "machines": {
     "title": "La misma memoria en tu escritorio y en tu portátil",
-    "lede": "Ejecuta un servidor pequeño y apunta todas tus máquinas a él. Un proyecto se identifica por el nombre de su checkout, así que rutas distintas en cada máquina acaban en la misma memoria.",
+    "lede": "Ejecuta un servidor y conecta tus máquinas a él. Por defecto, la identidad del proyecto procede del remoto Git; las carpetas sin un remoto válido usan el nombre del directorio. Los archivos marcadores pueden cambiarlo, así que comprueba el proyecto resuelto al conectar una segunda máquina.",
     "figureAlt": "Diagrama: un equipo de escritorio y un portátil se conectan a un único servidor de ai-memory. El portátil está sin conexión, así que sus eventos esperan en una cola local y se vuelcan al servidor más tarde. Solo hay un servidor.",
     "points": [
       "Pon el servidor en un equipo del homelab o en la máquina que se quede encendida. Es un solo binario o un solo contenedor.",

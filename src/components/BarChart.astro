@@ -26,12 +26,12 @@ const { bars, label, axis } = Astro.props;
   .lab { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .1rem .6rem; align-items: baseline; font-size: .95rem; }
   .lab strong { font-weight: 600; }
   .lab span { color: var(--muted); font-size: .875rem; }
-  .track { display: block; height: 1rem; border-radius: 999px; background: var(--tint); overflow: hidden; }
+  .track { display: block; height: 1rem; border-radius: 2px; background: var(--tint); overflow: hidden; }
   :global(.bg-tint) .track { background: var(--surface); }
-  .bar { display: block; height: 100%; border-radius: 999px; background: var(--hue-vivid); }
+  .bar { display: block; height: 100%; border-radius: 2px; background: var(--hue-vivid); }
   [data-tone='soft'] .bar { opacity: .5; }
   [data-tone='other'] .bar { background: repeating-linear-gradient(135deg, var(--muted) 0 3px, transparent 3px 8px); opacity: .75; }
   .val { font-weight: 600; font-variant-numeric: tabular-nums; min-width: 3.5rem; text-align: end; }
-  .val small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+  .val small { display: block; font-weight: 400; color: var(--muted); font-size: .875rem; }
   figcaption { margin-top: 1rem; color: var(--muted); font-size: .875rem; }
 </style>

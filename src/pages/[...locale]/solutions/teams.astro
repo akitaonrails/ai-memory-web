@@ -39,6 +39,11 @@ const schema = [faqPage(faq)];
     <a href={href('/security/')} class="btn btn-ghost">{t('hero.secondary')}</a>
   </PageHero>
 
+  <Section title={t('suitability.title')} lede={t('suitability.text')} hue="amber">
+    <p class="text-muted max-w-[40em]">{t('suitability.cost')}</p>
+    <p class="mt-6"><a href={href('/advanced/')} class="btn btn-ghost">{t('suitability.link')}</a></p>
+  </Section>
+
   <Section title={t('server.title')} lede={t('server.lede')} hue="teal" fill>
     <Figure name="teams-topology" alt={t('server.figureAlt')} />
     <FeatureGrid items={shared} />

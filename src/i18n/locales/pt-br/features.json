@@ -58,7 +58,7 @@
     "items": [
       {
         "title": "Um workspace por cliente",
-        "text": "Coloque <code>.ai-memory.toml</code> em <code>~/work/client-a/</code> e todo repositório abaixo dele cai nesse workspace. Nada do cliente A aparece enquanto você trabalha para o cliente B."
+        "text": "Coloque <code>.ai-memory.toml</code> em <code>~/work/client-a/</code> e os repositórios abaixo dele usam esse workspace. Isso define onde a memória é arquivada e pesquisada por padrão. Não é uma regra de controle de acesso: buscas explícitas entre projetos e perfis compartilhados exigem atenção separada."
       },
       {
         "title": "Um mono-repo como um projeto só",
@@ -188,7 +188,7 @@
   "faq": [
     {
       "q": "Um agente em um projeto consegue ler a memória de outro?",
-      "a": "Não. A memória é arquivada por projeto, e as mensagens são a única travessia deliberada: um projeto só vê as mensagens endereçadas a ele ou enviadas por ele. O corpo da mensagem precisa ser autocontido porque quem lê não enxerga os arquivos de quem mandou."
+      "a": "Sim, por buscas explícitas entre projetos quando quem faz a chamada tem acesso. Buscas normais usam o projeto atual. As mensagens entregam uma solicitação autocontida na inbox de outro projeto; não dão ao destinatário acesso aos arquivos do remetente."
     },
     {
       "q": "Uma mensagem recebida é tratada como instrução?",

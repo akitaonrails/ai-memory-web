@@ -1,0 +1,56 @@
+[
+  {
+    "direction": "a",
+    "viewport": "desktop",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0,
+    "fonts": "loaded",
+    "missingAnchors": 0
+  },
+  {
+    "direction": "a",
+    "viewport": "mobile",
+    "width": 360,
+    "scroll": 360,
+    "broken": 0,
+    "fonts": "loaded",
+    "missingAnchors": 0
+  },
+  {
+    "direction": "b",
+    "viewport": "desktop",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0,
+    "fonts": "loaded",
+    "missingAnchors": 0
+  },
+  {
+    "direction": "b",
+    "viewport": "mobile",
+    "width": 360,
+    "scroll": 360,
+    "broken": 0,
+    "fonts": "loaded",
+    "missingAnchors": 0
+  },
+  {
+    "direction": "c",
+    "viewport": "desktop",
+    "width": 1440,
+    "scroll": 1440,
+    "broken": 0,
+    "fonts": "loaded",
+    "missingAnchors": 0
+  },
+  {
+    "direction": "c",
+    "viewport": "mobile",
+    "width": 360,
+    "scroll": 360,
+    "broken": 0,
+    "fonts": "loaded",
+    "missingAnchors": 0
+  }
+]

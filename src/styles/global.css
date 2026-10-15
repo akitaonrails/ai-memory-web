@@ -1,112 +1,93 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/bricolage-grotesque/standard.css';
-@import '@fontsource-variable/instrument-sans/wdth.css';
-@import '@fontsource/commit-mono/400.css';
-@import '@fontsource/commit-mono/700.css';
+@import '@fontsource-variable/manrope/wght.css';
+@import '@fontsource/chakra-petch/500.css';
+@import '@fontsource/chakra-petch/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
-/* ------------------------------------------------------------------
-   Color tokens. Full rationale and measured contrast: docs/color-study.md
-   Everything is authored in OKLCH so equal steps look equal.
-   The neutrals are not grey: they carry the indigo (h≈282) of the logo's
-   outline, so the spectrum sits on a related ground instead of on black.
-   ------------------------------------------------------------------ */
+/* Signal Bureau: mineral enamel, slate, and copper drawn from the brain logo.
+   Subject aliases remain stable for existing pages; contrast is checked in both themes. */
 :root {
-  /* ground */
-  --bg: oklch(0.985 0.006 285);
-  --surface: oklch(1 0 0);
-  --tint: oklch(0.958 0.014 285);
-  --line: oklch(0.885 0.02 285);
-  --text: oklch(0.21 0.045 282);
-  --muted: oklch(0.45 0.035 282);
-
-  /* spectrum as text/line accents — one lightness, one chroma, five hues */
-  --green: oklch(0.47 0.13 155);
-  --teal: oklch(0.47 0.09 205);
-  --azure: oklch(0.47 0.15 252);
-  --violet: oklch(0.47 0.19 300);
-  --rose: oklch(0.47 0.17 355);
-  --amber-ink: oklch(0.47 0.11 62);
-
-  /* soft fills behind each hue */
-  --green-soft: oklch(0.95 0.04 155);
-  --teal-soft: oklch(0.95 0.03 205);
-  --azure-soft: oklch(0.95 0.03 252);
-  --violet-soft: oklch(0.95 0.035 300);
-  --rose-soft: oklch(0.95 0.03 355);
-  --amber-soft: oklch(0.95 0.05 80);
-
-  --shadow: 0 1px 2px oklch(0.21 0.045 282 / 0.06), 0 12px 32px -12px oklch(0.21 0.045 282 / 0.18);
+  --bg: #e4ebed;
+  --surface: #f0f4f5;
+  --tint: #d7e2e5;
+  --line: #9eafb7;
+  --text: #172f3b;
+  --muted: #405865;
+  --green: #315d58;
+  --teal: #295568;
+  --azure: #295568;
+  --violet: #46546d;
+  --rose: #774b50;
+  --amber-ink: #88502c;
+  --green-soft: #dae6e3;
+  --teal-soft: #d7e2e5;
+  --azure-soft: #d7e2e5;
+  --violet-soft: #dfe2e8;
+  --rose-soft: #e9dfe0;
+  --amber-soft: #ecdfd2;
+  --shadow: 0 8px 24px #172f3b14;
   color-scheme: light;
 }
-
 [data-theme='dark'] {
-  --bg: oklch(0.155 0.035 282);
-  --surface: oklch(0.2 0.04 282);
-  --tint: oklch(0.245 0.045 282);
-  --line: oklch(0.33 0.045 282);
-  --text: oklch(0.955 0.012 285);
-  --muted: oklch(0.74 0.03 285);
-
-  --green: oklch(0.83 0.16 155);
-  --teal: oklch(0.83 0.11 205);
-  --azure: oklch(0.83 0.09 252);
-  --violet: oklch(0.83 0.1 300);
-  --rose: oklch(0.83 0.1 355);
-  --amber-ink: oklch(0.83 0.15 80);
-
-  --green-soft: oklch(0.27 0.06 155);
-  --teal-soft: oklch(0.27 0.05 205);
-  --azure-soft: oklch(0.27 0.07 252);
-  --violet-soft: oklch(0.27 0.08 300);
-  --rose-soft: oklch(0.27 0.07 355);
-  --amber-soft: oklch(0.27 0.05 80);
-
-  --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 16px 40px -16px oklch(0 0 0 / 0.7);
+  --bg: #10232d;
+  --surface: #172f3b;
+  --tint: #1e3946;
+  --line: #496370;
+  --text: #edf3f4;
+  --muted: #b8cdd3;
+  --green: #b1d0c5;
+  --teal: #b8d1d8;
+  --azure: #b8d1d8;
+  --violet: #c4cadb;
+  --rose: #dfbfc3;
+  --amber-ink: #dca574;
+  --green-soft: #233e3b;
+  --teal-soft: #1e3946;
+  --azure-soft: #1e3946;
+  --violet-soft: #303849;
+  --rose-soft: #40323c;
+  --amber-soft: #40372e;
+  --shadow: 0 8px 24px #00000026;
   color-scheme: dark;
 }
-
 :root {
-  /* theme-independent: the vivid spectrum (decoration only, never text)
-     and the amber action color lifted from the logo's arrows + chip */
-  --v-green: oklch(0.8 0.19 150);
-  --v-teal: oklch(0.78 0.13 195);
-  --v-azure: oklch(0.66 0.17 252);
-  --v-violet: oklch(0.6 0.22 300);
-  --v-rose: oklch(0.7 0.18 355);
-  --amber: oklch(0.81 0.16 75);
-  --amber-hi: oklch(0.87 0.15 85);
-  --on-amber: oklch(0.2 0.05 60);
-  --ink: oklch(0.155 0.035 282);
-  --spectrum: linear-gradient(
-    90deg in oklch,
-    var(--v-green),
-    var(--v-teal),
-    var(--v-azure),
-    var(--v-violet),
-    var(--v-rose)
-  );
+  --v-green: #7ca696;
+  --v-teal: #80a6ad;
+  --v-azure: #89aebf;
+  --v-violet: #a4acc0;
+  --v-rose: #bd969d;
+  --amber: #dca574;
+  --amber-hi: #edbb8d;
+  --on-amber: #10212b;
+  --ink: #172f3b;
+  --panel-text: #f0f4f3;
+  --panel-muted: #b8cdd3;
+  --panel-line: #718d98;
+  --panel-surface: #294552;
+  --spectrum: linear-gradient(90deg, var(--amber), var(--v-azure));
 }
 
 /* Font stacks per language. Latin text uses the brand faces everywhere. Hebrew and Japanese glyphs come from
    faces loaded only on those locales (src/styles/fonts-he.css, fonts-ja.css), so other visitors never download them. */
 :root {
-  --ff-display: 'Bricolage Grotesque Variable', 'Instrument Sans Variable', system-ui, sans-serif;
-  --ff-sans: 'Instrument Sans Variable', system-ui, sans-serif;
+  --ff-display: 'Chakra Petch', 'Manrope Variable', system-ui, sans-serif;
+  --ff-sans: 'Manrope Variable', system-ui, sans-serif;
 }
 :root:lang(he) {
-  --ff-display: 'Bricolage Grotesque Variable', 'Rubik Variable', system-ui, sans-serif;
-  --ff-sans: 'Instrument Sans Variable', 'Heebo Variable', system-ui, sans-serif;
+  --ff-display: 'Chakra Petch', 'Rubik Variable', system-ui, sans-serif;
+  --ff-sans: 'Manrope Variable', 'Heebo Variable', system-ui, sans-serif;
 }
 :root:lang(ja) {
-  --ff-display: 'Bricolage Grotesque Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  --ff-sans: 'Instrument Sans Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --ff-display: 'Chakra Petch', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --ff-sans: 'Manrope Variable', 'Noto Sans JP Variable', 'Hiragino Sans', 'Yu Gothic', sans-serif;
 }
 
 :root:lang(ko) {
-  --ff-display: 'Bricolage Grotesque Variable', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --ff-sans: 'Instrument Sans Variable', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --ff-display: 'Chakra Petch', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --ff-sans: 'Manrope Variable', 'Noto Sans KR Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 }
 
 @theme inline {
@@ -135,21 +116,21 @@
 
   --font-display: var(--ff-display);
   --font-sans: var(--ff-sans);
-  --font-mono: 'Commit Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Type scale: a 4:5 major third from a 17px base, rounded to the pixel.
      Display sizes are fluid between a 360px and a 1280px viewport. */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1.0625rem;
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-base: 1.125rem;
   --text-lg: 1.3125rem;
   --text-xl: 1.625rem;
   --text-2xl: clamp(1.75rem, 1.45rem + 1.3vw, 2.5rem);
   --text-3xl: clamp(2.25rem, 1.7rem + 2.4vw, 3.625rem);
   --text-4xl: clamp(2.75rem, 1.6rem + 5vw, 5.625rem);
 
-  --radius-card: 1.25rem;
-  --radius-chip: 0.5rem;
+  --radius-card: 0.125rem;
+  --radius-chip: 0.125rem;
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -172,8 +153,8 @@
   }
   body {
     font-size: var(--text-base);
-    line-height: 1.55;
-    font-variation-settings: 'wdth' 96;
+    line-height: 1.7;
+    font-variation-settings: normal;
     overflow-x: clip;
   }
   h1,
@@ -181,17 +162,17 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 640;
+    font-weight: 500;
     line-height: 1.04;
     letter-spacing: -0.012em;
     text-wrap: balance;
-    font-variation-settings: 'opsz' 96, 'wdth' 94;
+    font-variation-settings: normal;
   }
   h3,
   h4 {
     line-height: 1.15;
     letter-spacing: -0.008em;
-    font-variation-settings: 'opsz' 36, 'wdth' 96;
+    font-variation-settings: normal;
   }
   p {
     text-wrap: pretty;
@@ -200,7 +181,7 @@
   kbd,
   pre {
     font-family: var(--font-mono);
-    font-size: 0.9em;
+    font-size: max(.875rem, .9em);
   }
   :focus-visible {
     outline: 2px solid var(--amber);
@@ -218,7 +199,7 @@
 
 @layer components {
   /* A small label above a heading, in the subject's hue: the nav group on a page hero, a theme on a homepage band. */
-  .kicker { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; color: var(--hue); }
+  .kicker { display: inline-flex; align-items: center; gap: .6rem; font-weight: 500; font-family: var(--font-mono); font-size: .875rem; color: var(--hue); }
   .kicker::before { content: ''; width: 1.75rem; height: 3px; border-radius: 3px; background: var(--hue-vivid); }
   .wrap {
     width: min(100% - 2.5rem, 76rem);
@@ -233,43 +214,21 @@
   }
   .lede {
     font-size: var(--text-lg);
-    line-height: 1.45;
+    line-height: 1.65;
     color: var(--muted);
     max-width: 38em;
   }
 
-  /* text filled with the logo spectrum — used for whole headlines, never a single word */
-  .spectrum-text {
-    background: var(--spectrum);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  [data-theme='light'] .spectrum-text,
-  :root:not([data-theme]) .spectrum-text {
-    background-image: linear-gradient(
-      90deg in oklch,
-      oklch(0.5 0.15 155),
-      oklch(0.5 0.11 205),
-      oklch(0.48 0.17 252),
-      oklch(0.46 0.21 300),
-      oklch(0.5 0.19 355)
-    );
-  }
-  .spectrum-rule {
-    height: 3px;
-    border-radius: 3px;
-    background: var(--spectrum);
-  }
+  .spectrum-rule { height: 2px; background: var(--line); }
 
   .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.6em;
     padding: 0.8em 1.35em;
-    /* 1.6rem is more than half the height of a one-line button, so it still reads as a pill,
-       and a label that wraps on a narrow phone (long translations do) becomes a rounded box. */
-    border-radius: 1.6rem;
+    /* Squared controls share the device-panel geometry. */
+    border-radius: 2px;
+    min-height: 48px;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.2;
@@ -407,7 +366,7 @@
     background: var(--tint);
     border-radius: 0.35em;
     padding: 0.12em 0.4em;
-    font-size: 0.9em;
+    font-size: max(.875rem, .9em);
     overflow-wrap: anywhere;
   }
   main .bg-tint :where(p, li, td, th, dd, dt, h3, h4, figcaption, summary) code:not(pre code) {
@@ -465,7 +424,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: 999px;
+    border-radius: 2px;
     border: 1.5px solid var(--line);
     background: var(--surface);
     font-weight: 600;
@@ -529,11 +488,11 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.2rem 0.65rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--hue-soft);
     color: var(--hue);
     font-weight: 600;
-    font-size: 0.82rem;
+    font-size: .875rem;
     white-space: nowrap;
   }
   .badge::before {
@@ -544,3 +503,53 @@
     background: var(--hue-vivid);
   }
 }
+
+/* Technical panels keep a consistent ground and readable ink in both themes. */
+.signal-panel {
+  background: var(--ink); color: var(--panel-text);
+  --text: var(--panel-text); --muted: var(--panel-muted);
+  --line: var(--panel-line); --surface: var(--panel-surface);
+}
+.signal-panel .kicker { color: var(--amber); }
+.signal-panel .btn-ghost { background: transparent; color: var(--panel-text); }
+.signal-panel .btn:focus-visible { outline-color: var(--panel-text); }
+@media(max-width:600px) {
+  .btn { padding-inline: 1rem; }
+}
+
+/* Responsive diagrams: real translated text and symbols, never reduced raster labels. */
+.memory-diagram {
+  padding: clamp(1.5rem,3vw,2.5rem);
+  border-block-start: 3px solid var(--amber);
+  clip-path: polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,0 100%);
+}
+.circuit-lane + .circuit-lane { border-top: 1px solid var(--panel-line); padding-top: 1.75rem; margin-top: 1.75rem; }
+.circuit-title { color: var(--amber); font: 500 1rem/1.6 var(--font-mono); margin-bottom: 1.5rem; }
+.circuit-stages { display: grid; grid-template-columns: repeat(var(--stages),minmax(0,1fr)); gap: 2.75rem; align-items: center; }
+.circuit-stage { position: relative; min-width: 0; }
+.circuit-nodes { display: grid; gap: 1.5rem; }
+.circuit-node { text-align: center; min-width: 0; }
+.circuit-icon { display: block; width: 6rem; height: 6rem; margin-inline: auto; color: var(--panel-muted); }
+.circuit-icon.is-chip { color: var(--amber); }
+.circuit-icon.is-chip > path:first-child { fill: var(--amber); }
+.circuit-icon .chip-page { stroke: var(--ink); }
+.node-label { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.4; margin-top: .75rem; overflow-wrap: anywhere; }
+.core .node-label { color: var(--amber); }
+.node-note, .circuit-note, .circuit-footnote { font-size: 1rem; line-height: 1.6; color: var(--panel-muted); margin-top: .75rem; }
+.circuit-note, .circuit-footnote { margin-top: 1.75rem; text-align: center; }
+.circuit-footnote { border-top: 1px solid var(--panel-line); padding-top: 1.25rem; }
+.circuit-connector { position: absolute; inset-inline-start: -2.65rem; top: calc(50% - 18px); color: var(--amber); font: 2.25rem/1 var(--font-sans); width: 2.5rem; text-align: center; }
+.circuit-connector i { display: block; width: 7px; height: 7px; position: absolute; top: calc(50% - 3px); left: 0; background: var(--amber); transform: rotate(45deg); }
+.optional { outline: 1px dashed var(--panel-line); outline-offset: .5rem; padding: .5rem; }
+.optional-lane { border: 1px dashed var(--panel-line); padding: 1.5rem; }
+.circuit-stages:has(> :only-child) .parallel-nodes { grid-template-columns: repeat(auto-fit,minmax(8rem,1fr)); }
+@media(max-width:900px) {
+  .circuit-stages { grid-template-columns: 1fr; gap: 3.5rem; }
+  .circuit-connector { top: -2.8rem; left: calc(50% - 1.25rem); transform: rotate(90deg); }
+  .parallel-nodes { grid-template-columns: repeat(auto-fit,minmax(8rem,1fr)); align-items: start; }
+  .unconnected { gap: 2rem; }
+  .unconnected .circuit-nodes { grid-template-columns: repeat(auto-fit,minmax(8rem,1fr)); }
+  .memory-diagram .node-label { font-size: 1.25rem; }
+}
+
+pre code { font-size: inherit; }

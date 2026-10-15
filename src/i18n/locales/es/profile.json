@@ -95,7 +95,7 @@
     "items": [
       {
         "title": "Privado por operador",
-        "text": "Si lo activas en un servidor compartido, cada persona tiene un perfil restringido que solo ella y root pueden leer. Nada de lo que aprenden los agentes de una persona llega a los de otra."
+        "text": "Al habilitarlo para cuentas de usuarios de la base de datos, cada persona obtiene un perfil restringido que solo ella y root pueden leer. Las identidades de proxy de confianza no tienen esta barrera de permisos de las cuentas de la base de datos; la autorización corresponde al proxy."
       },
       {
         "title": "Un perfil de equipo necesita dos voces",
@@ -111,7 +111,7 @@
   },
   "limits": {
     "title": "Qué es y qué no es",
-    "text": "Una entrada del perfil es una preferencia que se usa como valor por defecto y, como toda la memoria almacenada, es un dato y no una orden. Puede elegir una herramienta, una estructura o una convención. No puede autorizar nada que tus instrucciones actuales no autoricen. Ninguna evaluación ha medido todavía su efecto; el proyecto entrega el mecanismo y no afirma ninguna cifra."
+    "text": "Una entrada del perfil registra una preferencia para cuando las instrucciones actuales y las reglas del proyecto dejan una elección abierta. El texto almacenado no concede permiso para actuar. Las instrucciones indican al agente que lo trate como historial no confiable, pero no garantizan que el modelo ignore contenido hostil o erróneo. Ninguna evaluación ha medido aún el efecto del perfil."
   },
   "docs": "Lee la guía completa del perfil",
   "faq": [
@@ -129,7 +129,7 @@
     },
     {
       "q": "¿Qué pasa en un servidor compartido?",
-      "a": "El perfil está desactivado hasta que un operador lo active. Entonces cada persona tiene un perfil privado que solo ella y root pueden leer. Un perfil de equipo es una decisión aparte, y admite un hábito solo con evidencia de dos operadores."
+      "a": "El perfil está desactivado hasta que se habilita. Las cuentas de usuarios de la base de datos reciben entonces perfiles privados que solo la persona y root pueden leer. Un perfil compartido del equipo es una opción aparte y exige evidencia de dos operadores. Las identidades de proxy de confianza dependen de la autorización del proxy."
     },
     {
       "q": "¿Puedo desactivarlo?",

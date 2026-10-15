@@ -36,7 +36,7 @@
     "title": "Lo que ninguna otra herramienta reúne",
     "lede": "El proyecto auditó a sus competidores contra su propio código. La mayoría tiene una o dos de estas seis, y ninguna tiene las seis.",
     "teamsTitle": "Qué significa “equipos” aquí",
-    "teamsText": "Las cuentas te dan autoría y un registro de auditoría. No son una barrera de aislamiento (tenancy): todo usuario de un servidor ve todos sus proyectos. Cuenta con un equipo por servidor."
+    "teamsText": "Los proyectos están abiertos por defecto. Las cuentas de usuarios de la base de datos pueden restringirse con permisos de lectura o escritura por proyecto. Root puede acceder a todos los proyectos; los despliegues con proxy de confianza aplican el control de acceso en el proxy. Usa servidores separados cuando los equipos necesiten aislamiento independiente."
   },
   "stack": {
     "title": "Lo que tienes que ejecutar",

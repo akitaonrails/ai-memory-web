@@ -121,7 +121,7 @@ const faq = faqPage(faqItems);
       <div>
         <h3 class="text-xl">{t('compile.changed.title')}</h3>
         <p class="mt-2 text-muted max-w-[40em]">{t('compile.changed.text')}</p>
-        <div class="table-wrap mt-5">
+        <div class="table-wrap mt-5" tabindex="0">
           <table class="table-site">
             <thead><tr><th>{t('compile.changed.colGist')}</th><th>{t('compile.changed.colHere')}</th></tr></thead>
             <tbody>{changed.map((c) => <tr><td>{c.was}</td><td>{c.now}</td></tr>)}</tbody>
@@ -142,7 +142,7 @@ const faq = faqPage(faqItems);
         <div class="mt-8"><CodeBlock title={t('okf.exportTitle')} code={exportOkf} /></div>
         <p class="mt-5 text-muted max-w-[40em]" set:html={t('okf.noImport', { mapping: `${site.docs}/okf.md`, spec: okfSpec })} />
       </div>
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0">
         <table class="table-site">
           <thead><tr><th>{t('okf.colFolder')}</th><th>{t('okf.colType')}</th></tr></thead>
           <tbody>{okfTypes.map(([folder, type]) => <tr><td><code>{folder}</code></td><td>{type}</td></tr>)}</tbody>
@@ -215,7 +215,7 @@ const faq = faqPage(faqItems);
       </div>
     </div>
 
-    <div class="table-wrap mt-12">
+    <div class="table-wrap mt-12" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('measured.table.metric')}</th><th>{t('measured.table.before')}</th><th>{t('measured.table.filtered')}</th><th>{t('measured.table.local')}</th><th>{t('measured.table.fts3')}</th><th>{t('measured.table.local3')}</th></tr></thead>
         <tbody>{metrics.map(([name, ...vals]) => <tr><td class="tabular-nums">{name}</td>{vals.map((v) => <td class="tabular-nums">{score(v)}</td>)}</tr>)}</tbody>
@@ -245,7 +245,7 @@ const faq = faqPage(faqItems);
       <div class="min-w-0">
         <h3 class="text-xl">{t('measured.stream.title')}</h3>
         <p class="mt-2 text-muted max-w-[40em]">{t('measured.stream.text')}</p>
-        <div class="table-wrap mt-5">
+        <div class="table-wrap mt-5" tabindex="0">
           <table class="table-site">
             <thead><tr><th>{t('measured.stream.columns.metric')}</th><th>{t('measured.stream.columns.fts')}</th><th>{t('measured.stream.columns.local')}</th></tr></thead>
             <tbody>

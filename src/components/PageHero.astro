@@ -5,7 +5,6 @@ interface Props { hue: Hue; kicker: string; title: string; lede: string }
 const { hue, kicker, title, lede } = Astro.props;
 ---
 <header class="page-hero" data-hue={hue}>
-  <div class="glow" aria-hidden="true"></div>
   <div class="wrap relative pt-36 pb-14 md:pt-44 md:pb-20">
     <p class="kicker">{kicker}</p>
     <h1 class="mt-4 text-4xl max-w-[14ch] md:max-w-[16ch]">{title}</h1>
@@ -14,7 +13,7 @@ const { hue, kicker, title, lede } = Astro.props;
   </div>
 </header>
 <style>
-  .page-hero { position: relative; overflow: clip; }
-  .glow { position: absolute; inset-block-start: -30%; inset-inline-end: -10%; width: 70vw; height: 70vw; max-width: 60rem; max-height: 60rem; background: radial-gradient(closest-side, color-mix(in oklch, var(--hue-vivid) 34%, transparent), transparent); filter: blur(20px); opacity: .55; pointer-events: none; }
-  :global([data-theme='light']) .glow { opacity: .4; }
+  .page-hero { position: relative; border-bottom: 1px solid var(--line); }
+  .page-hero::after { content: ''; display: block; width: min(100% - 2.5rem,76rem); height: 3px; background: var(--hue); margin-inline: auto; }
+  h1 { max-width: 20ch; }
 </style>

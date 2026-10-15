@@ -16,9 +16,9 @@ const { labels, id } = Astro.props;
   ))}
 </div>
 <style>
-  .tablist { display: inline-flex; flex-wrap: wrap; gap: .25rem; padding: .3rem; border-radius: 999px; background: var(--tint); border: 1px solid var(--line); max-width: 100%; }
+  .tablist { display: inline-flex; flex-wrap: wrap; gap: .25rem; padding: .3rem; border-radius: 2px; background: var(--tint); border: 1px solid var(--line); max-width: 100%; }
   @media (max-width: 48rem) { .tablist { border-radius: 1rem; } }
-  [role='tab'] { padding: .55rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: .95rem; color: var(--muted); transition: background-color .2s, color .2s; }
+  [role='tab'] { padding: .55rem 1.1rem; border-radius: 2px; font-weight: 600; font-size: .95rem; color: var(--muted); transition: background-color .2s, color .2s; }
   [role='tab'][aria-selected='true'] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px oklch(0 0 0 / .15); }
 </style>
 <script>

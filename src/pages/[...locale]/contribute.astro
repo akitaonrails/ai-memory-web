@@ -205,14 +205,14 @@ const nextPages = raw<{ title: string; text: string }[]>('nextPages').map((n, i)
   <!-- (e) map -->
   <Section id="map" hue="azure" title={t('map.title')} lede={t('map.lede')}>
     <Figure name="contribute-crates" alt={t('map.figure.alt')} caption={t('map.figure.caption')} />
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('map.colCrate')}</th><th>{t('map.colWhat')}</th></tr></thead>
         <tbody>{crates.map(([name, what]) => <tr><td><code>{name}</code></td><td>{what}</td></tr>)}</tbody>
       </table>
     </div>
     <h3 class="text-xl mt-14">{t('map.outside')}</h3>
-    <div class="table-wrap mt-5">
+    <div class="table-wrap mt-5" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('map.colDirectory')}</th><th>{t('map.colWhat')}</th></tr></thead>
         <tbody>{dirs.map(([name, what]) => <tr><td><code>{name}</code></td><td>{what}</td></tr>)}</tbody>
@@ -252,12 +252,12 @@ cargo clippy --workspace --all-targets -- -D warnings`} /></div>
   .gbadge .v { padding: .5rem .7rem; background: var(--hue-soft); color: var(--hue); font-variant-numeric: tabular-nums; }
 
   .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .5rem .75rem; }
-  .wall a { display: flex; align-items: center; gap: .7rem; padding: .4rem; border-radius: 999px; min-width: 0; transition: background-color .2s; }
+  .wall a { display: flex; align-items: center; gap: .7rem; padding: .4rem; border-radius: 2px; min-width: 0; transition: background-color .2s; }
   .wall a:hover { background: var(--tint); }
   .wall img { width: 3rem; height: 3rem; border-radius: 50%; flex: none; background: var(--tint); }
   .wall span { font-weight: 600; font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  .way { display: flex; flex-direction: column; padding: 1.6rem 1.75rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--hue-vivid); transition: transform .4s var(--ease-out-quint); }
+  .way { display: flex; flex-direction: column; padding: 1.6rem 1.75rem; border-radius: 2px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--hue-vivid); transition: transform .4s var(--ease-out-quint); }
   .way:hover { transform: translateY(-3px); }
   .way .go { margin-top: auto; padding-top: 1.25rem; font-weight: 600; color: var(--hue); text-decoration: underline; }
 

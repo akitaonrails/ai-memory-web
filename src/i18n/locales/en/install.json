@@ -154,8 +154,8 @@
     },
     "agent": {
       "title": "The agent remembers",
-      "text": "Work for a few minutes, quit, and open a second session in the same directory. Then ask it:",
-      "ask": "“Where did we leave off?”"
+      "text": "In a non-sensitive project, ask the first agent to save a specific project decision. End the session, start another supported agent in the same directory, then ask for that decision and the saved page that supports it.",
+      "ask": "“What project decision did I save, and which memory page records it?”"
     }
   },
   "next": {
@@ -205,7 +205,7 @@
         "tokenComment": "TOKEN here is this person's aim_ key, not the root token"
       },
       {
-        "title": "Add TLS before leaving the LAN",
+        "title": "Use TLS for remote connections",
         "text": "A bearer token authenticates a request and does not encrypt it. Keys and web cookies travel in the clear over plain HTTP, so <a href=\"{tls}\">put Caddy, nginx or a Cloudflare Tunnel in front</a> once accounts exist or the server is reachable beyond your desk."
       }
     ],
@@ -215,7 +215,7 @@
     },
     "limits": {
       "title": "What team mode does not do",
-      "text": "Accounts are not a tenancy boundary. Every authenticated user sees every page in every project on that server, and there are no per-project permissions yet. Run one server per team, and a separate server with its own data directory for a second team."
+      "text": "Projects are open by default. Root can restrict projects for database-user accounts with read or write grants; permissions apply to whole projects, not individual pages. Root bypasses them, and trusted-proxy identities rely on the proxy’s authorization. Use separate servers for teams that need independent isolation."
     }
   },
   "nextPages": {

@@ -7,10 +7,9 @@ const { title = t('cta.title'), text = t('cta.text') } = Astro.props;
 ---
 <section class="band">
   <div class="wrap">
-    <div class="cta">
-      <div class="aura" aria-hidden="true"></div>
+    <div class="cta signal-panel">
       <h2 class="relative text-3xl max-w-[16ch]">{title}</h2>
-      <p class="relative lede mt-5 !text-[oklch(0.82_0.03_285)]">{text}</p>
+      <p class="relative lede mt-5">{text}</p>
       <div class="relative mt-9 flex flex-wrap gap-3">
         <a href={href('/install/')} class="btn btn-primary">{t('cta.primary')}</a>
         <a href={site.repo} class="btn cta-ghost">{t('cta.secondary')}</a>
@@ -19,8 +18,7 @@ const { title = t('cta.title'), text = t('cta.text') } = Astro.props;
   </div>
 </section>
 <style>
-  .cta { position: relative; overflow: hidden; border-radius: 2rem; padding: clamp(2.5rem, 7vw, 6rem); background: var(--ink); color: oklch(0.955 0.012 285); border: 1px solid oklch(0.33 0.045 282); }
-  .aura { position: absolute; inset: auto -20% -70% -20%; height: 120%; background: conic-gradient(from 200deg at 50% 50% in oklch, var(--v-green), var(--v-teal), var(--v-azure), var(--v-violet), var(--v-rose), var(--v-green)); filter: blur(90px); opacity: .45; }
-  .cta-ghost { border: 1.5px solid oklch(0.5 0.04 285); color: inherit; }
+  .cta { position: relative; padding: clamp(2rem, 6vw, 5rem); border-top: 3px solid var(--amber); clip-path: polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,0 100%); }
+  .cta-ghost { border: 1px solid var(--panel-line); color: var(--panel-text); }
   .cta-ghost:hover { border-color: currentColor; }
 </style>

@@ -36,7 +36,7 @@
     "title": "O que nenhuma outra ferramenta tem por completo",
     "lede": "O projeto auditou os concorrentes contra o próprio código. A maioria tem um ou dois destes seis itens, e nenhum tem os seis.",
     "teamsTitle": "O que “times” quer dizer aqui",
-    "teamsText": "Contas dão autoria e um log de auditoria. Elas não são uma fronteira de tenancy: todo usuário de um servidor vê todos os projetos dele. Planeje um time por servidor."
+    "teamsText": "Os projetos são abertos por padrão. Contas de usuários do banco de dados podem ser restringidas com permissões de leitura ou escrita por projeto. Root pode acessar todos os projetos; instalações com proxy confiável aplicam o controle de acesso no proxy. Use servidores separados quando os times precisarem de isolamento independente."
   },
   "stack": {
     "title": "O que você precisa rodar",

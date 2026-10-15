@@ -139,6 +139,7 @@ const howTo = {
   <PageHero hue="amber" kicker={t('nav.developers.label')} title={t('hero.title')} lede={t('hero.lede')}>
     <a href="#solo" class="btn btn-primary">{t('solo.title')}</a>
     <a href="#team" class="btn btn-ghost">{t('team.title')}</a>
+    <a href="#check" class="btn btn-ghost">{t('check.title')}</a>
   </PageHero>
 
   <Section id="solo" hue="amber" title={t('solo.title')} lede={t('solo.lede')}>
@@ -205,16 +206,17 @@ ANTHROPIC_API_KEY=sk-ant-...`} /></div>
   </Section>
 
   <Section id="team" hue="teal" tint title={t('team.title')} lede={t('team.lede')}>
-    <Figure name="install-team-topology" alt={t('team.figure.alt')} caption={t('team.figure.caption')} />
-    <div class="steps-wrap"><Steps steps={team} /></div>
-    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+    <div class="mb-12 grid gap-6 lg:grid-cols-2">
       <Callout title={t('team.oneServer.title')} hue="amber">
         <p set:html={t('team.oneServer.text')} />
       </Callout>
       <Callout title={t('team.limits.title')} hue="rose">
         <p>{t('team.limits.text')}</p>
+        <p><a class="link" href={href('/security/#limits')}>{t('crumbs.security')}</a></p>
       </Callout>
     </div>
+    <Figure name="install-team-topology" alt={t('team.figure.alt')} caption={t('team.figure.caption')} />
+    <div class="steps-wrap"><Steps steps={team} /></div>
   </Section>
 
   <NextPages links={[
@@ -226,7 +228,7 @@ ANTHROPIC_API_KEY=sk-ant-...`} /></div>
 </Base>
 
 <style>
-  @media (max-width: 48rem) { .tabs-wrap :global(.tablist) { border-radius: 1.25rem; } }
+  @media (max-width: 48rem) { .tabs-wrap :global(.tablist) { border-radius: 2px; } }
   .tabs-wrap :global(.steps a), .steps-wrap :global(.steps a) { color: var(--hue); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
   .ask { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.3; color: var(--hue); }
 </style>

@@ -148,13 +148,13 @@ const highlights = raw<{ title: string; text: string }[]>('changelog.highlights'
 </script>
 
 <style>
-  .build { position: relative; padding: 1.75rem; border-radius: 1.5rem; border: 1px solid var(--line); background: var(--surface); }
+  .build { position: relative; padding: 1.75rem; border-radius: 2px; border: 1px solid var(--line); background: var(--surface); }
   .build[data-yours] { border-color: var(--hue-vivid); box-shadow: 0 0 0 1px var(--hue-vivid), 0 20px 60px -30px var(--hue-vivid); }
   .yours { position: absolute; top: 1.6rem; inset-inline-end: 1.5rem; }
   .file { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; border-radius: .9rem; background: var(--hue-soft); transition: transform .3s var(--ease-out-quint); }
   .file:hover { transform: translateX(3px); }
   .file strong { color: var(--hue); }
-  .file .font-mono { font-size: .74rem; word-break: break-all; }
+  .file .font-mono { font-size: .875rem; word-break: break-all; }
 
   .release .kicker { font-size: 1.05rem; }
   .release .kicker time { margin-inline-start: .75rem; }

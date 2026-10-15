@@ -1,6 +1,4 @@
 // Scroll-driven motion, declared in markup so any page can use it:
-//   data-fill            words light up as the block crosses the viewport (scrubbed)
-//   data-zoom            media grows from 86% with soft corners to full size (scrubbed)
 //   data-parallax="0.2"  element drifts against the scroll (scrubbed)
 //   data-reveal          children (or the element) settle in once, on first view
 //   data-count="7209"    number counts up once, on first view
@@ -16,29 +14,6 @@ gsap.registerPlugin(ScrollTrigger);
 const mm = gsap.matchMedia();
 
 mm.add('(prefers-reduced-motion: no-preference)', () => {
-  document.querySelectorAll<HTMLElement>('[data-fill]').forEach((el) => {
-    // Japanese has no spaces between words, so ask the browser where the words are.
-    const text = el.textContent!.trim().replace(/\s+/g, ' ');
-    const lang = document.documentElement.lang;
-    const words = 'Segmenter' in Intl && /^(ja|zh|th)/.test(lang)
-      ? [...new Intl.Segmenter(lang, { granularity: 'word' }).segment(text)].map((s) => s.segment)
-      : text.split(/(?<= )/);
-    // The word spans stay in the accessibility tree: aria-label is prohibited on a
-    // paragraph, and hiding the words would leave the sentence unread.
-    el.innerHTML = words.map((w) => `<span style="opacity:.16">${w}</span>`).join('');
-    gsap.to(el.children, {
-      opacity: 1, stagger: 0.1, ease: 'none',
-      scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 45%', scrub: 0.4 },
-    });
-  });
-
-  document.querySelectorAll<HTMLElement>('[data-zoom]').forEach((el) => {
-    gsap.fromTo(el, { scale: 0.86, borderRadius: '2.5rem', opacity: 0.6 }, {
-      scale: 1, borderRadius: '1.25rem', opacity: 1, ease: 'none',
-      scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 35%', scrub: 0.5 },
-    });
-  });
-
   document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
     const amount = Number(el.dataset.parallax) || 0.15;
     gsap.fromTo(el, { yPercent: amount * 100 }, {
@@ -50,7 +25,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
     const targets = el.dataset.reveal === 'children' ? el.children : el;
     gsap.from(targets, {
-      y: 28, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out',
+      y: 12, duration: 0.5, stagger: 0.08, ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 85%', once: true },
     });
   });

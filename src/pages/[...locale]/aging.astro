@@ -111,8 +111,8 @@ const next = withText([
 
 <style>
   .pieces { display: grid; gap: 1rem; }
-  .pieces li { padding: 1.3rem 1.5rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); transition: opacity .5s, border-color .5s, box-shadow .6s; }
-  .pieces[data-focus-ready] li[data-state='ahead'] { opacity: .55; }
-  .pieces[data-focus-ready] li[data-state='past'] { opacity: .85; }
+  .pieces li { padding: 1.3rem 1.5rem; border-radius: 2px; background: var(--surface); border: 1px solid var(--line); transition: opacity .5s, border-color .5s, box-shadow .6s; }
+  .pieces[data-focus-ready] li[data-state='ahead'] { opacity: 1; }
+  .pieces[data-focus-ready] li[data-state='past'] { opacity: 1; }
   .pieces li[data-state='active'] { border-color: var(--hue-vivid); box-shadow: var(--shadow), 0 0 0 1px var(--hue-vivid); }
 </style>

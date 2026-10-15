@@ -36,7 +36,7 @@
     "title": "What no other tool has all of",
     "lede": "The project audited its competitors against its own code. Most have one or two of these six, and none has all six.",
     "teamsTitle": "What “teams” means here",
-    "teamsText": "Accounts give you attribution and an audit log. They are not a tenancy boundary: every user on a server sees every project on it. Plan for one team per server."
+    "teamsText": "Projects are open by default. Database-user accounts can be restricted with project read or write grants. Root can access every project; trusted-proxy deployments enforce access at the proxy. Use separate servers when teams need independent isolation."
   },
   "stack": {
     "title": "What you have to run",

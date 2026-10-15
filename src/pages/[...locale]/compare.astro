@@ -111,7 +111,7 @@ const next = withText(nextMeta, raw<Titled[]>('next'));
 
   <Section id="stack" title={t('stack.title')} lede={t('stack.lede')} hue="amber">
     <Figure name="compare-stack" alt={t('stack.figureAlt')} caption={t('stack.figureCaption')} />
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0">
       <table class="table-site parts">
         <caption class="sr-only">{t('stack.caption')}</caption>
         <thead>
@@ -244,14 +244,14 @@ const next = withText(nextMeta, raw<Titled[]>('next'));
   .mark.opt { border: 2.5px solid var(--hue-vivid); background: transparent; }
   .mark.none { width: .8rem; height: 2px; border-radius: 2px; background: var(--line); }
   .mark.no { background: none; border-radius: 0; width: .95rem; height: .5rem; border-left: 2.5px solid var(--green); border-bottom: 2.5px solid var(--green); rotate: -45deg; translate: 0 -2px; }
-  @media (max-width: 40rem) { .parts tbody th { white-space: normal; min-width: 8.5rem; } .parts th.part { min-width: 5rem; font-size: .8rem; } }
+  @media (max-width: 40rem) { .parts tbody th { white-space: normal; min-width: 8.5rem; } .parts th.part { min-width: 5rem; font-size: .875rem; } }
   .legend { display: flex; flex-wrap: wrap; gap: .6rem 1.75rem; color: var(--muted); font-size: .92rem; }
   .legend li { display: inline-flex; align-items: center; gap: .6rem; }
 
   .tools { display: grid; gap: .75rem; }
-  .tool { border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); scroll-margin-top: 6rem; }
+  .tool { border: 1px solid var(--line); border-radius: 2px; background: var(--surface); scroll-margin-top: 6rem; }
   .tool[open] { border-color: var(--hue-vivid); }
-  .tool summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 1.4rem; cursor: pointer; list-style: none; border-radius: 1.25rem; }
+  .tool summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 1.4rem; cursor: pointer; list-style: none; border-radius: 2px; }
   .tool summary::-webkit-details-marker { display: none; }
   .tool .name { display: block; font-family: var(--font-display); font-weight: 640; font-size: var(--text-xl); }
   .tool .kind { display: block; color: var(--muted); font-size: .95rem; margin-top: .15rem; }

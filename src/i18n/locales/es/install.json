@@ -154,8 +154,8 @@
     },
     "agent": {
       "title": "El agente recuerda",
-      "text": "Trabaja unos minutos, sal y abre una segunda sesión en el mismo directorio. Luego pregúntale:",
-      "ask": "“¿Dónde lo dejamos?”"
+      "text": "En un proyecto sin datos sensibles, pide al primer agente que guarde una decisión concreta del proyecto. Termina la sesión, inicia otro agente compatible en el mismo directorio y pídele esa decisión y la página guardada que la respalda.",
+      "ask": "“¿Qué decisión del proyecto guardé y qué página de memoria la registra?”"
     }
   },
   "next": {
@@ -205,7 +205,7 @@
         "tokenComment": "Aquí TOKEN es la clave aim_ de esta persona, no el token root"
       },
       {
-        "title": "Añade TLS antes de salir de la LAN",
+        "title": "Usa TLS en conexiones remotas",
         "text": "Un bearer token autentica una petición y no la cifra. Las claves y las cookies web viajan en claro por HTTP plano, así que <a href=\"{tls}\">pon Caddy, nginx o un Cloudflare Tunnel por delante</a> en cuanto existan cuentas o el servidor sea accesible más allá de tu escritorio."
       }
     ],
@@ -215,7 +215,7 @@
     },
     "limits": {
       "title": "Lo que el modo equipo no hace",
-      "text": "Las cuentas no son una barrera de aislamiento (tenancy). Todo usuario autenticado ve todas las páginas de todos los proyectos de ese servidor, y todavía no hay permisos por proyecto. Ejecuta un servidor por equipo, y un servidor aparte con su propio directorio de datos para un segundo equipo."
+      "text": "Los proyectos están abiertos por defecto. Root puede restringirlos para cuentas de usuarios de la base de datos con permisos de lectura o escritura; los permisos se aplican a proyectos enteros, no a páginas individuales. Root omite estas restricciones y las identidades de proxy de confianza dependen de la autorización del proxy. Usa servidores separados para equipos que necesiten aislamiento independiente."
     }
   },
   "nextPages": {

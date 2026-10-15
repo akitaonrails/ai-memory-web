@@ -58,7 +58,7 @@
     "items": [
       {
         "title": "Un workspace por cliente",
-        "text": "Deja un <code>.ai-memory.toml</code> en <code>~/work/client-a/</code> y todos los repositorios que cuelgan de ahí se archivan en ese workspace. Nada del cliente A aparece mientras trabajas para el cliente B."
+        "text": "Coloca <code>.ai-memory.toml</code> en <code>~/work/client-a/</code> y los repositorios que cuelguen de esa carpeta usarán ese workspace. Esto controla dónde se archiva y se busca la memoria por defecto. No es una regla de control de acceso: las búsquedas explícitas entre proyectos y los perfiles compartidos requieren atención aparte."
       },
       {
         "title": "Un monorepo como un solo proyecto",
@@ -188,7 +188,7 @@
   "faq": [
     {
       "q": "¿Puede un agente de un proyecto leer la memoria de otro?",
-      "a": "No. La memoria se archiva por proyecto, y la mensajería es el único cruce deliberado: un proyecto solo ve los mensajes dirigidos a él o enviados por él. El cuerpo del mensaje tiene que ser autocontenido porque quien lo lee no ve los archivos del remitente."
+      "a": "Sí, mediante consultas explícitas entre proyectos cuando quien las hace tiene acceso. Las consultas normales usan el proyecto actual. Los mensajes entregan una solicitud autocontenida a la bandeja de entrada de otro proyecto; no dan al destinatario acceso a los archivos del remitente."
     },
     {
       "q": "¿Un mensaje recibido se trata como instrucciones?",

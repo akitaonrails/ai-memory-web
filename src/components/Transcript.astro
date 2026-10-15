@@ -14,15 +14,15 @@ const { title, lines, hue = 'rose' } = Astro.props;
 </figure>
 <style>
   /* Dark in both themes, like the real thing. The hue lights the frame; amber is what the person typed. */
-  .tty { background: var(--ink); color: oklch(0.9 0.015 285); border-radius: 1.1rem; overflow: hidden; border: 1px solid oklch(0.33 0.045 282); box-shadow: var(--shadow), 0 0 0 1px color-mix(in oklch, var(--hue-vivid) 35%, transparent), 0 0 60px -20px var(--hue-vivid); }
-  figcaption { display: flex; align-items: center; gap: .75rem; padding: .6rem 1rem; border-bottom: 1px solid oklch(0.28 0.04 282); font-family: var(--font-mono); font-size: .8rem; color: oklch(0.74 0.03 285); }
+  .tty { background: var(--ink); color: var(--panel-text); border-radius: 2px; overflow: hidden; border: 1px solid var(--panel-line); box-shadow: none; }
+  figcaption { display: flex; align-items: center; gap: .75rem; padding: .6rem 1rem; border-bottom: 1px solid var(--panel-line); font-family: var(--font-mono); font-size: .875rem; color: var(--panel-muted); }
   .dots { display: flex; gap: .35rem; }
   .dots i { width: .6rem; height: .6rem; border-radius: 50%; background: oklch(0.36 0.045 282); }
-  pre { margin: 0; padding: 1.1rem 1.2rem 1.2rem; font-size: .84rem; line-height: 1.7; white-space: normal; }
+  pre { margin: 0; padding: 1.1rem 1.2rem 1.2rem; font-size: .875rem; line-height: 1.7; white-space: normal; }
   .ln { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-  .cmd { color: oklch(0.87 0.15 85); font-weight: 600; }
+  .cmd { color: var(--amber); font-weight: 600; }
   .cmd b { color: var(--v-green); }
-  .info { color: oklch(0.6 0.03 285); }
+  .info { color: var(--panel-muted); }
   .info em { font-style: normal; color: var(--v-green); }
   .warn { color: oklch(0.9 0.09 70); padding-block: .35rem; }
   .ask .ans { font-style: normal; color: var(--v-green); font-weight: 700; }

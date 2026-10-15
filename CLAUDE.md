@@ -8,7 +8,7 @@ The site is published in en, pt-br, es, he, ja and ko. Whenever you add, reword 
 
 1. Edit the English string in `src/i18n/locales/en/<namespace>.json`. No visible text lives in `.astro` files.
 2. In the same change, update that key in all five other locale folders with a real translation that follows `docs/research/I18N-TRANSLATE-BRIEF.md` and `docs/i18n/glossary-<locale>.md`. Translate the new meaning; do not patch a word into the old sentence. New keys get translated too, never left to fall back to English.
-3. If the text is a label inside a diagram (`images.json`), regenerate that diagram for each language with `scripts/localize-image.mjs` and look at the results.
+3. If the text is a label inside a diagram (`images.json`), update all six catalogs and inspect the native diagram at desktop and phone widths. Diagram labels are HTML; do not regenerate the historical raster images.
 4. Run `npm run i18n:stamp` to record which English text the translations were made from, then `npm run check:i18n`. It must report no errors and nothing "falling back to English".
 
 `check:i18n` fails on STALE entries: English changed but a translation did not. Never silence it by stamping without translating. If you cannot translate a language well, say so instead of shipping a guess.

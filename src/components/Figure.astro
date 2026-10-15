@@ -1,30 +1,22 @@
 ---
-// A generated diagram or illustration. Art is drawn on the dark ink ground, so it is framed the same in both themes.
-// Pass `name` for a generated diagram: the component shows src/assets/img/gen/<locale>/<name>.webp when that
-// translation exists and falls back to the English original in src/assets/img/gen/<name>.webp.
-// Pass `src` for any other imported image (screenshots).
+// Native diagrams share the Signal Bureau visual language; screenshots retain their original pixels.
 import { Image } from 'astro:assets';
-import { useI18n } from '@/i18n';
+import Diagram from './Diagram.astro';
+import { diagrams } from '@/data/diagrams';
 interface Props { name?: string; src?: ImageMetadata; alt: string; caption?: string; zoom?: boolean }
-const { name, src, alt, caption, zoom = true } = Astro.props;
-const { locale } = useI18n(Astro);
-
-const originals = import.meta.glob<{ default: ImageMetadata }>('/src/assets/img/gen/*.webp', { eager: true });
-const localized = import.meta.glob<{ default: ImageMetadata }>('/src/assets/img/gen/*/*.webp', { eager: true });
-const image = src
-  ?? localized[`/src/assets/img/gen/${locale}/${name}.webp`]?.default
-  ?? originals[`/src/assets/img/gen/${name}.webp`]?.default;
-if (!image) throw new Error(`Figure: no image for name="${name}"`);
+const { name, src, alt, caption } = Astro.props;
+if (!src && !diagrams[name ?? '']) throw new Error(`Figure: no diagram or image for "${name}"`);
 ---
-<figure class="fig">
-  {/* Diagrams read left to right in every language, like the logo. */}
-  <div class="frame" dir="ltr" data-zoom={zoom ? '' : undefined}>
-    <Image src={image} alt={alt} widths={[640, 960, 1280, 1920]} sizes="(min-width: 1280px) 1216px, 94vw" quality={82} class="w-full h-auto block" />
-  </div>
+<figure class="fig" aria-label={name && diagrams[name] ? alt || undefined : undefined}>
+  {name && diagrams[name] ? <Diagram name={name} /> : (
+    <div class="frame" dir="ltr">
+      <Image src={src!} alt={alt} widths={[640, 960, 1280, 1920]} sizes="(min-width: 1280px) 1216px, 94vw" quality={82} class="w-full h-auto block" />
+    </div>
+  )}
   {caption && <figcaption>{caption}</figcaption>}
 </figure>
 <style>
   .fig { margin-block: clamp(2.5rem, 6vw, 5rem); }
-  .frame { border-radius: 1.25rem; overflow: hidden; background: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); will-change: transform; }
+  .frame { border-radius: 2px; overflow: hidden; background: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); }
   figcaption { margin-top: 1rem; color: var(--muted); font-size: .95rem; max-width: 46em; }
 </style>

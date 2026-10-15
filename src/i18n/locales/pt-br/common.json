@@ -48,18 +48,18 @@
       "label": "Produto",
       "how": {
         "label": "Como funciona",
-        "note": "Captura, consolidação, recuperação, handoff"
+        "note": "Notas salvas, busca e handoffs entre sessões"
       },
       "aging": {
         "label": "Como a memória envelhece",
-        "note": "Decaimento, compactação e a passada de sonho"
+        "note": "Quando notas antigas são removidas, encurtadas ou mescladas"
       },
       "profile": {
         "label": "Memória entre projetos",
         "note": "Como você trabalha, entregue a cada projeto novo"
       },
       "features": {
-        "label": "O que mais dá para fazer",
+        "label": "Mensagens e escopos de projeto",
         "note": "Mensagens entre agentes, escopos, regras, notas que expiram"
       },
       "browse": {
@@ -90,7 +90,7 @@
         "note": "Uma memória compartilhada, onboarding mais rápido"
       },
       "compare": {
-        "label": "Migrando de outra ferramenta",
+        "label": "Compare ferramentas de memória",
         "note": "Mem0, Zep, cognee, OpenViking e outras"
       }
     },
@@ -106,7 +106,7 @@
       },
       "providers": {
         "label": "Provedores de LLM e embeddings",
-        "note": "Opcionais. Tudo funciona sem nenhum"
+        "note": "Serviços opcionais de modelos e o que acrescentam"
       }
     },
     "developers": {
@@ -130,7 +130,7 @@
     }
   },
   "footer": {
-    "motto": "O modelo e o harness são alugados. A memória do projeto é sua.",
+    "motto": "Notas do seu projeto em arquivos que você pode inspecionar e editar.",
     "themeSystem": "Sistema",
     "themeLight": "Claro",
     "themeDark": "Escuro",
@@ -141,7 +141,7 @@
   },
   "cta": {
     "title": "Dê memória aos seus agentes hoje.",
-    "text": "Gratuito e open source sob a licença MIT. Sem conta e sem chave de API.",
+    "text": "Gratuito e open source sob a licença MIT. Os recursos padrão de memória não precisam de chave de API de modelo; seu agente de código pode exigir uma conta própria.",
     "primary": "Instalar agora",
     "secondary": "Dê uma estrela no GitHub"
   },

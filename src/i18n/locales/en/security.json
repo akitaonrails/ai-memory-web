@@ -5,7 +5,7 @@
   },
   "hero": {
     "title": "What it stores, and what leaves your machine",
-    "lede": "A default install listens on your machine only, strips secrets before anything is written, and has no telemetry. Every path that sends data out is off until you turn it on. This page also lists what the project does not defend against.",
+    "lede": "A default install listens only on your machine and has no telemetry. It redacts recognized credentials before storing captured text, but filtering can miss sensitive information. Remote servers and optional cloud providers change where data goes.",
     "primary": "Read SECURITY.md",
     "secondary": "Data handling for reviewers"
   },
@@ -19,7 +19,7 @@
       },
       {
         "title": "No telemetry",
-        "text": "The binary has no analytics, crash reporting or usage tracking. Capture and search make zero network calls."
+        "text": "The ai-memory binary has no analytics, crash reporting or usage tracking. Default local capture and search do not send project content to external model providers."
       },
       {
         "title": "One directory you own",
@@ -27,18 +27,18 @@
       },
       {
         "title": "No encryption at rest",
-        "text": "Version 1 relies on filesystem permissions. Existing installs are not chmodded for you. Use disk encryption if the laptop needs it."
+        "text": "Stored data relies on filesystem permissions. Existing installs are not chmodded for you. Use disk encryption if you need protection when the machine is off."
       }
     ],
     "download": {
-      "title": "The one outbound request on a default install",
+      "title": "The local model download",
       "what": "Since 2.0 the default embedder runs in process. On first start it downloads the all-MiniLM-L6-v2 model, about 87 MB, from Hugging Face and checks it against a pinned SHA-256. No user data is sent.",
       "avoid": "To avoid the download, set <code>embedding_provider = \"none\"</code> or copy the three model files into <code>&lt;data_dir&gt;/models/</code>. The <a href=\"{href}\">air-gapped install guide</a> has the steps."
     }
   },
   "boundary": {
-    "title": "Nothing is stored before it is sanitized.",
-    "lede": "Hook payloads are untrusted text. They reach the store through one function, and the type system enforces it.",
+    "title": "Captured text is filtered before storage.",
+    "lede": "Hook payloads are untrusted text. They pass through a sanitizer that redacts recognized credentials and caps their size. It can miss sensitive information.",
     "figureAlt": "Diagram: a raw hook payload containing keys and passwords enters a single gate labelled sanitize(). Secrets drop out below the gate. A smaller, size-capped observation comes out the other side and is stored.",
     "figureCaption": "The sanitizer is the only path from a hook payload into the store.",
     "items": [
@@ -161,7 +161,7 @@
     },
     "deletion": {
       "title": "What a purge removes",
-      "text": "Purge is a logical delete, scoped so that project A can never remove files from project B. Data has no expiry unless a page sets one. Without <code>--confirm</code>, a purge only previews what it would remove.",
+      "text": "Purge logically deletes data from the selected project. History and earlier backups can retain copies. Separately, retention rules can remove unused session pages, and explicit expiry dates can remove other pages. Without <code>--confirm</code>, a purge only previews what it would remove.",
       "codeTitle": "purge",
       "commentSession": "Remove one session",
       "commentProject": "Remove a whole project"
@@ -212,8 +212,8 @@
     "calloutTitle": "Limits you should plan around",
     "points": [
       "It is a single-tenant workstation and homelab service.",
-      "Accounts are not a tenancy boundary. Every user sees every project on that server, so run one server per team.",
-      "There are no per-user or per-project access lists.",
+      "Projects are open by default. For database-user accounts, root can restrict access to the project’s creator and users with read or write grants.",
+      "Permissions cover whole projects, not individual pages. Root bypasses these checks. Trusted-proxy identities rely on the proxy’s authorization; use separate servers when you need independent isolation.",
       "Memory that an agent retrieves is untrusted historical data. Handoffs, briefs and LLM prompts mark it as such, and no text filter can prove a model will ignore a hostile passage.",
       "It is not built for direct exposure to the open internet.",
       "If you push the wiki to a git remote, securing that remote is on you."
@@ -232,11 +232,11 @@
   "faq": [
     {
       "q": "Does ai-memory send my code or prompts anywhere?",
-      "a": "No. There is no telemetry, and capture and search make no network calls. Data leaves the machine only if you turn on remote embeddings, assistant output capture with a cloud LLM, LLM rerank, or a cloud LLM provider for consolidation. All are off by default."
+      "a": "By default, ai-memory keeps captured project content on your machine. If you connect to a shared server, it sends that content there. Optional cloud embeddings or language-model features send data to the providers you configure. Your coding agent has its own data settings and provider connections."
     },
     {
-      "q": "Does a default install make any network request?",
-      "a": "One. Since 2.0 the default local embedder downloads an all-MiniLM-L6-v2 model of about 87 MB from Hugging Face on first start. No user data is sent. Set embedding_provider = \"none\" or place the model files yourself to avoid it."
+      "q": "Does the local embedder need the network?",
+      "a": "On first start, the local embedder downloads about 87 MB of model files from Hugging Face and verifies their checksums. No project content is sent for that download. Set embedding_provider = \"none\" or supply the model files yourself to avoid it."
     },
     {
       "q": "Are secrets stored?",
@@ -248,7 +248,7 @@
     },
     {
       "q": "Is ai-memory multi-tenant?",
-      "a": "No. It is a single-tenant service. Accounts give attribution, and every authenticated user can read every project on that server. Run separate servers for people who must not see each other’s data."
+      "a": "No. Project-level grants can restrict database-user accounts, but this remains a single-tenant service. Root has access to every project, and trusted-proxy deployments enforce access at the proxy. Use separate servers for teams that need independent isolation."
     }
   ],
   "next": [
@@ -267,6 +267,6 @@
   ],
   "ctaBand": {
     "title": "Try it on loopback first.",
-    "text": "No account and no API key. Nothing can reach it but your own machine."
+    "text": "Start with a local, non-sensitive project. Review what is captured before connecting a shared server or a cloud provider."
   }
 }

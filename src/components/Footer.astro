@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
         <span class="font-display text-2xl font-semibold tracking-tight">ai-memory</span>
       </a>
       <p class="mt-4 text-muted max-w-[22em]">{t('footer.motto')}</p>
-      <div class="mt-6 inline-flex rounded-full border border-line p-1 text-sm" role="group" aria-label={t('a11y.theme')}>
+      <div class="mt-6 inline-flex rounded-sm border border-line p-1 text-sm" role="group" aria-label={t('a11y.theme')}>
         {(['system', 'light', 'dark'] as const).map((mode) => (
           <button type="button" data-theme-set={mode} aria-pressed="false" class="theme-opt">{t(`footer.theme${mode[0].toUpperCase()}${mode.slice(1)}`)}</button>
         ))}
@@ -41,7 +41,7 @@ const year = new Date().getFullYear();
   </nav>
   <div class="wrap pb-10 flex flex-wrap gap-x-8 gap-y-2 justify-between text-sm text-muted">
     <p set:html={t('footer.rights', { year, author: site.author, authorUrl: site.authorUrl })} />
-    <p class="flex gap-5">
+    <p class="flex flex-wrap gap-5">
       <a href={site.repo} class="hover:underline">{t('nav.github')}</a>
       <a href={site.docker} class="hover:underline">{t('footer.dockerHub')}</a>
       <a href={`${site.repo}/blob/main/SECURITY.md`} class="hover:underline">{t('footer.reportVulnerability')}</a>
@@ -54,6 +54,6 @@ const year = new Date().getFullYear();
   .langs a { color: var(--muted); }
   .langs a:hover { color: var(--text); text-decoration: underline; }
   .langs a[aria-current] { color: var(--text); font-weight: 600; }
-  .theme-opt { padding: .35rem .85rem; border-radius: 999px; color: var(--muted); transition: background-color .2s, color .2s; }
+  .theme-opt { padding: .35rem .85rem; border-radius: 2px; color: var(--muted); transition: background-color .2s, color .2s; }
   .theme-opt[aria-pressed='true'] { background: var(--tint); color: var(--text); font-weight: 600; }
 </style>

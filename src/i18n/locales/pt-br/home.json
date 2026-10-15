@@ -2,27 +2,27 @@
   "hero": {
     "releaseOut": "A {tag} saiu",
     "releaseLink": "Veja o que mudou",
-    "title": "Troque de agente. Mantenha o contexto.",
-    "lede": "ai-memory é memória de longo prazo para agentes de código com IA. Saia do Claude Code no meio de uma tarefa, abra o Codex no mesmo diretório e continue sem explicar de novo a arquitetura, as abordagens que falharam e as questões em aberto.",
+    "title": "Agentes diferentes. Uma só memória.",
+    "lede": "O ai-memory salva notas de projeto para ferramentas de código com IA como Claude Code e Codex. Ao iniciar outra sessão, ele fornece o contexto salvo e ferramentas para buscar trabalhos anteriores, para você gastar menos tempo reexplicando o projeto.",
     "primary": "Instalar agora",
     "star": "Estrela no GitHub",
     "facts": [
       "Open source, MIT",
       "Um binário só, markdown puro",
-      "Funciona sem chave de API"
+      "Recursos padrão de memória dispensam chave de API de modelo"
     ],
     "marquee": "Funciona com {n} agentes de código, incluindo {names}",
     "cards": [
       {
         "kicker": "Para que serve memória",
-        "title": "Seu agente esquece tudo ao fim de cada sessão",
-        "text": "O ai-memory grava o que o agente aprendeu numa wiki de páginas markdown puro e entrega à próxima sessão um briefing curto, para você parar de explicar seu próprio projeto de novo.",
+        "title": "Mantenha o contexto entre sessões",
+        "text": "Observações da sessão viram notas pesquisáveis em uma wiki: páginas markdown em texto puro que você pode inspecionar e editar.",
         "cta": "Como funciona"
       },
       {
         "kicker": "Entre projetos",
         "title": "Seus hábitos seguem você para o próximo projeto",
-        "text": "Um perfil de como você trabalha, aprendido nos seus projetos, chega a cada projeto novo no início da sessão, abaixo das regras do próprio projeto.",
+        "text": "No modo de usuário único, preferências recorrentes podem passar de um projeto para outro. Em um servidor compartilhado, isso fica desligado até ser habilitado. As instruções do projeto têm prioridade.",
         "cta": "Memória entre projetos"
       },
       {
@@ -33,14 +33,14 @@
       },
       {
         "kicker": "Instalação",
-        "title": "Dois comandos, sem conta, sem chave de API",
+        "title": "Instale, configure, abra o agente",
         "text": "Um script com checksum verificado e o ai-memory setup. O servidor escuta só na sua máquina, e sua memória é markdown numa pasta sua.",
         "cta": "Instalação rápida"
       },
       {
         "kicker": "A memória envelhece",
-        "title": "A memória velha encolhe, e o que você usa fica",
-        "text": "As páginas de sessão recebem pontuação, ficam enquanto você ainda as lê e podem encolher ou ser mescladas sem LLM. Toda reescrita pode ser restaurada.",
+        "title": "Escolha como guardar notas antigas",
+        "text": "Páginas de sessões sem uso podem ser removidas automaticamente. Compactação ou mesclagem opcionais mantêm versões menores; essas reescritas podem ser restauradas.",
         "cta": "Como a memória envelhece"
       },
       {
@@ -58,9 +58,10 @@
       "Instalação",
       "A memória envelhece",
       "Medido"
-    ]
+    ],
+    "secondary": "Como funciona"
   },
-  "statement": "Seu agente de código já faz anotações. Elas ficam em uma máquina só e pertencem a um agente só. Troque de ferramenta e elas somem, e o resto do time nunca chega a ver nada disso. O ai-memory é o que existe do outro lado desses muros.",
+  "statement": "Notas salvas por uma ferramenta de código nem sempre estão disponíveis para outra. O ai-memory guarda o contexto do projeto em um armazenamento compartilhado que seus agentes podem pesquisar.",
   "continuity": {
     "label": "O que fica quando todo o resto muda",
     "title": "Mude tudo. Mantenha o que você sabe.",
@@ -105,7 +106,7 @@
       },
       "team": {
         "title": "Compartilhe com o time.",
-        "text": "Aponte todo mundo para o mesmo servidor. O que as sessões de uma pessoa aprendem, os agentes de todo mundo encontram. Quem acabou de chegar pergunta para o projeto em vez de interromper você.",
+        "text": "Conecte os agentes do time a um servidor. Nos projetos aos quais têm acesso, novos integrantes podem encontrar decisões anteriores e suas fontes antes de perguntar aos colegas.",
         "link": "ai-memory para times",
         "inLabel": "esta semana",
         "in": [
@@ -122,8 +123,8 @@
         ]
       },
       "wiki": {
-        "title": "Ele escreve a própria wiki.",
-        "text": "Os hooks capturam o trabalho em silêncio. As sessões viram páginas em markdown puro, organizadas e interligadas numa wiki versionada em git. Dê grep nela, abra no Obsidian, edite na mão.",
+        "title": "Salva notas pesquisáveis do projeto.",
+        "text": "Hooks são pequenos comandos acionados por eventos da sessão do agente. Eles registram observações que viram páginas markdown. Navegue pela wiki, pesquise ou edite à mão.",
         "link": "Veja o que fica guardado",
         "inLabel": "capturado",
         "in": [
@@ -178,12 +179,12 @@
   },
   "how": {
     "title": "O que acontece enquanto você trabalha.",
-    "lede": "As quatro etapas rodam em background, e o caminho padrão faz zero chamadas a LLM.",
+    "lede": "A captura salva observações de uma sessão. Um handoff resume o trabalho inacabado para a próxima, enquanto a wiki do projeto guarda notas mais duradouras. O caminho padrão dispensa um modelo de linguagem na nuvem.",
     "figureAlt": "Diagrama: terminais emitem observações que são consolidadas em páginas markdown, buscadas por um ranking fundido e passadas ao próximo agente. Embaixo de tudo fica uma wiki versionada em git, feita de arquivos markdown puros.",
     "steps": [
       {
         "title": "Captura",
-        "text": "Hooks de ciclo de vida registram prompts, chamadas de ferramenta e o começo e o fim das sessões. Segredos são removidos antes de qualquer coisa ser gravada."
+        "text": "Hooks registram prompts e observações limitadas das ferramentas. Credenciais reconhecidas são ocultadas antes do armazenamento, mas o filtro pode deixar passar texto sensível."
       },
       {
         "title": "Consolidação",
@@ -191,7 +192,7 @@
       },
       {
         "title": "Recuperação",
-        "text": "A próxima sessão recebe um briefing curto e pode buscar em tudo: full-text, entidades, links, vetores e as observações brutas, fundidos em um ranking só."
+        "text": "A próxima sessão recebe um briefing e pode pesquisar páginas e observações salvas. As notas recuperadas podem estar incompletas ou desatualizadas; confira decisões importantes nas fontes originais."
       },
       {
         "title": "Handoff",
@@ -210,7 +211,7 @@
     "gain": "O que você ganha"
   },
   "quickstart": {
-    "title": "Rodando com dois comandos.",
+    "title": "Instale, configure e abra seu agente.",
     "text": "Não tem cadastro. A instalação padrão escuta só na sua máquina, então nada de fora chega nela. Dá para adicionar a um projeto que já está em andamento: a primeira sessão importa o histórico de agentes que você tem em disco.",
     "links": {
       "install": "Todos os caminhos de instalação, passo a passo",
@@ -239,15 +240,24 @@
     "text": "Chegou agora? <a href=\"{href}\" class=\"underline font-semibold text-text\">A página de contribuição</a> mostra para onde vão bug reports, pull requests e integrações com novos agentes."
   },
   "aging": {
-    "title": "A memória velha encolhe, e o que você usa fica.",
-    "text": "As páginas de sessão se acumulam por meses. O ai-memory dá uma pontuação a elas, mantém as que você ainda lê e pode compactar ou mesclar o resto sem LLM. Uma passada de sonho opcional põe o seu LLM para mesclar páginas frias enquanto você está fora, e toda reescrita pode ser restaurada.",
+    "title": "Escolha como guardar notas antigas.",
+    "text": "Páginas de sessões sem uso podem ser removidas automaticamente. Você pode habilitar compactação ou mesclagem para guardar versões menores sem um modelo na nuvem. Uma passada opcional em background usa o modelo de linguagem configurado para mesclar páginas antigas; as reescritas de compactação e mesclagem podem ser restauradas.",
     "cta": "Como a memória envelhece",
-    "figureAlt": "Diagrama: ler uma página reforça a pontuação de retenção dela. O forget sweep encontra as páginas frias, que são descartadas por padrão ou, quando habilitado, compactadas ou mescladas em uma única sobrevivente. Páginas compactadas e mescladas podem ser restauradas a partir do histórico git."
+    "figureAlt": "Diagrama: ler uma página reforça sua pontuação de retenção. A varredura de retenção pode descartar páginas de sessões sem uso ou, opcionalmente, compactá-las ou mesclá-las. O conteúdo pode ser recuperado se ainda estiver em um checkpoint git preservado."
   },
   "profile": {
     "title": "Seus hábitos seguem você para o próximo projeto.",
     "text": "Cada projeto guarda a própria memória. O perfil leva como você costuma trabalhar, aprendido sozinho nos seus projetos, e entrega isso a cada projeto novo no início da sessão, abaixo das regras do repositório. Comece um repositório novo e o agente já conhece a sua base.",
     "cta": "Memória entre projetos",
     "figureAlt": "Diagrama: Claude Code, Codex e OpenCode compartilham um projeto pelo chip de memória. Três projetos alimentam o chip, que guarda o perfil, e uma seta leva dele a um projeto novo."
+  },
+  "guide": {
+    "title": "Antes de conectar um projeto",
+    "purpose": "Esta ferramenta é para quem já usa IA para trabalhar com código. Ela armazena contexto fora do agente para que sessões futuras possam recuperá-lo.",
+    "capture": "Com a captura habilitada, prompts e observações limitadas das ferramentas são registrados. Um projeto vazio pode importar o histórico local recente dos agentes no primeiro uso. No modo de usuário único, preferências recorrentes podem passar de um projeto para outro.",
+    "boundary": "Esses padrões descrevem o ai-memory. Seu agente de código tem suas próprias conexões com provedores e configurações de dados.",
+    "controls": "Revise captura e exclusão",
+    "profile": "Revise preferências entre projetos",
+    "fit": "Você precisa disso?"
   }
 }

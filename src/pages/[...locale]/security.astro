@@ -64,6 +64,15 @@ const next = withText([
     <a href={dataHandlingMd} class="btn btn-ghost">{t('hero.secondary')}</a>
   </PageHero>
 
+  <nav id="controls" class="wrap security-links" aria-label={t('hero.title')}>
+    {[
+      { id: 'capture-controls', label: t('boundary.exclude.title') },
+      { id: 'egress', label: t('egress.title') },
+      { id: 'deletion', label: t('audit.deletion.title') },
+      { id: 'limits', label: t('limits.title') },
+    ].map((link) => <a href={`#${link.id}`} class="link">{link.label}</a>)}
+  </nav>
+
   <Section hue="rose" id="default" title={t('posture.title')} lede={t('posture.lede')}>
     <FeatureGrid cols={4} items={posture} />
     <div class="mt-14">
@@ -80,7 +89,7 @@ const next = withText([
 
     <div class="mt-16 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10">
       <div>
-        <h3 class="text-xl">{t('boundary.exclude.title')}</h3>
+        <h3 id="capture-controls" class="text-xl">{t('boundary.exclude.title')}</h3>
         <ul class="mt-4 space-y-3 text-muted max-w-[34em] dotlist">
           {raw<string[]>('boundary.exclude.points').map((p) => <li set:html={p} />)}
         </ul>
@@ -119,7 +128,7 @@ const next = withText([
 
   <Section hue="rose" id="egress" tint title={t('egress.title')} lede={t('egress.lede')}>
     <Figure name="security-egress" alt={t('egress.figureAlt')} caption={t('egress.figureCaption')} />
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('egress.columns.path')}</th><th>{t('egress.columns.sent')}</th><th>{t('egress.columns.on')}</th><th>{t('egress.columns.default')}</th></tr></thead>
         <tbody>
@@ -146,12 +155,12 @@ const next = withText([
         </ul>
       </div>
       <div class="min-w-0">
-        <h3 class="text-xl">{t('audit.deletion.title')}</h3>
+        <h3 id="deletion" class="text-xl">{t('audit.deletion.title')}</h3>
         <p class="mt-4 text-muted max-w-[34em]">{t('audit.deletion.text')}</p>
         <div class="mt-5"><CodeBlock title={t('audit.deletion.codeTitle')} code={purge} /></div>
       </div>
     </div>
-    <div class="table-wrap mt-12">
+    <div class="table-wrap mt-12" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('audit.purgeTable.columns.what')}</th><th>{t('audit.purgeTable.columns.default')}</th><th>{t('audit.purgeTable.columns.compact')}</th></tr></thead>
         <tbody>
@@ -188,18 +197,20 @@ const next = withText([
 </Base>
 
 <style>
+  .security-links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding-block: 1.5rem; border-block: 1px solid var(--line); font-weight: 600; }
+
   /* Messages rendered with set:html carry no scope attribute, hence :global. */
   .limits { list-style: disc; padding-inline-start: 1.2rem; display: grid; gap: .6rem; }
 
   .ladder { display: grid; gap: 1rem; }
-  .ladder li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1.1rem; padding: 1.4rem 1.5rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-inline-start: 4px solid color-mix(in oklch, var(--hue-vivid) calc(30% + var(--i) * 17%), var(--line)); }
+  .ladder li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1.1rem; padding: 1.4rem 1.5rem; border-radius: 2px; background: var(--surface); border: 1px solid var(--line); border-inline-start: 4px solid color-mix(in oklch, var(--hue-vivid) calc(30% + var(--i) * 17%), var(--line)); }
   .ladder .n { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--hue-soft); color: var(--hue); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
   .ladder .badge { white-space: normal; }
   /* Climbing the ladder: the rung at the reading line lights up, rungs already passed stay marked. */
   .ladder li { transition: opacity .5s, border-color .5s, box-shadow .6s, scale .6s var(--ease-out-quint); }
   .ladder .n { transition: background-color .5s, color .5s, box-shadow .5s; }
-  .ladder[data-focus-ready] li[data-state='ahead'] { opacity: .5; }
-  .ladder[data-focus-ready] li[data-state='past'] { opacity: .8; }
+  .ladder[data-focus-ready] li[data-state='ahead'] { opacity: 1; }
+  .ladder[data-focus-ready] li[data-state='past'] { opacity: 1; }
   .ladder li[data-state='active'] { border-color: var(--hue-vivid); box-shadow: var(--shadow), 0 0 0 1px var(--hue-vivid), 0 18px 60px -28px var(--hue-vivid); scale: 1.015; }
   .ladder li:is([data-state='active'], [data-state='past']) .n { background: var(--hue-vivid); color: var(--ink); }
   .ladder li[data-state='active'] .n { box-shadow: 0 0 0 6px var(--hue-soft); }

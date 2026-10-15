@@ -2,45 +2,23 @@
 
 How pages on aimemory.sh are put together. Read this before adding or changing a page.
 
-## The idea
+## The idea: Signal Bureau
 
-The logo is a brain that is half neural network and half circuit board. An amber arrow goes in on the left, through a copper chip, and out on the right. The site takes three things from it:
+Direction C was selected on 15 October 2026. The unchanged brain logo supplies the copper chip, handoff arrows and neural connections. The surrounding interface uses mineral blue-grey enamel and dark slate, squared controls, fine structural rules and occasional clipped panel corners. Copper identifies memory and movement. No ambient rainbow gradients, neon glows, floating cards or scrolling marquees.
 
-1. The spectrum (green, teal, azure, violet, rose) is the brand. Each subject owns one hue and keeps it everywhere.
-2. Amber means action and handoff: buttons, the flow dots, "what you gain" markers. Nothing else is amber.
-3. "In, through the memory, out" is the shape of the homepage scroll scene and of most diagrams.
-
-The ground is a deep indigo in dark mode and a faintly violet white in light mode. Neither is grey. See [color-study.md](color-study.md).
+The default follows the system theme and keeps the existing theme switcher. Light mode uses a mineral ground with dark diagram and hero panels; dark mode uses the same panels against a deeper slate ground. Colors live in `src/styles/global.css`; `npm run check:colors` checks both themes, including the fixed dark panels.
 
 ## Subject hues
 
-| Subject | Hue | `data-hue` |
-|---|---|---|
-| Agents, individuals, research | violet | `violet` |
-| Machines, architecture, infrastructure | azure | `azure` |
-| Teams, contributing | teal | `teal` |
-| The wiki, how it works, downloads | green | `green` |
-| Security | rose | `rose` |
-| Action, migration, quick setup | amber | `amber` |
-
-Put `data-hue="teal"` on any element and its children can use `var(--hue)` (text-safe), `var(--hue-soft)` (fill) and `var(--hue-vivid)` (rules, dots, glows; never text).
+The existing `data-hue` API remains: green for knowledge, teal for teams, azure for infrastructure, violet for agents, rose for security and amber for actions. These are subdued slate-compatible tints, not the saturated spectrum. Use `--hue` for text, `--hue-soft` for fills and `--hue-vivid` for decoration. Dark panels use `--panel-text`, `--panel-muted`, `--panel-line` and `--amber` regardless of theme.
 
 ## Type
 
-| Role | Family | Notes |
-|---|---|---|
-| Headings | Bricolage Grotesque (variable) | weight 640, optical size 96 for h1/h2 |
-| Body and UI | Instrument Sans (variable) | width 96 |
-| Code only | Commit Mono | never for labels or decoration |
+Fonts are self-hosted through Fontsource. Chakra Petch (500/600) supplies angular headings; Manrope is the reading face; IBM Plex Mono is for code and short technical labels. Hebrew retains Rubik/Heebo; Japanese and Korean retain their Noto faces, loaded only for those languages.
 
-Sizes are Tailwind utilities backed by tokens: `text-4xl` (page h1), `text-3xl` (section h2), `text-2xl`, `text-xl` (h3), `text-lg` (lede), `text-base`, `text-sm`. The three largest are fluid.
+Body text is 18px. Navigation and controls are at least 16px; secondary labels are at least 14px. Diagram labels are 20px with 16px notes and reflow vertically on small screens instead of shrinking. Headings are fluid; translated headings can wrap. Do not lower text opacity for scroll effects.
 
-Rules:
-
-- Sentence case everywhere. No all-caps labels.
-- Do not color or italicize one word of a headline. A headline is one color, or the whole thing is `spectrum-text` (home hero only).
-- Lines of body text stay under about 70 characters (`max-w-[40em]` or the `.lede` class).
-- Numbers in steps only when the content is a real sequence.
+Sentence case, no spectrum-filled headlines. Keep paragraphs around 40em. Use angular display text for headings and short labels, never long prose.
 
 ## Layout
 
@@ -60,13 +38,14 @@ Rules:
 | `Section` | A band with an h2. Props: `title`, `lede`, `hue`, `id`, `tint`, `narrow`, `fill` (scroll-lit lede). |
 | `FeatureGrid` | Two to six short points. Props: `items[{title,text,hue,href,link}]`, `cols`. |
 | `Steps` | A numbered procedure with terminal blocks. Props: `steps[{title,text,code,codeTitle}]`. `text` accepts inline HTML. |
-| `Carousel` + `CarouselSlide` | A strip of equal-width slides: scroll-snap without JavaScript, arrows, dots, arrow keys and a slow auto-advance with it. Props: `id`, `labels[]` (one per slide, for the dots), `interval`. One per site, on the homepage hero. |
+| Homepage | A fixed brain hero, introductory workflow and controls, audience paths, then setup. The compact directory links to agent support and evidence without repeating the detailed sections. No auto-advancing content. |
 | `Transcript` | A terminal session as the reader sees it: a typed command, log lines, a warning, questions with answers. Props: `title`, `lines[{kind,text,answer}]`, `hue`. |
 | `CodeBlock` | A terminal with a copy button. Props: `code`, `title`. Lines starting with `#` dim as comments. |
 | `Tabs` | Props: `id`, `labels[]`. Panels are slots named `"0"`, `"1"`... |
-| `Figure` | A generated diagram. Props: `name` (file name in `src/assets/img/gen/`; the translated copy is used when one exists), or `src` for a screenshot, `alt` (describe what the diagram says), `caption`, `zoom`. |
+| `Figure` | A native diagram selected by `name`, or an original product screenshot passed as `src`. Supports `alt` and `caption`. |
+| `Diagram` + `CircuitIcon` | Typed topology in `src/data/diagrams.ts`, inline SVG symbols, translated HTML labels from `images.json`. Sequential stages connect; nodes inside one stage are parallel. Optional paths use dashed outlines. |
 | `BarChart` | Horizontal bars in plain HTML. Props: `bars[{label,note,value (0 to 1),display,detail,tone}]`, `label`, `axis`. `tone` is `strong`, `soft` or `other` (someone else's number, hatched). |
-| `SceneCard` | One window of the homepage scroll scene: terminal lines, people, chips or a file tree. |
+| `SceneCard` | Readable terminal, people, observation or file-tree content in the static continuity examples. |
 | `Faq` | The page's questions as an accordion, fed by the same list as its `faqPage()` structured data. Props: `items`, `title`, `hue`. |
 | `Callout` | Limits and caveats. Props: `title`, `hue`. |
 | `StatList` | A row of stand-out numbers that count up, each a link. Props: `stats[{n,label,hue,href}]`. |
@@ -88,19 +67,7 @@ A detail page is: `PageHero`, three to six `Section`s with at least two `Figure`
 
 ## Motion
 
-All scroll motion comes from `src/scripts/motion.ts` and is declared in markup:
-
-| Attribute | Effect |
-|---|---|
-| `data-fill` | Words light up as the paragraph crosses the viewport. One per page, on the sentence that matters most. |
-| `data-zoom` | Media grows from 86% to full size as it enters. `Figure` does this by default. |
-| `data-parallax="0.15"` | The element drifts against the scroll. |
-| `data-reveal` / `data-reveal="children"` | Settles in once. Use on grids, not on every section. |
-| `data-count="459"` | Counts up once. |
-| `data-draw` | On an inline SVG, strokes draw themselves with the scroll. |
-| `data-focus-list` | Children get `data-state="ahead"`, `"active"` or `"past"` as they cross the reading line. Style the states in the page (the security ladder does). Use it for a sequence the reader moves through, one per page. |
-
-Motion is scrubbed to the scroll position where possible, so it reads as the page responding to the reader and never plays on its own schedule. Everything is off under `prefers-reduced-motion`, and the content is complete without JavaScript. The pinned scene on the homepage (`Continuity.astro`) is the one big moment; do not add a second pin to the same page.
+Content remains readable without JavaScript and under reduced motion. Small position-only reveals and count animations may enhance the page. Never scale diagrams or fade text as the reader scrolls. Continuity examples are static and fully visible, without pinning. Navigation, tabs, copy buttons and theme choices retain their existing behavior.
 
 ## Writing
 
@@ -121,4 +88,4 @@ Every visible string lives in `src/i18n/locales/`, never in an `.astro` file, an
 
 ## Images
 
-Diagrams and illustrations are generated, then checked by a person. See [images.md](images.md).
+Diagrams use native SVG symbols and translated HTML text. See [images.md](images.md). Existing raster files and prompts remain as historical references; product screenshots and the brain logo stay unchanged.

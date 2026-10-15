@@ -74,6 +74,25 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
     <a href={href('/install/')} class="btn btn-ghost">{t('hero.secondary')}</a>
   </PageHero>
 
+  <Section title={t('lanes.title')} lede={t('lanes.lede')} hue="violet">
+    <Figure name="integrations-hooks-vs-mcp" alt={t('lanes.figureAlt')} />
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+      <div data-hue="green" class="lane">
+        <h3 class="text-xl">{t('lanes.hooksTitle')}</h3>
+        <p class="mt-2 text-muted">{t('lanes.hooksText')}</p>
+      </div>
+      <div data-hue="azure" class="lane">
+        <h3 class="text-xl">MCP</h3>
+        <p class="mt-2 text-muted">{t('lanes.mcpText')}</p>
+      </div>
+    </div>
+    <div class="mt-12">
+      <Callout title={t('lanes.managedTitle')} hue="violet">
+        <p set:html={t('lanes.managedText')} />
+      </Callout>
+    </div>
+  </Section>
+
   <Section title={t('hub.title')} lede={t('hub.lede')} hue="violet" fill>
     <Figure name="integrations-hub" alt={t('hub.figureAlt')} />
   </Section>
@@ -100,7 +119,7 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
           ))}
         </div>
 
-        <div class="table-wrap">
+        <div class="table-wrap" tabindex="0">
           <table class="table-site agents">
             <caption class="sr-only">{t('agents.caption')}</caption>
             <thead>
@@ -141,24 +160,7 @@ codex plugin marketplace add akitaonrails/ai-memory && codex plugin add ai-memor
     </div>
   </Section>
 
-  <Section title={t('lanes.title')} lede={t('lanes.lede')} hue="violet">
-    <Figure name="integrations-hooks-vs-mcp" alt={t('lanes.figureAlt')} />
-    <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
-      <div data-hue="green" class="lane">
-        <h3 class="text-xl">{t('lanes.hooksTitle')}</h3>
-        <p class="mt-2 text-muted">{t('lanes.hooksText')}</p>
-      </div>
-      <div data-hue="azure" class="lane">
-        <h3 class="text-xl">MCP</h3>
-        <p class="mt-2 text-muted">{t('lanes.mcpText')}</p>
-      </div>
-    </div>
-    <div class="mt-12">
-      <Callout title={t('lanes.managedTitle')} hue="violet">
-        <p set:html={t('lanes.managedText')} />
-      </Callout>
-    </div>
-  </Section>
+
 
   <!-- Unattended Claude Code, inside ai-jail -->
   <Section id="yolo" title={t('yolo.title')} lede={t('yolo.text')} hue="rose" tint>
@@ -185,7 +187,7 @@ codex plugin marketplace add akitaonrails/ai-memory && codex plugin add ai-memor
   </Section>
 
   <Section id="platforms" title={t('os.title')} lede={t('os.lede')} hue="azure">
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0">
       <table class="table-site plat">
         <caption class="sr-only">{t('os.caption')}</caption>
         <thead><tr><th scope="col">{t('os.cols.platform')}</th><th scope="col">{t('os.cols.status')}</th><th scope="col">{t('os.cols.how')}</th><th scope="col">{t('os.cols.notes')}</th></tr></thead>
@@ -310,7 +312,7 @@ codex plugin marketplace add akitaonrails/ai-memory && codex plugin add ai-memor
   .lane { border-top: 3px solid var(--hue-vivid); padding-top: 1.1rem; }
 
   .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .chips li { padding: .4rem .85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: .95rem; font-weight: 500; }
+  .chips li { padding: .4rem .85rem; border-radius: 2px; border: 1px solid var(--line); background: var(--surface); font-size: .95rem; font-weight: 500; }
   .chips li.first { background: var(--hue-soft); border-color: var(--hue-vivid); color: var(--hue); font-weight: 600; }
   :global(#providers) code, :global(#agents) .callout-code { background: var(--tint); border-radius: .35em; padding: .12em .4em; font-size: .9em; }
 </style>

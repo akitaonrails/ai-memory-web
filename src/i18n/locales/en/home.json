@@ -2,27 +2,27 @@
   "hero": {
     "releaseOut": "{tag} is out",
     "releaseLink": "See what changed",
-    "title": "Switch agents. Keep the context.",
-    "lede": "ai-memory is long-term memory for AI coding agents. Quit Claude Code mid-task, open Codex in the same directory, and carry on without re-explaining the architecture, the failed approaches or the open questions.",
+    "title": "Different agents. One memory.",
+    "lede": "ai-memory saves project notes for AI coding tools such as Claude Code and Codex. When you start another session, it supplies saved context and tools to search earlier work, so you spend less time re-explaining your project.",
     "primary": "Install now",
     "star": "Star on GitHub",
     "facts": [
       "Open source, MIT",
       "One binary, plain markdown",
-      "Works with no API key"
+      "Default memory features need no model API key"
     ],
     "marquee": "Works with {n} coding agents, including {names}",
     "cards": [
       {
         "kicker": "What memory is for",
-        "title": "Your agent forgets at the end of every session",
-        "text": "ai-memory writes what it learned into a wiki of plain markdown pages and hands the next session a short brief, so you stop re-explaining your own project.",
+        "title": "Keep project context between sessions",
+        "text": "Session observations become searchable notes in a wiki: a collection of plain-text markdown pages you can inspect and edit.",
         "cta": "How it works"
       },
       {
         "kicker": "Across projects",
         "title": "Your habits follow you to the next project",
-        "text": "A profile of how you work, learned from your projects, reaches every new one at session start, below that project’s own rules.",
+        "text": "In single-user mode, recurring preferences can carry across projects. On a shared server this is off until enabled. Project instructions take precedence.",
         "cta": "Memory across projects"
       },
       {
@@ -33,14 +33,14 @@
       },
       {
         "kicker": "Install",
-        "title": "Two commands, no account, no API key",
+        "title": "Install, set up, launch",
         "text": "A checksum-verified script and ai-memory setup. The server listens on your machine only, and your memory is markdown in a folder you own.",
         "cta": "Quick setup"
       },
       {
         "kicker": "Memory ages",
-        "title": "Old memory shrinks, and what you use stays",
-        "text": "Session pages are scored, kept while you still read them, and can shrink or merge with no LLM. Every rewrite can be restored.",
+        "title": "Choose how old session notes are kept",
+        "text": "Unused session pages can be removed automatically. Optional compaction or merging keeps shorter versions; those rewrites can be restored.",
         "cta": "How memory ages"
       },
       {
@@ -58,9 +58,10 @@
       "Install",
       "Memory ages",
       "Measured"
-    ]
+    ],
+    "secondary": "How it works"
   },
-  "statement": "Your coding agent already takes notes. They live on one machine and belong to one agent. Switch tools and they are gone, and your teammates never see them at all. ai-memory is what is on the other side of those walls.",
+  "statement": "Notes saved by one coding tool are not always available to another. ai-memory keeps project context in a shared store that your agents can search.",
   "continuity": {
     "label": "What stays when everything else changes",
     "title": "Change everything. Keep what you know.",
@@ -105,7 +106,7 @@
       },
       "team": {
         "title": "Share it with your team.",
-        "text": "Point everyone at one server. What one person’s sessions learn, everyone’s agents can find. New hires ask the project instead of interrupting you.",
+        "text": "Connect your team’s agents to one server. Within projects they can access, new hires can find earlier decisions and their sources before asking teammates.",
         "link": "ai-memory for teams",
         "inLabel": "this week",
         "in": [
@@ -122,8 +123,8 @@
         ]
       },
       "wiki": {
-        "title": "It writes its own wiki.",
-        "text": "Hooks capture the work silently. Sessions become plain markdown pages, filed and cross-linked in a git-backed wiki. Grep it, open it in Obsidian, edit it by hand.",
+        "title": "Saves searchable project notes.",
+        "text": "Hooks are small commands triggered by the agent’s session events. They record observations that become markdown pages. Browse the wiki, search it, or edit it by hand.",
         "link": "See what is stored",
         "inLabel": "captured",
         "in": [
@@ -178,12 +179,12 @@
   },
   "how": {
     "title": "What happens while you work.",
-    "lede": "All four steps run in the background, and the default path makes zero LLM calls.",
+    "lede": "Capture saves observations from a session. A handoff summarizes unfinished work for the next one, while the project wiki holds longer-lived notes. The default path needs no cloud language model.",
     "figureAlt": "Diagram: terminals emit observations that are consolidated into markdown pages, searched through fused ranking, and handed off to the next agent. Underneath it all sits a git-backed wiki of plain markdown files.",
     "steps": [
       {
         "title": "Capture",
-        "text": "Lifecycle hooks record prompts, tool calls and session boundaries. Secrets are stripped before anything is stored."
+        "text": "Hooks record prompts and limited tool observations. Recognized credentials are redacted before storage, but filtering can miss sensitive text."
       },
       {
         "title": "Consolidate",
@@ -191,7 +192,7 @@
       },
       {
         "title": "Recall",
-        "text": "The next session gets a short brief and can search everything: full text, entities, links, vectors and the raw observations, fused into one ranking."
+        "text": "The next session receives a brief and can search saved pages and observations. Retrieved notes can be incomplete or outdated; check important decisions against their sources."
       },
       {
         "title": "Hand off",
@@ -210,7 +211,7 @@
     "gain": "What you gain"
   },
   "quickstart": {
-    "title": "Up and running in two commands.",
+    "title": "Install, set up, then launch your agent.",
     "text": "There is no sign-up. The default install listens on your machine only, so nothing else can reach it. You can add it to a project that is already under way: the first session imports the agent history you have on disk.",
     "links": {
       "install": "Every install path, step by step",
@@ -239,15 +240,24 @@
     "text": "New here? <a href=\"{href}\" class=\"underline font-semibold text-text\">The contributing page</a> shows where bug reports, pull requests and new agent integrations go."
   },
   "aging": {
-    "title": "Old memory shrinks, and what you use stays.",
-    "text": "Session pages pile up for months. ai-memory scores them, keeps the ones you still read, and can compact or merge the rest with no LLM. An optional dream pass has your LLM merge cold pages while you are away, and every rewrite can be restored.",
+    "title": "Choose how old session notes are kept.",
+    "text": "Unused session pages can be removed automatically. You can enable compaction or merging to retain shorter versions without a cloud model. An optional background pass uses your configured language model to merge old pages; compaction and merge rewrites can be restored.",
     "cta": "How memory ages",
-    "figureAlt": "Diagram: reading a page reinforces its retention score. The forget-sweep finds cold pages, which are evicted by default or, when enabled, compacted or merged into one survivor. Compacted and merged pages can be restored from git history."
+    "figureAlt": "Diagram: reading a page reinforces its retention score. The retention sweep can evict unused session pages, or optionally compact or merge them. Page content can be recovered if it remains in a retained git checkpoint."
   },
   "profile": {
     "title": "Your habits follow you to the next project.",
     "text": "Each project keeps its own memory. The profile carries how you usually work, learned from your projects on their own, and hands it to every new one at session start, below the repository’s rules. Start a new repository and the agent already knows your baseline.",
     "cta": "Memory across projects",
     "figureAlt": "Diagram: Claude Code, Codex and OpenCode share one project through the memory chip. Three projects feed the chip, which holds the profile, and one arrow leads from it to a new project."
+  },
+  "guide": {
+    "title": "Before you connect a project",
+    "purpose": "This is a tool for people already using AI to work on code. It stores context outside the coding agent so later sessions can retrieve it.",
+    "capture": "With capture enabled, prompts and limited tool observations are recorded. An empty project can import recent local agent history on first use. In single-user mode, recurring preferences can carry across projects.",
+    "boundary": "These defaults describe ai-memory. Your coding agent has its own provider connections and data settings.",
+    "controls": "Review capture and deletion controls",
+    "profile": "Review cross-project preferences",
+    "fit": "Do you need this?"
   }
 }

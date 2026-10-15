@@ -95,7 +95,7 @@
     "items": [
       {
         "title": "Privado por operador",
-        "text": "Habilitado em um servidor compartilhado, cada pessoa recebe um perfil restrito que só ela e o root podem ler. Nada que os agentes de uma pessoa aprendem chega aos de outra."
+        "text": "Quando habilitado para contas de usuários do banco de dados, cada pessoa recebe um perfil restrito que só ela e root podem ler. Identidades de proxy confiável não têm essa barreira de permissões das contas do banco; a autorização cabe ao proxy."
       },
       {
         "title": "Um perfil de time pede duas vozes",
@@ -111,7 +111,7 @@
   },
   "limits": {
     "title": "O que ele é e o que não é",
-    "text": "Uma entrada de perfil é uma preferência usada como padrão e, como toda memória guardada, é dado, não comando. Ela pode escolher uma ferramenta, uma estrutura de pastas ou uma convenção. Não pode autorizar nada que suas instruções atuais não autorizariam. Nenhuma avaliação mediu o efeito dela ainda; o projeto entrega o mecanismo e não afirma número nenhum."
+    "text": "Uma entrada do perfil registra uma preferência para quando as instruções atuais e as regras do projeto deixam uma escolha em aberto. Texto armazenado não dá permissão para agir. As instruções dizem ao agente para tratá-lo como histórico não confiável, mas não garantem que o modelo ignore conteúdo hostil ou incorreto. Nenhuma avaliação mediu o efeito do perfil até agora."
   },
   "docs": "Leia o guia completo do perfil",
   "faq": [
@@ -129,7 +129,7 @@
     },
     {
       "q": "O que acontece em um servidor compartilhado?",
-      "a": "O perfil fica desligado até um operador habilitar. Depois, cada pessoa recebe um perfil privado que só ela e o root podem ler. Um perfil de time é outra escolha, e só admite um hábito com evidência de dois operadores."
+      "a": "O perfil fica desligado até ser habilitado. Contas de usuários do banco de dados passam a ter perfis privados que só a pessoa e root podem ler. Um perfil compartilhado do time é uma escolha separada e exige evidências de dois operadores. Identidades de proxy confiável dependem da autorização do proxy."
     },
     {
       "q": "Dá para desligar?",

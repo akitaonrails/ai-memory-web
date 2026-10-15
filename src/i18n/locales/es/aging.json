@@ -34,8 +34,8 @@
   "decay": {
     "title": "La ruta sin LLM",
     "lede": "Un barrido programado puntúa cada página episódica sin fijar. La puntuación baja con la edad y sube cada vez que alguien lee la página.",
-    "figureAlt": "Diagrama: leer una página refuerza su puntuación de retención. El barrido de olvido comprueba si una página está fría. Una página fría se desaloja por defecto o, si lo activas, se compacta o se fusiona con sus casi duplicados en una sola superviviente. Las páginas compactadas y fusionadas se pueden restaurar desde el historial de git.",
-    "figureCaption": "Línea continua: lo que pasa por defecto. Líneas discontinuas: lo que puedes activar. Una página compactada o fusionada vuelve con restore-page. Una desalojada, no.",
+    "figureAlt": "Diagrama: leer una página refuerza su puntuación de retención. El barrido de retención puede desalojar páginas de sesiones sin uso u, opcionalmente, compactarlas o fusionarlas. El contenido puede recuperarse si sigue en un checkpoint git conservado.",
+    "figureCaption": "Las líneas continuas muestran los valores por defecto; los contornos discontinuos indican funciones opcionales. restore-page recupera el contenido de un checkpoint git conservado mientras exista el proyecto. No recupera sesiones, observaciones ni traspasos que solo estén en la base de datos.",
     "score": {
       "title": "La puntuación de retención",
       "points": [
@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Las reescrituras son reversibles",
-        "text": "<code>ai-memory restore-page</code> recupera la página completa desde el historial de git de la wiki."
+        "text": "<code>ai-memory restore-page</code> puede recuperar una página de un checkpoint git conservado mientras exista su proyecto. No restaura sesiones, observaciones ni traspasos almacenados solo en la base de datos."
       },
       {
         "title": "Actualizar no cambia nada",
@@ -175,7 +175,7 @@
   "faq": [
     {
       "q": "¿ai-memory borra los recuerdos antiguos?",
-      "a": "Solo envejecen las páginas episódicas de sesión. Por defecto, una página fría se desaloja y se elimina definitivamente a los 180 días. Puedes hacer que las páginas frías se compacten o se fusionen en su lugar, y ambas cosas se pueden restaurar. Las páginas fijadas, semánticas y procedimentales se conservan."
+      "a": "Las páginas episódicas de sesión sin fijar envejecen. Una página fría se desaloja por defecto; su registro de eliminación en la base de datos puede borrarse tras 180 días. La compactación o fusión opcionales conservan contenido más corto. La página aún puede recuperarse si está en un checkpoint git conservado y su proyecto existe. Las páginas fijadas, semánticas y procedimentales no decaen, pero una caducidad explícita puede eliminarlas."
     },
     {
       "q": "¿El envejecimiento de la memoria necesita un LLM?",

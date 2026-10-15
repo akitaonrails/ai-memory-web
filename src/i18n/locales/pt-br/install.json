@@ -154,8 +154,8 @@
     },
     "agent": {
       "title": "O agente lembra",
-      "text": "Trabalhe por alguns minutos, saia e abra uma segunda sessão no mesmo diretório. Então pergunte:",
-      "ask": "“Onde a gente parou?”"
+      "text": "Em um projeto sem dados sensíveis, peça ao primeiro agente para salvar uma decisão específica do projeto. Encerre a sessão, abra outro agente compatível no mesmo diretório e peça essa decisão e a página salva que a registra.",
+      "ask": "“Qual decisão do projeto eu salvei e em qual página de memória ela está registrada?”"
     }
   },
   "next": {
@@ -205,7 +205,7 @@
         "tokenComment": "TOKEN aqui é a chave aim_ desta pessoa, não o token de root"
       },
       {
-        "title": "Adicione TLS antes de sair da LAN",
+        "title": "Use TLS em conexões remotas",
         "text": "Um bearer token autentica a requisição e não a criptografa. Chaves e cookies da web trafegam em texto puro sobre HTTP simples, então <a href=\"{tls}\">coloque Caddy, nginx ou um Cloudflare Tunnel na frente</a> assim que existirem contas ou o servidor for acessível fora da sua mesa."
       }
     ],
@@ -215,7 +215,7 @@
     },
     "limits": {
       "title": "O que o modo time não faz",
-      "text": "Contas não são uma fronteira de tenancy. Todo usuário autenticado vê todas as páginas de todos os projetos daquele servidor, e ainda não há permissões por projeto. Rode um servidor por time, e um servidor separado, com seu próprio diretório de dados, para um segundo time."
+      "text": "Os projetos são abertos por padrão. Root pode restringir projetos para contas de usuários do banco de dados com permissões de leitura ou escrita; elas valem para projetos inteiros, não para páginas individuais. Root ignora essas restrições, e identidades de proxy confiável dependem da autorização do proxy. Use servidores separados para times que precisam de isolamento independente."
     }
   },
   "nextPages": {

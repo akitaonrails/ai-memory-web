@@ -34,8 +34,8 @@
   "decay": {
     "title": "The path with no LLM",
     "lede": "A scheduled sweep scores every unpinned episodic page. The score falls with age and rises each time the page is read.",
-    "figureAlt": "Diagram: reading a page reinforces its retention score. The forget-sweep checks whether a page is cold. A cold page is evicted by default, or, when enabled, compacted or merged with its near-duplicates into one survivor. Compacted and merged pages can be restored from git history.",
-    "figureCaption": "Solid line: what happens by default. Dashed lines: what you can turn on. A page that was compacted or merged comes back with restore-page. An evicted page does not.",
+    "figureAlt": "Diagram: reading a page reinforces its retention score. The retention sweep can evict unused session pages, or optionally compact or merge them. Page content can be recovered if it remains in a retained git checkpoint.",
+    "figureCaption": "Solid lines show defaults; dashed outlines mark optional features. restore-page recovers page content from a retained git checkpoint while the project still exists. It does not recover database-only sessions, observations or handoffs.",
     "score": {
       "title": "The retention score",
       "points": [
@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Rewrites are reversible",
-        "text": "<code>ai-memory restore-page</code> brings back the full page from the wiki’s git history."
+        "text": "<code>ai-memory restore-page</code> can recover a page from a retained git checkpoint while its project still exists. It does not restore sessions, observations or handoffs stored only in the database."
       },
       {
         "title": "An upgrade changes nothing",
@@ -175,7 +175,7 @@
   "faq": [
     {
       "q": "Does ai-memory delete old memories?",
-      "a": "Only episodic session pages age. By default a cold one is evicted and removed for good after 180 days. You can have cold pages compacted or merged instead, and both can be restored. Pinned, semantic and procedural pages are kept."
+      "a": "Unpinned episodic session pages age. A cold page is evicted by default; its database tombstone can be removed after 180 days. Optional compaction or merging keeps shorter content. A page can still be recovered if a retained git checkpoint contains it and its project exists. Pinned, semantic and procedural pages do not decay, but an explicit expiry can still delete them."
     },
     {
       "q": "Does memory aging need an LLM?",

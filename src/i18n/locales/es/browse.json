@@ -53,7 +53,7 @@
   },
   "readonly": {
     "title": "Solo lectura a propósito",
-    "text": "El crate web no tiene ninguna ruta de escritura y su lint hace fallar la compilación si aparece una. Los cambios se hacen con las herramientas del agente o con la CLI. Cada vista sigue la regla de lectura por proyecto: en un servidor compartido, un proyecto restringido devuelve un 403 a quien no tenga un grant, y una página con sesión iniciada muestra la versión del servidor en el pie.",
+    "text": "La interfaz web no tiene rutas para editar contenido. Cambia las páginas mediante las herramientas del agente, la CLI o los archivos markdown. Para cuentas de usuarios de la base de datos, las vistas del proyecto comprueban el acceso de lectura; root y las identidades de proxy de confianza siguen sus respectivas reglas de autorización. Las páginas con sesión iniciada muestran la versión del servidor en el pie.",
     "api": "Los mismos datos están disponibles como JSON en <code>/api/v1</code>, y <code>serve --enable-api</code> monta la API sin la interfaz del navegador."
   },
   "faq": [
@@ -67,7 +67,7 @@
     },
     {
       "q": "¿Quién puede ver qué en un servidor compartido?",
-      "a": "La misma regla que las herramientas: un proyecto restringido solo lo leen quienes tienen un grant, la línea de tiempo de sesión de otro operador está oculta, y las páginas de estado y Pending son solo para root."
+      "a": "Con cuentas de usuarios de la base de datos, los proyectos restringidos son visibles para root, su creador y los usuarios con permiso de lectura o escritura. La cronología de sesiones de otro operador queda oculta; las vistas de salud y pendientes son exclusivas de root. Los despliegues con proxy de confianza deben aplicar el control de acceso en el proxy."
     },
     {
       "q": "¿Necesita JavaScript?",

@@ -10,7 +10,7 @@ function block(selector) {
   const out = {};
   const re = new RegExp(`${selector}\\s*\\{([^}]*)\\}`, 'g');
   for (const m of css.matchAll(re)) {
-    for (const d of m[1].matchAll(/--([\w-]+):\s*(oklch\([^)]*\))/g)) out[d[1]] = d[2];
+    for (const d of m[1].matchAll(/--([\w-]+):\s*(oklch\([^)]*\)|#[0-9a-fA-F]{6}(?![0-9a-fA-F]))/g)) out[d[1]] = d[2];
   }
   return out;
 }
@@ -28,6 +28,8 @@ for (const [name, t] of Object.entries(themes)) {
     ...hues.flatMap((h) => [[h, 'bg', 4.5], [h, 'surface', 4.5], [h, `${h.replace('-ink', '')}-soft`, 4.5]]),
     ['on-amber', 'amber', 7], ['on-amber', 'amber-hi', 7],
     ['line', 'bg', 1.2],
+    ['panel-text', 'ink', 7], ['panel-muted', 'ink', 4.5], ['amber', 'ink', 4.5],
+    ['panel-text', 'panel-surface', 7], ['panel-muted', 'panel-surface', 4.5],
   ];
   console.log(md ? `\n### ${name}\n\n| Foreground | Background | Ratio | Target | |\n|---|---|---|---|---|` : `\n== ${name} ==`);
   for (const [fg, bg, target] of rows) {

@@ -53,7 +53,7 @@
   },
   "readonly": {
     "title": "Somente leitura, de propósito",
-    "text": "O crate web não tem rota de escrita, e o lint dele quebra o build se aparecer alguma. As mudanças passam pelas ferramentas do agente ou pela CLI. Cada tela segue a regra de leitura por projeto: num servidor compartilhado, um projeto restrito devolve 403 para quem não tem grant, e uma página com login mostra a versão do servidor no rodapé.",
+    "text": "A interface web não tem rota para editar conteúdo. Altere páginas pelas ferramentas do agente, pela CLI ou pelos arquivos markdown. Para contas de usuários do banco de dados, as telas do projeto verificam a permissão de leitura; root e identidades de proxy confiável seguem suas respectivas regras de autorização. Páginas após login mostram a versão do servidor no rodapé.",
     "api": "Os mesmos dados saem como JSON em <code>/api/v1</code>, e o <code>serve --enable-api</code> monta a API sem a interface no navegador."
   },
   "faq": [
@@ -67,7 +67,7 @@
     },
     {
       "q": "Quem vê o quê num servidor compartilhado?",
-      "a": "A mesma regra das ferramentas: um projeto restrito só é legível por quem tem grant, a timeline de sessão de outro operador fica oculta, e as páginas de saúde e de pendências são só para o root."
+      "a": "Com contas de usuários do banco de dados, projetos restritos ficam visíveis para root, seu criador e usuários com permissão de leitura ou escrita. A linha do tempo de sessões de outro operador fica oculta; as telas de saúde e pendências são exclusivas de root. Instalações com proxy confiável devem aplicar o controle de acesso no proxy."
     },
     {
       "q": "Precisa de JavaScript?",

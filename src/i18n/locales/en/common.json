@@ -48,18 +48,18 @@
       "label": "Product",
       "how": {
         "label": "How it works",
-        "note": "Capture, consolidate, recall, hand off"
+        "note": "Saved notes, search and session handoffs"
       },
       "aging": {
         "label": "How memory ages",
-        "note": "Decay, compaction and the dream pass"
+        "note": "When old notes are removed, shortened or merged"
       },
       "profile": {
         "label": "Memory across projects",
         "note": "How you work, handed to every new project"
       },
       "features": {
-        "label": "More you can do",
+        "label": "Messaging and project scopes",
         "note": "Agent messaging, scopes, rules, expiring notes"
       },
       "browse": {
@@ -90,7 +90,7 @@
         "note": "One shared memory, faster onboarding"
       },
       "compare": {
-        "label": "Migrating from another tool",
+        "label": "Compare memory tools",
         "note": "Mem0, Zep, cognee, OpenViking and others"
       }
     },
@@ -106,7 +106,7 @@
       },
       "providers": {
         "label": "LLM and embedding providers",
-        "note": "Optional. Everything works without one"
+        "note": "Optional model services and what they add"
       }
     },
     "developers": {
@@ -130,7 +130,7 @@
     }
   },
   "footer": {
-    "motto": "The model and the harness are rented. The project’s memory is yours.",
+    "motto": "Your project notes, in files you can inspect and edit.",
     "themeSystem": "System",
     "themeLight": "Light",
     "themeDark": "Dark",
@@ -141,7 +141,7 @@
   },
   "cta": {
     "title": "Give your agents a memory today.",
-    "text": "Free and open source under the MIT license. You need no account and no API key.",
+    "text": "Free and open source under the MIT license. The default memory features need no model API key; your coding agent may require its own account.",
     "primary": "Install now",
     "secondary": "Star it on GitHub"
   },

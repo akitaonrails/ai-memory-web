@@ -34,8 +34,8 @@
   "decay": {
     "title": "O caminho sem LLM",
     "lede": "Uma varredura agendada pontua toda página episódica que não está fixada. A pontuação cai com a idade e sobe cada vez que a página é lida.",
-    "figureAlt": "Diagrama: ler uma página reforça a pontuação de retenção dela. O forget sweep verifica se a página está fria. Uma página fria é descartada por padrão ou, quando habilitado, compactada ou mesclada com suas quase duplicatas em uma única sobrevivente. Páginas compactadas e mescladas podem ser restauradas a partir do histórico git.",
-    "figureCaption": "Linha contínua: o que acontece por padrão. Linhas tracejadas: o que você pode ligar. Uma página compactada ou mesclada volta com restore-page. Uma página descartada não volta.",
+    "figureAlt": "Diagrama: ler uma página reforça sua pontuação de retenção. A varredura de retenção pode descartar páginas de sessões sem uso ou, opcionalmente, compactá-las ou mesclá-las. O conteúdo pode ser recuperado se ainda estiver em um checkpoint git preservado.",
+    "figureCaption": "Linhas contínuas mostram os padrões; contornos tracejados indicam recursos opcionais. restore-page recupera o conteúdo de um checkpoint git preservado enquanto o projeto existir. Não recupera sessões, observações ou handoffs que só existem no banco de dados.",
     "score": {
       "title": "A pontuação de retenção",
       "points": [
@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Reescritas são reversíveis",
-        "text": "<code>ai-memory restore-page</code> traz de volta a página inteira a partir do histórico git da wiki."
+        "text": "<code>ai-memory restore-page</code> pode recuperar uma página de um checkpoint git preservado enquanto seu projeto existir. Não restaura sessões, observações ou handoffs armazenados apenas no banco de dados."
       },
       {
         "title": "Atualizar não muda nada",
@@ -175,7 +175,7 @@
   "faq": [
     {
       "q": "O ai-memory apaga memórias antigas?",
-      "a": "Só as páginas episódicas de sessão envelhecem. Por padrão, uma página fria é descartada e removida de vez depois de 180 dias. Em vez disso, você pode mandar compactar ou mesclar as páginas frias, e as duas operações podem ser restauradas. Páginas fixadas, semânticas e procedurais são mantidas."
+      "a": "Páginas episódicas de sessão não fixadas envelhecem. Uma página fria é descartada por padrão; seu registro de exclusão no banco pode ser removido após 180 dias. Compactação ou mesclagem opcionais mantêm conteúdo menor. A página ainda pode ser recuperada se estiver em um checkpoint git preservado e seu projeto existir. Páginas fixadas, semânticas e procedurais não decaem, mas uma expiração explícita ainda pode excluí-las."
     },
     {
       "q": "O envelhecimento da memória precisa de um LLM?",

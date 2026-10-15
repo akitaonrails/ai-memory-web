@@ -25,7 +25,7 @@
     }
   },
   "compile": {
-    "title": "Compile, don’t retrieve",
+    "title": "Build the wiki as work happens",
     "lede": "In April 2026 Andrej Karpathy published a short “idea file” about what he called an LLM wiki. ai-memory is that idea, adapted for coding agents that never stop producing material.",
     "layers": {
       "title": "Three layers",

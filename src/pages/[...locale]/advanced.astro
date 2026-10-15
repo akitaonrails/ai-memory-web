@@ -167,7 +167,7 @@ const faq = faqPage(faqItems);
 
   <Section id="topologies" hue="azure" title={t('topologies.title')} lede={t('topologies.lede')}>
     <Figure name="advanced-topologies" alt={t('topologies.figure.alt')} caption={t('topologies.figure.caption')} />
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('topologies.columns.topology')}</th><th>{t('topologies.columns.bind')}</th><th>{t('topologies.columns.auth')}</th><th>{t('topologies.columns.tls')}</th><th>{t('topologies.columns.runs')}</th></tr></thead>
         <tbody>
@@ -264,7 +264,7 @@ const faq = faqPage(faqItems);
 
   <Section id="data" hue="green" tint title={t('data.title')} lede={t('data.lede')}>
     <p class="mt-8 text-muted max-w-[44em]">{t('data.reindexNote')}</p>
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('data.columns.dir')}</th><th>{t('data.columns.holds')}</th><th>{t('data.columns.kind')}</th><th>{t('data.columns.backup')}</th></tr></thead>
         <tbody>
@@ -329,7 +329,7 @@ ai-memory restore-agents -i agent-assets.tar.gz --apply`} /></div>
 
     <h3 class="text-2xl mt-16">{t('routing.autoScope.title')}</h3>
     <p class="mt-3 text-muted max-w-[40em]">{t('routing.autoScope.text')}</p>
-    <div class="table-wrap mt-6">
+    <div class="table-wrap mt-6" tabindex="0">
       <table class="table-site">
         <thead><tr><th>{t('routing.autoScope.columns.mode')}</th><th>{t('routing.autoScope.columns.when')}</th></tr></thead>
         <tbody>{autoScope.map((a) => <tr><th scope="row"><code>{a.mode}</code></th><td>{a.when}</td></tr>)}</tbody>
@@ -369,7 +369,7 @@ ai-memory restore-agents -i agent-assets.tar.gz --apply`} /></div>
       <h3 class="text-2xl mt-16">{t('ops.capacity.title')}</h3>
       <p class="mt-3 text-muted max-w-[40em]" set:html={t('ops.capacity.text')} />
       <div class="mt-6 grid gap-8 lg:grid-cols-2">
-        <div class="table-wrap">
+        <div class="table-wrap" tabindex="0">
           <table class="table-site">
             <thead><tr><th>{t('ops.capacity.columns.writers')}</th><th>{t('ops.capacity.columns.throughput')}</th><th>{t('ops.capacity.columns.latency')}</th></tr></thead>
             <tbody>{capacity.map(([writers, perSec, ms]) => <tr><th scope="row">{number(writers)}</th><td>{t('ops.capacity.perSecond', { n: number(perSec) })}</td><td>{t('ops.capacity.ms', { n: number(ms) })}</td></tr>)}</tbody>
@@ -415,9 +415,9 @@ ai-memory restore-agents -i agent-assets.tar.gz --apply`} /></div>
 </Base>
 
 <style>
-  @media (max-width: 48rem) { .tabs-wrap :global(.tablist) { border-radius: 1.25rem; } }
+  @media (max-width: 48rem) { .tabs-wrap :global(.tablist) { border-radius: 2px; } }
   .jump { display: flex; flex-wrap: wrap; gap: .5rem; padding-bottom: 1rem; }
-  .jump a { padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: .92rem; transition: color .2s, border-color .2s; }
+  .jump a { padding: .4rem .9rem; border-radius: 2px; border: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: .92rem; transition: color .2s, border-color .2s; }
   .jump a:hover { color: var(--text); border-color: var(--hue-vivid); }
   .stack { display: grid; gap: 1.25rem; }
   .stack > :global(*) { min-width: 0; }

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Architecture: one binary, markdown, a derived index",
-    "description": "How ai-memory works inside: fire-and-forget hooks, a single SQLite writer, markdown in git as the source of truth, and four retrieval streams fused with RRF."
+    "description": "How ai-memory works: session hooks, a single SQLite writer, markdown files in git, and five retrieval streams fused into one ranking."
   },
   "hero": {
     "title": "One binary, markdown files, a derived index",
@@ -193,7 +193,7 @@
   },
   "codebase": {
     "title": "The code, by crate.",
-    "lede": "Nine crates, each with one job and a typed API, with no circular dependencies.",
+    "lede": "Ten product crates, each with one job and a typed API, with no circular dependencies.",
     "columns": {
       "crate": "Crate",
       "job": "Responsibility"
@@ -207,7 +207,8 @@
       "llm": "Provider auth boundary, LLM and embedder traits.",
       "consolidate": "Ingest, lint, sweep and the auto-improve pipeline.",
       "workstream": "Read-only native transcript and launch adapters.",
-      "cli": "The ai-memory binary and its thin HTTP subcommands."
+      "cli": "The ai-memory binary and its thin HTTP subcommands.",
+      "web": "Read-only browser views and the JSON API."
     },
     "tools": {
       "title": "{n} MCP tools, narrow on purpose",
@@ -237,7 +238,7 @@
     },
     {
       "q": "How does retrieval rank results?",
-      "a": "Four candidate streams (FTS5 full text, entity match, graph neighbours and optional vectors) are fused with Reciprocal Rank Fusion at k=60, then adjusted by a bounded source-authority multiplier. LLM rerank is optional, and raw observations are a fallback."
+      "a": "Five candidate streams are fused: FTS5 full text, entity matches, graph neighbours, observations and optional vectors. Reciprocal Rank Fusion at k=60 combines them, followed by a bounded source-authority adjustment. LLM reranking is optional."
     },
     {
       "q": "How many writes per second can it take?",

@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Integrations",
     "title": "Your agents, your OS, your providers",
-    "lede": "{n} coding agents and editors, four operating system targets, and a list of LLM and embedding providers that you can ignore, because everything works without one.",
+    "lede": "{n} coding agents and editors, four operating system targets, and optional model providers. Capture, handoffs and search work without a cloud model provider.",
     "primary": "Find your agent",
     "secondary": "Go to quick setup"
   },
@@ -50,11 +50,11 @@
   },
   "lanes": {
     "title": "Hooks capture, MCP answers",
-    "lede": "These are two separate connections, and a fully supported agent has both. The status labels above say which ones your agent gets.",
+    "lede": "Hooks record session events automatically. MCP, the Model Context Protocol, gives your agent tools to search and use memory. A fully supported agent has both connections.",
     "figureAlt": "Diagram with two lanes. Hooks: your agent streams events into memory on its own, which is automatic capture. MCP: your agent sends a request to memory and gets an answer back, which are tools the agent calls.",
     "hooksTitle": "Hooks",
-    "hooksText": "The agent’s lifecycle events fire a small command that records prompts, tool calls and session boundaries. You do nothing, and the agent spends no tokens on it. Secrets are stripped before anything is stored.",
-    "mcpText": "The agent gets memory tools it can call when the conversation needs them: search, read a page, write a page, accept a handoff. MCP-only agents can use memory fully, but nothing is captured unless they write it.",
+    "hooksText": "Session events trigger a small command that records prompts and limited tool observations. Recognized credentials are redacted before storage; filtering is best effort.",
+    "mcpText": "Through MCP, the agent can search, read or write a page, and accept a handoff. MCP-only agents can use these tools, but automatic session capture needs hooks.",
     "managedTitle": "What “managed” adds",
     "managedText": "<code>ai-memory run &lt;agent&gt;</code> launches the agent with hooks and MCP already wired, and resumes the same piece of work when you switch between managed agents. Agents marked “direct launch” work the normal way: install once, then start them as you always do."
   },

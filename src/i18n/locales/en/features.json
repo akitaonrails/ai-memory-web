@@ -58,7 +58,7 @@
     "items": [
       {
         "title": "One workspace per client",
-        "text": "Drop <code>.ai-memory.toml</code> in <code>~/work/client-a/</code> and every repository below it files under that workspace. Nothing from client A ever surfaces while you work for client B."
+        "text": "Drop <code>.ai-memory.toml</code> in <code>~/work/client-a/</code> and repositories below it use that workspace. This controls where memory is filed and searched by default. It is not an access-control rule: deliberate cross-project searches and shared profiles need separate consideration."
       },
       {
         "title": "A mono-repo as one project",
@@ -188,7 +188,7 @@
   "faq": [
     {
       "q": "Can an agent in one project read another project’s memory?",
-      "a": "No. Memory is filed per project, and messaging is the one deliberate crossing: a project sees only mail addressed to it or sent by it. The message body has to be self-contained because the reader cannot see the sender’s files."
+      "a": "Yes, through explicit cross-project queries when the caller has access. Normal queries use the current project. Messaging delivers a self-contained request to another project’s inbox; it does not give the recipient access to the sender’s files."
     },
     {
       "q": "Is a received message treated as instructions?",

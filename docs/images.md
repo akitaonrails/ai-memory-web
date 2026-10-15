@@ -1,3 +1,17 @@
+# Signal Bureau diagrams
+
+Production diagrams now render through `Figure.astro` → `Diagram.astro`, with typed topology in `src/data/diagrams.ts` and SVG symbols in `CircuitIcon.astro`. Labels come directly from all six existing `images.json` catalogs. The brain logo and actual product screenshots retain their original pixels.
+
+Each diagram is a set of lanes. Stages within a lane connect in order; nodes within one stage are parallel. Independent comparisons use no connectors. Optional paths use dashed outlines. Labels prefixed with `=` are technical identifiers that remain identical across languages (commands, filenames, product names). Every other label must exist in the catalog; missing labels fail the build.
+
+Use dark slate panels, copper connections and memory chips, pale outlined terminal/folder/server symbols. Labels stay at 20px, notes at 16px; narrow screens stack stages and rotate connectors. Diagram topology stays left to right; each label uses the locale's own text direction.
+
+Check topology against the relevant product page and source before editing. Inspect desktop and mobile in light/dark themes, including Hebrew and Japanese. Run `npm run check:colors && npm run check:i18n && npm run build && npm run check:ui`.
+
+The historical raster workflow below is retained for reference. It no longer drives production diagrams. Do not regenerate raster translations for native diagram text changes.
+
+---
+
 # Diagrams and illustrations
 
 The diagrams are generated with Google's Gemini image model (`gemini-3-pro-image`), then checked by eye. A generated diagram can misspell a label or draw something the product does not do, so nothing ships unseen.
