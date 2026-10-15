@@ -23,6 +23,6 @@ Browser checks covered desktop menu keyboard opening and Escape, persistent them
 
 Axe 4.8.2 checks covered every English content page in both themes, plus translated homepages and tablet layouts. The completed checks reported no WCAG A/AA or best-practice violations. The audit uses the actual theme control and waits for repaint before measuring; immediate style mutation produced transient mixed-theme measurements. Screenshots were inspected for the homepage, detail headers, diagrams, mobile layouts, and Hebrew directionality.
 
-Browser audit output and screenshots are local at `node_modules/.cache/archive-review/`; the route sweep writes `node_modules/.cache/signal-review/checks.json`. Automated accessibility checks do not replace manual assistive-technology testing.
+Temporary browser audit output, screenshots and design-study caches were removed after verification. Running `npm run check:ui` creates a fresh report at `node_modules/.cache/signal-review/checks.json`. Automated accessibility checks do not replace manual assistive-technology testing.
 
 The owner authorized pushing the implementation and removing disposable artifacts after verification.

@@ -1,9 +1,9 @@
 ---
-// Native diagrams share the Signal Bureau visual language; screenshots retain their original pixels.
+// Native diagrams share the Memory Archive visual language; screenshots retain their original pixels.
 import { Image } from 'astro:assets';
 import Diagram from './Diagram.astro';
 import { diagrams } from '@/data/diagrams';
-interface Props { name?: string; src?: ImageMetadata; alt: string; caption?: string; zoom?: boolean }
+interface Props { name?: string; src?: ImageMetadata; alt: string; caption?: string }
 const { name, src, alt, caption } = Astro.props;
 if (!src && !diagrams[name ?? '']) throw new Error(`Figure: no diagram or image for "${name}"`);
 ---
