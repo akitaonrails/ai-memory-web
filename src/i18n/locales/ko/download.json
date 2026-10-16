@@ -77,28 +77,28 @@
     "upgrading": "3.0으로 업그레이드하기",
     "highlights": [
       {
-        "title": "올바른 세션을 훨씬 더 자주 찾습니다",
-        "text": "세션 페이지는 턴마다 짧은 발췌만 보관하므로, 답이 원본 관찰 기록에만 있는 경우가 많았습니다. 이제 관찰 기록도 랭킹에 투표합니다. 기본 설치 상태에서 LLM 없이 LongMemEval-S의 hit@5가 0.82에서 0.95로 올랐습니다. 설정 플래그 하나로 이전 랭킹으로 되돌릴 수 있습니다."
+        "title": "두 명령으로 Windows 설정",
+        "text": "<code>install.ps1</code>은 관리자 권한 없이 네이티브 zip을 검증하고 설치합니다. <code>ai-memory setup</code>은 서버를 즉시 그리고 로그인 때 시작합니다. 네이티브 Windows는 여전히 실험적이며 WSL2는 계속 지원합니다."
       },
       {
-        "title": "네이티브 설치기와 설정 명령",
-        "text": "<code>install.sh</code>는 릴리스를 내려받아 체크섬을 검증하고, root 권한 없이 바이너리를 연결합니다. <code>ai-memory setup</code>은 데이터 디렉터리를 만들고 사용자별 서비스를 시작하며, 찾은 모든 에이전트를 연결합니다. Claude Code와 Codex는 마켓플레이스 플러그인으로 대신 설치할 수도 있습니다."
+        "title": "설정 전에 에이전트 선택",
+        "text": "<code>setup --plan</code>은 변경 없이 계획을 보여줍니다. <code>setup --web</code>은 로컬 브라우저 페이지를 열어 감지된 에이전트 중 연결할 대상을 고르게 합니다."
       },
       {
-        "title": "기본값으로 토큰 사용",
-        "text": "새로 설치하면 Bearer 토큰이 소유자 전용 파일에 발급되고, 훅과 CLI, MCP 브리지가 이 파일을 읽습니다. 기존 설치는 그대로 동작하며 <code>ai-memory auth enable</code>로 전환할 수 있습니다. 1.x의 토큰 명령은 없어졌지만, 그 명령으로 발급한 토큰은 API 키로 계속 동작합니다."
+        "title": "더 많은 맥락으로 이어가기",
+        "text": "관리형 하네스 전환은 비공개 임시 로컬 기록을 다음 에이전트에 전달할 수 있습니다. 지원 클라이언트에서 프롬프트를 <code>reload context</code>로 시작하면 압축 전 캡처된 맥락을 복원하며 핸드오프를 가져오지는 않습니다."
       },
       {
-        "title": "한층 성숙해진 웹 UI",
-        "text": "페이지 이력과 차이 비교, 세션 재생, 역링크, 검색 설명, 메일 표시, root용 상태 페이지가 추가되었습니다. 계정 관리와 root의 보류 편집 승인도 가능하며, 페이지 편집기는 없습니다."
+        "title": "사용자, 세션, 키 관리",
+        "text": "선택적 <code>/manage</code> 콘솔은 사용자 관리, 소유 세션 정리, 개인 MCP 키를 제공합니다. <code>management-ui</code> 빌드 기능과 <code>--enable-management-ui</code>가 필요하며 표준 Docker 이미지에는 없습니다."
       },
       {
-        "title": "더 많은 에이전트",
-        "text": "전체 훅을 지원하는 Factory Droid와 Meta Muse Code, 런처로 쓰는 GitHub Copilot CLI, MCP로 연결하는 Prime Agent와 DeepSeek Harness, 클라이언트 여섯 개에 대한 설정 가이드, LLM 제공자로 쓸 수 있는 Cursor 구독이 추가되었습니다."
+        "title": "IBM Bob과 CodeBuddy Code",
+        "text": "IBM Bob에 MCP와 네이티브 훅이 추가되었습니다. 마지막 턴 후 세션을 명시적으로 마무리하세요. CodeBuddy Code에는 네이티브 훅과 핸드오프가 추가되었습니다. 둘 다 관리형 실행이나 과거 대화 기록 가져오기는 지원하지 않습니다."
       },
       {
-        "title": "복구와 동기화",
-        "text": "<code>ai-memory recover</code>는 서버가 중단된 동안 훅이 스풀해 둔 내용을 다시 반영합니다. 페이지 쓰기에 전제 조건을 걸 수 있어 두 작성자가 서로의 내용을 덮어쓰지 않으며, 팀 위키 동기화와 새 임포터가 이 기능을 바탕으로 합니다. 코딩 에이전트가 아닌 프로그램을 위해 TypeScript SDK도 제공합니다."
+        "title": "검색과 복원",
+        "text": "웹 검색에 종류와 계층 필터가 추가되었습니다. <code>search --global</code>은 CLI에서 여러 프로젝트의 위키 페이지를 검색합니다. 관리자는 <code>memory_restore_page</code>로 체크포인트 목록을 조회하고 페이지를 복원할 수 있습니다."
       }
     ]
   },

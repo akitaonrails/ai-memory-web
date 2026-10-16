@@ -41,3 +41,31 @@ That writes `src/data/upstream-sync.json` with the tag and commit the site was r
 | Everything else | the page catalogs under `src/i18n/locales/` |
 
 Text changes follow the rule in [i18n.md](i18n.md): all six languages in the same change.
+
+## v3.1.0 review — 2026-10-16
+
+Reviewed the v3.0.0 → v3.1.0 watched-document diff and both intervening
+changelogs (3.0.1 and 3.1.0), using the release tag rather than the working tree.
+Updated all six locales for native Windows setup, setup previews, IBM Bob and
+CodeBuddy support, bounded context recovery and local harness-switch history,
+progressive briefs, admin-only MCP page recovery, optional ledger retention,
+search filters and the opt-in management console. Corrected the team account
+revocation claim: self-issued keys require separate revocation.
+
+The current benchmark columns use the published 3.1 report, measured on candidate
+`a288a1093550b096075087665319054c3ef598ba`; the report explains the later
+non-retrieval changes. The October 12 stream decomposition remains explicitly
+historical. Quality counts and the MCP tool list were refreshed. The search
+screenshot was retaken from the checksum-verified v3.1.0 Linux release binary
+on a temporary loopback server with four synthetic pages, without an LLM.
+
+Deliberately left out of the landing-page pitch: the unsigned desktop installer
+preview (not a release asset), the operator-decision messaging convention (not
+a new server-enforced approval protocol), advanced opt-in verbatim residue, and
+internal bug-fix details. Their released upstream docs and changelog remain the
+reference. Existing manual Linux/macOS installation paths remain valid.
+
+Validation: source checker reports no mismatches; all 2,428 catalog strings
+are translated in every locale; contrast and build pass (102 pages). All 408
+page/viewport/theme layout checks, 32 accessibility checks, six mobile Windows
+tab checks, and the internal-link scan pass.

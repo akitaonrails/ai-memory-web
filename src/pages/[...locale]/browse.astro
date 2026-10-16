@@ -1,6 +1,7 @@
 ---
 import { useI18n, localePaths, withText } from '@/i18n';
 export const getStaticPaths = localePaths;
+import { site } from '@/data/site';
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
@@ -52,6 +53,11 @@ const next = withText([
       <Callout title={t('readonly.title')} hue="rose"><p>{t('readonly.text')}</p></Callout>
       <p class="text-muted max-w-[40em]" set:html={t('readonly.api')} />
     </div>
+  </Section>
+
+  <Section id="management" title={t('management.title')} hue="teal" tint>
+    <p class="text-muted max-w-[44em]" set:html={t('management.text', { href: `${site.docs}/management-ui.md` })} />
+    <p class="mt-6 text-muted max-w-[44em]">{t('management.keys')}</p>
   </Section>
 
   <Faq items={faq} hue="green" />

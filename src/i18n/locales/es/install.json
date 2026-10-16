@@ -30,7 +30,7 @@
       },
       {
         "title": "Configúralo",
-        "text": "<code>setup</code> crea el directorio de datos con su token, arranca un servicio de usuario (systemd o launchd) y conecta hooks, MCP y skills para cada agente que encuentre. Muestra el plan y pregunta antes; una segunda ejecución no cambia nada."
+        "text": "<code>setup</code> crea el directorio de datos y el token, inicia un servicio de usuario y conecta los agentes seleccionados. Usa <code>setup --plan</code> para revisar sin cambios, o <code>setup --web</code> para elegir agentes en una página local del navegador."
       },
       {
         "title": "Lanza tu agente a través de él",
@@ -115,15 +115,16 @@
     ],
     "windows": [
       {
-        "title": "Decide dónde corre tu agente",
-        "text": "Para un agente dentro de WSL2, sigue los pasos de Linux en esa distribución; Docker es opcional. Los comandos siguientes muestran la ruta Docker en WSL2 con <a href=\"{readme}\">el wrapper</a>. Para un agente nativo de Windows, usa el zip experimental de la <a href=\"{windowsDoc}\">guía de Windows</a>. <code>setup</code> nativo configura agentes, pero no inicia un servicio."
+        "title": "Instala desde PowerShell",
+        "text": "Windows nativo sigue siendo experimental. El script verifica el checksum del zip, instala en <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> y lo añade al PATH del usuario, sin permisos de administrador. Para un agente en WSL2, sigue los pasos de Linux dentro de esa distribución. <a href=\"{windowsDoc}\">Guía de Windows</a>."
       },
       {
-        "title": "Arranca el servidor dentro de WSL2"
+        "title": "Configúralo",
+        "text": "<code>setup</code> crea el directorio de datos y el token, conecta los agentes detectados e inicia un servidor sin ventana ahora y en cada inicio de sesión. Funciona mientras estés conectado y se reinicia tras fallos, con un límite de reintentos."
       },
       {
-        "title": "Lanza tu agente, también dentro de WSL2",
-        "text": "Windows nativo es experimental. Tiene un zip de la versión con <code>ai-memory.exe</code>, un wrapper de Docker en PowerShell y una receta de servicio con WinSW. <a href=\"{windowsDoc}\">La guía de Windows tiene los tres</a>."
+        "title": "Reinicia tus agentes",
+        "text": "Pregunta a un agente qué recuerda de este proyecto. Para ejecutar el servidor antes de que alguien inicie sesión, usa la receta de WinSW de la guía de Windows."
       }
     ],
     "figure": {

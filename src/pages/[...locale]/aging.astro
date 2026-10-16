@@ -97,6 +97,7 @@ const next = withText([
         <ul>{raw<string[]>('safety.deleted.items').map((p) => <li set:html={p} />)}</ul>
       </Callout>
     </div>
+    <p class="mt-8 text-muted max-w-[44em]" set:html={t('safety.ledgers')} />
   </Section>
 
   <Section id="also" title={t('also.title')} lede={t('also.lede')} hue="azure">

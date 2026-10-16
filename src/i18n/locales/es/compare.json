@@ -90,11 +90,11 @@
         "note": "Sin clave de proveedor de modelos"
       },
       {
-        "label": "ai-memory 3.0, texto completo",
+        "label": "ai-memory 3.1, texto completo",
         "note": "Con el flujo de observaciones, sin embeddings"
       },
       {
-        "label": "ai-memory 3.0, embeddings locales",
+        "label": "ai-memory 3.1, embeddings locales",
         "note": "Con el flujo de observaciones, la instalación por defecto"
       }
     ],

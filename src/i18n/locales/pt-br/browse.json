@@ -29,8 +29,8 @@
   },
   "search": {
     "title": "Uma busca que ranqueia como a do agente",
-    "lede": "A busca dentro de um projeto roda o mesmo ranker do memory_query: full text, entidades, links, observações e vetores, fundidos em uma ordem só. Marque \"Explain ranking\" e cada resultado mostra o que cada fluxo contribuiu.",
-    "shotAlt": "Screenshot de uma busca por \"rate limit\" dentro de um projeto, com o seletor Search in, o checkbox Explain ranking e oito resultados ranqueados com seus caminhos.",
+    "lede": "A busca no projeto usa o mesmo ranker de memory_query. Os filtros de tipo e tier restringem os fluxos antes da fusão. Marque “Explain ranking” para ver a contribuição de cada fluxo. A busca entre projetos usa texto completo nas páginas da wiki.",
+    "shotAlt": "Captura da busca do ai-memory 3.1 por “rate limit” em demo/api, com seletores de projeto, Kind e Tier, Explain ranking e quatro resultados de páginas de demonstração.",
     "shotCaption": "A busca sem projeto é a busca full-text entre projetos, a mesma coisa que o memory_query faz com global ativado."
   },
   "history": {
@@ -53,13 +53,13 @@
   },
   "readonly": {
     "title": "Leia páginas e revise propostas",
-    "text": "Edite conteúdo pelas ferramentas do agente, pela CLI ou nos arquivos Markdown. O navegador também permite login, troca de senha e aprovação ou rejeição de edições pendentes só pelo root. Permissões de projeto dos usuários do banco controlam o acesso às páginas; proxies confiáveis aplicam sua própria autorização.",
+    "text": "Edite conteúdo pelas ferramentas do agente, CLI ou arquivos Markdown. O navegador permite login e troca de senha, além de aprovação de edições propostas pelo root. O login legado por HTTP Basic só permite ler propostas; use a CLI para decidir. Grants de projeto dos usuários do banco controlam o acesso às páginas; proxies confiáveis aplicam sua própria autorização.",
     "api": "Os mesmos dados saem como JSON em <code>/api/v1</code>, e o <code>serve --enable-api</code> monta a API sem a interface no navegador."
   },
   "faq": [
     {
       "q": "A interface web vem ligada por padrão?",
-      "a": "Não. Suba o servidor com --enable-web ou ative na configuração. A instalação padrão tem só o servidor MCP e os hooks."
+      "a": "O comando serve deixa a interface desativada sem --enable-web. Serviços instalados por setup ativam o navegador da wiki. O console de gestão separado exige sua própria feature de build e flag de execução."
     },
     {
       "q": "Dá para editar uma página no navegador?",
@@ -87,5 +87,10 @@
       "title": "Segurança",
       "text": "O que é guardado e quem pode ler."
     }
-  ]
+  ],
+  "management": {
+    "title": "Console de gestão opcional",
+    "text": "<code>/manage</code> reúne administração de usuários, inspeção de sessões e chaves MCP pessoais no navegador. Exige compilar com <code>management-ui</code> e iniciar com <code>--enable-management-ui</code>; a imagem Docker padrão da versão não inclui isso. Usuários podem purgar sessões de sua propriedade exata em projetos onde podem escrever; administradores podem purgar qualquer sessão. <a href=\"{href}\">Guia de build e deploy</a>.",
+    "keys": "Redefinir senhas e desativar contas encerra as sessões do navegador, mas não revoga chaves de API emitidas pelo próprio usuário. Revogue-as separadamente. Purgas de sessão podem deixar conteúdo anterior no histórico git, em backups e em transcrições nativas."
+  }
 }

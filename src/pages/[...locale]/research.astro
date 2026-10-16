@@ -57,7 +57,7 @@ const shoulders = [
   { id: 'honcho', name: 'Honcho', href: 'https://github.com/plastic-labs/honcho' },
 ].map((s) => ({ ...s, gave: t(`priorArt.gave.${s.id}`) }));
 
-// Columns: before 2.0, filtered full text, local embeddings, then 3.0 full text and local embeddings with the observation stream.
+// Columns: before 2.0, filtered full text, local embeddings, then 3.1 full text and local embeddings with the observation stream.
 const metrics = Object.entries(facts.benchmark.metrics).map(([name, values]) => [name, ...values] as [string, ...number[]]);
 const hit5 = facts.benchmark.metrics['hit@5'];
 const bench = raw<string[]>('measured.chart.bars').map((label, i) => ({ label, v: hit5[i] }));
@@ -236,7 +236,7 @@ const faq = faqPage(faqItems);
         <h3 class="text-xl">{t('measured.reproduce.title')}</h3>
         <p class="mt-2 text-muted max-w-[40em]" set:html={t('measured.reproduce.text', { date: date(facts.benchmark.date) })} />
         <div class="mt-4"><CodeBlock title={t('measured.reproduce.codeTitle')} code={reproduce} /></div>
-        <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/README.md`}>{t('measured.reproduce.full')}</a></p>
+        <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/longmemeval-s-3.1.0-release.md`}>{t('measured.reproduce.full')}</a></p>
         <p class="mt-6 text-muted max-w-[40em]" set:html={t('measured.throughputNote', { href: href('/architecture/#concurrency') })} />
       </div>
     </div>

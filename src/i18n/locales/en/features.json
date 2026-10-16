@@ -95,7 +95,7 @@
       },
       {
         "title": "The brief carries them in",
-        "text": "With <code>inject_on_session_start = true</code> in the project’s marker file, pinned pages, rules and slots are prepended to every new session’s context."
+        "text": "With <code>inject_on_session_start = true</code> in the project marker, the brief starts with excerpts of pinned pages, rules and slots, then adds detail within its budget. Pages that do not fit are listed for <code>memory_read_page</code>."
       },
       {
         "title": "Lint suggests promotion",
@@ -126,7 +126,7 @@
       },
       {
         "title": "Recover from compaction",
-        "text": "When Claude Code or Codex compact their context, a hook writes a fresh session page first, so what was compacted away can be recalled."
+        "text": "Start a prompt with <code>reload context</code> to recover a bounded recap from captured observations before the last compaction. Works in Claude Code, Codex, OpenCode V1/V2 and Grok Build (on its next tool result). Replies require assistant-capture opt-in; open handoffs are listed without being claimed."
       }
     ]
   },
@@ -154,7 +154,7 @@
   },
   "operate": {
     "title": "Chores the launcher takes on",
-    "lede": "ai-memory run starts the agent through the memory server. It also keeps the binary current, closes sessions and says so before it disarms anything.",
+    "lede": "ai-memory run starts the agent through the memory server. On a harness switch, it can also pass a private temporary file of visible history from the previous agent on this machine. The path and contents stay local; the file is deleted when the child exits. Without a usable local transcript, the portable ledger and handoff remain.",
     "figureAlt": "Diagram: a terminal running ai-memory run in the center. Around it: a sandbox that the launcher offers before disarming safety prompts, a download with a checksum for the self-upgrade, a session page that closes when the agent exits, and a browser sign-in for the web UI.",
     "figureCaption": "One command in the middle. The rest happens around it without a second tool.",
     "items": [

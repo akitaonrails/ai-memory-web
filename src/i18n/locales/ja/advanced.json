@@ -122,12 +122,12 @@
   },
   "services": {
     "title": "サーバーを動かし続ける",
-    "lede": "ai-memoryは自分では再起動しません。再起動は各OSのサービスマネージャーに任せます。",
+    "lede": "LinuxとmacOSではOSのサービスマネージャーを使います。Windowsのsetupは、バックグラウンド監視プロセスをユーザーのログオン時に起動する設定を追加します。",
     "tabs": [
       "systemdユーザーユニット",
       "systemdシステムユニット",
       "macOSのlaunchd",
-      "WindowsのWinSW"
+      "Windowsログオン / WinSW"
     ],
     "user": {
       "text": "1人で使うワークステーション向けです。ユニットはAURパッケージがインストールします。sudoは不要で、状態は<code>~/.local/share/ai-memory</code>に保存されます。lingeringを有効にしない限り、ユーザーユニットはログアウト時に止まります。",
@@ -135,11 +135,11 @@
     },
     "system": "共有ワークステーションやLAN上のマシン向けです。データは<code>/var/lib/ai-memory</code>、設定は<code>/etc/ai-memory/config.toml</code>、シークレットは<code>/etc/ai-memory/env</code>に置かれます。同じバインドアドレスで両方のユニットを動かさないでください。",
     "launchd": "macOS用のtarballには、プレースホルダーが2つ入ったLaunchAgentのplistが含まれています。展開したtarballの中で次を実行してください。LaunchAgentはログアウト時に止まり、macOSにはlingeringに相当する仕組みがありません。2つのログファイルはローテーションされません。",
-    "winsw": "Windows ネイティブでは WinSW などのサービスラッパーが必要です。絶対パスを使い、データがユーザープロフィール内にある場合は所有者のユーザーで実行してください。LocalSystem は別のプロフィールを使います。利用する WinSW のバージョンに合ったサービス設定手順に従ってください。",
+    "winsw": "<code>ai-memory setup</code> は直ちに、そしてWindowsへのログオンごとにウィンドウなしのサーバーを起動し、障害時には回数を制限して再起動します。稼働するのはサインイン中です。サインインなしで稼働させるにはWinSWを使い、<code>setup --no-service</code> でそのサービスに管理を任せてください。",
     "links": {
       "systemd": "インストールガイドのsystemdユニット",
       "launchd": "macOSガイドのlaunchd",
-      "winsw": "WindowsガイドのWinSW"
+      "winsw": "Windowsの起動方法"
     }
   },
   "data": {

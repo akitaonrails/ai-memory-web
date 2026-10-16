@@ -29,8 +29,8 @@
   },
   "search": {
     "title": "Search that ranks like the agent",
-    "lede": "A search inside a project runs the same ranker as memory_query: full text, entities, links, observations and vectors, fused into one order. Tick “Explain ranking” and every hit shows what each stream contributed.",
-    "shotAlt": "Screenshot of a scoped search for “rate limit” inside one project, with a project selector, an Explain ranking checkbox and eight ranked results with their paths.",
+    "lede": "A project search runs the same ranker as memory_query. Kind and tier filters narrow its streams before fusion. Tick “Explain ranking” to see each stream’s contribution. Cross-project search uses full text over wiki pages.",
+    "shotAlt": "Screenshot of ai-memory 3.1 search for “rate limit” in demo/api, with project, Kind and Tier selectors, Explain ranking, and four results from seeded demonstration pages.",
     "shotCaption": "A search with no project is the cross-project full-text search, the same thing memory_query does with global set."
   },
   "history": {
@@ -53,13 +53,13 @@
   },
   "readonly": {
     "title": "Browse pages and review proposals",
-    "text": "Edit content through agent tools, the CLI or Markdown files. The browser also supports sign-in, password changes and root-only approval or rejection of pending edits. Database-user project grants govern page access; trusted proxies enforce their own authorization.",
+    "text": "Edit content through agent tools, the CLI or Markdown files. The browser supports password sign-in and changes, plus root approval of proposed edits. Legacy HTTP Basic login can only read proposals; use the CLI to decide. Database-user project grants govern page access; trusted proxies enforce their own authorization.",
     "api": "The same data is available as JSON under <code>/api/v1</code>, and <code>serve --enable-api</code> mounts the API without the browser UI."
   },
   "faq": [
     {
       "q": "Is the web UI on by default?",
-      "a": "No. Start the server with --enable-web, or set it in the config. The default install is the MCP server and the hooks only."
+      "a": "The serve command leaves it off unless --enable-web is set. Services installed by setup enable the wiki browser. The separate management console needs its own build feature and runtime flag."
     },
     {
       "q": "Can I edit a page in the browser?",
@@ -87,5 +87,10 @@
       "title": "Security",
       "text": "What is stored, and who can read it."
     }
-  ]
+  ],
+  "management": {
+    "title": "Optional management console",
+    "text": "<code>/manage</code> brings user administration, session inspection and personal MCP keys into the browser. It requires both a build with <code>management-ui</code> and <code>--enable-management-ui</code> at startup; the standard release Docker image does not include it. Users can purge exactly owned sessions in projects they may write; admins can purge any session. <a href=\"{href}\">Build and deployment guide</a>.",
+    "keys": "Password resets and disabled accounts end browser sessions, but do not revoke self-issued API keys. Revoke those separately. Session purges can leave earlier content in git history, backups and native transcripts."
+  }
 }

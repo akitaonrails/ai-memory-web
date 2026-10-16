@@ -76,7 +76,7 @@
     "items": [
       {
         "title": "Una cuenta con nombre por persona",
-        "text": "Añade personas con un comando. Desactiva a alguien y su acceso se corta, mientras que sus páginas se quedan."
+        "text": "Añade personas con un comando. Desactivar una cuenta termina el acceso desde el navegador y conserva sus páginas. Las claves API emitidas por el propio usuario deben revocarse por separado."
       },
       {
         "title": "Claves de API por máquina",

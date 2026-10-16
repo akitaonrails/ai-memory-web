@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Las reescrituras son reversibles",
-        "text": "<code>ai-memory restore-page</code> puede recuperar una página de un checkpoint git conservado mientras exista su proyecto. No restaura sesiones, observaciones ni traspasos almacenados solo en la base de datos."
+        "text": "<code>ai-memory restore-page</code> y <code>memory_restore_page</code> recuperan una página de un checkpoint git conservado mientras exista el proyecto. Listar checkpoints y restaurar por MCP requiere autoridad de administrador. Ninguno restaura sesiones, observaciones ni handoffs almacenados solo en la base de datos."
       },
       {
         "title": "Revisa los valores por defecto antes de actualizar",
@@ -139,7 +139,8 @@
         "Con la compactación desactivada, una página episódica fría pierde su archivo markdown. Su registro se elimina definitivamente 180 días después.",
         "Activa la compactación si prefieres que las páginas frías se reduzcan."
       ]
-    }
+    },
+    "ledgers": "Limpieza opcional de registros: <code>[decay] ledger_retention_months = N</code> borra logs de hooks rotados tras N meses UTC completos desde el final de su mes. El valor predeterminado es 0 (desactivado). Conserva siempre <code>log.md</code>, el mes actual y el anterior. Revisa con dry run; el historial git antiguo y las copias de seguridad pueden conservar copias."
   },
   "also": {
     "title": "Más formas de consultar",

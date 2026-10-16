@@ -220,7 +220,7 @@
         "maintain": "כתיבה ותחזוקה"
       }
     },
-    "invariants": "ARCHITECTURE.md, עם כל 15 האינווריאנטים",
+    "invariants": "ARCHITECTURE.md, עם כל 16 האינווריאנטים",
     "decisions": "החלטות תכנון ואפשרויות שנדחו"
   },
   "faq": [

@@ -77,28 +77,28 @@
     "upgrading": "Atualizando para a 3.0",
     "highlights": [
       {
-        "title": "A busca acha a sessão certa com muito mais frequência",
-        "text": "Uma página de sessão guarda só um trecho de cada turno, então a resposta muitas vezes existia apenas nas observações brutas. Agora elas votam no ranking. No LongMemEval-S, o hit@5 subiu de 0,82 para 0,95 com a instalação padrão, sem LLM. Uma flag de configuração restaura o ranking antigo."
+        "title": "Windows em dois comandos",
+        "text": "<code>install.ps1</code> verifica e instala o zip nativo sem administrador. <code>ai-memory setup</code> inicia o servidor agora e no login. Windows nativo continua experimental; WSL2 continua suportado."
       },
       {
-        "title": "Instalador nativo e comando de configuração",
-        "text": "O <code>install.sh</code> baixa a release, verifica o checksum e linka o binário sem precisar de root. O <code>ai-memory setup</code> cria o diretório de dados, sobe um serviço por usuário e configura todos os agentes que encontrar. Claude Code e Codex podem usar um plugin de marketplace no lugar."
+        "title": "Escolha os agentes antes de configurar",
+        "text": "<code>setup --plan</code> mostra o plano sem alterar nada. <code>setup --web</code> abre uma página local no navegador para escolher quais agentes detectados conectar."
       },
       {
-        "title": "Token por padrão",
-        "text": "Uma instalação nova gera um bearer token em um arquivo só do dono, lido pelos hooks, pela CLI e pela ponte MCP. Instalações antigas continuam funcionando e migram com <code>ai-memory auth enable</code>. Os comandos de token da 1.x foram removidos, e os tokens emitidos por eles seguem valendo como chaves de API."
+        "title": "Continue com mais contexto",
+        "text": "Trocas de harness gerenciadas podem passar histórico local privado e temporário ao próximo agente. Comece um prompt com <code>reload context</code> nos clientes compatíveis para recuperar contexto capturado antes da compactação; isso não reivindica handoffs."
       },
       {
-        "title": "A interface web amadureceu",
-        "text": "Histórico e diffs de páginas, replay de sessões, backlinks, explicações da busca, avisos de mensagens e página de saúde para root. Há controles de conta e aprovação de edições pendentes pelo root; não há editor de páginas."
+        "title": "Gerencie usuários, sessões e chaves",
+        "text": "O console opcional <code>/manage</code> oferece gestão de usuários, limpeza de sessões próprias e chaves MCP pessoais. Exige compilar com <code>management-ui</code> e usar <code>--enable-management-ui</code>; não está na imagem Docker padrão."
       },
       {
-        "title": "Mais agentes",
-        "text": "Factory Droid e Meta Muse Code com hooks completos, GitHub Copilot CLI pelo launcher, Prime Agent e DeepSeek Harness via MCP, receitas escritas para mais seis clientes e uma assinatura do Cursor como provedor de LLM."
+        "title": "IBM Bob e CodeBuddy Code",
+        "text": "IBM Bob ganha MCP e hooks nativos; finalize a sessão explicitamente após o último turno. CodeBuddy Code ganha hooks nativos e handoffs. Nenhum tem execução gerenciada ou importação de transcrições anteriores."
       },
       {
-        "title": "Recuperação e sincronização",
-        "text": "O <code>ai-memory recover</code> reaplica o que os hooks guardaram no spool enquanto o servidor estava fora do ar. Escritas de página podem levar uma precondição, para que dois writers nunca sobrescrevam um ao outro, e a sincronização da wiki do time e um novo importador se apoiam nisso. Um SDK em TypeScript atende programas que não são agentes de código."
+        "title": "Busque e restaure",
+        "text": "A busca web ganha filtros de tipo e tier. <code>search --global</code> busca páginas da wiki entre projetos pela CLI. Administradores podem listar checkpoints e restaurar páginas com <code>memory_restore_page</code>."
       }
     ]
   },

@@ -77,28 +77,28 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
-        "title": "Search finds the right session far more often",
-        "text": "A session page keeps only an excerpt of each turn, so the answer often lived only in the raw observations. They now vote in ranking. On LongMemEval-S, hit@5 went from 0.82 to 0.95 with the default install, with no LLM. One config flag restores the old ranking."
+        "title": "Windows setup in two commands",
+        "text": "<code>install.ps1</code> verifies and installs the native zip without admin rights. <code>ai-memory setup</code> starts the server now and at logon. Native Windows remains experimental; WSL2 remains supported."
       },
       {
-        "title": "Native installer and setup command",
-        "text": "<code>install.sh</code> downloads the release, verifies the checksum and links the binary with no root. <code>ai-memory setup</code> creates the data directory, starts a per-user service and wires every agent it finds. Claude Code and Codex can use a marketplace plugin instead."
+        "title": "Choose agents before setup",
+        "text": "<code>setup --plan</code> previews without changing anything. <code>setup --web</code> opens a local browser page where you choose which detected agents to wire."
       },
       {
-        "title": "A token by default",
-        "text": "A fresh install mints a bearer token into an owner-only file that the hooks, the CLI and the MCP bridge read. Older installs keep working and switch with <code>ai-memory auth enable</code>. The 1.x token commands are gone; tokens they issued keep working as API keys."
+        "title": "Continue with more context",
+        "text": "Managed harness switches can pass private, temporary local history to the next agent. Start a prompt with <code>reload context</code> in supported clients to recover captured context from before compaction; it does not claim handoffs."
       },
       {
-        "title": "The web UI grew up",
-        "text": "Page history and diffs, session replay, backlinks, search explanations, mail badges and a root health page. Account controls and root approval of pending edits are available; there is no page editor."
+        "title": "Manage users, sessions and keys",
+        "text": "The optional <code>/manage</code> console provides user administration, owned-session cleanup and personal MCP keys. It needs the <code>management-ui</code> build feature and <code>--enable-management-ui</code>; it is not in the standard Docker image."
       },
       {
-        "title": "More agents",
-        "text": "Factory Droid and Meta Muse Code with full hooks, GitHub Copilot CLI through the launcher, Prime Agent and DeepSeek Harness over MCP, written recipes for six more clients, and a Cursor subscription as an LLM provider."
+        "title": "IBM Bob and CodeBuddy Code",
+        "text": "IBM Bob gains MCP and native hooks; finalize its session explicitly after the last turn. CodeBuddy Code gains native hooks and handoffs. Neither has managed launch or transcript backfill."
       },
       {
-        "title": "Recovery and sync",
-        "text": "<code>ai-memory recover</code> replays what hooks spooled while the server was down. Page writes can carry a precondition so two writers never clobber each other, which the team-wiki sync and a new importer build on. A TypeScript SDK covers programs that are not coding agents."
+        "title": "Search and restore",
+        "text": "Web search adds kind and tier filters. <code>search --global</code> searches wiki pages across projects from the CLI. Admins can list checkpoints and restore pages through <code>memory_restore_page</code>."
       }
     ]
   },

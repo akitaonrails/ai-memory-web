@@ -30,7 +30,7 @@
       },
       {
         "title": "Set it up",
-        "text": "<code>setup</code> creates the data directory with its token, starts a per-user service (systemd or launchd) and wires hooks, MCP and skills for every agent it finds. It shows the plan and asks first; a second run changes nothing."
+        "text": "<code>setup</code> creates the data directory and token, starts a per-user service and wires the agents you select. Use <code>setup --plan</code> to preview without changes, or <code>setup --web</code> to choose agents in a local browser page."
       },
       {
         "title": "Launch your agent through it",
@@ -115,15 +115,16 @@
     ],
     "windows": [
       {
-        "title": "Decide where your agent runs",
-        "text": "For an agent inside WSL2, use the Linux install steps inside that distro; Docker is optional. The commands below show the WSL2 Docker path using <a href=\"{readme}\">the wrapper</a>. For a native Windows agent, use the experimental zip in the <a href=\"{windowsDoc}\">Windows guide</a>. Native <code>setup</code> wires agents but does not start a service."
+        "title": "Install in PowerShell",
+        "text": "Native Windows remains experimental. The script verifies the release zip’s checksum, installs under <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> and adds it to your user PATH, without administrator rights. For an agent inside WSL2, use the Linux steps inside that distro instead. <a href=\"{windowsDoc}\">Windows guide</a>."
       },
       {
-        "title": "Start the server inside WSL2"
+        "title": "Set it up",
+        "text": "<code>setup</code> creates the data directory and token, wires detected agents and starts a hidden server now and at each logon. It runs while you are signed in and restarts after failures, with a retry limit."
       },
       {
-        "title": "Launch your agent, also inside WSL2",
-        "text": "Native Windows is experimental. It has a release zip with <code>ai-memory.exe</code>, a PowerShell Docker wrapper and a WinSW service recipe. <a href=\"{windowsDoc}\">The Windows guide has all three</a>."
+        "title": "Restart your agents",
+        "text": "Ask an agent what it remembers about this project. For a server that runs before anyone signs in, use the WinSW recipe in the Windows guide."
       }
     ],
     "figure": {

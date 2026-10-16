@@ -122,12 +122,12 @@
   },
   "services": {
     "title": "לשמור על השרת רץ",
-    "lede": "ai-memory לא מפעיל את עצמו מחדש. את זה עושה מנהל השירותים של כל מערכת הפעלה.",
+    "lede": "Linux ו-macOS משתמשים במנהלי השירותים שלהם. ב-Windows, setup מוסיף הפעלה בכניסה לחשבון עם מפקח ברקע.",
     "tabs": [
       "יחידת משתמש של systemd",
       "יחידת מערכת של systemd",
       "launchd ב-macOS",
-      "WinSW ב-Windows"
+      "כניסה ל-Windows / WinSW"
     ],
     "user": {
       "text": "לתחנת עבודה של משתמש אחד. חבילות ה-AUR מתקינות את היחידה. היא לא דורשת sudo ושומרת את המצב ב-<code>~/.local/share/ai-memory</code>. יחידת משתמש נעצרת ב-logout, אלא אם מפעילים lingering.",
@@ -135,11 +135,11 @@
     },
     "system": "לתחנת עבודה משותפת או למכונה ב-LAN. הנתונים נמצאים ב-<code>/var/lib/ai-memory</code>, הקונפיגורציה ב-<code>/etc/ai-memory/config.toml</code> והסודות ב-<code>/etc/ai-memory/env</code>. לא מריצים את שתי היחידות על אותה כתובת bind.",
     "launchd": "קובצי ה-tarball ל-macOS כוללים plist של LaunchAgent עם שני placeholders. מריצים את זה מתוך ה-tarball שחולץ. LaunchAgent נעצר ב-logout, וב-macOS אין מקבילה ל-lingering. שום דבר לא מבצע רוטציה לשני קובצי הלוג שלו.",
-    "winsw": "Windows מקורי דורש מעטפת שירות כמו WinSW. השתמש בנתיבים מוחלטים ובחר במשתמש הבעלים כשהנתונים נמצאים בפרופיל משתמש; LocalSystem פונה לפרופיל אחר. פעל לפי הוראות השירות לגרסת WinSW שלך.",
+    "winsw": "<code>ai-memory setup</code> מפעיל שרת ללא חלון עכשיו ובכל כניסה ל-Windows, עם מספר הפעלות מחדש מוגבל לאחר כשל. הוא פועל כל עוד אתם מחוברים. השתמשו ב-WinSW לשרת שפועל גם ללא משתמש מחובר, וב-<code>setup --no-service</code> כדי להשאיר את השליטה לשירות הזה.",
     "links": {
       "systemd": "יחידות systemd במדריך ההתקנה",
       "launchd": "launchd במדריך ל-macOS",
-      "winsw": "WinSW במדריך ל-Windows"
+      "winsw": "אפשרויות הפעלה ב-Windows"
     }
   },
   "data": {

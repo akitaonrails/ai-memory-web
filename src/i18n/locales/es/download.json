@@ -77,28 +77,28 @@
     "upgrading": "Actualizar a la 3.0",
     "highlights": [
       {
-        "title": "La búsqueda encuentra la sesión correcta mucho más a menudo",
-        "text": "Una página de sesión guarda solo un extracto de cada turno, así que la respuesta a menudo vivía solo en las observaciones en bruto. Ahora esas observaciones votan en el ranking. En LongMemEval-S, hit@5 pasó de 0,82 a 0,95 con la instalación por defecto, sin LLM. Un flag de configuración restaura el ranking anterior."
+        "title": "Windows en dos comandos",
+        "text": "<code>install.ps1</code> verifica e instala el zip nativo sin permisos de administrador. <code>ai-memory setup</code> inicia el servidor ahora y al iniciar sesión. Windows nativo sigue siendo experimental; WSL2 sigue soportado."
       },
       {
-        "title": "Instalador nativo y comando de configuración",
-        "text": "<code>install.sh</code> descarga la versión, verifica el checksum y enlaza el binario sin necesitar root. <code>ai-memory setup</code> crea el directorio de datos, inicia un servicio por usuario y conecta todos los agentes que encuentra. Claude Code y Codex pueden usar un plugin del marketplace en su lugar."
+        "title": "Elige agentes antes de configurar",
+        "text": "<code>setup --plan</code> muestra el plan sin cambiar nada. <code>setup --web</code> abre una página local en el navegador para elegir qué agentes detectados conectar."
       },
       {
-        "title": "Un token por defecto",
-        "text": "Una instalación nueva genera un bearer token en un archivo legible solo por su propietario, que leen los hooks, la CLI y el puente MCP. Las instalaciones anteriores siguen funcionando y se pasan al nuevo modo con <code>ai-memory auth enable</code>. Los comandos de token de la 1.x ya no existen; los tokens que emitieron siguen funcionando como claves de API."
+        "title": "Continúa con más contexto",
+        "text": "Los cambios de harness gestionados pueden pasar historial local privado y temporal al siguiente agente. Empieza un prompt con <code>reload context</code> en clientes compatibles para recuperar contexto capturado antes de la compactación; no reclama handoffs."
       },
       {
-        "title": "La interfaz web da un salto",
-        "text": "Historial y diferencias de páginas, reproducción de sesiones, enlaces entrantes, explicaciones de búsqueda, avisos de correo y salud para root. Hay controles de cuenta y aprobación de cambios pendientes por root; no hay editor de páginas."
+        "title": "Gestiona usuarios, sesiones y claves",
+        "text": "La consola opcional <code>/manage</code> ofrece administración de usuarios, limpieza de sesiones propias y claves MCP personales. Requiere compilar con <code>management-ui</code> y usar <code>--enable-management-ui</code>; no está en la imagen Docker estándar."
       },
       {
-        "title": "Más agentes",
-        "text": "Factory Droid y Meta Muse Code con hooks completos, GitHub Copilot CLI a través del lanzador, Prime Agent y DeepSeek Harness por MCP, recetas escritas para seis clientes más y una suscripción de Cursor como proveedor de LLM."
+        "title": "IBM Bob y CodeBuddy Code",
+        "text": "IBM Bob incorpora MCP y hooks nativos; finaliza su sesión explícitamente tras el último turno. CodeBuddy Code incorpora hooks nativos y handoffs. Ninguno tiene lanzamiento gestionado ni importación de transcripciones anteriores."
       },
       {
-        "title": "Recuperación y sincronización",
-        "text": "<code>ai-memory recover</code> reproduce lo que los hooks pusieron en la cola local mientras el servidor estaba caído. Las escrituras de páginas pueden llevar una precondición para que dos escritores nunca se pisen, y sobre ella se apoyan la sincronización del wiki de equipo y un nuevo importador. Un SDK de TypeScript cubre los programas que no son agentes de programación."
+        "title": "Busca y restaura",
+        "text": "La búsqueda web añade filtros de tipo y nivel. <code>search --global</code> busca páginas de la wiki entre proyectos desde la CLI. Los administradores pueden listar checkpoints y restaurar páginas con <code>memory_restore_page</code>."
       }
     ]
   },

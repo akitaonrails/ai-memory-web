@@ -137,6 +137,12 @@
     },
     "hermes": {
       "note": "מתקין ה-hooks מדפיס קטע להדבקה בקובץ ~/.hermes/config.yaml. שליפה והעברות מגיעות מהפלאגין הקהילתי."
+    },
+    "ibm-bob": {
+      "note": "MCP ו-hooks נייטיב עבור Bob IDE ו-Shell. ללא launcher מנוהל או ייבוא תמלילים קודמים. אחרי התור האחרון הפעילו ai-memory finalize-session --agent ibm-bob; האירוע Stop מסיים תור בלבד."
+    },
+    "codebuddy": {
+      "note": "Hooks נייטיב ו-handoffs בתחילת סשן. ללא מתקין MCP, launcher מנוהל או ייבוא תמלילים קודמים. נבדק מול מבני הנתונים המתועדים; אימות מקצה לקצה בלקוח עדיין ממתין."
     }
   },
   "llmProviders": [

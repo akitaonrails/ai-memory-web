@@ -220,7 +220,7 @@
         "maintain": "書き込みとメンテナンス"
       }
     },
-    "invariants": "ARCHITECTURE.md（15個の不変条件をすべて掲載）",
+    "invariants": "ARCHITECTURE.md（16個の不変条件をすべて掲載）",
     "decisions": "設計上の決定と、採用しなかった選択肢"
   },
   "faq": [

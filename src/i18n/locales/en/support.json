@@ -137,6 +137,12 @@
     },
     "hermes": {
       "note": "The hook installer prints a block for ~/.hermes/config.yaml. Recall and handoffs come from the community plugin."
+    },
+    "ibm-bob": {
+      "note": "MCP and native hooks for Bob IDE and Shell. No managed launcher or transcript backfill. After the last turn, run ai-memory finalize-session --agent ibm-bob; Stop is only a turn boundary."
+    },
+    "codebuddy": {
+      "note": "Native hooks and session-start handoffs. No MCP installer, managed launcher or transcript backfill. Verified against documented payloads; end-to-end client validation is still pending."
     }
   },
   "llmProviders": [

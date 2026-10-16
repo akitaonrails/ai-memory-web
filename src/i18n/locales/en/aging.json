@@ -121,7 +121,7 @@
     "items": [
       {
         "title": "Rewrites are reversible",
-        "text": "<code>ai-memory restore-page</code> can recover a page from a retained git checkpoint while its project still exists. It does not restore sessions, observations or handoffs stored only in the database."
+        "text": "<code>ai-memory restore-page</code> and <code>memory_restore_page</code> recover a page from a retained git checkpoint while its project exists. MCP checkpoint listing and restoration both require admin authority. Neither restores sessions, observations or handoffs stored only in the database."
       },
       {
         "title": "Review defaults before upgrading",
@@ -139,7 +139,8 @@
         "With compaction off, a cold episodic page loses its markdown file. Its record is removed for good 180 days later.",
         "Turn compaction on if you would prefer cold pages to shrink."
       ]
-    }
+    },
+    "ledgers": "Optional ledger cleanup: <code>[decay] ledger_retention_months = N</code> deletes rotated hook logs after N whole UTC months following the end of their month. The default is 0 (off). It always keeps <code>log.md</code>, the current month and the previous month. Preview with a dry run; old git history and backups can retain copies."
   },
   "also": {
     "title": "More ways to query",

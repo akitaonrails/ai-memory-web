@@ -30,7 +30,7 @@
       },
       {
         "title": "설정",
-        "text": "<code>setup</code>은 토큰이 들어 있는 데이터 디렉터리를 만들고, 사용자 단위 서비스(systemd 또는 launchd)를 시작하며, 찾은 모든 에이전트에 훅, MCP, 스킬을 연결합니다. 계획을 보여 주고 먼저 확인을 받으며, 두 번째 실행은 아무것도 바꾸지 않습니다."
+        "text": "<code>setup</code>은 데이터 디렉터리와 토큰을 만들고 사용자 서비스를 시작한 뒤 선택한 에이전트를 연결합니다. 변경 없이 미리 보려면 <code>setup --plan</code>, 로컬 브라우저 페이지에서 에이전트를 고르려면 <code>setup --web</code>을 사용하세요."
       },
       {
         "title": "ai-memory를 통해 에이전트 실행",
@@ -115,15 +115,16 @@
     ],
     "windows": [
       {
-        "title": "에이전트를 어디서 실행할지 정하기",
-        "text": "WSL2 안의 에이전트는 해당 배포판 안에서 Linux 설치 절차를 따르세요. Docker는 선택 사항입니다. 아래 명령은 <a href=\"{readme}\">래퍼</a>를 사용하는 WSL2 Docker 경로입니다. 네이티브 Windows 에이전트에는 <a href=\"{windowsDoc}\">Windows 가이드</a>의 실험적 zip을 사용하세요. 네이티브 <code>setup</code>은 에이전트를 설정하지만 서비스를 시작하지는 않습니다."
+        "title": "PowerShell에서 설치",
+        "text": "네이티브 Windows는 여전히 실험적 지원입니다. 스크립트가 릴리스 zip의 체크섬을 검증하고 관리자 권한 없이 <code>%LOCALAPPDATA%\\Programs\\ai-memory</code>에 설치한 뒤 사용자 PATH에 추가합니다. WSL2 안의 에이전트는 해당 배포판에서 Linux 절차를 따르세요. <a href=\"{windowsDoc}\">Windows 가이드</a>."
       },
       {
-        "title": "WSL2 안에서 서버 시작"
+        "title": "설정",
+        "text": "<code>setup</code>은 데이터 디렉터리와 토큰을 만들고 감지한 에이전트를 연결한 뒤 창 없는 서버를 즉시 시작합니다. 로그인할 때마다 시작하며 로그인 중에 실행됩니다. 실패 시 재시작하되 재시도 횟수에는 제한이 있습니다."
       },
       {
-        "title": "에이전트 실행도 WSL2 안에서",
-        "text": "네이티브 Windows는 실험적입니다. <code>ai-memory.exe</code>가 담긴 릴리스 zip, PowerShell Docker 래퍼, WinSW 서비스 레시피가 있습니다. <a href=\"{windowsDoc}\">세 가지 모두 Windows 가이드에 있습니다</a>."
+        "title": "에이전트 다시 시작",
+        "text": "에이전트에게 이 프로젝트에 대해 무엇을 기억하는지 물어보세요. 로그인 전부터 실행되는 서버가 필요하면 Windows 가이드의 WinSW 절차를 사용하세요."
       }
     ],
     "figure": {

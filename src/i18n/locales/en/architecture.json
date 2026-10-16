@@ -220,7 +220,7 @@
         "maintain": "Write and maintain"
       }
     },
-    "invariants": "ARCHITECTURE.md, with all 15 invariants",
+    "invariants": "ARCHITECTURE.md, with all 16 invariants",
     "decisions": "Design decisions and rejected options"
   },
   "faq": [

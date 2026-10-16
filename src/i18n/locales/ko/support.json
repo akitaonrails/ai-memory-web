@@ -137,6 +137,12 @@
     },
     "hermes": {
       "note": "훅 설치 프로그램이 ~/.hermes/config.yaml에 붙여넣을 블록을 출력합니다. 회상과 인수인계는 커뮤니티 플러그인이 제공합니다."
+    },
+    "ibm-bob": {
+      "note": "Bob IDE와 Shell용 MCP 및 네이티브 훅. 관리형 실행기와 과거 대화 기록 가져오기는 지원하지 않습니다. 마지막 턴 후 ai-memory finalize-session --agent ibm-bob를 실행하세요. Stop은 턴 경계일 뿐입니다."
+    },
+    "codebuddy": {
+      "note": "네이티브 훅과 세션 시작 핸드오프를 지원합니다. MCP 설치기, 관리형 실행기, 과거 대화 기록 가져오기는 없습니다. 문서의 페이로드로 검증했으며 실제 클라이언트의 종단 간 검증은 아직 남아 있습니다."
     }
   },
   "llmProviders": [

@@ -90,11 +90,11 @@
         "note": "No model-provider key"
       },
       {
-        "label": "ai-memory 3.0, full text",
+        "label": "ai-memory 3.1, full text",
         "note": "With the observation stream, no embeddings"
       },
       {
-        "label": "ai-memory 3.0, local embeddings",
+        "label": "ai-memory 3.1, local embeddings",
         "note": "With the observation stream, the default install"
       }
     ],

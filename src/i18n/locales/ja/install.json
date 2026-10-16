@@ -30,7 +30,7 @@
       },
       {
         "title": "セットアップする",
-        "text": "<code>setup</code>がトークンつきのデータディレクトリを作成し、ユーザー単位のサービス（systemdまたはlaunchd）を起動して、見つかったエージェントすべてにフック、MCP、スキルを接続します。先に計画を表示して確認を求め、2回目の実行では何も変わりません。"
+        "text": "<code>setup</code> はデータディレクトリとトークンを作成し、ユーザーサービスを起動して選択したエージェントを接続します。変更せずに確認するには <code>setup --plan</code>、ローカルのブラウザページでエージェントを選ぶには <code>setup --web</code> を使います。"
       },
       {
         "title": "ai-memory経由でエージェントを起動する",
@@ -115,15 +115,16 @@
     ],
     "windows": [
       {
-        "title": "エージェントをどこで動かすか決める",
-        "text": "WSL2 内のエージェントには、そのディストリビューション内で Linux の手順を使います。Docker は任意です。以下は<a href=\"{readme}\">ラッパー</a>を使う WSL2 の Docker 手順です。Windows ネイティブのエージェントには、<a href=\"{windowsDoc}\">Windows ガイド</a>の実験的な zip を使ってください。ネイティブの <code>setup</code> はエージェントを設定しますが、サービスを起動しません。"
+        "title": "PowerShellでインストール",
+        "text": "ネイティブWindowsは引き続き実験的対応です。スクリプトはリリースzipのチェックサムを検証し、管理者権限なしで <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> にインストールしてユーザーのPATHに追加します。WSL2内のエージェントには、そのディストリビューション内でLinuxの手順を使ってください。<a href=\"{windowsDoc}\">Windowsガイド</a>。"
       },
       {
-        "title": "WSL2の中でサーバーを起動する"
+        "title": "セットアップ",
+        "text": "<code>setup</code> はデータディレクトリとトークンを作成し、検出したエージェントを接続して、ウィンドウなしのサーバーを直ちに起動します。ログオン時にも起動し、サインイン中は稼働します。障害時の再起動には回数制限があります。"
       },
       {
-        "title": "エージェントの起動もWSL2の中で行う",
-        "text": "ネイティブWindowsは実験的です。<code>ai-memory.exe</code>入りのリリースzip、PowerShell製のDockerラッパー、WinSWのサービス設定例があります。<a href=\"{windowsDoc}\">3つともWindowsガイドにあります</a>。"
+        "title": "エージェントを再起動",
+        "text": "エージェントにこのプロジェクトについて何を覚えているか尋ねてください。サインイン前から稼働するサーバーが必要なら、WindowsガイドのWinSW手順を使ってください。"
       }
     ],
     "figure": {

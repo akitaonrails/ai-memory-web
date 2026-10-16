@@ -76,7 +76,7 @@
     "items": [
       {
         "title": "A named account per person",
-        "text": "Add people with one command. Disable someone and their access stops, while their pages stay."
+        "text": "Add people with one command. Disabling an account ends browser access and keeps its pages. Self-issued API keys must be revoked separately."
       },
       {
         "title": "API keys per machine",

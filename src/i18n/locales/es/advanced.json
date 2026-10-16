@@ -122,12 +122,12 @@
   },
   "services": {
     "title": "Mantén el servidor en marcha",
-    "lede": "ai-memory no se reinicia solo. De eso se encarga el gestor de servicios de cada sistema operativo.",
+    "lede": "Linux y macOS usan sus gestores de servicios. En Windows, setup instala una entrada de inicio de sesión del usuario con un supervisor en segundo plano.",
     "tabs": [
       "unidad de usuario de systemd",
       "unidad de sistema de systemd",
       "launchd en macOS",
-      "WinSW en Windows"
+      "Inicio de sesión de Windows / WinSW"
     ],
     "user": {
       "text": "Para una estación de trabajo de un solo usuario. Los paquetes del AUR instalan la unidad. No necesita sudo y guarda el estado en <code>~/.local/share/ai-memory</code>. Una unidad de usuario se detiene al cerrar sesión, salvo que actives lingering.",
@@ -135,11 +135,11 @@
     },
     "system": "Para una estación de trabajo compartida o un equipo en la LAN. Los datos viven en <code>/var/lib/ai-memory</code>, la configuración en <code>/etc/ai-memory/config.toml</code> y los secretos en <code>/etc/ai-memory/env</code>. No ejecutes las dos unidades en la misma dirección de escucha.",
     "launchd": "Los tarballs de macOS incluyen un plist de LaunchAgent con dos marcadores por rellenar. Ejecuta esto desde el tarball extraído. Un LaunchAgent se detiene al cerrar sesión, y macOS no tiene nada equivalente a lingering. Nadie rota sus dos archivos de log.",
-    "winsw": "Windows nativo necesita un wrapper de servicio como WinSW. Usa rutas absolutas y elige al usuario propietario si los datos están en un perfil de usuario; LocalSystem resuelve otro perfil. Sigue la receta de servicio para tu versión de WinSW.",
+    "winsw": "<code>ai-memory setup</code> inicia un servidor sin ventana ahora y en cada inicio de sesión de Windows, con reinicios limitados tras fallos. Funciona mientras estés conectado. Usa WinSW para ejecutarlo sin un usuario conectado y <code>setup --no-service</code> para dejar ese servicio al mando.",
     "links": {
       "systemd": "Unidades de systemd en la guía de instalación",
       "launchd": "launchd en la guía de macOS",
-      "winsw": "WinSW en la guía de Windows"
+      "winsw": "Opciones de inicio en Windows"
     }
   },
   "data": {

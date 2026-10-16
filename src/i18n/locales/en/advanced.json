@@ -122,12 +122,12 @@
   },
   "services": {
     "title": "Keep the server running",
-    "lede": "ai-memory does not restart itself. The service manager on each operating system does that.",
+    "lede": "Linux and macOS use their service managers. Windows setup installs a per-user logon entry with a background supervisor.",
     "tabs": [
       "systemd user unit",
       "systemd system unit",
       "launchd on macOS",
-      "WinSW on Windows"
+      "Windows logon / WinSW"
     ],
     "user": {
       "text": "For a single-user workstation. The AUR packages install the unit. It needs no sudo and keeps state in <code>~/.local/share/ai-memory</code>. A user unit stops at logout unless you enable lingering.",
@@ -135,11 +135,11 @@
     },
     "system": "For a shared workstation or a LAN box. Data lives in <code>/var/lib/ai-memory</code>, config in <code>/etc/ai-memory/config.toml</code>, secrets in <code>/etc/ai-memory/env</code>. Do not run both units on the same bind address.",
     "launchd": "The macOS tarballs include a LaunchAgent plist with two placeholders. Run this from the extracted tarball. A LaunchAgent stops at logout, and macOS has no equivalent of lingering. Nothing rotates its two log files.",
-    "winsw": "Native Windows needs a service wrapper such as WinSW. Use absolute paths and choose the owning user when the data directory is in a user profile; LocalSystem resolves a different profile. Follow the Windows service recipe for your WinSW version.",
+    "winsw": "<code>ai-memory setup</code> starts a hidden server now and at each Windows logon, with bounded restarts after failure. It runs while you are signed in. Use WinSW for a server that must run without a signed-in user, and <code>setup --no-service</code> to leave that service in charge.",
     "links": {
       "systemd": "systemd units in the install guide",
       "launchd": "launchd in the macOS guide",
-      "winsw": "WinSW in the Windows guide"
+      "winsw": "Windows startup options"
     }
   },
   "data": {

@@ -95,7 +95,7 @@
       },
       {
         "title": "O briefing leva as regras junto",
-        "text": "Com <code>inject_on_session_start = true</code> no arquivo marcador do projeto, as páginas fixadas, as regras e os slots entram no início do contexto de toda sessão nova."
+        "text": "Com <code>inject_on_session_start = true</code> no marcador do projeto, o briefing começa com trechos de páginas fixadas, regras e slots, e acrescenta detalhes dentro do limite. Páginas que não cabem são listadas para <code>memory_read_page</code>."
       },
       {
         "title": "O lint sugere promover",
@@ -126,7 +126,7 @@
       },
       {
         "title": "Recupere o que a compactação levou",
-        "text": "Quando o Claude Code ou o Codex compactam o contexto, um hook grava antes uma página de sessão nova, então o que foi compactado pode ser recuperado."
+        "text": "Comece um prompt com <code>reload context</code> para recuperar um resumo limitado das observações capturadas antes da última compactação. Funciona em Claude Code, Codex, OpenCode V1/V2 e Grok Build (no próximo resultado de ferramenta). Respostas exigem captura do assistente ativada; handoffs abertos são listados sem serem reivindicados."
       }
     ]
   },
@@ -154,7 +154,7 @@
   },
   "operate": {
     "title": "Tarefas que o launcher assume",
-    "lede": "ai-memory run abre o agente através do servidor de memória. Ele também mantém o binário atualizado, fecha as sessões e avisa antes de desativar qualquer coisa.",
+    "lede": "ai-memory run inicia o agente pelo servidor de memória. Ao trocar de harness, também pode passar um arquivo temporário privado com o histórico visível do agente anterior nesta máquina. O caminho e o conteúdo ficam locais; o arquivo é apagado quando o processo filho termina. Sem uma transcrição local utilizável, restam o ledger portátil e o handoff.",
     "figureAlt": "Diagrama: um terminal rodando ai-memory run no centro. Ao redor: um sandbox que o launcher oferece antes de desativar os prompts de permissão, um download com checksum para a autoatualização, uma página de sessão que fecha quando o agente sai, e um login pelo navegador para a interface web.",
     "figureCaption": "Um comando no meio. O resto acontece ao redor dele, sem precisar de uma segunda ferramenta.",
     "items": [

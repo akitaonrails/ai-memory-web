@@ -122,12 +122,12 @@
   },
   "services": {
     "title": "서버를 계속 실행하기",
-    "lede": "ai-memory는 스스로 재시작하지 않습니다. 그 일은 각 운영체제의 서비스 관리자가 맡습니다.",
+    "lede": "Linux와 macOS는 운영체제의 서비스 관리자를 사용합니다. Windows setup은 백그라운드 감독 프로세스가 사용자 로그인 때 시작되도록 등록합니다.",
     "tabs": [
       "systemd 사용자 유닛",
       "systemd 시스템 유닛",
       "macOS의 launchd",
-      "Windows의 WinSW"
+      "Windows 로그인 / WinSW"
     ],
     "user": {
       "text": "1인용 워크스테이션에 맞습니다. AUR 패키지가 유닛을 설치합니다. sudo가 필요 없고 상태는 <code>~/.local/share/ai-memory</code>에 둡니다. lingering을 켜지 않으면 사용자 유닛은 로그아웃할 때 멈춥니다.",
@@ -135,11 +135,11 @@
     },
     "system": "공용 워크스테이션이나 LAN 서버에 맞습니다. 데이터는 <code>/var/lib/ai-memory</code>, 설정은 <code>/etc/ai-memory/config.toml</code>, 시크릿은 <code>/etc/ai-memory/env</code>에 둡니다. 두 유닛을 같은 바인드 주소로 동시에 실행하지 마세요.",
     "launchd": "macOS tarball에는 플레이스홀더 두 개가 들어 있는 LaunchAgent plist가 포함됩니다. 압축을 푼 tarball 안에서 아래 명령을 실행하세요. LaunchAgent는 로그아웃할 때 멈추고, macOS에는 lingering에 해당하는 기능이 없습니다. 로그 파일 두 개는 아무도 로테이션하지 않습니다.",
-    "winsw": "네이티브 Windows에는 WinSW 같은 서비스 래퍼가 필요합니다. 절대 경로를 사용하고 데이터가 사용자 프로필 안에 있다면 소유자 계정으로 실행하세요. LocalSystem은 다른 프로필을 사용합니다. 사용 중인 WinSW 버전에 맞는 서비스 설정 절차를 따르세요.",
+    "winsw": "<code>ai-memory setup</code>은 즉시 그리고 Windows 로그인 때마다 창 없는 서버를 시작하며 실패 시 제한된 횟수만큼 재시작합니다. 로그인 중에만 실행됩니다. 로그인한 사용자 없이 실행하려면 WinSW를 쓰고 <code>setup --no-service</code>로 해당 서비스가 관리를 맡게 하세요.",
     "links": {
       "systemd": "설치 가이드의 systemd 유닛",
       "launchd": "macOS 가이드의 launchd",
-      "winsw": "Windows 가이드의 WinSW"
+      "winsw": "Windows 시작 옵션"
     }
   },
   "data": {

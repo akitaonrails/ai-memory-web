@@ -1,17 +1,17 @@
 {
   "$comment": "Hard numbers the site quotes, each with its source in the ai-memory repository. Pages read them from here; prose that repeats a number lives in the catalogs, and `npm run check:upstream` lists every sentence that does.",
   "benchmark": {
-    "source": "docs/benchmarks/README.md, docs/benchmarks/longmemeval-s-3.0.0-release.md (the headline numbers) and docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md (the stream off/on table)",
+    "source": "docs/benchmarks/README.md, docs/benchmarks/longmemeval-s-3.1.0-release.md (the headline numbers) and docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md (the stream off/on table)",
     "dataset": "LongMemEval-S",
-    "date": "2026-10-13",
+    "date": "2026-10-16",
     "questionsScored": 470,
     "questionsTotal": 500,
     "columns": [
       "before 2.0 (full text, 2026-09-01 run)",
       "full text, stopword filtered (2.4)",
       "local embeddings (2.4)",
-      "full text plus the observation stream (3.0, default)",
-      "local embeddings plus the observation stream (3.0)"
+      "full text plus the observation stream (3.1, default)",
+      "local embeddings plus the observation stream (3.1)"
     ],
     "metrics": {
       "hit@5": [
@@ -19,18 +19,18 @@
         0.666,
         0.815,
         0.951,
-        0.945
+        0.94
       ],
       "hit@1": [
         0.449,
         0.532,
         0.536,
         0.857,
-        0.766
+        0.755
       ]
     },
     "stream": {
-      "comment": "docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md, 'What the observation stream recovered': stream off then on, same build, all 470 questions. p95 in ms; tokens are the mean context tokens of the top five hits. The release run of the same ranking measured 0.945 for local embeddings; the difference is run-to-run variance in local embedding ingestion.",
+      "comment": "Historical October 12, 2026 decomposition experiment, docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md. Stream off then on, same build, 470 questions. p95 in ms; tokens are mean context tokens of the top five hits. This table was not rerun for 3.1.",
       "rows": [
         {
           "id": "hit5",
@@ -153,16 +153,16 @@
   },
   "quality": {
     "source": "AGENTS.md, docs/ and the test attributes in crates/, counted at the release tag by scripts/check-upstream.mjs",
-    "directives": 76,
+    "directives": 84,
     "directivesNote": "List items in the six rule sections of AGENTS.md: build and test commands, code style, cross-cutting invariants, testing, security, maintenance.",
     "invariants": 16,
-    "docs": 101,
-    "unitTests": 4645,
-    "integrationTests": 1111,
+    "docs": 110,
+    "unitTests": 4928,
+    "integrationTests": 1207,
     "testsNote": "#[test], #[tokio::test], #[rstest] and similar attributes under crates/*/src (unit) and crates/*/tests (integration). A cargo run reports more because parameterised tests expand into several cases."
   },
   "release": {
     "comment": "The version the written highlights in download.json describe. check:upstream fails when a newer release exists, so the summary is rewritten at every sync.",
-    "highlightsFor": "3.0.0"
+    "highlightsFor": "3.1.0"
   }
 }

@@ -29,8 +29,8 @@
   },
   "search": {
     "title": "Una búsqueda que ordena como el agente",
-    "lede": "Una búsqueda dentro de un proyecto usa el mismo ranker que memory_query: texto completo, entidades, enlaces, observaciones y vectores, fusionados en un solo orden. Marca «Explain ranking» y cada resultado muestra lo que aportó cada flujo.",
-    "shotAlt": "Captura de una búsqueda acotada de «rate limit» dentro de un proyecto, con un selector Search in, una casilla Explain ranking y ocho resultados ordenados con sus rutas.",
+    "lede": "La búsqueda del proyecto usa el mismo ranker que memory_query. Los filtros de tipo y nivel restringen los flujos antes de fusionarlos. Marca “Explain ranking” para ver la contribución de cada flujo. La búsqueda entre proyectos usa texto completo sobre las páginas de la wiki.",
+    "shotAlt": "Captura de la búsqueda de ai-memory 3.1 de “rate limit” en demo/api, con selectores de proyecto, Kind y Tier, Explain ranking y cuatro resultados de páginas de demostración.",
     "shotCaption": "Una búsqueda sin proyecto es la búsqueda de texto completo entre proyectos, lo mismo que hace memory_query con global activado."
   },
   "history": {
@@ -53,13 +53,13 @@
   },
   "readonly": {
     "title": "Consulta páginas y revisa propuestas",
-    "text": "Edita el contenido con las herramientas del agente, la CLI o los archivos Markdown. El navegador también permite iniciar sesión, cambiar contraseñas y aprobar o rechazar cambios pendientes solo como root. Los permisos de proyecto de usuarios de la base controlan el acceso; los proxies de confianza aplican su propia autorización.",
+    "text": "Edita contenido mediante herramientas del agente, la CLI o archivos Markdown. El navegador permite iniciar sesión y cambiar contraseñas, además de aprobar ediciones propuestas como root. El acceso heredado por HTTP Basic solo permite leer propuestas; usa la CLI para decidir. Los permisos de proyecto de usuarios de la base de datos rigen el acceso; los proxies confiables aplican su propia autorización.",
     "api": "Los mismos datos están disponibles como JSON en <code>/api/v1</code>, y <code>serve --enable-api</code> monta la API sin la interfaz del navegador."
   },
   "faq": [
     {
       "q": "¿La interfaz web viene activada por defecto?",
-      "a": "No. Arranca el servidor con --enable-web o actívala en la configuración. La instalación por defecto incluye solo el servidor MCP y los hooks."
+      "a": "El comando serve la deja desactivada salvo que se indique --enable-web. Los servicios instalados por setup activan el navegador de la wiki. La consola de gestión separada requiere su propia opción de compilación y flag de ejecución."
     },
     {
       "q": "¿Puedo editar una página en el navegador?",
@@ -87,5 +87,10 @@
       "title": "Seguridad",
       "text": "Qué se guarda y quién puede leerlo."
     }
-  ]
+  ],
+  "management": {
+    "title": "Consola de gestión opcional",
+    "text": "<code>/manage</code> reúne administración de usuarios, inspección de sesiones y claves MCP personales en el navegador. Requiere compilar con <code>management-ui</code> e iniciar con <code>--enable-management-ui</code>; la imagen Docker estándar de la versión no lo incluye. Los usuarios pueden purgar sesiones de su propiedad exacta en proyectos donde pueden escribir; los administradores pueden purgar cualquier sesión. <a href=\"{href}\">Guía de compilación y despliegue</a>.",
+    "keys": "Restablecer contraseñas y desactivar cuentas termina las sesiones del navegador, pero no revoca las claves API emitidas por el propio usuario. Revócalas por separado. Las purgas de sesión pueden dejar contenido anterior en el historial git, copias de seguridad y transcripciones nativas."
+  }
 }

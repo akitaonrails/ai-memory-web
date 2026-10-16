@@ -122,12 +122,12 @@
   },
   "services": {
     "title": "Mantenha o servidor no ar",
-    "lede": "O ai-memory não se reinicia sozinho. Quem faz isso é o gerenciador de serviços de cada sistema operacional.",
+    "lede": "Linux e macOS usam seus gerenciadores de serviço. No Windows, setup instala uma entrada de login do usuário com um supervisor em segundo plano.",
     "tabs": [
       "unit de usuário do systemd",
       "unit de sistema do systemd",
       "launchd no macOS",
-      "WinSW no Windows"
+      "Login do Windows / WinSW"
     ],
     "user": {
       "text": "Para uma workstation de um usuário só. Os pacotes do AUR instalam a unit. Não precisa de sudo e guarda o estado em <code>~/.local/share/ai-memory</code>. Uma unit de usuário para no logout, a menos que você habilite o lingering.",
@@ -135,11 +135,11 @@
     },
     "system": "Para uma workstation compartilhada ou uma máquina na LAN. Os dados ficam em <code>/var/lib/ai-memory</code>, a config em <code>/etc/ai-memory/config.toml</code> e os segredos em <code>/etc/ai-memory/env</code>. Não rode as duas units no mesmo endereço de bind.",
     "launchd": "Os tarballs de macOS incluem um plist de LaunchAgent com dois placeholders. Rode isto a partir do tarball extraído. Um LaunchAgent para no logout, e o macOS não tem nada equivalente ao lingering. Nada rotaciona os dois arquivos de log dele.",
-    "winsw": "Windows nativo exige um wrapper de serviço como WinSW. Use caminhos absolutos e escolha o usuário dono quando os dados estiverem em um perfil de usuário; LocalSystem resolve outro perfil. Siga a receita de serviço para sua versão do WinSW.",
+    "winsw": "<code>ai-memory setup</code> inicia um servidor sem janela agora e a cada login no Windows, com reinícios limitados após falhas. Ele roda enquanto você está conectado. Use WinSW para rodar sem um usuário conectado, e <code>setup --no-service</code> para manter esse serviço no controle.",
     "links": {
       "systemd": "units do systemd no guia de instalação",
       "launchd": "launchd no guia de macOS",
-      "winsw": "WinSW no guia de Windows"
+      "winsw": "Opções de inicialização no Windows"
     }
   },
   "data": {

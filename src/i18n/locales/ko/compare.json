@@ -90,11 +90,11 @@
         "note": "모델 제공자 키 불필요"
       },
       {
-        "label": "ai-memory 3.0, 전문 검색",
+        "label": "ai-memory 3.1, 전문 검색",
         "note": "관찰 기록 스트림 포함, 임베딩 없음"
       },
       {
-        "label": "ai-memory 3.0, 로컬 임베딩",
+        "label": "ai-memory 3.1, 로컬 임베딩",
         "note": "관찰 기록 스트림 포함, 기본 설치"
       }
     ],

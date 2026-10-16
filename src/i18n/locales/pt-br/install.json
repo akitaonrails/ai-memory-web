@@ -30,7 +30,7 @@
       },
       {
         "title": "Configure",
-        "text": "O <code>setup</code> cria o diretório de dados com o token, sobe um serviço por usuário (systemd ou launchd) e configura hooks, MCP e skills de cada agente que encontrar. Ele mostra o plano e pergunta antes; uma segunda execução não muda nada."
+        "text": "<code>setup</code> cria o diretório de dados e o token, inicia um serviço do usuário e conecta os agentes selecionados. Use <code>setup --plan</code> para conferir sem alterar nada, ou <code>setup --web</code> para escolher os agentes numa página local do navegador."
       },
       {
         "title": "Abra seu agente por ele",
@@ -115,15 +115,16 @@
     ],
     "windows": [
       {
-        "title": "Decida onde seu agente roda",
-        "text": "Para um agente dentro do WSL2, use os passos de Linux nessa distribuição; Docker é opcional. Os comandos abaixo mostram o caminho Docker no WSL2 usando <a href=\"{readme}\">o wrapper</a>. Para um agente Windows nativo, use o zip experimental do <a href=\"{windowsDoc}\">guia de Windows</a>. O <code>setup</code> nativo configura agentes, mas não inicia um serviço."
+        "title": "Instale pelo PowerShell",
+        "text": "O Windows nativo continua experimental. O script verifica o checksum do zip da versão, instala em <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> e adiciona ao PATH do usuário, sem administrador. Para um agente no WSL2, siga os passos de Linux dentro da distribuição. <a href=\"{windowsDoc}\">Guia de Windows</a>."
       },
       {
-        "title": "Suba o servidor dentro do WSL2"
+        "title": "Configure",
+        "text": "<code>setup</code> cria o diretório de dados e o token, conecta os agentes detectados e inicia um servidor sem janela agora e a cada login. Ele roda enquanto você está conectado e reinicia após falhas, com limite de tentativas."
       },
       {
-        "title": "Abra seu agente, também dentro do WSL2",
-        "text": "O Windows nativo é experimental. Ele tem um zip da release com o <code>ai-memory.exe</code>, um wrapper de Docker em PowerShell e uma receita de serviço com WinSW. <a href=\"{windowsDoc}\">O guia de Windows tem os três</a>."
+        "title": "Reinicie seus agentes",
+        "text": "Pergunte a um agente o que ele lembra deste projeto. Para um servidor que rode antes de alguém fazer login, use a receita de WinSW no guia de Windows."
       }
     ],
     "figure": {

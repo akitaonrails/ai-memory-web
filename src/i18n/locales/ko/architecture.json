@@ -220,7 +220,7 @@
         "maintain": "쓰기와 유지 관리"
       }
     },
-    "invariants": "불변식 15개가 모두 담긴 ARCHITECTURE.md",
+    "invariants": "불변식 16개가 모두 담긴 ARCHITECTURE.md",
     "decisions": "설계 결정과 기각한 선택지"
   },
   "faq": [

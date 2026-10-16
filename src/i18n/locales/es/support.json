@@ -137,6 +137,12 @@
     },
     "hermes": {
       "note": "El instalador de hooks imprime un bloque para ~/.hermes/config.yaml. La recuperación y los traspasos vienen del plugin de la comunidad."
+    },
+    "ibm-bob": {
+      "note": "MCP y hooks nativos para Bob IDE y Shell. Sin lanzador gestionado ni importación de transcripciones anteriores. Tras el último turno, ejecuta ai-memory finalize-session --agent ibm-bob; Stop solo delimita un turno."
+    },
+    "codebuddy": {
+      "note": "Hooks nativos y handoffs al iniciar la sesión. Sin instalador MCP, lanzador gestionado ni importación de transcripciones anteriores. Verificado con payloads documentados; falta la validación integral en el cliente."
     }
   },
   "llmProviders": [

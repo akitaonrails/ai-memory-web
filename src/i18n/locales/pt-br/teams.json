@@ -76,7 +76,7 @@
     "items": [
       {
         "title": "Uma conta nomeada por pessoa",
-        "text": "Adicione pessoas com um comando. Desative alguém e o acesso dela acaba, mas as páginas ficam."
+        "text": "Adicione pessoas com um comando. Desativar uma conta encerra o acesso pelo navegador e preserva as páginas. Chaves de API emitidas pelo próprio usuário precisam ser revogadas separadamente."
       },
       {
         "title": "Chaves de API por máquina",

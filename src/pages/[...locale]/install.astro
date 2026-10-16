@@ -88,13 +88,9 @@ const docker = steps('solo.docker', [
 ]);
 
 const windows = steps('solo.windows', [
+  'irm https://github.com/akitaonrails/ai-memory/releases/latest/download/install.ps1 | iex',
+  'ai-memory setup',
   undefined,
-  `docker run -d --name ai-memory \\
-    --restart unless-stopped \\
-    -p 127.0.0.1:49374:49374 \\
-    -v ai-memory-data:/data \\
-    akitaonrails/ai-memory:latest`,
-  'ai-memory run claude',
 ]);
 
 const team = steps('team.steps', [
