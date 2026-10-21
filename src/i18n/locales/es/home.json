@@ -48,6 +48,12 @@
         "title": "{score} de hit@5 en LongMemEval-S, con sus salvedades",
         "text": "hit@5 mide si alguna sesión con la evidencia aparece entre los cinco primeros resultados. La prueba publicada incluye la captura. Mide recuperación, no precisión de las respuestas.",
         "cta": "Qué se midió"
+      },
+      {
+        "kicker": "Cualquier idioma",
+        "title": "Búsqueda en japonés, coreano y chino",
+        "text": "La escritura sin espacios entre palabras necesita su propio índice; si no, un fragmento dentro de la frase no se encuentra nunca. ai-memory lo mantiene, y buscar en esas escrituras sigue sin ninguna llamada a un modelo.",
+        "cta": "Cómo funciona la recuperación"
       }
     ],
     "secondary": "Cómo funciona"

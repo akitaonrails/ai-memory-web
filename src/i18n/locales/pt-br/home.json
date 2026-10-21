@@ -48,6 +48,12 @@
         "title": "{score} de hit@5 no LongMemEval-S, com as ressalvas",
         "text": "hit@5 mede se alguma sessão com a evidência aparece nos cinco primeiros resultados. O teste publicado inclui a captura. Mede recuperação, não acurácia das respostas.",
         "cta": "O que foi medido"
+      },
+      {
+        "kicker": "Qualquer idioma",
+        "title": "Busca em japonês, coreano e chinês",
+        "text": "Escrita sem espaço entre palavras precisa de um índice próprio, senão um trecho no meio da frase nunca é encontrado. O ai-memory mantém esse índice, e buscar nesses sistemas de escrita continua sem nenhuma chamada de modelo.",
+        "cta": "Como funciona a recuperação"
       }
     ],
     "secondary": "Como funciona"

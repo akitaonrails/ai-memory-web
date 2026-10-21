@@ -63,8 +63,8 @@
         "Nenhuma conta de LLM na ingestão",
         "Um binário único que roda numa máquina de homelab"
       ],
-      "theyWin": "Amplitude: mais de 14 modos de busca, grounding em ontologias e ingestão de PDFs, CSVs e páginas web.",
-      "verdict": "Migre se você quer memória para sessões de código. Fique se você ingere documentos."
+      "theyWin": "Amplitude: mais de 14 modos de recuperação, ancoragem em ontologia e um pipeline que ingere páginas web e conjuntos inteiros de documentos de uma vez.",
+      "verdict": "Mude se você quer memória para sessões de código. Fique se ingestão em escala é o trabalho."
     },
     "openviking": {
       "name": "OpenViking e Hindsight",

@@ -36,6 +36,10 @@ const commandsFor = (h: (typeof harnesses)[number]) => {
   const run = h.run && launcher[id] ? `ai-memory run ${launcher[id]}` : undefined;
   if (run) lines.push(`# ${t('agents.commands.launch')}`, run);
   if (h.none) lines.push(`# ${t('agents.commands.none')}`);
+  else if (h.status === 'Hooks + MCP') {
+    lines.push(`# ${t(h.print ? 'agents.commands.print' : 'agents.commands.mcp')}`, `ai-memory install-mcp --client ${id}${h.print ? '' : ' --apply'}`);
+    lines.push(`# ${t('agents.commands.hooks')}`, `ai-memory install-hooks --agent ${id}${h.print ? '' : ' --apply'}`);
+  }
   else if (h.print && h.status === 'MCP-only') lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-mcp --client ${id}`);
   else if (h.print) lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-hooks --agent ${id} --server-url http://127.0.0.1:49374`);
   else if (h.status === 'Hooks-only') lines.push(`# ${t('agents.commands.hooksOnly')}`, `ai-memory install-hooks --agent ${id} --apply`);
@@ -114,7 +118,7 @@ const next = withText(nextMeta, raw<{ title: string; text: string }[]>('next'));
               {h.status === 'Community'
                 ? <p class="mt-3 text-muted" set:html={t('agents.community', { href: hermesPlugin })} />
                 : <div class="mt-3"><CodeBlock title={h.name} code={commandsFor(h)} /></div>}
-              <p class="mt-3 text-sm text-muted">{h.note}{(h.status === 'Supported' || h.status === 'MCP-only') && ` ${t('agents.dryRun')}`}</p>
+              <p class="mt-3 text-sm text-muted">{h.note}{(h.status === 'Supported' || h.status === 'MCP-only' || (h.status === 'Hooks + MCP' && !h.print)) && ` ${t('agents.dryRun')}`}</p>
             </div>
           ))}
         </div>

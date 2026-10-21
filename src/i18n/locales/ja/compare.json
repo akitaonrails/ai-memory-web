@@ -141,8 +141,8 @@
         "text": "時点指定検索は、ファクトが記録された時刻を使います。Zepは、出来事が起きた時刻とそれを知った時刻の両方をモデル化します。"
       },
       {
-        "title": "コーディングセッションのテキストのみ",
-        "text": "PDF、CSV、画像は取り込まず、ビジョンモデルもありません。Cypherでクエリできるグラフデータベースでもありません。"
+        "title": "ドキュメントは1件ずつ",
+        "text": "任意のimporterが読むのは、指定したローカルファイル1件だけです。markdown、テキスト層のあるPDF、DOCX、PPTX、XLSX、CSV、VTT、SRTに対応します。クローラーもOCRも画像モデルもなく、Cypherで問い合わせるグラフデータベースでもありません。"
       },
       {
         "title": "サーバーは1つ、ホスト型プランなし",
@@ -173,8 +173,8 @@
         "codeTitle": "既存のプロジェクト"
       },
       {
-        "title": "インポーターが読める形式なら、古いノートや会話を持ち込む",
-        "text": "任意の <code>companions/ai-memory-importer</code> は OMC の Markdown、汎用の会話 JSON、agentmemory の vault や ExportData のエクスポートに対応します。既定では試行のみです。Mem0、Zep、cognee のエクスポートには変換が必要で、専用アダプターはありません。",
+        "title": "古いメモ、会話、ドキュメントを持ち込む",
+        "text": "任意の<code>companions/ai-memory-importer</code>は、OMCのmarkdown、会話の汎用JSON、agentmemoryのvaultやExportDataの書き出し、そしてローカルのドキュメント1件（markdown、テキスト層のあるPDF、DOCX、PPTX、XLSX、CSV、VTT、SRT）に対応します。既定はdry runです。Mem0、Zep、cogneeの書き出しは変換が必要で、専用のアダプターはありません。",
         "codeTitle": "ドライラン、リポジトリのチェックアウトから"
       },
       {
@@ -197,7 +197,7 @@
       },
       {
         "q": "Mem0、Zep、cogneeからデータをインポートできますか？",
-        "a": "Mem0、Zep、cogneeからはできません。コンパニオンのインポーターが読めるのは、oh-my-claudecodeのmarkdown wiki、agentmemoryのvaultとエクスポートファイル、汎用の会話JSON形式です。既存のコードベースなら、ai-memory bootstrapがgitの履歴とドキュメントからwikiの初期ページを作ります。"
+        "a": "Mem0、Zep、cogneeからは取り込めません。付属のimporterが読むのは、oh-my-claudecodeのmarkdownウィキ、agentmemoryのvaultと書き出しファイル、会話の汎用JSON形式、そしてローカルのドキュメント1件（markdown、テキスト層のあるPDF、DOCX、PPTX、XLSX、CSV、VTT、SRT）です。既存のコードベースなら、ai-memory bootstrapがgitの履歴とドキュメントからウィキの種を作ります。"
       },
       {
         "q": "今のメモリツールと並べてai-memoryを動かせますか？",

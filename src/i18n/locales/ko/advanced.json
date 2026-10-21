@@ -307,7 +307,10 @@
         "상한은 초당 약 700건의 쓰기이며 라이터 32개 부근에서 도달합니다.",
         "쓰기 큐는 1024로 제한됩니다. 이를 넘으면 생산자가 느려질 뿐 모든 쓰기는 그대로 반영됩니다.",
         "셸 훅은 200 ms가 지나면 서버를 기다리지 않고 이벤트를 로컬에 스풀하므로, 서버가 느려도 에이전트가 멈추지 않습니다.",
-        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code>와 <code>AI_MEMORY_HOOK_RATE_BURST</code>로 액터와 세션 단위의 속도 제한을 추가할 수 있습니다. 기본값은 꺼짐입니다."
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code>와 <code>AI_MEMORY_HOOK_RATE_BURST</code>로 액터와 세션 단위의 속도 제한을 추가할 수 있습니다. 기본값은 꺼짐입니다.",
+        "<code>[ingest] drop_events</code>는 저장하고 싶지 않은 hook 이벤트 종류를 레이트 리밋과 새니타이저보다 먼저 버립니다. 어떤 운영 서버에서는 pre-tool-use 관측의 87%가 본문이 비어 있었습니다. 기본값은 아무것도 버리지 않습니다.",
+        "<code>[sessions] idle_end_after_hours</code>는 하네스가 비정상 종료되며 열어 둔 세션을 닫고, 요약 페이지를 쓰고 핸드오프를 풀어 줍니다. 기본값은 꺼짐입니다.",
+        "<code>ai-memory status --json</code>은 작업 종류별 LLM 호출 수와 결과, 지연 구간, 토큰 추정치를 보여 줍니다. 프롬프트나 응답 텍스트는 저장하지 않습니다."
       ],
       "caveats": {
         "title": "수치는 단서와 함께 읽으세요",

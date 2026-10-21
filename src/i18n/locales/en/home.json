@@ -48,6 +48,12 @@
         "title": "{score} hit@5 on LongMemEval-S, caveats included",
         "text": "hit@5 measures whether any session containing the evidence appears in the first five results. The published harness includes capture. This measures retrieval, not answer accuracy.",
         "cta": "What was measured"
+      },
+      {
+        "kicker": "Any language",
+        "title": "Search in Japanese, Korean and Chinese",
+        "text": "Writing without spaces between words needs an index of its own, or a phrase inside a sentence is never found. ai-memory keeps one, and a search in these scripts still makes no model call.",
+        "cta": "How retrieval works"
       }
     ],
     "secondary": "How it works"

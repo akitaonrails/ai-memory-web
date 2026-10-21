@@ -125,7 +125,16 @@
         "A bounded authority multiplier then nudges close contests toward maintained rules, decisions, procedures and gotchas. Episodic and historical pages stay searchable, and nothing is excluded outright.",
         "Optional LLM rerank: one call per query over up to 30 titles and snippets. Any failure keeps the local order. There is no local reranker yet.",
         "If compiled pages miss entirely, a bounded search over raw observations returns raw_hits.",
+        "Filters apply before ranking: <code>kind</code>, <code>tag</code>, <code>tier</code> and a path prefix narrow every stream, so a rare page cannot be crowded out by a common one.",
         "Pass explain=true to see per-stream ranks, RRF contributions and the multiplier for every hit."
+      ]
+    },
+    "cjk": {
+      "title": "Japanese, Korean and Chinese",
+      "points": [
+        "Han, Kana and Hangul are written without spaces, so a word-based index cannot find a phrase inside them. A second index over one and two character runs is written in the same transaction as the page.",
+        "It is a SQLite index, not a model. A search in Japanese or Korean still costs no API call and no embedding.",
+        "Latin text takes the ordinary path, unchanged. A store upgraded from an older version fills the new index before it accepts traffic."
       ]
     },
     "asOf": {

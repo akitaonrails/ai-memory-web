@@ -4,6 +4,10 @@
       "label": "Suportado",
       "means": "Captura automática pelos hooks de ciclo de vida, mais as ferramentas de memória via MCP."
     },
+    "hooks-mcp": {
+      "label": "Hooks + MCP",
+      "means": "A captura e as ferramentas de memória funcionam. Uma das duas pede que você mescle um arquivo de config na mão, ou falta ao agente um evento que os outros disparam."
+    },
     "mcp-only": {
       "label": "Só MCP",
       "means": "O agente consegue buscar e escrever na memória. Ele não expõe hooks de ciclo de vida, então nada é capturado automaticamente."
@@ -88,7 +92,7 @@
       "note": "MCP e quatro eventos de hook, com resume nativo. Fecha ao sair, com ai-memory run."
     },
     "antigravity-cli": {
-      "note": "Com ai-memory run, a sessão fecha ao sair. Fora disso, finalize-session."
+      "note": "Início de sessão, prompts lidos do transcript da conversa e um checkpoint no fim de cada turno. O finalize-session encerra a conversa na hora."
     },
     "pi": {
       "note": "Uma extensão gerada faz a captura e a ponte com MCP."
@@ -109,7 +113,7 @@
       "note": "Só MCP. O Prime Agent só lista o servidor para o modelo com o AI_MEMORY_AUTH_TOKEN exportado."
     },
     "dsh": {
-      "note": "Só MCP. Imprime um fragmento de patch do Cordis para mesclar, já que o DSH não tem arquivo de config fixo."
+      "note": "Hooks e MCP, os dois impressos como fragmentos de patch do Cordis para mesclar. Sem evento de fim de sessão, então encerre com finalize-session."
     },
     "grizzybot": {
       "note": "Um app de agente nativo para macOS, com a própria ponte para o ai-memory. Nada para instalar."
@@ -136,13 +140,22 @@
       "note": "Oito eventos de hook e uma ponte MCP que acompanha a sessão, mescladas no arquivo de configurações do próprio Muse."
     },
     "hermes": {
-      "note": "O instalador de hooks imprime um bloco para ~/.hermes/config.yaml. Recall e handoffs vêm do plugin da comunidade."
+      "note": "Imprime blocos para o ~/.hermes/config.yaml: seis eventos de ciclo de vida e uma entrada MCP. Com o plugin da comunidade instalado, só os dois eventos de ferramenta."
     },
     "ibm-bob": {
       "note": "MCP e hooks nativos para Bob IDE e Shell. Sem launcher gerenciado nem importação de transcrições anteriores. Após o último turno, execute ai-memory finalize-session --agent ibm-bob; Stop encerra apenas um turno."
     },
     "codebuddy": {
       "note": "Hooks nativos e handoffs no início da sessão. Sem instalador MCP, launcher gerenciado ou importação de transcrições anteriores. Verificado com payloads documentados; a validação ponta a ponta no cliente ainda está pendente."
+    },
+    "cline": {
+      "note": "Nove arquivos de evento da CLI e uma entrada Streamable HTTP, os dois escritos para você. Os hooks de tarefa começam desacoplados, então o handoff chega pelo MCP. O modo yolo desliga os hooks."
+    },
+    "freebuff": {
+      "note": "Só MCP. Uma entrada de bridge stdio no ~/.agents/mcp.json, o arquivo que o FreeBuff já procura."
+    },
+    "qwen-code": {
+      "note": "Dez eventos de ciclo de vida e uma entrada Streamable HTTP no ~/.qwen/settings.json. O Qwen dispara um fim de sessão de verdade, então não há nada para finalizar."
     }
   },
   "llmProviders": [

@@ -307,7 +307,10 @@
         "El techo ronda las 700 escrituras por segundo y se alcanza cerca de los 32 escritores.",
         "La cola de escritura está limitada a 1024. Pasado ese punto, los productores se frenan y todas las escrituras acaban llegando.",
         "Los hooks de shell dejan de esperar al servidor a los 200 ms y guardan el evento en una cola local, así que un servidor lento no bloquea a tu agente.",
-        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> y <code>AI_MEMORY_HOOK_RATE_BURST</code> añaden un rate limit opcional por actor y sesión. Viene desactivado."
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> y <code>AI_MEMORY_HOOK_RATE_BURST</code> añaden un rate limit opcional por actor y sesión. Viene desactivado.",
+        "<code>[ingest] drop_events</code> descarta los tipos de evento de hook que no quieres almacenar, antes del límite de tasa y del sanitizador. En un servidor en producción, el 87% de las observaciones de pre-tool-use llegaban con el cuerpo vacío. Por defecto no descarta nada.",
+        "<code>[sessions] idle_end_after_hours</code> cierra las sesiones que un harness dejó abiertas al caerse, escribe su página de resumen y libera el handoff. Desactivado por defecto.",
+        "<code>ai-memory status --json</code> informa de las llamadas al LLM por tipo de tarea, con resultado, franjas de latencia y una estimación de tokens. No guarda texto de prompts ni de respuestas."
       ],
       "caveats": {
         "title": "Lee los números con sus salvedades",

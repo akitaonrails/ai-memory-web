@@ -228,6 +228,11 @@
       "title": "Review shared pages in your repository",
       "text": "The optional ai-memory-wikisync companion syncs selected shared page families with repository Markdown. It reports conflicting edits, uses conditional writes and keeps deletion opt-in. It does not replicate servers or private session history.",
       "link": "Team-wiki sync guide"
+    },
+    "importer": {
+      "title": "Put an existing document into memory",
+      "text": "The optional ai-memory-importer reads one local file you name: Markdown, a text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It writes one attributed page, runs as a dry run by default, records the source digest and never replaces a page it does not own. No OCR, no images, no audio.",
+      "link": "The importer guide"
     }
   }
 }

@@ -141,8 +141,8 @@
         "text": "חיפוש לנקודת זמן משתמש בזמן שבו העובדה נרשמה. Zep ממדל גם מתי משהו קרה וגם מתי נודע עליו."
       },
       {
-        "title": "רק טקסט מסשנים של קוד",
-        "text": "הוא לא מזין קובצי PDF, CSV או תמונות, אין לו מודל ראייה, והוא לא מסד נתונים גרפי שאפשר לתשאל עם Cypher."
+        "title": "מסמכים נכנסים אחד בכל פעם",
+        "text": "ה-importer האופציונלי קורא קובץ מקומי אחד שמצביעים עליו: markdown, PDF עם שכבת טקסט, DOCX, PPTX, XLSX, CSV, VTT או SRT. אין crawler, אין OCR, אין מודל ראייה, וזה לא בסיס נתונים גרפי שאפשר לתשאל ב-Cypher."
       },
       {
         "title": "שרת אחד, בלי מסלול מתארח",
@@ -173,8 +173,8 @@
         "codeTitle": "פרויקט קיים"
       },
       {
-        "title": "מביאים הערות ושיחות ישנות, אם ה-importer קורא אותן",
-        "text": "הרכיב האופציונלי <code>companions/ai-memory-importer</code> תומך ב־Markdown של OMC, ב־JSON כללי של שיחות ובייצוא vault או ExportData של agentmemory. ברירת המחדל היא הרצת ניסיון. ייצוא מ־Mem0, Zep ו־cognee עדיין דורש המרה; אין מתאמים ייעודיים.",
+        "title": "להביא פתקים, שיחות ומסמכים ישנים",
+        "text": "ה-<code>companions/ai-memory-importer</code> האופציונלי תומך ב-markdown של OMC, ב-JSON גנרי של שיחות, בייצוא vault או ExportData של agentmemory, ובמסמך מקומי אחד בכל פעם: markdown, PDF עם שכבת טקסט, DOCX, PPTX, XLSX, CSV, VTT או SRT. ברירת המחדל היא dry run. ייצוא מ-Mem0, Zep ו-cognee עדיין דורש המרה; אין מתאמים ייעודיים.",
         "codeTitle": "הרצת ניסיון, מתוך checkout של ה-repo"
       },
       {
@@ -197,7 +197,7 @@
       },
       {
         "q": "אפשר לייבא את הנתונים שלי מ-Mem0, מ-Zep או מ-cognee?",
-        "a": "לא מ-Mem0, מ-Zep או מ-cognee. ה-importer הנלווה קורא ויקי markdown של oh-my-claudecode, קובצי vault וייצוא של agentmemory ופורמט JSON גנרי של שיחות. עבור בסיס קוד קיים, ai-memory bootstrap זורע את הוויקי מהיסטוריית ה-git ומהתיעוד."
+        "a": "מ-Mem0, Zep או cognee לא. ה-importer הנלווה קורא ויקי markdown של oh-my-claudecode, קובצי vault וייצוא של agentmemory, פורמט JSON גנרי של שיחות, ומסמך מקומי אחד בכל פעם (markdown, PDF עם שכבת טקסט, DOCX, PPTX, XLSX, CSV, VTT, SRT). לפרויקט קיים, ai-memory bootstrap זורע את הוויקי מהיסטוריית git ומהתיעוד."
       },
       {
         "q": "אפשר להריץ את ai-memory לצד כלי הזיכרון הנוכחי שלי?",

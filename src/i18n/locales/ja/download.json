@@ -77,28 +77,32 @@
     "upgrading": "3.0へのアップグレード",
     "highlights": [
       {
-        "title": "Windowsを2コマンドでセットアップ",
-        "text": "<code>install.ps1</code> は管理者権限なしでネイティブzipを検証してインストールします。<code>ai-memory setup</code> はサーバーを直ちに、そしてログオン時に起動します。ネイティブWindowsは引き続き実験的対応で、WSL2は正式対応です。"
+        "title": "日本語、韓国語、中国語での検索",
+        "text": "語の間に空白を置かない文字体系に、専用のインデックスができました。ページと一緒に書き込まれ、すべての検索ストリームが使います。モデル呼び出しは発生せず、有効化の設定もありません。古いバージョンから更新したストアは、通信を受け付ける前にインデックスを埋めます。"
       },
       {
-        "title": "設定前にエージェントを選択",
-        "text": "<code>setup --plan</code> は何も変更せずに計画を表示します。<code>setup --web</code> はローカルのブラウザページを開き、検出されたエージェントのうちどれを接続するか選べます。"
+        "title": "手元のドキュメントを記憶に入れる",
+        "text": "任意のimporterに<code>document</code>が加わりました。指定したローカルファイル1件を、markdown、テキスト層のあるPDF、DOCX、PPTX、XLSX、CSV、VTT、SRTとして読み込みます。出典を記録したページを1枚書き、既定はdry runで、自分のものでないページを置き換えることはありません。OCR、画像、音声には対応しません。"
       },
       {
-        "title": "より多くの文脈で継続",
-        "text": "管理対象ハーネスの切り替えでは、非公開の一時的なローカル履歴を次のエージェントに渡せます。対応クライアントでプロンプトを <code>reload context</code> で始めると、圧縮前に記録された文脈を復元します。ハンドオフの取得は行いません。"
+        "title": "Qwen Code、Cline CLI、FreeBuff",
+        "text": "Qwen Codeは10個のライフサイクルイベントとMCPエントリ、Cline CLIは9個のイベントファイルとStreamable HTTPのエントリ、FreeBuffは既に読んでいるファイルへのbridgeエントリに対応しました。"
       },
       {
-        "title": "ユーザー、セッション、キーを管理",
-        "text": "任意の <code>/manage</code> コンソールで、ユーザー管理、所有セッションの整理、個人用MCPキーの管理ができます。ビルド機能 <code>management-ui</code> と <code>--enable-management-ui</code> が必要で、標準Dockerイメージには含まれません。"
+        "title": "すでに対応しているエージェントの強化",
+        "text": "DeepSeek Harnessはhookによるキャプチャに、Hermes Agentは独自のセッションライフサイクルとMCPエントリに対応しました。Antigravityは各ターンのプロンプトを記録し、ターンの終わりにチェックポイントを書きます。CLI、アプリ、IDEのいずれでも同じです。"
       },
       {
-        "title": "IBM BobとCodeBuddy Code",
-        "text": "IBM BobにMCPとネイティブフックを追加しました。最後のターン後には明示的にセッションを終了してください。CodeBuddy Codeにはネイティブフックとハンドオフを追加しました。どちらも管理起動と過去のトランスクリプト取り込みには未対応です。"
+        "title": "何が何にリンクしているかの地図",
+        "text": "ブラウザがページ間のリンクを描きます。プロジェクト間の地図と、各プロジェクト内の地図の2つを、素のHTMLで表示します。別のページにはランチャーが動かしているものが並びます。どちらも読み取り専用で、APIからも同じ辺を取得できます。"
       },
       {
-        "title": "検索と復元",
-        "text": "Web検索に種類と階層のフィルターを追加しました。<code>search --global</code> はCLIからプロジェクトを横断してwikiページを検索します。管理者は <code>memory_restore_page</code> でチェックポイントの一覧取得とページの復元を行えます。"
+        "title": "ランキング前に検索を絞る",
+        "text": "<code>memory_query</code>が<code>kind</code>、<code>tag</code>、<code>tier</code>、パスの接頭辞を受け取り、融合の前に各ストリームへ適用します。希少なページが押し出されません。<code>ai-memory recent</code>は最新のページをターミナルから一覧できます。"
+      },
+      {
+        "title": "サーバーを静かに保つ",
+        "text": "保存したくないhookイベントを捨てる、ハーネスが開いたまま残したセッションを一定の無活動時間で閉じる、<code>ai-memory status</code>で処理ごとのLLM呼び出し回数を読む。3つとも既定では無効か空です。"
       }
     ]
   },

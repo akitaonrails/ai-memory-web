@@ -228,6 +228,11 @@
       "title": "Revisa páginas compartidas en tu repositorio",
       "text": "El componente opcional ai-memory-wikisync sincroniza familias seleccionadas de páginas compartidas con Markdown del repositorio. Informa de conflictos, usa escrituras condicionales y exige activar las eliminaciones. No replica servidores ni historiales privados de sesiones.",
       "link": "Guía de sincronización de la wiki del equipo"
+    },
+    "importer": {
+      "title": "Mete en la memoria un documento que ya tienes",
+      "text": "El opcional ai-memory-importer lee un archivo local que tú indicas: markdown, PDF con capa de texto, DOCX, PPTX, XLSX, CSV, VTT o SRT. Escribe una página con la fuente atribuida, hace un dry run por defecto, registra el digest del archivo y nunca reemplaza una página que no es suya. Sin OCR, sin imágenes, sin audio.",
+      "link": "La guía del importador"
     }
   }
 }

@@ -307,7 +307,10 @@
         "The ceiling is about 700 writes per second, reached near 32 writers.",
         "The write queue is bounded at 1024. Past that, producers slow down and every write still lands.",
         "Shell hooks give up on the server after 200 ms and spool the event locally, so a slow server does not stall your agent.",
-        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> and <code>AI_MEMORY_HOOK_RATE_BURST</code> add an optional rate limit per actor and session. It is off by default."
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> and <code>AI_MEMORY_HOOK_RATE_BURST</code> add an optional rate limit per actor and session. It is off by default.",
+        "<code>[ingest] drop_events</code> discards hook event kinds you do not want stored, before the rate limiter and the sanitizer. In one production store, 87% of pre-tool-use observations had an empty body. The default drops nothing.",
+        "<code>[sessions] idle_end_after_hours</code> closes sessions a crashed harness left open, writing the summary page and releasing the handoff. Off by default.",
+        "<code>ai-memory status --json</code> reports per-workload LLM calls, outcomes, latency buckets and token estimates. It stores no prompt or output text."
       ],
       "caveats": {
         "title": "Read the numbers with their caveats",

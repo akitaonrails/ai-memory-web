@@ -4,6 +4,10 @@
       "label": "נתמך",
       "means": "לכידה אוטומטית דרך hooks של מחזור החיים, וגם כלי הזיכרון מעל MCP."
     },
+    "hooks-mcp": {
+      "label": "Hooks + MCP",
+      "means": "גם הלכידה וגם כלי הזיכרון עובדים. אחד מהשניים דורש למזג קובץ קונפיגורציה ביד, או שלסוכן חסר אירוע שהאחרים שולחים."
+    },
     "mcp-only": {
       "label": "MCP בלבד",
       "means": "הסוכן יכול לחפש בזיכרון ולכתוב אליו. הוא לא חושף hooks של מחזור החיים, ולכן שום דבר לא נלכד אוטומטית."
@@ -88,7 +92,7 @@
       "note": "MCP וארבעה אירועי hook, עם resume נייטיב. נסגר ביציאה תחת ai-memory run."
     },
     "antigravity-cli": {
-      "note": "תחת ai-memory run הסשן נסגר ביציאה. אחרת, עם finalize-session."
+      "note": "התחלת סשן, prompts שנקראים מהתמליל של השיחה, ו-checkpoint בסוף כל תור. finalize-session סוגר שיחה מיד."
     },
     "pi": {
       "note": "הרחבה שנוצרת אוטומטית נותנת לכידה וגשר ל-MCP."
@@ -109,7 +113,7 @@
       "note": "MCP בלבד. Prime Agent מציג את השרת למודל רק כש-AI_MEMORY_AUTH_TOKEN מיוצא."
     },
     "dsh": {
-      "note": "MCP בלבד. מדפיס קטע patch של Cordis למיזוג, כי ל-DSH אין קובץ קונפיגורציה קבוע."
+      "note": "Hooks ו-MCP, שניהם מודפסים כקטעי patch של Cordis למיזוג. אין אירוע סיום סשן, אז סוגרים עם finalize-session."
     },
     "grizzybot": {
       "note": "אפליקציית סוכן נייטיב ל-macOS עם גשר משלה ל-ai-memory. אין מה להתקין."
@@ -136,13 +140,22 @@
       "note": "שמונה אירועי hooks וגשר MCP שמודע לסשן, משולבים בקובץ ההגדרות של Muse עצמו."
     },
     "hermes": {
-      "note": "מתקין ה-hooks מדפיס קטע להדבקה בקובץ ~/.hermes/config.yaml. שליפה והעברות מגיעות מהפלאגין הקהילתי."
+      "note": "מדפיס בלוקים ל-~/.hermes/config.yaml: שישה אירועי מחזור חיים ורשומת MCP. כשהפלאגין הקהילתי מותקן, רק שני אירועי הכלים."
     },
     "ibm-bob": {
       "note": "MCP ו-hooks נייטיב עבור Bob IDE ו-Shell. ללא launcher מנוהל או ייבוא תמלילים קודמים. אחרי התור האחרון הפעילו ai-memory finalize-session --agent ibm-bob; האירוע Stop מסיים תור בלבד."
     },
     "codebuddy": {
       "note": "Hooks נייטיב ו-handoffs בתחילת סשן. ללא מתקין MCP, launcher מנוהל או ייבוא תמלילים קודמים. נבדק מול מבני הנתונים המתועדים; אימות מקצה לקצה בלקוח עדיין ממתין."
+    },
+    "cline": {
+      "note": "תשעה קובצי אירועים של ה-CLI ורשומת Streamable HTTP, שניהם נכתבים עבורכם. hooks של משימה מופעלים מנותקים, ולכן ה-handoff מגיע דרך MCP. מצב yolo מכבה את ה-hooks."
+    },
+    "freebuff": {
+      "note": "MCP בלבד. רשומת bridge של stdio ב-~/.agents/mcp.json, הקובץ ש-FreeBuff כבר מחפש."
+    },
+    "qwen-code": {
+      "note": "עשרה אירועי מחזור חיים ורשומת Streamable HTTP ב-~/.qwen/settings.json. Qwen שולח אירוע סיום סשן אמיתי, אז אין מה לסגור ידנית."
     }
   },
   "llmProviders": [

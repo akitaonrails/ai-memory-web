@@ -77,28 +77,32 @@
     "upgrading": "3.0으로 업그레이드하기",
     "highlights": [
       {
-        "title": "두 명령으로 Windows 설정",
-        "text": "<code>install.ps1</code>은 관리자 권한 없이 네이티브 zip을 검증하고 설치합니다. <code>ai-memory setup</code>은 서버를 즉시 그리고 로그인 때 시작합니다. 네이티브 Windows는 여전히 실험적이며 WSL2는 계속 지원합니다."
+        "title": "일본어, 한국어, 중국어 검색",
+        "text": "단어를 띄어 쓰지 않는 문자에 전용 인덱스가 생겼고, 페이지와 함께 기록됩니다. 모든 검색 스트림이 이 인덱스를 쓰며, 모델 호출 비용이 없고 따로 켤 것도 없습니다. 예전 버전에서 올라온 저장소는 트래픽을 받기 전에 인덱스를 채웁니다."
       },
       {
-        "title": "설정 전에 에이전트 선택",
-        "text": "<code>setup --plan</code>은 변경 없이 계획을 보여줍니다. <code>setup --web</code>은 로컬 브라우저 페이지를 열어 감지된 에이전트 중 연결할 대상을 고르게 합니다."
+        "title": "문서를 기억에 넣기",
+        "text": "선택 사항인 importer에 <code>document</code>가 생겼습니다. 지정한 로컬 파일 하나를 markdown, 텍스트 레이어가 있는 PDF, DOCX, PPTX, XLSX, CSV, VTT, SRT로 읽습니다. 출처를 기록한 페이지 하나를 쓰고, 기본은 dry run이며, 자기 것이 아닌 페이지는 절대 덮어쓰지 않습니다. OCR도 이미지도 오디오도 없습니다."
       },
       {
-        "title": "더 많은 맥락으로 이어가기",
-        "text": "관리형 하네스 전환은 비공개 임시 로컬 기록을 다음 에이전트에 전달할 수 있습니다. 지원 클라이언트에서 프롬프트를 <code>reload context</code>로 시작하면 압축 전 캡처된 맥락을 복원하며 핸드오프를 가져오지는 않습니다."
+        "title": "Qwen Code, Cline CLI, FreeBuff",
+        "text": "Qwen Code는 라이프사이클 이벤트 열 개와 MCP 항목을, Cline CLI는 이벤트 파일 아홉 개와 Streamable HTTP 항목을, FreeBuff는 이미 읽고 있던 파일에 bridge 항목을 받았습니다."
       },
       {
-        "title": "사용자, 세션, 키 관리",
-        "text": "선택적 <code>/manage</code> 콘솔은 사용자 관리, 소유 세션 정리, 개인 MCP 키를 제공합니다. <code>management-ui</code> 빌드 기능과 <code>--enable-management-ui</code>가 필요하며 표준 Docker 이미지에는 없습니다."
+        "title": "이미 있던 에이전트들의 보강",
+        "text": "DeepSeek Harness는 hook 캡처를, Hermes Agent는 자체 세션 라이프사이클과 MCP 항목을 갖게 됐습니다. Antigravity는 턴마다 프롬프트를 기록하고 턴이 끝날 때 체크포인트를 남깁니다. CLI와 앱, IDE 모두 같습니다."
       },
       {
-        "title": "IBM Bob과 CodeBuddy Code",
-        "text": "IBM Bob에 MCP와 네이티브 훅이 추가되었습니다. 마지막 턴 후 세션을 명시적으로 마무리하세요. CodeBuddy Code에는 네이티브 훅과 핸드오프가 추가되었습니다. 둘 다 관리형 실행이나 과거 대화 기록 가져오기는 지원하지 않습니다."
+        "title": "무엇이 무엇과 이어지는지 보는 지도",
+        "text": "브라우저가 페이지 사이의 링크를 그립니다. 프로젝트 사이의 지도 하나와 프로젝트 안의 지도 하나를 순수 HTML로 보여 줍니다. 별도 페이지에는 실행기가 돌리고 있는 것이 나열됩니다. 둘 다 읽기 전용이고, API도 같은 간선을 제공합니다."
       },
       {
-        "title": "검색과 복원",
-        "text": "웹 검색에 종류와 계층 필터가 추가되었습니다. <code>search --global</code>은 CLI에서 여러 프로젝트의 위키 페이지를 검색합니다. 관리자는 <code>memory_restore_page</code>로 체크포인트 목록을 조회하고 페이지를 복원할 수 있습니다."
+        "title": "랭킹 전에 검색 좁히기",
+        "text": "<code>memory_query</code>가 <code>kind</code>, <code>tag</code>, <code>tier</code>와 경로 접두사를 받아 융합 전에 각 스트림에 적용합니다. 드문 페이지가 밀려나지 않습니다. <code>ai-memory recent</code>는 가장 최근 페이지를 터미널에서 보여 줍니다."
+      },
+      {
+        "title": "조용해진 서버",
+        "text": "저장하고 싶지 않은 hook 이벤트를 버리고, 하네스가 열어 둔 세션을 정해진 유휴 시간 뒤에 닫고, <code>ai-memory status</code>에서 작업별 LLM 호출 수를 확인할 수 있습니다. 셋 다 기본값은 꺼짐이거나 비어 있습니다."
       }
     ]
   },

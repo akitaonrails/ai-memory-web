@@ -41,11 +41,12 @@ const cardMeta = [
   { href: '/install/', hue: 'teal' },
   { href: '/aging/', hue: 'teal' },
   { href: '/research/#measured', hue: 'violet' },
+  { href: '/architecture/#retrieval', hue: 'azure' },
 ] as const;
 const cardParams = { n: String(harnesses.length), score: factsData.benchmark.metrics['hit@5'][3].toFixed(3) };
 const cards = raw<{ kicker: string; title: string; text: string; cta: string }[]>('hero.cards').map((c, i) => ({
   ...c, ...cardMeta[i], title: c.title.replace(/\{(\w+)\}/g, (m, k: keyof typeof cardParams) => cardParams[k] ?? m),
-})).filter((_, i) => i === 2 || i === 5);
+})).filter((_, i) => i === 2 || i === 5 || i === 6);
 const tabs = raw<string[]>('quickstart.tabs');
 
 // Commands never change with the language. Only the comments do.
@@ -284,7 +285,7 @@ ai-memory run claude`;
   .agent-list { display: flex; flex-wrap: wrap; gap: .8rem 2rem; padding-block: 1.5rem; border-bottom: 2px solid var(--line); font-family: var(--font-display); color: var(--muted); }
   .guide-panel a { display: inline-block; padding-block: .25rem; }
   .guide-panel { border-inline-start: 3px solid var(--amber-ink); padding-inline-start: clamp(1.5rem, 4vw, 3rem); }
-  .feature-directory { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2rem; padding-block: 3.5rem 0; }
+  .feature-directory { display: grid; grid-template-columns: repeat(auto-fit,minmax(19rem,1fr)); gap: 2rem; padding-block: 3.5rem 0; }
   .directory-link { border-top: 2px solid var(--line); padding-block: 1.3rem; display: flex; flex-direction: column; align-items: start; }
   .directory-link:hover { border-color: var(--amber-ink); }
   .directory-link h2 { font-size: 1.6rem; margin-block: 1rem; }

@@ -63,8 +63,8 @@
         "Ninguna factura de LLM por la ingesta",
         "Un solo binario que corre en un equipo de homelab"
       ],
-      "theyWin": "Amplitud: más de 14 modos de recuperación, anclaje en ontologías e ingesta de PDF, CSV y páginas web.",
-      "verdict": "Cámbiate si quieres memoria para sesiones de programación. Quédate si ingieres documentos."
+      "theyWin": "Amplitud: más de 14 modos de recuperación, anclaje en ontologías y un pipeline que ingiere páginas web y conjuntos enteros de documentos de una vez.",
+      "verdict": "Cámbiate si quieres memoria para sesiones de programación. Quédate si la ingesta a escala es el trabajo."
     },
     "openviking": {
       "name": "OpenViking y Hindsight",

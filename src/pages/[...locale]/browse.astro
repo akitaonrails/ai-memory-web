@@ -47,6 +47,10 @@ const next = withText([
     </Section>
   ))}
 
+  <Section id="graph" title={t('graph.title')} lede={t('graph.lede')} hue="violet">
+    <FeatureGrid items={raw<Item[]>('graph.items').map((p) => ({ ...p, hue: 'violet' as const }))} cols={3} />
+  </Section>
+
   <Section id="history" title={t('history.title')} lede={t('history.lede')} hue="amber">
     <FeatureGrid items={raw<Item[]>('history.items').map((p) => ({ ...p, hue: 'amber' as const }))} cols={3} />
     <div class="mt-12 grid lg:grid-cols-2 gap-8 items-start">

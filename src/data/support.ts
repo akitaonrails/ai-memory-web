@@ -1,15 +1,15 @@
 // Source: ai-memory docs/support-matrix.md. Keep in step with the repo.
-export type Status = 'Supported' | 'MCP-only' | 'Hooks-only' | 'Managed-only' | 'Community' | 'Experimental';
+export type Status = 'Supported' | 'Hooks + MCP' | 'MCP-only' | 'Hooks-only' | 'Managed-only' | 'Community' | 'Experimental';
 
 // Text lives in src/i18n/locales/<locale>/support.json:
 //   status.<slug>.{label, means}, platforms.<slug>.{name, note}, harnesses.<id>.note, llmProviders[], embeddingProviders[]
 export const statusHue: Record<Status, string> = {
-  Supported: 'green', 'MCP-only': 'azure', 'Hooks-only': 'teal', 'Managed-only': 'violet', Community: 'rose', Experimental: 'amber',
+  Supported: 'green', 'Hooks + MCP': 'teal', 'MCP-only': 'azure', 'Hooks-only': 'teal', 'Managed-only': 'violet', Community: 'rose', Experimental: 'amber',
 };
 export const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 export interface Row { name: string; status: Status; id?: string; run?: boolean; print?: boolean; none?: boolean }
-// `print`: the hook installer prints a block to paste (no `--apply`) and there is no `install-mcp` client.
+// `print`: the installers print a block to paste instead of writing the file (`--apply` is refused).
 // `none`: the agent ships its own bridge to /hook and /mcp, so there is nothing to install.
 
 export const platforms: Row[] = [
@@ -42,7 +42,9 @@ export const harnesses: Row[] = [
   { name: 'ZCode', id: 'zcode', status: 'Supported' },
   { name: 'GrizzyBot', id: 'grizzybot', status: 'Supported', none: true },
   { name: 'Prime Agent', id: 'prime-agent', status: 'MCP-only' },
-  { name: 'DeepSeek Harness', id: 'dsh', status: 'MCP-only', print: true },
+  { name: 'DeepSeek Harness', id: 'dsh', status: 'Hooks + MCP', print: true },
+  { name: 'Cline CLI', id: 'cline', status: 'Hooks + MCP' },
+  { name: 'FreeBuff', id: 'freebuff', status: 'MCP-only' },
   { name: 'Crush', id: 'crush', status: 'Managed-only', run: true },
   { name: 'IBM Bob', id: 'ibm-bob', status: 'Supported' },
   { name: 'CodeBuddy Code', id: 'codebuddy', status: 'Hooks-only' },
@@ -52,6 +54,7 @@ export const harnesses: Row[] = [
   { name: 'Zed', id: 'zed', status: 'MCP-only' },
   { name: 'Swival CLI', id: 'swival', status: 'MCP-only' },
   { name: 'Meta Muse Code', id: 'muse', status: 'Supported' },
+  { name: 'Qwen Code', id: 'qwen-code', status: 'Supported' },
   { name: 'Hermes Agent', id: 'hermes', status: 'Supported', print: true },
 ];
 

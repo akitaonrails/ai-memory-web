@@ -33,6 +33,24 @@
     "shotAlt": "Captura de la búsqueda de ai-memory 3.1 de “rate limit” en demo/api, con selectores de proyecto, Kind y Tier, Explain ranking y cuatro resultados de páginas de demostración.",
     "shotCaption": "Una búsqueda sin proyecto es la búsqueda de texto completo entre proyectos, lo mismo que hace memory_query con global activado."
   },
+  "graph": {
+    "title": "Cómo se conectan las páginas",
+    "lede": "Un mapa de los enlaces entre páginas, dibujado por el servidor. Sin JavaScript y sin ninguna base de grafos detrás: las aristas son filas del mismo índice que lee la búsqueda.",
+    "items": [
+      {
+        "title": "Entre proyectos",
+        "text": "El enlace Graph de la cabecera dibuja cada enlace resuelto cuyos dos extremos están en proyectos distintos, con una tabla de esas aristas debajo. Así ves que el proyecto de la API cita una decisión tomada en el del frontend."
+      },
+      {
+        "title": "Dentro de un proyecto",
+        "text": "Cada proyecto tiene el mapa de sus páginas vivas y de los enlaces entre ellas. Por encima de 120 páginas se quedan las más conectadas y las más recientes, para que el dibujo siga siendo legible."
+      },
+      {
+        "title": "Qué está ejecutando el lanzador",
+        "text": "Una página aparte lista las ejecuciones gestionadas y su estado: activa, interrumpida, terminada, vacía. Muestra recuentos, nunca rutas de checkout, propietarios de lease ni contenido de transcripciones. Solo root en un servidor compartido."
+      }
+    ]
+  },
   "history": {
     "title": "Historial, reproducción y estado",
     "lede": "Tres vistas para la pregunta «¿qué pasó aquí?».",

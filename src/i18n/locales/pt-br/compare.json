@@ -141,8 +141,8 @@
         "text": "A busca point-in-time usa o momento em que o fato foi registrado. O Zep modela tanto quando algo aconteceu quanto quando foi aprendido."
       },
       {
-        "title": "Só texto de sessões de código",
-        "text": "Não ingere PDFs, CSVs nem imagens, não tem modelo de visão e não é um banco de grafos que você consulta com Cypher."
+        "title": "Documentos entram um de cada vez",
+        "text": "O importador opcional lê um arquivo local que você indica: markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. Não há crawler, não há OCR, não há modelo de visão, e não é um banco de grafos para consultar com Cypher."
       },
       {
         "title": "Um servidor, sem versão hospedada",
@@ -173,8 +173,8 @@
         "codeTitle": "projeto existente"
       },
       {
-        "title": "Traga anotações e conversas antigas, se o importador souber ler",
-        "text": "O componente opcional <code>companions/ai-memory-importer</code> aceita Markdown do OMC, JSON genérico de conversas e exportações vault ou ExportData do agentmemory. O padrão é simular. Exportações de Mem0, Zep e cognee ainda precisam de conversão; não há adaptadores dedicados.",
+        "title": "Traga notas, conversas e documentos antigos",
+        "text": "O opcional <code>companions/ai-memory-importer</code> aceita markdown do OMC, JSON genérico de conversas, exports de vault ou ExportData do agentmemory, e um documento local por vez: markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. O padrão é dry run. Exports de Mem0, Zep e cognee ainda precisam de conversão; não há adaptadores dedicados.",
         "codeTitle": "dry run, a partir de um checkout do repositório"
       },
       {
@@ -197,7 +197,7 @@
       },
       {
         "q": "Consigo importar meus dados do Mem0, Zep ou cognee?",
-        "a": "Do Mem0, do Zep ou do cognee, não. O importador companion lê wikis markdown do oh-my-claudecode, arquivos de vault e de export do agentmemory e um formato JSON genérico de conversas. Para uma base de código existente, o ai-memory bootstrap popula a wiki a partir do histórico do git e da documentação."
+        "a": "De Mem0, Zep ou cognee, não. O importador companheiro lê wikis markdown do oh-my-claudecode, arquivos de vault e export do agentmemory, um formato JSON genérico de conversas, e um documento local por vez (markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT, SRT). Para um projeto que já existe, o ai-memory bootstrap semeia a wiki a partir do histórico do git e dos docs."
       },
       {
         "q": "Posso rodar o ai-memory ao lado da minha ferramenta de memória atual?",

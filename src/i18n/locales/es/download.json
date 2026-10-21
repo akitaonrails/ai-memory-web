@@ -77,28 +77,32 @@
     "upgrading": "Actualizar a la 3.0",
     "highlights": [
       {
-        "title": "Windows en dos comandos",
-        "text": "<code>install.ps1</code> verifica e instala el zip nativo sin permisos de administrador. <code>ai-memory setup</code> inicia el servidor ahora y al iniciar sesión. Windows nativo sigue siendo experimental; WSL2 sigue soportado."
+        "title": "Búsqueda en japonés, coreano y chino",
+        "text": "La escritura sin espacios entre palabras ya tiene índice propio, escrito junto con la página. Todas las vías de recuperación lo usan, no cuesta ninguna llamada a un modelo y no hay nada que activar. Un almacén que viene de una versión anterior lo rellena antes de aceptar tráfico."
       },
       {
-        "title": "Elige agentes antes de configurar",
-        "text": "<code>setup --plan</code> muestra el plan sin cambiar nada. <code>setup --web</code> abre una página local en el navegador para elegir qué agentes detectados conectar."
+        "title": "Mete un documento en la memoria",
+        "text": "El importador opcional gana <code>document</code>: un archivo local que tú indicas, en markdown, PDF con capa de texto, DOCX, PPTX, XLSX, CSV, VTT o SRT. Escribe una página con la fuente atribuida, hace un dry run por defecto y nunca reemplaza una página que no es suya. Sin OCR, sin imágenes, sin audio."
       },
       {
-        "title": "Continúa con más contexto",
-        "text": "Los cambios de harness gestionados pueden pasar historial local privado y temporal al siguiente agente. Empieza un prompt con <code>reload context</code> en clientes compatibles para recuperar contexto capturado antes de la compactación; no reclama handoffs."
+        "title": "Qwen Code, Cline CLI y FreeBuff",
+        "text": "Qwen Code recibe diez eventos de ciclo de vida y una entrada MCP, Cline CLI recibe sus nueve archivos de evento y una entrada Streamable HTTP, y FreeBuff recibe una entrada de bridge en el archivo que ya lee."
       },
       {
-        "title": "Gestiona usuarios, sesiones y claves",
-        "text": "La consola opcional <code>/manage</code> ofrece administración de usuarios, limpieza de sesiones propias y claves MCP personales. Requiere compilar con <code>management-ui</code> y usar <code>--enable-management-ui</code>; no está en la imagen Docker estándar."
+        "title": "Más de los agentes que ya estaban",
+        "text": "DeepSeek Harness gana captura por hooks, Hermes Agent gana su propio ciclo de vida de sesión y una entrada MCP, y Antigravity registra el prompt de cada turno y guarda un checkpoint al terminarlo, en la CLI, la app y el IDE."
       },
       {
-        "title": "IBM Bob y CodeBuddy Code",
-        "text": "IBM Bob incorpora MCP y hooks nativos; finaliza su sesión explícitamente tras el último turno. CodeBuddy Code incorpora hooks nativos y handoffs. Ninguno tiene lanzamiento gestionado ni importación de transcripciones anteriores."
+        "title": "Un mapa de qué enlaza con qué",
+        "text": "El navegador dibuja los enlaces entre páginas: un mapa entre proyectos y otro dentro de cada proyecto, en HTML puro. Una página aparte lista lo que está ejecutando el lanzador. Ambas son de solo lectura, y la API sirve las mismas aristas."
       },
       {
-        "title": "Busca y restaura",
-        "text": "La búsqueda web añade filtros de tipo y nivel. <code>search --global</code> busca páginas de la wiki entre proyectos desde la CLI. Los administradores pueden listar checkpoints y restaurar páginas con <code>memory_restore_page</code>."
+        "title": "Acota la búsqueda antes del ranking",
+        "text": "<code>memory_query</code> acepta <code>kind</code>, <code>tag</code>, <code>tier</code> y un prefijo de ruta, aplicados a cada vía antes de la fusión, así una página poco frecuente no queda desplazada. <code>ai-memory recent</code> lista las páginas más nuevas desde la terminal."
+      },
+      {
+        "title": "Servidores más tranquilos",
+        "text": "Descarta eventos de hook que no quieres almacenar, cierra las sesiones que un harness dejó abiertas tras un número de horas inactivas y lee los recuentos de LLM por tarea en <code>ai-memory status</code>. Las tres cosas vienen desactivadas o vacías por defecto."
       }
     ]
   },

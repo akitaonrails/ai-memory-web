@@ -33,6 +33,24 @@
     "shotAlt": "Screenshot of ai-memory 3.1 search for “rate limit” in demo/api, with project, Kind and Tier selectors, Explain ranking, and four results from seeded demonstration pages.",
     "shotCaption": "A search with no project is the cross-project full-text search, the same thing memory_query does with global set."
   },
+  "graph": {
+    "title": "How the pages connect",
+    "lede": "A map of the links between pages, drawn by the server. No JavaScript, and no graph database behind it: the edges are rows in the same index the search reads.",
+    "items": [
+      {
+        "title": "Across projects",
+        "text": "The Graph link in the header draws every resolved link whose two ends sit in different projects, with a table of those edges underneath. It is how you notice that the API project cites a decision taken in the frontend one."
+      },
+      {
+        "title": "Inside one project",
+        "text": "Each project has its own map of its live pages and the links among them. Above 120 pages it keeps the best connected and the most recently updated, so the picture stays readable."
+      },
+      {
+        "title": "What the launcher is running",
+        "text": "A separate page lists managed runs and their state: live, interrupted, finished, empty. It shows counts, never checkout paths, lease owners or transcript content. Root only on a shared server."
+      }
+    ]
+  },
   "history": {
     "title": "History, replay and health",
     "lede": "Three views for the question “what happened here?”",

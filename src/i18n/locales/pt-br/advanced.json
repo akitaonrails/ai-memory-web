@@ -307,7 +307,10 @@
         "O teto fica em torno de 700 escritas por segundo, atingido perto de 32 writers.",
         "A fila de escrita é limitada a 1024. Passando disso, os produtores desaceleram e toda escrita ainda é gravada.",
         "Os hooks de shell desistem do servidor depois de 200 ms e guardam o evento num spool local, então um servidor lento não trava o seu agente.",
-        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> e <code>AI_MEMORY_HOOK_RATE_BURST</code> adicionam um rate limit opcional por ator e por sessão. Vem desligado por padrão."
+        "<code>AI_MEMORY_HOOK_RATE_PER_SEC</code> e <code>AI_MEMORY_HOOK_RATE_BURST</code> adicionam um rate limit opcional por ator e por sessão. Vem desligado por padrão.",
+        "<code>[ingest] drop_events</code> descarta os tipos de evento de hook que você não quer armazenar, antes do rate limit e do sanitizador. Em um servidor em produção, 87% das observações de pre-tool-use vinham com o corpo vazio. O padrão não descarta nada.",
+        "<code>[sessions] idle_end_after_hours</code> encerra sessões que um harness deixou abertas ao travar, gravando a página de resumo e liberando o handoff. Desligado por padrão.",
+        "<code>ai-memory status --json</code> mostra as chamadas de LLM por tipo de tarefa, com resultado, faixas de latência e estimativa de tokens. Nenhum texto de prompt ou de resposta é guardado."
       ],
       "caveats": {
         "title": "Leia os números junto com as ressalvas",

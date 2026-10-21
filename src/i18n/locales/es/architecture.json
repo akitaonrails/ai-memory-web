@@ -125,7 +125,16 @@
         "Después, un multiplicador de autoridad acotado inclina los empates ajustados hacia reglas, decisiones, procedimientos y gotchas que se mantienen al día. Las páginas episódicas e históricas siguen apareciendo en las búsquedas, y nada se excluye del todo.",
         "Rerank opcional con LLM: una llamada por consulta sobre hasta 30 títulos y fragmentos. Ante cualquier fallo se conserva el orden local. Todavía no hay un reranker local.",
         "Si las páginas compiladas no dan ningún resultado, una búsqueda acotada sobre las observaciones en bruto devuelve raw_hits.",
+        "Los filtros se aplican antes del ranking: <code>kind</code>, <code>tag</code>, <code>tier</code> y un prefijo de ruta acotan todas las vías, así una página poco frecuente no queda desplazada por una común.",
         "Pasa explain=true para ver las posiciones por flujo, las contribuciones de RRF y el multiplicador de cada resultado."
+      ]
+    },
+    "cjk": {
+      "title": "Japonés, coreano y chino",
+      "points": [
+        "El han, el kana y el hangul se escriben sin espacios, así que un índice por palabras no encuentra un fragmento dentro de la frase. Un segundo índice, de secuencias de uno y dos caracteres, se escribe en la misma transacción que la página.",
+        "Es un índice de SQLite, no un modelo. Buscar en japonés o coreano sigue sin costar ninguna llamada de API ni embeddings.",
+        "El texto latino sigue la vía de siempre, sin cambios. Un almacén que viene de una versión anterior rellena el índice nuevo antes de aceptar tráfico."
       ]
     },
     "asOf": {

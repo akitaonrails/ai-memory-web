@@ -93,7 +93,7 @@ section('2. Hard facts');
   const norm = (s) => s.toLowerCase().replace(/\(.*?\)|`/g, '').split(' / ')[0].replace(/beta|cli$/g, '').replace(/[^a-z0-9]/g, '');
   const alias = { ohmypi: 'ohmypi', pool: 'pool', opencode2: 'opencodev2compatibilityaliases', nixos: 'nixosmodule', deepseekharness: 'deepseekharness' };
   const upstream = new Map();
-  for (const m of up('README.md').matchAll(/^\| ([^|]+?) \| (Supported|Experimental|MCP-only|Hooks-only|Managed-only|Community|Opt-in) \|$/gm)) upstream.set(norm(m[1]), { name: m[1].trim(), status: m[2] });
+  for (const m of up('README.md').matchAll(/^\| ([^|]+?) \| (Supported|Experimental|MCP-only|Hooks-only|Hooks \+ MCP|Managed-only|Community|Opt-in) \|$/gm)) upstream.set(norm(m[1]), { name: m[1].trim(), status: m[2] });
   const ours = [...here('src/data/support.ts').matchAll(/\{ name: '([^']+)'(?:, id: '[^']+')?, status: '([^']+)'/g)].map((m) => ({ name: m[1], status: m[2] }));
   const seen = new Set();
   for (const row of ours) {

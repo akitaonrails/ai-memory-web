@@ -63,8 +63,8 @@
         "No LLM bill for ingestion",
         "A single binary that runs on a homelab box"
       ],
-      "theyWin": "Breadth: 14+ retrieval modes, ontology grounding, and ingestion of PDFs, CSVs and web pages.",
-      "verdict": "Move if you want memory for coding sessions. Stay if you ingest documents."
+      "theyWin": "Breadth: 14+ retrieval modes, ontology grounding, and a pipeline that ingests web pages and whole document sets at once.",
+      "verdict": "Move if you want memory for coding sessions. Stay if ingestion at scale is the job."
     },
     "openviking": {
       "name": "OpenViking and Hindsight",

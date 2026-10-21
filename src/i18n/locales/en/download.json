@@ -77,28 +77,32 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
-        "title": "Windows setup in two commands",
-        "text": "<code>install.ps1</code> verifies and installs the native zip without admin rights. <code>ai-memory setup</code> starts the server now and at logon. Native Windows remains experimental; WSL2 remains supported."
+        "title": "Search in Japanese, Korean and Chinese",
+        "text": "Writing without spaces between words now has an index of its own, written with the page. Every retrieval stream uses it, it costs no model call, and there is nothing to switch on. A store upgraded from an older version fills it in before it accepts traffic."
       },
       {
-        "title": "Choose agents before setup",
-        "text": "<code>setup --plan</code> previews without changing anything. <code>setup --web</code> opens a local browser page where you choose which detected agents to wire."
+        "title": "Put a document into memory",
+        "text": "The optional importer gains <code>document</code>: one local file you name, as Markdown, a text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It writes one attributed page, dry-runs by default and never replaces a page it does not own. No OCR, no images, no audio."
       },
       {
-        "title": "Continue with more context",
-        "text": "Managed harness switches can pass private, temporary local history to the next agent. Start a prompt with <code>reload context</code> in supported clients to recover captured context from before compaction; it does not claim handoffs."
+        "title": "Qwen Code, Cline CLI and FreeBuff",
+        "text": "Qwen Code gets ten lifecycle events and an MCP entry, Cline CLI gets its nine event files and a Streamable HTTP entry, and FreeBuff gets a bridge entry in the file it already reads."
       },
       {
-        "title": "Manage users, sessions and keys",
-        "text": "The optional <code>/manage</code> console provides user administration, owned-session cleanup and personal MCP keys. It needs the <code>management-ui</code> build feature and <code>--enable-management-ui</code>; it is not in the standard Docker image."
+        "title": "More from the agents already here",
+        "text": "DeepSeek Harness gains hook capture, Hermes Agent gains its own session lifecycle and an MCP entry, and Antigravity records each turn's prompt and checkpoints at the end of it, on the CLI, the app and the IDE."
       },
       {
-        "title": "IBM Bob and CodeBuddy Code",
-        "text": "IBM Bob gains MCP and native hooks; finalize its session explicitly after the last turn. CodeBuddy Code gains native hooks and handoffs. Neither has managed launch or transcript backfill."
+        "title": "A map of what links to what",
+        "text": "The browser draws the links between pages: one map across projects and one inside each project, as plain HTML. A separate page lists what the launcher is running. Both are read-only, and the API serves the same edges."
       },
       {
-        "title": "Search and restore",
-        "text": "Web search adds kind and tier filters. <code>search --global</code> searches wiki pages across projects from the CLI. Admins can list checkpoints and restore pages through <code>memory_restore_page</code>."
+        "title": "Narrow a search before it ranks",
+        "text": "<code>memory_query</code> takes <code>kind</code>, <code>tag</code>, <code>tier</code> and a path prefix, applied to every stream before fusion, so a rare page is not crowded out. <code>ai-memory recent</code> lists the newest pages from the terminal."
+      },
+      {
+        "title": "Calmer servers",
+        "text": "Drop hook events you do not want stored, close sessions a crashed harness left open after a set number of idle hours, and read per-workload LLM counts in <code>ai-memory status</code>. All three are off or empty by default."
       }
     ]
   },
