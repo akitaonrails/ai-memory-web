@@ -154,7 +154,13 @@ const languages = languageLinks(Astro.url.pathname);
     });
     g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget as Node)) setOpen(null); });
   });
-  addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(null));
+  addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    // Return keyboard focus before the panel's links become hidden.
+    const group = groups.find((g) => g.hasAttribute('data-open') && g.contains(document.activeElement));
+    setOpen(null);
+    group?.querySelector('button')?.focus();
+  });
   document.addEventListener('click', (e) => { if (!(e.target as HTMLElement).closest('[data-nav-group]')) setOpen(null); });
 
   // An explicit language choice outranks the browser's. Netlify's language redirects read this same cookie.
