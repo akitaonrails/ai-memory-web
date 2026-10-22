@@ -160,7 +160,7 @@
   },
   "measured": {
     "title": "O que foi medido",
-    "lede": "O stack de busca é avaliado em 470 perguntas respondíveis do LongMemEval-S, com hooks e busca reais. O relatório da versão 3.1.2 mediu o candidato 80133202. A medição da 3.2 ainda não foi publicada. Esses resultados medem recuperação, não precisão de respostas.",
+    "lede": "O stack de busca é avaliado em 470 perguntas respondíveis do LongMemEval-S, com hooks e busca reais. O relatório da versão 3.2.0 mediu o commit 1c86aebc: a busca full-text manteve 0,951 de hit@5, com mediana de 12 ms por consulta, e os embeddings locais marcaram 0,938. Essas pontuações medem recuperação, não a acurácia das respostas. Em comparação com a 3.1.2, os embeddings locais caíram de 0.947 para 0.938 em hit@5, a mediana das consultas subiu de 98 para 118 ms e a ingestão levou 75% mais tempo. O relatório da versão registra essas regressões para acompanhamento.",
     "chart": {
       "title": "hit@5 no LongMemEval-S",
       "subtitle": "Parcela das 470 perguntas com uma sessão de evidência entre os cinco primeiros. Quanto maior, melhor.",
@@ -168,8 +168,8 @@
         "Só full-text, antes da 2.0",
         "Full-text com filtro de stopwords",
         "Mais embeddings locais",
-        "3.1.2: full-text, com o fluxo de observações",
-        "3.1.2: embeddings locais, com o fluxo de observações"
+        "3.2.0: full-text, com o fluxo de observações",
+        "3.2.0: embeddings locais, com o fluxo de observações"
       ]
     },
     "steps": {
@@ -184,8 +184,8 @@
       "before": "Antes da 2.0",
       "filtered": "Full-text filtrado",
       "local": "Embeddings locais",
-      "fts3": "3.1.2, full-text",
-      "local3": "3.1.2, embeddings locais"
+      "fts3": "3.2.0, full-text",
+      "local3": "3.2.0, embeddings locais"
     },
     "retrievalOnly": {
       "title": "Recuperação, não respostas",
@@ -219,7 +219,7 @@
         "tokens": "Tokens de contexto, cinco primeiros resultados"
       },
       "ms": "{n} ms",
-      "releaseRun": "Esta comparação dos fluxos é o experimento de decomposição de 12 de outubro. A execução separada da versão 3.1.2 mediu {local} com embeddings locais. Ela não repete este experimento de ligar e desligar o fluxo.",
+      "releaseRun": "Esta comparação dos fluxos é o experimento de decomposição de 12 de outubro. A execução separada da versão 3.2.0 mediu {local} com embeddings locais. Ela não repete este experimento de ligar e desligar o fluxo.",
       "ftsAhead": "Com o fluxo ligado, o full-text sozinho marca um pouco acima dos embeddings locais. O vetor da página, como a linha full-text dela, ainda enxerga só o corpo que tem apenas o título.",
       "determinism": "Dentro de uma execução o harness é determinístico. Entre execuções separadas, os tipos de pergunta menores variam até 0,03 para cima ou para baixo, então uma queda em um deles vista em uma única execução quer dizer pouco.",
       "comparable": "Os números que outras ferramentas publicam neste dataset vêm dos harnesses delas, muitas vezes indexando sessões brutas inteiras, sem etapa de captura. Não são comparáveis diretamente, e nenhum ranking entre ferramentas é afirmado."

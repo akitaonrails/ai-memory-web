@@ -41,7 +41,7 @@ const commandsFor = (h: (typeof harnesses)[number]) => {
     lines.push(`# ${t('agents.commands.hooks')}`, `ai-memory install-hooks --agent ${id}${h.print ? '' : ' --apply'}`);
   }
   else if (h.print && h.status === 'MCP-only') lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-mcp --client ${id}`);
-  else if (h.print) lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-hooks --agent ${id} --server-url http://127.0.0.1:49374`);
+  else if (h.print) lines.push(`# ${t('agents.commands.print')}`, `ai-memory install-mcp --client ${id}`, `ai-memory install-hooks --agent ${id} --server-url http://127.0.0.1:49374`);
   else if (h.status === 'Hooks-only') lines.push(`# ${t('agents.commands.hooksOnly')}`, `ai-memory install-hooks --agent ${id} --apply`);
   else if (h.status === 'Supported' || h.status === 'MCP-only') {
     if (run) lines.push('', `# ${t('agents.commands.byHand')}`);

@@ -9,7 +9,7 @@ export const statusHue: Record<Status, string> = {
 export const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 export interface Row { name: string; status: Status; id?: string; run?: boolean; print?: boolean; none?: boolean }
-// `print`: the installers print a block to paste instead of writing the file (`--apply` is refused).
+// `print`: show configuration blocks to merge into the agent’s own settings by hand.
 // `none`: the agent ships its own bridge to /hook and /mcp, so there is nothing to install.
 
 export const platforms: Row[] = [

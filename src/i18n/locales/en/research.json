@@ -160,7 +160,7 @@
   },
   "measured": {
     "title": "What was measured",
-    "lede": "The retrieval stack is scored on 470 answerable LongMemEval-S questions through real hooks and search. The 3.1.2 release report measured candidate 80133202. The 3.2 run is not published yet. These scores measure retrieval, not answer accuracy.",
+    "lede": "The retrieval stack is scored on 470 answerable LongMemEval-S questions through real hooks and search. The 3.2.0 release report measured commit 1c86aebc: full text stayed at 0.951 hit@5 with a 12 ms median query, and local embeddings scored 0.938. These scores measure retrieval, not answer accuracy. Compared with 3.1.2, local embeddings fell from 0.947 to 0.938 hit@5, median query time rose from 98 to 118 ms, and ingest took 75% longer. The release report records these regressions for follow-up.",
     "chart": {
       "title": "hit@5 on LongMemEval-S",
       "subtitle": "Share of 470 questions with an evidence session in the top five. Higher is better.",
@@ -168,8 +168,8 @@
         "Full text only, before 2.0",
         "Stopword-filtered full text",
         "Plus local embeddings",
-        "3.1.2: full text, with the observation stream",
-        "3.1.2: local embeddings, with the observation stream"
+        "3.2.0: full text, with the observation stream",
+        "3.2.0: local embeddings, with the observation stream"
       ]
     },
     "steps": {
@@ -184,8 +184,8 @@
       "before": "Before 2.0",
       "filtered": "Filtered full text",
       "local": "Local embeddings",
-      "fts3": "3.1.2, full text",
-      "local3": "3.1.2, local embeddings"
+      "fts3": "3.2.0, full text",
+      "local3": "3.2.0, local embeddings"
     },
     "retrievalOnly": {
       "title": "Retrieval, not answers",
@@ -222,7 +222,7 @@
       "ftsAhead": "With the stream on, full text alone scores a little above local embeddings. The page’s vector, like its full-text row, still sees only the title-only body.",
       "determinism": "Within one run the harness is deterministic. Across separate runs the smaller question types move by up to 0.03 either way, so a dip in one of them from a single run means little.",
       "comparable": "Numbers other tools publish on this dataset come from their own harnesses, often indexing whole raw sessions with no capture step. They are not like for like, and no ranking between tools is claimed.",
-      "releaseRun": "This stream comparison is the October 12 decomposition experiment. The separate 3.1.2 release run measured {local} with local embeddings. It is not a rerun of this off/on experiment."
+      "releaseRun": "This stream comparison is the October 12 decomposition experiment. The separate 3.2.0 release run measured {local} with local embeddings. It is not a rerun of this off/on experiment."
     }
   },
   "next": {

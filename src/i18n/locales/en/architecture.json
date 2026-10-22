@@ -132,7 +132,7 @@
     "cjk": {
       "title": "Japanese, Korean and Chinese",
       "points": [
-        "Han, Kana and Hangul are written without spaces, so a word-based index cannot find a phrase inside them. A second index over one and two character runs is written in the same transaction as the page.",
+        "Runs of Han, Kana and Hangul without word separators need character-based matching. A second index over one and two character runs is written in the same transaction as the page.",
         "It is a SQLite index, not a model. A search in Japanese or Korean still costs no API call and no embedding.",
         "Latin text takes the ordinary path, unchanged. A store upgraded from an older version fills the new index before it accepts traffic."
       ]

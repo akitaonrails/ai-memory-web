@@ -132,7 +132,7 @@
     "cjk": {
       "title": "Japonés, coreano y chino",
       "points": [
-        "El han, el kana y el hangul se escriben sin espacios, así que un índice por palabras no encuentra un fragmento dentro de la frase. Un segundo índice, de secuencias de uno y dos caracteres, se escribe en la misma transacción que la página.",
+        "Las secuencias de Han, Kana y Hangul sin separadores de palabras necesitan coincidencias por caracteres. Un segundo índice de secuencias de uno y dos caracteres se escribe en la misma transacción que la página.",
         "Es un índice de SQLite, no un modelo. Buscar en japonés o coreano sigue sin costar ninguna llamada de API ni embeddings.",
         "El texto latino sigue la vía de siempre, sin cambios. Un almacén que viene de una versión anterior rellena el índice nuevo antes de aceptar tráfico."
       ]
