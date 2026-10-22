@@ -19,6 +19,10 @@
         "text": "A handoff carries a session summary, the next steps and the open questions. The next agent gets it at session start, before you type anything."
       },
       {
+        "title": "Even when nothing ended",
+        "text": "A quota limit or a crash writes no handoff. The next session is pointed at that unfinished work by name, and can read its observations."
+      },
+      {
         "title": "Claimed exactly once",
         "text": "The first eligible session claims the handoff. A second request cannot claim the same one. This prevents duplicate delivery of that handoff, not two agents independently choosing similar work."
       },

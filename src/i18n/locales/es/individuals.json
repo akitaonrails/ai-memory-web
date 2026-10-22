@@ -19,6 +19,10 @@
         "text": "Un traspaso lleva un resumen de la sesión, los próximos pasos y las preguntas abiertas. El siguiente agente lo recibe al iniciar la sesión, antes de que escribas nada."
       },
       {
+        "title": "Aunque nada se haya cerrado",
+        "text": "Un límite de cuota o un fallo no escribe ningún handoff. La sesión siguiente recibe el nombre de ese trabajo sin terminar y puede leer sus observaciones."
+      },
+      {
         "title": "Se reclama una sola vez",
         "text": "La primera sesión apta reclama el traspaso. Una segunda solicitud no puede reclamar el mismo. Esto evita entregar dos veces ese traspaso, pero no impide que dos agentes elijan trabajos similares por su cuenta."
       },

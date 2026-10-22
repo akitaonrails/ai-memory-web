@@ -19,6 +19,10 @@
         "text": "Um handoff leva o resumo da sessão, os próximos passos e as perguntas em aberto. O próximo agente recebe isso no início da sessão, antes de você digitar qualquer coisa."
       },
       {
+        "title": "Mesmo quando nada foi encerrado",
+        "text": "Um limite de cota ou um crash não escreve handoff nenhum. A sessão seguinte recebe o nome daquele trabalho inacabado e pode ler as observações dele."
+      },
+      {
         "title": "Assumido uma vez só",
         "text": "A primeira sessão elegível assume o handoff. Uma segunda solicitação não consegue assumir o mesmo. Isso evita a entrega duplicada desse handoff, mas não impede dois agentes de escolherem trabalhos parecidos por conta própria."
       },

@@ -90,11 +90,11 @@
         "note": "ללא מפתח של ספק מודלים"
       },
       {
-        "label": "ai-memory 3.1, טקסט מלא",
+        "label": "ai-memory 3.1.2, טקסט מלא",
         "note": "עם ערוץ התצפיות, בלי embeddings"
       },
       {
-        "label": "ai-memory 3.1, embeddings נייטיב",
+        "label": "ai-memory 3.1.2, embeddings נייטיב",
         "note": "עם ערוץ התצפיות, התקנת ברירת המחדל"
       }
     ],

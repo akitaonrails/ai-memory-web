@@ -23,7 +23,7 @@ const managed = harnesses.filter((h) => h.run).length;
 // Structure here, words in src/i18n/locales/<locale>/individuals.json.
 type Feature = { title: string; text: string };
 const withHues = (key: string, hues: Hue[]) => raw<Feature[]>(key).map((it, i) => ({ ...it, hue: hues[i] }));
-const handoff = withHues('handoff.items', ['violet', 'amber', 'azure']);
+const handoff = withHues('handoff.items', ['violet', 'rose', 'amber', 'azure']);
 const defaults = withHues('defaults.items', ['green', 'teal', 'azure']);
 const phrases = raw<{ say: string; does: string }[]>('phrases.items');
 const webUrl = 'http://127.0.0.1:49374/web';
@@ -87,7 +87,7 @@ const schema = [faqPage(faq)];
 
   <Section title={t('handoff.title')} lede={t('handoff.lede')} hue="violet" fill>
     <Figure name="individuals-handoff" alt={t('handoff.figureAlt')} caption={t('handoff.figureCaption')} />
-    <FeatureGrid items={handoff} />
+    <FeatureGrid items={handoff} cols={4} />
     <p class="mt-10 text-muted max-w-[40em]" set:html={t('handoff.exceptions', { href: href('/integrations/#agents') })} />
   </Section>
 

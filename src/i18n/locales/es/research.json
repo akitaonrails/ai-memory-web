@@ -160,7 +160,7 @@
   },
   "measured": {
     "title": "Qué se midió",
-    "lede": "La búsqueda se evalúa con 470 preguntas respondibles de LongMemEval-S, mediante hooks y búsqueda reales. El informe de la versión 3.1 midió el candidato a288a109; los cambios posteriores de la versión no alteraron la búsqueda. Estas puntuaciones miden recuperación, no precisión de respuestas.",
+    "lede": "La búsqueda se evalúa con 470 preguntas respondibles de LongMemEval-S, mediante hooks y búsqueda reales. El informe de la versión 3.1.2 midió el candidato 80133202. La medición de 3.2 todavía no está publicada. Estas puntuaciones miden recuperación, no precisión de respuestas.",
     "chart": {
       "title": "hit@5 en LongMemEval-S",
       "subtitle": "Porcentaje de las 470 preguntas con una sesión de evidencia entre los cinco primeros resultados. Más alto es mejor.",
@@ -168,8 +168,8 @@
         "Solo texto completo, antes de la 2.0",
         "Texto completo con stopwords filtradas",
         "Más embeddings locales",
-        "3.1: texto completo, con el flujo de observaciones",
-        "3.1: embeddings locales, con el flujo de observaciones"
+        "3.1.2: texto completo, con el flujo de observaciones",
+        "3.1.2: embeddings locales, con el flujo de observaciones"
       ]
     },
     "steps": {
@@ -184,8 +184,8 @@
       "before": "Antes de la 2.0",
       "filtered": "Texto completo filtrado",
       "local": "Embeddings locales",
-      "fts3": "3.1, texto completo",
-      "local3": "3.1, embeddings locales"
+      "fts3": "3.1.2, texto completo",
+      "local3": "3.1.2, embeddings locales"
     },
     "retrievalOnly": {
       "title": "Recuperación, no respuestas",
@@ -219,7 +219,7 @@
         "tokens": "Tokens de contexto, cinco primeros resultados"
       },
       "ms": "{n} ms",
-      "releaseRun": "Esta comparación de flujos es el experimento de descomposición del 12 de octubre. La ejecución separada de la versión 3.1 midió {local} con embeddings locales. No repite este experimento de activar y desactivar el flujo.",
+      "releaseRun": "Esta comparación de flujos es el experimento de descomposición del 12 de octubre. La ejecución separada de la versión 3.1.2 midió {local} con embeddings locales. No repite este experimento de activar y desactivar el flujo.",
       "ftsAhead": "Con el flujo activado, el texto completo por sí solo puntúa un poco por encima de los embeddings locales. El vector de la página, igual que su fila de texto completo, sigue viendo solo un cuerpo que contiene únicamente el título.",
       "determinism": "Dentro de una misma ejecución el harness es determinista. Entre ejecuciones separadas, los tipos de pregunta más pequeños se mueven hasta 0,03 en cualquier dirección, así que una caída en uno de ellos en una sola ejecución significa poco.",
       "comparable": "Las cifras que otras herramientas publican sobre este dataset salen de sus propios harnesses, que a menudo indexan sesiones en bruto completas sin paso de captura. No son comparables punto por punto, y no se afirma ningún ranking entre herramientas."

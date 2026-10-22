@@ -77,6 +77,10 @@
     "upgrading": "Atualizando para a 3.0",
     "highlights": [
       {
+        "title": "Quando o harness é cortado no meio",
+        "text": "Um limite de cota, um crash ou um terminal fechado não encerram a sessão e não deixam handoff, então o próximo agente pegava algo mais antigo. Agora o início da sessão aponta para o trabalho inacabado mais recente, nomeando a sessão e o agente dela e nada do que foi capturado. O <code>memory_briefing</code> e a lista de handoffs levam o mesmo ponteiro."
+      },
+      {
         "title": "Busca em japonês, coreano e chinês",
         "text": "Escrita sem espaço entre palavras agora tem um índice próprio, gravado junto com a página. Todas as faixas de recuperação usam esse índice, ele não custa nenhuma chamada de modelo e não há nada para ligar. Um banco vindo de uma versão antiga preenche o índice antes de aceitar tráfego."
       },
@@ -85,12 +89,8 @@
         "text": "O importador opcional ganhou o <code>document</code>: um arquivo local que você indica, em markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. Ele grava uma página com a fonte atribuída, roda como dry run por padrão e nunca substitui uma página que não é dele. Sem OCR, sem imagens, sem áudio."
       },
       {
-        "title": "Qwen Code, Cline CLI e FreeBuff",
-        "text": "O Qwen Code ganhou dez eventos de ciclo de vida e entrada MCP, o Cline CLI ganhou seus nove arquivos de evento e uma entrada Streamable HTTP, e o FreeBuff ganhou uma entrada de bridge no arquivo que ele já lê."
-      },
-      {
-        "title": "Mais dos agentes que já estavam aqui",
-        "text": "O DeepSeek Harness ganhou captura por hooks, o Hermes Agent ganhou ciclo de vida de sessão próprio e entrada MCP, e o Antigravity registra o prompt de cada turno e grava um checkpoint no fim dele, na CLI, no app e na IDE."
+        "title": "Três agentes novos, três reforçados",
+        "text": "O Qwen Code ganhou dez eventos de ciclo de vida e entrada MCP, o Cline CLI ganhou seus nove arquivos de evento e uma entrada Streamable HTTP, e o FreeBuff ganhou uma entrada de bridge no arquivo que ele já lê. O DeepSeek Harness ganhou captura por hooks, o Hermes Agent ganhou ciclo de vida de sessão próprio e entrada MCP, e o Antigravity registra o prompt de cada turno e grava um checkpoint no fim dele, na CLI, no app e na IDE."
       },
       {
         "title": "Um mapa do que liga a quê",

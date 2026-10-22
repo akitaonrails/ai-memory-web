@@ -77,6 +77,10 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
+        "title": "When a harness is cut off",
+        "text": "A quota limit, a crash or a closed terminal ends no session and leaves no handoff, so the next agent used to pick up something older. Session start now points at the newest unfinished work, naming its session and agent and nothing it captured. <code>memory_briefing</code> and the handoff list carry the same pointer."
+      },
+      {
         "title": "Search in Japanese, Korean and Chinese",
         "text": "Writing without spaces between words now has an index of its own, written with the page. Every retrieval stream uses it, it costs no model call, and there is nothing to switch on. A store upgraded from an older version fills it in before it accepts traffic."
       },
@@ -85,12 +89,8 @@
         "text": "The optional importer gains <code>document</code>: one local file you name, as Markdown, a text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It writes one attributed page, dry-runs by default and never replaces a page it does not own. No OCR, no images, no audio."
       },
       {
-        "title": "Qwen Code, Cline CLI and FreeBuff",
-        "text": "Qwen Code gets ten lifecycle events and an MCP entry, Cline CLI gets its nine event files and a Streamable HTTP entry, and FreeBuff gets a bridge entry in the file it already reads."
-      },
-      {
-        "title": "More from the agents already here",
-        "text": "DeepSeek Harness gains hook capture, Hermes Agent gains its own session lifecycle and an MCP entry, and Antigravity records each turn's prompt and checkpoints at the end of it, on the CLI, the app and the IDE."
+        "title": "Three new agents, three upgraded",
+        "text": "Qwen Code gets ten lifecycle events and an MCP entry, Cline CLI gets its nine event files and a Streamable HTTP entry, and FreeBuff gets a bridge entry in the file it already reads. DeepSeek Harness gains hook capture, Hermes Agent gains its own session lifecycle and an MCP entry, and Antigravity records each turn's prompt and checkpoints at the end of it, on the CLI, the app and the IDE."
       },
       {
         "title": "A map of what links to what",

@@ -77,6 +77,10 @@
     "upgrading": "3.0으로 업그레이드하기",
     "highlights": [
       {
+        "title": "하네스가 도중에 끊겼을 때",
+        "text": "쿼터 한도나 크래시, 터미널 종료로는 세션이 끝나지 않고 handoff도 남지 않아서, 다음 에이전트가 더 오래된 작업을 집어 들었습니다. 이제 세션 시작 시 끝나지 않은 가장 최근 작업을 가리키며, 그 세션과 에이전트 이름만 알려주고 캡처한 내용은 담지 않습니다. <code>memory_briefing</code>과 handoff 목록도 같은 포인터를 전달합니다."
+      },
+      {
         "title": "일본어, 한국어, 중국어 검색",
         "text": "단어를 띄어 쓰지 않는 문자에 전용 인덱스가 생겼고, 페이지와 함께 기록됩니다. 모든 검색 스트림이 이 인덱스를 쓰며, 모델 호출 비용이 없고 따로 켤 것도 없습니다. 예전 버전에서 올라온 저장소는 트래픽을 받기 전에 인덱스를 채웁니다."
       },
@@ -85,12 +89,8 @@
         "text": "선택 사항인 importer에 <code>document</code>가 생겼습니다. 지정한 로컬 파일 하나를 markdown, 텍스트 레이어가 있는 PDF, DOCX, PPTX, XLSX, CSV, VTT, SRT로 읽습니다. 출처를 기록한 페이지 하나를 쓰고, 기본은 dry run이며, 자기 것이 아닌 페이지는 절대 덮어쓰지 않습니다. OCR도 이미지도 오디오도 없습니다."
       },
       {
-        "title": "Qwen Code, Cline CLI, FreeBuff",
-        "text": "Qwen Code는 라이프사이클 이벤트 열 개와 MCP 항목을, Cline CLI는 이벤트 파일 아홉 개와 Streamable HTTP 항목을, FreeBuff는 이미 읽고 있던 파일에 bridge 항목을 받았습니다."
-      },
-      {
-        "title": "이미 있던 에이전트들의 보강",
-        "text": "DeepSeek Harness는 hook 캡처를, Hermes Agent는 자체 세션 라이프사이클과 MCP 항목을 갖게 됐습니다. Antigravity는 턴마다 프롬프트를 기록하고 턴이 끝날 때 체크포인트를 남깁니다. CLI와 앱, IDE 모두 같습니다."
+        "title": "새 에이전트 셋, 보강된 에이전트 셋",
+        "text": "Qwen Code는 라이프사이클 이벤트 열 개와 MCP 항목을, Cline CLI는 이벤트 파일 아홉 개와 Streamable HTTP 항목을, FreeBuff는 이미 읽고 있던 파일에 bridge 항목을 받았습니다. DeepSeek Harness는 hook 캡처를, Hermes Agent는 자체 세션 라이프사이클과 MCP 항목을 갖게 됐습니다. Antigravity는 턴마다 프롬프트를 기록하고 턴이 끝날 때 체크포인트를 남깁니다. CLI와 앱, IDE 모두 같습니다."
       },
       {
         "title": "무엇이 무엇과 이어지는지 보는 지도",
