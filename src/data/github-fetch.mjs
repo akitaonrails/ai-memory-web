@@ -43,9 +43,12 @@ export async function fetchGithub() {
     gh(`/repos/${REPO}/contributors?per_page=60`).then((r) => r.json()),
     gh(`/repos/${REPO}/releases?per_page=15`).then((r) => r.json()),
   ]);
-  // The changelog as released: read it at the newest release tag, because a release can be cut from a release
-  // branch before that branch is merged into main. Falls back to main.
-  const newestTag = releases.find((r) => !r.draft)?.tag_name;
+  // Match getLatestRelease(): prefer stable releases, falling back to previews only when there are no stable ones.
+  // Read the selected tag because releases can be cut before their branch is merged into main.
+  const publishedReleases = releases.filter((r) => !r.draft);
+  const stableReleases = publishedReleases.filter((r) => !r.prerelease);
+  const changelogReleases = stableReleases.length ? stableReleases : publishedReleases;
+  const newestTag = changelogReleases[0]?.tag_name;
   const rawChangelog = (ref) => fetch(`https://raw.githubusercontent.com/${REPO}/${ref}/CHANGELOG.md`, { signal: AbortSignal.timeout(15000) }).then((r) => (r.ok ? r.text() : ''));
   const ref = newestTag || 'main';
   const changelogMd = (await rawChangelog(ref)) || (await rawChangelog('main'));
@@ -58,7 +61,7 @@ export async function fetchGithub() {
     const md = await rawFile(`docs/changelog/${major}.md`);
     if (md) sources.push([`docs/changelog/${major}.md`, md]);
   }
-  const published = new Set(releases.map((r) => r.tag_name.replace(/^v/, '')));
+  const published = new Set(changelogReleases.map((r) => r.tag_name.replace(/^v/, '')));
   return {
     fetchedAt: new Date().toISOString(),
     stars: repo.stargazers_count,
@@ -69,13 +72,12 @@ export async function fetchGithub() {
     commits,
     mergedPRs,
     closedIssues,
-    // Only versions that have a published release; main may already describe the next one.
+    // Only published versions from the selected channel; main may already describe the next one.
     changelog: sources.flatMap(([file, md]) => parseChangelog(md, 40).map((e) => ({ ...e, file }))).filter((e) => published.has(e.version)).slice(0, 12),
     people: people
       .filter((p) => p.type === 'User')
       .map((p) => ({ login: p.login, avatar: p.avatar_url, url: p.html_url, contributions: p.contributions })),
-    releases: releases
-      .filter((r) => !r.draft)
+    releases: publishedReleases
       .map((r) => ({
         tag: r.tag_name,
         name: r.name || r.tag_name,
