@@ -111,7 +111,7 @@
     "failClosed": {
       "title": "Exposto sem token, ele se recusa a subir",
       "bind": "Um bind fora do loopback sem autenticação falha fechado. <code>--allow-insecure-no-auth</code> é o override perigoso documentado. Dentro de um container a checagem só consegue avisar, porque o processo não enxerga a sua publicação com <code>-p</code>: <code>-p 127.0.0.1:49374:49374</code> é seguro sem token, e qualquer coisa mais aberta precisa de um.",
-      "more": "Os corpos das requisições são limitados a 10 MB, e servidores compartilhados podem aplicar rate limit nos hooks por origem. Guias completos: <a href=\"{security}\">o modelo de segurança</a>, <a href=\"{users}\">contas e chaves de API</a>, <a href=\"{sso}\">OIDC</a> e <a href=\"{https}\">HTTPS com um proxy</a>."
+      "more": "Os corpos das requisições têm limite de 10 MB em MCP, hooks e workstreams, 32 MB nas rotas administrativas e 2 MB nas demais. Guias completos: <a href=\"{security}\">o modelo de segurança</a>, <a href=\"{users}\">contas e chaves de API</a>, <a href=\"{sso}\">OIDC</a> e <a href=\"{https}\">HTTPS com um proxy</a>."
     }
   },
   "egress": {

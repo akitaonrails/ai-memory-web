@@ -77,32 +77,16 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
-        "title": "When a harness is cut off",
-        "text": "A quota limit, a crash or a closed terminal ends no session and leaves no handoff, so the next agent used to pick up something older. Session start now points at the newest unfinished work, naming its session and agent and nothing it captured. <code>memory_briefing</code> and the handoff list carry the same pointer."
+        "title": "Local embedding contention fixed",
+        "text": "Local embedding capacity now scales with the CPU, and queries wait briefly for a reserved slot before falling back to lexical search. The full release benchmark measured 0.949 hit@5; its timing caveats are on Research."
       },
       {
-        "title": "Search in Japanese, Korean and Chinese",
-        "text": "Writing without spaces between words now has an index of its own, written with the page. Every retrieval stream uses it, it costs no model call, and there is nothing to switch on. A store upgraded from an older version fills it in before it accepts traffic."
+        "title": "Windows Docker launches use the host",
+        "text": "Managed commands now run through the native Windows client while the server stays in Docker. Install the native client separately and configure its server token when authentication is enabled; the Windows guide covers both steps."
       },
       {
-        "title": "Put a document into memory",
-        "text": "The optional importer gains <code>document</code>: one local file you name, as Markdown, a text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It writes one attributed page, dry-runs by default and never replaces a page it does not own. No OCR, no images, no audio."
-      },
-      {
-        "title": "Three new agents, three upgraded",
-        "text": "Qwen Code gets ten lifecycle events and an MCP entry, Cline CLI gets its nine event files and a Streamable HTTP entry, and FreeBuff gets a bridge entry in the file it already reads. DeepSeek Harness gains hook capture, Hermes Agent gains its own session lifecycle and an MCP entry, and Antigravity records each turn's prompt and checkpoints at the end of it, on the CLI, the app and the IDE."
-      },
-      {
-        "title": "A map of what links to what",
-        "text": "The browser draws the links between pages: one map across projects and one inside each project, as plain HTML. A separate page lists what the launcher is running. Both are read-only, and the API serves the same edges."
-      },
-      {
-        "title": "Narrow a search before it ranks",
-        "text": "<code>memory_query</code> takes <code>kind</code>, <code>tag</code>, <code>tier</code> and a path prefix, applied to every stream before fusion, so a rare page is not crowded out. <code>ai-memory recent</code> lists the newest pages from the terminal."
-      },
-      {
-        "title": "Calmer servers",
-        "text": "Drop hook events you do not want stored, close sessions a crashed harness left open after a set number of idle hours, and read per-workload LLM counts in <code>ai-memory status</code>. All three are off or empty by default."
+        "title": "Clearer security and data handling",
+        "text": "The source documentation now spells out request-size limits, project grants and the proxy authorization boundary, the first model download, and optional outbound data paths."
       }
     ]
   },

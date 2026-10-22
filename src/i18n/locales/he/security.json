@@ -111,7 +111,7 @@
     "failClosed": {
       "title": "חשוף בלי טוקן, הוא מסרב לעלות",
       "bind": "bind שאינו loopback בלי אימות נכשל במצב סגור (fail closed). <code>--allow-insecure-no-auth</code> הוא המעקף המסוכן המתועד. בתוך קונטיינר הבדיקה יכולה רק להזהיר, כי התהליך לא רואה את הגדרת ה-publish של <code>-p</code>: <code>-p 127.0.0.1:49374:49374</code> בטוח בלי טוקן, וכל דבר רחב יותר דורש טוקן.",
-      "more": "גוף בקשה מוגבל ל-10 MB, ושרתים משותפים יכולים להגביל קצב של hooks לפי מקור. הדרכות מלאות: <a href=\"{security}\">מודל האבטחה</a>, <a href=\"{users}\">חשבונות ומפתחות API</a>, <a href=\"{sso}\">OIDC</a> ו-<a href=\"{https}\">HTTPS דרך proxy</a>."
+      "more": "גופי בקשות מוגבלים ל־10 MB ב־MCP, ב־hooks וב־workstreams, ל־32 MB בנתיבי ניהול ול־2 MB בשאר הנתיבים. הדרכות מלאות: <a href=\"{security}\">מודל האבטחה</a>, <a href=\"{users}\">חשבונות ומפתחות API</a>, <a href=\"{sso}\">OIDC</a> ו-<a href=\"{https}\">HTTPS דרך proxy</a>."
     }
   },
   "egress": {

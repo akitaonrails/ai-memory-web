@@ -236,7 +236,7 @@ const faq = faqPage(faqItems);
         <h3 class="text-xl">{t('measured.reproduce.title')}</h3>
         <p class="mt-2 text-muted max-w-[40em]" set:html={t('measured.reproduce.text', { date: date(facts.benchmark.date) })} />
         <div class="mt-4"><CodeBlock title={t('measured.reproduce.codeTitle')} code={reproduce} /></div>
-        <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/longmemeval-s-3.2.0-release.md`}>{t('measured.reproduce.full')}</a></p>
+        <p class="mt-4"><a class="underline font-semibold" href={`${site.docs}/benchmarks/longmemeval-s-3.2.1-release.md`}>{t('measured.reproduce.full')}</a></p>
         <p class="mt-6 text-muted max-w-[40em]" set:html={t('measured.throughputNote', { href: href('/architecture/#concurrency') })} />
       </div>
     </div>

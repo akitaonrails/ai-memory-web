@@ -111,7 +111,7 @@
     "failClosed": {
       "title": "Exposed without a token, it refuses to start",
       "bind": "A non-loopback bind with no auth fails closed. <code>--allow-insecure-no-auth</code> is the documented dangerous override. Inside a container the check can only warn, because the process cannot see your <code>-p</code> publish spec: <code>-p 127.0.0.1:49374:49374</code> is safe without a token, and anything wider needs one.",
-      "more": "Request bodies are capped at 10 MB, and shared servers can rate limit hooks per source. Full walkthroughs: <a href=\"{security}\">the security model</a>, <a href=\"{users}\">accounts and API keys</a>, <a href=\"{sso}\">OIDC</a> and <a href=\"{https}\">HTTPS through a proxy</a>."
+      "more": "Request bodies are capped at 10 MB on MCP, hooks and workstreams, 32 MB on admin routes, and 2 MB elsewhere. Full walkthroughs: <a href=\"{security}\">the security model</a>, <a href=\"{users}\">accounts and API keys</a>, <a href=\"{sso}\">OIDC</a> and <a href=\"{https}\">HTTPS through a proxy</a>."
     }
   },
   "egress": {

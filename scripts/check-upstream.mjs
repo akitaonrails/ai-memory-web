@@ -16,6 +16,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from '
 import { execFileSync } from 'node:child_process';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import { releaseMetrics } from './benchmark-report.mjs';
 
 const site = new URL('..', import.meta.url).pathname;
 const repo = process.env.AI_MEMORY_REPO ?? join(homedir(), 'Projects/ai-memory');
@@ -116,8 +117,21 @@ section('2. Hard facts');
   const rows = [...text.matchAll(/^\| \**(\d{4}-\d{2}-\d{2})\**\s*\|[^|]*\|[^|]*\| \**([\d.]+)\**\s*\|/gm)].map((m) => ({ date: m[1], hit5: Number(m[2]) }));
   const latestDate = rows.map((r) => r.date).sort().pop();
   const ours = facts.benchmark.metrics['hit@5'];
-  for (const v of ours) if (!rows.some((r) => r.hit5 === v)) bad(`benchmark hit@5 ${v} is on the site but not in docs/benchmarks/README.md`);
-  for (const r of rows.filter((x) => x.date === latestDate)) if (!ours.includes(r.hit5)) bad(`benchmark: newest upstream baseline (${r.date}) has hit@5 ${r.hit5}, which the site does not show`);
+  const report = facts.benchmark.releaseReport;
+  if (report) {
+    const measured = releaseMetrics(up(report.path), report.version);
+    for (const [offset, mode] of ['FTS', 'local'].entries()) {
+      const row = measured.get(mode);
+      for (const [metric, field] of [['hit@1', 'hit1'], ['hit@5', 'hit5']]) {
+        const value = facts.benchmark.metrics[metric].at(offset - 2);
+        if (!row || row[field] !== value) bad(`benchmark ${mode} ${metric} ${value} does not match ${report.path} (${report.version})`);
+      }
+    }
+    for (const v of ours.slice(0, -2)) if (!rows.some((r) => r.hit5 === v)) bad(`historical benchmark hit@5 ${v} is not in docs/benchmarks/README.md`);
+  } else {
+    for (const v of ours) if (!rows.some((r) => r.hit5 === v)) bad(`benchmark hit@5 ${v} is on the site but not in docs/benchmarks/README.md`);
+    for (const r of rows.filter((x) => x.date === latestDate)) if (!ours.includes(r.hit5)) bad(`benchmark: newest upstream baseline (${r.date}) has hit@5 ${r.hit5}, which the site does not show`);
+  }
   if (latestDate && latestDate !== facts.benchmark.date) bad(`benchmark date: site says ${facts.benchmark.date}, newest upstream baseline is ${latestDate}`);
   const streamDoc = 'docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md';
   const streamText = upFiles.includes(streamDoc) ? up(streamDoc) : '';

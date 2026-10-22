@@ -77,32 +77,16 @@
     "upgrading": "Actualizar a la 3.0",
     "highlights": [
       {
-        "title": "Cuando el harness se corta a media sesión",
-        "text": "Un límite de cuota, un fallo o un terminal cerrado no cierran la sesión ni dejan handoff, así que el siguiente agente recogía algo más antiguo. El inicio de sesión ahora apunta al trabajo sin terminar más reciente, con el nombre de su sesión y su agente, y nada de lo capturado. <code>memory_briefing</code> y la lista de handoffs llevan el mismo puntero."
+        "title": "Corregida la contención de embeddings locales",
+        "text": "La capacidad de embeddings locales ahora se ajusta a la CPU, y las consultas esperan brevemente una plaza reservada antes de recurrir a la búsqueda léxica. El benchmark completo midió 0.949 en hit@5; Investigación explica las salvedades de tiempo."
       },
       {
-        "title": "Búsqueda en japonés, coreano y chino",
-        "text": "La escritura sin espacios entre palabras ya tiene índice propio, escrito junto con la página. Todas las vías de recuperación lo usan, no cuesta ninguna llamada a un modelo y no hay nada que activar. Un almacén que viene de una versión anterior lo rellena antes de aceptar tráfico."
+        "title": "Los lanzamientos con Docker en Windows usan el host",
+        "text": "Los comandos gestionados ahora usan el cliente nativo de Windows mientras el servidor sigue en Docker. Instala el cliente nativo por separado y configura su token si hay autenticación; la guía de Windows explica ambos pasos."
       },
       {
-        "title": "Mete un documento en la memoria",
-        "text": "El importador opcional gana <code>document</code>: un archivo local que tú indicas, en markdown, PDF con capa de texto, DOCX, PPTX, XLSX, CSV, VTT o SRT. Escribe una página con la fuente atribuida, hace un dry run por defecto y nunca reemplaza una página que no es suya. Sin OCR, sin imágenes, sin audio."
-      },
-      {
-        "title": "Tres agentes nuevos, tres reforzados",
-        "text": "Qwen Code recibe diez eventos de ciclo de vida y una entrada MCP, Cline CLI recibe sus nueve archivos de evento y una entrada Streamable HTTP, y FreeBuff recibe una entrada de bridge en el archivo que ya lee. DeepSeek Harness gana captura por hooks, Hermes Agent gana su propio ciclo de vida de sesión y una entrada MCP, y Antigravity registra el prompt de cada turno y guarda un checkpoint al terminarlo, en la CLI, la app y el IDE."
-      },
-      {
-        "title": "Un mapa de qué enlaza con qué",
-        "text": "El navegador dibuja los enlaces entre páginas: un mapa entre proyectos y otro dentro de cada proyecto, en HTML puro. Una página aparte lista lo que está ejecutando el lanzador. Ambas son de solo lectura, y la API sirve las mismas aristas."
-      },
-      {
-        "title": "Acota la búsqueda antes del ranking",
-        "text": "<code>memory_query</code> acepta <code>kind</code>, <code>tag</code>, <code>tier</code> y un prefijo de ruta, aplicados a cada vía antes de la fusión, así una página poco frecuente no queda desplazada. <code>ai-memory recent</code> lista las páginas más nuevas desde la terminal."
-      },
-      {
-        "title": "Servidores más tranquilos",
-        "text": "Descarta eventos de hook que no quieres almacenar, cierra las sesiones que un harness dejó abiertas tras un número de horas inactivas y lee los recuentos de LLM por tarea en <code>ai-memory status</code>. Las tres cosas vienen desactivadas o vacías por defecto."
+        "title": "Seguridad y tratamiento de datos más claros",
+        "text": "La documentación detalla ahora los límites de tamaño de las solicitudes, los permisos por proyecto y la autorización en el proxy, la descarga inicial del modelo y las rutas opcionales de envío de datos."
       }
     ]
   },

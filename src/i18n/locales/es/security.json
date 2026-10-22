@@ -111,7 +111,7 @@
     "failClosed": {
       "title": "Expuesto y sin token, se niega a arrancar",
       "bind": "Escuchar fuera de loopback sin autenticación falla en cerrado. <code>--allow-insecure-no-auth</code> es la excepción documentada, y es peligrosa. Dentro de un contenedor la comprobación solo puede avisar, porque el proceso no ve tu configuración de publicación <code>-p</code>: <code>-p 127.0.0.1:49374:49374</code> es seguro sin token, y cualquier cosa más abierta necesita uno.",
-      "more": "Los cuerpos de las peticiones tienen un tope de 10 MB, y los servidores compartidos pueden aplicar un rate limit a los hooks por origen. Guías completas: <a href=\"{security}\">el modelo de seguridad</a>, <a href=\"{users}\">cuentas y claves de API</a>, <a href=\"{sso}\">OIDC</a> y <a href=\"{https}\">HTTPS con un proxy</a>."
+      "more": "Los cuerpos de las solicitudes tienen un límite de 10 MB en MCP, hooks y workstreams, 32 MB en rutas administrativas y 2 MB en las demás. Guías completas: <a href=\"{security}\">el modelo de seguridad</a>, <a href=\"{users}\">cuentas y claves de API</a>, <a href=\"{sso}\">OIDC</a> y <a href=\"{https}\">HTTPS con un proxy</a>."
     }
   },
   "egress": {

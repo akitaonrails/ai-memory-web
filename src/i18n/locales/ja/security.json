@@ -111,7 +111,7 @@
     "failClosed": {
       "title": "トークンなしで公開すると、起動を拒否します",
       "bind": "認証なしでループバック以外にバインドすると、フェイルクローズで起動に失敗します。<code>--allow-insecure-no-auth</code>は、危険なオーバーライドとしてドキュメントに明記されています。コンテナ内では、このチェックは警告しか出せません。プロセスから<code>-p</code>の公開指定が見えないためです。<code>-p 127.0.0.1:49374:49374</code>ならトークンなしでも安全で、それより広い公開にはトークンが必要です。",
-      "more": "リクエストボディは10 MBが上限で、共有サーバーでは送信元ごとにフックをレート制限できます。詳しい手順: <a href=\"{security}\">セキュリティモデル</a>、<a href=\"{users}\">アカウントとAPIキー</a>、<a href=\"{sso}\">OIDC</a>、<a href=\"{https}\">プロキシ経由のHTTPS</a>。"
+      "more": "リクエスト本文の上限は MCP・hooks・workstreams で 10 MB、管理ルートで 32 MB、その他で 2 MB です。詳しい手順: <a href=\"{security}\">セキュリティモデル</a>、<a href=\"{users}\">アカウントとAPIキー</a>、<a href=\"{sso}\">OIDC</a>、<a href=\"{https}\">プロキシ経由のHTTPS</a>。"
     }
   },
   "egress": {
