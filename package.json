@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node --test",
     "check:colors": "node scripts/check-contrast.mjs",
     "snapshot:github": "node scripts/snapshot-github.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",

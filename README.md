@@ -28,6 +28,7 @@ GITHUB_TOKEN=$(gh auth token) npm run build
 
 | Command | What it does |
 |---|---|
+| `npm test` | Runs the GitHub data collector regression tests without network access or credentials. |
 | `npm run check:colors` | Measures WCAG contrast for every color pairing in `src/styles/global.css`. Fails if one misses its target. |
 | `npm run check:i18n` | Compares every translation catalog with the English one. Fails on mismatched keys, placeholders or markup. |
 | `npm run check:upstream` | Compares the site's facts with the newest ai-memory release tag and lists what changed upstream since the last review. See [docs/release-sync.md](docs/release-sync.md). |
