@@ -156,7 +156,7 @@ const languages = languageLinks(Astro.url.pathname);
   });
   addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    // Return keyboard focus before the panel's links become hidden.
+    // Remember the focused group before closing its panel.
     const group = groups.find((g) => g.hasAttribute('data-open') && g.contains(document.activeElement));
     setOpen(null);
     group?.querySelector('button')?.focus();
