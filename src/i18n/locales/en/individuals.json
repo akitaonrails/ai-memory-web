@@ -142,11 +142,11 @@
     },
     "web": {
       "title": "A browser for your memory",
-      "text": "One flag adds a browser view with the project list, the page tree, rendered markdown, search and clickable wiki links. It cannot edit anything.",
+      "text": "One flag opens the browser dashboard with projects, activity, saved pages, search and inboxes. Wiki pages remain read-only here; authorized users can send or edit pending messages.",
       "codeTitle": "enable the web UI",
       "comment": "then open {url}",
-      "shotAlt": "Screenshot of the ai-memory web UI showing one project: a page tree grouped into concepts, decisions, gotchas and sessions on the left, and a recent activity list of markdown pages on the right.",
-      "shotCaption": "The project view of the web UI. Pages are grouped into concepts, decisions, gotchas and sessions."
+      "shotAlt": "Screenshot of the 3.3.0 project overview with tabs for agents, token usage, sessions and knowledge, plus capture counts and pending mail.",
+      "shotCaption": "The project dashboard separates captured sessions from compiled pages. Open a tab to inspect activity, response usage or saved knowledge."
     }
   },
   "need": {

@@ -26,8 +26,8 @@
     },
     "points": [
       {
-        "title": "Endereçada a um projeto",
-        "text": "A mensagem vai para um workspace e um projeto, e qualquer sessão desse projeto pode assumi-la. Depois de assumida, ela sai da fila, como um handoff."
+        "title": "Para um projeto ou agente",
+        "text": "Uma mensagem é endereçada a um espaço de trabalho e projeto, opcionalmente a um agente registrado. Só ele pode coletar uma mensagem direcionada. No navegador, é possível enfileirar e editar mensagens pendentes com acesso aos dois projetos."
       },
       {
         "title": "Nada entra no contexto sozinho",
@@ -95,7 +95,7 @@
       },
       {
         "title": "O briefing leva as regras junto",
-        "text": "Com <code>inject_on_session_start = true</code> no marcador do projeto, o briefing começa com trechos de páginas fixadas, regras e slots, e acrescenta detalhes dentro do limite. Páginas que não cabem são listadas para <code>memory_read_page</code>."
+        "text": "Com <code>inject_on_session_start = true</code> no marcador do projeto, o resumo começa com páginas fixadas, regras e slots. Páginas que não cabem são listadas para <code>memory_read_page</code>. Defina <code>inject_on_subagent_start = true</code> separadamente para dar o mesmo resumo limitado aos subagentes do Claude Code."
       },
       {
         "title": "O lint sugere promover",
@@ -135,7 +135,7 @@
     "items": [
       {
         "title": "Um navegador para sua memória",
-        "text": "Suba o servidor com <code>--enable-web</code> e as páginas de todos os projetos ficam navegáveis, com um índice, backlinks e as páginas que cada uma cita, uma busca que ranqueia como o <code>memory_query</code> e consegue explicar o ranking, e uma API JSON em <code>/api/v1</code>."
+        "text": "O painel integrado mostra projetos, saúde da captura, atividade dos agentes e uso por resposta. A aba Conhecimento reúne sumários, backlinks, evidências por versão e busca; os guias ficam em /web/docs."
       },
       {
         "title": "Histórico e replay",

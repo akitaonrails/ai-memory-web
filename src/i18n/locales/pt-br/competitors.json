@@ -53,9 +53,8 @@
       "name": "cognee",
       "kind": "Pipeline de grafo, vetores e relacional",
       "needs": [
-        "Três bancos em sincronia",
-        "Uma chamada de LLM por chunk",
-        "Python"
+        "Python",
+        "Arquivos locais de SQLite, LanceDB e Kuzu"
       ],
       "same": "Proveniência, ranking ponderado por feedback e um plugin para Claude Code.",
       "gain": [
@@ -110,7 +109,7 @@
         "Envelhecimento desligado por padrão, e toda reescrita pode ser restaurada",
         "Handoffs entre agentes que só uma sessão assume, e mensagens entre projetos"
       ],
-      "theyWin": "O envelhecimento dele roda sozinho, sem configurar nada. Ele também tem replicação multi-backend e um visualizador de grafo, e a nota dele por sessão, 0,860, fica acima da do ai-memory, que é cerca de 0,82.",
+      "theyWin": "O envelhecimento roda por padrão e há replicação entre diferentes mecanismos de armazenamento. Sua pontuação publicada por sessão usa outro avaliador, portanto não é uma comparação direta.",
       "verdict": "Migre se você gostou da captura por hooks e quer isso em todos os agentes."
     },
     "agentmemory": {

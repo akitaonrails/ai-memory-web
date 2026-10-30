@@ -26,8 +26,8 @@
     },
     "points": [
       {
-        "title": "Addressed to a project",
-        "text": "A message goes to a workspace and project, and any session in that project can claim it. Once claimed, it is gone from the queue, like a handoff."
+        "title": "Addressed to a project or agent",
+        "text": "A message targets a workspace and project, optionally one registered harness. Only that harness can claim directed mail. The browser can queue and edit a pending message with access to both projects."
       },
       {
         "title": "Nothing enters context by itself",
@@ -95,7 +95,7 @@
       },
       {
         "title": "The brief carries them in",
-        "text": "With <code>inject_on_session_start = true</code> in the project marker, the brief starts with excerpts of pinned pages, rules and slots, then adds detail within its budget. Pages that do not fit are listed for <code>memory_read_page</code>."
+        "text": "With <code>inject_on_session_start = true</code> in the project marker, the brief starts with pinned pages, rules and slots. Pages that do not fit are listed for <code>memory_read_page</code>. Set <code>inject_on_subagent_start = true</code> separately to give Claude Code subagents the same bounded brief."
       },
       {
         "title": "Lint suggests promotion",
@@ -135,7 +135,7 @@
     "items": [
       {
         "title": "A browser for your memory",
-        "text": "Start the server with <code>--enable-web</code> and every project’s pages are browsable, with an outline, backlinks and the pages each one cites, a search that ranks like <code>memory_query</code> and can explain its ranking, and a JSON API under <code>/api/v1</code>."
+        "text": "The built-in dashboard shows projects, capture health, agent activity and response usage. Its Knowledge tab has page outlines, backlinks, version evidence and search; bundled guides live under /web/docs."
       },
       {
         "title": "History and replay",

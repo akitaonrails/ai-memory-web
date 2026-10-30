@@ -53,9 +53,8 @@
       "name": "cognee",
       "kind": "Graph, vector and relational pipeline",
       "needs": [
-        "Three stores in sync",
-        "An LLM call per chunk",
-        "Python"
+        "Python",
+        "Embedded SQLite, LanceDB and Kuzu files"
       ],
       "same": "Provenance, feedback-weighted ranking and a Claude Code plugin.",
       "gain": [
@@ -110,7 +109,7 @@
         "Aging that is off by default, and every rewrite can be restored",
         "Claim-once handoffs between agents, and cross-project messaging"
       ],
-      "theyWin": "Its aging runs on its own with no setup. It also has multi-backend replication and a graph visualizer, and its session-level score of 0.860 is above ai-memory’s, which is about 0.82.",
+      "theyWin": "Its aging runs by default and it supports multi-backend replication. Its published session-level score uses a different harness, so it is not a direct comparison.",
       "verdict": "Move if you liked hook capture and want it across every agent."
     },
     "agentmemory": {

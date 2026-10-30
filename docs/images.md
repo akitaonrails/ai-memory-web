@@ -59,4 +59,9 @@ Generation costs a few cents per image and is not part of the build. Netlify and
 
 ## Screenshots
 
-`src/assets/img/screens/` holds real screenshots of the web UI on demo data, taken from the pull requests that built each view (webp, version footer cropped). The UI speaks English in every language of the site. Replace them from a running server when a view changes. `web-search.webp` was refreshed on 2026-10-16 from the checksum-verified v3.1.0 Linux release, using four synthetic rate-limit pages in `demo/api`; it includes the Kind and Tier filters and the version footer.
+`src/assets/img/screens/` holds four real v3.3.0 web UI screenshots on synthetic
+`demo/api` and `demo/frontend` data. They were captured from the SHA-256-verified
+Linux release binary on 2026-10-30, with the version footer cropped. The UI
+speaks English in every language of the site. Replace these screenshots from
+a released server when a view changes. `web-project.webp` is also used on the
+Individuals page.

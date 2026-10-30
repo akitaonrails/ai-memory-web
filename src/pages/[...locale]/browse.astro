@@ -47,6 +47,10 @@ const next = withText([
     </Section>
   ))}
 
+  <Section id="visibility" title={t('visibility.title')} hue="teal" tint>
+    <FeatureGrid items={raw<Item[]>('visibility.items').map((p) => ({ ...p, hue: 'teal' as const }))} cols={3} />
+  </Section>
+
   <Section id="graph" title={t('graph.title')} lede={t('graph.lede')} hue="violet">
     <FeatureGrid items={raw<Item[]>('graph.items').map((p) => ({ ...p, hue: 'violet' as const }))} cols={3} />
   </Section>

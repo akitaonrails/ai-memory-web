@@ -160,7 +160,7 @@
   },
   "measured": {
     "title": "Qué se midió",
-    "lede": "El informe de la versión 3.2.1 evalúa 470 preguntas respondibles de LongMemEval-S mediante hooks y búsquedas reales: texto completo alcanzó 0.951 en hit@5 y embeddings locales, 0.949. Estos valores miden recuperación, no exactitud de las respuestas. Las consultas locales tardaron 171 ms de mediana y 389 ms en p95 en una máquina compartida con otros agentes, por lo que esos tiempos no son directamente comparables con los anteriores. El nuevo procedimiento omite los checkpoints git de la wiki, así que los tiempos de ingesta tampoco son comparables.",
+    "lede": "La ejecución de la versión 3.3.0 evaluó 470 preguntas respondibles de LongMemEval-S con captura y búsqueda reales. El texto completo alcanzó 0.951 en hit@5; los embeddings locales, 0.945. Estas cifras miden recuperación, no exactitud de las respuestas. El hit@10 local bajó de 0.977 en 3.2.6 a 0.970, fuera del margen de variación declarado; el informe sigue la investigación por pregunta.",
     "chart": {
       "title": "hit@5 en LongMemEval-S",
       "subtitle": "Porcentaje de las 470 preguntas con una sesión de evidencia entre los cinco primeros resultados. Más alto es mejor.",
@@ -168,8 +168,8 @@
         "Solo texto completo, antes de la 2.0",
         "Texto completo con stopwords filtradas",
         "Más embeddings locales",
-        "3.2.1: texto completo, con el flujo de observaciones",
-        "3.2.1: embeddings locales, con el flujo de observaciones"
+        "3.3.0: texto completo, con el flujo de observaciones",
+        "3.3.0: embeddings locales, con el flujo de observaciones"
       ]
     },
     "steps": {
@@ -184,12 +184,12 @@
       "before": "Antes de la 2.0",
       "filtered": "Texto completo filtrado",
       "local": "Embeddings locales",
-      "fts3": "3.2.1, texto completo",
-      "local3": "3.2.1, embeddings locales"
+      "fts3": "3.3.0, texto completo",
+      "local3": "3.3.0, embeddings locales"
     },
     "retrievalOnly": {
       "title": "Recuperación, no respuestas",
-      "text": "hit@5 pregunta si se encontró la sesión correcta. Ningún modelo escribe ni califica una respuesta, así que esta cifra no se puede comparar con las de precisión que publican otras herramientas. El dataset es historial de chat, y todavía no existe un benchmark de sesiones de programación."
+      "text": "Este resultado mide si la sesión con la evidencia aparece entre los cinco primeros resultados. No califica una respuesta. Ya existe un corpus de recuperación de sesiones de programación, pero todavía no tiene una puntuación publicada por versión comparable a esta ejecución de LongMemEval-S."
     },
     "privacyCap": {
       "title": "El tope de privacidad no es donde se pierden los puntos",
@@ -219,7 +219,7 @@
         "tokens": "Tokens de contexto, cinco primeros resultados"
       },
       "ms": "{n} ms",
-      "releaseRun": "Esta comparación de flujos es el experimento de descomposición del 12 de octubre. La ejecución separada de la versión 3.2.1 midió {local} con embeddings locales. No repite este experimento de activar y desactivar el flujo.",
+      "releaseRun": "Esta comparación de flujos es el experimento de descomposición del 12 de octubre. La ejecución separada de la versión 3.3.0 midió {local} con embeddings locales. No repite este experimento de activar y desactivar el flujo.",
       "ftsAhead": "Con el flujo activado, el texto completo por sí solo puntúa un poco por encima de los embeddings locales. El vector de la página, igual que su fila de texto completo, sigue viendo solo un cuerpo que contiene únicamente el título.",
       "determinism": "Dentro de una misma ejecución el harness es determinista. Entre ejecuciones separadas, los tipos de pregunta más pequeños se mueven hasta 0,03 en cualquier dirección, así que una caída en uno de ellos en una sola ejecución significa poco.",
       "comparable": "Las cifras que otras herramientas publican sobre este dataset salen de sus propios harnesses, que a menudo indexan sesiones en bruto completas sin paso de captura. No son comparables punto por punto, y no se afirma ningún ranking entre herramientas."

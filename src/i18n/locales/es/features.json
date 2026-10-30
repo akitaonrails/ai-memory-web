@@ -26,8 +26,8 @@
     },
     "points": [
       {
-        "title": "Dirigido a un proyecto",
-        "text": "Un mensaje va a un workspace y un proyecto, y cualquier sesión de ese proyecto puede reclamarlo. Una vez reclamado, desaparece de la cola, como un traspaso."
+        "title": "Para un proyecto o agente",
+        "text": "Un mensaje va a un espacio de trabajo y proyecto, y opcionalmente a un agente registrado. Solo ese agente puede recoger un mensaje dirigido. El navegador permite poner en cola y editar mensajes pendientes si tienes acceso a ambos proyectos."
       },
       {
         "title": "Nada entra al contexto por sí solo",
@@ -95,7 +95,7 @@
       },
       {
         "title": "El resumen las trae",
-        "text": "Con <code>inject_on_session_start = true</code> en el marcador del proyecto, el resumen empieza con extractos de páginas fijadas, reglas y slots, y añade detalles dentro del límite. Las páginas que no caben se listan para <code>memory_read_page</code>."
+        "text": "Con <code>inject_on_session_start = true</code> en el marcador del proyecto, el resumen empieza con páginas fijadas, reglas y slots. Las páginas que no caben se enumeran para <code>memory_read_page</code>. Configura <code>inject_on_subagent_start = true</code> por separado para dar el mismo resumen limitado a los subagentes de Claude Code."
       },
       {
         "title": "El lint sugiere promoverlas",
@@ -135,7 +135,7 @@
     "items": [
       {
         "title": "Un navegador para tu memoria",
-        "text": "Arranca el servidor con <code>--enable-web</code> y las páginas de todos los proyectos se pueden navegar, con un esquema, backlinks y las páginas que cada una cita, una búsqueda que ordena como <code>memory_query</code> y puede explicar su ranking, y una API JSON en <code>/api/v1</code>."
+        "text": "El panel integrado muestra proyectos, salud de la captura, actividad de agentes y uso por respuesta. La pestaña Conocimiento reúne índices, vínculos entrantes, evidencia por versión y búsqueda; las guías están en /web/docs."
       },
       {
         "title": "Historial y reproducción",

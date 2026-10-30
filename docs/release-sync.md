@@ -69,3 +69,18 @@ Validation: source checker reports no mismatches; all 2,428 catalog strings
 are translated in every locale; contrast and build pass (102 pages). All 408
 page/viewport/theme layout checks, 32 accessibility checks, six mobile Windows
 tab checks, and the internal-link scan pass.
+
+## v3.3.0 review — 2026-10-30
+
+Reviewed the v3.2.1 → v3.3.0 tag range, including the intervening 3.2.2–3.2.10
+patch notes. Refreshed the GitHub snapshot, release assets and checksum links,
+benchmark and quality counts, support matrix and six translated catalogs.
+OpenCode V1/V2 is one auto-detected entry; Qoder is supported. The download
+summary covers the new dashboard, inbox, safe page patching, project-identity
+repair and retrieval evidence. The Browse screenshots were retaken from the
+checksum-verified v3.3.0 Linux binary with synthetic data. The top-ten local
+benchmark movement remains explicitly linked to the upstream investigation.
+
+The source checker, translation check, contrast check, tests, build and browser
+checks were run before publication. Download asset names and their checksum
+files were verified against the published release.

@@ -26,7 +26,6 @@ export const harnesses: Row[] = [
   { name: 'Cursor', id: 'cursor', status: 'Supported' },
   { name: 'Gemini CLI', id: 'gemini-cli', status: 'Supported' },
   { name: 'OpenCode', id: 'opencode', status: 'Supported', run: true },
-  { name: 'OpenCode 2', id: 'opencode2', status: 'Supported', run: true },
   { name: 'Grok Build CLI', id: 'grok', status: 'Supported', run: true },
   { name: 'GitHub Copilot CLI', id: 'copilot-cli', status: 'Supported', run: true },
   { name: 'Factory Droid', id: 'droid', status: 'Supported' },
@@ -55,6 +54,7 @@ export const harnesses: Row[] = [
   { name: 'Swival CLI', id: 'swival', status: 'MCP-only' },
   { name: 'Meta Muse Code', id: 'muse', status: 'Supported' },
   { name: 'Qwen Code', id: 'qwen-code', status: 'Supported' },
+  { name: 'Qoder', id: 'qoder', status: 'Supported' },
   { name: 'Hermes Agent', id: 'hermes', status: 'Supported', print: true },
 ];
 

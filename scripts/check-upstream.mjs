@@ -233,8 +233,8 @@ section('2. Hard facts');
   const snap = JSON.parse(here('src/data/github-snapshot.json'));
   const assets = new Set((snap.releases.find((r) => !r.prerelease) ?? snap.releases[0]).assets.map((a) => a.name));
   const named = new Set(here('src/pages/[...locale]/download.astro').match(/ai-memory-[a-z0-9_-]+\.(?:tar\.gz|zip)/g) ?? []);
-  for (const n of named) if (!assets.has(n)) bad(`download page offers ${n}, which is not in release ${snap.releases[0].tag} (snapshot of ${snap.fetchedAt.slice(0, 10)}; refresh with npm run snapshot:github)`);
-  if (before === problems) ok(`downloads: ${named.size} asset names exist in ${snap.releases[0].tag}`);
+  for (const n of named) for (const file of [n, `${n}.sha256`]) if (!assets.has(file)) bad(`download page offers ${file}, which is not in release ${snap.releases[0].tag} (snapshot of ${snap.fetchedAt.slice(0, 10)}; refresh with npm run snapshot:github)`);
+  if (before === problems) ok(`downloads: ${named.size} binaries and checksum assets exist in ${snap.releases[0].tag}`);
 }
 
 // ---------------------------------------------------------------- 3. Where numbers are quoted in prose

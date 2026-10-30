@@ -142,11 +142,11 @@
     },
     "web": {
       "title": "Um navegador para sua memória",
-      "text": "Uma flag adiciona uma visualização no navegador com a lista de projetos, a árvore de páginas, markdown renderizado, busca e links de wiki clicáveis. Ela não edita nada.",
+      "text": "Uma opção abre o painel no navegador com projetos, atividade, páginas salvas, busca e caixas de entrada. As páginas da wiki continuam somente leitura aqui; usuários autorizados podem enviar ou editar mensagens pendentes.",
       "codeTitle": "habilitar a interface web",
       "comment": "depois abra {url}",
-      "shotAlt": "Captura de tela da interface web do ai-memory mostrando um projeto: à esquerda, uma árvore de páginas agrupada em conceitos, decisões, gotchas e sessões; à direita, uma lista de atividade recente com páginas markdown.",
-      "shotCaption": "A visão de projeto da interface web. As páginas são agrupadas em conceitos, decisões, gotchas e sessões."
+      "shotAlt": "Captura de tela da visão geral de um projeto na 3.3.0, com abas para agentes, uso de tokens, sessões e conhecimento, além de contagens de captura e mensagens pendentes.",
+      "shotCaption": "O painel do projeto separa sessões capturadas de páginas compiladas. Abra uma aba para examinar atividade, uso das respostas ou conhecimento salvo."
     }
   },
   "need": {

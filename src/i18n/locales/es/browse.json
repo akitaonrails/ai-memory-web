@@ -5,33 +5,33 @@
   },
   "hero": {
     "title": "Mira lo que recuerda tu agente",
-    "lede": "Inicia el servidor con --enable-web para explorar los proyectos a los que tienes acceso: páginas, enlaces, correo pendiente y búsqueda. No hay editor de páginas; sí hay acciones de cuenta y aprobación de cambios propuestos por root.",
+    "lede": "Explora proyectos, páginas, actividad de agentes, uso de tokens y buzones en la interfaz web integrada. El contenido de las páginas es de solo lectura; los usuarios autorizados pueden poner en cola o editar mensajes aún pendientes.",
     "primary": "Todos los proyectos de un vistazo",
     "secondary": "Busca como el agente"
   },
   "home": {
     "title": "Todos los proyectos de un vistazo",
-    "lede": "Workspaces y proyectos en tarjetas, con el número de páginas y la hora del último cambio. Una insignia ámbar indica que hay mensajes esperando a un agente en ese proyecto.",
-    "shotAlt": "Captura de la página de inicio de la interfaz web: una cuadrícula de tarjetas de proyecto bajo un workspace de demostración, tres con una insignia ámbar «inbox», y un aviso que explica que las páginas son memoria compilada para un agente y no documentación.",
-    "shotCaption": "El aviso lo dice claro: estas páginas están pensadas para la recuperación del agente, y el navegador sirve para ver lo que se guardó."
+    "lede": "El panel muestra proyectos visibles, sesiones, eventos capturados y páginas compiladas. Los contadores de salud de hooks muestran eventos aceptados y descartados desde que arrancó el servidor.",
+    "shotAlt": "Captura del panel de memoria 3.3.0 con tarjetas de proyectos, contadores de captura y salud de hooks y barra lateral para buzón, búsqueda y documentación.",
+    "shotCaption": "El panel separa el trabajo capturado de las páginas compiladas; un proyecto puede tener sesiones recientes antes de tener páginas en la wiki."
   },
   "project": {
     "title": "Un proyecto: sus páginas, sus decisiones, sus mensajes",
-    "lede": "La barra lateral lista las carpetas, concepts, decisions, gotchas y sessions, con las páginas más recientes de cada una. El buzón muestra los mensajes que enviaron otros proyectos y que nadie ha recogido todavía.",
-    "shotAlt": "Captura de la página de un proyecto: una barra lateral con páginas de concepts, decisions y gotchas, un buzón con dos mensajes Pending de otros proyectos y una lista de actividad reciente.",
-    "shotCaption": "Los mensajes se listan, nunca se sacan: un agente del proyecto los lee con memory_message_pop, y el navegador solo muestra que están esperando."
+    "lede": "Las pestañas del proyecto separan Resumen, Agentes, Uso de tokens, Sesiones y Conocimiento. El resumen muestra actividad capturada, páginas compiladas y correo pendiente.",
+    "shotAlt": "Captura del resumen de un proyecto en 3.3.0 con pestañas, recuentos de sesiones y páginas, totales de tokens y panel del buzón.",
+    "shotCaption": "Elige una pestaña para examinar agentes, uso de respuestas, sesiones o el árbol de páginas. La falta de datos de tokens aparece como raya, no como un cero supuesto."
   },
   "page": {
     "title": "Una página y lo que apunta a ella",
-    "lede": "Cada página muestra su esquema, las páginas que la citan y las páginas que cita, de modo que una decisión se puede rastrear hasta el gotcha que la causó. Un enlace History lista todas las versiones guardadas.",
-    "shotAlt": "Captura de una página wiki sobre rate limiting con una columna lateral: un esquema de sus encabezados, una lista de páginas que la citan y una lista de páginas que cita.",
-    "shotCaption": "Diez enlaces por grupo y luego «y N más». Una página de otro proyecto lleva el nombre de su workspace y de su proyecto."
+    "lede": "Una página muestra índice, vínculos entrantes y citas junto con evidencia de la versión, contradicciones declaradas y contexto de caducidad. El historial conserva versiones anteriores.",
+    "shotAlt": "Captura de una página de conocimiento de 3.3.0 con panel de evidencias, secciones Markdown y barra lateral de citas y vínculos entrantes.",
+    "shotCaption": "La evidencia y las contradicciones corresponden a la versión mostrada; el navegador no verifica por sí mismo si una fuente es cierta."
   },
   "search": {
     "title": "Una búsqueda que ordena como el agente",
-    "lede": "La búsqueda del proyecto usa el mismo ranker que memory_query. Los filtros de tipo y nivel restringen los flujos antes de fusionarlos. Marca “Explain ranking” para ver la contribución de cada flujo. La búsqueda entre proyectos usa texto completo sobre las páginas de la wiki.",
-    "shotAlt": "Captura de la búsqueda de ai-memory 3.1 de “rate limit” en demo/api, con selectores de proyecto, Kind y Tier, Explain ranking y cuatro resultados de páginas de demostración.",
-    "shotCaption": "Una búsqueda sin proyecto es la búsqueda de texto completo entre proyectos, lo mismo que hace memory_query con global activado."
+    "lede": "La búsqueda de un proyecto usa el mismo clasificador que memory_query. Los filtros de tipo y nivel se aplican antes de ordenar, y Explicar clasificación muestra por qué apareció una página. La búsqueda entre proyectos usa texto completo.",
+    "shotAlt": "Captura de la búsqueda en 3.3.0 de límites de peticiones en un proyecto, con filtros de tipo y nivel y resultados de páginas de prueba.",
+    "shotCaption": "La búsqueda limitada al proyecto usa su sistema de recuperación. Una persona o un agente aún debe juzgar el significado de los resultados."
   },
   "graph": {
     "title": "Cómo se conectan las páginas",
@@ -71,7 +71,7 @@
   },
   "readonly": {
     "title": "Consulta páginas y revisa propuestas",
-    "text": "Edita contenido mediante herramientas del agente, la CLI o archivos Markdown. El navegador permite iniciar sesión y cambiar contraseñas, además de aprobar ediciones propuestas como root. El acceso heredado por HTTP Basic solo permite leer propuestas; usa la CLI para decidir. Los permisos de proyecto de usuarios de la base de datos rigen el acceso; los proxies confiables aplican su propia autorización.",
+    "text": "Edita las páginas de la wiki con herramientas de agentes, la CLI o archivos Markdown. El navegador puede poner en cola o editar un mensaje todavía pendiente; nunca lo recoge por un agente. El administrador puede revisar propuestas de edición. Los permisos de usuarios de la base de datos regulan el acceso a los proyectos; los proxies de confianza aplican su propia autorización.",
     "api": "Los mismos datos están disponibles como JSON en <code>/api/v1</code>, y <code>serve --enable-api</code> monta la API sin la interfaz del navegador."
   },
   "faq": [
@@ -110,5 +110,22 @@
     "title": "Consola de gestión opcional",
     "text": "<code>/manage</code> reúne administración de usuarios, inspección de sesiones y claves MCP personales en el navegador. Requiere compilar con <code>management-ui</code> e iniciar con <code>--enable-management-ui</code>; la imagen Docker estándar de la versión no lo incluye. Los usuarios pueden purgar sesiones de su propiedad exacta en proyectos donde pueden escribir; los administradores pueden purgar cualquier sesión. <a href=\"{href}\">Guía de compilación y despliegue</a>.",
     "keys": "Restablecer contraseñas y desactivar cuentas termina las sesiones del navegador, pero no revoca las claves API emitidas por el propio usuario. Revócalas por separado. Las purgas de sesión pueden dejar contenido anterior en el historial git, copias de seguridad y transcripciones nativas."
+  },
+  "visibility": {
+    "title": "Actividad, mensajes y guías",
+    "items": [
+      {
+        "title": "Uso de respuestas",
+        "text": "Los hooks de Claude Code y Codex informan del uso de tokens por respuesta. Las vistas de proyecto y sesión filtran por modelo, agente y herramienta; las sesiones antiguas o no compatibles no muestran recuento."
+      },
+      {
+        "title": "Mensajes a la espera de agentes",
+        "text": "El buzón muestra mensajes recibidos y enviados sin recogerlos. Con permiso de escritura en ambos proyectos, puedes dirigir un mensaje a un agente registrado y editarlo hasta que lo recojan."
+      },
+      {
+        "title": "Guías dentro del servidor",
+        "text": "Las guías de funciones y notas de versión vienen en el binario en /web/docs. Muestran lo instalado para tu cuenta sin revelar ajustes de administración a otros usuarios."
+      }
+    ]
   }
 }

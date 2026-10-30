@@ -90,11 +90,11 @@
         "note": "No model-provider key"
       },
       {
-        "label": "ai-memory 3.2.1, full text",
+        "label": "ai-memory 3.3.0, full text",
         "note": "With the observation stream, no embeddings"
       },
       {
-        "label": "ai-memory 3.2.1, local embeddings",
+        "label": "ai-memory 3.3.0, local embeddings",
         "note": "With the observation stream, the default install"
       }
     ],
@@ -110,7 +110,7 @@
       "{fts} uses full text, entities, links and session observations without an LLM or model-provider key. {local} adds the default in-process embedding model.",
       "No head-to-head run against any competitor exists. Vendor numbers on the same dataset come from different harnesses, often with no capture step, and accuracy figures such as Hindsight’s 91.4% are a different metric.",
       "Stored excerpts are capped at 2 KB for privacy. Pages holding exactly the captured text score within half a point of whole sessions, so the cap costs little.",
-      "LongMemEval is chat-assistant history. A coding-session benchmark is planned and does not exist yet."
+      "LongMemEval is chat-assistant history. A bundled coding-session retrieval corpus exists, but it has no published release score comparable to this run."
     ],
     "reproduce": "Reproduce it from a checkout. The <a class=\"underline font-semibold text-text\" href=\"{href}\">benchmark notes</a> have the dataset hash and the per-slice results.",
     "codeTitle": "from a checkout of the ai-memory repo",

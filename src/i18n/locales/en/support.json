@@ -67,9 +67,6 @@
     "opencode": {
       "note": "V1 or V2, detected from the executable."
     },
-    "opencode2": {
-      "note": "Forces V2 when you do not want detection. Every finished turn refreshes the summary and the handoff."
-    },
     "grok": {
       "note": "Capture works. The handoff arrives with the first tool call."
     },
@@ -156,6 +153,9 @@
     },
     "qwen-code": {
       "note": "Ten lifecycle events and a Streamable HTTP entry in ~/.qwen/settings.json. Qwen fires a real session end, so nothing to finalize."
+    },
+    "qoder": {
+      "note": "Qoder CLI and IDE: eight lifecycle hook events and a sessionless MCP bridge in its settings file. Restart Qoder after installing; there is no managed launcher or transcript backfill."
     }
   },
   "llmProviders": [

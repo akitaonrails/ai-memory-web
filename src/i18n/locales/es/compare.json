@@ -90,11 +90,11 @@
         "note": "Sin clave de proveedor de modelos"
       },
       {
-        "label": "ai-memory 3.2.1, texto completo",
+        "label": "ai-memory 3.3.0, texto completo",
         "note": "Con el flujo de observaciones, sin embeddings"
       },
       {
-        "label": "ai-memory 3.2.1, embeddings locales",
+        "label": "ai-memory 3.3.0, embeddings locales",
         "note": "Con el flujo de observaciones, la instalación por defecto"
       }
     ],
@@ -110,7 +110,7 @@
       "{fts} usa texto completo, entidades, enlaces y observaciones de sesión sin LLM ni clave de proveedor de modelos. {local} añade el modelo de embeddings predeterminado dentro del proceso.",
       "No existe ninguna ejecución cara a cara contra ningún competidor. Las cifras de proveedores sobre el mismo dataset salen de harnesses distintos, a menudo sin paso de captura, y las cifras de precisión, como el 91,4% de Hindsight, son otra métrica.",
       "Los extractos guardados se limitan a 2 KB por privacidad. Las páginas que contienen exactamente el texto capturado puntúan a menos de medio punto de las sesiones completas, así que el tope cuesta poco.",
-      "LongMemEval es historial de asistentes de chat. Hay planeado un benchmark de sesiones de programación, y todavía no existe."
+      "LongMemEval contiene conversaciones de asistentes. Ya existe un corpus de recuperación de sesiones de programación, pero aún no tiene una puntuación publicada por versión comparable a esta ejecución."
     ],
     "reproduce": "Reprodúcelo desde un checkout. Las <a class=\"underline font-semibold text-text\" href=\"{href}\">notas del benchmark</a> tienen el hash del dataset y los resultados por segmento.",
     "codeTitle": "desde un checkout del repositorio de ai-memory",

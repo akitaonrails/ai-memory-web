@@ -52,7 +52,7 @@ const tools = [
   { group: 'recall', hue: 'violet', names: ['memory_query', 'memory_recent', 'memory_read_page', 'memory_read_session_observations', 'memory_briefing', 'memory_explore', 'memory_status'] },
   { group: 'handoffs', hue: 'amber', names: ['memory_handoff_begin', 'memory_handoff_list', 'memory_handoff_accept', 'memory_handoff_cancel'] },
   { group: 'messages', hue: 'teal', names: ['memory_message_send', 'memory_message_list', 'memory_message_pop', 'memory_message_cancel'] },
-  { group: 'maintain', hue: 'green', names: ['memory_write_page', 'memory_delete_page', 'memory_restore_page', 'memory_consolidate', 'memory_auto_improve', 'memory_feedback', 'memory_lint', 'memory_forget_sweep', 'memory_install_self_routing'] },
+  { group: 'maintain', hue: 'green', names: ['memory_write_page', 'memory_patch_page', 'memory_delete_page', 'memory_restore_page', 'memory_consolidate', 'memory_auto_improve', 'memory_feedback', 'memory_lint', 'memory_forget_sweep', 'memory_install_self_routing'] },
 ].map((g) => ({ ...g, group: t(`codebase.tools.groups.${g.group}`) }));
 const toolCount = tools.reduce((n, g) => n + g.names.length, 0);
 

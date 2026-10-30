@@ -1,17 +1,17 @@
 {
   "$comment": "Hard numbers the site quotes, each with its source in the ai-memory repository. Pages read them from here; prose that repeats a number lives in the catalogs, and `npm run check:upstream` lists every sentence that does.",
   "benchmark": {
-    "source": "docs/benchmarks/README.md, docs/benchmarks/longmemeval-s-3.2.1-release.md (the headline numbers) and docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md (the stream off/on table)",
+    "source": "docs/benchmarks/README.md, docs/benchmarks/longmemeval-s-3.3.0-release.md (the headline numbers) and docs/benchmarks/longmemeval-s-decomposition-2026-10-12.md (the stream off/on table)",
     "dataset": "LongMemEval-S",
-    "date": "2026-10-22",
+    "date": "2026-10-29",
     "questionsScored": 470,
     "questionsTotal": 500,
     "columns": [
       "before 2.0 (full text, 2026-09-01 run)",
       "full text, stopword filtered (2.4)",
       "local embeddings (2.4)",
-      "full text plus the observation stream (3.2.1, default)",
-      "local embeddings plus the observation stream (3.2.1)"
+      "full text plus the observation stream (3.3.0, default)",
+      "local embeddings plus the observation stream (3.3.0)"
     ],
     "metrics": {
       "hit@5": [
@@ -19,14 +19,14 @@
         0.666,
         0.815,
         0.951,
-        0.949
+        0.945
       ],
       "hit@1": [
         0.449,
         0.532,
         0.536,
         0.857,
-        0.76
+        0.762
       ]
     },
     "stream": {
@@ -111,8 +111,8 @@
       "mcp-memory-service": 0.86
     },
     "releaseReport": {
-      "version": "3.2.1",
-      "path": "docs/benchmarks/longmemeval-s-3.2.1-release.md"
+      "version": "3.3.0",
+      "path": "docs/benchmarks/longmemeval-s-3.3.0-release.md"
     }
   },
   "throughput": {
@@ -157,16 +157,16 @@
   },
   "quality": {
     "source": "AGENTS.md, docs/ and the test attributes in crates/, counted at the reviewed upstream commit by scripts/check-upstream.mjs",
-    "directives": 85,
+    "directives": 86,
     "directivesNote": "List items in the six rule sections of AGENTS.md: build and test commands, code style, cross-cutting invariants, testing, security, maintenance.",
     "invariants": 16,
-    "docs": 112,
-    "unitTests": 5271,
-    "integrationTests": 1361,
+    "docs": 120,
+    "unitTests": 5698,
+    "integrationTests": 1502,
     "testsNote": "#[test], #[tokio::test], #[rstest] and similar attributes under crates/*/src (unit) and crates/*/tests (integration). A cargo run reports more because parameterised tests expand into several cases."
   },
   "release": {
     "comment": "The version the written highlights in download.json describe. check:upstream fails when a newer release exists, so the summary is rewritten at every sync.",
-    "highlightsFor": "3.2.1"
+    "highlightsFor": "3.3.0"
   }
 }

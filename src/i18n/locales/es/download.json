@@ -77,16 +77,28 @@
     "upgrading": "Actualizar a la 3.0",
     "highlights": [
       {
-        "title": "Corregida la contención de embeddings locales",
-        "text": "La capacidad de embeddings locales ahora se ajusta a la CPU, y las consultas esperan brevemente una plaza reservada antes de recurrir a la búsqueda léxica. El benchmark completo midió 0.949 en hit@5; Investigación explica las salvedades de tiempo."
+        "title": "Un panel para tus agentes",
+        "text": "La interfaz web ahora agrupa proyectos, sesiones, salud de la captura y uso de tokens por respuesta. Las pestañas organizan actividad y conocimiento; hay temas Claro, Oscuro y Sistema."
       },
       {
-        "title": "Los lanzamientos con Docker en Windows usan el host",
-        "text": "Los comandos gestionados ahora usan el cliente nativo de Windows mientras el servidor sigue en Docker. Instala el cliente nativo por separado y configura su token si hay autenticación; la guía de Windows explica ambos pasos."
+        "title": "Un buzón útil",
+        "text": "Consulta mensajes pendientes y enviados sin recogerlos para un agente. Los usuarios autorizados pueden dirigirse a un agente registrado y editar el mensaje hasta su recogida."
       },
       {
-        "title": "Seguridad y tratamiento de datos más claros",
-        "text": "La documentación detalla ahora los límites de tamaño de las solicitudes, los permisos por proyecto y la autorización en el proxy, la descarga inicial del modelo y las rutas opcionales de envío de datos."
+        "title": "Edita una sección con seguridad",
+        "text": "memory_patch_page agrega o sustituye una sección Markdown por su encabezado de forma atómica. Verifica la identidad de la página y, para sustituir, el hash de la sección; una edición obsoleta no altera nada."
+      },
+      {
+        "title": "Repara identidades de proyectos",
+        "text": "Los lanzamientos gestionados pueden seleccionar un proyecto por ID si los nombres coinciden. merge-project muestra una vista previa por defecto; --confirm mueve el historial y elimina el origen dentro del mismo espacio de trabajo."
+      },
+      {
+        "title": "Qoder entre los agentes compatibles",
+        "text": "Qoder CLI e IDE captura eventos de ciclo de vida y usa MCP desde su configuración. OpenCode V1 y V2 ahora se detectan en una sola entrada; los alias antiguos que fuerzan V2 siguen funcionando."
+      },
+      {
+        "title": "Nuevas pruebas de recuperación",
+        "text": "La ejecución 3.3.0 obtuvo 0.951 en hit@5 con texto completo y 0.945 con embeddings locales. El informe sigue una pequeña bajada local en hit@10; también se incluye un corpus de sesiones de programación para pruebas sin conexión."
       }
     ]
   },

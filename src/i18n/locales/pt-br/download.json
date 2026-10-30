@@ -77,16 +77,28 @@
     "upgrading": "Atualizando para a 3.0",
     "highlights": [
       {
-        "title": "Contenção nos embeddings locais corrigida",
-        "text": "A capacidade dos embeddings locais agora acompanha a CPU, e consultas esperam brevemente por uma vaga reservada antes de recorrer à busca lexical. O benchmark completo mediu 0.949 em hit@5; as ressalvas de tempo estão em Pesquisa."
+        "title": "Um painel para seus agentes",
+        "text": "A interface web agora reúne projetos, sessões, saúde da captura e uso de tokens por resposta. As abas organizam atividade e conhecimento; há temas Claro, Escuro e Sistema."
       },
       {
-        "title": "Execuções com Docker no Windows usam o host",
-        "text": "Comandos gerenciados agora usam o cliente nativo do Windows enquanto o servidor fica no Docker. Instale o cliente nativo separadamente e configure seu token quando houver autenticação; o guia do Windows explica os dois passos."
+        "title": "Uma caixa de entrada utilizável",
+        "text": "Veja mensagens pendentes e enviadas sem coletá-las para um agente. Usuários autorizados podem endereçar um agente registrado e editar a mensagem até que seja coletada."
       },
       {
-        "title": "Segurança e tratamento de dados mais claros",
-        "text": "A documentação agora explicita limites de tamanho de requisições, concessões por projeto e a autorização no proxy, o primeiro download do modelo e os caminhos opcionais de envio de dados."
+        "title": "Edite uma seção com segurança",
+        "text": "memory_patch_page acrescenta ou substitui uma seção Markdown pelo título, de forma atômica. Ele confere a identidade da página e, na substituição, o hash da seção; uma edição desatualizada não altera nada."
+      },
+      {
+        "title": "Corrija identidades de projeto",
+        "text": "Lançamentos gerenciados podem escolher um projeto por ID quando nomes colidem. merge-project mostra uma prévia por padrão; --confirm move o histórico e remove o projeto de origem no mesmo espaço."
+      },
+      {
+        "title": "Qoder entre os agentes suportados",
+        "text": "O Qoder CLI e IDE captura eventos de ciclo de vida e usa MCP pelo próprio arquivo de configurações. OpenCode V1 e V2 agora são detectados na mesma entrada; os aliases antigos que forçam V2 continuam funcionando."
+      },
+      {
+        "title": "Novas evidências de recuperação",
+        "text": "A execução da 3.3.0 marcou 0.951 em hit@5 com texto completo e 0.945 com embeddings locais. Uma pequena queda local em hit@10 é acompanhada no relatório; um corpus de sessões de programação também está disponível para avaliação offline."
       }
     ]
   },

@@ -67,9 +67,6 @@
     "opencode": {
       "note": "V1 o V2, detectado a partir del ejecutable."
     },
-    "opencode2": {
-      "note": "Fuerza V2 cuando no quieres la detección. Cada turno terminado actualiza el resumen y el traspaso."
-    },
     "grok": {
       "note": "La captura funciona. El traspaso llega con la primera llamada a una herramienta."
     },
@@ -156,6 +153,9 @@
     },
     "qwen-code": {
       "note": "Diez eventos de ciclo de vida y una entrada Streamable HTTP en ~/.qwen/settings.json. Qwen emite un fin de sesión real, así que no hay nada que finalizar."
+    },
+    "qoder": {
+      "note": "Qoder CLI e IDE: ocho eventos de hooks de ciclo de vida y un puente MCP sin sesión en su archivo de configuración. Reinicia Qoder tras instalarlo; no hay lanzador gestionado ni importación de transcripciones."
     }
   },
   "llmProviders": [

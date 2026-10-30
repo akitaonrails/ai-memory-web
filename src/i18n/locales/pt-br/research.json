@@ -160,7 +160,7 @@
   },
   "measured": {
     "title": "O que foi medido",
-    "lede": "O relatório da versão 3.2.1 avalia 470 perguntas respondíveis do LongMemEval-S com hooks e busca reais: texto completo atingiu 0.951 em hit@5 e embeddings locais, 0.949. Esses números medem recuperação, não acurácia das respostas. Consultas locais levaram 171 ms na mediana e 389 ms no p95 em uma máquina compartilhada com outros agentes, portanto esses tempos não são diretamente comparáveis aos anteriores. O novo procedimento pula checkpoints git da wiki, então os tempos de ingestão também não são comparáveis.",
+    "lede": "A execução da versão 3.3.0 testou 470 perguntas respondíveis do LongMemEval-S com captura e busca reais. O texto completo atingiu 0.951 em hit@5; os embeddings locais atingiram 0.945. Esses números medem recuperação, não a exatidão das respostas. O hit@10 local caiu de 0.977 na 3.2.6 para 0.970, fora da margem de variação declarada; o relatório acompanha a investigação por pergunta.",
     "chart": {
       "title": "hit@5 no LongMemEval-S",
       "subtitle": "Parcela das 470 perguntas com uma sessão de evidência entre os cinco primeiros. Quanto maior, melhor.",
@@ -168,8 +168,8 @@
         "Só full-text, antes da 2.0",
         "Full-text com filtro de stopwords",
         "Mais embeddings locais",
-        "3.2.1: full-text, com o fluxo de observações",
-        "3.2.1: embeddings locais, com o fluxo de observações"
+        "3.3.0: full-text, com o fluxo de observações",
+        "3.3.0: embeddings locais, com o fluxo de observações"
       ]
     },
     "steps": {
@@ -184,12 +184,12 @@
       "before": "Antes da 2.0",
       "filtered": "Full-text filtrado",
       "local": "Embeddings locais",
-      "fts3": "3.2.1, full-text",
-      "local3": "3.2.1, embeddings locais"
+      "fts3": "3.3.0, full-text",
+      "local3": "3.3.0, embeddings locais"
     },
     "retrievalOnly": {
       "title": "Recuperação, não respostas",
-      "text": "O hit@5 pergunta se a sessão certa foi encontrada. Nenhum modelo escreve ou avalia uma resposta, então este número não pode ser comparado com as acurácias que outras ferramentas publicam. O dataset é histórico de chat, e ainda não existe um benchmark de sessões de código."
+      "text": "Este resultado mede se a sessão com a evidência aparece entre os cinco primeiros resultados. Ele não avalia a resposta. Já existe um corpus de recuperação para sessões de programação, mas ainda não há uma pontuação publicada por versão comparável a esta execução do LongMemEval-S."
     },
     "privacyCap": {
       "title": "O limite de privacidade não é onde os pontos se perdem",
@@ -219,7 +219,7 @@
         "tokens": "Tokens de contexto, cinco primeiros resultados"
       },
       "ms": "{n} ms",
-      "releaseRun": "Esta comparação dos fluxos é o experimento de decomposição de 12 de outubro. A execução separada da versão 3.2.1 mediu {local} com embeddings locais. Ela não repete este experimento de ligar e desligar o fluxo.",
+      "releaseRun": "Esta comparação dos fluxos é o experimento de decomposição de 12 de outubro. A execução separada da versão 3.3.0 mediu {local} com embeddings locais. Ela não repete este experimento de ligar e desligar o fluxo.",
       "ftsAhead": "Com o fluxo ligado, o full-text sozinho marca um pouco acima dos embeddings locais. O vetor da página, como a linha full-text dela, ainda enxerga só o corpo que tem apenas o título.",
       "determinism": "Dentro de uma execução o harness é determinístico. Entre execuções separadas, os tipos de pergunta menores variam até 0,03 para cima ou para baixo, então uma queda em um deles vista em uma única execução quer dizer pouco.",
       "comparable": "Os números que outras ferramentas publicam neste dataset vêm dos harnesses delas, muitas vezes indexando sessões brutas inteiras, sem etapa de captura. Não são comparáveis diretamente, e nenhum ranking entre ferramentas é afirmado."

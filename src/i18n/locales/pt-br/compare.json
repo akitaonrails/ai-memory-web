@@ -90,11 +90,11 @@
         "note": "Sem chave de provedor de modelos"
       },
       {
-        "label": "ai-memory 3.2.1, full-text",
+        "label": "ai-memory 3.3.0, full-text",
         "note": "Com o fluxo de observações, sem embeddings"
       },
       {
-        "label": "ai-memory 3.2.1, embeddings locais",
+        "label": "ai-memory 3.3.0, embeddings locais",
         "note": "Com o fluxo de observações, a instalação padrão"
       }
     ],
@@ -110,7 +110,7 @@
       "{fts} usa texto completo, entidades, links e observações de sessão sem LLM ou chave de provedor de modelos. {local} adiciona o modelo de embeddings padrão, no próprio processo.",
       "Não existe nenhuma execução lado a lado contra qualquer concorrente. Os números de fornecedores no mesmo dataset vêm de harnesses diferentes, muitas vezes sem etapa de captura, e números de acurácia, como os 91,4% do Hindsight, são outra métrica.",
       "Os trechos armazenados são limitados a 2 KB por privacidade. Páginas com exatamente o texto capturado pontuam a menos de meio ponto das sessões inteiras, então o limite custa pouco.",
-      "O LongMemEval é histórico de assistente de chat. Um benchmark de sessões de código está planejado e ainda não existe."
+      "O LongMemEval contém histórico de conversas. Já existe um corpus de recuperação para sessões de programação, mas ele ainda não tem pontuação publicada por versão comparável a esta execução."
     ],
     "reproduce": "Reproduza a partir de um checkout. As <a class=\"underline font-semibold text-text\" href=\"{href}\">notas do benchmark</a> têm o hash do dataset e os resultados por fatia.",
     "codeTitle": "a partir de um checkout do repositório do ai-memory",

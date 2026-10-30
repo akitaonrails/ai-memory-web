@@ -5,33 +5,33 @@
   },
   "hero": {
     "title": "Veja o que o seu agente lembra",
-    "lede": "Inicie o servidor com --enable-web para navegar nos projetos a que você tem acesso: páginas, links, mensagens pendentes e busca. Não há editor de páginas; há ações de conta e aprovação de edições propostas pelo root.",
+    "lede": "Explore projetos, páginas, atividade dos agentes, uso de tokens e caixas de entrada na interface web integrada. O conteúdo das páginas é somente leitura; usuários autorizados podem enfileirar ou editar mensagens ainda não coletadas.",
     "primary": "Todos os projetos de relance",
     "secondary": "Busque como o agente"
   },
   "home": {
     "title": "Todos os projetos de relance",
-    "lede": "Workspaces e projetos em cards, com o número de páginas e a hora da última mudança. Um badge âmbar indica que há mensagens esperando por um agente ali.",
-    "shotAlt": "Screenshot da home da interface web: uma grade de cards de projetos dentro de um workspace de demonstração, três com o badge âmbar \"inbox\", e um banner explicando que as páginas são memória compilada para um agente, não documentação.",
-    "shotCaption": "O banner diz com clareza: essas páginas são feitas para a recuperação do agente, e o navegador serve para ver o que foi parar ali."
+    "lede": "O painel mostra projetos visíveis, sessões, eventos capturados e páginas compiladas. Contadores de saúde dos hooks mostram eventos aceitos e descartados desde o início do servidor.",
+    "shotAlt": "Captura de tela do painel de memória 3.3.0 com cartões de projetos, contagens de captura, saúde dos hooks e barra lateral para caixa de entrada, busca e documentação.",
+    "shotCaption": "O painel separa trabalho capturado de páginas compiladas; um projeto pode ter sessões recentes antes de ter páginas na wiki."
   },
   "project": {
     "title": "Um projeto: páginas, decisões e mensagens",
-    "lede": "A barra lateral lista as pastas, concepts, decisions, gotchas e sessions, com as páginas mais novas de cada uma. A caixa de mensagens mostra o que outros projetos enviaram e ninguém pegou ainda.",
-    "shotAlt": "Screenshot da página de um projeto: uma barra lateral com páginas de concepts, decisions e gotchas, uma caixa de mensagens com duas mensagens Pending de outros projetos e uma lista de atividade recente.",
-    "shotCaption": "As mensagens são listadas, nunca consumidas: um agente do projeto lê com memory_message_pop, e o navegador só mostra que elas estão esperando."
+    "lede": "As abas do projeto separam Visão geral, Agentes, Uso de tokens, Sessões e Conhecimento. A visão geral mostra atividade capturada, páginas compiladas e mensagens pendentes.",
+    "shotAlt": "Captura de tela da visão geral de um projeto na 3.3.0, com abas, contagens de sessões e páginas, totais de tokens e painel da caixa de entrada.",
+    "shotCaption": "Escolha uma aba para examinar agentes, uso das respostas, sessões ou a árvore de páginas. Uso de tokens não informado aparece como traço, não como zero presumido."
   },
   "page": {
     "title": "Uma página e quem aponta para ela",
-    "lede": "Cada página traz seu outline, as páginas que a citam e as páginas que ela cita, então dá para rastrear uma decisão até o gotcha que a causou. Um link de History lista todas as versões guardadas.",
-    "shotAlt": "Screenshot de uma página da wiki sobre rate limiting com uma coluna lateral: o outline dos seus títulos, a lista de páginas que a citam e a lista de páginas que ela cita.",
-    "shotCaption": "Dez links por grupo, depois \"e mais N\". Uma página de outro projeto mostra o nome do workspace e do projeto."
+    "lede": "Uma página mostra sumário, backlinks e citações junto com evidências da versão, contradições declaradas e contexto de expiração. O histórico guarda versões anteriores.",
+    "shotAlt": "Captura de tela de uma página de conhecimento da 3.3.0 com painel de evidências, seções Markdown e barra lateral de citações e backlinks.",
+    "shotCaption": "Evidências e contradições pertencem à versão exibida; o navegador não verifica por conta própria se uma fonte é verdadeira."
   },
   "search": {
     "title": "Uma busca que ranqueia como a do agente",
-    "lede": "A busca no projeto usa o mesmo ranker de memory_query. Os filtros de tipo e tier restringem os fluxos antes da fusão. Marque “Explain ranking” para ver a contribuição de cada fluxo. A busca entre projetos usa texto completo nas páginas da wiki.",
-    "shotAlt": "Captura da busca do ai-memory 3.1 por “rate limit” em demo/api, com seletores de projeto, Kind e Tier, Explain ranking e quatro resultados de páginas de demonstração.",
-    "shotCaption": "A busca sem projeto é a busca full-text entre projetos, a mesma coisa que o memory_query faz com global ativado."
+    "lede": "A busca em um projeto usa o mesmo ranqueador de memory_query. Filtros de tipo e camada são aplicados antes da classificação, e Explicar classificação mostra por que uma página apareceu. A busca entre projetos usa texto completo.",
+    "shotAlt": "Captura de tela da busca na 3.3.0 por limite de requisições em um projeto, com filtros de tipo e camada e resultados de páginas de demonstração.",
+    "shotCaption": "A busca no projeto usa sua pilha de recuperação. Uma pessoa ou agente ainda precisa avaliar o significado dos resultados."
   },
   "graph": {
     "title": "Como as páginas se conectam",
@@ -71,7 +71,7 @@
   },
   "readonly": {
     "title": "Leia páginas e revise propostas",
-    "text": "Edite conteúdo pelas ferramentas do agente, CLI ou arquivos Markdown. O navegador permite login e troca de senha, além de aprovação de edições propostas pelo root. O login legado por HTTP Basic só permite ler propostas; use a CLI para decidir. Grants de projeto dos usuários do banco controlam o acesso às páginas; proxies confiáveis aplicam sua própria autorização.",
+    "text": "Edite páginas da wiki pelas ferramentas dos agentes, pela CLI ou pelos arquivos Markdown. No navegador, você pode enfileirar ou editar uma mensagem ainda pendente; ele nunca a coleta em nome de um agente. O administrador pode revisar propostas de edição. Concessões de usuários do banco controlam o acesso a projetos; proxies confiáveis aplicam sua própria autorização.",
     "api": "Os mesmos dados saem como JSON em <code>/api/v1</code>, e o <code>serve --enable-api</code> monta a API sem a interface no navegador."
   },
   "faq": [
@@ -110,5 +110,22 @@
     "title": "Console de gestão opcional",
     "text": "<code>/manage</code> reúne administração de usuários, inspeção de sessões e chaves MCP pessoais no navegador. Exige compilar com <code>management-ui</code> e iniciar com <code>--enable-management-ui</code>; a imagem Docker padrão da versão não inclui isso. Usuários podem purgar sessões de sua propriedade exata em projetos onde podem escrever; administradores podem purgar qualquer sessão. <a href=\"{href}\">Guia de build e deploy</a>.",
     "keys": "Redefinir senhas e desativar contas encerra as sessões do navegador, mas não revoga chaves de API emitidas pelo próprio usuário. Revogue-as separadamente. Purgas de sessão podem deixar conteúdo anterior no histórico git, em backups e em transcrições nativas."
+  },
+  "visibility": {
+    "title": "Atividade, mensagens e guias",
+    "items": [
+      {
+        "title": "Uso das respostas",
+        "text": "Hooks do Claude Code e do Codex informam o uso de tokens por resposta. As visões de projeto e sessão filtram por modelo, agente e ferramenta; sessões antigas ou não compatíveis não mostram contagem."
+      },
+      {
+        "title": "Mensagens esperando agentes",
+        "text": "A caixa de entrada mostra mensagens recebidas e enviadas sem coletá-las. Com escrita nos dois projetos, você pode endereçar uma mensagem a um agente registrado e editá-la até que seja coletada."
+      },
+      {
+        "title": "Guias dentro do servidor",
+        "text": "Guias de recursos e notas de versão vêm no binário em /web/docs. Eles mostram o que está instalado para sua conta sem expor configurações administrativas a outros usuários."
+      }
+    ]
   }
 }

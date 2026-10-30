@@ -77,16 +77,28 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
-        "title": "Local embedding contention fixed",
-        "text": "Local embedding capacity now scales with the CPU, and queries wait briefly for a reserved slot before falling back to lexical search. The full release benchmark measured 0.949 hit@5; its timing caveats are on Research."
+        "title": "A dashboard for your agents",
+        "text": "The web UI now groups projects, sessions, capture health and response token usage. Project tabs make activity and knowledge easier to inspect; Light, Dark and System themes are available."
       },
       {
-        "title": "Windows Docker launches use the host",
-        "text": "Managed commands now run through the native Windows client while the server stays in Docker. Install the native client separately and configure its server token when authentication is enabled; the Windows guide covers both steps."
+        "title": "An inbox you can use",
+        "text": "See pending and sent messages without claiming them for an agent. Authorized users can address a registered harness and edit a message until it is collected."
       },
       {
-        "title": "Clearer security and data handling",
-        "text": "The source documentation now spells out request-size limits, project grants and the proxy authorization boundary, the first model download, and optional outbound data paths."
+        "title": "Edit a page section safely",
+        "text": "memory_patch_page appends or replaces a named Markdown section atomically. It checks the page identity and, for replacement, the section hash so a stale edit leaves the page unchanged."
+      },
+      {
+        "title": "Repair project identities",
+        "text": "Managed launches can select a project by ID when names collide. merge-project previews a same-workspace merge by default and needs --confirm to move history and remove the source."
+      },
+      {
+        "title": "Qoder joins the supported agents",
+        "text": "Qoder CLI and IDE can capture lifecycle events and use MCP through its settings file. OpenCode V1 and V2 are now detected through one OpenCode entry; older force-V2 aliases still work."
+      },
+      {
+        "title": "New retrieval evidence",
+        "text": "The 3.3.0 release run scored 0.951 hit@5 with full text and 0.945 with local embeddings. A small local hit@10 drop is tracked in the report; a coding-session retrieval corpus also ships for offline checks."
       }
     ]
   },
