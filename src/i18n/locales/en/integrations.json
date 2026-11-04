@@ -138,7 +138,7 @@
     "llm": {
       "title": "LLM: off by default",
       "text": "Add one when you want LLM-written consolidation, <code>ai-memory bootstrap</code>, richer linting, auto-improve or reranking. A small, fast model is the right size for this work, where the provider lets you pick one. With a Codex or ChatGPT login, keep the provider’s default model, because that backend rejects other model names. Subscription logins work, so a paid platform API key is not required.",
-      "note": "Check a provider with <code>ai-memory llm-test</code>. Fallback chains are supported."
+      "note": "Check a provider with <code>ai-memory llm-test</code>. Fallback chains are supported. Consolidation, bootstrap, reranking, query answers and the other LLM tasks can each name their own provider and chain."
     },
     "after": "Models, defaults and costs are in <a class=\"underline font-semibold text-text\" href=\"{llm}\">the LLM providers guide</a> and <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">the local embeddings guide</a>."
   },

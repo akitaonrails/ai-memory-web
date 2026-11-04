@@ -90,6 +90,10 @@
     {
       "q": "Precisa de JavaScript?",
       "a": "O conteúdo das páginas é renderizado sem JavaScript. Login, troca de senha e aprovação de propostas usam JavaScript, assim como os controles de replay e a troca de tema."
+    },
+    {
+      "q": "A interface pode ficar em outro idioma?",
+      "a": "Inglês e português do Brasil. O navegador negocia o Accept-Language e tem um seletor que salva um cookie, então duas pessoas no mesmo servidor podem ler em idiomas diferentes. A CLI segue --language, AI_MEMORY_LANGUAGE ou language no config.toml e continua em inglês por padrão. Páginas armazenadas, JSON e logs não são traduzidos."
     }
   ],
   "next": [

@@ -160,7 +160,7 @@
   },
   "measured": {
     "title": "What was measured",
-    "lede": "The 3.3.0 release run tested 470 answerable LongMemEval-S questions through real capture and search. Full text reached 0.951 hit@5; local embeddings reached 0.945. These are retrieval scores, not answer accuracy. Local hit@10 fell from 0.977 in 3.2.6 to 0.970, outside the stated noise band; the source report tracks the per-question investigation.",
+    "lede": "The 3.3.3 release run tested 470 answerable LongMemEval-S questions through real capture and search. Full text reached 0.951 hit@5; local embeddings reached 0.943. These are retrieval scores, not answer accuracy. Local hit@10 is back at 0.977, and the source report tracks the run-to-run movement in local mode.",
     "chart": {
       "title": "hit@5 on LongMemEval-S",
       "subtitle": "Share of 470 questions with an evidence session in the top five. Higher is better.",
@@ -168,8 +168,8 @@
         "Full text only, before 2.0",
         "Stopword-filtered full text",
         "Plus local embeddings",
-        "3.3.0: full text, with the observation stream",
-        "3.3.0: local embeddings, with the observation stream"
+        "3.3.3: full text, with the observation stream",
+        "3.3.3: local embeddings, with the observation stream"
       ]
     },
     "steps": {
@@ -184,8 +184,8 @@
       "before": "Before 2.0",
       "filtered": "Filtered full text",
       "local": "Local embeddings",
-      "fts3": "3.3.0, full text",
-      "local3": "3.3.0, local embeddings"
+      "fts3": "3.3.3, full text",
+      "local3": "3.3.3, local embeddings"
     },
     "retrievalOnly": {
       "title": "Retrieval, not answers",
@@ -222,7 +222,7 @@
       "ftsAhead": "With the stream on, full text alone scores a little above local embeddings. The page’s vector, like its full-text row, still sees only the title-only body.",
       "determinism": "Within one run the harness is deterministic. Across separate runs the smaller question types move by up to 0.03 either way, so a dip in one of them from a single run means little.",
       "comparable": "Numbers other tools publish on this dataset come from their own harnesses, often indexing whole raw sessions with no capture step. They are not like for like, and no ranking between tools is claimed.",
-      "releaseRun": "This stream comparison is the October 12 decomposition experiment. The separate 3.3.0 release run measured {local} with local embeddings. It is not a rerun of this off/on experiment."
+      "releaseRun": "This stream comparison is the October 12 decomposition experiment. The separate 3.3.3 release run measured {local} with local embeddings. It is not a rerun of this off/on experiment."
     }
   },
   "next": {

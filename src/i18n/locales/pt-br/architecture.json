@@ -126,6 +126,7 @@
         "Rerank opcional por LLM: uma chamada por consulta sobre até 30 títulos e trechos. Qualquer falha mantém a ordem local. Ainda não existe um reranker local.",
         "Se as páginas compiladas não trouxerem nada, uma busca limitada nas observações brutas devolve raw_hits.",
         "Os filtros entram antes do ranking: <code>kind</code>, <code>tag</code>, <code>tier</code> e um prefixo de caminho restringem todas as faixas, então uma página rara não é empurrada para fora por uma comum.",
+        "Dois sinais opcionais começam em zero: um reduz a autoridade de uma página com feedback de desatualizada ou errada em aberto; o outro favorece uma página que a mesma sessão leu ou marcou como útil para uma consulta parecida. Uma reescrita zera os dois.",
         "Passe explain=true para ver, em cada resultado, as posições por fluxo, as contribuições do RRF e o multiplicador."
       ]
     },

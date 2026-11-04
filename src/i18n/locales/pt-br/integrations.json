@@ -138,7 +138,7 @@
     "llm": {
       "title": "LLM: desligado por padrão",
       "text": "Adicione um quando quiser consolidação escrita por LLM, <code>ai-memory bootstrap</code>, linting mais rico, auto-improve ou reranking. Um modelo pequeno e rápido é do tamanho certo para esse trabalho, quando o provedor deixa você escolher. Com login do Codex ou do ChatGPT, mantenha o modelo padrão do provedor, porque esse backend rejeita outros nomes de modelo. Logins de assinatura funcionam, então não é preciso ter uma chave de API paga de plataforma.",
-      "note": "Teste um provedor com <code>ai-memory llm-test</code>. Cadeias de fallback são suportadas."
+      "note": "Teste um provedor com <code>ai-memory llm-test</code>. Cadeias de fallback são suportadas. Consolidação, bootstrap, rerank, respostas de consulta e as demais tarefas de LLM podem indicar cada uma o seu próprio provedor e a sua cadeia."
     },
     "after": "Modelos, padrões e custos estão no <a class=\"underline font-semibold text-text\" href=\"{llm}\">guia de provedores de LLM</a> e no <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">guia de embeddings locais</a>."
   },

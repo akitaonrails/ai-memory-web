@@ -138,7 +138,7 @@
     "llm": {
       "title": "LLM: כבוי כברירת מחדל",
       "text": "מוסיפים ספק כשרוצים איחוד שנכתב על ידי LLM, את <code>ai-memory bootstrap</code>, lint עשיר יותר, auto-improve או reranking. מודל קטן ומהיר הוא הגודל הנכון לעבודה הזאת, כשהספק מאפשר לבחור. בהתחברות דרך Codex או ChatGPT משאירים את מודל ברירת המחדל של הספק, כי ה-backend הזה דוחה שמות מודלים אחרים. התחברות דרך מנוי עובדת, כך שלא חייבים מפתח API בתשלום של פלטפורמה.",
-      "note": "בודקים ספק עם <code>ai-memory llm-test</code>. יש תמיכה בשרשראות fallback."
+      "note": "בודקים ספק עם <code>ai-memory llm-test</code>. יש תמיכה בשרשראות fallback. איחוד, bootstrap, דירוג מחדש, תשובות לשאילתות ושאר משימות ה-LLM יכולות כל אחת לציין ספק ושרשרת משלה."
     },
     "after": "מודלים, ברירות מחדל ועלויות מופיעים ב<a class=\"underline font-semibold text-text\" href=\"{llm}\">מדריך ספקי ה-LLM</a> וב<a class=\"underline font-semibold text-text\" href=\"{embeddings}\">מדריך ה-embeddings המקומיים</a>."
   },

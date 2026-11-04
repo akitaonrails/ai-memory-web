@@ -90,11 +90,11 @@
         "note": "Sem chave de provedor de modelos"
       },
       {
-        "label": "ai-memory 3.3.0, full-text",
+        "label": "ai-memory 3.3.3, full-text",
         "note": "Com o fluxo de observações, sem embeddings"
       },
       {
-        "label": "ai-memory 3.3.0, embeddings locais",
+        "label": "ai-memory 3.3.3, embeddings locais",
         "note": "Com o fluxo de observações, a instalação padrão"
       }
     ],
@@ -174,7 +174,7 @@
       },
       {
         "title": "Traga notas, conversas e documentos antigos",
-        "text": "O opcional <code>companions/ai-memory-importer</code> aceita markdown do OMC, JSON genérico de conversas, exports de vault ou ExportData do agentmemory, e um documento local por vez: markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. O padrão é dry run. Exports de Mem0, Zep e cognee ainda precisam de conversão; não há adaptadores dedicados.",
+        "text": "O opcional <code>companions/ai-memory-importer</code> aceita markdown do OMC, JSON genérico de conversas, exports de vault ou ExportData do agentmemory, e um documento local por vez: markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. O padrão é dry run. Exports de Mem0, Zep e cognee ainda precisam de conversão; não há adaptadores dedicados. Um banco do claude-mem é lido a partir de um snapshot somente leitura, com mapeamento explícito de projetos.",
         "codeTitle": "dry run, a partir de um checkout do repositório"
       },
       {

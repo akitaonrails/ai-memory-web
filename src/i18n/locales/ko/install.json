@@ -116,7 +116,7 @@
     "windows": [
       {
         "title": "PowerShell에서 설치",
-        "text": "네이티브 Windows는 여전히 실험적 지원입니다. 스크립트가 릴리스 zip의 체크섬을 검증하고 관리자 권한 없이 <code>%LOCALAPPDATA%\\Programs\\ai-memory</code>에 설치한 뒤 사용자 PATH에 추가합니다. WSL2 안의 에이전트는 해당 배포판에서 Linux 절차를 따르세요. <a href=\"{windowsDoc}\">Windows 가이드</a>."
+        "text": "네이티브 Windows는 여전히 실험적 지원입니다. 스크립트가 릴리스 zip의 체크섬을 검증하고 관리자 권한 없이 <code>%LOCALAPPDATA%\\Programs\\ai-memory</code>에 설치한 뒤 사용자 PATH에 추가합니다. WSL2 안의 에이전트는 해당 배포판에서 Linux 절차를 따르세요. <a href=\"{windowsDoc}\">Windows 가이드</a>. Scoop은 메인테이너 bucket에서 같은 zip을 설치합니다. 두 명령은 다운로드 페이지에 있습니다."
       },
       {
         "title": "설정",
