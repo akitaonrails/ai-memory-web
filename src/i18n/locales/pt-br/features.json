@@ -31,7 +31,7 @@
       },
       {
         "title": "Nada entra no contexto sozinho",
-        "text": "O aviso no início da sessão traz só uma contagem. O texto da mensagem só chega ao agente por um pop deliberado, cercado e marcado como não confiável, com o remetente mostrado fora da cerca."
+        "text": "O aviso no início da sessão traz só uma contagem. O texto da mensagem só chega ao agente por um pop deliberado, cercado e marcado como não confiável, com o remetente mostrado fora da cerca. Um projeto pode optar por receber o mesmo aviso, só com a contagem, também nos prompts."
       },
       {
         "title": "Falha fechado",
@@ -126,7 +126,7 @@
       },
       {
         "title": "Recupere o que a compactação levou",
-        "text": "Comece um prompt com <code>reload context</code> para recuperar um resumo limitado das observações capturadas antes da última compactação. Funciona em Claude Code, Codex, OpenCode V1/V2 e Grok Build (no próximo resultado de ferramenta). Respostas exigem captura do assistente ativada; handoffs abertos são listados sem serem reivindicados."
+        "text": "Depois de uma compactação, Claude Code, Codex e Factory Droid recebem uma âncora curta com o primeiro e o último prompt da sessão, no lugar do pacote de início habitual. Todo agente também carrega uma regra para reler os próprios prompts e confiar neles, e não no resumo. O <code>reload context</code> continua trazendo um resumo limitado sob demanda."
       }
     ]
   },
@@ -231,7 +231,7 @@
     },
     "importer": {
       "title": "Coloque um documento que você já tem na memória",
-      "text": "O opcional ai-memory-importer lê um arquivo local que você indica: markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. Ele grava uma página com a fonte atribuída, roda como dry run por padrão, registra o digest do arquivo e nunca substitui uma página que não é dele. Sem OCR, sem imagens, sem áudio.",
+      "text": "O opcional ai-memory-importer lê um arquivo local que você indica: markdown, PDF com camada de texto, DOCX, PPTX, XLSX, CSV, VTT ou SRT. Ele grava uma página com a fonte atribuída, roda como dry run por padrão, registra o digest do arquivo e nunca substitui uma página que não é dele. Sem OCR, sem imagens, sem áudio. Ele também importa um banco do claude-mem a partir de um snapshot somente leitura, com mapeamento explícito de projetos e dry run antes.",
       "link": "O guia do importador"
     }
   }

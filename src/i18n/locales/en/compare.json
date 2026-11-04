@@ -90,11 +90,11 @@
         "note": "No model-provider key"
       },
       {
-        "label": "ai-memory 3.3.0, full text",
+        "label": "ai-memory 3.3.3, full text",
         "note": "With the observation stream, no embeddings"
       },
       {
-        "label": "ai-memory 3.3.0, local embeddings",
+        "label": "ai-memory 3.3.3, local embeddings",
         "note": "With the observation stream, the default install"
       }
     ],
@@ -174,7 +174,7 @@
       },
       {
         "title": "Bring old notes, conversations and documents",
-        "text": "The optional <code>companions/ai-memory-importer</code> supports OMC Markdown, generic conversation JSON, agentmemory vault or ExportData exports, and one local document at a time: Markdown, text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It defaults to a dry run. Mem0, Zep and cognee exports still need conversion; there are no dedicated adapters.",
+        "text": "The optional <code>companions/ai-memory-importer</code> supports OMC Markdown, generic conversation JSON, agentmemory vault or ExportData exports, and one local document at a time: Markdown, text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It defaults to a dry run. Mem0, Zep and cognee exports still need conversion; there are no dedicated adapters. A claude-mem database is read from a read-only snapshot with explicit project mapping.",
         "codeTitle": "dry run, from a checkout of the repo"
       },
       {

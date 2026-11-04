@@ -116,7 +116,7 @@
     "windows": [
       {
         "title": "Install in PowerShell",
-        "text": "Native Windows remains experimental. The script verifies the release zip’s checksum, installs under <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> and adds it to your user PATH, without administrator rights. For an agent inside WSL2, use the Linux steps inside that distro instead. <a href=\"{windowsDoc}\">Windows guide</a>."
+        "text": "Native Windows remains experimental. The script verifies the release zip’s checksum, installs under <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> and adds it to your user PATH, without administrator rights. For an agent inside WSL2, use the Linux steps inside that distro instead. <a href=\"{windowsDoc}\">Windows guide</a>. Scoop installs the same zip from the maintainer's bucket; the download page has the two commands."
       },
       {
         "title": "Set it up",

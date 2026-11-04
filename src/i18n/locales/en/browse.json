@@ -90,6 +90,10 @@
     {
       "q": "Does it need JavaScript?",
       "a": "Page content renders without JavaScript. Sign-in, password changes and proposal approval use JavaScript, as do replay controls and theme switching."
+    },
+    {
+      "q": "Can the interface be in another language?",
+      "a": "English and Brazilian Portuguese. The browser negotiates Accept-Language and has a selector that saves a cookie, so two people on one server can read it in different languages. The CLI follows --language, AI_MEMORY_LANGUAGE or language in config.toml and stays in English by default. Stored pages, JSON and logs are not translated."
     }
   ],
   "next": [

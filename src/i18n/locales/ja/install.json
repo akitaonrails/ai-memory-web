@@ -116,7 +116,7 @@
     "windows": [
       {
         "title": "PowerShellでインストール",
-        "text": "ネイティブWindowsは引き続き実験的対応です。スクリプトはリリースzipのチェックサムを検証し、管理者権限なしで <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> にインストールしてユーザーのPATHに追加します。WSL2内のエージェントには、そのディストリビューション内でLinuxの手順を使ってください。<a href=\"{windowsDoc}\">Windowsガイド</a>。"
+        "text": "ネイティブWindowsは引き続き実験的対応です。スクリプトはリリースzipのチェックサムを検証し、管理者権限なしで <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> にインストールしてユーザーのPATHに追加します。WSL2内のエージェントには、そのディストリビューション内でLinuxの手順を使ってください。<a href=\"{windowsDoc}\">Windowsガイド</a>。 Scoopはメンテナーのbucketから同じzipをインストールします。2つのコマンドはダウンロードページにあります。"
       },
       {
         "title": "セットアップ",

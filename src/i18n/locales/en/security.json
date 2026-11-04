@@ -56,7 +56,7 @@
       },
       {
         "title": "Tool inputs are not kept",
-        "text": "PreToolUse events never retain commands, arguments, paths or input bodies. Observations are an audit trail, never a full transcript."
+        "text": "PreToolUse events never retain commands, arguments, paths or input bodies. Observations are an audit trail, never a full transcript. The opt-in <code>[ingest] index_file_paths</code> adds one field: the checkout-relative path of the single file a kept file tool named, never its content, and an ignored path still sends nothing."
       }
     ],
     "exclude": {

@@ -25,7 +25,7 @@
       "note": "Incluye un agente de launchd. Si lo descargas con un navegador, quita antes la marca de cuarentena."
     },
     "win": {
-      "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux."
+      "note": "Experimental. La ruta con soporte es WSL2 con el binario de Linux. Scoop instala este mismo zip."
     },
     "upgrade": "Más adelante, un binario bajo un prefijo con permiso de escritura (Linux, macOS, el zip de Windows) se actualiza solo con <code>ai-memory upgrade</code>: descarga la versión correspondiente, verifica el checksum y renueva los hooks. Los paquetes se actualizan con su propio gestor de paquetes.",
     "upgradeNote": "¿Vienes de 2.x? Copia la wiki y la base antes de actualizar el servidor y después los clientes. Las migraciones solo avanzan; volver atrás necesita el binario antiguo y la copia. <a class=\"link\" href=\"{href}\">Lee los pasos de actualización a 3.0</a>."
@@ -45,6 +45,10 @@
     "rpm": {
       "title": "Fedora (RPM)",
       "note": "Paquetes x86_64 y aarch64 con el binario, las fuentes de los hooks y las unidades de systemd. Sigue luego los pasos del servicio de usuario o de sistema."
+    },
+    "scoop": {
+      "title": "Windows (Scoop)",
+      "note": "Añade el bucket del mantenedor, comprueba el zip contra el checksum publicado con la release y pone ai-memory en el PATH. Actualiza con scoop update ai-memory; la autoactualización integrada rechaza una instalación de Scoop."
     },
     "docker": {
       "title": "Docker o Podman",
@@ -77,28 +81,32 @@
     "upgrading": "Actualizar a la 3.0",
     "highlights": [
       {
-        "title": "Un panel para tus agentes",
-        "text": "La interfaz web ahora agrupa proyectos, sesiones, salud de la captura y uso de tokens por respuesta. Las pestañas organizan actividad y conocimiento; hay temas Claro, Oscuro y Sistema."
+        "title": "El agente se reorienta tras una compactación",
+        "text": "Cuando Claude Code, Codex o Factory Droid compacta una conversación, el hook inyecta un ancla corta con el primer y el último prompt de la sesión en lugar del paquete de inicio habitual. Todo agente recibe además una regla para releer sus propios prompts tras una compactación y fiarse de ellos antes que del resumen."
       },
       {
-        "title": "Un buzón útil",
-        "text": "Consulta mensajes pendientes y enviados sin recogerlos para un agente. Los usuarios autorizados pueden dirigirse a un agente registrado y editar el mensaje hasta su recogida."
+        "title": "La interfaz habla portugués",
+        "text": "El navegador y la salida humana de la CLI ya vienen en inglés y en portugués de Brasil. El navegador sigue Accept-Language y tiene su propio selector; la CLI sigue <code>--language</code>, <code>AI_MEMORY_LANGUAGE</code> o <code>language</code> en config.toml. Las páginas almacenadas, el JSON y los logs no cambian."
       },
       {
-        "title": "Edita una sección con seguridad",
-        "text": "memory_patch_page agrega o sustituye una sección Markdown por su encabezado de forma atómica. Verifica la identidad de la página y, para sustituir, el hash de la sección; una edición obsoleta no altera nada."
+        "title": "Instala en Windows con Scoop",
+        "text": "Añade el bucket del mantenedor y ejecuta <code>scoop install ai-memory</code>. Cada release fija el manifiesto al zip de Windows y al checksum publicado con él, y setup registra la unión estable <code>current</code> en vez de la carpeta de versión que borra la limpieza."
       },
       {
-        "title": "Repara identidades de proyectos",
-        "text": "Los lanzamientos gestionados pueden seleccionar un proyecto por ID si los nombres coinciden. merge-project muestra una vista previa por defecto; --confirm mueve el historial y elimina el origen dentro del mismo espacio de trabajo."
+        "title": "Un modelo distinto para cada tarea",
+        "text": "La consolidación, el bootstrap, auto-improve, dream, lint, profile, el rerank y las respuestas a consultas pueden indicar cada una su proveedor y su cadena de fallback. Una tarea sin indicación usa el proveedor por defecto, y una tarea con indicación funciona aunque no haya ninguno."
       },
       {
-        "title": "Qoder entre los agentes compatibles",
-        "text": "Qoder CLI e IDE captura eventos de ciclo de vida y usa MCP desde su configuración. OpenCode V1 y V2 ahora se detectan en una sola entrada; los alias antiguos que fuerzan V2 siguen funcionando."
+        "title": "Trae una base de claude-mem",
+        "text": "El importador opcional lee los esquemas SQLite soportados de claude-mem desde una instantánea de solo lectura, con mapeo explícito de proyectos, limpieza en el cliente y ejecución en seco por defecto. Detrás, una escritura por lotes protegida graba de 1 a 100 páginas en un proyecto de forma atómica."
       },
       {
-        "title": "Nuevas pruebas de recuperación",
-        "text": "La ejecución 3.3.0 obtuvo 0.951 en hit@5 con texto completo y 0.945 con embeddings locales. El informe sigue una pequeña bajada local en hit@10; también se incluye un corpus de sesiones de programación para pruebas sin conexión."
+        "title": "Dos señales de búsqueda que puedes activar",
+        "text": "Una baja la autoridad de una página con feedback de obsoleta o errónea sin resolver, hasta que una reescritura la sustituya. La otra favorece una página que la sesión leyó o marcó como útil en una consulta parecida. Ambas pesan 0.0 por defecto y aparecen en <code>explain=true</code>."
+      },
+      {
+        "title": "Interruptores menores",
+        "text": "Indexa la ruta del archivo que tocó una herramienta, no dejes handoff en una ejecución con <code>AI_MEMORY_AUTO_HANDOFF=off</code>, apaga la instantánea de recuperación por proyecto, mira el correo pendiente en un prompt y lee hasta 50 sesiones recientes en un briefing. Todo viene apagado."
       }
     ]
   },

@@ -138,7 +138,7 @@
     "llm": {
       "title": "LLM：デフォルトでオフ",
       "text": "LLMによる統合、<code>ai-memory bootstrap</code>、より詳しいlint、自動改善、リランクを使いたくなったら追加してください。プロバイダー側でモデルを選べる場合は、この用途には小さくて速いモデルが向いています。CodexまたはChatGPTのログインを使う場合は、プロバイダーのデフォルトモデルのままにしてください。このバックエンドはほかのモデル名を受け付けません。サブスクリプションログインが使えるので、有料のプラットフォームAPIキーは必須ではありません。",
-      "note": "プロバイダーの確認は<code>ai-memory llm-test</code>でできます。フォールバックチェーンにも対応しています。"
+      "note": "プロバイダーの確認は<code>ai-memory llm-test</code>でできます。フォールバックチェーンにも対応しています。 統合、bootstrap、再ランキング、クエリ回答などのLLM処理は、それぞれ独自のプロバイダーと連鎖を指定できます。"
     },
     "after": "モデル、デフォルト値、コストは<a class=\"underline font-semibold text-text\" href=\"{llm}\">LLMプロバイダーガイド</a>と<a class=\"underline font-semibold text-text\" href=\"{embeddings}\">ローカル埋め込みガイド</a>にあります。"
   },

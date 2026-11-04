@@ -56,7 +56,7 @@
       },
       {
         "title": "Las entradas de herramientas no se conservan",
-        "text": "Los eventos PreToolUse nunca retienen comandos, argumentos, rutas ni cuerpos de entrada. Las observaciones son un rastro de auditoría, nunca una transcripción completa."
+        "text": "Los eventos PreToolUse nunca retienen comandos, argumentos, rutas ni cuerpos de entrada. Las observaciones son un rastro de auditoría, nunca una transcripción completa. El opcional <code>[ingest] index_file_paths</code> añade un campo: la ruta relativa al checkout del único archivo que nombró una llamada de herramienta conservada, nunca su contenido, y una ruta ignorada sigue sin enviar nada."
       }
     ],
     "exclude": {

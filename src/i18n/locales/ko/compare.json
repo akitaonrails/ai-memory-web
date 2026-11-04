@@ -90,11 +90,11 @@
         "note": "모델 제공자 키 불필요"
       },
       {
-        "label": "ai-memory 3.3.0, 전문 검색",
+        "label": "ai-memory 3.3.3, 전문 검색",
         "note": "관찰 기록 스트림 포함, 임베딩 없음"
       },
       {
-        "label": "ai-memory 3.3.0, 로컬 임베딩",
+        "label": "ai-memory 3.3.3, 로컬 임베딩",
         "note": "관찰 기록 스트림 포함, 기본 설치"
       }
     ],
@@ -174,7 +174,7 @@
       },
       {
         "title": "예전 메모와 대화, 문서 가져오기",
-        "text": "선택 사항인 <code>companions/ai-memory-importer</code>는 OMC markdown, 범용 대화 JSON, agentmemory의 vault와 ExportData 내보내기, 그리고 한 번에 로컬 문서 하나(markdown, 텍스트 레이어가 있는 PDF, DOCX, PPTX, XLSX, CSV, VTT, SRT)를 지원합니다. 기본은 dry run입니다. Mem0, Zep, cognee 내보내기는 여전히 변환이 필요하며 전용 어댑터는 없습니다.",
+        "text": "선택 사항인 <code>companions/ai-memory-importer</code>는 OMC markdown, 범용 대화 JSON, agentmemory의 vault와 ExportData 내보내기, 그리고 한 번에 로컬 문서 하나(markdown, 텍스트 레이어가 있는 PDF, DOCX, PPTX, XLSX, CSV, VTT, SRT)를 지원합니다. 기본은 dry run입니다. Mem0, Zep, cognee 내보내기는 여전히 변환이 필요하며 전용 어댑터는 없습니다. claude-mem 데이터베이스는 읽기 전용 스냅숏에서 프로젝트 매핑을 명시해 읽어 들입니다.",
         "codeTitle": "드라이 런, 저장소의 체크아웃에서"
       },
       {

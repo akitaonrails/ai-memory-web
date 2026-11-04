@@ -56,7 +56,7 @@
       },
       {
         "title": "Inputs de ferramentas não ficam",
-        "text": "Eventos PreToolUse nunca retêm comandos, argumentos, caminhos nem corpos de input. As observações são uma trilha de auditoria, nunca uma transcrição completa."
+        "text": "Eventos PreToolUse nunca retêm comandos, argumentos, caminhos nem corpos de input. As observações são uma trilha de auditoria, nunca uma transcrição completa. O opcional <code>[ingest] index_file_paths</code> acrescenta um campo: o caminho relativo ao checkout do único arquivo nomeado por uma chamada de ferramenta mantida, nunca o conteúdo dele, e um caminho ignorado continua não enviando nada."
       }
     ],
     "exclude": {

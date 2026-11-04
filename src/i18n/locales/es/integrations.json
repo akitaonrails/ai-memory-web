@@ -138,7 +138,7 @@
     "llm": {
       "title": "LLM: desactivado por defecto",
       "text": "Añade uno cuando quieras consolidación escrita por un LLM, <code>ai-memory bootstrap</code>, un linting más rico, auto-improve o rerank. Un modelo pequeño y rápido es el tamaño adecuado para este trabajo, cuando el proveedor te deja elegir. Con un inicio de sesión de Codex o ChatGPT, mantén el modelo por defecto del proveedor, porque ese backend rechaza otros nombres de modelo. Los inicios de sesión por suscripción funcionan, así que no hace falta una clave de API de pago de ninguna plataforma.",
-      "note": "Comprueba un proveedor con <code>ai-memory llm-test</code>. Se admiten cadenas de fallback."
+      "note": "Comprueba un proveedor con <code>ai-memory llm-test</code>. Se admiten cadenas de fallback. La consolidación, el bootstrap, el rerank, las respuestas a consultas y las demás tareas de LLM pueden indicar cada una su propio proveedor y su cadena."
     },
     "after": "Los modelos, los valores por defecto y los costes están en <a class=\"underline font-semibold text-text\" href=\"{llm}\">la guía de proveedores de LLM</a> y en <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">la guía de embeddings locales</a>."
   },

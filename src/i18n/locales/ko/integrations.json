@@ -138,7 +138,7 @@
     "llm": {
       "title": "LLM: 기본값은 꺼짐",
       "text": "LLM이 작성하는 통합, <code>ai-memory bootstrap</code>, 더 풍부한 린트, 자동 개선, 리랭킹이 필요할 때 추가하세요. 제공자가 모델을 고를 수 있게 해 준다면, 이 작업에는 작고 빠른 모델이 알맞습니다. Codex나 ChatGPT 로그인을 쓸 때는 제공자의 기본 모델을 그대로 두세요. 이 백엔드는 다른 모델 이름을 거부합니다. 구독 로그인도 되므로 유료 플랫폼 API 키가 꼭 필요하지는 않습니다.",
-      "note": "제공자는 <code>ai-memory llm-test</code>로 확인합니다. 폴백 체인을 지원합니다."
+      "note": "제공자는 <code>ai-memory llm-test</code>로 확인합니다. 폴백 체인을 지원합니다. 통합, bootstrap, 재랭킹, 질의 답변 등 LLM 작업마다 각자의 제공자와 체인을 지정할 수 있습니다."
     },
     "after": "모델, 기본값, 비용은 <a class=\"underline font-semibold text-text\" href=\"{llm}\">LLM 제공자 가이드</a>와 <a class=\"underline font-semibold text-text\" href=\"{embeddings}\">로컬 임베딩 가이드</a>에 있습니다."
   },

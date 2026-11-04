@@ -116,7 +116,7 @@
     "windows": [
       {
         "title": "התקנה דרך PowerShell",
-        "text": "Windows נייטיב עדיין ניסיוני. הסקריפט מאמת את checksum של קובץ ה-zip, מתקין תחת <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> ומוסיף ל-PATH של המשתמש, ללא הרשאות מנהל. לסוכן בתוך WSL2, השתמשו בהוראות Linux בתוך ההפצה. <a href=\"{windowsDoc}\">מדריך Windows</a>."
+        "text": "Windows נייטיב עדיין ניסיוני. הסקריפט מאמת את checksum של קובץ ה-zip, מתקין תחת <code>%LOCALAPPDATA%\\Programs\\ai-memory</code> ומוסיף ל-PATH של המשתמש, ללא הרשאות מנהל. לסוכן בתוך WSL2, השתמשו בהוראות Linux בתוך ההפצה. <a href=\"{windowsDoc}\">מדריך Windows</a>. Scoop מתקין את אותו zip מה-bucket של המתחזק; שתי הפקודות נמצאות בעמוד ההורדה."
       },
       {
         "title": "הגדרה",

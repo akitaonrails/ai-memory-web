@@ -25,7 +25,7 @@
       "note": "Includes a launchd agent. If you download with a browser, clear the quarantine flag first."
     },
     "win": {
-      "note": "Experimental. WSL2 with the Linux build is the supported path."
+      "note": "Experimental. WSL2 with the Linux build is the supported path. Scoop installs this same zip."
     },
     "upgrade": "Later, a binary under a writable prefix (Linux, macOS, the Windows zip) updates itself with <code>ai-memory upgrade</code>: it downloads the matching release, verifies the checksum and refreshes the hooks. Packages update through their package manager.",
     "upgradeNote": "Coming from 2.x? Back up the wiki and database before upgrading the server, then update clients. Migrations are forward-only; rollback needs the old binary and backup. <a class=\"link\" href=\"{href}\">Read the 3.0 upgrade steps</a>."
@@ -45,6 +45,10 @@
     "rpm": {
       "title": "Fedora (RPM)",
       "note": "x86_64 and aarch64 packages with the binary, the hook sources and the systemd units. Then follow the user or system service steps."
+    },
+    "scoop": {
+      "title": "Windows (Scoop)",
+      "note": "Adds the maintainer's bucket, checks the zip against the checksum published with the release and puts ai-memory on PATH. Update with scoop update ai-memory; the built-in self-upgrade refuses a Scoop install."
     },
     "docker": {
       "title": "Docker or Podman",
@@ -77,28 +81,32 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
-        "title": "A dashboard for your agents",
-        "text": "The web UI now groups projects, sessions, capture health and response token usage. Project tabs make activity and knowledge easier to inspect; Light, Dark and System themes are available."
+        "title": "Your agent re-grounds after a compaction",
+        "text": "When Claude Code, Codex or Factory Droid compacts a conversation, the hook injects a short anchor with the session's first and latest prompts instead of the usual startup packet. Every agent also gets a rule to re-read its own prompts after a compaction and trust them over the summary."
       },
       {
-        "title": "An inbox you can use",
-        "text": "See pending and sent messages without claiming them for an agent. Authorized users can address a registered harness and edit a message until it is collected."
+        "title": "The interface speaks Portuguese",
+        "text": "The browser and the human CLI output now ship English and Brazilian Portuguese. The browser follows Accept-Language and has its own selector; the CLI follows <code>--language</code>, <code>AI_MEMORY_LANGUAGE</code> or <code>language</code> in config.toml. Stored pages, JSON and logs are untouched."
       },
       {
-        "title": "Edit a page section safely",
-        "text": "memory_patch_page appends or replaces a named Markdown section atomically. It checks the page identity and, for replacement, the section hash so a stale edit leaves the page unchanged."
+        "title": "Install on Windows with Scoop",
+        "text": "Add the maintainer's bucket and run <code>scoop install ai-memory</code>. Each release pins the manifest to the Windows zip and the checksum published with it, and setup records the stable <code>current</code> junction instead of the version folder that cleanup deletes."
       },
       {
-        "title": "Repair project identities",
-        "text": "Managed launches can select a project by ID when names collide. merge-project previews a same-workspace merge by default and needs --confirm to move history and remove the source."
+        "title": "A different model for each job",
+        "text": "Consolidation, bootstrap, auto-improve, dream, lint, profile, reranking and query answers can each name their own provider and fallback chain. A task without one uses the default, and a task with one runs even when there is no default provider."
       },
       {
-        "title": "Qoder joins the supported agents",
-        "text": "Qoder CLI and IDE can capture lifecycle events and use MCP through its settings file. OpenCode V1 and V2 are now detected through one OpenCode entry; older force-V2 aliases still work."
+        "title": "Bring a claude-mem database in",
+        "text": "The optional importer reads supported claude-mem SQLite schemas from a read-only snapshot, with explicit project mapping, client-side scrubbing and a dry run by default. Behind it, a guarded batch write lands 1 to 100 pages in one project atomically."
       },
       {
-        "title": "New retrieval evidence",
-        "text": "The 3.3.0 release run scored 0.951 hit@5 with full text and 0.945 with local embeddings. A small local hit@10 drop is tracked in the report; a coding-session retrieval corpus also ships for offline checks."
+        "title": "Two retrieval signals you can turn on",
+        "text": "One lowers the authority of a page carrying open stale or wrong feedback until a rewrite supersedes it. The other boosts a page a session read or marked helpful for a similar query. Both weigh 0.0 by default, and both show up under <code>explain=true</code>."
+      },
+      {
+        "title": "Smaller switches",
+        "text": "Index the path of the file a tool touched, leave no handoff for one run with <code>AI_MEMORY_AUTO_HANDOFF=off</code>, turn the recovery snapshot off per project, see pending mail on a prompt, and read up to 50 recent sessions in a briefing. All of them are off by default."
       }
     ]
   },

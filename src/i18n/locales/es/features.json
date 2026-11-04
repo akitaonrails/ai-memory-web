@@ -31,7 +31,7 @@
       },
       {
         "title": "Nada entra al contexto por sí solo",
-        "text": "El aviso al arrancar la sesión solo lleva un recuento. El texto del mensaje llega al agente con un pop deliberado, delimitado y marcado como no confiable, con el remitente fuera de la delimitación."
+        "text": "El aviso al arrancar la sesión solo lleva un recuento. El texto del mensaje llega al agente con un pop deliberado, delimitado y marcado como no confiable, con el remitente fuera de la delimitación. Un proyecto puede optar por recibir el mismo aviso, solo con el recuento, también en los prompts."
       },
       {
         "title": "Falla cerrado",
@@ -126,7 +126,7 @@
       },
       {
         "title": "Recuperarse de una compactación",
-        "text": "Empieza un prompt con <code>reload context</code> para recuperar un resumen acotado de las observaciones capturadas antes de la última compactación. Funciona en Claude Code, Codex, OpenCode V1/V2 y Grok Build (en el siguiente resultado de herramienta). Las respuestas requieren activar la captura del asistente; los handoffs abiertos se listan sin reclamarlos."
+        "text": "Tras una compactación, Claude Code, Codex y Factory Droid reciben un ancla corta con el primer y el último prompt de la sesión, en lugar del paquete de inicio habitual. Todo agente lleva además una regla para releer sus propios prompts y fiarse de ellos antes que del resumen. <code>reload context</code> sigue trayendo un resumen acotado a mano."
       }
     ]
   },
@@ -231,7 +231,7 @@
     },
     "importer": {
       "title": "Mete en la memoria un documento que ya tienes",
-      "text": "El opcional ai-memory-importer lee un archivo local que tú indicas: markdown, PDF con capa de texto, DOCX, PPTX, XLSX, CSV, VTT o SRT. Escribe una página con la fuente atribuida, hace un dry run por defecto, registra el digest del archivo y nunca reemplaza una página que no es suya. Sin OCR, sin imágenes, sin audio.",
+      "text": "El opcional ai-memory-importer lee un archivo local que tú indicas: markdown, PDF con capa de texto, DOCX, PPTX, XLSX, CSV, VTT o SRT. Escribe una página con la fuente atribuida, hace un dry run por defecto, registra el digest del archivo y nunca reemplaza una página que no es suya. Sin OCR, sin imágenes, sin audio. También importa una base de claude-mem desde una instantánea de solo lectura, con mapeo explícito de proyectos y una ejecución en seco primero.",
       "link": "La guía del importador"
     }
   }

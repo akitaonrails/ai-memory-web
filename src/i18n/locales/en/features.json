@@ -31,7 +31,7 @@
       },
       {
         "title": "Nothing enters context by itself",
-        "text": "The session start notice carries only a count. Message text reaches an agent through a deliberate pop, fenced and marked as untrusted, with the sender shown outside the fence."
+        "text": "The session start notice carries only a count. Message text reaches an agent through a deliberate pop, fenced and marked as untrusted, with the sender shown outside the fence. A project can opt in to the same count-only notice on prompts."
       },
       {
         "title": "Fails closed",
@@ -126,7 +126,7 @@
       },
       {
         "title": "Recover from compaction",
-        "text": "Start a prompt with <code>reload context</code> to recover a bounded recap from captured observations before the last compaction. Works in Claude Code, Codex, OpenCode V1/V2 and Grok Build (on its next tool result). Replies require assistant-capture opt-in; open handoffs are listed without being claimed."
+        "text": "After a compaction, Claude Code, Codex and Factory Droid receive a short anchor with the session's first and latest prompts instead of the usual startup packet. Every agent also carries a rule to re-read its own prompts and trust them over the summary. <code>reload context</code> still fetches a bounded recap by hand."
       }
     ]
   },
@@ -231,7 +231,7 @@
     },
     "importer": {
       "title": "Put an existing document into memory",
-      "text": "The optional ai-memory-importer reads one local file you name: Markdown, a text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It writes one attributed page, runs as a dry run by default, records the source digest and never replaces a page it does not own. No OCR, no images, no audio.",
+      "text": "The optional ai-memory-importer reads one local file you name: Markdown, a text-layer PDF, DOCX, PPTX, XLSX, CSV, VTT or SRT. It writes one attributed page, runs as a dry run by default, records the source digest and never replaces a page it does not own. No OCR, no images, no audio. It also imports a claude-mem database from a read-only snapshot, with explicit project mapping and a dry run first.",
       "link": "The importer guide"
     }
   }
