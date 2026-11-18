@@ -12,25 +12,25 @@
   "home": {
     "title": "Todos los proyectos de un vistazo",
     "lede": "El panel muestra proyectos visibles, sesiones, eventos capturados y páginas compiladas. Los contadores de salud de hooks muestran eventos aceptados y descartados desde que arrancó el servidor.",
-    "shotAlt": "Captura del panel de memoria 3.3.0 con tarjetas de proyectos, contadores de captura y salud de hooks y barra lateral para buzón, búsqueda y documentación.",
+    "shotAlt": "Captura del panel de memoria 3.5.0 con recuentos de captura, contadores de salud de los hooks, correo pendiente y tarjetas de proyecto, junto a una barra lateral con bandeja, workstreams, búsqueda y salud.",
     "shotCaption": "El panel separa el trabajo capturado de las páginas compiladas; un proyecto puede tener sesiones recientes antes de tener páginas en la wiki."
   },
   "project": {
     "title": "Un proyecto: sus páginas, sus decisiones, sus mensajes",
     "lede": "Las pestañas del proyecto separan Resumen, Agentes, Uso de tokens, Sesiones y Conocimiento. El resumen muestra actividad capturada, páginas compiladas y correo pendiente.",
-    "shotAlt": "Captura del resumen de un proyecto en 3.3.0 con pestañas, recuentos de sesiones y páginas, totales de tokens y panel del buzón.",
+    "shotAlt": "Captura de la vista general de un proyecto en 3.5.0 con pestañas, recuentos de sesiones y eventos, totales de tokens reportados, los agentes que trabajaron en él y un panel de buzón.",
     "shotCaption": "Elige una pestaña para examinar agentes, uso de respuestas, sesiones o el árbol de páginas. La falta de datos de tokens aparece como raya, no como un cero supuesto."
   },
   "page": {
     "title": "Una página y lo que apunta a ella",
     "lede": "Una página muestra índice, vínculos entrantes y citas junto con evidencia de la versión, contradicciones declaradas y contexto de caducidad. El historial conserva versiones anteriores.",
-    "shotAlt": "Captura de una página de conocimiento de 3.3.0 con panel de evidencias, secciones Markdown y barra lateral de citas y vínculos entrantes.",
+    "shotAlt": "Captura de una página de conocimiento en 3.5.0 con panel de evidencias, secciones en Markdown y una barra lateral de citas y backlinks.",
     "shotCaption": "La evidencia y las contradicciones corresponden a la versión mostrada; el navegador no verifica por sí mismo si una fuente es cierta."
   },
   "search": {
     "title": "Una búsqueda que ordena como el agente",
     "lede": "La búsqueda de un proyecto usa el mismo clasificador que memory_query. Los filtros de tipo y nivel se aplican antes de ordenar, y Explicar clasificación muestra por qué apareció una página. La búsqueda entre proyectos usa texto completo.",
-    "shotAlt": "Captura de la búsqueda en 3.3.0 de límites de peticiones en un proyecto, con filtros de tipo y nivel y resultados de páginas de prueba.",
+    "shotAlt": "Captura de la página de búsqueda de 3.5.0 con una consulta acotada al proyecto y Explain ranking activado, la traza de recall con los tiempos por stream y un resultado con los rangos de cada stream.",
     "shotCaption": "La búsqueda limitada al proyecto usa su sistema de recuperación. Una persona o un agente aún debe juzgar el significado de los resultados."
   },
   "graph": {
@@ -49,7 +49,9 @@
         "title": "Qué está ejecutando el lanzador",
         "text": "Una página aparte lista las ejecuciones gestionadas y su estado: activa, interrumpida, terminada, vacía. Muestra recuentos, nunca rutas de checkout, propietarios de lease ni contenido de transcripciones. Solo root en un servidor compartido."
       }
-    ]
+    ],
+    "shotAlt": "Captura de la página de workstreams gestionadas: una fila por workstream con su estado, el harness de su ejecución más reciente, recuentos de eventos y su última actividad.",
+    "shotCaption": "Las filas se ordenan primero por lo que requiere atención y después por actividad reciente. Interrumpida significa que la ejecución terminó sin un cierre limpio."
   },
   "history": {
     "title": "Historial, reproducción y estado",
@@ -71,7 +73,13 @@
         "title": "Qué devolvió una consulta",
         "text": "Activa el historial de recuperación y cada consulta de ese proyecto registra su alcance, sus filtros, su duración y cada página devuelta con su puntuación y la explicación del ranking. La página es de solo lectura, se enlaza desde la línea de tiempo de la sesión, viene desactivada, y una sesión anterior a activarlo no muestra nada."
       }
-    ]
+    ],
+    "shotAlt": "Captura del historial de una página: dos versiones guardadas con sus ids, fechas y tamaños, y un diff unificado entre ellas.",
+    "shotCaption": "Se pueden comparar dos versiones cualesquiera. Una versión sustituida permanece en el registro y nada en el navegador la reescribe.",
+    "sessionAlt": "Captura de la línea de tiempo de una sesión: observaciones numeradas en orden de captura, primero un prompt del usuario y después eventos de herramienta con sus familias e ids de llamada.",
+    "sessionCaption": "Una sesión larga se pagina de 50 en 50 observaciones. El texto es lo que el sanitizador guardó en el momento de la captura.",
+    "healthAlt": "Captura de la página de salud del servidor: comprobaciones fallidas con el comando que resuelve cada una, contadores de hooks, la cola del escritor, el spool, la cola de consolidación y el estado del embedder y de los proveedores.",
+    "healthCaption": "Una comprobación fallida indica un comando que ejecutar, no un botón. En este servidor el proveedor de LLM rechazaba las llamadas cuando se tomó la captura."
   },
   "readonly": {
     "title": "Consulta páginas y revisa propuestas",

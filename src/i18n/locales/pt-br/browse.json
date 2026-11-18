@@ -12,25 +12,25 @@
   "home": {
     "title": "Todos os projetos de relance",
     "lede": "O painel mostra projetos visíveis, sessões, eventos capturados e páginas compiladas. Contadores de saúde dos hooks mostram eventos aceitos e descartados desde o início do servidor.",
-    "shotAlt": "Captura de tela do painel de memória 3.3.0 com cartões de projetos, contagens de captura, saúde dos hooks e barra lateral para caixa de entrada, busca e documentação.",
+    "shotAlt": "Captura do painel de memória 3.5.0 com contagens de captura, contadores de saúde dos hooks, mensagens pendentes e cartões de projeto, ao lado de uma barra lateral com caixa de entrada, workstreams, busca e saúde.",
     "shotCaption": "O painel separa trabalho capturado de páginas compiladas; um projeto pode ter sessões recentes antes de ter páginas na wiki."
   },
   "project": {
     "title": "Um projeto: páginas, decisões e mensagens",
     "lede": "As abas do projeto separam Visão geral, Agentes, Uso de tokens, Sessões e Conhecimento. A visão geral mostra atividade capturada, páginas compiladas e mensagens pendentes.",
-    "shotAlt": "Captura de tela da visão geral de um projeto na 3.3.0, com abas, contagens de sessões e páginas, totais de tokens e painel da caixa de entrada.",
+    "shotAlt": "Captura da visão geral de um projeto no 3.5.0 com abas, contagens de sessões e eventos, totais de tokens reportados, os agentes que trabalharam nele e um painel de caixa de mensagens.",
     "shotCaption": "Escolha uma aba para examinar agentes, uso das respostas, sessões ou a árvore de páginas. Uso de tokens não informado aparece como traço, não como zero presumido."
   },
   "page": {
     "title": "Uma página e quem aponta para ela",
     "lede": "Uma página mostra sumário, backlinks e citações junto com evidências da versão, contradições declaradas e contexto de expiração. O histórico guarda versões anteriores.",
-    "shotAlt": "Captura de tela de uma página de conhecimento da 3.3.0 com painel de evidências, seções Markdown e barra lateral de citações e backlinks.",
+    "shotAlt": "Captura de uma página de conhecimento no 3.5.0 com painel de evidências, seções em Markdown e uma barra lateral de citações e backlinks.",
     "shotCaption": "Evidências e contradições pertencem à versão exibida; o navegador não verifica por conta própria se uma fonte é verdadeira."
   },
   "search": {
     "title": "Uma busca que ranqueia como a do agente",
     "lede": "A busca em um projeto usa o mesmo ranqueador de memory_query. Filtros de tipo e camada são aplicados antes da classificação, e Explicar classificação mostra por que uma página apareceu. A busca entre projetos usa texto completo.",
-    "shotAlt": "Captura de tela da busca na 3.3.0 por limite de requisições em um projeto, com filtros de tipo e camada e resultados de páginas de demonstração.",
+    "shotAlt": "Captura da página de busca do 3.5.0 com uma consulta restrita ao projeto e o Explain ranking ligado, o traço de recall com os tempos por stream e um resultado com os rankings de cada stream.",
     "shotCaption": "A busca no projeto usa sua pilha de recuperação. Uma pessoa ou agente ainda precisa avaliar o significado dos resultados."
   },
   "graph": {
@@ -49,7 +49,9 @@
         "title": "O que o launcher está rodando",
         "text": "Uma página à parte lista as execuções gerenciadas e o estado de cada uma: ativa, interrompida, concluída, vazia. Mostra contagens, nunca caminhos de checkout, donos de lease ou conteúdo de transcrição. Só para root em servidor compartilhado."
       }
-    ]
+    ],
+    "shotAlt": "Captura da página de workstreams gerenciadas: uma linha por workstream com o estado, o harness da execução mais recente, contagens de eventos e a última atividade.",
+    "shotCaption": "As linhas vêm ordenadas primeiro pelo que precisa de atenção, depois pela atividade recente. Interrompida quer dizer que a execução terminou sem um encerramento limpo."
   },
   "history": {
     "title": "Histórico, replay e saúde",
@@ -71,7 +73,13 @@
         "title": "O que uma consulta devolveu",
         "text": "Ligue o histórico de recuperação e cada consulta naquele projeto registra escopo, filtros, duração e cada página devolvida com a pontuação e a explicação do ranking dela. A página é somente de leitura, ligada à linha do tempo da sessão, vem desligada, e uma sessão que rodou antes de você ligar não mostra nada."
       }
-    ]
+    ],
+    "shotAlt": "Captura do histórico de uma página: duas versões guardadas com seus ids, datas e tamanhos, e um diff unificado entre elas.",
+    "shotCaption": "Duas versões quaisquer podem ser comparadas. Uma versão substituída continua no registro, e nada no navegador a reescreve.",
+    "sessionAlt": "Captura da linha do tempo de uma sessão: observações numeradas em ordem de captura, primeiro um prompt do usuário e depois eventos de ferramenta com suas famílias e ids de chamada.",
+    "sessionCaption": "Uma sessão longa é paginada de 50 em 50 observações. O texto é o que o sanitizador guardou no momento da captura.",
+    "healthAlt": "Captura da página de saúde do servidor: verificações com falha e o comando que resolve cada uma, contadores de hooks, a fila do escritor, o spool, a fila de consolidação e o estado do embedder e dos provedores.",
+    "healthCaption": "Uma verificação com falha indica um comando para rodar, não um botão. Neste servidor o provedor de LLM estava recusando as chamadas quando a captura foi feita."
   },
   "readonly": {
     "title": "Leia páginas e revise propostas",

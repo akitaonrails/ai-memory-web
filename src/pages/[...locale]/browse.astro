@@ -16,11 +16,15 @@ import shotHome from '@/assets/img/screens/web-home.webp';
 import shotProject from '@/assets/img/screens/web-project.webp';
 import shotPage from '@/assets/img/screens/web-page.webp';
 import shotSearch from '@/assets/img/screens/web-search.webp';
+import shotWorkstreams from '@/assets/img/screens/web-workstreams.webp';
+import shotHistory from '@/assets/img/screens/web-history.webp';
+import shotSession from '@/assets/img/screens/web-session.webp';
+import shotHealth from '@/assets/img/screens/web-health.webp';
 
 const { t, raw } = useI18n(Astro, 'browse');
 type Item = { title: string; text: string };
 
-// Screenshots are the real web UI on demo data, from the pull requests that built each view, captured in English.
+// Screenshots are the real web UI of a running 3.5.0 server, captured in English on the maintainer's own memory.
 const views = [
   { id: 'home', shot: shotHome, hue: 'green' },
   { id: 'project', shot: shotProject, hue: 'teal' },
@@ -53,10 +57,16 @@ const next = withText([
 
   <Section id="graph" title={t('graph.title')} lede={t('graph.lede')} hue="violet">
     <FeatureGrid items={raw<Item[]>('graph.items').map((p) => ({ ...p, hue: 'violet' as const }))} cols={3} />
+    <div class="mt-12"><Figure src={shotWorkstreams} alt={t('graph.shotAlt')} caption={t('graph.shotCaption')} /></div>
   </Section>
 
   <Section id="history" title={t('history.title')} lede={t('history.lede')} hue="amber">
     <FeatureGrid items={raw<Item[]>('history.items').map((p) => ({ ...p, hue: 'amber' as const }))} cols={4} />
+    <div class="mt-12 grid gap-12">
+      <Figure src={shotHistory} alt={t('history.shotAlt')} caption={t('history.shotCaption')} />
+      <Figure src={shotSession} alt={t('history.sessionAlt')} caption={t('history.sessionCaption')} />
+      <Figure src={shotHealth} alt={t('history.healthAlt')} caption={t('history.healthCaption')} />
+    </div>
     <div class="mt-12 grid lg:grid-cols-2 gap-8 items-start">
       <Callout title={t('readonly.title')} hue="rose"><p>{t('readonly.text')}</p></Callout>
       <p class="text-muted max-w-[40em]" set:html={t('readonly.api')} />

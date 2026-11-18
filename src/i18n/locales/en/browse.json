@@ -12,25 +12,25 @@
   "home": {
     "title": "Every project at a glance",
     "lede": "The dashboard shows visible projects, sessions, captured events and compiled pages. Hook-health counters report accepted and dropped events since the server started.",
-    "shotAlt": "Screenshot of the 3.3.0 memory dashboard with project cards, capture counts, hook-health counters and a sidebar for inbox, search and documentation.",
+    "shotAlt": "Screenshot of the 3.5.0 memory dashboard with capture counts, hook-health counters, pending mail and project cards, beside a sidebar for inbox, workstreams, search and health.",
     "shotCaption": "The built-in dashboard separates captured work from compiled pages; a project can have recent sessions before it has wiki pages."
   },
   "project": {
     "title": "A project: its pages, its decisions, its mail",
     "lede": "Project tabs separate Overview, Agents, Token usage, Sessions and Knowledge. The overview shows captured activity, compiled pages and pending mail.",
-    "shotAlt": "Screenshot of the 3.3.0 project overview with tabs, session and page counts, token totals and a mailbox panel.",
+    "shotAlt": "Screenshot of a 3.5.0 project overview with tabs, session and event counts, reported token totals, the agents that worked in it and a mailbox panel.",
     "shotCaption": "Select a tab to inspect agent activity, response usage, sessions or the page tree. Missing token reports show a dash, not a guessed zero."
   },
   "page": {
     "title": "A page, and what points at it",
     "lede": "A page shows its outline, backlinks and citations alongside version-specific evidence, declared contradictions and expiration context. History keeps earlier versions.",
-    "shotAlt": "Screenshot of a 3.3.0 knowledge page with an evidence panel, Markdown sections and a sidebar of citations and backlinks.",
+    "shotAlt": "Screenshot of a 3.5.0 knowledge page with an evidence panel, Markdown sections and a sidebar of citations and backlinks.",
     "shotCaption": "Evidence and contradictions belong to the displayed page version; the browser does not independently verify whether a source is true."
   },
   "search": {
     "title": "Search that ranks like the agent",
     "lede": "Project search uses the same ranker as memory_query. Kind and tier filters apply before ranking, and Explain ranking shows why a page surfaced. Cross-project search uses full text.",
-    "shotAlt": "Screenshot of the 3.3.0 search page showing a scoped rate-limit query, kind and tier filters, and results from synthetic demo pages.",
+    "shotAlt": "Screenshot of the 3.5.0 search page showing a scoped query with Explain ranking on, the recall trace with per-stream timings, and a result with its per-stream ranks.",
     "shotCaption": "The scoped search uses the project’s retrieval stack. Results still need a person or agent to judge their meaning."
   },
   "graph": {
@@ -49,7 +49,9 @@
         "title": "What the launcher is running",
         "text": "A separate page lists managed runs and their state: live, interrupted, finished, empty. It shows counts, never checkout paths, lease owners or transcript content. Root only on a shared server."
       }
-    ]
+    ],
+    "shotAlt": "Screenshot of the managed workstreams page: one row per workstream with its status, the harness of its latest run, event counts and when it was last active.",
+    "shotCaption": "The rows are ordered by attention first, then recent activity. Interrupted means the run ended without a clean finish."
   },
   "history": {
     "title": "History, replay and health",
@@ -71,7 +73,13 @@
         "title": "What a query returned",
         "text": "Turn on retrieval history and each query in that project records its scope, filters, duration and every page it returned with its score and ranking explanation. The read-only page is linked from the session timeline, it is off by default, and a session that ran before you enabled it shows nothing."
       }
-    ]
+    ],
+    "shotAlt": "Screenshot of a page's history: two stored versions with their ids, dates and sizes, and a unified diff between them.",
+    "shotCaption": "Any two versions can be compared. A superseded version stays in the record, and nothing in the browser rewrites it.",
+    "sessionAlt": "Screenshot of a session timeline: numbered observations in capture order, a user prompt first, then tool events with their families and call ids.",
+    "sessionCaption": "A long session is paged 50 observations at a time. The text is what the sanitizer stored at capture time.",
+    "healthAlt": "Screenshot of the server health page: failing checks with the command that fixes each, hook counters, the writer queue, the spool, the consolidation queue and the state of the embedder and the providers.",
+    "healthCaption": "A failing check names a command to run, not a button. On this server the LLM provider was rejecting calls when the screenshot was taken."
   },
   "readonly": {
     "title": "Browse pages and review proposals",
