@@ -42,6 +42,10 @@
       "source": "ソースから",
       "note": "ユーザーサービスまたはシステムサービス用のsystemdユニットをインストールします。"
     },
+    "brew": {
+      "title": "Homebrew",
+      "note": "macOSとLinuxに対応します。Homebrewでコマンドラインツールを追加するのが通常のアトミックなディストリビューションも含みます。そのあとは ai-memory setup か brew services start ai-memory のどちらか一方を使ってください。"
+    },
     "rpm": {
       "title": "Fedora (RPM)",
       "note": "x86_64とaarch64向けのパッケージで、バイナリ、フックのソース、systemdユニットが入っています。続けてユーザーサービスまたはシステムサービスの手順に従ってください。"
@@ -81,32 +85,32 @@
     "upgrading": "3.0へのアップグレード",
     "highlights": [
       {
-        "title": "コンテキスト圧縮のあと、エージェントが自力で立て直す",
-        "text": "Claude Code、Codex、Factory Droidが会話を圧縮すると、hookは通常の起動パケットの代わりに、セッション最初と最新のプロンプトを収めた短いアンカーを差し込みます。どのエージェントにも、圧縮後は自分のプロンプトを読み直し、要約よりそちらを信頼するというルールが入ります。"
+        "title": "インターフェースがこのサイトと同じ見た目に",
+        "text": "組み込みのWeb UIと管理コンソールがこのサイトのパレットと書体に移りました。両テーマでミネラルペーパーとグラファイト、2pxの角ばったコントロール、アンバーのボタン、Unicode記号ではなくラインアイコン、そして最小の文字が数ポイント大きくなっています。ルートとマークアップは変わりません。バイナリはブラジルポルトガル語のガイド24本も同梱し、インターフェース言語がpt-BRのときに配信します。"
       },
       {
-        "title": "インターフェースがポルトガル語を話す",
-        "text": "ブラウザとCLIの人向け出力が、英語とブラジルポルトガル語で提供されます。ブラウザはAccept-Languageに従い、独自のセレクターも備えます。CLIは<code>--language</code>、<code>AI_MEMORY_LANGUAGE</code>、config.tomlの<code>language</code>に従います。保存されたページ、JSON、ログはそのままです。"
+        "title": "Homebrewでインストールできます",
+        "text": "<code>brew install akitaonrails/tap/ai-memory</code> はリリースのバイナリとフックのソースをmacOSとLinuxに入れます。BazziteやFedora Silverblueのようなアトミックなディストリビューションがコマンドラインツールを追加する通常の方法です。<code>ai-memory setup</code> か <code>brew services start ai-memory</code> のどちらか一方を使ってください。"
       },
       {
-        "title": "WindowsにScoopで入れる",
-        "text": "メンテナーのbucketを追加して<code>scoop install ai-memory</code>を実行します。各リリースはマニフェストをWindowsのzipと同時に公開したチェックサムに固定し、setupはcleanupが消すバージョン別フォルダではなく、安定した<code>current</code>のジャンクションを記録します。"
+        "title": "Tencent WorkBuddyに対応",
+        "text": "6イベント分のフック、HTTPのMCPエントリ、管理対象スキルに対応し、<code>setup</code> がWorkBuddyを自分で見つけます。インストール後にWorkBuddyのカスタムコネクタ設定でai-memoryサーバーを承認してください。WorkBuddyはセッション終了イベントを発火しないため、終わったセッションは <code>ai-memory finalize-session --agent workbuddy</code> で閉じます。"
       },
       {
-        "title": "処理ごとに別のモデルを選ぶ",
-        "text": "統合、bootstrap、auto-improve、dream、lint、profile、再ランキング、クエリ回答は、それぞれ独自のプロバイダーとフォールバックの連鎖を指定できます。指定のない処理は既定のプロバイダーを使い、指定のある処理は既定のプロバイダーがなくても動きます。"
+        "title": "GeminiをGoogle Cloudプロジェクトに請求",
+        "text": "新しい <code>vertex</code> プロバイダーは同じGeminiモデルをVertex AI経由で呼び出し、Google Cloudのクレジットで支払えます。認証はApplication Default Credentialsで、<code>gcloud</code> かサービスアカウントキーから読み込み、2つの環境変数でプロジェクトとリージョンを選びます。"
       },
       {
-        "title": "claude-memのデータベースを取り込む",
-        "text": "任意のインポーターが、読み取り専用スナップショットからclaude-memの対応SQLiteスキーマを読み込みます。プロジェクトの対応付けは明示指定で、クライアント側でのスクラブと既定のドライランが付きます。その下では、保護されたバッチ書き込みが1件から100件のページを1つのプロジェクトへアトミックに書き込みます。"
+        "title": "確度の高い結果だけを求める",
+        "text": "<code>memory_query</code> に <code>min_relevance</code> の下限を渡すと、件数の上限より先に弱いヒットを落とします。プロジェクトはその下限と既定の件数を自分の <code>.ai-memory.toml</code> で決められます。下限にはリランカーが必要で、何も採点されなかったときは空ではなく、注記付きでフィルタなしの結果が返ります。"
       },
       {
-        "title": "任意で有効にできる検索の信号が2つ",
-        "text": "ひとつは「古い」「誤り」のフィードバックが未解決のページの優先度を、書き直しで置き換わるまで下げます。もうひとつは、そのセッションが似た問い合わせで読んだ、または役に立つと記録したページを押し上げます。どちらも既定の重みは0.0で、<code>explain=true</code>に表示されます。"
+        "title": "検索が何を返したかを見る",
+        "text": "検索履歴を有効にすると、各クエリがスコープ、フィルタ、所要時間、返したすべてのページをそのスコアとランキングの説明とともに記録し、セッションのタイムラインからリンクされた読み取り専用のページで見られます。コンパイル済みのページも、どの観測から作られたかを記録するようになりました。"
       },
       {
         "title": "小さなスイッチ",
-        "text": "ツールが触れたファイルのパスを索引に入れる、<code>AI_MEMORY_AUTO_HANDOFF=off</code>でその実行だけhandoffを残さない、復旧スナップショットをプロジェクト単位で止める、未読のメールをプロンプト時に知らせる、ブリーフィングで直近50セッションまで読む。いずれも既定では無効です。"
+        "text": "<code>ai-memory call</code> でどのMCPツールにもシェルから届き、生成される文章の言語を固定し、ランチャーが生成したプロンプトをプロジェクト横断プロファイルから外し、セッションが別プロジェクトへ移ったときに再ブリーフィングし、LLMによる矛盾チェックを独自の間隔で走らせ、いっぱいの受信箱をページ送りし、データディレクトリに他のローカルアカウントが書き込めるときに <code>ai-memory doctor</code> が警告します。"
       }
     ]
   },

@@ -53,7 +53,7 @@
   },
   "history": {
     "title": "History, replay and health",
-    "lede": "Three views for the question “what happened here?”",
+    "lede": "Four views for the question “what happened here?”",
     "items": [
       {
         "title": "Page history",
@@ -66,6 +66,10 @@
       {
         "title": "A health page for root",
         "text": "Hook counters since the server started, the writer queue, the spool, the consolidation queue, the embedder and both providers. Anything failing is listed with the command that fixes it."
+      },
+      {
+        "title": "What a query returned",
+        "text": "Turn on retrieval history and each query in that project records its scope, filters, duration and every page it returned with its score and ranking explanation. The read-only page is linked from the session timeline, it is off by default, and a session that ran before you enabled it shows nothing."
       }
     ]
   },
@@ -128,7 +132,7 @@
       },
       {
         "title": "Guides inside the server",
-        "text": "Feature guides and release notes are bundled in the binary under /web/docs. The guides show what is installed for your account without exposing admin settings to other users."
+        "text": "Feature guides and release notes are bundled in the binary under /web/docs. The guides show what is installed for your account without exposing admin settings to other users. Twenty-four of them are also in Brazilian Portuguese, served when the interface language is pt-BR; the rest stay in English."
       }
     ]
   }

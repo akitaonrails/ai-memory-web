@@ -79,7 +79,7 @@
       },
       {
         "title": "Excluye un proyecto del perfil",
-        "text": "El marcador de un proyecto puede fijar <code>contribute = false</code> para que no se aprenda nada de él, y <code>consume = false</code> para que nunca reciba el digest."
+        "text": "El marcador de un proyecto puede fijar <code>contribute = false</code> para que no se aprenda nada de él, y <code>consume = false</code> para que nunca reciba el digest. De una sesión que un lanzador marca como automatización también se pueden ignorar los prompts, y sus páginas curadas siguen contando."
       },
       {
         "title": "Revisar y reconstruir",

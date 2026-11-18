@@ -221,7 +221,7 @@
     "title": "Connect your tools and team wiki",
     "sdk": {
       "title": "Memory for your own tools",
-      "text": "The optional TypeScript SDK uses scoped MCP calls to save, search and hand off memory. Conditional writes detect concurrent edits. Build it from the repository; it is not published on npm.",
+      "text": "The optional TypeScript SDK uses scoped MCP calls to save, search and hand off memory. Conditional writes detect concurrent edits. Build it from the repository; it is not published on npm. An agent that cannot load MCP can reach the same tools from a shell with <code>ai-memory call</code>.",
       "link": "Use memory from code"
     },
     "sync": {

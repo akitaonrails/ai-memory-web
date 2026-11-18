@@ -53,7 +53,7 @@
   },
   "history": {
     "title": "Histórico, replay e saúde",
-    "lede": "Três telas para a pergunta \"o que aconteceu aqui?\"",
+    "lede": "Quatro telas para a pergunta \"o que aconteceu aqui?\"",
     "items": [
       {
         "title": "Histórico da página",
@@ -66,6 +66,10 @@
       {
         "title": "Uma página de saúde para o root",
         "text": "Contadores dos hooks desde que o servidor subiu, a fila do writer, o spool, a fila de consolidação, o embedder e os dois providers. Tudo que estiver falhando aparece com o comando que corrige."
+      },
+      {
+        "title": "O que uma consulta devolveu",
+        "text": "Ligue o histórico de recuperação e cada consulta naquele projeto registra escopo, filtros, duração e cada página devolvida com a pontuação e a explicação do ranking dela. A página é somente de leitura, ligada à linha do tempo da sessão, vem desligada, e uma sessão que rodou antes de você ligar não mostra nada."
       }
     ]
   },
@@ -128,7 +132,7 @@
       },
       {
         "title": "Guias dentro do servidor",
-        "text": "Guias de recursos e notas de versão vêm no binário em /web/docs. Eles mostram o que está instalado para sua conta sem expor configurações administrativas a outros usuários."
+        "text": "Guias de recursos e notas de versão vêm no binário em /web/docs. Eles mostram o que está instalado para sua conta sem expor configurações administrativas a outros usuários. Vinte e quatro deles também estão em português do Brasil, servidos quando o idioma da interface é pt-BR; o resto fica em inglês."
       }
     ]
   }

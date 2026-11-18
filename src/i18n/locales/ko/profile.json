@@ -79,7 +79,7 @@
       },
       {
         "title": "프로필에서 프로젝트 제외",
-        "text": "프로젝트의 마커에 <code>contribute = false</code>를 두면 그 프로젝트에서 아무것도 학습하지 않고, <code>consume = false</code>를 두면 다이제스트를 받지 않습니다."
+        "text": "프로젝트의 마커에 <code>contribute = false</code>를 두면 그 프로젝트에서 아무것도 학습하지 않고, <code>consume = false</code>를 두면 다이제스트를 받지 않습니다. 실행기가 자동화로 표시한 세션의 프롬프트도 건너뛸 수 있으며, 그 세션의 정리된 페이지는 계속 반영됩니다."
       },
       {
         "title": "검토와 재구성",

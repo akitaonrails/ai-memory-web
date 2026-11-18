@@ -23,7 +23,7 @@
       },
       {
         "title": "One directory you own",
-        "text": "Wiki pages and the SQLite file live under one data directory. New directories are created 0700 and new files 0600 on Unix."
+        "text": "Wiki pages and the SQLite file live under one data directory. New directories are created 0700 and new files 0600 on Unix. <code>ai-memory doctor</code> warns when another local account can write that directory or its parent, because the hook spool inside it carries the bearer token."
       },
       {
         "title": "No encryption at rest",

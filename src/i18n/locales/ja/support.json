@@ -145,6 +145,9 @@
     "codebuddy": {
       "note": "ネイティブフックとセッション開始時のハンドオフに対応。MCPインストーラー、管理ランチャー、過去のトランスクリプト取り込みはありません。文書化されたペイロードで検証済みですが、実クライアントでの一貫した検証は未完了です。"
     },
+    "workbuddy": {
+      "note": "TencentのWorkBuddy。6つのイベント用のネイティブフック、HTTP経由のMCPエントリ、管理対象スキルに対応します。WorkBuddyはカスタムコネクタ設定で信頼するまでサーバーに接続せず、セッション終了イベントを発火しないため、終わったセッションはfinalize-sessionで閉じます。"
+    },
     "cline": {
       "note": "CLIの9つのイベントファイルとStreamable HTTPのエントリを、どちらも書き込みます。タスクのhookは切り離して起動するため、引き継ぎはMCPから受け取ります。yoloモードではhookが無効になります。"
     },
@@ -166,6 +169,7 @@
     "GitHub Copilot",
     "Cursor（Cursorのサブスクリプション。エージェントCLI経由）",
     "Google Gemini",
+    "Google Vertex AI（同じGeminiモデル。料金はGoogle Cloudプロジェクトに請求されます）",
     "OpenCode GoとZen",
     "Ollama",
     "LM Studio",

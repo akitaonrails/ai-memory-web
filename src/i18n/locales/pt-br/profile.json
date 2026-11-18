@@ -79,7 +79,7 @@
       },
       {
         "title": "Exclua um projeto do perfil",
-        "text": "O marcador de um projeto pode definir <code>contribute = false</code> para que nada seja aprendido dele, e <code>consume = false</code> para que ele nunca receba o resumo."
+        "text": "O marcador de um projeto pode definir <code>contribute = false</code> para que nada seja aprendido dele, e <code>consume = false</code> para que ele nunca receba o resumo. Uma sessão que um launcher marca como automação também pode ter os prompts ignorados, e as páginas curadas dela continuam valendo."
       },
       {
         "title": "Revisar e reconstruir",

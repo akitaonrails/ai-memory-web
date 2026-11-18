@@ -47,6 +47,7 @@ export const harnesses: Row[] = [
   { name: 'Crush', id: 'crush', status: 'Managed-only', run: true },
   { name: 'IBM Bob', id: 'ibm-bob', status: 'Supported' },
   { name: 'CodeBuddy Code', id: 'codebuddy', status: 'Hooks-only' },
+  { name: 'WorkBuddy', id: 'workbuddy', status: 'Supported' },
   { name: 'Pool', id: 'pool', status: 'Hooks-only' },
   { name: 'Claude Desktop', id: 'claude-desktop', status: 'MCP-only' },
   { name: 'VS Code Copilot', id: 'vscode-copilot', status: 'MCP-only' },

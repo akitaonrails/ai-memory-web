@@ -88,7 +88,7 @@
     "macos": [
       {
         "title": "Baixe e extraia",
-        "text": "Este arquivo é para Apple Silicon. Em um Mac Intel, troque <code>aarch64</code> por <code>x86_64</code>. Um download pelo navegador precisa de <code>xattr -d com.apple.quarantine ./ai-memory</code> uma vez. Um download por curl não precisa."
+        "text": "Este arquivo é para Apple Silicon. Em um Mac Intel, troque <code>aarch64</code> por <code>x86_64</code>. Um download pelo navegador precisa de <code>xattr -d com.apple.quarantine ./ai-memory</code> uma vez. Um download por curl não precisa. O Homebrew instala o mesmo build no macOS e no Linux com <code>brew install akitaonrails/tap/ai-memory</code>."
       },
       {
         "title": "Crie o diretório de dados e suba o servidor",

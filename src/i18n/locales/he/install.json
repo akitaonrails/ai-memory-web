@@ -88,7 +88,7 @@
     "macos": [
       {
         "title": "מורידים ומחלצים",
-        "text": "הארכיון הזה מיועד ל-Apple Silicon. ב-Mac עם Intel מחליפים את <code>aarch64</code> ב-<code>x86_64</code>. הורדה דרך הדפדפן דורשת פעם אחת <code>xattr -d com.apple.quarantine ./ai-memory</code>. הורדה עם curl לא דורשת."
+        "text": "הארכיון הזה מיועד ל-Apple Silicon. ב-Mac עם Intel מחליפים את <code>aarch64</code> ב-<code>x86_64</code>. הורדה דרך הדפדפן דורשת פעם אחת <code>xattr -d com.apple.quarantine ./ai-memory</code>. הורדה עם curl לא דורשת. Homebrew מתקין את אותו build ב-macOS וב-Linux עם <code>brew install akitaonrails/tap/ai-memory</code>."
       },
       {
         "title": "יוצרים את תיקיית הנתונים ומעלים את השרת",

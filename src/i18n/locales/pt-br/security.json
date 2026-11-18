@@ -23,7 +23,7 @@
       },
       {
         "title": "Um diretório que é seu",
-        "text": "As páginas da wiki e o arquivo SQLite ficam dentro de um único diretório de dados. No Unix, diretórios novos são criados com 0700 e arquivos novos com 0600."
+        "text": "As páginas da wiki e o arquivo SQLite ficam dentro de um único diretório de dados. No Unix, diretórios novos são criados com 0700 e arquivos novos com 0600. O <code>ai-memory doctor</code> avisa quando outra conta local pode escrever nesse diretório ou no pai dele, porque o spool de hooks lá dentro carrega o token de acesso."
       },
       {
         "title": "Sem criptografia em repouso",

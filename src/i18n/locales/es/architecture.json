@@ -57,7 +57,7 @@
       },
       {
         "title": "Commit e índice",
-        "text": "Cada escritura de página es atómica (tmp, rename, fsync), se commitea en git y se indexa en la misma transacción de SQLite que su fila."
+        "text": "Cada escritura de página es atómica (tmp, rename, fsync), se commitea en git y se indexa en la misma transacción de SQLite que su fila. Una página compilada también registra, por versión, las observaciones con las que se construyó."
       },
       {
         "title": "Consulta y resumen",
@@ -126,6 +126,7 @@
         "Rerank opcional con LLM: una llamada por consulta sobre hasta 30 títulos y fragmentos. Ante cualquier fallo se conserva el orden local. Todavía no hay un reranker local.",
         "Si las páginas compiladas no dan ningún resultado, una búsqueda acotada sobre las observaciones en bruto devuelve raw_hits.",
         "Los filtros se aplican antes del ranking: <code>kind</code>, <code>tag</code>, <code>tier</code> y un prefijo de ruta acotan todas las vías, así una página poco frecuente no queda desplazada por una común.",
+        "Un mínimo <code>min_relevance</code> por llamada descarta los resultados por debajo de una puntuación calibrada antes del límite de cantidad, y un proyecto puede fijar ese mínimo y su propio número de resultados por defecto en su archivo marcador. El mínimo necesita un reranker, y una consulta sin puntuación devuelve sus resultados sin filtrar, con un aviso.",
         "Dos señales opcionales parten de cero: una baja la autoridad de una página con feedback de obsoleta o errónea sin resolver; la otra favorece una página que la misma sesión leyó o marcó como útil para una consulta parecida. Una reescritura borra ambas.",
         "Pasa explain=true para ver las posiciones por flujo, las contribuciones de RRF y el multiplicador de cada resultado."
       ]

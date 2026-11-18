@@ -145,6 +145,9 @@
     "codebuddy": {
       "note": "Hooks nativos y handoffs al iniciar la sesión. Sin instalador MCP, lanzador gestionado ni importación de transcripciones anteriores. Verificado con payloads documentados; falta la validación integral en el cliente."
     },
+    "workbuddy": {
+      "note": "WorkBuddy, de Tencent. Hooks nativos para seis eventos, una entrada MCP por HTTP y skills gestionadas. WorkBuddy solo llega al servidor después de que lo apruebes en sus ajustes de conector personalizado, y no emite fin de sesión, así que una sesión terminada se cierra con finalize-session."
+    },
     "cline": {
       "note": "Nueve archivos de evento de la CLI y una entrada Streamable HTTP, los dos escritos por ti. Los hooks de tarea arrancan en segundo plano, así que el handoff llega por MCP. El modo yolo desactiva los hooks."
     },
@@ -166,6 +169,7 @@
     "GitHub Copilot",
     "Cursor (una suscripción de Cursor, a través de su CLI de agente)",
     "Google Gemini",
+    "Google Vertex AI (los mismos modelos Gemini, facturados a un proyecto de Google Cloud)",
     "OpenCode Go y Zen",
     "Ollama",
     "LM Studio",

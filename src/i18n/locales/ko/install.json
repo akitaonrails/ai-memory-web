@@ -88,7 +88,7 @@
     "macos": [
       {
         "title": "다운로드하고 압축 풀기",
-        "text": "이 아카이브는 Apple Silicon용입니다. Intel Mac에서는 <code>aarch64</code>를 <code>x86_64</code>로 바꾸세요. 브라우저로 내려받았다면 <code>xattr -d com.apple.quarantine ./ai-memory</code>를 한 번 실행해야 합니다. curl로 내려받았다면 필요 없습니다."
+        "text": "이 아카이브는 Apple Silicon용입니다. Intel Mac에서는 <code>aarch64</code>를 <code>x86_64</code>로 바꾸세요. 브라우저로 내려받았다면 <code>xattr -d com.apple.quarantine ./ai-memory</code>를 한 번 실행해야 합니다. curl로 내려받았다면 필요 없습니다. Homebrew는 <code>brew install akitaonrails/tap/ai-memory</code>로 같은 빌드를 macOS와 Linux에 설치합니다."
       },
       {
         "title": "데이터 디렉터리를 만들고 서버 시작",

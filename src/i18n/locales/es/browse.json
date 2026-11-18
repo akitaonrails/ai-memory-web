@@ -53,7 +53,7 @@
   },
   "history": {
     "title": "Historial, reproducción y estado",
-    "lede": "Tres vistas para la pregunta «¿qué pasó aquí?».",
+    "lede": "Cuatro vistas para la pregunta «¿qué pasó aquí?».",
     "items": [
       {
         "title": "Historial de página",
@@ -66,6 +66,10 @@
       {
         "title": "Una página de estado para root",
         "text": "Contadores de hooks desde que arrancó el servidor, la cola del escritor, la cola local, la cola de consolidación, el embedder y los dos proveedores. Todo lo que falla aparece con el comando que lo arregla."
+      },
+      {
+        "title": "Qué devolvió una consulta",
+        "text": "Activa el historial de recuperación y cada consulta de ese proyecto registra su alcance, sus filtros, su duración y cada página devuelta con su puntuación y la explicación del ranking. La página es de solo lectura, se enlaza desde la línea de tiempo de la sesión, viene desactivada, y una sesión anterior a activarlo no muestra nada."
       }
     ]
   },
@@ -128,7 +132,7 @@
       },
       {
         "title": "Guías dentro del servidor",
-        "text": "Las guías de funciones y notas de versión vienen en el binario en /web/docs. Muestran lo instalado para tu cuenta sin revelar ajustes de administración a otros usuarios."
+        "text": "Las guías de funciones y notas de versión vienen en el binario en /web/docs. Muestran lo instalado para tu cuenta sin revelar ajustes de administración a otros usuarios. Veinticuatro de ellas están también en portugués de Brasil, servidas cuando el idioma de la interfaz es pt-BR; el resto queda en inglés."
       }
     ]
   }

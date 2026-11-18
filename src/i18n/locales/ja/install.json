@@ -88,7 +88,7 @@
     "macos": [
       {
         "title": "ダウンロードして展開する",
-        "text": "このアーカイブはApple Silicon用です。Intel Macでは<code>aarch64</code>を<code>x86_64</code>に置き換えてください。ブラウザでダウンロードした場合は、<code>xattr -d com.apple.quarantine ./ai-memory</code>を1回実行する必要があります。curlでダウンロードした場合は不要です。"
+        "text": "このアーカイブはApple Silicon用です。Intel Macでは<code>aarch64</code>を<code>x86_64</code>に置き換えてください。ブラウザでダウンロードした場合は、<code>xattr -d com.apple.quarantine ./ai-memory</code>を1回実行する必要があります。curlでダウンロードした場合は不要です。 Homebrew なら <code>brew install akitaonrails/tap/ai-memory</code> で同じビルドをmacOSとLinuxに入れられます。"
       },
       {
         "title": "データディレクトリを作成し、サーバーを起動する",
