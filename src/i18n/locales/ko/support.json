@@ -145,6 +145,9 @@
     "codebuddy": {
       "note": "네이티브 훅과 세션 시작 핸드오프를 지원합니다. MCP 설치기, 관리형 실행기, 과거 대화 기록 가져오기는 없습니다. 문서의 페이로드로 검증했으며 실제 클라이언트의 종단 간 검증은 아직 남아 있습니다."
     },
+    "workbuddy": {
+      "note": "Tencent의 WorkBuddy입니다. 여섯 개 이벤트용 네이티브 훅, HTTP MCP 항목, 관리형 스킬을 지원합니다. WorkBuddy는 사용자 지정 커넥터 설정에서 신뢰하기 전까지 서버에 연결하지 않으며, 세션 종료 이벤트를 발생시키지 않으므로 끝난 세션은 finalize-session으로 닫습니다."
+    },
     "cline": {
       "note": "CLI 이벤트 파일 아홉 개와 Streamable HTTP 항목을 모두 써 줍니다. 작업 hook이 분리된 채 시작하므로 핸드오프는 MCP로 받습니다. yolo 모드에서는 hook이 꺼집니다."
     },
@@ -166,6 +169,7 @@
     "GitHub Copilot",
     "Cursor(Cursor 구독, 에이전트 CLI 경유)",
     "Google Gemini",
+    "Google Vertex AI(동일한 Gemini 모델, Google Cloud 프로젝트로 과금)",
     "OpenCode Go와 Zen",
     "Ollama",
     "LM Studio",

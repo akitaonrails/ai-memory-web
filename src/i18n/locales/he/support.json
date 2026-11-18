@@ -145,6 +145,9 @@
     "codebuddy": {
       "note": "Hooks נייטיב ו-handoffs בתחילת סשן. ללא מתקין MCP, launcher מנוהל או ייבוא תמלילים קודמים. נבדק מול מבני הנתונים המתועדים; אימות מקצה לקצה בלקוח עדיין ממתין."
     },
+    "workbuddy": {
+      "note": "WorkBuddy של Tencent. Hooks נייטיב לשישה אירועים, רשומת MCP מעל HTTP ו-skills מנוהלות. WorkBuddy מגיע לשרת רק אחרי שאתם מאשרים אותו בהגדרות המחבר המותאם שלו, והוא לא משגר סוף סשן, ולכן סשן שהסתיים נסגר עם finalize-session."
+    },
     "cline": {
       "note": "תשעה קובצי אירועים של ה-CLI ורשומת Streamable HTTP, שניהם נכתבים עבורכם. hooks של משימה מופעלים מנותקים, ולכן ה-handoff מגיע דרך MCP. מצב yolo מכבה את ה-hooks."
     },
@@ -166,6 +169,7 @@
     "GitHub Copilot",
     "Cursor (מנוי Cursor, דרך ה-CLI של הסוכן שלו)",
     "Google Gemini",
+    "Google Vertex AI (אותם מודלים של Gemini, בחיוב לפרויקט Google Cloud)",
     "OpenCode Go ו-Zen",
     "Ollama",
     "LM Studio",

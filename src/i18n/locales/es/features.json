@@ -221,7 +221,7 @@
     "title": "Conecta tus herramientas y la wiki del equipo",
     "sdk": {
       "title": "Memoria para tus propias herramientas",
-      "text": "El SDK opcional de TypeScript usa llamadas MCP con ámbito para guardar, buscar y transferir memoria. Las escrituras condicionales detectan ediciones simultáneas. Compílalo desde el repositorio; no está publicado en npm.",
+      "text": "El SDK opcional de TypeScript usa llamadas MCP con ámbito para guardar, buscar y transferir memoria. Las escrituras condicionales detectan ediciones simultáneas. Compílalo desde el repositorio; no está publicado en npm. Un agente que no puede cargar MCP alcanza las mismas herramientas desde un shell con <code>ai-memory call</code>.",
       "link": "Usa memoria desde código"
     },
     "sync": {

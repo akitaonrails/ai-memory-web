@@ -42,6 +42,10 @@
       "source": "a partir do código-fonte",
       "note": "Instala units do systemd para serviço de usuário ou de sistema."
     },
+    "brew": {
+      "title": "Homebrew",
+      "note": "macOS e Linux, incluindo distribuições atômicas onde o Homebrew é a forma usual de adicionar ferramentas de linha de comando. Depois use ai-memory setup ou brew services start ai-memory, não os dois."
+    },
     "rpm": {
       "title": "Fedora (RPM)",
       "note": "Pacotes x86_64 e aarch64 com o binário, os hooks de origem e as units do systemd. Depois siga os passos de serviço de usuário ou de sistema."
@@ -81,32 +85,32 @@
     "upgrading": "Atualizando para a 3.0",
     "highlights": [
       {
-        "title": "O agente se reorienta depois de uma compactação",
-        "text": "Quando o Claude Code, o Codex ou o Factory Droid compacta uma conversa, o hook injeta uma âncora curta com o primeiro e o último prompt da sessão no lugar do pacote de início habitual. Todo agente também recebe uma regra para reler os próprios prompts depois de uma compactação e confiar neles, e não no resumo."
+        "title": "A interface agora tem a cara deste site",
+        "text": "A UI web embutida e o console de gerenciamento adotaram a paleta e as fontes deste site: papel mineral e grafite nos dois temas, controles quadrados de 2px, botões âmbar, ícones de linha no lugar de símbolos Unicode e o texto menor alguns pontos maior. Rotas e marcação seguem iguais. O binário também carrega 24 guias em português do Brasil e os serve quando o idioma da interface é pt-BR."
       },
       {
-        "title": "A interface fala português",
-        "text": "O navegador e a saída humana da CLI agora vêm em inglês e em português do Brasil. O navegador segue o Accept-Language e tem o seu próprio seletor; a CLI segue <code>--language</code>, <code>AI_MEMORY_LANGUAGE</code> ou <code>language</code> no config.toml. Páginas armazenadas, JSON e logs ficam como estão."
+        "title": "Instale com o Homebrew",
+        "text": "<code>brew install akitaonrails/tap/ai-memory</code> instala o binário da release e as fontes dos hooks no macOS e no Linux, que é como distribuições atômicas como Bazzite e Fedora Silverblue costumam adicionar ferramentas de linha de comando. Use <code>ai-memory setup</code> ou <code>brew services start ai-memory</code>, não os dois."
       },
       {
-        "title": "Instale no Windows com o Scoop",
-        "text": "Adicione o bucket do mantenedor e rode <code>scoop install ai-memory</code>. Cada release fixa o manifesto no zip de Windows e no checksum publicado junto, e o setup registra a junção estável <code>current</code> em vez da pasta da versão, que a limpeza apaga."
+        "title": "Suporte ao Tencent WorkBuddy",
+        "text": "Hooks para seis eventos, uma entrada MCP por HTTP e skills gerenciadas, e o <code>setup</code> encontra o WorkBuddy sozinho. Aprove o servidor ai-memory nas configurações de conector personalizado do WorkBuddy depois de instalar, e feche uma sessão concluída com <code>ai-memory finalize-session --agent workbuddy</code>, porque o WorkBuddy não dispara fim de sessão."
       },
       {
-        "title": "Um modelo diferente para cada tarefa",
-        "text": "Consolidação, bootstrap, auto-improve, dream, lint, profile, rerank e respostas de consulta podem indicar cada uma o seu provedor e a sua cadeia de fallback. Uma tarefa sem indicação usa o provedor padrão, e uma tarefa com indicação roda mesmo sem provedor padrão algum."
+        "title": "Gemini cobrado no seu projeto do Google Cloud",
+        "text": "O novo provedor <code>vertex</code> chama os mesmos modelos Gemini pela Vertex AI, onde o crédito do Google Cloud paga por eles. Ele autentica com Application Default Credentials, vindas do <code>gcloud</code> ou de uma chave de conta de serviço, e duas variáveis de ambiente escolhem o projeto e a região."
       },
       {
-        "title": "Traga um banco do claude-mem",
-        "text": "O importador opcional lê os esquemas SQLite suportados do claude-mem a partir de um snapshot somente leitura, com mapeamento explícito de projetos, limpeza no cliente e dry run por padrão. Por trás dele, uma escrita em lote protegida grava de 1 a 100 páginas em um projeto de forma atômica."
+        "title": "Peça só os resultados confiáveis",
+        "text": "O <code>memory_query</code> aceita um piso <code>min_relevance</code> que descarta resultados fracos antes do limite de quantidade, e um projeto pode definir esse piso e o próprio número padrão de resultados no seu <code>.ai-memory.toml</code>. O piso precisa de um reranker; quando nada é pontuado, os resultados voltam sem filtro e com um aviso, em vez de vazios."
       },
       {
-        "title": "Dois sinais de busca que você pode ligar",
-        "text": "Um reduz a autoridade de uma página com feedback de desatualizada ou errada em aberto, até que uma reescrita a substitua. O outro favorece uma página que a sessão leu ou marcou como útil em uma consulta parecida. Os dois pesam 0.0 por padrão e aparecem no <code>explain=true</code>."
+        "title": "Veja o que a busca devolveu",
+        "text": "Ligue o histórico de recuperação e cada consulta registra seu escopo, seus filtros, quanto tempo levou e cada página devolvida com a pontuação e a explicação do ranking dela, em uma página somente de leitura ligada à linha do tempo da sessão. Páginas compiladas também passam a registrar as observações de que foram feitas."
       },
       {
         "title": "Chaves menores",
-        "text": "Indexe o caminho do arquivo que a ferramenta tocou, não deixe handoff em uma execução com <code>AI_MEMORY_AUTO_HANDOFF=off</code>, desligue o retrato de recuperação por projeto, veja a correspondência pendente no prompt e leia até 50 sessões recentes em um briefing. Tudo isso vem desligado."
+        "text": "Alcance qualquer ferramenta MCP de um shell com <code>ai-memory call</code>, fixe o idioma da prosa gerada, mantenha os prompts gerados por um launcher fora do perfil entre projetos, refaça o briefing quando uma sessão muda para outro projeto, rode a checagem de contradições por LLM na própria cadência, pagine uma caixa de entrada cheia e deixe o <code>ai-memory doctor</code> avisar quando outra conta local pode escrever no diretório de dados."
       }
     ]
   },

@@ -42,6 +42,10 @@
       "source": "from source",
       "note": "Installs systemd units for a user or a system service."
     },
+    "brew": {
+      "title": "Homebrew",
+      "note": "macOS and Linux, including atomic distributions where Homebrew is the usual way to add command-line tools. Then use ai-memory setup or brew services start ai-memory, not both."
+    },
     "rpm": {
       "title": "Fedora (RPM)",
       "note": "x86_64 and aarch64 packages with the binary, the hook sources and the systemd units. Then follow the user or system service steps."
@@ -81,32 +85,32 @@
     "upgrading": "Upgrading to 3.0",
     "highlights": [
       {
-        "title": "Your agent re-grounds after a compaction",
-        "text": "When Claude Code, Codex or Factory Droid compacts a conversation, the hook injects a short anchor with the session's first and latest prompts instead of the usual startup packet. Every agent also gets a rule to re-read its own prompts after a compaction and trust them over the summary."
+        "title": "The interface now looks like this site",
+        "text": "The built-in web UI and the management console moved to this site's palette and typefaces: mineral paper and graphite in both themes, squared 2px controls, amber buttons, line icons in place of Unicode symbols, and the smallest text a couple of points larger. Routes and markup are unchanged. The binary also carries 24 Brazilian Portuguese guides and serves them when the interface language is pt-BR."
       },
       {
-        "title": "The interface speaks Portuguese",
-        "text": "The browser and the human CLI output now ship English and Brazilian Portuguese. The browser follows Accept-Language and has its own selector; the CLI follows <code>--language</code>, <code>AI_MEMORY_LANGUAGE</code> or <code>language</code> in config.toml. Stored pages, JSON and logs are untouched."
+        "title": "Install with Homebrew",
+        "text": "<code>brew install akitaonrails/tap/ai-memory</code> installs the release binary and its hook sources on macOS and on Linux, which is how atomic distributions such as Bazzite and Fedora Silverblue usually add command-line tools. Use <code>ai-memory setup</code> or <code>brew services start ai-memory</code>, not both."
       },
       {
-        "title": "Install on Windows with Scoop",
-        "text": "Add the maintainer's bucket and run <code>scoop install ai-memory</code>. Each release pins the manifest to the Windows zip and the checksum published with it, and setup records the stable <code>current</code> junction instead of the version folder that cleanup deletes."
+        "title": "Tencent WorkBuddy is supported",
+        "text": "Hooks for six events, an HTTP MCP entry and managed skills, and <code>setup</code> finds WorkBuddy on its own. Approve the ai-memory server in WorkBuddy's custom connector settings after installing, and close a finished session with <code>ai-memory finalize-session --agent workbuddy</code>, because WorkBuddy fires no session end."
       },
       {
-        "title": "A different model for each job",
-        "text": "Consolidation, bootstrap, auto-improve, dream, lint, profile, reranking and query answers can each name their own provider and fallback chain. A task without one uses the default, and a task with one runs even when there is no default provider."
+        "title": "Gemini billed to your Google Cloud project",
+        "text": "The new <code>vertex</code> provider calls the same Gemini models through Vertex AI, where Google Cloud credit pays for them. It signs in with Application Default Credentials, from <code>gcloud</code> or a service-account key, and two environment variables choose the project and the region."
       },
       {
-        "title": "Bring a claude-mem database in",
-        "text": "The optional importer reads supported claude-mem SQLite schemas from a read-only snapshot, with explicit project mapping, client-side scrubbing and a dry run by default. Behind it, a guarded batch write lands 1 to 100 pages in one project atomically."
+        "title": "Ask for only the confident results",
+        "text": "<code>memory_query</code> takes a <code>min_relevance</code> floor that drops weak hits before the count limit, and a project can set that floor and its own default number of results in its <code>.ai-memory.toml</code>. The floor needs a reranker; when nothing is scored, the hits come back unfiltered with a note rather than empty."
       },
       {
-        "title": "Two retrieval signals you can turn on",
-        "text": "One lowers the authority of a page carrying open stale or wrong feedback until a rewrite supersedes it. The other boosts a page a session read or marked helpful for a similar query. Both weigh 0.0 by default, and both show up under <code>explain=true</code>."
+        "title": "Look at what retrieval returned",
+        "text": "Turn on retrieval history and every query records its scope, its filters, how long it took and each page it returned with that page's score and ranking explanation, on a read-only page linked from the session timeline. Compiled pages now also record the observations they were built from."
       },
       {
         "title": "Smaller switches",
-        "text": "Index the path of the file a tool touched, leave no handoff for one run with <code>AI_MEMORY_AUTO_HANDOFF=off</code>, turn the recovery snapshot off per project, see pending mail on a prompt, and read up to 50 recent sessions in a briefing. All of them are off by default."
+        "text": "Reach every MCP tool from a shell with <code>ai-memory call</code>, fix the language of generated prose, keep a launcher's generated prompts out of the cross-project profile, re-brief when a session moves into another project, run the LLM contradiction pass on its own cadence, page through a full inbox, and let <code>ai-memory doctor</code> warn when another local account can write the data directory."
       }
     ]
   },

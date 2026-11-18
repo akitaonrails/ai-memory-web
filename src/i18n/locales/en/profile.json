@@ -79,7 +79,7 @@
       },
       {
         "title": "Exclude a project from the profile",
-        "text": "A project’s marker can set <code>contribute = false</code> so nothing is learned from it, and <code>consume = false</code> so it never receives the digest."
+        "text": "A project’s marker can set <code>contribute = false</code> so nothing is learned from it, and <code>consume = false</code> so it never receives the digest. A session a launcher marks as automation can also have its prompts skipped, while its curated pages still count."
       },
       {
         "title": "Review and rebuild",

@@ -90,11 +90,11 @@
         "note": "Sem chave de provedor de modelos"
       },
       {
-        "label": "ai-memory 3.3.3, full-text",
+        "label": "ai-memory 3.4.3, full-text",
         "note": "Com o fluxo de observações, sem embeddings"
       },
       {
-        "label": "ai-memory 3.3.3, embeddings locais",
+        "label": "ai-memory 3.4.3, embeddings locais",
         "note": "Com o fluxo de observações, a instalação padrão"
       }
     ],

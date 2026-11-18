@@ -23,7 +23,7 @@
       },
       {
         "title": "Un directorio que es tuyo",
-        "text": "Las páginas de la wiki y el archivo SQLite viven en un solo directorio de datos. En Unix, los directorios nuevos se crean con 0700 y los archivos nuevos con 0600."
+        "text": "Las páginas de la wiki y el archivo SQLite viven en un solo directorio de datos. En Unix, los directorios nuevos se crean con 0700 y los archivos nuevos con 0600. <code>ai-memory doctor</code> avisa cuando otra cuenta local puede escribir en ese directorio o en el que lo contiene, porque el spool de hooks que hay dentro lleva el token de acceso."
       },
       {
         "title": "Sin cifrado en reposo",
